@@ -1,7 +1,4 @@
-library flutter_tailwind_ui;
+library;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/theme/theme.dart';
+export 'src/widgets/widgets.dart';
