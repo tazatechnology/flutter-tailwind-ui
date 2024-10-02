@@ -1,4 +1,5 @@
 library;
 
-export 'src/theme/theme.dart';
-export 'src/widgets/widgets.dart';
+export 'src/constants/color.dart';
+export 'src/constants/scale.dart';
+export 'src/constants/offset.dart';
