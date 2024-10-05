@@ -23,6 +23,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
+  flutter_app_info: ^2.0.0
 
 dev_dependencies:
   flutter_test:

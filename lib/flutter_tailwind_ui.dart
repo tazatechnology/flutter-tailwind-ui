@@ -1,7 +1,9 @@
 export 'src/components/sized_box.dart';
-export 'src/components/tailwind_theme.dart';
-export 'src/constants/color.dart';
+export 'src/constants/colors.dart';
 export 'src/constants/offset.dart';
 export 'src/constants/radius.dart';
 export 'src/constants/scale.dart';
 export 'src/constants/screen.dart';
+export 'src/extensions/build_context.dart';
+export 'src/extensions/text_style.dart';
+export 'src/theme/theme.dart';

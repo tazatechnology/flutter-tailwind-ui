@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui_example/layout/scaffold.dart';
+import 'package:flutter_tailwind_ui_example/providers/router.dart';
+import 'package:go_router/go_router.dart';
 
 // =================================================
 // CLASS: AppNavigation
@@ -24,24 +27,29 @@ class _AppNavigationState extends State<AppNavigation> {
       controller: scrollController,
       thumbVisibility: true,
       trackVisibility: true,
-      interactive: false,
       child: ListView(
-        padding: TOffset.x24 + TOffset.t24,
+        padding: TOffset.x24 +
+            EdgeInsets.only(
+              top: AppScaffold.toolbarHeight + TSpacingScale.v40,
+            ),
         controller: scrollController,
         children: [
           ListTile(
             title: Text('Home'),
-            onTap: () {},
+            onTap: () => context.goNamed(AppRouter.home),
           ),
           ListTile(
-            title: Text('About'),
-            onTap: () {},
+            title: Text('Colors'),
+            onTap: () => context.goNamed(AppRouter.colors),
           ),
-          for (var i = 0; i < 100; i++)
-            ListTile(
-              title: Text('Contact'),
-              onTap: () {},
-            ),
+          ListTile(
+            title: Text('Spacing'),
+            onTap: () => context.goNamed(AppRouter.spacing),
+          ),
+          ListTile(
+            title: Text('Typography'),
+            onTap: () => context.goNamed(AppRouter.typography),
+          ),
         ],
       ),
     );

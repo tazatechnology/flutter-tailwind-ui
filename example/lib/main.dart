@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 import 'package:flutter_tailwind_ui_example/providers/router.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
+import 'package:flutter_tailwind_ui_example/providers/theme.dart';
 
-void main() {
+void main() async {
   runApp(
-    ProviderScope(
-      child: const FlutterTailwindApp(),
+    /// AppInfo to easily access package and device information
+    /// See: https://pub.dev/packages/flutter_app_info
+    AppInfo(
+      data: await AppInfoData.get(),
+      child: ProviderScope(
+        child: const FlutterTailwindApp(),
+      ),
     ),
   );
 }
@@ -22,17 +28,13 @@ class FlutterTailwindApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.read(routerProvider);
-
-    final tw = TailwindTheme();
-
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'Flutter Tailwind UI',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
-      theme: tw.light(),
-      darkTheme: tw.dark(),
-      routerConfig: router,
+      themeMode: ref.watch(themeModeProvider),
+      theme: ref.watch(themeLightProvider),
+      darkTheme: ref.watch(themDarkProvider),
+      routerConfig: ref.read(appRouterProvider).router,
     );
   }
 }

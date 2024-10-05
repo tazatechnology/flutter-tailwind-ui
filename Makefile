@@ -1,6 +1,7 @@
 .DEFAULT_TARGET: init
 .PHONY: init code outdated upgrade analyze format format-ci test
 
+MAKEFLAGS = --no-print-directory
 ROOT = $(shell git rev-parse --show-toplevel)
 ARGS ?=
 

@@ -1,6 +1,7 @@
 .DEFAULT_TARGET: init
 .PHONY: init code outdated upgrade analyze format test
 
+MAKEFLAGS = --no-print-directory
 ROOT = $(shell git rev-parse --show-toplevel)
 ARGS ?=
 
@@ -60,7 +61,7 @@ run-web: clean
 run-windows: clean
 	@flutter run --release -d windows
 
-pods-macos: global-clean
+pods-macos: clean
 	rm -rf ~/Library/Developer/Xcode/DerivedData
 	cd macos && rm -rf Podfile.lock
 	cd macos && rm -rf Pods

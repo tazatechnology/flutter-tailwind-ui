@@ -8,11 +8,14 @@ import 'package:flutter/material.dart';
 ///
 /// https://tailwindcss.com/docs/customizing-colors
 abstract final class TColors {
-  /// Pure white color
+  /// Completely opaque white
   static const white = Colors.white;
 
-  /// Pure black color
+  /// Completely opaque black
   static const black = Colors.black;
+
+  /// Completely transparent
+  static const Color transparent = Color(0x00000000);
 
   /// Slate color palette
   static const MaterialColor slate = MaterialColor(
