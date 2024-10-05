@@ -1,0 +1,42 @@
+name: flutter_tailwind_ui_example
+description: "Flutter Tailwind UI Example Application"
+publish_to: 'none'
+version: 1.0.0+1
+topics:
+  - user-interface
+  - design-system
+  - flutter-ui
+
+environment:
+  sdk: ^3.0.0
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_tailwind_ui:
+    path: ../
+    
+  cupertino_icons: ^1.0.8
+  go_router: ^14.2.9
+  flutter_riverpod: ^2.5.1
+  flutter_svg: ^2.0.10+1
+  font_awesome_flutter: ^10.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  import_sorter: ^4.6.0
+
+import_sorter:
+  comments: false
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/brand/
+    - assets/img/
+

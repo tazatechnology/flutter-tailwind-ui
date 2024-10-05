@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 // =================================================
-// CLASS: TColor
+// CLASS: TColors
 // =================================================
 
 /// Class that contains the Tailwind CSS color palettes
 ///
 /// https://tailwindcss.com/docs/customizing-colors
-class TColor {
+abstract final class TColors {
+  /// Pure white color
+  static const white = Colors.white;
+
+  /// Pure black color
+  static const black = Colors.black;
+
   /// Slate color palette
   static const MaterialColor slate = MaterialColor(
     0xFF64748b,

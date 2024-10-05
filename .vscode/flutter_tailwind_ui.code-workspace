@@ -4,10 +4,15 @@
 			"name": "flutter-tailwind-ui",
 			"path": "../",
 		},
+		{
+			"name": "example (app)",
+			"path": "../example",
+		},
 	],
 	"settings": {
 		"files.exclude": {
 			// Hide certain folders from side bar
+			"example": true,
 			"**/build": true,
 			"**/.dart_tool": true,
 			"**/.flutter-plugins": true,

@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: constant_identifier_names
 
-import 'scale.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_tailwind_ui/src/constants/scale.dart';
 
 // =================================================
 // CLASS: TRadius
@@ -8,36 +9,71 @@ import 'scale.dart';
 
 /// Tailwind radius system for defining rounded corners
 ///
-/// Scaling system is based on 2px increments (and 9999px for full) defined in [TRadiusScale]
+/// Scaling system is based on 2px increments (and 9999px for full) defined in
+/// [TRadiusScale]
 ///
 /// https://tailwindcss.com/docs/border-radius
-class TRadius {
-  /// Circular radius of 0px (no rounded corners)
-  static const c0 = Radius.circular(TRadiusScale.r0);
+abstract final class TRadius {
+  /// Circular radius of 0px (none)
+  ///
+  /// Used to define tailwind equivalents for: `rounded-*-none`
+  static const rounded_none = Radius.zero;
 
   /// Circular radius of 2px (sm)
-  static const c1 = Radius.circular(TRadiusScale.r1);
+  ///
+  /// Used to define tailwind equivalents for: `rounded-*-sm`
+  static const rounded_sm = Radius.circular(
+    TRadiusScale.radius_sm,
+  );
 
-  /// Circular radius of 4px  (base)
-  static const c2 = Radius.circular(TRadiusScale.r2);
+  /// Circular radius of 4px (base)
+  ///
+  /// Used to define tailwind equivalents for: `rounded-*`
+  static const rounded = Radius.circular(
+    TRadiusScale.radius,
+  );
 
-  /// Circular radius of 6px  (md)
-  static const c3 = Radius.circular(TRadiusScale.r3);
+  /// Circular radius of 6px (md)
+  ///
+  /// Used to define tailwind equivalents for: `rounded-*-md`
+  static const rounded_md = Radius.circular(
+    TRadiusScale.radius_md,
+  );
 
-  /// Circular radius of 8px  (lg)
-  static const c4 = Radius.circular(TRadiusScale.r4);
+  /// Circular radius of 8px (lg)
+  ///
+  /// Used to define tailwind equivalents for: `rounded-*-lg`
+  static const rounded_lg = Radius.circular(
+    TRadiusScale.radius_lg,
+  );
 
   /// Circular radius of 12px (xl)
-  static const c5 = Radius.circular(TRadiusScale.r5);
+  ///
+  /// Used to define tailwind equivalents for: `rounded-*-xl`
+  static const rounded_xl = Radius.circular(
+    TRadiusScale.radius_xl,
+  );
 
   /// Circular radius of 16px (2xl)
-  static const c6 = Radius.circular(TRadiusScale.r6);
+  ///
+  /// Used to define tailwind equivalents for: `rounded-*-2xl`
+  static const rounded_2xl = Radius.circular(
+    TRadiusScale.radius_2xl,
+  );
 
   /// Circular radius of 24px (3xl)
-  static const c7 = Radius.circular(TRadiusScale.r7);
+  ///
+  /// Used to define tailwind equivalents for: `rounded-*-3xl`
+  static const rounded_3xl = Radius.circular(
+    TRadiusScale.radius_3xl,
+  );
 
   /// Circular radius of 9999px (full).
-  static const c8 = Radius.circular(TRadiusScale.r8);
+  ///
+  /// Used to define tailwind equivalents for: `rounded-*-full`
+  static const rounded_full = Radius.circular(
+    TRadiusScale.radius_full,
+  );
 }
 
 // =================================================
@@ -46,7 +82,7 @@ class TRadius {
 
 /// Tailwind border-radius system for defining rounded corners
 ///
-/// Scaling system is based on 2px increments (and 9999px for full) defined in [TRadiusScale]
+/// Scaling system is based on 2px increments as defined in [TRadiusScale]
 ///
 /// https://tailwindcss.com/docs/border-radius
 class TBorderRadius {
@@ -54,314 +90,616 @@ class TBorderRadius {
   // Border Radius: All
   // -------------------------------------------------
 
-  /// Border radius of 0px (no rounded corners)
-  static const a0 = BorderRadius.all(TRadius.c0);
+  /// Border radius of 0px (none)
+  ///
+  /// Equivalent to tailwind class: `rounded-none`
+  static const rounded_none = BorderRadius.zero;
 
   /// Border radius of 2px (sm)
-  static const a1 = BorderRadius.all(TRadius.c1);
+  ///
+  /// Equivalent to tailwind class: `rounded-sm`
+  static const rounded_sm = BorderRadius.all(
+    TRadius.rounded_sm,
+  );
 
   /// Border radius of 4px (base)
-  static const a2 = BorderRadius.all(TRadius.c2);
+  ///
+  /// Equivalent to tailwind class: `rounded`
+  static const rounded = BorderRadius.all(
+    TRadius.rounded,
+  );
 
   /// Border radius of 6px (md)
-  static const a3 = BorderRadius.all(TRadius.c3);
+  ///
+  /// Equivalent to tailwind class: `rounded-md`
+  static const rounded_md = BorderRadius.all(
+    TRadius.rounded_md,
+  );
 
   /// Border radius of 8px (lg)
-  static const a4 = BorderRadius.all(TRadius.c4);
+  ///
+  /// Equivalent to tailwind class: `rounded-lg`
+  static const rounded_lg = BorderRadius.all(
+    TRadius.rounded_lg,
+  );
 
   /// Border radius of 12px (xl)
-  static const a5 = BorderRadius.all(TRadius.c5);
+  ///
+  /// Equivalent to tailwind class: `rounded-xl`
+  static const rounded_xl = BorderRadius.all(
+    TRadius.rounded_xl,
+  );
 
   /// Border radius of 16px (2xl)
-  static const a6 = BorderRadius.all(TRadius.c6);
+  ///
+  /// Equivalent to tailwind class: `rounded-2xl`
+  static const rounded_2xl = BorderRadius.all(
+    TRadius.rounded_2xl,
+  );
 
   /// Border radius of 24px (3xl)
-  static const a7 = BorderRadius.all(TRadius.c7);
+  ///
+  /// Equivalent to tailwind class: `rounded-3xl`
+  static const rounded_3xl = BorderRadius.all(
+    TRadius.rounded_3xl,
+  );
 
   /// Border radius of 9999px (full)
-  static const a8 = BorderRadius.all(TRadius.c8);
+  ///
+  /// Equivalent to tailwind class: `rounded-full`
+  static const rounded_full = BorderRadius.all(
+    TRadius.rounded_full,
+  );
 
   // -------------------------------------------------
   // Border Radius: Top
   // -------------------------------------------------
 
-  /// Border radius on the top side of 0px (no rounded corners)
-  static const t0 =
-      BorderRadius.only(topLeft: TRadius.c0, topRight: TRadius.c0);
+  /// Border radius on the top side of 0px (none)
+  ///
+  /// Equivalent to tailwind class: `rounded-t-none`
+  static const rounded_t_none = BorderRadius.zero;
 
   /// Border radius on the top side of 2px (sm)
-  static const t1 =
-      BorderRadius.only(topLeft: TRadius.c1, topRight: TRadius.c1);
+  ///
+  /// Equivalent to tailwind class: `rounded-t-sm`
+  static const rounded_t_sm = BorderRadius.only(
+    topLeft: TRadius.rounded_sm,
+    topRight: TRadius.rounded_sm,
+  );
 
   /// Border radius on the top side of 4px (base)
-  static const t2 =
-      BorderRadius.only(topLeft: TRadius.c2, topRight: TRadius.c2);
+  ///
+  /// Equivalent to tailwind class: `rounded-t`
+  static const rounded_t = BorderRadius.only(
+    topLeft: TRadius.rounded,
+    topRight: TRadius.rounded,
+  );
 
   /// Border radius on the top side of 6px (md)
-  static const t3 =
-      BorderRadius.only(topLeft: TRadius.c3, topRight: TRadius.c3);
+  ///
+  /// Equivalent to tailwind class: `rounded-t-md`
+  static const rounded_t_md = BorderRadius.only(
+    topLeft: TRadius.rounded_md,
+    topRight: TRadius.rounded_md,
+  );
 
   /// Border radius on the top side of 8px (lg)
-  static const t4 =
-      BorderRadius.only(topLeft: TRadius.c4, topRight: TRadius.c4);
+  ///
+  /// Equivalent to tailwind class: `rounded-t-lg`
+  static const rounded_t_lg = BorderRadius.only(
+    topLeft: TRadius.rounded_lg,
+    topRight: TRadius.rounded_lg,
+  );
 
   /// Border radius on the top side of 12px (xl)
-  static const t5 =
-      BorderRadius.only(topLeft: TRadius.c5, topRight: TRadius.c5);
+  ///
+  /// Equivalent to tailwind class: `rounded-t-xl`
+  static const rounded_t_xl = BorderRadius.only(
+    topLeft: TRadius.rounded_xl,
+    topRight: TRadius.rounded_xl,
+  );
 
   /// Border radius on the top side of 16px (2xl)
-  static const t6 =
-      BorderRadius.only(topLeft: TRadius.c6, topRight: TRadius.c6);
+  ///
+  /// Equivalent to tailwind class: `rounded-t-2xl`
+  static const rounded_t_2xl = BorderRadius.only(
+    topLeft: TRadius.rounded_2xl,
+    topRight: TRadius.rounded_2xl,
+  );
 
   /// Border radius on the top side of 24px (3xl)
-  static const t7 =
-      BorderRadius.only(topLeft: TRadius.c7, topRight: TRadius.c7);
+  ///
+  /// Equivalent to tailwind class: `rounded-t-3xl`
+  static const rounded_t_3xl = BorderRadius.only(
+    topLeft: TRadius.rounded_3xl,
+    topRight: TRadius.rounded_3xl,
+  );
 
   /// Border radius on the top side of 9999px (full)
-  static const t8 =
-      BorderRadius.only(topLeft: TRadius.c8, topRight: TRadius.c8);
+  ///
+  /// Equivalent to tailwind class: `rounded-t-full`
+  static const rounded_t_full = BorderRadius.only(
+    topLeft: TRadius.rounded_full,
+    topRight: TRadius.rounded_full,
+  );
 
   // -------------------------------------------------
   // Border Radius: Bottom
   // -------------------------------------------------
 
-  /// Border radius on the bottom side of 0px (no rounded corners)
-  static const b0 =
-      BorderRadius.only(bottomLeft: TRadius.c0, bottomRight: TRadius.c0);
+  /// Border radius on the bottom side of 0px (none)
+  ///
+  /// Equivalent to tailwind class: `rounded-b-none`
+  static const rounded_b_none = BorderRadius.zero;
 
   /// Border radius on the bottom side of 2px (sm)
-  static const b1 =
-      BorderRadius.only(bottomLeft: TRadius.c1, bottomRight: TRadius.c1);
+  ///
+  /// Equivalent to tailwind class: `rounded-b-sm`
+  static const rounded_b_sm = BorderRadius.only(
+    bottomLeft: TRadius.rounded_sm,
+    bottomRight: TRadius.rounded_sm,
+  );
 
   /// Border radius on the bottom side of 4px (base)
-  static const b2 =
-      BorderRadius.only(bottomLeft: TRadius.c2, bottomRight: TRadius.c2);
+  ///
+  /// Equivalent to tailwind class: `rounded-b`
+  static const rounded_b = BorderRadius.only(
+    bottomLeft: TRadius.rounded,
+    bottomRight: TRadius.rounded,
+  );
 
   /// Border radius on the bottom side of 6px (md)
-  static const b3 =
-      BorderRadius.only(bottomLeft: TRadius.c3, bottomRight: TRadius.c3);
+  ///
+  /// Equivalent to tailwind class: `rounded-b-md`
+  static const rounded_b_md = BorderRadius.only(
+    bottomLeft: TRadius.rounded_md,
+    bottomRight: TRadius.rounded_md,
+  );
 
   /// Border radius on the bottom side of 8px (lg)
-  static const b4 =
-      BorderRadius.only(bottomLeft: TRadius.c4, bottomRight: TRadius.c4);
+  ///
+  /// Equivalent to tailwind class: `rounded-b-lg`
+  static const rounded_b_lg = BorderRadius.only(
+    bottomLeft: TRadius.rounded_lg,
+    bottomRight: TRadius.rounded_lg,
+  );
 
   /// Border radius on the bottom side of 12px (xl)
-  static const b5 =
-      BorderRadius.only(bottomLeft: TRadius.c5, bottomRight: TRadius.c5);
+  ///
+  /// Equivalent to tailwind class: `rounded-b-xl`
+  static const rounded_b_xl = BorderRadius.only(
+    bottomLeft: TRadius.rounded_xl,
+    bottomRight: TRadius.rounded_xl,
+  );
 
   /// Border radius on the bottom side of 16px (2xl)
-  static const b6 =
-      BorderRadius.only(bottomLeft: TRadius.c6, bottomRight: TRadius.c6);
+  ///
+  /// Equivalent to tailwind class: `rounded-b-2xl`
+  static const rounded_b_2xl = BorderRadius.only(
+    bottomLeft: TRadius.rounded_2xl,
+    bottomRight: TRadius.rounded_2xl,
+  );
 
   /// Border radius on the bottom side of 24px (3xl)
-  static const b7 =
-      BorderRadius.only(bottomLeft: TRadius.c7, bottomRight: TRadius.c7);
+  ///
+  /// Equivalent to tailwind class: `rounded-b-3xl`
+  static const rounded_b_3xl = BorderRadius.only(
+    bottomLeft: TRadius.rounded_3xl,
+    bottomRight: TRadius.rounded_3xl,
+  );
 
   /// Border radius on the bottom side of 9999px (full)
-  static const b8 =
-      BorderRadius.only(bottomLeft: TRadius.c8, bottomRight: TRadius.c8);
+  ///
+  /// Equivalent to tailwind class: `rounded-b-full`
+  static const rounded_b_full = BorderRadius.only(
+    bottomLeft: TRadius.rounded_full,
+    bottomRight: TRadius.rounded_full,
+  );
 
   // -------------------------------------------------
   // Border Radius: Left
   // -------------------------------------------------
 
-  /// Border radius on the left side of 0px (no rounded corners)
-  static const l0 =
-      BorderRadius.only(topLeft: TRadius.c0, bottomLeft: TRadius.c0);
+  /// Border radius on the left side of 0px (none)
+  ///
+  /// Equivalent to tailwind class: `rounded-l-none`
+  static const rounded_l_none = BorderRadius.zero;
 
   /// Border radius on the left side of 2px (sm)
-  static const l1 =
-      BorderRadius.only(topLeft: TRadius.c1, bottomLeft: TRadius.c1);
+  ///
+  /// Equivalent to tailwind class: `rounded-l-sm`
+  static const rounded_l_sm = BorderRadius.only(
+    topLeft: TRadius.rounded_sm,
+    bottomLeft: TRadius.rounded_sm,
+  );
 
   /// Border radius on the left side of 4px (base)
-  static const l2 =
-      BorderRadius.only(topLeft: TRadius.c2, bottomLeft: TRadius.c2);
+  ///
+  /// Equivalent to tailwind class: `rounded-l`
+  static const rounded_l = BorderRadius.only(
+    topLeft: TRadius.rounded,
+    bottomLeft: TRadius.rounded,
+  );
 
   /// Border radius on the left side of 6px (md)
-  static const l3 =
-      BorderRadius.only(topLeft: TRadius.c3, bottomLeft: TRadius.c3);
+  ///
+  /// Equivalent to tailwind class: `rounded-l-md`
+  static const rounded_l_md = BorderRadius.only(
+    topLeft: TRadius.rounded_md,
+    bottomLeft: TRadius.rounded_md,
+  );
 
   /// Border radius on the left side of 8px (lg)
-  static const l4 =
-      BorderRadius.only(topLeft: TRadius.c4, bottomLeft: TRadius.c4);
+  ///
+  /// Equivalent to tailwind class: `rounded-l-lg`
+  static const rounded_l_lg = BorderRadius.only(
+    topLeft: TRadius.rounded_lg,
+    bottomLeft: TRadius.rounded_lg,
+  );
 
   /// Border radius on the left side of 12px (xl)
-  static const l5 =
-      BorderRadius.only(topLeft: TRadius.c5, bottomLeft: TRadius.c5);
+  ///
+  /// Equivalent to tailwind class: `rounded-l-xl`
+  static const rounded_l_xl = BorderRadius.only(
+    topLeft: TRadius.rounded_xl,
+    bottomLeft: TRadius.rounded_xl,
+  );
 
   /// Border radius on the left side of 16px (2xl)
-  static const l6 =
-      BorderRadius.only(topLeft: TRadius.c6, bottomLeft: TRadius.c6);
+  ///
+  /// Equivalent to tailwind class: `rounded-l-2xl`
+  static const rounded_l_2xl = BorderRadius.only(
+    topLeft: TRadius.rounded_2xl,
+    bottomLeft: TRadius.rounded_2xl,
+  );
 
   /// Border radius on the left side of 24px (3xl)
-  static const l7 =
-      BorderRadius.only(topLeft: TRadius.c7, bottomLeft: TRadius.c7);
+  ///
+  /// Equivalent to tailwind class: `rounded-l-3xl`
+  static const rounded_l_3xl = BorderRadius.only(
+    topLeft: TRadius.rounded_3xl,
+    bottomLeft: TRadius.rounded_3xl,
+  );
 
   /// Border radius on the left side of 9999px (full)
-  static const l8 =
-      BorderRadius.only(topLeft: TRadius.c8, bottomLeft: TRadius.c8);
+  ///
+  /// Equivalent to tailwind class: `rounded-l-full`
+  static const rounded_l_full = BorderRadius.only(
+    topLeft: TRadius.rounded_full,
+    bottomLeft: TRadius.rounded_full,
+  );
 
   // -------------------------------------------------
   // Border Radius: Right
   // -------------------------------------------------
 
-  /// Border radius on the right side of 0px (no rounded corners)
-  static const r0 =
-      BorderRadius.only(topRight: TRadius.c0, bottomRight: TRadius.c0);
+  /// Border radius on the right side of 0px (none)
+  ///
+  /// Equivalent to tailwind class: `rounded-r-none`
+  static const rounded_r_none = BorderRadius.zero;
 
   /// Border radius on the right side of 2px (sm)
-  static const r1 =
-      BorderRadius.only(topRight: TRadius.c1, bottomRight: TRadius.c1);
+  ///
+  /// Equivalent to tailwind class: `rounded-r-sm`
+  static const rounded_r_sm = BorderRadius.only(
+    topRight: TRadius.rounded_sm,
+    bottomRight: TRadius.rounded_sm,
+  );
 
   /// Border radius on the right side of 4px (base)
-  static const r2 =
-      BorderRadius.only(topRight: TRadius.c2, bottomRight: TRadius.c2);
+  ///
+  /// Equivalent to tailwind class: `rounded-r`
+  static const rounded_r = BorderRadius.only(
+    topRight: TRadius.rounded,
+    bottomRight: TRadius.rounded,
+  );
 
   /// Border radius on the right side of 6px (md)
-  static const r3 =
-      BorderRadius.only(topRight: TRadius.c3, bottomRight: TRadius.c3);
+  ///
+  /// Equivalent to tailwind class: `rounded-r-md`
+  static const rounded_r_md = BorderRadius.only(
+    topRight: TRadius.rounded_md,
+    bottomRight: TRadius.rounded_md,
+  );
 
   /// Border radius on the right side of 8px (lg)
-  static const r4 =
-      BorderRadius.only(topRight: TRadius.c4, bottomRight: TRadius.c4);
+  ///
+  /// Equivalent to tailwind class: `rounded-r-lg`
+  static const rounded_r_lg = BorderRadius.only(
+    topRight: TRadius.rounded_lg,
+    bottomRight: TRadius.rounded_lg,
+  );
 
   /// Border radius on the right side of 12px (xl)
-  static const r5 =
-      BorderRadius.only(topRight: TRadius.c5, bottomRight: TRadius.c5);
+  ///
+  /// Equivalent to tailwind class: `rounded-r-xl`
+  static const rounded_r_xl = BorderRadius.only(
+    topRight: TRadius.rounded_xl,
+    bottomRight: TRadius.rounded_xl,
+  );
 
   /// Border radius on the right side of 16px (2xl)
-  static const r6 =
-      BorderRadius.only(topRight: TRadius.c6, bottomRight: TRadius.c6);
+  ///
+  /// Equivalent to tailwind class: `rounded-r-2xl`
+  static const rounded_r_2xl = BorderRadius.only(
+    topRight: TRadius.rounded_2xl,
+    bottomRight: TRadius.rounded_2xl,
+  );
 
   /// Border radius on the right side of 24px (3xl)
-  static const r7 =
-      BorderRadius.only(topRight: TRadius.c7, bottomRight: TRadius.c7);
+  ///
+  /// Equivalent to tailwind class: `rounded-r-3xl`
+  static const rounded_r_3xl = BorderRadius.only(
+    topRight: TRadius.rounded_3xl,
+    bottomRight: TRadius.rounded_3xl,
+  );
 
   /// Border radius on the right side of 9999px (full)
-  static const r8 =
-      BorderRadius.only(topRight: TRadius.c8, bottomRight: TRadius.c8);
+  ///
+  /// Equivalent to tailwind class: `rounded-r-full`
+  static const rounded_r_full = BorderRadius.only(
+    topRight: TRadius.rounded_full,
+    bottomRight: TRadius.rounded_full,
+  );
 
   // -------------------------------------------------
   // Border Radius: Top-Left
   // -------------------------------------------------
 
   /// Border radius on the top-left corner of 0px
-  static const tl0 = BorderRadius.only(topLeft: TRadius.c0);
+  ///
+  /// Equivalent to tailwind class: `rounded-tl-none`
+  static const rounded_tl_none = BorderRadius.zero;
 
   /// Border radius on the top-left corner of 2px (sm)
-  static const tl1 = BorderRadius.only(topLeft: TRadius.c1);
+  ///
+  /// Equivalent to tailwind class: `rounded-tl-sm`
+  static const rounded_tl_sm = BorderRadius.only(
+    topLeft: TRadius.rounded_sm,
+  );
 
   /// Border radius on the top-left corner of 4px (base)
-  static const tl2 = BorderRadius.only(topLeft: TRadius.c2);
+  ///
+  /// Equivalent to tailwind class: `rounded-tl`
+  static const rounded_tl = BorderRadius.only(
+    topLeft: TRadius.rounded,
+  );
 
   /// Border radius on the top-left corner of 6px (md)
-  static const tl3 = BorderRadius.only(topLeft: TRadius.c3);
+  ///
+  /// Equivalent to tailwind class: `rounded-tl-md`
+  static const rounded_tl_md = BorderRadius.only(
+    topLeft: TRadius.rounded_md,
+  );
 
   /// Border radius on the top-left corner of 8px (lg)
-  static const tl4 = BorderRadius.only(topLeft: TRadius.c4);
+  ///
+  /// Equivalent to tailwind class: `rounded-tl-lg`
+  static const rounded_tl_lg = BorderRadius.only(
+    topLeft: TRadius.rounded_lg,
+  );
 
   /// Border radius on the top-left corner of 12px (xl)
-  static const tl5 = BorderRadius.only(topLeft: TRadius.c5);
+  ///
+  /// Equivalent to tailwind class: `rounded-tl-xl`
+  static const rounded_tl_xl = BorderRadius.only(
+    topLeft: TRadius.rounded_xl,
+  );
 
   /// Border radius on the top-left corner of 16px (2xl)
-  static const tl6 = BorderRadius.only(topLeft: TRadius.c6);
+  ///
+  /// Equivalent to tailwind class: `rounded-tl-2xl`
+  static const rounded_tl_2xl = BorderRadius.only(
+    topLeft: TRadius.rounded_2xl,
+  );
 
   /// Border radius on the top-left corner of 24px (3xl)
-  static const tl7 = BorderRadius.only(topLeft: TRadius.c7);
+  ///
+  /// Equivalent to tailwind class: `rounded-tl-3xl`
+  static const rounded_tl_3xl = BorderRadius.only(
+    topLeft: TRadius.rounded_3xl,
+  );
 
   /// Border radius on the top-left corner of 9999px (full)
-  static const tl8 = BorderRadius.only(topLeft: TRadius.c8);
+  ///
+  /// Equivalent to tailwind class: `rounded-tl-full`
+  static const rounded_tl_full = BorderRadius.only(
+    topLeft: TRadius.rounded_full,
+  );
 
   // -------------------------------------------------
   // Border Radius: Top-Right
   // -------------------------------------------------
 
   /// Border radius on the top-right corner of 0px
-  static const tr0 = BorderRadius.only(topRight: TRadius.c0);
+  ///
+  /// Equivalent to tailwind class: `rounded-tr-none`
+  static const rounded_tr_none = BorderRadius.zero;
 
   /// Border radius on the top-right corner of 2px (sm)
-  static const tr1 = BorderRadius.only(topRight: TRadius.c1);
+  ///
+  /// Equivalent to tailwind class: `rounded-tr-sm`
+  static const rounded_tr_sm = BorderRadius.only(
+    topRight: TRadius.rounded_sm,
+  );
 
   /// Border radius on the top-right corner of 4px (base)
-  static const tr2 = BorderRadius.only(topRight: TRadius.c2);
+  ///
+  /// Equivalent to tailwind class: `rounded-tr`
+  static const rounded_tr = BorderRadius.only(
+    topRight: TRadius.rounded,
+  );
 
   /// Border radius on the top-right corner of 6px (md)
-  static const tr3 = BorderRadius.only(topRight: TRadius.c3);
+  ///
+  /// Equivalent to tailwind class: `rounded-tr-md`
+  static const rounded_tr_md = BorderRadius.only(
+    topRight: TRadius.rounded_md,
+  );
 
   /// Border radius on the top-right corner of 8px (lg)
-  static const tr4 = BorderRadius.only(topRight: TRadius.c4);
+  ///
+  /// Equivalent to tailwind class: `rounded-tr-lg`
+  static const rounded_tr_lg = BorderRadius.only(
+    topRight: TRadius.rounded_lg,
+  );
 
   /// Border radius on the top-right corner of 12px (xl)
-  static const tr5 = BorderRadius.only(topRight: TRadius.c5);
+  ///
+  /// Equivalent to tailwind class: `rounded-tr-xl`
+  static const rounded_tr_xl = BorderRadius.only(
+    topRight: TRadius.rounded_xl,
+  );
 
   /// Border radius on the top-right corner of 16px (2xl)
-  static const tr6 = BorderRadius.only(topRight: TRadius.c6);
+  ///
+  /// Equivalent to tailwind class: `rounded-tr-2xl`
+  static const rounded_tr_2xl = BorderRadius.only(
+    topRight: TRadius.rounded_2xl,
+  );
 
   /// Border radius on the top-right corner of 24px (3xl)
-  static const tr7 = BorderRadius.only(topRight: TRadius.c7);
+  ///
+  /// Equivalent to tailwind class: `rounded-tr-3xl`
+  static const rounded_tr_3xl = BorderRadius.only(
+    topRight: TRadius.rounded_3xl,
+  );
 
   /// Border radius on the top-right corner of 9999px (full)
-  static const tr8 = BorderRadius.only(topRight: TRadius.c8);
+  ///
+  /// Equivalent to tailwind class: `rounded-tr-full`
+  static const rounded_tr_full = BorderRadius.only(
+    topRight: TRadius.rounded_full,
+  );
 
   // -------------------------------------------------
   // Border Radius: Bottom-Right
   // -------------------------------------------------
 
   /// Border radius on the bottom-right corner of 0px
-  static const br0 = BorderRadius.only(bottomRight: TRadius.c0);
+  ///
+  /// Equivalent to tailwind class: `rounded-br-none`
+  static const rounded_br_none = BorderRadius.zero;
 
   /// Border radius on the bottom-right corner of 2px (sm)
-  static const br1 = BorderRadius.only(bottomRight: TRadius.c1);
+  ///
+  /// Equivalent to tailwind class: `rounded-br-sm`
+  static const rounded_br_sm = BorderRadius.only(
+    bottomRight: TRadius.rounded_sm,
+  );
 
   /// Border radius on the bottom-right corner of 4px (base)
-  static const br2 = BorderRadius.only(bottomRight: TRadius.c2);
+  ///
+  /// Equivalent to tailwind class: `rounded-br`
+  static const rounded_br = BorderRadius.only(
+    bottomRight: TRadius.rounded,
+  );
 
   /// Border radius on the bottom-right corner of 6px (md)
-  static const br3 = BorderRadius.only(bottomRight: TRadius.c3);
+  ///
+  /// Equivalent to tailwind class: `rounded-br-md`
+  static const rounded_br_md = BorderRadius.only(
+    bottomRight: TRadius.rounded_md,
+  );
 
   /// Border radius on the bottom-right corner of 8px (lg)
-  static const br4 = BorderRadius.only(bottomRight: TRadius.c4);
+  ///
+  /// Equivalent to tailwind class: `rounded-br-lg`
+  static const rounded_br_lg = BorderRadius.only(
+    bottomRight: TRadius.rounded_lg,
+  );
 
   /// Border radius on the bottom-right corner of 12px (xl)
-  static const br5 = BorderRadius.only(bottomRight: TRadius.c5);
+  ///
+  /// Equivalent to tailwind class: `rounded-br-xl`
+  static const rounded_br_xl = BorderRadius.only(
+    bottomRight: TRadius.rounded_xl,
+  );
 
   /// Border radius on the bottom-right corner of 16px (2xl)
-  static const br6 = BorderRadius.only(bottomRight: TRadius.c6);
+  ///
+  /// Equivalent to tailwind class: `rounded-br-2xl`
+  static const rounded_br_2xl = BorderRadius.only(
+    bottomRight: TRadius.rounded_2xl,
+  );
 
   /// Border radius on the bottom-right corner of 24px (3xl)
-  static const br7 = BorderRadius.only(bottomRight: TRadius.c7);
+  ///
+  /// Equivalent to tailwind class: `rounded-br-3xl`
+  static const rounded_br_3xl = BorderRadius.only(
+    bottomRight: TRadius.rounded_3xl,
+  );
 
   /// Border radius on the bottom-right corner of 9999px (full)
-  static const br8 = BorderRadius.only(bottomRight: TRadius.c8);
+  ///
+  /// Equivalent to tailwind class: `rounded-br-full`
+  static const rounded_br_full = BorderRadius.only(
+    bottomRight: TRadius.rounded_full,
+  );
 
   // -------------------------------------------------
   // Border Radius: Bottom-Left
   // -------------------------------------------------
 
   /// Border radius on the bottom-left corner of 0px
-  static const bl0 = BorderRadius.only(bottomLeft: TRadius.c0);
+  ///
+  /// Equivalent to tailwind class: `rounded-bl-none`
+  static const rounded_bl_none = BorderRadius.zero;
 
   /// Border radius on the bottom-left corner of 2px (sm)
-  static const bl1 = BorderRadius.only(bottomLeft: TRadius.c1);
+  ///
+  /// Equivalent to tailwind class: `rounded-bl-sm`
+  static const rounded_bl_sm = BorderRadius.only(
+    bottomLeft: TRadius.rounded_sm,
+  );
 
   /// Border radius on the bottom-left corner of 4px (base)
-  static const bl2 = BorderRadius.only(bottomLeft: TRadius.c2);
+  ///
+  /// Equivalent to tailwind class: `rounded-bl`
+  static const rounded_bl = BorderRadius.only(
+    bottomLeft: TRadius.rounded,
+  );
 
   /// Border radius on the bottom-left corner of 6px (md)
-  static const bl3 = BorderRadius.only(bottomLeft: TRadius.c3);
+  ///
+  /// Equivalent to tailwind class: `rounded-bl-md`
+  static const rounded_bl_md = BorderRadius.only(
+    bottomLeft: TRadius.rounded_md,
+  );
 
   /// Border radius on the bottom-left corner of 8px (lg)
-  static const bl4 = BorderRadius.only(bottomLeft: TRadius.c4);
+  ///
+  /// Equivalent to tailwind class: `rounded-bl-lg`
+  static const rounded_bl_lg = BorderRadius.only(
+    bottomLeft: TRadius.rounded_lg,
+  );
 
   /// Border radius on the bottom-left corner of 12px (xl)
-  static const bl5 = BorderRadius.only(bottomLeft: TRadius.c5);
+  ///
+  /// Equivalent to tailwind class: `rounded-bl-xl`
+  static const rounded_bl_xl = BorderRadius.only(
+    bottomLeft: TRadius.rounded_xl,
+  );
 
   /// Border radius on the bottom-left corner of 16px (2xl)
-  static const bl6 = BorderRadius.only(bottomLeft: TRadius.c6);
+  ///
+  /// Equivalent to tailwind class: `rounded-bl-2xl`
+  static const rounded_bl_2xl = BorderRadius.only(
+    bottomLeft: TRadius.rounded_2xl,
+  );
 
   /// Border radius on the bottom-left corner of 24px (3xl)
-  static const bl7 = BorderRadius.only(bottomLeft: TRadius.c7);
+  ///
+  /// Equivalent to tailwind class: `rounded-bl-3xl`
+  static const rounded_bl_3xl = BorderRadius.only(
+    bottomLeft: TRadius.rounded_3xl,
+  );
 
   /// Border radius on the bottom-left corner of 9999px (full)
-  static const bl8 = BorderRadius.only(bottomLeft: TRadius.c8);
+  ///
+  /// Equivalent to tailwind class: `rounded-bl-full`
+  static const rounded_bl_full = BorderRadius.only(
+    bottomLeft: TRadius.rounded_full,
+  );
 }

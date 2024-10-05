@@ -1,13 +1,14 @@
-.DEFAULT_TARGET: help
-.PHONY: help init code outdated upgrade test format
+.DEFAULT_TARGET: init
+.PHONY: init code outdated upgrade analyze format format-ci test
 
+ROOT = $(shell git rev-parse --show-toplevel)
 ARGS ?=
 
 init:
-	@find . -name pubspec.yaml -execdir bash -c "pwd && flutter pub get" \;
+	@find $(ROOT) -name pubspec.yaml -execdir bash -c "pwd && flutter pub get" \;
 
 code:
-	@code .vscode/flutter_tailwind_ui.code-workspace
+	@code $(ROOT)/.vscode/flutter_tailwind_ui.code-workspace
 
 outdated:
 	@flutter pub outdated $(ARGS)
@@ -16,15 +17,17 @@ upgrade:
 	@flutter pub upgrade $(ARGS)
 
 analyze:
-	flutter analyze $(ARGS)
+	@flutter analyze $(ARGS)
 
 format:
-	@dart format lib $(ARGS)
-	@dart run import_sorter:main $(ARGS)
+	@dart format lib
+	@dart fix --apply
 
 format-ci:
-	@dart format lib --set-exit-if-changed $(ARGS)
-	@dart run import_sorter:main --exit-if-changed $(ARGS)
+	@dart format lib --set-exit-if-changed
 
 test:
 	@flutter test -r expanded $(ARGS)
+
+publish:
+	@flutter pub publish --dry-run

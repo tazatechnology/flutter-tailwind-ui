@@ -1,21 +1,21 @@
 /// Tailwind screen breakpoints for responsive design.
 ///
 /// https://tailwindcss.com/docs/screens
-class TScreen {
+abstract final class TScreen {
   /// Screen size for small devices, starting at 640px (sm)
-  static const double bp1 = 640.0;
+  static const bp1 = 640.0;
 
   /// Screen size for medium devices, starting at 768px (md)
-  static const double bp2 = 768.0;
+  static const bp2 = 768.0;
 
   /// Screen size for large devices, starting at 1024px (lg)
-  static const double bp3 = 1024.0;
+  static const bp3 = 1024.0;
 
   /// Screen size for extra-large devices, starting at 1280px (xl)
-  static const double bp4 = 1280.0;
+  static const bp4 = 1280.0;
 
   /// Screen size for extra-extra-large devices, starting at 1536px (2xl)
-  static const double bp5 = 1536.0;
+  static const bp5 = 1536.0;
 
   /// Get the screen size based on the name.
   ///

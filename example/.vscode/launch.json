@@ -1,0 +1,55 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MacOS",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--debug",
+                "--device-id",
+                "macOS"
+            ]
+        },
+        {
+            "name": "Web",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--debug",
+                "--device-id",
+                "chrome",
+                "--web-renderer",
+                "html",
+                "--web-hostname",
+                "localhost",
+                "--web-port",
+                "3000",
+            ]
+        },
+        {
+            "name": "Linux",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--debug",
+                "--device-id",
+                "linux"
+            ]
+        },
+        {
+            "name": "Windows",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--debug",
+                "--device-id",
+                "windows"
+            ]
+        }
+    ]
+}

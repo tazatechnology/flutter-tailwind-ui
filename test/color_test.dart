@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('TColor:', () {
@@ -11,13 +10,15 @@ void main() {
 
     // Load the JSON file before each test
     setUpAll(() async {
-      final File file = File('test/data/colors.json');
-      final String response = await file.readAsString();
-      final data = Map<String, dynamic>.from(json.decode(response));
+      final file = File('test/data/colors.json');
+      final response = await file.readAsString();
+      final data = Map<String, dynamic>.from(
+        jsonDecode(response) as Map<String, dynamic>,
+      );
       tailwindColors = data.map(
         (key, value) => MapEntry<String, Map<String, String>>(
           key,
-          Map<String, String>.from(value),
+          Map<String, String>.from(value as Map<dynamic, dynamic>),
         ),
       );
     });
@@ -25,7 +26,7 @@ void main() {
     test('Confirm hex codes', () {
       for (final name in tailwindColors.keys) {
         final shades = tailwindColors[name]!;
-        final color = TColor.get(name);
+        final color = TColors.get(name);
         for (final e in shades.entries) {
           final shade = int.parse(e.key);
           final hex = e.value.toUpperCase().replaceFirst('#', '');
@@ -46,12 +47,12 @@ void main() {
 
     test('Get by name', () {
       for (final name in tailwindColors.keys) {
-        TColor.get(name);
+        TColors.get(name);
       }
     });
 
     test('Get by name (invalid)', () {
-      expect(() => TColor.get('invalid'), throwsException);
+      expect(() => TColors.get('invalid'), throwsException);
     });
   });
 }

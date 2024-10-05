@@ -14,8 +14,8 @@ permissions:
   pull-requests: write
   
 jobs:
-  Test:
-    name: test
+  test-package:
+    name: test-package
     runs-on: ubuntu-latest
       
     steps:
@@ -30,14 +30,47 @@ jobs:
       - name: Install Dependencies
         run: make init
 
-      - name: Analyze Codebase
+      - name: Analyze Package
         run: make analyze
 
-      - name: Format Codebase
+      - name: Format Package
         run: make format-ci
 
-      - name: Run Tests
+      - name: Run Package Tests
         run: make test
 
       - name: Publish Dry Run
         run: flutter pub publish --dry-run
+
+  test-example:
+    name: test-example
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install Dependencies
+        working-directory: example
+        run: make init
+
+      - name: Build Web Application
+        working-directory: example
+        run: make build-web
+
+      - name: Analyze Example
+        working-directory: example
+        run: make analyze
+
+      - name: Format Example
+        working-directory: example
+        run: make format-ci
+
+      - name: Run Example Tests
+        working-directory: example
+        run: make test
