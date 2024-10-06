@@ -109,6 +109,13 @@ class TailwindTheme {
       brightness: brightness,
       fontFamily: fontFamily,
       scaffoldBackgroundColor: backgroundColor,
+      splashColor: Colors.transparent,
+      splashFactory: NoSplash.splashFactory,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      visualDensity: VisualDensity.standard,
+      dividerColor: TColors.slate.shade200,
 
       // Text
       textTheme: const TextTheme(

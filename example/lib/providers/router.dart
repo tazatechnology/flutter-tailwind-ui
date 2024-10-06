@@ -21,10 +21,17 @@ class AppRouter {
           },
           routes: [
             GoRoute(
-              name: home,
+              name: about,
               path: '/',
               pageBuilder: (context, state) {
-                return _buildPage(state: state, child: const HomeRoute());
+                return _buildPage(state: state, child: const AboutRoute());
+              },
+            ),
+            GoRoute(
+              name: installation,
+              path: '/$installation',
+              pageBuilder: (context, state) {
+                return _buildPage(state: state, child: const AboutRoute());
               },
             ),
             GoRoute(
@@ -53,7 +60,8 @@ class AppRouter {
       ],
     );
   }
-  static const String home = 'home';
+  static const String about = 'about';
+  static const String installation = 'installation';
   static const String colors = 'colors';
   static const String spacing = 'spacing';
   static const String typography = 'typography';

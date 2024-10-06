@@ -54,8 +54,8 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
               padding: TOffset.y16 + TOffset.x28,
               decoration: BoxDecoration(
                 color: isLightTheme
-                    ? Colors.white.withOpacity(0.6)
-                    : Colors.transparent,
+                    ? Colors.white.withOpacity(0.75)
+                    : context.theme.scaffoldBackgroundColor.withOpacity(0.75),
                 border: Border(
                   bottom: BorderSide(
                     color: TColors.slate.withOpacity(0.1),

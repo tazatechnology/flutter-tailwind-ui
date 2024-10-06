@@ -8,6 +8,7 @@ export 'src/constants/scale.dart';
 export 'src/constants/screen.dart';
 // Extensions
 export 'src/extensions/build_context.dart';
+export 'src/extensions/color.dart';
 export 'src/extensions/text_style.dart';
 // Theme
 export 'src/theme/theme.dart';
