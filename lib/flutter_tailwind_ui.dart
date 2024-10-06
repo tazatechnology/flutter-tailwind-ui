@@ -1,9 +1,13 @@
+// Components
 export 'src/components/sized_box.dart';
+// Constants
 export 'src/constants/colors.dart';
 export 'src/constants/offset.dart';
 export 'src/constants/radius.dart';
 export 'src/constants/scale.dart';
 export 'src/constants/screen.dart';
+// Extensions
 export 'src/extensions/build_context.dart';
 export 'src/extensions/text_style.dart';
+// Theme
 export 'src/theme/theme.dart';

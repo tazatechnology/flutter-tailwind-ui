@@ -13,7 +13,7 @@ class HomeRoute extends StatelessWidget {
     return Column(
       children: [
         for (var i = 0; i < 100; i++)
-          Padding(
+          const Padding(
             padding: TOffset.y10,
             child: Text(
               'Whereas disregard and contempt for human rights have resulted',

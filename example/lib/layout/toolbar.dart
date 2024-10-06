@@ -26,9 +26,9 @@ class AppToolbar extends StatelessWidget {
           ),
           onTap: () {},
         ),
-        ThemeToggleButton(),
+        const ThemeToggleButton(),
         InkWell(
-          child: Icon(
+          child: const Icon(
             FontAwesomeIcons.github,
             size: TSpacingScale.v20,
           ),
@@ -60,19 +60,19 @@ class ThemeToggleButton extends ConsumerWidget {
         }
       },
       child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 375),
+        duration: const Duration(milliseconds: 375),
         transitionBuilder: (Widget child, Animation<double> animation) {
           return RotationTransition(
-            turns: child.key == ValueKey('sun')
-                ? Tween<double>(begin: 0.0, end: 0.25).animate(animation)
-                : Tween<double>(begin: 0.0, end: -0.1).animate(animation),
+            turns: child.key == const ValueKey('sun')
+                ? Tween<double>(begin: 0, end: 0.25).animate(animation)
+                : Tween<double>(begin: 0, end: -0.1).animate(animation),
             child: FadeTransition(opacity: animation, child: child),
           );
         },
         child: Icon(
           isLightTheme ? Icons.light_mode : Icons.nightlight,
           key: ValueKey(isLightTheme ? 'sun' : 'moon'),
-          size: 24.0,
+          size: 24,
         ),
       ),
     );

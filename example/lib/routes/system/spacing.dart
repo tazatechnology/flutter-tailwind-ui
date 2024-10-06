@@ -9,6 +9,6 @@ class SpacingRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('SpacingRoute');
+    return const Text('SpacingRoute');
   }
 }

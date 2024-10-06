@@ -2,6 +2,8 @@ import 'package:flutter/rendering.dart';
 
 import 'package:flutter_tailwind_ui/src/constants/scale.dart';
 
+// TODO: Add documentation for tailwind equivalent
+
 // =================================================
 // CLASS: TOffset
 // =================================================

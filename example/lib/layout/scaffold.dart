@@ -14,8 +14,8 @@ import 'package:flutter_tailwind_ui_example/layout/toolbar.dart';
 
 class AppScaffold extends ConsumerStatefulWidget {
   const AppScaffold({
-    super.key,
     required this.child,
+    super.key,
   });
   final Widget child;
 
@@ -45,10 +45,10 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(AppScaffold.toolbarHeight),
+        preferredSize: const Size.fromHeight(AppScaffold.toolbarHeight),
         child: ClipRRect(
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
               height: AppScaffold.toolbarHeight,
               padding: TOffset.y16 + TOffset.x28,
@@ -59,7 +59,6 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
                 border: Border(
                   bottom: BorderSide(
                     color: TColors.slate.withOpacity(0.1),
-                    width: 1,
                   ),
                 ),
               ),
@@ -68,7 +67,7 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
                 children: [
                   Row(
                     children: [
-                      FlutterLogo(),
+                      const FlutterLogo(),
                       TSizedBox.x14,
                       SvgPicture.asset(
                         'assets/brand/tailwind_ui.svg',
@@ -90,7 +89,7 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
                         ),
                         child: Text(
                           'v${package.versionWithoutBuild}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             height: 0,
                             color: TColors.slate,
                             fontSize: 11,
@@ -101,7 +100,7 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
                       ),
                     ],
                   ),
-                  AppToolbar(),
+                  const AppToolbar(),
                 ],
               ),
             ),
@@ -117,20 +116,22 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
                   color: context.theme.scrollbarTheme.trackBorderColor
                           ?.resolve({}) ??
                       TColors.transparent,
-                  width: 1,
                 ),
               ),
             ),
             width: AppScaffold.navigationWidth,
-            child: AppNavigation(),
+            child: const AppNavigation(),
           ),
           Expanded(
             child: Scrollbar(
               controller: scrollController,
+              // Ensure scrollbar is always visible
               thumbVisibility: true,
               trackVisibility: true,
               child: SingleChildScrollView(
-                padding: TOffset.x32,
+                // Common horizontal padding for the content
+                // Extra bottom padding last content in scroll view
+                padding: TOffset.x32 + TOffset.b64,
                 controller: scrollController,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
@@ -139,8 +140,6 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
                   ),
                   child: Stack(
                     children: [
-                      // The hard coded values come from inspecting the image
-                      // on the tailwind documentation website
                       Positioned(
                         top: 0,
                         left: AppScaffold.navigationWidth,
@@ -149,21 +148,24 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
                           height: 500,
                           child: Center(
                             child: OverflowBox(
-                              maxWidth: 1148.0,
+                              maxWidth: 1148, // TODO use max-width props
                               alignment: Alignment.topCenter,
                               child: Image.asset(
                                 isLightTheme
                                     ? 'assets/img/background.png'
                                     : 'assets/img/background_dark.png',
-                                width: 1148.0,
+                                width: 1148,
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
+                      Container(
+                        constraints: const BoxConstraints(
+                          maxWidth: TScreen.breakpoint_md,
+                        ),
+                        padding: const EdgeInsets.only(
                           top: AppScaffold.toolbarHeight + TSpacingScale.v40,
                         ),
                         child: SelectionArea(

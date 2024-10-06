@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui/src/constants/text.dart';
 
 // =================================================
 // CLASS: TailwindTheme
@@ -75,22 +76,28 @@ class TailwindTheme {
   ThemeData _buildThemeData() {
     final isLight = brightness == Brightness.light;
 
-    /// Brightness specific colors
+    // Brightness specific colors
+    Color bodyColor;
+    Color displayColor;
     Color cursorColor;
     Color selectionColor;
     Color thumbColor;
     Color trackColor;
     Color trackBorderColor;
 
-    /// Default values inspired by Tailwind CSS
+    // Default values inspired by Tailwind CSS
     if (isLight) {
-      cursorColor = Colors.grey.shade600;
+      bodyColor = TColors.gray.shade800;
+      displayColor = TColors.black;
+      cursorColor = TColors.gray.shade600;
       selectionColor = const Color(0xFFb6d7ff);
       thumbColor = const Color(0xFFc7c7c7);
       trackColor = TColors.neutral.shade50;
       trackBorderColor = const Color(0xFFededed);
     } else {
-      cursorColor = Colors.grey.shade300;
+      bodyColor = TColors.slate.shade400;
+      displayColor = TColors.white;
+      cursorColor = TColors.gray.shade300;
       selectionColor = const Color(0xFF385479);
       thumbColor = const Color(0xFF2d2d2d);
       trackColor = const Color(0xFF2d2d2d);
@@ -103,11 +110,35 @@ class TailwindTheme {
       fontFamily: fontFamily,
       scaffoldBackgroundColor: backgroundColor,
 
+      // Text
+      textTheme: const TextTheme(
+        displayLarge: TTextStyle.text_6xl,
+        displayMedium: TTextStyle.text_5xl,
+        displaySmall: TTextStyle.text_4xl,
+        headlineLarge: TTextStyle.text_4xl,
+        headlineMedium: TTextStyle.text_3xl,
+        headlineSmall: TTextStyle.text_2xl,
+        titleLarge: TTextStyle.text_2xl,
+        titleMedium: TTextStyle.text_lg,
+        titleSmall: TTextStyle.text_base,
+        bodyLarge: TTextStyle.text_lg,
+        bodyMedium: TTextStyle.text_base,
+        bodySmall: TTextStyle.text_sm,
+        labelLarge: TTextStyle.text_base,
+        labelMedium: TTextStyle.text_sm,
+        labelSmall: TTextStyle.text_xs,
+      ).apply(
+        fontFamily: fontFamily,
+        bodyColor: bodyColor,
+        displayColor: displayColor,
+      ),
+
+      // Icon
       iconTheme: IconThemeData(
         color: TColors.slate.shade400,
       ),
 
-      /// TextSelectionThemeData
+      /// Text Selection
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: cursorColor,
         selectionColor: selectionColor,

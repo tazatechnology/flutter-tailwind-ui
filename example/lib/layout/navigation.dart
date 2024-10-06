@@ -29,25 +29,25 @@ class _AppNavigationState extends State<AppNavigation> {
       trackVisibility: true,
       child: ListView(
         padding: TOffset.x24 +
-            EdgeInsets.only(
+            const EdgeInsets.only(
               top: AppScaffold.toolbarHeight + TSpacingScale.v40,
             ),
         controller: scrollController,
         children: [
           ListTile(
-            title: Text('Home'),
+            title: const Text('Home'),
             onTap: () => context.goNamed(AppRouter.home),
           ),
           ListTile(
-            title: Text('Colors'),
+            title: const Text('Colors'),
             onTap: () => context.goNamed(AppRouter.colors),
           ),
           ListTile(
-            title: Text('Spacing'),
+            title: const Text('Spacing'),
             onTap: () => context.goNamed(AppRouter.spacing),
           ),
           ListTile(
-            title: Text('Typography'),
+            title: const Text('Typography'),
             onTap: () => context.goNamed(AppRouter.typography),
           ),
         ],

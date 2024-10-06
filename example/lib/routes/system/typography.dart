@@ -9,6 +9,6 @@ class TypographyRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('TypographyRoute');
+    return const Text('TypographyRoute');
   }
 }

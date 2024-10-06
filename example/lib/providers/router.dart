@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tailwind_ui_example/layout/scaffold.dart';
 import 'package:flutter_tailwind_ui_example/routes/routes.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:flutter_tailwind_ui_example/layout/scaffold.dart';
 
 /// App router provider
 final appRouterProvider = Provider<AppRouter>((ref) => AppRouter());
@@ -13,11 +12,6 @@ final appRouterProvider = Provider<AppRouter>((ref) => AppRouter());
 // =================================================
 
 class AppRouter {
-  static const String home = 'home';
-  static const String colors = 'colors';
-  static const String spacing = 'spacing';
-  static const String typography = 'typography';
-
   AppRouter() {
     router = GoRouter(
       routes: [
@@ -30,28 +24,28 @@ class AppRouter {
               name: home,
               path: '/',
               pageBuilder: (context, state) {
-                return _buildPage(state: state, child: HomeRoute());
+                return _buildPage(state: state, child: const HomeRoute());
               },
             ),
             GoRoute(
               name: colors,
               path: '/$colors',
               pageBuilder: (context, state) {
-                return _buildPage(state: state, child: ColorsRoute());
+                return _buildPage(state: state, child: const ColorsRoute());
               },
             ),
             GoRoute(
               name: spacing,
               path: '/$spacing',
               pageBuilder: (context, state) {
-                return _buildPage(state: state, child: SpacingRoute());
+                return _buildPage(state: state, child: const SpacingRoute());
               },
             ),
             GoRoute(
               name: typography,
               path: '/$typography',
               pageBuilder: (context, state) {
-                return _buildPage(state: state, child: TypographyRoute());
+                return _buildPage(state: state, child: const TypographyRoute());
               },
             ),
           ],
@@ -59,18 +53,22 @@ class AppRouter {
       ],
     );
   }
+  static const String home = 'home';
+  static const String colors = 'colors';
+  static const String spacing = 'spacing';
+  static const String typography = 'typography';
 
   /// GoRouter instance
   late final GoRouter router;
 
   /// Helper function to build a page with any page transition animation/delay
-  NoTransitionPage _buildPage({
+  NoTransitionPage<T> _buildPage<T>({
     required GoRouterState state,
     required Widget child,
     String? restorationId,
     Object? arguments,
   }) {
-    return NoTransitionPage(
+    return NoTransitionPage<T>(
       name: state.name,
       restorationId: restorationId,
       arguments: arguments,

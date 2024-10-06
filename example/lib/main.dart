@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:flutter_tailwind_ui_example/providers/router.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tailwind_ui_example/providers/router.dart';
 import 'package:flutter_tailwind_ui_example/providers/theme.dart';
 
 void main() async {
@@ -12,8 +10,8 @@ void main() async {
     /// See: https://pub.dev/packages/flutter_app_info
     AppInfo(
       data: await AppInfoData.get(),
-      child: ProviderScope(
-        child: const FlutterTailwindApp(),
+      child: const ProviderScope(
+        child: FlutterTailwindApp(),
       ),
     ),
   );
