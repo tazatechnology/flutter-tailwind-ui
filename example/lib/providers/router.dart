@@ -31,7 +31,7 @@ class AppRouter {
               name: installation,
               path: '/$installation',
               pageBuilder: (context, state) {
-                return _buildPage(state: state, child: const AboutRoute());
+                return _buildPage(state: state, child: const InstallRoute());
               },
             ),
             GoRoute(

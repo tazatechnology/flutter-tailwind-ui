@@ -16,7 +16,7 @@ class AppToolbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: TSpacingScale.v20,
+      spacing: context.tw.screen_sm ? TSpacingScale.v20 : TSpacingScale.v14,
       children: [
         InkWell(
           child: SvgPicture.asset(
@@ -48,12 +48,12 @@ class ThemeToggleButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLightTheme = context.isLightTheme;
+    final light = context.tw.light;
 
     return InkWell(
       onTap: () {
         final notifier = ref.read(themeModeProvider.notifier);
-        if (isLightTheme) {
+        if (light) {
           notifier.state = ThemeMode.dark;
         } else {
           notifier.state = ThemeMode.light;
@@ -70,8 +70,8 @@ class ThemeToggleButton extends ConsumerWidget {
           );
         },
         child: Icon(
-          isLightTheme ? Icons.light_mode : Icons.nightlight,
-          key: ValueKey(isLightTheme ? 'sun' : 'moon'),
+          light ? Icons.light_mode : Icons.nightlight,
+          key: ValueKey(light ? 'sun' : 'moon'),
           size: 24,
         ),
       ),

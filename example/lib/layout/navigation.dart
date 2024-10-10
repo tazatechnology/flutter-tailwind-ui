@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_example/layout/scaffold.dart';
 import 'package:flutter_tailwind_ui_example/providers/router.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 // =================================================
@@ -24,87 +23,55 @@ class _AppNavigationState extends State<AppNavigation> {
   // -------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final isLight = context.isLightTheme;
-    return Scrollbar(
+    final tw = context.tw;
+    final showSideBar = tw.screen_width >= AppScaffold.sidebarBreakpoint;
+
+    EdgeInsets topPadding;
+    if (showSideBar) {
+      topPadding = const EdgeInsets.only(
+        top: AppScaffold.toolbarHeight + TSpacingScale.v8,
+      );
+    } else {
+      topPadding = TOffset.t32;
+    }
+
+    return ListView(
+      padding: TOffset.x24 + topPadding,
       controller: scrollController,
-      thumbVisibility: true,
-      trackVisibility: true,
-      child: ListView(
-        padding: TOffset.x24 +
-            const EdgeInsets.only(
-              top: AppScaffold.toolbarHeight + TSpacingScale.v40,
+      children: const [
+        AppNavigationSection(
+          title: 'Getting Started',
+          items: [
+            AppNavigationItem(
+              title: 'About',
+              route: AppRouter.about,
             ),
-        controller: scrollController,
-        children: [
-          Container(
-            height: TSpacingScale.v40,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: TColors.slate[isLight ? 50 : 800],
-              border: Border.all(
-                color:
-                    isLight ? TColors.slate.shade200 : TColors.slate.shade700,
-              ),
-              borderRadius: TBorderRadius.rounded_md,
+            AppNavigationItem(
+              title: 'Installation',
+              route: AppRouter.installation,
+              isLast: true,
             ),
-            child: Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                SizedBox.expand(
-                  child: Center(
-                    child: Text(
-                      'Contribute',
-                      style: context.text_sm.copyWith(
-                        color: TColors.slate.shade400.withOpacity(0.75),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: TOffset.l12,
-                  child: FaIcon(
-                    FontAwesomeIcons.github,
-                    size: 16,
-                    color: TColors.slate.shade400,
-                  ),
-                ),
-              ],
+          ],
+        ),
+        AppNavigationSection(
+          title: 'Design System',
+          items: [
+            AppNavigationItem(
+              title: 'Colors',
+              route: AppRouter.colors,
             ),
-          ),
-          const AppNavigationSection(
-            title: 'Getting Started',
-            items: [
-              AppNavigationItem(
-                title: 'About',
-                route: AppRouter.about,
-              ),
-              AppNavigationItem(
-                title: 'Installation',
-                route: AppRouter.installation,
-                isLast: true,
-              ),
-            ],
-          ),
-          const AppNavigationSection(
-            title: 'Design System',
-            items: [
-              AppNavigationItem(
-                title: 'Colors',
-                route: AppRouter.colors,
-              ),
-              AppNavigationItem(
-                title: 'Spacing',
-                route: AppRouter.spacing,
-              ),
-              AppNavigationItem(
-                title: 'Typography',
-                route: AppRouter.typography,
-                isLast: true,
-              ),
-            ],
-          ),
-        ],
-      ),
+            AppNavigationItem(
+              title: 'Spacing',
+              route: AppRouter.spacing,
+            ),
+            AppNavigationItem(
+              title: 'Typography',
+              route: AppRouter.typography,
+              isLast: true,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -123,7 +90,7 @@ class AppNavigationSection extends StatelessWidget {
   final List<AppNavigationItem> items;
   @override
   Widget build(BuildContext context) {
-    final isLight = context.isLightTheme;
+    final tw = context.tw;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -131,8 +98,8 @@ class AppNavigationSection extends StatelessWidget {
           padding: TOffset.b12 + TOffset.t24,
           child: Text(
             title,
-            style: context.text_sm.semibold.copyWith(
-              color: TColors.slate[isLight ? 900 : 200],
+            style: tw.text_sm.semibold.copyWith(
+              color: TColors.slate[tw.light ? 900 : 200],
             ),
           ),
         ),
@@ -141,7 +108,7 @@ class AppNavigationSection extends StatelessWidget {
             border: Border(
               left: BorderSide(
                 color:
-                    isLight ? TColors.slate.shade100 : TColors.slate.shade800,
+                    tw.light ? TColors.slate.shade100 : TColors.slate.shade800,
               ),
             ),
           ),
@@ -178,17 +145,23 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
 
   @override
   Widget build(BuildContext context) {
-    final state = GoRouterState.of(context);
-    final isLight = context.isLightTheme;
-    final isActive = state.topRoute?.name == widget.route;
+    final tw = context.tw;
 
-    final activeColor = isLight ? TColors.sky.shade500 : TColors.sky.shade400;
+    final state = GoRouterState.of(context);
+    final isActive = state.topRoute?.name == widget.route;
+    final showSideBar = tw.screen_width >= AppScaffold.sidebarBreakpoint;
+
+    final activeColor = tw.light ? TColors.sky.shade500 : TColors.sky.shade400;
     final inactiveColor =
-        isLight ? TColors.slate.shade700 : TColors.slate.shade400;
+        tw.light ? TColors.slate.shade700 : TColors.slate.shade400;
     final hoveredBorder =
-        isLight ? TColors.slate.shade300 : TColors.slate.shade500;
+        tw.light ? TColors.slate.shade300 : TColors.slate.shade500;
+
     return InkWell(
       onTap: () {
+        if (!showSideBar) {
+          Scaffold.of(context).closeDrawer();
+        }
         context.goNamed(widget.route);
       },
       onHover: (value) {
@@ -208,7 +181,7 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
         ),
         child: Text(
           widget.title,
-          style: context.text_sm.copyWith(
+          style: tw.text_sm.copyWith(
             color: isActive ? activeColor : inactiveColor,
             fontWeight: isActive ? FontWeight.w500 : FontWeight.normal,
           ),

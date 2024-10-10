@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_example/layout/navigation.dart';
 import 'package:flutter_tailwind_ui_example/layout/toolbar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // =================================================
 // CLASS: AppScaffold
@@ -27,6 +28,9 @@ class AppScaffold extends ConsumerStatefulWidget {
 
   /// The width of the navigation drawer + scroll x-padding
   static const navigationWidth = TSpacingScale.v256 + TSpacingScale.v48;
+
+  /// The breakpoint at which the sidebar is shown
+  static const sidebarBreakpoint = TScreen.screen_lg;
 }
 
 class _AppScaffoldState extends ConsumerState<AppScaffold> {
@@ -38,69 +42,64 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    final package = AppInfo.of(context).package;
-    final isLightTheme = context.isLightTheme;
-    final screenSize = context.screenSize;
+    final tw = context.tw;
+
+    final showSideBar = tw.screen_width >= AppScaffold.sidebarBreakpoint;
+    var appBarHeight = AppScaffold.toolbarHeight;
+    var appBarXPad = TOffset.x28;
+    if (!showSideBar) {
+      appBarXPad = TOffset.x20;
+      appBarHeight += AppScaffold.toolbarHeight;
+    }
+
+    final appBarBorder = Border(
+      bottom: BorderSide(
+        color: TColors.slate.withOpacity(0.1),
+      ),
+    );
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      drawer: showSideBar
+          ? null
+          : const Drawer(
+              child: AppNavigation(),
+            ),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(AppScaffold.toolbarHeight),
+        preferredSize: Size.fromHeight(appBarHeight),
         child: ClipRRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
-              height: AppScaffold.toolbarHeight,
-              padding: TOffset.y16 + TOffset.x28,
+              height: appBarHeight,
               decoration: BoxDecoration(
-                color: isLightTheme
-                    ? Colors.white.withOpacity(0.75)
+                color: tw.light
+                    ? Colors.white.withOpacity(0.65)
                     : context.theme.scaffoldBackgroundColor.withOpacity(0.75),
-                border: Border(
-                  bottom: BorderSide(
-                    color: TColors.slate.withOpacity(0.1),
-                  ),
-                ),
+                border: appBarBorder,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
                 children: [
-                  Row(
-                    children: [
-                      const FlutterLogo(),
-                      TSizedBox.x14,
-                      SvgPicture.asset(
-                        'assets/brand/tailwind_ui.svg',
-                        semanticsLabel: 'Tailwind UI (Flutter)',
-                        height: 20,
-                        colorFilter: ColorFilter.mode(
-                          isLightTheme ? TColors.black : TColors.white,
-                          BlendMode.srcIn,
-                        ),
+                  Expanded(
+                    child: Container(
+                      height: AppScaffold.toolbarHeight,
+                      padding: TOffset.y16 + appBarXPad,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: showSideBar ? null : appBarBorder,
                       ),
-                      TSizedBox.x14,
-                      Container(
-                        height: double.infinity,
-                        padding: TOffset.x20,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: TColors.slate.shade400.withOpacity(0.1),
-                          borderRadius: TBorderRadius.rounded_full,
-                        ),
-                        child: Text(
-                          'v${package.versionWithoutBuild}',
-                          style: const TextStyle(
-                            height: 0,
-                            color: TColors.slate,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: TailwindTheme.fontFamilyMono,
-                          ),
-                        ),
-                      ),
-                    ],
+                      child: const _ScaffoldHeader(),
+                    ),
                   ),
-                  const AppToolbar(),
+                  if (!showSideBar)
+                    Expanded(
+                      child: Container(
+                        height: AppScaffold.toolbarHeight,
+                        padding: TOffset.y16 + appBarXPad,
+                        width: double.infinity,
+                        child: const _ScaffoldMobileNavigation(),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -109,77 +108,101 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
       ),
       body: Row(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(
-                  color: context.theme.scrollbarTheme.trackBorderColor
-                          ?.resolve({}) ??
-                      TColors.transparent,
-                ),
-              ),
-            ),
-            width: AppScaffold.navigationWidth,
-            child: const AppNavigation(),
-          ),
-          Expanded(
-            child: Scrollbar(
-              controller: scrollController,
-              // Ensure scrollbar is always visible
-              thumbVisibility: true,
-              trackVisibility: true,
-              child: SingleChildScrollView(
-                // Common horizontal padding for the content
-                // Extra bottom padding last content in scroll view
-                padding: TOffset.x32 + TOffset.b64,
-                controller: scrollController,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minWidth: screenSize.width,
-                    minHeight: screenSize.height,
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 0,
-                        left: AppScaffold.navigationWidth,
-                        right: 0,
-                        child: SizedBox(
-                          height: 500,
-                          child: Center(
-                            child: OverflowBox(
-                              maxWidth: 1148, // TODO use max-width props
-                              alignment: Alignment.topCenter,
-                              child: Image.asset(
-                                isLightTheme
-                                    ? 'assets/img/background.png'
-                                    : 'assets/img/background_dark.png',
-                                width: 1148,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        constraints: const BoxConstraints(
-                          maxWidth: TScreen.breakpoint_md,
-                        ),
-                        padding: const EdgeInsets.only(
-                          top: AppScaffold.toolbarHeight + TSpacingScale.v40,
-                        ),
-                        child: SelectionArea(
-                          child: widget.child,
-                        ),
-                      ),
-                    ],
+          if (showSideBar)
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  right: BorderSide(
+                    color: tw.light
+                        ? TColors.gray.shade200
+                        : TColors.gray.shade800,
+                    width: 0.5,
                   ),
                 ),
               ),
+              width: AppScaffold.navigationWidth,
+              child: const AppNavigation(),
             ),
-          ),
+          Expanded(child: widget.child),
         ],
       ),
+    );
+  }
+}
+
+// =================================================
+// CLASS: _ScaffoldHeader
+// =================================================
+
+class _ScaffoldHeader extends StatelessWidget {
+  const _ScaffoldHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    final package = AppInfo.of(context).package;
+    final tw = context.tw;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            const FlutterLogo(),
+            TSizedBox.x14,
+            SvgPicture.asset(
+              'assets/brand/tailwind_ui.svg',
+              semanticsLabel: 'Tailwind UI (Flutter)',
+              height: 20,
+              colorFilter: ColorFilter.mode(
+                tw.light ? Colors.black : Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
+            if (tw.screen_sm) ...[
+              TSizedBox.x14,
+              Container(
+                height: double.infinity,
+                padding: TOffset.x20,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: TColors.slate.shade400.withOpacity(0.1),
+                  borderRadius: TBorderRadius.rounded_full,
+                ),
+                child: Text(
+                  'v${package.versionWithoutBuild}',
+                  style: const TextStyle(
+                    height: 0,
+                    color: TColors.slate,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: TailwindTheme.fontFamilyMono,
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
+        const AppToolbar(),
+      ],
+    );
+  }
+}
+
+// =================================================
+// CLASS: _ScaffoldMobileNavigation
+// =================================================
+
+class _ScaffoldMobileNavigation extends StatelessWidget {
+  const _ScaffoldMobileNavigation();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        InkWell(
+          onTap: Scaffold.of(context).openDrawer,
+          child: const FaIcon(FontAwesomeIcons.bars, size: 20),
+        ),
+      ],
     );
   }
 }

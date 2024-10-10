@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_example/providers/router.dart';
 import 'package:flutter_tailwind_ui_example/providers/theme.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -40,8 +41,10 @@ class FlutterTailwindApp extends ConsumerWidget {
       title: 'Flutter Tailwind UI',
       debugShowCheckedModeBanner: false,
       themeMode: ref.watch(themeModeProvider),
-      theme: ref.watch(themeLightProvider),
-      darkTheme: ref.watch(themDarkProvider),
+      // theme: ref.watch(themeLightProvider),
+      // darkTheme: ref.watch(themDarkProvider),
+      theme: TailwindTheme.light().data,
+      darkTheme: TailwindTheme.dark().data,
       routerConfig: ref.read(appRouterProvider).router,
     );
   }

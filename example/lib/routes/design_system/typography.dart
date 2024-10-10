@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind_ui_example/layout/header.dart';
+import 'package:flutter_tailwind_ui_example/layout/scroll_view.dart';
 
 // =================================================
 // CLASS: TypographyRoute
@@ -9,6 +11,14 @@ class TypographyRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('TypographyRoute');
+    return AppScrollView.children(
+      header: const AppSectionHeader(
+        section: 'Design System',
+        title: 'Typography',
+      ),
+      children: const [
+        Text('Content'),
+      ],
+    );
   }
 }

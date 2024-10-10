@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // =================================================
 
 /// Extension on [Color] to provide useful methods
-extension TailwindExtensionColor on Color {
+extension TExtensionColor on Color {
   /// Darken a color by [percent] amount (1 = black)
   Color darken([double percent = 0.1]) {
     if (percent <= 0.001) {
@@ -33,13 +33,6 @@ extension TailwindExtensionColor on Color {
         blue + ((255 - blue) * percent).round(),
       );
     }
-  }
-
-  /// Get a contrast version of this color
-  Color contrast([double? percent]) {
-    return computeLuminance() < 0.5
-        ? lighten(percent ?? 0.9)
-        : darken(percent ?? 0.75);
   }
 
   /// Get a black or white contrast color

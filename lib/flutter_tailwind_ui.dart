@@ -1,7 +1,12 @@
 // Components
+export 'src/components/radio.dart';
+export 'src/components/row_column.dart';
 export 'src/components/sized_box.dart';
+export 'src/components/text.dart';
+
 // Constants
 export 'src/constants/colors.dart';
+export 'src/constants/enums.dart';
 export 'src/constants/offset.dart';
 export 'src/constants/radius.dart';
 export 'src/constants/scale.dart';

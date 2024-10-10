@@ -141,6 +141,21 @@ abstract final class TSpacingScale {
   /// Equivalent to Tailwind spacing scale value: `24`
   static const v96 = 96.0;
 
+  /// Spacing scale unit of 112px
+  ///
+  /// Equivalent to Tailwind spacing scale value: `28`
+  static const v112 = 112.0;
+
+  /// Spacing scale unit of 128px
+  ///
+  /// Equivalent to Tailwind spacing scale value: `32`
+  static const v128 = 128.0;
+
+  /// Spacing scale unit of 144px
+  ///
+  /// Equivalent to Tailwind spacing scale value: `36`
+  static const v144 = 144.0;
+
   /// Spacing scale unit of 160px
   ///
   /// Equivalent to Tailwind spacing scale value: `40`
@@ -190,6 +205,54 @@ abstract final class TSpacingScale {
   ///
   /// Equivalent to Tailwind spacing scale value: `96`
   static const v384 = 384.0;
+}
+
+// =================================================
+// CLASS: TTextScale
+// =================================================
+
+/// Tailwind font size scaling system for text.
+///
+/// https://tailwindcss.com/docs/font-size
+abstract final class TTextScale {
+  /// Equivalent to Tailwind font size `text-xs`
+  static const text_xs = 12.0;
+
+  /// Equivalent to Tailwind font size `text-sm`
+  static const text_sm = 14.0;
+
+  /// Equivalent to Tailwind font size `text-base`
+  static const text_base = 16.0;
+
+  /// Equivalent to Tailwind font size `text-lg`
+  static const text_lg = 18.0;
+
+  /// Equivalent to Tailwind font size `text-xl`
+  static const text_xl = 20.0;
+
+  /// Equivalent to Tailwind font size `text-2xl`
+  static const text_2xl = 24.0;
+
+  /// Equivalent to Tailwind font size `text-3xl`
+  static const text_3xl = 30.0;
+
+  /// Equivalent to Tailwind font size `text-4xl`
+  static const text_4xl = 36.0;
+
+  /// Equivalent to Tailwind font size `text-5xl`
+  static const text_5xl = 48.0;
+
+  /// Equivalent to Tailwind font size `text-6xl`
+  static const text_6xl = 60.0;
+
+  /// Equivalent to Tailwind font size `text-7xl`
+  static const text_7xl = 72.0;
+
+  /// Equivalent to Tailwind font size `text-8xl`
+  static const text_8xl = 96.0;
+
+  /// Equivalent to Tailwind font size `text-9xl`
+  static const text_9xl = 128.0;
 }
 
 // =================================================

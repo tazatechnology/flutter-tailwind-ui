@@ -18,7 +18,7 @@ class AppSectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLight = context.isLightTheme;
+    final tw = context.tw;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,15 +27,15 @@ class AppSectionHeader extends StatelessWidget {
           padding: TOffset.b10,
           child: Text(
             section,
-            style: context.text_sm.semibold.copyWith(
-              color: TColors.sky[isLight ? 500 : 400],
+            style: tw.text_sm.semibold.copyWith(
+              color: TColors.sky[tw.light ? 500 : 400],
             ),
           ),
         ),
         Text(
           title,
-          style: context.text_3xl.extrabold.tracking_tight.copyWith(
-            color: TColors.slate[isLight ? 900 : 200],
+          style: tw.text_3xl.extrabold.tracking_tight.copyWith(
+            color: TColors.slate[tw.light ? 900 : 200],
           ),
         ),
         if (description != null)
@@ -43,7 +43,7 @@ class AppSectionHeader extends StatelessWidget {
             padding: TOffset.t10,
             child: Text(
               description!,
-              style: context.text_lg.copyWith(
+              style: tw.text_lg.copyWith(
                 color: TColors.slate.shade700,
               ),
             ),
