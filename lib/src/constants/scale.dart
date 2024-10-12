@@ -205,6 +205,48 @@ abstract final class TSpacingScale {
   ///
   /// Equivalent to Tailwind spacing scale value: `96`
   static const v384 = 384.0;
+
+  /// A complete list of all the Tailwind spacing scale names and values.
+  static const Map<String, double> values = {
+    'v0': v0,
+    'v1': v1,
+    'v2': v2,
+    'v4': v4,
+    'v6': v6,
+    'v8': v8,
+    'v10': v10,
+    'v12': v12,
+    'v14': v14,
+    'v16': v16,
+    'v20': v20,
+    'v24': v24,
+    'v28': v28,
+    'v32': v32,
+    'v36': v36,
+    'v40': v40,
+    'v44': v44,
+    'v48': v48,
+    'v52': v52,
+    'v56': v56,
+    'v60': v60,
+    'v64': v64,
+    'v72': v72,
+    'v80': v80,
+    'v96': v96,
+    'v112': v112,
+    'v128': v128,
+    'v144': v144,
+    'v160': v160,
+    'v176': v176,
+    'v192': v192,
+    'v208': v208,
+    'v224': v224,
+    'v240': v240,
+    'v256': v256,
+    'v288': v288,
+    'v320': v320,
+    'v384': v384,
+  };
 }
 
 // =================================================

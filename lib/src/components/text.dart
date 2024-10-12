@@ -105,6 +105,7 @@ class TText extends StatelessWidget {
           // Code: `text`
           children.add(
             WidgetSpan(
+              alignment: PlaceholderAlignment.top,
               child: Container(
                 padding: TOffset.x4,
                 decoration: BoxDecoration(
@@ -117,7 +118,7 @@ class TText extends StatelessWidget {
                   match.group(3)!,
                   style: baseStyle.merge(
                     TextStyle(
-                      fontSize: baseFontSize - 2, // accounts for line height
+                      fontSize: baseFontSize - 2, // accounts for border padding
                       fontFamily: TailwindTheme.fontFamilyMono,
                     ),
                   ),

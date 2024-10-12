@@ -92,7 +92,7 @@ class ColorsRoute extends ConsumerWidget {
                 expanded: true,
                 title: const Text('Select color format'),
                 description: const Text(
-                  'Determines the format of the color when copied to the clipboard',
+                  'Determines the format of the color when copied to clipboard',
                 ),
                 groupValue: colorFormat,
                 items: [
