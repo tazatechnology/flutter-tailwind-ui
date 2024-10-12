@@ -53,3 +53,28 @@ class AppSectionHeader extends StatelessWidget {
     );
   }
 }
+
+// =================================================
+// CLASS: AppSubSectionHeader
+// =================================================
+
+class AppSubSectionHeader extends StatelessWidget {
+  const AppSubSectionHeader({
+    required this.title,
+    super.key,
+  });
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final tw = context.tw;
+
+    return Padding(
+      padding: TOffset.b10,
+      child: Text(
+        title,
+        style: tw.text_lg.bold,
+      ),
+    );
+  }
+}

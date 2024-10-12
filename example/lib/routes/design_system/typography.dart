@@ -17,7 +17,12 @@ class TypographyRoute extends StatelessWidget {
         title: 'Typography',
       ),
       children: const [
-        Text('Content'),
+        AppSubSectionHeader(
+          title: 'Font Family',
+        ),
+        Text(
+          'Having both a serif font (Geist) and a monospaced font (JetBrains Mono) pre-packaged in your design system is highly beneficial because it provides immediate access to a professional typographic hierarchy.\n\nThe serif font offers readability and elegance for body text, while the monospaced font is perfect for code snippets and technical content, ensuring clarity and consistency across various elements. This eliminates the need for additional font setup, allowing developers to start building  functional UIs right away.',
+        ),
       ],
     );
   }

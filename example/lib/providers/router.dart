@@ -28,10 +28,10 @@ class AppRouter {
               },
             ),
             GoRoute(
-              name: installation,
-              path: '/$installation',
+              name: usage,
+              path: '/$usage',
               pageBuilder: (context, state) {
-                return _buildPage(state: state, child: const InstallRoute());
+                return _buildPage(state: state, child: const UsageRoute());
               },
             ),
             GoRoute(
@@ -61,7 +61,7 @@ class AppRouter {
     );
   }
   static const String about = 'about';
-  static const String installation = 'installation';
+  static const String usage = 'usage';
   static const String colors = 'colors';
   static const String spacing = 'spacing';
   static const String typography = 'typography';

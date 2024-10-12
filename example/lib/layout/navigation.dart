@@ -47,8 +47,8 @@ class _AppNavigationState extends State<AppNavigation> {
               route: AppRouter.about,
             ),
             AppNavigationItem(
-              title: 'Installation',
-              route: AppRouter.installation,
+              title: 'Quick Start',
+              route: AppRouter.usage,
               isLast: true,
             ),
           ],
