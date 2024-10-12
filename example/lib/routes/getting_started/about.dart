@@ -19,7 +19,10 @@ class AboutRoute extends StatelessWidget {
       ),
       children: const [
         TText(
-          'Content is _*bold*_\nThis should be _italic_\nensuring the `currentIndex` is updated\nAnd here is a link to [google](google.com)',
+          'Content is **bold**\nThis should be _italic_\nThis should be _**bold/italic**_\nensuring the `currentIndex` is updated\nAnd here is a link to [google](google.com)',
+        ),
+        TText(
+          'And here is a link to [`code link`](google.com)',
         ),
       ],
     );

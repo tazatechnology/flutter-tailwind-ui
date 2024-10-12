@@ -79,82 +79,96 @@ class TText extends StatelessWidget {
     final tw = context.tw;
     final baseStyle = style ?? DefaultTextStyle.of(context).style;
     final baseFontSize = baseStyle.fontSize ?? tw.text_base.fontSize ?? 16;
-    final exp = RegExp(r'\*([^*]+)\*|_([^_]+)_|`([^`]+)`|\[(.*?)\]\((.*?)\)');
-    final children = <InlineSpan>[];
-    var currentIndex = 0;
 
-    text.splitMapJoin(
-      exp,
-      onMatch: (Match match) {
-        if (match.start > currentIndex) {
-          children.add(
-            TextSpan(
-              text: text.substring(currentIndex, match.start),
-              style: baseStyle,
-            ),
-          );
-        }
+    // Regex to match **bold**, _italic_, `code`, and [text](url)
+    final exp = RegExp(
+      r'(\*\*([^*]+)\*\*|_([^_]+)_|`([^`]+)`|\[(.*?)\]\((.*?)\))',
+    );
 
-        if (match.group(1) != null) {
-          // Bold: *text*
-          children.add(TextSpan(text: match.group(1), style: baseStyle.bold));
-        } else if (match.group(2) != null) {
-          // Italic: _text_
-          children.add(TextSpan(text: match.group(2), style: baseStyle.italic));
-        } else if (match.group(3) != null) {
-          // Code: `text`
-          children.add(
-            WidgetSpan(
-              alignment: PlaceholderAlignment.top,
-              child: Container(
-                padding: TOffset.x4,
-                decoration: BoxDecoration(
-                  color: tw.light
-                      ? context.theme.scaffoldBackgroundColor.darken()
-                      : context.theme.scaffoldBackgroundColor.lighten(),
-                  borderRadius: TBorderRadius.rounded,
-                ),
-                child: Text(
-                  match.group(3)!,
-                  style: baseStyle.merge(
-                    TextStyle(
-                      fontSize: baseFontSize - 2, // accounts for border padding
-                      fontFamily: TailwindTheme.fontFamilyMono,
+    // Recursive function to parse each match
+    List<InlineSpan> parseWithStyles(String text, TextStyle currentStyle) {
+      final spans = <InlineSpan>[];
+      var currentIndex = 0;
+
+      text.splitMapJoin(
+        exp,
+        onMatch: (Match match) {
+          if (match.start > currentIndex) {
+            spans.add(
+              TextSpan(
+                text: text.substring(currentIndex, match.start),
+                style: currentStyle,
+              ),
+            );
+          }
+
+          if (match.group(2) != null) {
+            // Bold: **text**
+            spans.addAll(parseWithStyles(match.group(2)!, currentStyle.bold));
+          } else if (match.group(3) != null) {
+            // Italic: _text_
+            spans.addAll(parseWithStyles(match.group(3)!, currentStyle.italic));
+          } else if (match.group(4) != null) {
+            // Code: `text`
+            spans.add(
+              WidgetSpan(
+                alignment: PlaceholderAlignment.top,
+                child: Container(
+                  padding: TOffset.x4,
+                  decoration: BoxDecoration(
+                    color: tw.light
+                        ? context.theme.scaffoldBackgroundColor.darken()
+                        : context.theme.scaffoldBackgroundColor.lighten(),
+                    borderRadius: TBorderRadius.rounded,
+                  ),
+                  child: Text(
+                    match.group(4)!,
+                    style: currentStyle.merge(
+                      TextStyle(
+                        // accounts for background padding
+                        fontSize: baseFontSize - 2,
+                        fontFamily: TailwindTheme.fontFamilyMono,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        } else if (match.group(4) != null && match.group(5) != null) {
-          // Link: [text](url)
-          children.add(
-            TextSpan(
-              text: match.group(4),
-              style: baseStyle.merge(
-                const TextStyle(color: TColors.sky).underline,
+            );
+          } else if (match.group(5) != null && match.group(6) != null) {
+            // Link: [text](url)
+            spans.add(
+              TextSpan(
+                text: match.group(5),
+                style: currentStyle.merge(
+                  const TextStyle(color: TColors.sky),
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    // navigate to URL
+                  },
+                mouseCursor: SystemMouseCursors.click,
               ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  // print("Click LINK");
-                },
-              mouseCursor: SystemMouseCursors.click,
-            ),
-          );
-        }
+            );
+          }
 
-        currentIndex = match.end;
-        return '';
-      },
-      onNonMatch: (String remaining) {
-        if (currentIndex < text.length) {
-          children.add(TextSpan(text: remaining, style: baseStyle));
-        }
-        currentIndex = text.length;
-        return '';
-      },
+          currentIndex = match.end;
+          return '';
+        },
+        onNonMatch: (String remaining) {
+          if (currentIndex < text.length) {
+            spans.add(TextSpan(text: remaining, style: currentStyle));
+          }
+          currentIndex = text.length;
+          return '';
+        },
+      );
+
+      return spans;
+    }
+
+    return TextSpan(
+      children: parseWithStyles(text, baseStyle),
+      style: baseStyle,
     );
-
-    return TextSpan(children: children, style: baseStyle);
   }
 }
