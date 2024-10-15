@@ -117,8 +117,8 @@ class TText extends StatelessWidget {
                   padding: TOffset.x4,
                   decoration: BoxDecoration(
                     color: tw.light
-                        ? context.theme.scaffoldBackgroundColor.darken()
-                        : context.theme.scaffoldBackgroundColor.lighten(),
+                        ? Colors.black.withOpacity(0.05)
+                        : Colors.white.withOpacity(0.1),
                     borderRadius: TBorderRadius.rounded,
                   ),
                   child: Text(

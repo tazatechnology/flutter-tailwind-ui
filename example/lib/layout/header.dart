@@ -61,16 +61,16 @@ class AppSectionHeader extends StatelessWidget {
 class AppSubSectionHeader extends StatelessWidget {
   const AppSubSectionHeader({
     required this.title,
+    this.padding = TOffset.t0,
     super.key,
   });
   final String title;
-
+  final EdgeInsets padding;
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-
     return Padding(
-      padding: TOffset.b10,
+      padding: padding + TOffset.b16,
       child: Text(
         title,
         style: tw.text_lg.bold,

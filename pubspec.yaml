@@ -9,17 +9,19 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  animations: ^2.0.11
   collection: ^1.18.0
   flutter:
     sdk: flutter
-
+  syntax_highlight: ^0.4.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
   very_good_analysis: ^6.0.0
 
 flutter:
+  assets:
+    - grammar/
   fonts:
     # https://github.com/vercel/geist-font/releases/download/1.4.0/Geist-v1.4.0.zip
     - family: Geist
