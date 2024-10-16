@@ -73,7 +73,9 @@ class AppSubSectionHeader extends StatelessWidget {
       padding: padding + TOffset.b16,
       child: Text(
         title,
-        style: tw.text_lg.bold,
+        style: tw.text_lg.bold.copyWith(
+          color: tw.light ? TColors.slate.shade700 : TColors.slate.shade200,
+        ),
       ),
     );
   }

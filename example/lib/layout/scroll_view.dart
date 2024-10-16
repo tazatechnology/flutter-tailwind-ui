@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_example/layout/header.dart';
 import 'package:flutter_tailwind_ui_example/layout/scaffold.dart';
+
+/// Allows nested children to enable/disable outer scroll physics
+final outerScrollPhysicsProvider = StateProvider<ScrollPhysics>((ref) {
+  return const ClampingScrollPhysics();
+});
 
 // =================================================
 // CLASS: AppScrollView
 // =================================================
 
-class AppScrollView extends StatefulWidget {
+class AppScrollView extends ConsumerStatefulWidget {
   /// Factory constructor for non-sliver content
   factory AppScrollView.children({
     required AppSectionHeader? header,
@@ -41,10 +47,10 @@ class AppScrollView extends StatefulWidget {
   final AppSectionHeader? header;
 
   @override
-  State<AppScrollView> createState() => _AppScrollViewState();
+  ConsumerState<AppScrollView> createState() => _AppScrollViewState();
 }
 
-class _AppScrollViewState extends State<AppScrollView> {
+class _AppScrollViewState extends ConsumerState<AppScrollView> {
   final scrollController = ScrollController();
 
   // -------------------------------------------------
@@ -57,12 +63,14 @@ class _AppScrollViewState extends State<AppScrollView> {
     if (context.tw.screen_width < AppScaffold.sidebarBreakpoint) {
       toolbarHeight = AppScaffold.toolbarHeight * 2;
     }
+    final physics = ref.watch(outerScrollPhysicsProvider);
+
     return Stack(
       children: [
         _AppBackground(controller: scrollController),
         SelectionArea(
           child: CustomScrollView(
-            physics: const ClampingScrollPhysics(),
+            physics: physics,
             controller: scrollController,
             slivers: [
               // Top padding for the toolbar and additional padding

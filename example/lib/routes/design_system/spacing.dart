@@ -39,7 +39,7 @@ class SpacingRoute extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: TSpacingScale.v160,
-                    child: TText(
+                    child: Text(
                       'Name',
                       style: tw.text_sm.semibold,
                     ),
@@ -47,7 +47,7 @@ class SpacingRoute extends StatelessWidget {
                   Container(
                     alignment: Alignment.centerLeft,
                     width: TSpacingScale.v60,
-                    child: TText(
+                    child: Text(
                       'Value',
                       style: tw.text_sm.semibold,
                     ),

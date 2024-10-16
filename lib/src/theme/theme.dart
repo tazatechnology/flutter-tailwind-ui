@@ -96,7 +96,7 @@ class TailwindTheme {
       secondaryColor = TColors.gray.shade500;
       cursorColor = TColors.gray.shade600;
       selectionColor = const Color(0xFFb6d7ff);
-      thumbColor = TColors.gray.shade400;
+      thumbColor = TColors.gray.shade300;
       trackColor = TColors.neutral.shade50;
       trackBorderColor = const Color(0xFFededed);
       disabledColor = TColors.gray.shade400;
@@ -172,7 +172,7 @@ class TailwindTheme {
         elevation: 0,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
-          borderRadius: TBorderRadius.rounded_md,
+          borderRadius: TBorderRadius.rounded_lg,
           side: BorderSide(
             color: dividerColor,
           ),

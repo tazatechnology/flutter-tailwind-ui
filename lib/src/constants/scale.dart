@@ -295,6 +295,23 @@ abstract final class TTextScale {
 
   /// Equivalent to Tailwind font size `text-9xl`
   static const text_9xl = 128.0;
+
+  /// A complete list of all the Tailwind spacing scale names and values.
+  static const Map<String, double> values = {
+    'text-xs': text_xs,
+    'text-sm': text_sm,
+    'text-base': text_base,
+    'text-lg': text_lg,
+    'text-xl': text_xl,
+    'text-2xl': text_2xl,
+    'text-3xl': text_3xl,
+    'text-4xl': text_4xl,
+    'text-5xl': text_5xl,
+    'text-6xl': text_6xl,
+    'text-7xl': text_7xl,
+    'text-8xl': text_8xl,
+    'text-9xl': text_9xl,
+  };
 }
 
 // =================================================

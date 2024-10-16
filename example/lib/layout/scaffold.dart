@@ -34,8 +34,6 @@ class AppScaffold extends ConsumerStatefulWidget {
 }
 
 class _AppScaffoldState extends ConsumerState<AppScaffold> {
-  final scrollController = ScrollController();
-
   // -------------------------------------------------
   // METHOD: build
   // -------------------------------------------------

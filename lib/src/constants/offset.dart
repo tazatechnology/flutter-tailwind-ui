@@ -12,6 +12,11 @@ import 'package:flutter_tailwind_ui/src/constants/scale.dart';
 ///
 /// https://tailwindcss.com/docs/customizing-spacing
 abstract final class TOffset {
+  /// Offset of zero on all sides (0px)
+  ///
+  /// Equivalent to EdgeInsets.zero and Tailwind padding class: `p-0`
+  static const zero = EdgeInsets.zero;
+
   // -------------------------------------------------
   // All Side Offset
   // -------------------------------------------------

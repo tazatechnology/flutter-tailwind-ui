@@ -16,8 +16,8 @@ class TCodeBlock extends StatefulWidget {
     this.language = 'dart',
     this.backgroundColor,
     this.brightness,
-    this.padding = const EdgeInsets.all(20),
-    this.margin = const EdgeInsets.symmetric(vertical: 20),
+    this.padding = TOffset.a20,
+    this.margin = TOffset.y20,
     this.constraints = const BoxConstraints(minWidth: double.infinity),
     this.scrollDirection = Axis.vertical,
     this.fontSize,
@@ -150,7 +150,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
               constraints: widget.constraints,
               decoration: BoxDecoration(
                 color: effectiveBackgroundColor,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: TBorderRadius.rounded_xl,
                 border: Border.all(color: borderColor),
               ),
               child: FutureBuilder(

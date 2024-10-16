@@ -2,6 +2,7 @@
 export 'src/components/code_block.dart';
 export 'src/components/radio.dart';
 export 'src/components/row_column.dart';
+export 'src/components/scrollbar.dart';
 export 'src/components/sized_box.dart';
 export 'src/components/text.dart';
 // Constants
