@@ -56,7 +56,9 @@ run-macos: clean
 	@flutter run --release -d macos
 
 run-web: clean
-	@flutter run --release -d chrome
+	@flutter run --release -d chrome \
+	--web-hostname localhost \
+	--web-port 3000
 
 run-windows: clean
 	@flutter run --release -d windows

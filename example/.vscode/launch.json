@@ -21,8 +21,6 @@
                 "--debug",
                 "--device-id",
                 "chrome",
-                "--web-renderer",
-                "html",
                 "--web-hostname",
                 "localhost",
                 "--web-port",
