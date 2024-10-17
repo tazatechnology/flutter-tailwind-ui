@@ -8,10 +8,11 @@ export 'src/components/text.dart';
 // Constants
 export 'src/constants/colors.dart';
 export 'src/constants/enums.dart';
+export 'src/constants/font_size.dart';
 export 'src/constants/offset.dart';
 export 'src/constants/radius.dart';
-export 'src/constants/scale.dart';
 export 'src/constants/screen.dart';
+export 'src/constants/space.dart';
 // Extensions
 export 'src/extensions/build_context.dart';
 export 'src/extensions/color.dart';

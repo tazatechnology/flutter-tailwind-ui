@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'package:flutter/widgets.dart';
-import 'package:flutter_tailwind_ui/src/constants/scale.dart';
+import 'package:flutter_tailwind_ui/src/constants/font_size.dart';
 
 // =================================================
 // CLASS: TLetterSpacing

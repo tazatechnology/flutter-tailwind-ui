@@ -1,13 +1,67 @@
 // ignore_for_file: constant_identifier_names
-
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind_ui/src/constants/scale.dart';
+
+// =================================================
+// CLASS: TRadiusScale
+// =================================================
+
+/// Tailwind radius scaling system for rounded shapes.
+///
+/// See the following link for more information:
+///
+/// https://tailwindcss.com/docs/border-radius
+abstract final class TRadiusScale {
+  /// Radius scale unit of 0px
+  ///
+  /// Equivalent to Tailwind radius scale value: `none`
+  static const radius_none = 0.0;
+
+  /// Radius scale unit of 2px
+  ///
+  /// Equivalent to Tailwind radius scale value: `sm`
+  static const radius_sm = 2.0;
+
+  /// Radius scale unit of 4px
+  ///
+  /// Equivalent to Tailwind radius scale value: `base`
+  static const radius = 4.0;
+
+  /// Radius scale unit of 6px
+  ///
+  /// Equivalent to Tailwind radius scale value: `md`
+  static const radius_md = 6.0;
+
+  /// Radius scale unit of 8px
+  ///
+  /// Equivalent to Tailwind radius scale value: `lg`
+  static const radius_lg = 8.0;
+
+  /// Radius scale unit of 12px
+  ///
+  /// Equivalent to Tailwind radius scale value: `xl`
+  static const radius_xl = 12.0;
+
+  /// Radius scale unit of 16px
+  ///
+  /// Equivalent to Tailwind radius scale value: `2xl`
+  static const radius_2xl = 16.0;
+
+  /// Radius scale unit of 24px
+  ///
+  /// Equivalent to Tailwind radius scale value: `3xl`
+  static const radius_3xl = 24.0;
+
+  /// Radius scale unit of 9999px
+  ///
+  /// Equivalent to Tailwind radius scale value: `full`
+  static const radius_full = 9999.0;
+}
 
 // =================================================
 // CLASS: TRadius
 // =================================================
 
-/// Tailwind radius system for defining rounded corners
+/// Tailwind radius constants for defining rounded corners
 ///
 /// Scaling system is based on 2px increments (and 9999px for full) defined in
 /// [TRadiusScale]

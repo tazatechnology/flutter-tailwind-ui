@@ -1,6 +1,6 @@
 import 'package:flutter/rendering.dart';
 
-import 'package:flutter_tailwind_ui/src/constants/scale.dart';
+import 'package:flutter_tailwind_ui/src/constants/space.dart';
 
 // =================================================
 // CLASS: TOffset
