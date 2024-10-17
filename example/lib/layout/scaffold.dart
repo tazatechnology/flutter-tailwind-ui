@@ -144,11 +144,14 @@ class _ScaffoldHeader extends StatelessWidget {
       children: [
         Row(
           children: [
-            const FlutterLogo(),
-            TSizedBox.x14,
+            Image.asset(
+              'assets/brand/flutter_tailwind_logo.png',
+              height: TSpace.v20,
+            ),
+            TSizedBox.x8,
             SvgPicture.asset(
               'assets/brand/tailwind_ui.svg',
-              semanticsLabel: 'Tailwind UI (Flutter)',
+              semanticsLabel: 'Flutter Tailwind UI',
               height: 20,
               colorFilter: ColorFilter.mode(
                 tw.light ? Colors.black : Colors.white,
