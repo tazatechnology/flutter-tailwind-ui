@@ -76,7 +76,7 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
               // Top padding for the toolbar and additional padding
               SliverPadding(
                 padding: EdgeInsets.only(
-                  top: toolbarHeight + TSpacingScale.v32,
+                  top: toolbarHeight + TSpace.v32,
                 ),
               ),
               if (widget.header != null) ...[
@@ -91,7 +91,7 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
               }),
               // Extra bottom padding for last content in scroll view
               const SliverPadding(
-                padding: EdgeInsets.only(top: TSpacingScale.v64),
+                padding: EdgeInsets.only(top: TSpace.v64),
               ),
             ],
           ),

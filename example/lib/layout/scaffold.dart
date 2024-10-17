@@ -24,10 +24,10 @@ class AppScaffold extends ConsumerStatefulWidget {
   ConsumerState<AppScaffold> createState() => _AppScaffoldState();
 
   /// The height of the toolbar
-  static const toolbarHeight = TSpacingScale.v60;
+  static const toolbarHeight = TSpace.v60;
 
   /// The width of the navigation drawer + scroll x-padding
-  static const navigationWidth = TSpacingScale.v256 + TSpacingScale.v48;
+  static const navigationWidth = TSpace.v256 + TSpace.v48;
 
   /// The breakpoint at which the sidebar is shown
   static const sidebarBreakpoint = TScreen.screen_lg;

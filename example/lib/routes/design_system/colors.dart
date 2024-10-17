@@ -143,7 +143,12 @@ class ColorPalette extends StatelessWidget {
     final light = tw.light;
     final swatches = _shades.map<Widget>((shade) {
       return Expanded(
-        child: ColorSwatch(name: name, color: color, shade: shade),
+        child: ColorSwatch(
+          key: ValueKey(color[shade]?.value.toString()),
+          name: name,
+          color: color,
+          shade: shade,
+        ),
       );
     }).toList();
 
@@ -295,7 +300,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
               alignment: Alignment.center,
               margin: isLast ? TOffset.r0 : TOffset.r8,
               width: double.infinity,
-              height: TSpacingScale.v40,
+              height: TSpace.v40,
               decoration: BoxDecoration(
                 color: color,
                 border: Border.all(
@@ -305,7 +310,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
                 borderRadius: TBorderRadius.rounded,
               ),
               constraints: const BoxConstraints(
-                minWidth: TSpacingScale.v40,
+                minWidth: TSpace.v40,
               ),
               child: copied
                   ? FaIcon(

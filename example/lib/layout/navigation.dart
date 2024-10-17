@@ -29,7 +29,7 @@ class _AppNavigationState extends State<AppNavigation> {
     EdgeInsets topPadding;
     if (showSideBar) {
       topPadding = const EdgeInsets.only(
-        top: AppScaffold.toolbarHeight + TSpacingScale.v8,
+        top: AppScaffold.toolbarHeight + TSpace.v8,
       );
     } else {
       topPadding = TOffset.t32;

@@ -11,6 +11,12 @@ import 'package:flutter_tailwind_ui/src/constants/text.dart';
 /// Reference: https://tailwindcss.com/docs
 class TailwindTheme {
   /// Factory constructor for a light Tailwind inspired theme
+  ///
+  /// [primaryColor] is the primary color of the theme. Defaults to
+  /// [TColors.indigo] if not specified.
+  ///
+  /// [backgroundColor] is the background color of the theme. Defaults to
+  /// [Colors.white] if not specified.
   factory TailwindTheme.light({
     MaterialColor? primaryColor,
     Color? backgroundColor,
@@ -23,6 +29,12 @@ class TailwindTheme {
   }
 
   /// Factory constructor for a dark Tailwind inspired theme
+  ///
+  /// [primaryColor] is the primary color of the theme. Defaults to
+  /// [TColors.indigo] if not specified.
+  ///
+  /// [backgroundColor] is the background color of the theme. Defaults to
+  /// [TColors.slate.shade900] if not specified.
   factory TailwindTheme.dark({
     MaterialColor? primaryColor,
     Color? backgroundColor,
@@ -199,7 +211,7 @@ class TailwindTheme {
       /// Scrollbar
       scrollbarTheme: ScrollbarThemeData(
         thumbColor: WidgetStateProperty.all(thumbColor),
-        thickness: WidgetStateProperty.all(TSpacingScale.v8),
+        thickness: WidgetStateProperty.all(TSpace.v8),
         trackColor: WidgetStateProperty.all(trackColor),
         trackBorderColor: WidgetStateProperty.all(trackBorderColor),
       ),

@@ -34,6 +34,18 @@ class TypographyRoute extends StatelessWidget {
       'tw.text_2xl',
     ];
 
+    // Build the table items
+    final items = <AppValueTableItem>[];
+    for (var ii = 0; ii < TFontSize.values.length; ii++) {
+      final name = TFontSize.values.keys.elementAt(ii);
+      final item = AppValueTableItem(
+        name: 'TFontSize.$name',
+        value: TFontSize.values.values.elementAt(ii).toString(),
+        widget: TText('`tw.$name`', style: tw.text_sm.mono),
+      );
+      items.add(item);
+    }
+
     return AppScrollView.children(
       header: const AppSectionHeader(
         section: 'Design System',
@@ -54,27 +66,26 @@ class TypographyRoute extends StatelessWidget {
 // Default serif font family
 // Defined as static constant: TailwindTheme.fontFamily
 Text(
-  'The quick brown fox jumps over the lazy dog.',
+  'This is the default serif font family.',
 )
 
 // Default monospaced font family
 // Defined as static constant: TailwindTheme.fontFamilyMono
 Text(
-  'The quick brown fox jumps over the lazy dog.',
-  style: TextStyle().mono,
+  'This is the default monospaced font family.',
+  style: TextStyle(fontFamily: TailwindTheme.fontFamilyMono),
 )
 ''',
         ),
-        AppCodeResultCard(
+        const AppCodeResultCard(
           children: [
-            const Text(
-              'The quick brown fox jumps over the lazy dog.',
-              style: TextStyle(),
+            Text(
+              'This is the default serif font family.',
             ),
             TSizedBox.y10,
             Text(
-              'The quick brown fox jumps over the lazy dog.',
-              style: const TextStyle().mono,
+              'This is the default monospaced font family.',
+              style: TextStyle(fontFamily: TailwindTheme.fontFamilyMono),
             ),
           ],
         ),
@@ -87,19 +98,12 @@ Text(
 
         /// Font size Examples
         AppValueTable(
-          data: {
-            'Name': 'Font Size',
-            ...TTextScale.values.map(
-              (key, value) => MapEntry(key, value.toString()),
-            ),
-          },
+          header: const [Text('Scale'), Text('Value'), Text('Text Style')],
+          items: items,
         ),
         const TCodeBlock(
           brightness: Brightness.dark,
           code: '''
-// Get the tailwind context from the current BuildContext
-final tw = context.tw;
-
 Text(
   'The quick brown fox jumps over the lazy dog.',
   style: tw.text_xs,

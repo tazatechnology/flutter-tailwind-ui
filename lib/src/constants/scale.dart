@@ -4,7 +4,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-/// Tailwind scaling system for padding, margin, width, height, etc.
+/// Tailwind spacing scale system for padding, margin, width, height, etc.
 ///
 /// See the following link for more information:
 ///
@@ -15,7 +15,7 @@
 /// but is discussed as a possible future improvement.
 ///
 /// https://github.com/tailwindlabs/tailwindcss/discussions/12263
-abstract final class TSpacingScale {
+abstract final class TSpace {
   /// Spacing scale unit of 0px
   ///
   /// Equivalent to Tailwind spacing scale value: `0`
@@ -250,13 +250,13 @@ abstract final class TSpacingScale {
 }
 
 // =================================================
-// CLASS: TTextScale
+// CLASS: TFontSize
 // =================================================
 
 /// Tailwind font size scaling system for text.
 ///
 /// https://tailwindcss.com/docs/font-size
-abstract final class TTextScale {
+abstract final class TFontSize {
   /// Equivalent to Tailwind font size `text-xs`
   static const text_xs = 12.0;
 
@@ -298,19 +298,19 @@ abstract final class TTextScale {
 
   /// A complete list of all the Tailwind spacing scale names and values.
   static const Map<String, double> values = {
-    'text-xs': text_xs,
-    'text-sm': text_sm,
-    'text-base': text_base,
-    'text-lg': text_lg,
-    'text-xl': text_xl,
-    'text-2xl': text_2xl,
-    'text-3xl': text_3xl,
-    'text-4xl': text_4xl,
-    'text-5xl': text_5xl,
-    'text-6xl': text_6xl,
-    'text-7xl': text_7xl,
-    'text-8xl': text_8xl,
-    'text-9xl': text_9xl,
+    'text_xs': text_xs,
+    'text_sm': text_sm,
+    'text_base': text_base,
+    'text_lg': text_lg,
+    'text_xl': text_xl,
+    'text_2xl': text_2xl,
+    'text_3xl': text_3xl,
+    'text_4xl': text_4xl,
+    'text_5xl': text_5xl,
+    'text_6xl': text_6xl,
+    'text_7xl': text_7xl,
+    'text_8xl': text_8xl,
+    'text_9xl': text_9xl,
   };
 }
 

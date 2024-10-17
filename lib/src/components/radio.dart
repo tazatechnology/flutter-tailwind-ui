@@ -76,8 +76,8 @@ class TRadioList<T> extends StatelessWidget {
     this.mouseCursor = SystemMouseCursors.basic,
     this.controlAffinity = TControlAffinity.leading,
     this.padding = const EdgeInsets.symmetric(
-      horizontal: TSpacingScale.v16,
-      vertical: TSpacingScale.v12,
+      horizontal: TSpace.v16,
+      vertical: TSpace.v12,
     ),
     this.title,
     this.description,
@@ -96,8 +96,8 @@ class TRadioList<T> extends StatelessWidget {
     this.mouseCursor = SystemMouseCursors.basic,
     this.controlAffinity = TControlAffinity.leading,
     this.padding = const EdgeInsets.symmetric(
-      horizontal: TSpacingScale.v16,
-      vertical: TSpacingScale.v12,
+      horizontal: TSpace.v16,
+      vertical: TSpace.v12,
     ),
     this.title,
     this.description,
@@ -153,7 +153,7 @@ class TRadioList<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    final effectiveSpacing = spacing ?? TSpacingScale.v14;
+    final effectiveSpacing = spacing ?? TSpace.v14;
 
     return ConstrainedBox(
       constraints: constraints ?? const BoxConstraints(),
@@ -278,8 +278,8 @@ class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
       alignment: Alignment.center,
       children: [
         Container(
-          width: TSpacingScale.v16,
-          height: TSpacingScale.v16,
+          width: TSpace.v16,
+          height: TSpace.v16,
           decoration: BoxDecoration(
             color: widget.selected ? selectedColor : Colors.transparent,
             shape: BoxShape.circle,
@@ -292,8 +292,8 @@ class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
           child: widget.selected ? radioDot : null,
         ),
         Container(
-          width: TSpacingScale.v24,
-          height: TSpacingScale.v24,
+          width: TSpace.v24,
+          height: TSpace.v24,
           decoration: BoxDecoration(
             color: Colors.transparent,
             shape: BoxShape.circle,

@@ -16,13 +16,13 @@ class AppToolbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: context.tw.screen_sm ? TSpacingScale.v20 : TSpacingScale.v14,
+      spacing: context.tw.screen_sm ? TSpace.v20 : TSpace.v14,
       children: [
         InkWell(
           child: SvgPicture.asset(
             'assets/img/dart.svg',
             semanticsLabel: 'Tailwind UI (Flutter)',
-            height: TSpacingScale.v20,
+            height: TSpace.v20,
           ),
           onTap: () {},
         ),
@@ -30,7 +30,7 @@ class AppToolbar extends StatelessWidget {
         InkWell(
           child: const Icon(
             FontAwesomeIcons.github,
-            size: TSpacingScale.v20,
+            size: TSpace.v20,
           ),
           onTap: () {},
         ),
