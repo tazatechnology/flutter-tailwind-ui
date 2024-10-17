@@ -13,10 +13,15 @@ class SpacingRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    var scale = 0.75;
+    var scale = 0.0;
     if (tw.screen_md) {
       scale = 1;
+    } else if (tw.screen_xs) {
+      scale = 0.6;
+    } else {
+      scale = 0.4;
     }
+
     return AppScrollView.slivers(
       header: const AppSectionHeader(
         section: 'Design System',
