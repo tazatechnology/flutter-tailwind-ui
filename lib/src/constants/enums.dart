@@ -10,7 +10,7 @@ enum TControlAffinity {
 }
 
 /// Extension for the [TControlAffinity] enum
-extension TExtensionTControlAffinity on TControlAffinity {
+extension XTailwindTControlAffinity on TControlAffinity {
   /// Returns whether the control is leading
   bool get isLeading => this == TControlAffinity.leading;
 

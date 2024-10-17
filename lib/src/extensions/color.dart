@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // =================================================
 
 /// Extension on [Color] to provide useful methods
-extension TExtensionColor on Color {
+extension XTailwindColor on Color {
   /// Darken a color by [percent] amount (1 = black)
   Color darken([double percent = 0.1]) {
     if (percent <= 0.001) {

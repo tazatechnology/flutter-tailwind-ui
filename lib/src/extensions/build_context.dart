@@ -5,14 +5,14 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/constants/text.dart';
 
 // =================================================
-// EXTENSION: TExtensionBuildContext
+// EXTENSION: XTailwindBuildContext
 // =================================================
 
 /// Extension methods for the [BuildContext] class
 ///
 /// This extension provides a set of useful methods to the [BuildContext] class
 /// used to simplify the access to common properties and methods.
-extension TExtensionBuildContext on BuildContext {
+extension XTailwindBuildContext on BuildContext {
   /// The current Tailwind theme context
   TailwindBuildContext get tw => TailwindBuildContext._(this);
 
