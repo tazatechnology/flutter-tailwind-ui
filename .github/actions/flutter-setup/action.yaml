@@ -21,7 +21,7 @@ runs:
         echo "MAKEFLAGS=--no-print-directory" >> $GITHUB_ENV
 
     - name: Configure Flutter
-      uses: subosito/flutter-action@main
+      uses: subosito/flutter-action@v2
       with:
         channel: stable
         flutter-version: ${{ inputs.flutter-version }}

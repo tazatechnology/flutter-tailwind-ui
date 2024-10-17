@@ -6,7 +6,11 @@ homepage: https://fluttertailwind.com
 documentation: https://fluttertailwind.com
 repository: https://github.com/tazatechnology/flutter-tailwind-ui
 issue_tracker: https://github.com/tazatechnology/flutter-tailwind-ui/issues
-
+topics:
+  - user-interface
+  - design-system
+  - flutter-ui
+  
 environment:
   sdk: ^3.5.3
   flutter: ">=1.17.0"

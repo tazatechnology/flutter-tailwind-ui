@@ -1,11 +1,7 @@
 name: flutter_tailwind_ui_example
 description: "Flutter Tailwind UI Example Application"
 publish_to: 'none'
-version: 1.0.0+1
-topics:
-  - user-interface
-  - design-system
-  - flutter-ui
+version: 0.0.2
 
 environment:
   sdk: ^3.0.0
@@ -15,7 +11,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
-  flutter_app_info: ^3.0.0
+  flutter_app_info: ^3.0.1
   flutter_riverpod: ^2.5.3
   flutter_svg: ^2.0.10+1
   flutter_tailwind_ui:

@@ -106,10 +106,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_app_info
-      sha256: d7e4476e830c8de6a8073a5652dc6317e008d0c132f2a3b05f5cf4226de3567c
+      sha256: db9be6b1249ec1d58c8df64367003776728e7b16fc5ccf6af70959429e365ab2
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   flutter_riverpod:
     dependency: "direct main"
     description:
@@ -132,7 +132,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
