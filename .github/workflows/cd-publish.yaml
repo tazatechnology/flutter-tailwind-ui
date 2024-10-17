@@ -1,4 +1,5 @@
-name: Publish
+# Continuous Deployment: Publish Package to pub.dev
+name: CD Publish
 
 on:
   push:
@@ -20,11 +21,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          flutter-version: 3.24.3
+      - name: Flutter Setup
+        uses: ./.github/actions/flutter-setup
 
       - name: Get Id Token
         uses: actions/github-script@v6
@@ -35,3 +33,12 @@ jobs:
 
       - name: Authenticate
         run: flutter pub pub token add https://pub.dev --env-var PUB_TOKEN
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Dry Run
+        run: flutter pub publish --dry-run
+
+      - name: Publish
+        run: flutter pub publish -f

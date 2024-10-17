@@ -1,4 +1,5 @@
-name: Test
+# Continuous Integration: Tests and Checks
+name: CI Test
 
 on:
   workflow_dispatch: {}
@@ -22,11 +23,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          flutter-version: 3.24.3
+      - name: Flutter Setup
+        uses: ./.github/actions/flutter-setup
 
       - name: Install Dependencies
         run: make init
@@ -51,10 +49,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
+      - name: Flutter Setup
+        uses: ./.github/actions/flutter-setup
 
       - name: Install Dependencies
         working-directory: example

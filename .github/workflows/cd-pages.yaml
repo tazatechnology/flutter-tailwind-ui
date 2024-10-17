@@ -1,5 +1,5 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy Website
+# Continuous Deployment: Publish Website to GitHub Pages
+name: CD Website
 
 on:
   push:
@@ -28,10 +28,8 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
+      - name: Flutter Setup
+        uses: ./.github/actions/flutter-setup
 
       - name: Build Website
         working-directory: example
