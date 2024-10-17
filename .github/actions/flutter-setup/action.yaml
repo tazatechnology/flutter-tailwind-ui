@@ -9,11 +9,11 @@ inputs:
   configure-linux:
     required: false
     description: Whether to configure linux desktop dependencies
-    default: 'false'
+    default: "false"
 
 runs:
   using: composite
-  
+
   steps:
     - name: Setup Environment Variables
       shell: bash
@@ -25,7 +25,7 @@ runs:
       with:
         channel: stable
         flutter-version: ${{ inputs.flutter-version }}
-  
+
     - name: Configure Flutter
       shell: bash
       run: |
@@ -33,7 +33,7 @@ runs:
         flutter config --disable-analytics
         flutter config --enable-web
         flutter --version
-    
+
     - name: Configure Linux Dependencies
       if: ${{ inputs.configure-linux == 'true' && runner.os == 'Linux' }}
       shell: bash

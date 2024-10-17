@@ -13,16 +13,16 @@ permissions:
   contents: write
   id-token: write
   pull-requests: write
-  
+
 jobs:
   test-package:
     name: test-package
     runs-on: ubuntu-latest
-      
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      
+
       - name: Flutter Setup
         uses: ./.github/actions/flutter-setup
 
@@ -44,11 +44,11 @@ jobs:
   test-example:
     name: test-example
     runs-on: ubuntu-latest
-      
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      
+
       - name: Flutter Setup
         uses: ./.github/actions/flutter-setup
 

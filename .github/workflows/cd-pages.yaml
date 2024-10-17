@@ -34,7 +34,7 @@ jobs:
       - name: Build Website
         working-directory: example
         run: |
-          flutter pub get --enforce-lockfile
+          flutter pub get
           flutter build web --release --tree-shake-icons
 
       - name: Upload artifact
