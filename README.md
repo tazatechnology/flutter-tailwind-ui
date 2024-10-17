@@ -1,3 +1,5 @@
 # flutter_tailwind_ui
 
-Flutter widgets and theming inspired by Tailwind UI
+Coming soon.
+
+Package is under active development and **not ready** for use yet.
