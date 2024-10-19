@@ -1,4 +1,34 @@
+// ignore_for_file: constant_identifier_names
 import 'package:flutter/material.dart';
+
+/// The [ColorSwatch] shades used by Flutter [MaterialColor] definitions
+const DEFAULT_COLOR_SWATCH_SHADES = [
+  50,
+  100,
+  200,
+  300,
+  400,
+  500,
+  600,
+  700,
+  800,
+  900,
+];
+
+/// The [ColorSwatch] shades used by Tailwind [MaterialColor] definitions
+const DEFAULT_TAILWIND_COLOR_SWATCH_SHADES = [
+  50,
+  100,
+  200,
+  300,
+  400,
+  500,
+  600,
+  700,
+  800,
+  900,
+  950,
+];
 
 // =================================================
 // CLASS: TColors
@@ -8,6 +38,15 @@ import 'package:flutter/material.dart';
 ///
 /// https://tailwindcss.com/docs/customizing-colors
 abstract final class TColors {
+  /// Completely opaque black.
+  static const black = Colors.black;
+
+  /// Completely opaque white.
+  static const white = Colors.white;
+
+  /// Completely invisible.
+  static const transparent = Colors.transparent;
+
   /// Slate color palette
   static const MaterialColor slate = MaterialColor(
     0xFF64748b,

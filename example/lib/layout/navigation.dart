@@ -24,7 +24,7 @@ class _AppNavigationState extends State<AppNavigation> {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    final showSideBar = tw.screen_width >= AppScaffold.sidebarBreakpoint;
+    final showSideBar = tw.screen.width >= AppScaffold.sidebarBreakpoint;
 
     EdgeInsets topPadding;
     if (showSideBar) {
@@ -98,7 +98,7 @@ class AppNavigationSection extends StatelessWidget {
           padding: TOffset.b12 + TOffset.t24,
           child: Text(
             title,
-            style: tw.text_sm.semibold.copyWith(
+            style: tw.text.style_sm.semibold.copyWith(
               color: TColors.slate[tw.light ? 900 : 200],
             ),
           ),
@@ -149,7 +149,7 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
 
     final state = GoRouterState.of(context);
     final isActive = state.topRoute?.name == widget.route;
-    final showSideBar = tw.screen_width >= AppScaffold.sidebarBreakpoint;
+    final showSideBar = tw.screen.width >= AppScaffold.sidebarBreakpoint;
 
     final activeColor = tw.light ? TColors.sky.shade500 : TColors.sky.shade400;
     final inactiveColor =
@@ -181,7 +181,7 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
         ),
         child: Text(
           widget.title,
-          style: tw.text_sm.copyWith(
+          style: tw.text.style_sm.copyWith(
             color: isActive ? activeColor : inactiveColor,
             fontWeight: isActive ? FontWeight.w500 : FontWeight.normal,
           ),

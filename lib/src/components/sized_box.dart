@@ -12,8 +12,8 @@ class TSizedBox extends SizedBox {
   ///
   /// See [TSpace] for standardized dimensions
   ///
-  /// If possible, use the predefined static values that are available at each
-  /// [TSpace] increment, e.g. [TSizedBox.s16] for 16px square
+  /// If possible, use the predefined static const values that are available at
+  /// each [TSpace] increment, e.g. [TSizedBox.y16] for a 16px square.
   const TSizedBox.square({
     super.key,
     super.child,
@@ -24,8 +24,8 @@ class TSizedBox extends SizedBox {
   ///
   /// See [TSpace] for standardized dimensions
   ///
-  /// If possible, use the predefined static values that are available at each
-  /// [TSpace] increment, e.g. [TSizedBox.x16] for 16px in width
+  /// If possible, use the predefined static const values that are available at
+  /// each [TSpace] increment, e.g. [TSizedBox.y16] for 16px in width.
   const TSizedBox.x({
     super.key,
     super.child,
@@ -36,8 +36,8 @@ class TSizedBox extends SizedBox {
   ///
   /// See [TSpace] for standardized dimensions
   ///
-  /// If possible, use the predefined static values that are available at each
-  /// [TSpace] increment, e.g. [TSizedBox.y16] for 16px in height
+  /// If possible, use the predefined static const values that are available at
+  /// each [TSpace] increment, e.g. [TSizedBox.y16] for 16px in height.
   const TSizedBox.y({
     super.key,
     super.child,

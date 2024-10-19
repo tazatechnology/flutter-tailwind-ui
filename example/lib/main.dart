@@ -41,6 +41,7 @@ class FlutterTailwindApp extends ConsumerWidget {
       title: 'Flutter Tailwind UI',
       debugShowCheckedModeBanner: false,
       themeMode: ref.watch(themeModeProvider),
+      themeAnimationDuration: Duration.zero,
       // theme: ref.watch(themeLightProvider),
       // darkTheme: ref.watch(themDarkProvider),
       theme: TailwindTheme.light().data,

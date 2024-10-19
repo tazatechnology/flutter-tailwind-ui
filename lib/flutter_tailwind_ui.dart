@@ -14,10 +14,14 @@ export 'src/constants/radius.dart';
 export 'src/constants/screen.dart';
 export 'src/constants/space.dart';
 // Extensions
-export 'src/extensions/build_context.dart';
+export 'src/extensions/build_context.dart' show XTailwindBuildContext;
 export 'src/extensions/color.dart';
 export 'src/extensions/text_style.dart';
 // Theme
+export 'src/theme/colors.dart';
+export 'src/theme/text.dart';
 export 'src/theme/theme.dart';
+
 // Utilities
 export 'src/utilities/highlighter.dart';
+export 'src/utilities/lerp.dart';

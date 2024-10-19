@@ -162,14 +162,14 @@ class TRadioList<T> extends StatelessWidget {
         children: [
           if (title != null)
             DefaultTextStyle.merge(
-              style: context.tw.text_sm.semibold,
+              style: tw.text.style_sm.semibold,
               child: title!,
             ),
           if (description != null)
             Padding(
               padding: TOffset.t4 + TOffset.b16,
               child: DefaultTextStyle.merge(
-                style: context.tw.text_sm.copyWith(color: tw.labelColor),
+                style: tw.text.style_sm.copyWith(color: tw.colors.label),
                 child: description!,
               ),
             ),
@@ -270,7 +270,7 @@ class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
     final tw = context.tw;
     final theme = context.theme;
     final isVertical = widget.direction == Axis.vertical;
-    final selectedColor = tw.primaryColor[tw.light ? 600 : 400]!;
+    final selectedColor = tw.colors.primary[tw.light ? 600 : 400]!;
 
     /// Radio control
     const radioDot = Icon(Icons.circle, size: 7, color: Colors.white);
@@ -316,7 +316,7 @@ class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
                   widget.controlAffinity.isLeading ? TOffset.l12 : TOffset.r12,
               // Change the text theme for this title
               child: DefaultTextStyle.merge(
-                style: context.tw.text_sm.copyWith(
+                style: tw.text.style_sm.copyWith(
                   fontWeight: isEnabled ? FontWeight.w500 : FontWeight.normal,
                   color: isEnabled ? null : theme.disabledColor,
                 ),

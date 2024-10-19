@@ -12,17 +12,34 @@ class AboutRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tw = context.tw;
     return AppScrollView.children(
       header: const AppSectionHeader(
         section: 'Getting Started',
         title: 'About',
       ),
-      children: const [
-        TText(
+      children: [
+        const TText(
           'Content is **bold**\nThis should be _italic_\nThis should be _**bold/italic**_\nensuring the `currentIndex` is updated\nAnd here is a link to [google](google.com)',
         ),
-        TText(
+        const TText(
           'And here is a link to [`code link`](google.com)',
+        ),
+        TSizedBox.y20,
+        TText(
+          'Primary headline',
+          style: tw.text.style_lg.bold.copyWith(color: tw.colors.title),
+        ),
+        TText(
+          'Limited time only',
+          style: tw.text.style_sm.copyWith(color: tw.colors.label),
+        ),
+        TText(
+          'Enjoy all of the free features',
+          style: tw.text.style_md.copyWith(color: tw.colors.body),
+        ),
+        const Card(
+          child: TSizedBox.s160,
         ),
       ],
     );

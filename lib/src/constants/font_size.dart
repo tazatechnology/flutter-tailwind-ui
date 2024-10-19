@@ -15,7 +15,7 @@ abstract final class TFontSize {
   static const text_sm = 14.0;
 
   /// Equivalent to Tailwind font size `text-base`
-  static const text_base = 16.0;
+  static const text_md = 16.0;
 
   /// Equivalent to Tailwind font size `text-lg`
   static const text_lg = 18.0;
@@ -51,7 +51,7 @@ abstract final class TFontSize {
   static const Map<String, double> values = {
     'text_xs': text_xs,
     'text_sm': text_sm,
-    'text_base': text_base,
+    'text_md': text_md,
     'text_lg': text_lg,
     'text_xl': text_xl,
     'text_2xl': text_2xl,

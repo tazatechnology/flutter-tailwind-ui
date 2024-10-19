@@ -78,7 +78,7 @@ class TText extends StatelessWidget {
   TextSpan _parse(String text, BuildContext context) {
     final tw = context.tw;
     final baseStyle = style ?? DefaultTextStyle.of(context).style;
-    final baseFontSize = baseStyle.fontSize ?? tw.text_base.fontSize ?? 16;
+    final baseFontSize = baseStyle.fontSize ?? tw.text.style_md.fontSize ?? 16;
 
     // Regex to match **bold**, _italic_, `code`, and [text](url)
     final exp = RegExp(

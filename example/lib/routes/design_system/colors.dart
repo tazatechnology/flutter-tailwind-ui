@@ -6,9 +6,6 @@ import 'package:flutter_tailwind_ui_example/layout/header.dart';
 import 'package:flutter_tailwind_ui_example/layout/scroll_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-/// The default shades for Flutter Tailwind UI color palettes
-const _shades = <int>[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-
 /// List of all the Flutter Tailwind UI color palettes
 const _colors = {
   'Slate': TColors.slate,
@@ -88,7 +85,7 @@ class ColorsRoute extends ConsumerWidget {
               ),
               TSizedBox.y16,
               TRadioList<ColorFormat>.card(
-                direction: tw.screen_md ? Axis.horizontal : Axis.vertical,
+                direction: tw.screen.is_md ? Axis.horizontal : Axis.vertical,
                 expanded: true,
                 title: const Text('Select color format'),
                 description: const Text(
@@ -141,7 +138,7 @@ class ColorPalette extends StatelessWidget {
   Widget build(BuildContext context) {
     final tw = context.tw;
     final light = tw.light;
-    final swatches = _shades.map<Widget>((shade) {
+    final swatches = DEFAULT_TAILWIND_COLOR_SWATCH_SHADES.map<Widget>((shade) {
       return Expanded(
         child: ColorSwatch(
           key: ValueKey(color[shade]?.value.toString()),
@@ -154,12 +151,12 @@ class ColorPalette extends StatelessWidget {
 
     final colorNameWidget = Text(
       name,
-      style: tw.text_sm.semibold.copyWith(
+      style: tw.text.style_sm.semibold.copyWith(
         color: TColors.slate[light ? 900 : 200],
       ),
     );
 
-    final screenMedium = tw.screen_md;
+    final screenMedium = tw.screen.is_md;
 
     // Add an extra swatch to make the row even on small screens
     if (!screenMedium) {
@@ -281,10 +278,10 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
     final tw = context.tw;
     final light = tw.light;
     var isLast = false;
-    if (widget.shade == _shades.last) {
+    if (widget.shade == DEFAULT_TAILWIND_COLOR_SWATCH_SHADES.last) {
       isLast = true;
     }
-    if (!tw.screen_md) {
+    if (!tw.screen.is_md) {
       if (widget.shade == 400) {
         isLast = true;
       }
@@ -323,14 +320,14 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
               padding: TOffset.t8 + TOffset.b2,
               child: Text(
                 widget.shade.toString(),
-                style: tw.text_xs.medium.copyWith(
+                style: tw.text.style_xs.medium.copyWith(
                   color: light ? TColors.slate.shade900 : Colors.white,
                 ),
               ),
             ),
             Text(
               copied ? 'Copied' : color.toHex(),
-              style: tw.text_xs.mono.copyWith(
+              style: tw.text.style_xs.mono.copyWith(
                 fontSize: 10,
                 fontWeight: copied ? FontWeight.bold : FontWeight.normal,
                 color: copied ? null : TColors.slate[light ? 500 : 400],

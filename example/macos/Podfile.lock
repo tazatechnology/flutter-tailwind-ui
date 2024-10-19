@@ -19,9 +19,9 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
 
 SPEC CHECKSUMS:
-  device_info_plus: f1aae8670672f75c4c8850ecbe0b2ddef62b0a22
+  device_info_plus: 74e614483d05c89290d30a4c8feae15d555f7427
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
-  package_info_plus: d2f71247aab4b6521434f887276093acc70d214c
+  package_info_plus: f5790acc797bf17c3e959e9d6cf162cc68ff7523
 
 PODFILE CHECKSUM: 236401fc2c932af29a9fcf0e97baeeb2d750d367
 

@@ -38,80 +38,41 @@ abstract final class TLetterSpacing {
 /// https://tailwindcss.com/docs/font-size
 abstract final class TTextStyle {
   /// [TextStyle] equivalent to Tailwind font size `text-xs`
-  static const text_xs = TextStyle(
-    fontSize: TFontSize.text_xs,
-    height: 16 / 12,
-  );
+  static const text_xs = TextStyle(fontSize: TFontSize.text_xs, height: 1);
 
   /// [TextStyle] equivalent to Tailwind font size `text-sm`
-  static const text_sm = TextStyle(
-    fontSize: TFontSize.text_sm,
-    height: 20 / 14,
-  );
+  static const text_sm = TextStyle(fontSize: TFontSize.text_sm, height: 1.25);
 
   /// [TextStyle] equivalent to Tailwind font size `text-base`
-  static const text_base = TextStyle(
-    fontSize: TFontSize.text_base,
-    height: 24 / 16,
-  );
+  static const text_md = TextStyle(fontSize: TFontSize.text_md, height: 1.5);
 
   /// [TextStyle] equivalent to Tailwind font size `text-lg`
-  static const text_lg = TextStyle(
-    fontSize: TFontSize.text_lg,
-    height: 28 / 18,
-  );
+  static const text_lg = TextStyle(fontSize: TFontSize.text_lg, height: 1.75);
 
   /// [TextStyle] equivalent to Tailwind font size `text-xl`
-  static const text_xl = TextStyle(
-    fontSize: TFontSize.text_xl,
-    height: 28 / 20,
-  );
+  static const text_xl = TextStyle(fontSize: TFontSize.text_xl, height: 1.75);
 
   /// [TextStyle] equivalent to Tailwind font size `text-2xl`
-  static const text_2xl = TextStyle(
-    fontSize: TFontSize.text_2xl,
-    height: 32 / 24,
-  );
+  static const text_2xl = TextStyle(fontSize: TFontSize.text_2xl, height: 2);
 
   /// [TextStyle] equivalent to Tailwind font size `text-3xl`
-  static const text_3xl = TextStyle(
-    fontSize: TFontSize.text_3xl,
-    height: 36 / 30,
-  );
+  static const text_3xl = TextStyle(fontSize: TFontSize.text_3xl, height: 2.25);
 
   /// [TextStyle] equivalent to Tailwind font size `text-4xl`
-  static const text_4xl = TextStyle(
-    fontSize: TFontSize.text_4xl,
-    height: 40 / 36,
-  );
+  static const text_4xl = TextStyle(fontSize: TFontSize.text_4xl, height: 2.5);
 
   /// [TextStyle] equivalent to Tailwind font size `text-5xl`
-  static const text_5xl = TextStyle(
-    fontSize: TFontSize.text_5xl,
-    height: 1,
-  );
+  static const text_5xl = TextStyle(fontSize: TFontSize.text_5xl, height: 1);
 
   /// [TextStyle] equivalent to Tailwind font size `text-6xl`
-  static const text_6xl = TextStyle(
-    fontSize: TFontSize.text_6xl,
-    height: 1,
-  );
+  static const text_6xl = TextStyle(fontSize: TFontSize.text_6xl, height: 1);
 
   /// [TextStyle] equivalent to Tailwind font size `text-7xl`
-  static const text_7xl = TextStyle(
-    fontSize: TFontSize.text_7xl,
-    height: 1,
-  );
+  static const text_7xl = TextStyle(fontSize: TFontSize.text_7xl, height: 1);
 
   /// [TextStyle] equivalent to Tailwind font size `text-8xl`
-  static const text_8xl = TextStyle(
-    fontSize: TFontSize.text_8xl,
-    height: 1,
-  );
+  static const text_8xl = TextStyle(fontSize: TFontSize.text_8xl, height: 1);
 
   /// [TextStyle] equivalent to Tailwind font size `text-9xl`
-  static const text_9xl = TextStyle(
-    fontSize: TFontSize.text_9xl,
-    height: 1,
-  );
+  static const text_9xl = TextStyle(fontSize: TFontSize.text_9xl, height: 1);
 }

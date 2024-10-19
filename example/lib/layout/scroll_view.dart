@@ -60,7 +60,7 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
   @override
   Widget build(BuildContext context) {
     var toolbarHeight = AppScaffold.toolbarHeight;
-    if (context.tw.screen_width < AppScaffold.sidebarBreakpoint) {
+    if (context.tw.screen.width < AppScaffold.sidebarBreakpoint) {
       toolbarHeight = AppScaffold.toolbarHeight * 2;
     }
     final physics = ref.watch(outerScrollPhysicsProvider);

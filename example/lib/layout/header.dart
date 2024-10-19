@@ -27,14 +27,14 @@ class AppSectionHeader extends StatelessWidget {
           padding: TOffset.b10,
           child: Text(
             section,
-            style: tw.text_sm.semibold.copyWith(
+            style: tw.text.style_sm.semibold.copyWith(
               color: TColors.sky[tw.light ? 500 : 400],
             ),
           ),
         ),
         Text(
           title,
-          style: tw.text_3xl.extrabold.tracking_tight.copyWith(
+          style: tw.text.style_3xl.extrabold.tracking_tight.copyWith(
             color: TColors.slate[tw.light ? 900 : 200],
           ),
         ),
@@ -43,7 +43,7 @@ class AppSectionHeader extends StatelessWidget {
             padding: TOffset.t10,
             child: Text(
               description!,
-              style: tw.text_lg.copyWith(
+              style: tw.text.style_lg.copyWith(
                 color: TColors.slate.shade700,
               ),
             ),
@@ -73,7 +73,7 @@ class AppSubSectionHeader extends StatelessWidget {
       padding: padding + TOffset.b16,
       child: Text(
         title,
-        style: tw.text_lg.bold.copyWith(
+        style: tw.text.style_lg.bold.copyWith(
           color: tw.light ? TColors.slate.shade700 : TColors.slate.shade200,
         ),
       ),

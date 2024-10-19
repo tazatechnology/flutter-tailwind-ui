@@ -84,7 +84,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
               ),
             ),
             child: DefaultTextStyle(
-              style: tw.text_sm.semibold.copyWith(
+              style: tw.text.style_sm.semibold.copyWith(
                 color:
                     tw.light ? TColors.slate.shade700 : TColors.slate.shade200,
               ),
@@ -148,7 +148,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                               width: widget.nameWidth,
                               child: Text(
                                 item.name,
-                                style: tw.text_xs.mono.copyWith(
+                                style: tw.text.style_xs.mono.copyWith(
                                   color: TColors.sky[tw.light ? 500 : 300],
                                 ),
                               ),
@@ -158,7 +158,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                                 width: widget.valueWidth,
                                 child: Text(
                                   item.value!,
-                                  style: tw.text_xs.mono,
+                                  style: tw.text.style_xs.mono,
                                 ),
                               ),
                             if (item.widget != null) item.widget!,

@@ -17,21 +17,21 @@ class TypographyRoute extends StatelessWidget {
     final tw = context.tw;
 
     final styles = [
-      tw.text_xs,
-      tw.text_sm,
-      tw.text_base,
-      tw.text_lg,
-      tw.text_xl,
-      tw.text_2xl,
+      tw.text.style_xs,
+      tw.text.style_sm,
+      tw.text.style_md,
+      tw.text.style_lg,
+      tw.text.style_xl,
+      tw.text.style_2xl,
     ];
 
     final styleNames = [
-      'tw.text_xs',
-      'tw.text_sm',
-      'tw.text_base',
-      'tw.text_lg',
-      'tw.text_xl',
-      'tw.text_2xl',
+      'tw.text.style_xs',
+      'tw.text.style_sm',
+      'tw.text.style_md',
+      'tw.text.style_lg',
+      'tw.text.style_xl',
+      'tw.text.style_2xl',
     ];
 
     // Build the table items
@@ -41,7 +41,7 @@ class TypographyRoute extends StatelessWidget {
       final item = AppValueTableItem(
         name: 'TFontSize.$name',
         value: TFontSize.values.values.elementAt(ii).toString(),
-        widget: TText('`tw.$name`', style: tw.text_sm.mono),
+        widget: TText('`tw.$name`', style: tw.text.style_sm.mono),
       );
       items.add(item);
     }
@@ -106,13 +106,13 @@ Text(
           code: '''
 Text(
   'The quick brown fox jumps over the lazy dog.',
-  style: tw.text_xs,
+  style: tw.text.style_xs,
 )
 
 // The font styles can also be converted to monospaced
 Text(
   'The quick brown fox jumps over the lazy dog.',
-  style: tw.text_xs.mono,
+  style: tw.text.style_xs.mono,
 )
 ''',
         ),
@@ -123,7 +123,7 @@ Text(
                 padding: TOffset.b4,
                 child: Text(
                   styleNames[ii],
-                  style: tw.text_sm.mono.copyWith(color: TColors.gray),
+                  style: tw.text.style_sm.mono.copyWith(color: TColors.gray),
                 ),
               ),
               Padding(

@@ -14,9 +14,10 @@ class AppToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tw = context.tw;
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: context.tw.screen_sm ? TSpace.v20 : TSpace.v14,
+      spacing: tw.screen.is_sm ? TSpace.v20 : TSpace.v14,
       children: [
         InkWell(
           child: SvgPicture.asset(

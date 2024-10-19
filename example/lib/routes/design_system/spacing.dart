@@ -15,9 +15,9 @@ class SpacingRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     final tw = context.tw;
     var scale = 0.0;
-    if (tw.screen_md) {
+    if (tw.screen.is_md) {
       scale = 1;
-    } else if (tw.screen_xs) {
+    } else if (tw.screen.is_xs) {
       scale = 0.6;
     } else {
       scale = 0.4;

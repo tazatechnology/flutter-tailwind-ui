@@ -1,4 +1,5 @@
-import 'dart:ui';
+import 'dart:math' show pi;
+import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
@@ -42,7 +43,7 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
   Widget build(BuildContext context) {
     final tw = context.tw;
 
-    final showSideBar = tw.screen_width >= AppScaffold.sidebarBreakpoint;
+    final showSideBar = tw.screen.width >= AppScaffold.sidebarBreakpoint;
     var appBarHeight = AppScaffold.toolbarHeight;
     var appBarXPad = TOffset.x28;
     if (!showSideBar) {
@@ -144,21 +145,8 @@ class _ScaffoldHeader extends StatelessWidget {
       children: [
         Row(
           children: [
-            Image.asset(
-              'assets/brand/flutter_tailwind_logo.png',
-              height: TSpace.v20,
-            ),
-            TSizedBox.x8,
-            SvgPicture.asset(
-              'assets/brand/tailwind_ui.svg',
-              semanticsLabel: 'Flutter Tailwind UI',
-              height: 20,
-              colorFilter: ColorFilter.mode(
-                tw.light ? Colors.black : Colors.white,
-                BlendMode.srcIn,
-              ),
-            ),
-            if (tw.screen_sm) ...[
+            const _FlutterTailwindLogo(),
+            if (tw.screen.is_sm) ...[
               TSizedBox.x14,
               Container(
                 height: double.infinity,
@@ -204,6 +192,53 @@ class _ScaffoldMobileNavigation extends StatelessWidget {
           child: const FaIcon(FontAwesomeIcons.bars, size: 20),
         ),
       ],
+    );
+  }
+}
+
+// =================================================
+// CLASS: _FlutterTailwindLogo
+// =================================================
+
+class _FlutterTailwindLogo extends StatelessWidget {
+  const _FlutterTailwindLogo();
+
+  @override
+  Widget build(BuildContext context) {
+    const overlap = 19.5;
+    final tw = context.tw;
+    return Padding(
+      padding: const EdgeInsets.only(left: overlap),
+      child: Stack(
+        alignment: Alignment.topLeft,
+        children: [
+          Transform.translate(
+            offset: const Offset(-overlap, 0),
+            child: Transform.flip(
+              flipX: true,
+              child: Transform.rotate(
+                angle: 45 * pi / 180,
+                child: const FlutterLogo(size: 22),
+              ),
+            ),
+          ),
+          ClipRect(
+            child: Align(
+              alignment: Alignment.centerRight,
+              widthFactor: 0.92,
+              child: SvgPicture.asset(
+                'assets/brand/tailwind_ui.svg',
+                semanticsLabel: 'Flutter Tailwind UI',
+                height: 20,
+                colorFilter: ColorFilter.mode(
+                  tw.light ? Colors.black : Colors.white,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

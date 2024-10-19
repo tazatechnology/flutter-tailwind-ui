@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui/src/constants/text.dart';
 
 // =================================================
 // CLASS: TailwindTheme
@@ -11,46 +10,34 @@ import 'package:flutter_tailwind_ui/src/constants/text.dart';
 /// Reference: https://tailwindcss.com/docs
 class TailwindTheme {
   /// Factory constructor for a light Tailwind inspired theme
-  ///
-  /// [primaryColor] is the primary color of the theme. Defaults to
-  /// [TColors.indigo] if not specified.
-  ///
-  /// [backgroundColor] is the background color of the theme. Defaults to
-  /// [Colors.white] if not specified.
   factory TailwindTheme.light({
-    MaterialColor? primaryColor,
-    Color? backgroundColor,
+    TailwindColorsThemeExtension? colors,
+    TailwindTextThemeExtension? text,
   }) {
     return TailwindTheme._(
+      colors: colors ?? TailwindColorsThemeExtension.light(),
+      text: text ?? TailwindTextThemeExtension(),
       brightness: Brightness.light,
-      primaryColor: primaryColor ?? TColors.indigo,
-      backgroundColor: backgroundColor ?? Colors.white,
     );
   }
 
   /// Factory constructor for a dark Tailwind inspired theme
-  ///
-  /// [primaryColor] is the primary color of the theme. Defaults to
-  /// [TColors.indigo] if not specified.
-  ///
-  /// [backgroundColor] is the background color of the theme. Defaults to
-  /// [TColors.slate.shade900] if not specified.
   factory TailwindTheme.dark({
-    MaterialColor? primaryColor,
-    Color? backgroundColor,
+    TailwindColorsThemeExtension? colors,
+    TailwindTextThemeExtension? text,
   }) {
     return TailwindTheme._(
+      colors: colors ?? TailwindColorsThemeExtension.dark(),
+      text: text ?? TailwindTextThemeExtension(),
       brightness: Brightness.dark,
-      primaryColor: primaryColor ?? TColors.indigo,
-      backgroundColor: backgroundColor ?? TColors.slate.shade900,
     );
   }
 
   /// Constructor for [TailwindTheme]
   TailwindTheme._({
+    required this.text,
+    required this.colors,
     required this.brightness,
-    required this.primaryColor,
-    required this.backgroundColor,
   }) {
     data = _buildThemeData();
   }
@@ -68,101 +55,80 @@ class TailwindTheme {
   /// The Flutter [ThemeData] instance
   late final ThemeData data;
 
+  /// The Tailwind text theme extension definition
+  final TailwindTextThemeExtension text;
+
+  /// The Tailwind colors theme extension definition
+  final TailwindColorsThemeExtension colors;
+
   /// The brightness of the theme (light or dark)
   final Brightness brightness;
-
-  /// Primary color palette
-  ///
-  /// Used for buttons,radios, checkboxes, and more
-  final MaterialColor primaryColor;
-
-  /// Background color
-  ///
-  /// Used for the scaffold background color
-  final Color backgroundColor;
 
   // -------------------------------------------------
   // METHOD: _buildTheme
   // -------------------------------------------------
 
   ThemeData _buildThemeData() {
-    final isLight = brightness == Brightness.light;
+    final light = brightness == Brightness.light;
 
     // Brightness specific colors
-    Color bodyColor; // Body text color
-    Color displayColor; // Display text color
-    Color secondaryColor; // Secondary text color
     Color cursorColor;
-    Color selectionColor;
     Color thumbColor;
     Color trackColor;
     Color trackBorderColor;
-    Color disabledColor;
-    Color dividerColor;
-    Color cardColor;
 
     // Default values inspired by Tailwind CSS
-    if (isLight) {
-      bodyColor = TColors.gray.shade800;
-      displayColor = Colors.black;
-      secondaryColor = TColors.gray.shade500;
+    if (light) {
       cursorColor = TColors.gray.shade600;
-      selectionColor = const Color(0xFFb6d7ff);
       thumbColor = TColors.gray.shade300;
       trackColor = TColors.neutral.shade50;
       trackBorderColor = const Color(0xFFededed);
-      disabledColor = TColors.gray.shade400;
-      dividerColor = TColors.gray.shade200;
-      cardColor = backgroundColor;
     } else {
-      bodyColor = TColors.slate.shade400;
-      displayColor = Colors.white;
-      secondaryColor = TColors.gray.shade500;
       cursorColor = TColors.gray.shade300;
-      selectionColor = const Color(0xFF385479);
       thumbColor = TColors.gray.shade500;
       trackColor = Colors.transparent;
       trackBorderColor = const Color(0xFF3d3d3d);
-      disabledColor = TColors.gray.shade600;
-      dividerColor = TColors.slate.shade800;
-      cardColor = backgroundColor;
     }
 
     // Define the default text theme
-    var textTheme = const TextTheme(
-      displayLarge: TTextStyle.text_6xl,
-      displayMedium: TTextStyle.text_5xl,
-      displaySmall: TTextStyle.text_4xl,
-      headlineLarge: TTextStyle.text_4xl,
-      headlineMedium: TTextStyle.text_3xl,
-      headlineSmall: TTextStyle.text_2xl,
-      titleLarge: TTextStyle.text_2xl,
-      titleMedium: TTextStyle.text_lg,
-      titleSmall: TTextStyle.text_base,
-      bodyLarge: TTextStyle.text_lg,
-      bodyMedium: TTextStyle.text_base,
-      bodySmall: TTextStyle.text_sm,
-      labelLarge: TTextStyle.text_base,
-      labelMedium: TTextStyle.text_sm,
-      labelSmall: TTextStyle.text_xs,
+    var textTheme = TextTheme(
+      displayLarge: text.style_6xl,
+      displayMedium: text.style_5xl,
+      displaySmall: text.style_4xl,
+      headlineLarge: text.style_4xl,
+      headlineMedium: text.style_3xl,
+      headlineSmall: text.style_2xl,
+      titleLarge: text.style_2xl,
+      titleMedium: text.style_lg,
+      titleSmall: text.style_md,
+      bodyLarge: text.style_lg,
+      bodyMedium: text.style_md,
+      bodySmall: text.style_sm,
+      labelLarge: text.style_md,
+      labelMedium: text.style_sm,
+      labelSmall: text.style_xs,
     ).apply(
       fontFamily: fontFamily,
-      bodyColor: bodyColor,
-      displayColor: displayColor,
+      bodyColor: colors.body,
+      displayColor: colors.title,
     );
 
     // Update the text theme with the secondary color
     textTheme = textTheme.copyWith(
-      labelLarge: textTheme.labelLarge?.copyWith(color: secondaryColor),
-      labelMedium: textTheme.labelLarge?.copyWith(color: secondaryColor),
-      labelSmall: textTheme.labelLarge?.copyWith(color: secondaryColor),
+      labelLarge: textTheme.labelLarge?.copyWith(color: colors.label),
+      labelMedium: textTheme.labelLarge?.copyWith(color: colors.label),
+      labelSmall: textTheme.labelLarge?.copyWith(color: colors.label),
     );
 
     return ThemeData(
+      extensions: [
+        colors,
+        text,
+      ],
       useMaterial3: true,
       brightness: brightness,
       fontFamily: fontFamily,
-      scaffoldBackgroundColor: backgroundColor,
+      scaffoldBackgroundColor: colors.background,
       splashColor: Colors.transparent,
       splashFactory: NoSplash.splashFactory,
       hoverColor: Colors.transparent,
@@ -170,30 +136,34 @@ class TailwindTheme {
       focusColor: Colors.transparent,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.standard,
-      dividerColor: dividerColor,
-      disabledColor: disabledColor,
+      dividerColor: colors.divider,
+      disabledColor: colors.disabled,
       textTheme: textTheme,
-      cardColor: cardColor,
-      hintColor: secondaryColor,
-      primaryColor: primaryColor,
+      cardColor: colors.card,
+      hintColor: colors.label,
+      primaryColor: colors.primary,
+
+      appBarTheme: AppBarTheme(
+        backgroundColor: colors.background,
+      ),
 
       cardTheme: CardTheme(
-        color: cardColor,
+        color: colors.card,
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        elevation: 0,
+        elevation: 20,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: TBorderRadius.rounded_lg,
           side: BorderSide(
-            color: dividerColor,
+            color: colors.divider,
           ),
         ),
       ),
 
       /// Divider
       dividerTheme: DividerThemeData(
-        color: dividerColor,
+        color: colors.divider,
         thickness: 1,
       ),
 
@@ -205,7 +175,7 @@ class TailwindTheme {
       /// Text Selection
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: cursorColor,
-        selectionColor: selectionColor,
+        selectionColor: colors.selection,
       ),
 
       /// Scrollbar
@@ -218,7 +188,7 @@ class TailwindTheme {
 
       /// Drawer
       drawerTheme: DrawerThemeData(
-        backgroundColor: backgroundColor,
+        backgroundColor: colors.background,
       ),
 
       /// Radio
@@ -229,9 +199,9 @@ class TailwindTheme {
         fillColor: WidgetStateProperty.resolveWith(
           (states) {
             if (states.contains(WidgetState.disabled)) {
-              return disabledColor;
+              return colors.disabled;
             } else if (states.contains(WidgetState.selected)) {
-              return isLight ? primaryColor.shade600 : primaryColor;
+              return light ? colors.primary.shade600 : colors.primary;
             }
             return TColors.gray.shade300;
           },
