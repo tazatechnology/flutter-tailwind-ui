@@ -64,7 +64,7 @@ class TScrollbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScrollConfiguration(
       behavior: (visible ?? true) != false
-          ? _ShowScrollbar(
+          ? _ShowScrollbarBehavior(
               thumbVisibility: visible,
               trackVisibility: trackVisibility,
               thumbColor: thumbColor,
@@ -76,18 +76,18 @@ class TScrollbar extends StatelessWidget {
               notificationPredicate: notificationPredicate,
               scrollbarOrientation: scrollbarOrientation,
             )
-          : _HideScrollbar(),
+          : _HideScrollbarBehavior(),
       child: child,
     );
   }
 }
 
 // =================================================
-// CLASS: _HideScrollbar
+// CLASS: _HideScrollbarBehavior
 // =================================================
 
 /// Custom scroll behavior to always hide the scrollbar
-class _HideScrollbar extends ScrollBehavior {
+class _HideScrollbarBehavior extends ScrollBehavior {
   @override
   Widget buildScrollbar(
     BuildContext context,
@@ -99,9 +99,9 @@ class _HideScrollbar extends ScrollBehavior {
 }
 
 /// Custom scroll behavior to always show the scrollbar
-class _ShowScrollbar extends ScrollBehavior {
+class _ShowScrollbarBehavior extends ScrollBehavior {
   /// Default constructor
-  const _ShowScrollbar({
+  const _ShowScrollbarBehavior({
     this.thumbVisibility,
     this.trackVisibility,
     this.thumbColor,

@@ -45,7 +45,7 @@ extension XTailwindColor on Color {
 
   /// Get a hex string representation of this color
   String toHex({bool leadingHashSign = true}) {
-    var value = '${alpha.toRadixString(16).padLeft(2, '0')}'
+    String value = '${alpha.toRadixString(16).padLeft(2, '0')}'
         '${red.toRadixString(16).padLeft(2, '0')}'
         '${green.toRadixString(16).padLeft(2, '0')}'
         '${blue.toRadixString(16).padLeft(2, '0')}';

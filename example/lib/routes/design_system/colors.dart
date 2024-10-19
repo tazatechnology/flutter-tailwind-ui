@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/layout/header.dart';
-import 'package:flutter_tailwind_ui_example/layout/scroll_view.dart';
+import 'package:flutter_tailwind_ui_example/layout/layout.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /// List of all the Flutter Tailwind UI color palettes
@@ -72,8 +71,9 @@ class ColorsRoute extends ConsumerWidget {
 
     return AppScrollView.slivers(
       header: const AppSectionHeader(
-        section: 'Design System',
-        title: 'Default Color Palettes',
+        section: AppSection.designSystem,
+        title: 'Colors',
+        description: 'The default color palettes',
       ),
       slivers: [
         SliverToBoxAdapter(
@@ -248,7 +248,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
       return;
     }
     setState(() => copied = true);
-    var text = '';
+    String text = '';
     switch (ref.read(_colorFormatProvider)) {
       case ColorFormat.hex:
         text = color.toHex();
@@ -277,7 +277,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
     ref.watch(_colorFormatProvider);
     final tw = context.tw;
     final light = tw.light;
-    var isLast = false;
+    bool isLast = false;
     if (widget.shade == DEFAULT_TAILWIND_COLOR_SWATCH_SHADES.last) {
       isLast = true;
     }

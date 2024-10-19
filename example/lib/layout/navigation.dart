@@ -26,13 +26,11 @@ class _AppNavigationState extends State<AppNavigation> {
     final tw = context.tw;
     final showSideBar = tw.screen.width >= AppScaffold.sidebarBreakpoint;
 
-    EdgeInsets topPadding;
+    EdgeInsets topPadding = TOffset.t0;
     if (showSideBar) {
       topPadding = const EdgeInsets.only(
         top: AppScaffold.toolbarHeight + TSpace.v8,
       );
-    } else {
-      topPadding = TOffset.t32;
     }
 
     return ListView(
@@ -68,6 +66,35 @@ class _AppNavigationState extends State<AppNavigation> {
               title: 'Typography',
               route: AppRouter.typography,
               isLast: true,
+            ),
+          ],
+        ),
+        AppNavigationSection(
+          title: 'Components',
+          items: [
+            AppNavigationItem(
+              title: '`TCodeBlock`',
+              route: AppRouter.code_block,
+            ),
+            AppNavigationItem(
+              title: '`TRadioList`',
+              route: AppRouter.radio_list,
+            ),
+            AppNavigationItem(
+              title: '`TRowColumn`',
+              route: AppRouter.row_column,
+            ),
+            AppNavigationItem(
+              title: '`TScrollbar`',
+              route: AppRouter.scrollbar,
+            ),
+            AppNavigationItem(
+              title: '`TSizedBox`',
+              route: AppRouter.sized_box,
+            ),
+            AppNavigationItem(
+              title: '`TText`',
+              route: AppRouter.text,
             ),
           ],
         ),
@@ -168,7 +195,7 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
         setState(() => isHovered = value);
       },
       child: Container(
-        margin: widget.isLast ? TOffset.b0 : TOffset.b8,
+        margin: widget.isLast ? TOffset.b0 : TOffset.b6,
         padding: TOffset.y2 + TOffset.x24,
         decoration: BoxDecoration(
           border: Border(
@@ -176,10 +203,11 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
               color: isActive
                   ? activeColor
                   : (isHovered ? hoveredBorder : Colors.transparent),
+              width: 1.75,
             ),
           ),
         ),
-        child: Text(
+        child: TText(
           widget.title,
           style: tw.text.style_sm.copyWith(
             color: isActive ? activeColor : inactiveColor,

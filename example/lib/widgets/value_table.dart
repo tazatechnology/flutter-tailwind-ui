@@ -61,7 +61,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
   Widget build(BuildContext context) {
     final tw = context.tw;
 
-    var effectiveHeight =
+    double effectiveHeight =
         widget.height ?? (widget.itemHeight * widget.items.length);
     if (widget.header.isNotEmpty) {
       effectiveHeight += widget.itemHeight;

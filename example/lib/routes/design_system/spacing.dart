@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/layout/header.dart';
-import 'package:flutter_tailwind_ui_example/layout/scroll_view.dart';
+import 'package:flutter_tailwind_ui_example/layout/layout.dart';
 import 'package:flutter_tailwind_ui_example/widgets/value_table.dart';
 
 // =================================================
@@ -14,7 +13,7 @@ class SpacingRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    var scale = 0.0;
+    double scale = 0;
     if (tw.screen.is_md) {
       scale = 1;
     } else if (tw.screen.is_xs) {
@@ -44,12 +43,13 @@ class SpacingRoute extends StatelessWidget {
 
     return AppScrollView.children(
       header: const AppSectionHeader(
-        section: 'Design System',
+        section: AppSection.designSystem,
         title: 'Spacing Scale',
+        description: 'The default space scaling system',
       ),
       children: [
         const TText(
-          'The Flutter Tailwind UI spacing scale is a predefined set of values that helps developers consistently apply margin, padding, width, height, and other spacing-related properties in a design system.\n\nThese values range from `0px` to `384px` and can be accessed as static values from the `TSpace` class. The values scale exponentially and this ensures consistent, scalable, and flexible spacing throughout your designs, enhancing both visual harmony and maintainability.',
+          'The Flutter Tailwind UI spacing scale is a predefined set of values that helps developers consistently apply margin, padding, width, height, and other spacing-related properties in a design system.\n\nThese values range from `0px` to `384px` and can be accessed as `static const` values from the `TSpace` class. The values scale exponentially and this ensures consistent, scalable, and flexible spacing throughout your designs, enhancing both visual harmony and maintainability.',
         ),
         AppValueTable(
           height: null,

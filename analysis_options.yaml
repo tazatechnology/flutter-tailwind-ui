@@ -5,3 +5,4 @@ linter:
     lines_longer_than_80_chars: false
     flutter_style_todos: false
     cascade_invocations: false
+    omit_local_variable_types: false

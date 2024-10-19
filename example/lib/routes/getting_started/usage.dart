@@ -13,8 +13,9 @@ class UsageRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScrollView.children(
       header: const AppSectionHeader(
-        section: 'Getting Started',
+        section: AppSection.gettingStarted,
         title: 'Quick Start',
+        description: 'Get started quickly with Flutter Tailwind UI',
       ),
       children: const [
         Text('Content'),

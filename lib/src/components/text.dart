@@ -88,7 +88,7 @@ class TText extends StatelessWidget {
     // Recursive function to parse each match
     List<InlineSpan> parseWithStyles(String text, TextStyle currentStyle) {
       final spans = <InlineSpan>[];
-      var currentIndex = 0;
+      int currentIndex = 0;
 
       text.splitMapJoin(
         exp,
@@ -112,7 +112,6 @@ class TText extends StatelessWidget {
             // Code: `text`
             spans.add(
               WidgetSpan(
-                alignment: PlaceholderAlignment.top,
                 child: Container(
                   padding: TOffset.x4,
                   decoration: BoxDecoration(
@@ -123,12 +122,12 @@ class TText extends StatelessWidget {
                   ),
                   child: Text(
                     match.group(4)!,
-                    style: currentStyle.merge(
-                      TextStyle(
-                        // accounts for background padding
-                        fontSize: baseFontSize - 2,
-                        fontFamily: TailwindTheme.fontFamilyMono,
-                      ),
+                    // Scale text down to line up with surrounding text
+                    textScaler: const TextScaler.linear(0.85),
+                    style: currentStyle.copyWith(
+                      fontFamily: TailwindTheme.fontFamilyMono,
+                      fontSize: baseFontSize,
+                      height: 1.5,
                     ),
                   ),
                 ),

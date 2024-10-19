@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
+enum AppSection {
+  gettingStarted,
+  designSystem,
+  components,
+}
+
+extension AppSectionExtension on AppSection {
+  String get name {
+    switch (this) {
+      case AppSection.gettingStarted:
+        return 'Getting Started';
+      case AppSection.designSystem:
+        return 'Design System';
+      case AppSection.components:
+        return 'Components';
+    }
+  }
+}
+
 // =================================================
 // CLASS: AppSectionHeader
 // =================================================
@@ -9,46 +28,42 @@ class AppSectionHeader extends StatelessWidget {
   const AppSectionHeader({
     required this.section,
     required this.title,
+    required this.description,
     super.key,
-    this.description,
+    this.titleMono = false,
   });
-  final String section;
+  final AppSection section;
   final String title;
-  final String? description;
+  final String description;
+  final bool titleMono;
 
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-
+    TextStyle titleStyle = tw.text.style_3xl.extrabold.tracking_tight.copyWith(
+      color: tw.colors.title,
+    );
+    if (titleMono) {
+      titleStyle = titleStyle.mono;
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: TOffset.b10,
           child: Text(
-            section,
+            section.name,
             style: tw.text.style_sm.semibold.copyWith(
               color: TColors.sky[tw.light ? 500 : 400],
             ),
           ),
         ),
-        Text(
-          title,
-          style: tw.text.style_3xl.extrabold.tracking_tight.copyWith(
-            color: TColors.slate[tw.light ? 900 : 200],
-          ),
+        TText(title, style: titleStyle),
+        TText(
+          description,
+          style: tw.text.style_lg.extralight,
         ),
-        if (description != null)
-          Padding(
-            padding: TOffset.t10,
-            child: Text(
-              description!,
-              style: tw.text.style_lg.copyWith(
-                color: TColors.slate.shade700,
-              ),
-            ),
-          ),
-        TSizedBox.y32,
+        TSizedBox.y28,
       ],
     );
   }

@@ -6,5 +6,6 @@ linter:
     flutter_style_todos: false
     public_member_api_docs: false
     cascade_invocations: false
+    omit_local_variable_types: false
 
     

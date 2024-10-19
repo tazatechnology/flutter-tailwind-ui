@@ -59,7 +59,7 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
 
   @override
   Widget build(BuildContext context) {
-    var toolbarHeight = AppScaffold.toolbarHeight;
+    double toolbarHeight = AppScaffold.toolbarHeight;
     if (context.tw.screen.width < AppScaffold.sidebarBreakpoint) {
       toolbarHeight = AppScaffold.toolbarHeight * 2;
     }
@@ -162,7 +162,7 @@ class _AppBackgroundState extends State<_AppBackground> {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    var offset = 0.0;
+    double offset = 0;
     if (attached) {
       offset = widget.controller.offset;
     }

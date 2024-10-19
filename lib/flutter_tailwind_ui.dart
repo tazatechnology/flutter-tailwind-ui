@@ -21,7 +21,7 @@ export 'src/extensions/text_style.dart';
 export 'src/theme/colors.dart';
 export 'src/theme/text.dart';
 export 'src/theme/theme.dart';
-
 // Utilities
 export 'src/utilities/highlighter.dart';
 export 'src/utilities/lerp.dart';
+export 'src/utilities/transitions.dart';

@@ -65,9 +65,9 @@ class TailwindColorsThemeExtension
     this.title = title ?? TColors.slate.shade100;
     this.body = body ?? TColors.slate.shade400;
     this.label = label ?? TColors.slate.shade500;
-    this.background = background ?? TColors.neutral.shade900;
+    this.background = background ?? TColors.neutral.shade800;
     this.card = card ?? this.background;
-    this.divider = divider ?? TColors.gray.shade800;
+    this.divider = divider ?? TColors.gray.shade700;
     this.selection = selection ?? const Color(0xFF385479);
     this.disabled = disabled ?? TColors.gray.shade600;
   }

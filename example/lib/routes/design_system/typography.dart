@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/layout/header.dart';
-import 'package:flutter_tailwind_ui_example/layout/scroll_view.dart';
+import 'package:flutter_tailwind_ui_example/layout/layout.dart';
 import 'package:flutter_tailwind_ui_example/widgets/code_result_card.dart';
 import 'package:flutter_tailwind_ui_example/widgets/value_table.dart';
 
@@ -48,8 +47,10 @@ class TypographyRoute extends StatelessWidget {
 
     return AppScrollView.children(
       header: const AppSectionHeader(
-        section: 'Design System',
+        section: AppSection.designSystem,
         title: 'Typography',
+        description:
+            'The default font family and font size system for consistent typography.',
       ),
       children: [
         /// Font Family

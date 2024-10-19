@@ -44,25 +44,33 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
     final tw = context.tw;
 
     final showSideBar = tw.screen.width >= AppScaffold.sidebarBreakpoint;
-    var appBarHeight = AppScaffold.toolbarHeight;
-    var appBarXPad = TOffset.x28;
+    double appBarHeight = AppScaffold.toolbarHeight;
+    EdgeInsets appBarXPad = TOffset.x28;
     if (!showSideBar) {
       appBarXPad = TOffset.x20;
       appBarHeight += AppScaffold.toolbarHeight;
     }
 
     final appBarBorder = Border(
-      bottom: BorderSide(
-        color: TColors.slate.withOpacity(0.1),
-      ),
+      bottom: BorderSide(color: tw.colors.divider),
     );
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: showSideBar
           ? null
-          : const Drawer(
-              child: AppNavigation(),
+          : Drawer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: TOffset.x16,
+                    height: AppScaffold.toolbarHeight,
+                    child: const _FlutterTailwindLogo(),
+                  ),
+                  const Expanded(child: AppNavigation()),
+                ],
+              ),
             ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(appBarHeight),
@@ -112,9 +120,7 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
               decoration: BoxDecoration(
                 border: Border(
                   right: BorderSide(
-                    color: tw.light
-                        ? TColors.gray.shade200
-                        : TColors.gray.shade800,
+                    color: tw.colors.divider,
                     width: 0.5,
                   ),
                 ),
@@ -210,10 +216,10 @@ class _FlutterTailwindLogo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: overlap),
       child: Stack(
-        alignment: Alignment.topLeft,
+        alignment: Alignment.centerLeft,
         children: [
           Transform.translate(
-            offset: const Offset(-overlap, 0),
+            offset: const Offset(-overlap, -3),
             child: Transform.flip(
               flipX: true,
               child: Transform.rotate(
