@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/providers/router.dart';
-import 'package:flutter_tailwind_ui_example/providers/theme.dart';
+import 'package:flutter_tailwind_ui_app/providers/router.dart';
+import 'package:flutter_tailwind_ui_app/providers/theme.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {

@@ -59,6 +59,11 @@ class TText extends StatelessWidget {
   /// The text scaling factor.
   final TextScaler textScaler;
 
+  /// Regex to match **bold**, _italic_, `code`, and [text](url)
+  static final _regExp = RegExp(
+    r'(\*\*([^*]+)\*\*|_([^_]+)_|`([^`]+)`|\[(.*?)\]\((.*?)\))',
+  );
+
   @override
   Widget build(BuildContext context) {
     return Text.rich(
@@ -80,18 +85,13 @@ class TText extends StatelessWidget {
     final baseStyle = style ?? DefaultTextStyle.of(context).style;
     final baseFontSize = baseStyle.fontSize ?? tw.text.style_md.fontSize ?? 16;
 
-    // Regex to match **bold**, _italic_, `code`, and [text](url)
-    final exp = RegExp(
-      r'(\*\*([^*]+)\*\*|_([^_]+)_|`([^`]+)`|\[(.*?)\]\((.*?)\))',
-    );
-
     // Recursive function to parse each match
     List<InlineSpan> parseWithStyles(String text, TextStyle currentStyle) {
       final spans = <InlineSpan>[];
       int currentIndex = 0;
 
       text.splitMapJoin(
-        exp,
+        _regExp,
         onMatch: (Match match) {
           if (match.start > currentIndex) {
             spans.add(
@@ -125,7 +125,7 @@ class TText extends StatelessWidget {
                     // Scale text down to line up with surrounding text
                     textScaler: const TextScaler.linear(0.85),
                     style: currentStyle.copyWith(
-                      fontFamily: TailwindTheme.fontFamilyMono,
+                      fontFamily: tw.text.fontFamilyMono,
                       fontSize: baseFontSize,
                       height: 1.5,
                     ),

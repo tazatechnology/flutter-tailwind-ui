@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 // =================================================
@@ -12,24 +13,24 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 class TailwindTheme {
   /// Factory constructor for a light Tailwind inspired theme
   factory TailwindTheme.light({
-    TailwindColorsThemeExtension? colors,
-    TailwindTextThemeExtension? text,
+    TailwindColorTheme? colors,
+    TailwindTextTheme? text,
   }) {
     return TailwindTheme._(
-      colors: colors ?? TailwindColorsThemeExtension.light(),
-      text: text ?? TailwindTextThemeExtension(),
+      colors: colors ?? TailwindColorTheme.light(),
+      text: text ?? TailwindTextTheme(),
       brightness: Brightness.light,
     );
   }
 
   /// Factory constructor for a dark Tailwind inspired theme
   factory TailwindTheme.dark({
-    TailwindColorsThemeExtension? colors,
-    TailwindTextThemeExtension? text,
+    TailwindColorTheme? colors,
+    TailwindTextTheme? text,
   }) {
     return TailwindTheme._(
-      colors: colors ?? TailwindColorsThemeExtension.dark(),
-      text: text ?? TailwindTextThemeExtension(),
+      colors: colors ?? TailwindColorTheme.dark(),
+      text: text ?? TailwindTextTheme(),
       brightness: Brightness.dark,
     );
   }
@@ -43,24 +44,14 @@ class TailwindTheme {
     data = _buildThemeData();
   }
 
-  /// The default font that is shipped with the package
-  ///
-  /// https://github.com/vercel/geist-font
-  static const fontFamily = 'packages/flutter_tailwind_ui/Geist';
-
-  /// The default monospace font that is shipped with the package
-  ///
-  /// https://github.com/JetBrains/JetBrainsMono
-  static const fontFamilyMono = 'packages/flutter_tailwind_ui/JetBrainsMono';
-
   /// The Flutter [ThemeData] instance
   late final ThemeData data;
 
   /// The Tailwind text theme extension definition
-  final TailwindTextThemeExtension text;
+  final TailwindTextTheme text;
 
   /// The Tailwind colors theme extension definition
-  final TailwindColorsThemeExtension colors;
+  final TailwindColorTheme colors;
 
   /// The brightness of the theme (light or dark)
   final Brightness brightness;
@@ -109,7 +100,7 @@ class TailwindTheme {
       labelMedium: text.style_sm,
       labelSmall: text.style_xs,
     ).apply(
-      fontFamily: fontFamily,
+      fontFamily: text.fontFamily,
       bodyColor: colors.body,
       displayColor: colors.title,
     );
@@ -141,7 +132,7 @@ class TailwindTheme {
       ],
       useMaterial3: true,
       brightness: brightness,
-      fontFamily: fontFamily,
+      fontFamily: text.fontFamily,
       scaffoldBackgroundColor: colors.background,
       splashColor: Colors.transparent,
       splashFactory: NoSplash.splashFactory,
@@ -165,6 +156,15 @@ class TailwindTheme {
       /// AppBar
       appBarTheme: AppBarTheme(
         backgroundColor: colors.background,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: colors.background,
+          statusBarIconBrightness: brightness,
+          statusBarBrightness: brightness,
+          systemStatusBarContrastEnforced: true,
+          systemNavigationBarColor: colors.background,
+          systemNavigationBarIconBrightness: brightness,
+          systemNavigationBarContrastEnforced: true,
+        ),
       ),
 
       /// Card

@@ -45,17 +45,14 @@ class TailwindContext {
   TailwindScreenContext get screen => TailwindScreenContext._(_ctx);
 
   /// The current Tailwind color theme
-  TailwindColorsThemeExtension get colors {
-    return Theme.of(_ctx).extension<TailwindColorsThemeExtension>() ??
-        (light
-            ? TailwindColorsThemeExtension.light()
-            : TailwindColorsThemeExtension.dark());
+  TailwindColorTheme get colors {
+    return Theme.of(_ctx).extension<TailwindColorTheme>() ??
+        (light ? TailwindColorTheme.light() : TailwindColorTheme.dark());
   }
 
   /// The current Tailwind text theme
-  TailwindTextThemeExtension get text {
-    return Theme.of(_ctx).extension<TailwindTextThemeExtension>() ??
-        TailwindTextThemeExtension();
+  TailwindTextTheme get text {
+    return Theme.of(_ctx).extension<TailwindTextTheme>() ?? TailwindTextTheme();
   }
 }
 

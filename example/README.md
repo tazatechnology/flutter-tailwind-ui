@@ -1,4 +1,4 @@
-# flutter_tailwind_ui_example
+# flutter_tailwind_ui_app
 
 A new Flutter project.
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind_ui_example/layout/layout.dart';
+import 'package:flutter_tailwind_ui_app/layout/layout.dart';
 
 // =================================================
 // CLASS: ComponentRoute
@@ -20,7 +20,7 @@ class ComponentRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final header = AppSectionHeader(
+    final header = AppRouteHeader(
       section: AppSection.components,
       titleMono: true,
       title: name,

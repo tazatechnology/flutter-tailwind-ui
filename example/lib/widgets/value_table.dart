@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/layout/scroll_view.dart';
+import 'package:flutter_tailwind_ui_app/layout/scroll_view.dart';
 
 // =================================================
 // CLASS: AppValueTable
@@ -148,7 +148,8 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                               width: widget.nameWidth,
                               child: Text(
                                 item.name,
-                                style: tw.text.style_xs.mono.copyWith(
+                                style: tw.text.style_xs.copyWith(
+                                  fontFamily: tw.text.fontFamilyMono,
                                   color: TColors.sky[tw.light ? 500 : 300],
                                 ),
                               ),
@@ -158,7 +159,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                                 width: widget.valueWidth,
                                 child: Text(
                                   item.value!,
-                                  style: tw.text.style_xs.mono,
+                                  style: tw.text.style_xs.mono(context),
                                 ),
                               ),
                             if (item.widget != null) item.widget!,

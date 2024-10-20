@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/routes/components/component_route.dart';
+import 'package:flutter_tailwind_ui_app/routes/components/component_route.dart';
 
 // =================================================
 // CLASS: ComponentRouteTCodeBlock

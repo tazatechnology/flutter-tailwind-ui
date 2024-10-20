@@ -21,11 +21,11 @@ extension AppSectionExtension on AppSection {
 }
 
 // =================================================
-// CLASS: AppSectionHeader
+// CLASS: AppRouteHeader
 // =================================================
 
-class AppSectionHeader extends StatelessWidget {
-  const AppSectionHeader({
+class AppRouteHeader extends StatelessWidget {
+  const AppRouteHeader({
     required this.section,
     required this.title,
     required this.description,
@@ -40,22 +40,24 @@ class AppSectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    TextStyle titleStyle = tw.text.style_3xl.extrabold.tracking_tight.copyWith(
-      color: tw.colors.title,
-    );
-    if (titleMono) {
-      titleStyle = titleStyle.mono;
+    TextStyle titleStyle;
+    if (!tw.screen.is_sm) {
+      titleStyle = tw.text.style_2xl;
+    } else {
+      titleStyle = tw.text.style_3xl;
     }
+    titleStyle = titleStyle.extrabold.tracking_tight.copyWith(
+      color: tw.colors.title,
+      fontFamily: titleMono ? tw.text.fontFamilyMono : tw.text.fontFamily,
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: TOffset.b10,
-          child: Text(
-            section.name,
-            style: tw.text.style_sm.semibold.copyWith(
-              color: TColors.sky[tw.light ? 500 : 400],
-            ),
+        Text(
+          section.name,
+          style: tw.text.style_sm.semibold.copyWith(
+            color: TColors.sky[tw.light ? 500 : 400],
           ),
         ),
         TText(title, style: titleStyle),
@@ -70,11 +72,11 @@ class AppSectionHeader extends StatelessWidget {
 }
 
 // =================================================
-// CLASS: AppSubSectionHeader
+// CLASS: AppRouteSectionHeader
 // =================================================
 
-class AppSubSectionHeader extends StatelessWidget {
-  const AppSubSectionHeader({
+class AppRouteSectionHeader extends StatelessWidget {
+  const AppRouteSectionHeader({
     required this.title,
     this.padding = TOffset.t0,
     super.key,

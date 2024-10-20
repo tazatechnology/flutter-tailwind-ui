@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 // =================================================
-// CLASS: TailwindColorsThemeExtension
+// CLASS: TailwindColorTheme
 // =================================================
 
 /// Tailwind theme extension to replicate the Tailwind CSS design system
-class TailwindColorsThemeExtension
-    extends ThemeExtension<TailwindColorsThemeExtension> {
+class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   /// Initialize a light themed color palette
-  TailwindColorsThemeExtension.raw({
+  TailwindColorTheme.raw({
     required this.primary,
     required this.secondary,
     required this.title,
@@ -23,7 +22,7 @@ class TailwindColorsThemeExtension
   });
 
   /// Initialize a light themed color palette
-  TailwindColorsThemeExtension.light({
+  TailwindColorTheme.light({
     MaterialColor? primary,
     MaterialColor? secondary,
     Color? title,
@@ -48,7 +47,7 @@ class TailwindColorsThemeExtension
   }
 
   /// Initialize a dark themed color palette
-  TailwindColorsThemeExtension.dark({
+  TailwindColorTheme.dark({
     MaterialColor? primary,
     MaterialColor? secondary,
     Color? title,
@@ -121,7 +120,7 @@ class TailwindColorsThemeExtension
   // -------------------------------------------------
 
   @override
-  TailwindColorsThemeExtension copyWith({
+  TailwindColorTheme copyWith({
     MaterialColor? primary,
     MaterialColor? secondary,
     Color? title,
@@ -133,7 +132,7 @@ class TailwindColorsThemeExtension
     Color? selection,
     Color? disabled,
   }) {
-    return TailwindColorsThemeExtension.raw(
+    return TailwindColorTheme.raw(
       primary: primary ?? this.primary,
       secondary: secondary ?? this.secondary,
       title: title ?? this.title,
@@ -152,14 +151,14 @@ class TailwindColorsThemeExtension
   // -------------------------------------------------
 
   @override
-  TailwindColorsThemeExtension lerp(
-    TailwindColorsThemeExtension? other,
+  TailwindColorTheme lerp(
+    TailwindColorTheme? other,
     double t,
   ) {
     if (other == null) {
       return this;
     }
-    return TailwindColorsThemeExtension.raw(
+    return TailwindColorTheme.raw(
       primary: lerpMaterialColor(primary, other.primary, t),
       secondary: lerpMaterialColor(secondary, other.secondary, t),
       title: lerpColor(title, other.title, t),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind_ui_example/layout/header.dart';
-import 'package:flutter_tailwind_ui_example/layout/scroll_view.dart';
+import 'package:flutter_tailwind_ui_app/layout/header.dart';
+import 'package:flutter_tailwind_ui_app/layout/scroll_view.dart';
 
 // =================================================
 // CLASS: AboutRoute
@@ -12,7 +12,7 @@ class AboutRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScrollView.children(
-      header: const AppSectionHeader(
+      header: const AppRouteHeader(
         section: AppSection.gettingStarted,
         title: 'About',
         description: 'Philosophy and code principles',

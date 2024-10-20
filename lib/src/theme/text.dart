@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/src/constants/text.dart';
 
 // =================================================
-// CLASS: TailwindTextThemeExtension
+// CLASS: TailwindTextTheme
 // =================================================
 
 /// Tailwind theme extension to replicate the Tailwind CSS design system
 ///
 /// Primarily used to define font sizes and line heights
-class TailwindTextThemeExtension
-    extends ThemeExtension<TailwindTextThemeExtension> {
-  /// Constructor for [TailwindTextThemeExtension]
-  TailwindTextThemeExtension({
+class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
+  /// Constructor for [TailwindTextTheme]
+  TailwindTextTheme({
+    this.fontFamily = 'packages/flutter_tailwind_ui/Geist',
+    this.fontFamilyMono = 'packages/flutter_tailwind_ui/JetBrainsMono',
     TextStyle? style_xs,
     TextStyle? style_sm,
     TextStyle? style_md,
@@ -41,6 +42,20 @@ class TailwindTextThemeExtension
     this.style_8xl = TTextStyle.text_8xl.merge(style_8xl);
     this.style_9xl = TTextStyle.text_9xl.merge(style_9xl);
   }
+
+  /// The body text font
+  ///
+  /// By default, this package is shipped with the `Geist` font family
+  ///
+  /// https://github.com/vercel/geist-font
+  final String fontFamily;
+
+  /// The alternate monospace font
+  ///
+  /// By default, this package is shipped with the `JetBrains Mono` font family
+  ///
+  /// https://github.com/JetBrains/JetBrainsMono
+  final String fontFamilyMono;
 
   /// [TextStyle] equivalent to Tailwind font size `text-xs`
   ///
@@ -112,7 +127,7 @@ class TailwindTextThemeExtension
   // -------------------------------------------------
 
   @override
-  TailwindTextThemeExtension copyWith({
+  TailwindTextTheme copyWith({
     TextStyle? style_xs,
     TextStyle? style_sm,
     TextStyle? style_md,
@@ -127,7 +142,7 @@ class TailwindTextThemeExtension
     TextStyle? style_8xl,
     TextStyle? style_9xl,
   }) {
-    return TailwindTextThemeExtension(
+    return TailwindTextTheme(
       style_xs: style_xs ?? this.style_xs,
       style_sm: style_sm ?? this.style_sm,
       style_md: style_md ?? this.style_md,
@@ -149,14 +164,14 @@ class TailwindTextThemeExtension
   // -------------------------------------------------
 
   @override
-  TailwindTextThemeExtension lerp(
-    TailwindTextThemeExtension? other,
+  TailwindTextTheme lerp(
+    TailwindTextTheme? other,
     double t,
   ) {
     if (other == null) {
       return this;
     }
-    return TailwindTextThemeExtension(
+    return TailwindTextTheme(
       style_xs: TextStyle.lerp(style_xs, other.style_xs, t) ?? style_xs,
       style_sm: TextStyle.lerp(style_sm, other.style_sm, t) ?? style_sm,
       style_md: TextStyle.lerp(style_md, other.style_md, t) ?? style_md,

@@ -6,8 +6,8 @@ import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/layout/navigation.dart';
-import 'package:flutter_tailwind_ui_example/layout/toolbar.dart';
+import 'package:flutter_tailwind_ui_app/layout/navigation.dart';
+import 'package:flutter_tailwind_ui_app/layout/toolbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // =================================================
@@ -163,13 +163,13 @@ class _ScaffoldHeader extends StatelessWidget {
                   borderRadius: TBorderRadius.rounded_full,
                 ),
                 child: Text(
-                  'v${package.versionWithoutBuild}',
-                  style: const TextStyle(
+                  'v${package.version}',
+                  style: TextStyle(
                     height: 0,
                     color: TColors.slate,
                     fontSize: 11,
                     fontWeight: FontWeight.w500,
-                    fontFamily: TailwindTheme.fontFamilyMono,
+                    fontFamily: tw.text.fontFamilyMono,
                   ),
                 ),
               ),

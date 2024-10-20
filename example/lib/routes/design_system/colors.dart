@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/layout/layout.dart';
+import 'package:flutter_tailwind_ui_app/layout/layout.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /// List of all the Flutter Tailwind UI color palettes
@@ -70,7 +70,7 @@ class ColorsRoute extends ConsumerWidget {
     final colorFormat = ref.watch(_colorFormatProvider);
 
     return AppScrollView.slivers(
-      header: const AppSectionHeader(
+      header: const AppRouteHeader(
         section: AppSection.designSystem,
         title: 'Colors',
         description: 'The default color palettes',
@@ -327,10 +327,11 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
             ),
             Text(
               copied ? 'Copied' : color.toHex(),
-              style: tw.text.style_xs.mono.copyWith(
+              style: tw.text.style_xs.copyWith(
                 fontSize: 10,
                 fontWeight: copied ? FontWeight.bold : FontWeight.normal,
                 color: copied ? null : TColors.slate[light ? 500 : 400],
+                fontFamily: tw.text.fontFamilyMono,
               ),
             ),
           ],

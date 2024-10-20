@@ -173,7 +173,8 @@ class _TCodeBlockState extends State<TCodeBlock> {
                       padding: effectivePadding,
                       child: Text.rich(
                         spans,
-                        style: tw.text.style_sm.mono.copyWith(
+                        style: tw.text.style_sm.copyWith(
+                          fontFamily: tw.text.fontFamilyMono,
                           fontSize: widget.fontSize,
                         ),
                       ),

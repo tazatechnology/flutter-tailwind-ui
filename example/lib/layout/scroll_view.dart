@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/layout/header.dart';
-import 'package:flutter_tailwind_ui_example/layout/scaffold.dart';
+import 'package:flutter_tailwind_ui_app/layout/header.dart';
+import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
 
 /// Allows nested children to enable/disable outer scroll physics
 final outerScrollPhysicsProvider = StateProvider<ScrollPhysics>((ref) {
@@ -16,7 +16,7 @@ final outerScrollPhysicsProvider = StateProvider<ScrollPhysics>((ref) {
 class AppScrollView extends ConsumerStatefulWidget {
   /// Factory constructor for non-sliver content
   factory AppScrollView.children({
-    required AppSectionHeader? header,
+    required AppRouteHeader? header,
     required List<Widget> children,
   }) {
     return AppScrollView._(
@@ -29,7 +29,7 @@ class AppScrollView extends ConsumerStatefulWidget {
 
   /// Factory constructor for sliver content
   factory AppScrollView.slivers({
-    required AppSectionHeader? header,
+    required AppRouteHeader? header,
     required List<Widget> slivers,
   }) {
     return AppScrollView._(
@@ -44,7 +44,7 @@ class AppScrollView extends ConsumerStatefulWidget {
     required this.header,
   });
   final List<Widget> slivers;
-  final AppSectionHeader? header;
+  final AppRouteHeader? header;
 
   @override
   ConsumerState<AppScrollView> createState() => _AppScrollViewState();

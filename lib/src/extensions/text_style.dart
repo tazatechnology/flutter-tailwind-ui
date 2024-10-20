@@ -70,11 +70,6 @@ extension XTailwindTextStyle on TextStyle {
     return copyWith(decoration: TextDecoration.lineThrough);
   }
 
-  /// Convert existing text style to monospace font
-  TextStyle get mono {
-    return copyWith(fontFamily: TailwindTheme.fontFamilyMono);
-  }
-
   /// Add tighter letter spacing
   ///
   /// See: [TLetterSpacing.tracking_tighter]
@@ -110,4 +105,9 @@ extension XTailwindTextStyle on TextStyle {
   /// See: [TLetterSpacing.tracking_widest]
   TextStyle get tracking_widest =>
       copyWith(letterSpacing: TLetterSpacing.tracking_widest);
+
+  /// Convert existing text style to monospace font
+  TextStyle mono(BuildContext context) {
+    return copyWith(fontFamily: context.tw.text.fontFamilyMono);
+  }
 }

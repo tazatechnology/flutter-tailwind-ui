@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/layout/layout.dart';
-import 'package:flutter_tailwind_ui_example/widgets/code_result_card.dart';
-import 'package:flutter_tailwind_ui_example/widgets/value_table.dart';
+import 'package:flutter_tailwind_ui_app/layout/layout.dart';
+import 'package:flutter_tailwind_ui_app/widgets/code_result_card.dart';
+import 'package:flutter_tailwind_ui_app/widgets/value_table.dart';
 
 // =================================================
 // CLASS: TypographyRoute
@@ -40,13 +40,13 @@ class TypographyRoute extends StatelessWidget {
       final item = AppValueTableItem(
         name: 'TFontSize.$name',
         value: TFontSize.values.values.elementAt(ii).toString(),
-        widget: TText('`tw.$name`', style: tw.text.style_sm.mono),
+        widget: TText('`tw.$name`', style: tw.text.style_sm..mono(context)),
       );
       items.add(item);
     }
 
     return AppScrollView.children(
-      header: const AppSectionHeader(
+      header: const AppRouteHeader(
         section: AppSection.designSystem,
         title: 'Typography',
         description:
@@ -54,7 +54,7 @@ class TypographyRoute extends StatelessWidget {
       ),
       children: [
         /// Font Family
-        const AppSubSectionHeader(title: 'Font Family'),
+        const AppRouteSectionHeader(title: 'Font Family'),
         const TText(
           'Having both a serif font (`Geist`) and a monospaced font (`JetBrains Mono`) pre-packaged in your design system is highly beneficial because it provides immediate access to a professional typographic hierarchy. The serif font offers readability and elegance for body text, while the monospaced font is perfect for code snippets and technical content, ensuring clarity and consistency across various elements.',
         ),
@@ -78,21 +78,21 @@ Text(
 )
 ''',
         ),
-        const AppCodeResultCard(
+        AppCodeResultCard(
           children: [
-            Text(
+            const Text(
               'This is the default serif font family.',
             ),
             TSizedBox.y10,
             Text(
               'This is the default monospaced font family.',
-              style: TextStyle(fontFamily: TailwindTheme.fontFamilyMono),
+              style: TextStyle(fontFamily: tw.text.fontFamilyMono),
             ),
           ],
         ),
 
         /// Font Size
-        const AppSubSectionHeader(title: 'Font Size'),
+        const AppRouteSectionHeader(title: 'Font Size'),
         const Text(
           'The Flutter Tailwind UI package includes a standard set of font sizes that align with the Tailwind CSS default font size system, making it easy for developers to implement consistent typography across their UI. This pre-packaged sizing ensures an intuitive, scalable approach to font sizing, maintaining a cohesive visual hierarchy without the need for additional configuration.',
         ),
@@ -124,7 +124,10 @@ Text(
                 padding: TOffset.b4,
                 child: Text(
                   styleNames[ii],
-                  style: tw.text.style_sm.mono.copyWith(color: TColors.gray),
+                  style: tw.text.style_sm.copyWith(
+                    color: TColors.gray,
+                    fontFamily: tw.text.fontFamilyMono,
+                  ),
                 ),
               ),
               Padding(
@@ -138,7 +141,7 @@ Text(
                 padding: TOffset.b12,
                 child: Text(
                   'The quick brown fox jumps over the lazy dog.',
-                  style: styles[ii].mono,
+                  style: styles[ii].mono(context),
                 ),
               ),
             ],

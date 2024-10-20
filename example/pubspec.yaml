@@ -1,7 +1,7 @@
-name: flutter_tailwind_ui_example
+name: flutter_tailwind_ui_app
 description: "Flutter Tailwind UI Example Application"
 publish_to: 'none'
-version: 0.0.2
+version: 0.0.0
 
 environment:
   sdk: ^3.0.0

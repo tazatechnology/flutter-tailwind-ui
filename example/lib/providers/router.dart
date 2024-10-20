@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_tailwind_ui_example/layout/scaffold.dart';
-import 'package:flutter_tailwind_ui_example/routes/routes.dart';
+import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
+import 'package:flutter_tailwind_ui_app/routes/routes.dart';
 import 'package:go_router/go_router.dart';
 
 /// App router provider

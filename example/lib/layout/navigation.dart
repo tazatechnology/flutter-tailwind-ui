@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_example/layout/scaffold.dart';
-import 'package:flutter_tailwind_ui_example/providers/router.dart';
+import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
+import 'package:flutter_tailwind_ui_app/providers/router.dart';
 import 'package:go_router/go_router.dart';
 
 // =================================================
