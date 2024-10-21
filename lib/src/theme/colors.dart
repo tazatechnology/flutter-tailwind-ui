@@ -14,8 +14,10 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     required this.title,
     required this.body,
     required this.label,
+    required this.link,
     required this.background,
     required this.card,
+    required this.codeBlock,
     required this.divider,
     required this.selection,
     required this.disabled,
@@ -28,8 +30,10 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? title,
     Color? body,
     Color? label,
+    Color? link,
     Color? background,
     Color? card,
+    Color? codeBlock,
     Color? divider,
     Color? selection,
     Color? disabled,
@@ -39,8 +43,10 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     this.title = title ?? TColors.slate.shade900;
     this.body = body ?? TColors.slate.shade700;
     this.label = label ?? TColors.slate.shade400;
+    this.link = link ?? TColors.sky;
     this.background = background ?? TColors.white;
     this.card = card ?? this.background;
+    this.codeBlock = codeBlock ?? TColors.neutral.shade800;
     this.divider = divider ?? TColors.gray.shade200;
     this.selection = selection ?? const Color(0xFFb6d7ff);
     this.disabled = disabled ?? TColors.gray.shade400;
@@ -53,8 +59,10 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? title,
     Color? body,
     Color? label,
+    Color? link,
     Color? background,
     Color? card,
+    Color? codeBlock,
     Color? divider,
     Color? selection,
     Color? disabled,
@@ -64,8 +72,10 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     this.title = title ?? TColors.slate.shade100;
     this.body = body ?? TColors.slate.shade400;
     this.label = label ?? TColors.slate.shade500;
-    this.background = background ?? TColors.neutral.shade800;
+    this.link = link ?? TColors.sky;
+    this.background = background ?? TColors.neutral.shade900;
     this.card = card ?? this.background;
+    this.codeBlock = codeBlock ?? TColors.neutral.shade800;
     this.divider = divider ?? TColors.gray.shade700;
     this.selection = selection ?? const Color(0xFF385479);
     this.disabled = disabled ?? TColors.gray.shade600;
@@ -90,6 +100,9 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   /// The text color used for labels and captions
   late final Color label;
 
+  /// The text color used for links
+  late final Color link;
+
   /// Background color
   ///
   /// Used for the scaffold background color
@@ -99,6 +112,9 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   ///
   /// The color of cards and surfaces
   late final Color card;
+
+  /// The color of code blocks, e.g. [TCodeBlock]
+  late final Color codeBlock;
 
   /// Divider color
   ///
@@ -126,8 +142,10 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? title,
     Color? body,
     Color? label,
+    Color? link,
     Color? background,
     Color? card,
+    Color? codeBlock,
     Color? divider,
     Color? selection,
     Color? disabled,
@@ -138,8 +156,10 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       title: title ?? this.title,
       body: body ?? this.body,
       label: label ?? this.label,
+      link: link ?? this.link,
       background: background ?? this.background,
       card: card ?? this.card,
+      codeBlock: codeBlock ?? this.codeBlock,
       divider: divider ?? this.divider,
       selection: selection ?? this.selection,
       disabled: disabled ?? this.disabled,
@@ -164,8 +184,10 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       title: lerpColor(title, other.title, t),
       body: lerpColor(body, other.body, t),
       label: lerpColor(label, other.label, t),
+      link: lerpColor(link, other.link, t),
       background: lerpColor(background, other.background, t),
       card: lerpColor(card, other.card, t),
+      codeBlock: lerpColor(codeBlock, other.codeBlock, t),
       divider: lerpColor(divider, other.divider, t),
       selection: lerpColor(selection, other.selection, t),
       disabled: lerpColor(disabled, other.disabled, t),

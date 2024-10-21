@@ -40,7 +40,10 @@ class TypographyRoute extends StatelessWidget {
       final item = AppValueTableItem(
         name: 'TFontSize.$name',
         value: TFontSize.values.values.elementAt(ii).toString(),
-        widget: TText('`tw.$name`', style: tw.text.style_sm..mono(context)),
+        widget: TText(
+          '`tw.text.${name.replaceAll('text_', 'style_')}`',
+          style: tw.text.style_sm..mono(context),
+        ),
       );
       items.add(item);
     }
@@ -62,7 +65,6 @@ class TypographyRoute extends StatelessWidget {
           '\nUsers may of course define their own font families for use, but these two fonts are provided automatically and are ready for use right away. This eliminates the need for additional font setup, allowing developers to start building functional UIs right away.',
         ),
         const TCodeBlock(
-          brightness: Brightness.dark,
           code: '''
 // Default serif font family
 // Defined as static constant: TailwindTheme.fontFamily
@@ -103,7 +105,6 @@ Text(
           items: items,
         ),
         const TCodeBlock(
-          brightness: Brightness.dark,
           code: '''
 Text(
   'The quick brown fox jumps over the lazy dog.',
@@ -125,7 +126,7 @@ Text(
                 child: Text(
                   styleNames[ii],
                   style: tw.text.style_sm.copyWith(
-                    color: TColors.gray,
+                    color: tw.colors.label,
                     fontFamily: tw.text.fontFamilyMono,
                   ),
                 ),

@@ -15,7 +15,7 @@ class TCodeBlock extends StatefulWidget {
     required this.code,
     this.language = 'dart',
     this.backgroundColor,
-    this.brightness,
+    this.brightness = Brightness.dark,
     this.padding = TOffset.a20,
     this.margin = TOffset.y20,
     this.constraints = const BoxConstraints(minWidth: double.infinity),
@@ -117,8 +117,8 @@ class _TCodeBlockState extends State<TCodeBlock> {
 
     final effectiveBrightness = light ? Brightness.light : Brightness.dark;
 
-    final effectiveBackgroundColor = widget.backgroundColor ??
-        (light ? const Color(0xFFf6f8fa) : const Color(0xFF1e293b));
+    final effectiveBackgroundColor =
+        widget.backgroundColor ?? tw.colors.codeBlock;
 
     final borderColor = light
         ? effectiveBackgroundColor.withOpacity(0.95)

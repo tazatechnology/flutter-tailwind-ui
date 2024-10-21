@@ -193,6 +193,8 @@ class TText extends StatelessWidget {
         TTextExtension(
           regex: regExLink,
           builder: (details) {
+            final tw = details.context.tw;
+
             // Create a regular expression to match for the URL
             final urlRegex = RegExp(
               r'\[' + RegExp.escape(details.textMatch) + r'\]\(([^)]+)\)',
@@ -214,8 +216,7 @@ class TText extends StatelessWidget {
                       child: TText(
                         details.textMatch,
                         extensions: _getExtensions(),
-                        style: details.style
-                            .merge(const TextStyle(color: TColors.sky)),
+                        style: details.style.copyWith(color: tw.colors.link),
                       ),
                     ),
                   );
