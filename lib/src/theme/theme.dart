@@ -148,11 +148,6 @@ class TailwindTheme {
       hintColor: colors.label,
       primaryColor: colors.primary,
 
-      /// Page Transitions
-      pageTransitionsTheme: PageTransitionsTheme(
-        builders: pageTransitionBuilders,
-      ),
-
       /// AppBar
       appBarTheme: AppBarTheme(
         backgroundColor: colors.background,
@@ -188,28 +183,19 @@ class TailwindTheme {
         thickness: 1,
       ),
 
+      /// Drawer
+      drawerTheme: DrawerThemeData(
+        backgroundColor: colors.background,
+      ),
+
       /// Icon
       iconTheme: IconThemeData(
         color: TColors.slate.shade400,
       ),
 
-      /// Text Selection
-      textSelectionTheme: TextSelectionThemeData(
-        cursorColor: cursorColor,
-        selectionColor: colors.selection,
-      ),
-
-      /// Scrollbar
-      scrollbarTheme: ScrollbarThemeData(
-        thumbColor: WidgetStateProperty.all(thumbColor),
-        thickness: WidgetStateProperty.all(TSpace.v8),
-        trackColor: WidgetStateProperty.all(trackColor),
-        trackBorderColor: WidgetStateProperty.all(trackBorderColor),
-      ),
-
-      /// Drawer
-      drawerTheme: DrawerThemeData(
-        backgroundColor: colors.background,
+      /// Page Transitions
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: pageTransitionBuilders,
       ),
 
       /// Radio
@@ -226,6 +212,32 @@ class TailwindTheme {
             }
             return TColors.gray.shade300;
           },
+        ),
+      ),
+
+      /// Scrollbar
+      scrollbarTheme: ScrollbarThemeData(
+        thumbColor: WidgetStateProperty.all(thumbColor),
+        thickness: WidgetStateProperty.all(TSpace.v8),
+        trackColor: WidgetStateProperty.all(trackColor),
+        trackBorderColor: WidgetStateProperty.all(trackBorderColor),
+      ),
+
+      /// Text Selection
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: cursorColor,
+        selectionColor: colors.selection,
+      ),
+
+      /// Tooltip
+      tooltipTheme: TooltipThemeData(
+        decoration: BoxDecoration(
+          color: light ? TColors.gray.shade900 : TColors.gray.shade700,
+          borderRadius: TBorderRadius.rounded_md,
+        ),
+        textStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: TFontSize.text_xs - 1,
         ),
       ),
     );

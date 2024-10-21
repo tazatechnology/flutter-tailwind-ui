@@ -106,18 +106,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_app_info
-      sha256: db9be6b1249ec1d58c8df64367003776728e7b16fc5ccf6af70959429e365ab2
+      sha256: "9d71b4fdcd4d69ef5a8e0f8830438362afab9d9c905ce52b68d07ea113c0450d"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   flutter_riverpod:
     dependency: "direct main"
     description:
       name: flutter_riverpod
-      sha256: "711d916456563f715bde1e139d7cfdca009f8264befab3ac9f8ded8b6ec26405"
+      sha256: "6eda4e247774474c715a0805a2fb8e3cd55fbae4ead641e063c95b4bd5f3b317"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.3"
+    version: "2.6.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -283,10 +283,10 @@ packages:
     dependency: transitive
     description:
       name: riverpod
-      sha256: c86fedfb45dd1da98ee6493dd9374325cdf494e7d523ebfb0c387eecc5f7b5c9
+      sha256: bd6e656a764e3d27f211975626e0c4f9b8d06ab16acf3c7ba7a8061e09744c75
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.3"
+    version: "2.6.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -372,6 +372,70 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.2"
+  url_launcher:
+    dependency: "direct main"
+    description:
+      name: url_launcher
+      sha256: "9d06212b1362abc2f0f0d78e6f09f726608c74e3b9462e8368bb03314aa8d603"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.1"
+  url_launcher_android:
+    dependency: transitive
+    description:
+      name: url_launcher_android
+      sha256: "8fc3bae0b68c02c47c5c86fa8bfa74471d42687b0eded01b78de87872db745e2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.12"
+  url_launcher_ios:
+    dependency: transitive
+    description:
+      name: url_launcher_ios
+      sha256: e43b677296fadce447e987a2f519dcf5f6d1e527dc35d01ffab4fff5b8a7063e
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.1"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
+      sha256: e2b9622b4007f97f504cd64c0128309dfb978ae66adbe944125ed9e1750f06af
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
+  url_launcher_macos:
+    dependency: transitive
+    description:
+      name: url_launcher_macos
+      sha256: "769549c999acdb42b8bcfa7c43d72bf79a382ca7441ab18a808e101149daf672"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.1"
+  url_launcher_platform_interface:
+    dependency: transitive
+    description:
+      name: url_launcher_platform_interface
+      sha256: "552f8a1e663569be95a8190206a38187b531910283c3e982193e4f2733f01029"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.2"
+  url_launcher_web:
+    dependency: transitive
+    description:
+      name: url_launcher_web
+      sha256: "772638d3b34c779ede05ba3d38af34657a05ac55b06279ea6edd409e323dca8e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.3"
+  url_launcher_windows:
+    dependency: transitive
+    description:
+      name: url_launcher_windows
+      sha256: "44cf3aabcedde30f2dba119a9dea3b0f2672fbe6fa96e85536251d678216b3c4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.3"
   vector_graphics:
     dependency: transitive
     description:
@@ -440,10 +504,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "2294c64768987ea280b43a3d8357d42d5679f3e2b5b69b602be45b2abbd165b0"
+      sha256: "2735daae5150e8b1dfeb3eb0544b4d3af0061e9e82cef063adcd583bdae4306a"
       url: "https://pub.dev"
     source: hosted
-    version: "5.6.1"
+    version: "5.7.0"
   win32_registry:
     dependency: transitive
     description:
@@ -462,4 +526,4 @@ packages:
     version: "6.5.0"
 sdks:
   dart: ">=3.5.3 <4.0.0"
-  flutter: ">=3.19.0"
+  flutter: ">=3.24.0"

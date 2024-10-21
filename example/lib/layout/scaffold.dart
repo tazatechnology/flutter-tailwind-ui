@@ -9,6 +9,7 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/navigation.dart';
 import 'package:flutter_tailwind_ui_app/layout/toolbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/link.dart';
 
 // =================================================
 // CLASS: AppScaffold
@@ -154,24 +155,30 @@ class _ScaffoldHeader extends StatelessWidget {
             const _FlutterTailwindLogo(),
             if (tw.screen.is_sm) ...[
               TSizedBox.x14,
-              Container(
-                height: double.infinity,
-                padding: TOffset.x20,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: TColors.slate.shade400.withOpacity(0.1),
-                  borderRadius: TBorderRadius.rounded_full,
-                ),
-                child: Text(
-                  'v${package.version}',
-                  style: TextStyle(
-                    height: 0,
-                    color: TColors.slate,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: tw.text.fontFamilyMono,
-                  ),
-                ),
+              Link(
+                uri: Uri.parse('https://pub.dev/packages/flutter_tailwind_ui'),
+                target: LinkTarget.blank,
+                builder: (context, followLink) {
+                  return InkWell(
+                    onTap: followLink,
+                    child: Tooltip(
+                      message: 'View on pub.dev',
+                      child: Container(
+                        height: double.infinity,
+                        padding: TOffset.x20,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: TColors.slate.shade400.withOpacity(0.1),
+                          borderRadius: TBorderRadius.rounded_full,
+                        ),
+                        child: Text(
+                          'v${package.versionWithoutBuild}',
+                          style: tw.text.style_xs.mono(context),
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ],

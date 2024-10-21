@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/providers/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/link.dart';
 
 // =================================================
 // CLASS: AppToolbar
@@ -19,21 +21,46 @@ class AppToolbar extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: tw.screen.is_sm ? TSpace.v20 : TSpace.v14,
       children: [
-        InkWell(
-          child: SvgPicture.asset(
-            'assets/img/dart.svg',
-            semanticsLabel: 'Tailwind UI (Flutter)',
-            height: TSpace.v20,
+        Link(
+          uri: Uri.parse(
+            'https://pub.dev/documentation/flutter_tailwind_ui/latest',
           ),
-          onTap: () {},
+          target: LinkTarget.blank,
+          builder: (context, followLink) {
+            return InkWell(
+              onTap: followLink,
+              child: InkWell(
+                onTap: followLink,
+                child: SvgPicture.asset(
+                  'assets/img/dart.svg',
+                  semanticsLabel: 'Tailwind UI (Flutter)',
+                  height: TSpace.v20,
+                ),
+              ),
+            );
+          },
         ),
         const ThemeToggleButton(),
-        InkWell(
-          child: const Icon(
-            FontAwesomeIcons.github,
-            size: TSpace.v20,
+        Link(
+          uri: Uri.parse(
+            'https://github.com/tazatechnology/flutter-tailwind-ui',
           ),
-          onTap: () {},
+          target: LinkTarget.blank,
+          builder: (context, followLink) {
+            return InkWell(
+              onTap: followLink,
+              child: const Icon(FontAwesomeIcons.github, size: 20),
+            );
+          },
+        ),
+        Tooltip(
+          message: 'Build: ${AppInfo.of(context).package.version}',
+          textStyle: TextStyle(
+            fontFamily: tw.text.fontFamilyMono,
+            color: Colors.white,
+            fontSize: 10,
+          ),
+          child: const Icon(FontAwesomeIcons.circleQuestion, size: 20),
         ),
       ],
     );

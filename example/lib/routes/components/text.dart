@@ -13,13 +13,14 @@ class ComponentRouteTText extends StatelessWidget {
   Widget build(BuildContext context) {
     return const ComponentRoute(
       name: 'TText',
-      description: 'A rich text widget with basic markdown-like formatting.',
+      description:
+          'A rich text widget with basic markdown formatting and extendable styling',
       children: [
         TText(
-          'Content is **bold**\nThis should be _italic_\nThis should be _**bold/italic**_\nensuring the `currentIndex` is updated\nAnd here is a link to [google](google.com)',
+          'Content is **bold**\nThis should be _italic_\nThis should be _**bold/italic**_\nensuring the `currentIndex` is updated\nAnd here is a link to [google](https://google.com)',
         ),
         TText(
-          'And here is a link to [`code link`](google.com)',
+          'Content is `_italic_` and so is this: *italic*',
         ),
       ],
     );
