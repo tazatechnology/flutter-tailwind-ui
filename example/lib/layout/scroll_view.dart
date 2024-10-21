@@ -6,7 +6,7 @@ import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
 
 /// Allows nested children to enable/disable outer scroll physics
 final outerScrollPhysicsProvider = StateProvider<ScrollPhysics>((ref) {
-  return const ClampingScrollPhysics();
+  return const BouncingScrollPhysics();
 });
 
 // =================================================
@@ -59,12 +59,14 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
 
   @override
   Widget build(BuildContext context) {
+    final tw = context.tw;
     double toolbarHeight = AppScaffold.toolbarHeight;
-    if (context.tw.screen.width < AppScaffold.sidebarBreakpoint) {
+    if (tw.screen.width < AppScaffold.sidebarBreakpoint) {
       toolbarHeight = AppScaffold.toolbarHeight * 2;
     }
     final physics = ref.watch(outerScrollPhysicsProvider);
-
+    const yPad = TOffset.y16;
+    final xPad = tw.screen.is_sm ? TOffset.x32 : TOffset.x16;
     return Stack(
       children: [
         _AppBackground(controller: scrollController),
@@ -75,19 +77,17 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
             slivers: [
               // Top padding for the toolbar and additional padding
               SliverPadding(
-                padding: EdgeInsets.only(
-                  top: toolbarHeight + TSpace.v32,
-                ),
+                padding: EdgeInsets.only(top: toolbarHeight) + yPad,
               ),
               if (widget.header != null) ...[
                 SliverPadding(
-                  padding: TOffset.x32,
+                  padding: xPad,
                   sliver: SliverToBoxAdapter(child: widget.header),
                 ),
               ],
               ...widget.slivers.map((sliver) {
                 // Common horizontal padding for the content
-                return SliverPadding(padding: TOffset.x32, sliver: sliver);
+                return SliverPadding(padding: xPad, sliver: sliver);
               }),
               // Extra bottom padding for last content in scroll view
               const SliverPadding(

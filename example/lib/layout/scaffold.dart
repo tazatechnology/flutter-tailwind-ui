@@ -56,23 +56,44 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
       bottom: BorderSide(color: tw.colors.divider),
     );
 
+    Widget? drawer;
+    if (!showSideBar) {
+      drawer = Builder(
+        builder: (context) {
+          return Drawer(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: TOffset.x16,
+                  height: AppScaffold.toolbarHeight,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const _FlutterTailwindLogo(),
+                      InkWell(
+                        child: const Padding(
+                          padding: TOffset.x14,
+                          child: FaIcon(FontAwesomeIcons.xmark, size: 18),
+                        ),
+                        onTap: () {
+                          Scaffold.of(context).closeDrawer();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const Expanded(child: AppNavigation()),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
     return Scaffold(
       extendBodyBehindAppBar: true,
-      drawer: showSideBar
-          ? null
-          : Drawer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: TOffset.x16,
-                    height: AppScaffold.toolbarHeight,
-                    child: const _FlutterTailwindLogo(),
-                  ),
-                  const Expanded(child: AppNavigation()),
-                ],
-              ),
-            ),
+      drawer: drawer,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(appBarHeight),
         child: ClipRRect(
@@ -103,7 +124,7 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
                     Expanded(
                       child: Container(
                         height: AppScaffold.toolbarHeight,
-                        padding: TOffset.y16 + appBarXPad,
+                        padding: appBarXPad / 2,
                         width: double.infinity,
                         child: const _ScaffoldMobileNavigation(),
                       ),
@@ -202,7 +223,10 @@ class _ScaffoldMobileNavigation extends StatelessWidget {
       children: [
         InkWell(
           onTap: Scaffold.of(context).openDrawer,
-          child: const FaIcon(FontAwesomeIcons.bars, size: 20),
+          child: const Padding(
+            padding: TOffset.a16,
+            child: FaIcon(FontAwesomeIcons.bars, size: 20),
+          ),
         ),
       ],
     );

@@ -124,7 +124,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                 }
                 // Allow outer scroll view to scroll
                 ref.read(outerScrollPhysicsProvider.notifier).state =
-                    const ClampingScrollPhysics();
+                    const BouncingScrollPhysics();
               },
               child: MediaQuery.removePadding(
                 context: context,
@@ -132,7 +132,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                 child: TScrollbar(
                   visible: true,
                   child: ListView.separated(
-                    physics: const ClampingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     controller: scrollController,
                     itemCount: widget.items.length,
                     cacheExtent: (widget.height ??

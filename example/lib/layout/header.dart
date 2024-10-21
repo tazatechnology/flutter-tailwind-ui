@@ -31,12 +31,13 @@ class AppRouteHeader extends StatelessWidget {
     required this.description,
     super.key,
     this.titleMono = false,
+    this.className,
   });
   final AppSection section;
   final String title;
   final String description;
   final bool titleMono;
-
+  final String? className;
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
@@ -60,7 +61,26 @@ class AppRouteHeader extends StatelessWidget {
             color: TColors.sky[tw.light ? 500 : 400],
           ),
         ),
-        TText(title, style: titleStyle),
+        Row(
+          children: [
+            TText(title, style: titleStyle),
+            if (className != null)
+              Container(
+                margin: TOffset.l14,
+                padding: TOffset.x8 + TOffset.y4,
+                decoration: BoxDecoration(
+                  color: tw.light
+                      ? TColors.neutral.shade100
+                      : TColors.neutral.shade800,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: TText(
+                  '[Dart Docs](https://pub.dev/documentation/flutter_tailwind_ui/latest/flutter_tailwind_ui/$className-class.html)',
+                  style: tw.text.style_xs,
+                ),
+              ),
+          ],
+        ),
         TText(
           description,
           style: tw.text.style_lg.extralight,

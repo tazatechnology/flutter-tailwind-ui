@@ -24,6 +24,7 @@ class ComponentRoute extends StatelessWidget {
       section: AppSection.components,
       titleMono: true,
       title: name,
+      className: name,
       description: description,
     );
     if (slivers.isNotEmpty) {

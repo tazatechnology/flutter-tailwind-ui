@@ -211,13 +211,11 @@ class TText extends StatelessWidget {
                 builder: (context, followLink) {
                   return InkWell(
                     onTap: followLink,
-                    child: InkWell(
-                      onTap: followLink,
-                      child: TText(
-                        details.textMatch,
-                        extensions: _getExtensions(),
-                        style: details.style.copyWith(color: tw.colors.link),
-                      ),
+                    child: TText(
+                      details.textMatch,
+                      extensions: _getExtensions(),
+                      style: details.style
+                          .copyWith(color: tw.colors.link, height: 0),
                     ),
                   );
                 },
