@@ -1,6 +1,6 @@
 {
-  "name": "Flutter Tailwind UI",
-  "short_name": "Flutter Tailwind UI",
+  "name": "MyWebSite",
+  "short_name": "MySite",
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",

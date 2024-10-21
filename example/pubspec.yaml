@@ -23,9 +23,17 @@ dependencies:
   url_launcher: ^6.3.1
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.1
   flutter_test:
     sdk: flutter
   very_good_analysis: ^6.0.0
+
+# Icon generation settings
+flutter_icons:
+  # flutter pub run flutter_launcher_icons
+  macos:
+    generate: true
+    image_path: assets/launcher/icon_mac.png
 
 flutter:
   uses-material-design: true
