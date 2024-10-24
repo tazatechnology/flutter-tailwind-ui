@@ -64,34 +64,38 @@ class TStateConsumer extends StatelessWidget {
     return ListenableBuilder(
       listenable: notifier,
       builder: (context, _) {
-        return GestureDetector(
-          onTap: onPressed,
-          onTapDown: (details) {
-            notifier._update(TState.pressed, true);
-          },
-          onTapUp: (details) {
-            notifier._update(TState.pressed, false);
-          },
-          onTapCancel: () {
-            notifier._update(TState.pressed, false);
-          },
-          onLongPressStart: (_) {
-            notifier._update(TState.dragged, true);
-          },
-          onLongPressEnd: (_) {
-            notifier._update(TState.dragged, false);
-          },
-          child: FocusableActionDetector(
-            mouseCursor: onPressed != null
-                ? SystemMouseCursors.click
-                : SystemMouseCursors.basic,
-            onShowHoverHighlight: (value) {
-              notifier._update(TState.hovered, value);
+        return DefaultSelectionStyle.merge(
+          mouseCursor: onPressed != null
+              ? SystemMouseCursors.click
+              : SystemMouseCursors.basic,
+          child: GestureDetector(
+            onTap: onPressed,
+            onTapDown: (details) {
+              notifier._update(TState.pressed, true);
             },
-            onShowFocusHighlight: (value) {
-              notifier._update(TState.focused, value);
+            onTapUp: (details) {
+              notifier._update(TState.pressed, false);
             },
-            child: builder(context, notifier),
+            onTapCancel: () {
+              notifier._update(TState.pressed, false);
+            },
+            onLongPressStart: (_) {
+              notifier._update(TState.dragged, true);
+            },
+            onLongPressEnd: (_) {
+              notifier._update(TState.dragged, false);
+            },
+            child: FocusableActionDetector(
+              descendantsAreFocusable: false,
+              descendantsAreTraversable: false,
+              onShowHoverHighlight: (value) {
+                notifier._update(TState.hovered, value);
+              },
+              onShowFocusHighlight: (value) {
+                notifier._update(TState.focused, value);
+              },
+              child: builder(context, notifier),
+            ),
           ),
         );
       },

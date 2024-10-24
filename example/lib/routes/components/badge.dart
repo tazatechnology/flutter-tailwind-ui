@@ -47,6 +47,8 @@ class ComponentRouteTBadge extends StatelessWidget {
             color: TColors.sky,
             context: context,
           ),
+          dismissTooltip: 'Dismiss',
+          tooltip: 'A custom tooltip',
           child: const Text('TColors.red'),
           onDismiss: () {},
         ),

@@ -16,6 +16,8 @@ class TBadge extends StatelessWidget {
     this.theme,
     this.onPressed,
     this.onDismiss,
+    this.tooltip,
+    this.dismissTooltip,
     super.key,
   });
 
@@ -36,6 +38,12 @@ class TBadge extends StatelessWidget {
   /// This will add a close button to the badge.
   final VoidCallback? onDismiss;
 
+  /// The tooltip to display when hovering over the badge.
+  final String? tooltip;
+
+  /// The tooltip to display when hovering over the dismiss icon.
+  final String? dismissTooltip;
+
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
@@ -53,17 +61,20 @@ class TBadge extends StatelessWidget {
         }
         if (onDismiss != null) {
           children.add(
-            Material(
-              type: MaterialType.transparency,
-              child: Padding(
-                padding: TOffset.l4,
-                child: InkWell(
-                  hoverColor: textStyle.color?.withOpacity(0.1),
-                  onTap: onDismiss,
-                  child: Icon(
-                    Icons.close,
-                    size: textStyle.fontSize,
-                    color: textStyle.color?.withOpacity(0.75),
+            TTooltip(
+              message: dismissTooltip,
+              child: Material(
+                type: MaterialType.transparency,
+                child: Padding(
+                  padding: TOffset.l4,
+                  child: InkWell(
+                    hoverColor: textStyle.color?.withOpacity(0.1),
+                    onTap: onDismiss,
+                    child: Icon(
+                      Icons.close,
+                      size: textStyle.fontSize,
+                      color: textStyle.color?.withOpacity(0.75),
+                    ),
                   ),
                 ),
               ),
@@ -73,18 +84,22 @@ class TBadge extends StatelessWidget {
 
         return DefaultTextStyle.merge(
           style: DefaultTextStyle.of(context).style.merge(textStyle),
-          child: AnimatedContainer(
-            duration: theme.animationDuration,
-            padding: theme.padding.resolveWithFallback(notifier.states),
-            decoration: BoxDecoration(
-              color: theme.backgroundColor.resolveWithFallback(notifier.states),
-              border: border,
-              borderRadius:
-                  theme.borderRadius.resolveWithFallback(notifier.states),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: children,
+          child: TTooltip(
+            message: tooltip,
+            child: AnimatedContainer(
+              duration: theme.animationDuration,
+              padding: theme.padding.resolveWithFallback(notifier.states),
+              decoration: BoxDecoration(
+                color:
+                    theme.backgroundColor.resolveWithFallback(notifier.states),
+                border: border,
+                borderRadius:
+                    theme.borderRadius.resolveWithFallback(notifier.states),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: children,
+              ),
             ),
           ),
         );
