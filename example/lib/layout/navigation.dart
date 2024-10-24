@@ -33,11 +33,22 @@ class _AppNavigationState extends State<AppNavigation> {
       );
     }
 
+    // Component routes
+    final componentRoutes = {
+      'TBadge': AppRouter.badge,
+      'TCodeBlock': AppRouter.code_block,
+      'TRadioList': AppRouter.radio_list,
+      'TRowColumn': AppRouter.row_column,
+      'TScrollbar': AppRouter.scrollbar,
+      'TSizedBox': AppRouter.sized_box,
+      'TText': AppRouter.text,
+    };
+
     return ListView(
       padding: TOffset.x24 + topPadding,
       controller: scrollController,
-      children: const [
-        AppNavigationSection(
+      children: [
+        const AppNavigationSection(
           title: 'Getting Started',
           items: [
             AppNavigationItem(
@@ -51,7 +62,7 @@ class _AppNavigationState extends State<AppNavigation> {
             ),
           ],
         ),
-        AppNavigationSection(
+        const AppNavigationSection(
           title: 'Design System',
           items: [
             AppNavigationItem(
@@ -72,30 +83,11 @@ class _AppNavigationState extends State<AppNavigation> {
         AppNavigationSection(
           title: 'Components',
           items: [
-            AppNavigationItem(
-              title: '`TCodeBlock`',
-              route: AppRouter.code_block,
-            ),
-            AppNavigationItem(
-              title: '`TRadioList`',
-              route: AppRouter.radio_list,
-            ),
-            AppNavigationItem(
-              title: '`TRowColumn`',
-              route: AppRouter.row_column,
-            ),
-            AppNavigationItem(
-              title: '`TScrollbar`',
-              route: AppRouter.scrollbar,
-            ),
-            AppNavigationItem(
-              title: '`TSizedBox`',
-              route: AppRouter.sized_box,
-            ),
-            AppNavigationItem(
-              title: '`TText`',
-              route: AppRouter.text,
-            ),
+            for (final entry in componentRoutes.entries)
+              AppNavigationItem(
+                title: '`${entry.key}`',
+                route: entry.value,
+              ),
           ],
         ),
       ],

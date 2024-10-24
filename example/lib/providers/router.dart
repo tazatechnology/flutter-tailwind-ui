@@ -49,6 +49,11 @@ class AppRouter {
       // Components
       // -------------------------------------------------
       GoRoute(
+        name: badge,
+        path: '/$badge',
+        builder: (context, state) => const ComponentRouteTBadge(),
+      ),
+      GoRoute(
         name: code_block,
         path: '/$code_block',
         builder: (context, state) => const ComponentRouteTCodeBlock(),
@@ -102,6 +107,7 @@ class AppRouter {
   static const String spacing = 'spacing';
   static const String typography = 'typography';
   // Components
+  static const String badge = 'badge';
   static const String code_block = 'code-block';
   static const String radio_list = 'radio-list';
   static const String row_column = 'row-column';

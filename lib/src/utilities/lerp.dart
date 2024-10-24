@@ -1,5 +1,22 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/src/constants/colors.dart';
+
+// -------------------------------------------------
+// METHOD: lerpDouble
+// -------------------------------------------------
+
+/// Helper function to interpolate between two [double] values
+double lerpDouble(num a, num b, double t) {
+  return (ui.lerpDouble(a, b, t) ?? b).toDouble();
+}
+
+/// Helper function to interpolate between two [Duration] objects
+Duration lerpDuration(Duration a, Duration b, double t) {
+  return Duration(
+    milliseconds: lerpDouble(a.inMilliseconds, b.inMilliseconds, t).round(),
+  );
+}
 
 // -------------------------------------------------
 // METHOD: lerpColor
@@ -7,9 +24,53 @@ import 'package:flutter_tailwind_ui/src/constants/colors.dart';
 
 /// Helper function to interpolate between two [Color] objects
 ///
-/// Similar to the [Color.lerp] method, but ensures that the color is not null
+/// Similar to the [Color.lerp] method, but ensures that the returned value is not null
 Color lerpColor(Color a, Color b, double t) {
-  return Color.lerp(a, b, t) ?? a;
+  return Color.lerp(a, b, t) ?? b;
+}
+
+// -------------------------------------------------
+// METHOD: lerpTextStyle
+// -------------------------------------------------
+
+/// Helper function to interpolate between two [TextStyle] objects
+///
+/// Similar to the [TextStyle.lerp] method, but ensures that the returned value is not null
+TextStyle lerpTextStyle(TextStyle a, TextStyle b, double t) {
+  return TextStyle.lerp(a, b, t) ?? b;
+}
+
+// -------------------------------------------------
+// METHOD: lerpBorder
+// -------------------------------------------------
+
+/// Helper function to interpolate between two [BoxBorder] objects
+///
+/// Similar to the [BoxBorder.lerp] method, but ensures that the returned value is not null
+BoxBorder lerpBorder(BoxBorder a, BoxBorder b, double t) {
+  return BoxBorder.lerp(a, b, t) ?? b;
+}
+
+// -------------------------------------------------
+// METHOD: lerpBorderRadius
+// -------------------------------------------------
+
+/// Helper function to interpolate between two [BorderRadius] objects
+///
+/// Similar to the [BorderRadius.lerp] method, but ensures that the returned value is not null
+BorderRadius lerpBorderRadius(BorderRadius a, BorderRadius b, double t) {
+  return BorderRadius.lerp(a, b, t) ?? b;
+}
+
+/// Helper function to interpolate between two [BorderRadius] objects
+///
+/// Similar to the [BorderRadius.lerp] method, but ensures that the returned value is not null
+EdgeInsetsGeometry lerpEdgeInsets(
+  EdgeInsetsGeometry a,
+  EdgeInsetsGeometry b,
+  double t,
+) {
+  return EdgeInsetsGeometry.lerp(a, b, t) ?? b;
 }
 
 // -------------------------------------------------

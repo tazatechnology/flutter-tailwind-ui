@@ -1,4 +1,5 @@
 // Components
+export 'components/badge.dart';
 export 'components/code_block.dart';
 export 'components/radio_list.dart';
 export 'components/row_column.dart';

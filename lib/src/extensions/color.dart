@@ -60,4 +60,42 @@ extension XTailwindColor on Color {
 
     return value;
   }
+
+  /// Get a [MaterialColor] representation of this color
+  MaterialColor toMaterialColor() {
+    final colorShades = {
+      50: _tintColor(this, 0.9),
+      100: _tintColor(this, 0.8),
+      200: _tintColor(this, 0.6),
+      300: _tintColor(this, 0.4),
+      400: _tintColor(this, 0.2),
+      500: this,
+      600: _shadeColor(this, 0.1),
+      700: _shadeColor(this, 0.2),
+      800: _shadeColor(this, 0.3),
+      900: _shadeColor(this, 0.4),
+    };
+
+    return MaterialColor(value, colorShades);
+  }
 }
+
+/// Tints the given color by lightening it based on the provided factor.
+///
+/// The factor should be between 0 and 1, where 1 results in the lightest tint.
+Color _tintColor(Color color, double factor) => Color.fromRGBO(
+      (color.red + ((255 - color.red) * factor)).round(),
+      (color.green + ((255 - color.green) * factor)).round(),
+      (color.blue + ((255 - color.blue) * factor)).round(),
+      1,
+    );
+
+/// Shades the given color by darkening it based on the provided factor.
+///
+/// The factor should be between 0 and 1, where 1 results in the darkest shade.
+Color _shadeColor(Color color, double factor) => Color.fromRGBO(
+      (color.red * (1 - factor)).round(),
+      (color.green * (1 - factor)).round(),
+      (color.blue * (1 - factor)).round(),
+      1,
+    );

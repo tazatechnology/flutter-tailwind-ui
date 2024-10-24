@@ -1,3 +1,6 @@
+analyzer:
+  errors:
+    one_member_abstracts: ignore
 include: package:very_good_analysis/analysis_options.yaml
 
 linter:
@@ -6,3 +9,4 @@ linter:
     flutter_style_todos: false
     cascade_invocations: false
     omit_local_variable_types: false
+    one_member_abstracts: false

@@ -14,7 +14,6 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     required this.title,
     required this.body,
     required this.label,
-    required this.link,
     required this.background,
     required this.card,
     required this.codeBlock,
@@ -30,7 +29,6 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? title,
     Color? body,
     Color? label,
-    Color? link,
     Color? background,
     Color? card,
     Color? codeBlock,
@@ -43,7 +41,6 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     this.title = title ?? TColors.slate.shade900;
     this.body = body ?? TColors.slate.shade700;
     this.label = label ?? TColors.slate.shade400;
-    this.link = link ?? TColors.sky;
     this.background = background ?? TColors.white;
     this.card = card ?? this.background;
     this.codeBlock = codeBlock ?? TColors.neutral.shade800;
@@ -59,7 +56,6 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? title,
     Color? body,
     Color? label,
-    Color? link,
     Color? background,
     Color? card,
     Color? codeBlock,
@@ -72,7 +68,6 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     this.title = title ?? TColors.slate.shade100;
     this.body = body ?? TColors.slate.shade400;
     this.label = label ?? TColors.slate.shade500;
-    this.link = link ?? TColors.sky;
     this.background = background ?? TColors.neutral.shade900;
     this.card = card ?? this.background;
     this.codeBlock = codeBlock ?? TColors.neutral.shade800;
@@ -99,9 +94,6 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
 
   /// The text color used for labels and captions
   late final Color label;
-
-  /// The text color used for links
-  late final Color link;
 
   /// Background color
   ///
@@ -142,7 +134,6 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? title,
     Color? body,
     Color? label,
-    Color? link,
     Color? background,
     Color? card,
     Color? codeBlock,
@@ -156,7 +147,6 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       title: title ?? this.title,
       body: body ?? this.body,
       label: label ?? this.label,
-      link: link ?? this.link,
       background: background ?? this.background,
       card: card ?? this.card,
       codeBlock: codeBlock ?? this.codeBlock,
@@ -184,7 +174,6 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       title: lerpColor(title, other.title, t),
       body: lerpColor(body, other.body, t),
       label: lerpColor(label, other.label, t),
-      link: lerpColor(link, other.link, t),
       background: lerpColor(background, other.background, t),
       card: lerpColor(card, other.card, t),
       codeBlock: lerpColor(codeBlock, other.codeBlock, t),

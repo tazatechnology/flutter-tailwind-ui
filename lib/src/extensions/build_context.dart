@@ -54,6 +54,14 @@ class TailwindContext {
   TailwindTextTheme get text {
     return Theme.of(_ctx).extension<TailwindTextTheme>() ?? TailwindTextTheme();
   }
+
+  /// The current Tailwind component themes
+  TailwindComponentsTheme get component {
+    return Theme.of(_ctx).extension<TailwindComponentsTheme>() ??
+        (light
+            ? TailwindComponentsTheme.light()
+            : TailwindComponentsTheme.dark());
+  }
 }
 
 // =================================================

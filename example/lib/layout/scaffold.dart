@@ -9,6 +9,7 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/navigation.dart';
 import 'package:flutter_tailwind_ui_app/layout/toolbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/link.dart';
 
 // =================================================
@@ -173,7 +174,12 @@ class _ScaffoldHeader extends StatelessWidget {
       children: [
         Row(
           children: [
-            const _FlutterTailwindLogo(),
+            InkWell(
+              child: const _FlutterTailwindLogo(),
+              onTap: () {
+                context.go('/');
+              },
+            ),
             if (tw.screen.is_sm) ...[
               TSizedBox.x14,
               Link(
@@ -183,7 +189,7 @@ class _ScaffoldHeader extends StatelessWidget {
                   return InkWell(
                     onTap: followLink,
                     child: Tooltip(
-                      message: 'View on pub.dev',
+                      message: 'Dart Package',
                       child: Container(
                         height: double.infinity,
                         padding: TOffset.x20,

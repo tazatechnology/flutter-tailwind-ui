@@ -13,45 +13,44 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 class TailwindTheme {
   /// Factory constructor for a light Tailwind inspired theme
   factory TailwindTheme.light({
-    TailwindColorTheme? colors,
+    TailwindColorTheme? color,
     TailwindTextTheme? text,
+    TailwindComponentsTheme? components,
   }) {
     return TailwindTheme._(
-      colors: colors ?? TailwindColorTheme.light(),
-      text: text ?? TailwindTextTheme(),
       brightness: Brightness.light,
+      color: color ?? TailwindColorTheme.light(),
+      text: text ?? TailwindTextTheme(),
+      components: components ?? TailwindComponentsTheme.light(),
     );
   }
 
   /// Factory constructor for a dark Tailwind inspired theme
   factory TailwindTheme.dark({
-    TailwindColorTheme? colors,
+    TailwindColorTheme? color,
     TailwindTextTheme? text,
+    TailwindComponentsTheme? components,
   }) {
     return TailwindTheme._(
-      colors: colors ?? TailwindColorTheme.dark(),
-      text: text ?? TailwindTextTheme(),
       brightness: Brightness.dark,
+      color: color ?? TailwindColorTheme.dark(),
+      text: text ?? TailwindTextTheme(),
+      components: components ?? TailwindComponentsTheme.dark(),
     );
   }
 
   /// Constructor for [TailwindTheme]
   TailwindTheme._({
-    required this.text,
-    required this.colors,
     required this.brightness,
+    required TailwindColorTheme color,
+    required TailwindTextTheme text,
+    required TailwindComponentsTheme components,
   }) {
-    data = _buildThemeData();
+    data = _buildThemeData(color: color, text: text, components: components);
   }
 
   /// The Flutter [ThemeData] instance
   late final ThemeData data;
-
-  /// The Tailwind text theme extension definition
-  final TailwindTextTheme text;
-
-  /// The Tailwind colors theme extension definition
-  final TailwindColorTheme colors;
 
   /// The brightness of the theme (light or dark)
   final Brightness brightness;
@@ -60,7 +59,11 @@ class TailwindTheme {
   // METHOD: _buildTheme
   // -------------------------------------------------
 
-  ThemeData _buildThemeData() {
+  ThemeData _buildThemeData({
+    required TailwindColorTheme color,
+    required TailwindTextTheme text,
+    required TailwindComponentsTheme components,
+  }) {
     final light = brightness == Brightness.light;
 
     // Brightness specific colors
@@ -101,15 +104,15 @@ class TailwindTheme {
       labelSmall: text.style_xs,
     ).apply(
       fontFamily: text.fontFamily,
-      bodyColor: colors.body,
-      displayColor: colors.title,
+      bodyColor: color.body,
+      displayColor: color.title,
     );
 
     // Update the text theme with the secondary color
     textTheme = textTheme.copyWith(
-      labelLarge: textTheme.labelLarge?.copyWith(color: colors.label),
-      labelMedium: textTheme.labelLarge?.copyWith(color: colors.label),
-      labelSmall: textTheme.labelLarge?.copyWith(color: colors.label),
+      labelLarge: textTheme.labelLarge?.copyWith(color: color.label),
+      labelMedium: textTheme.labelLarge?.copyWith(color: color.label),
+      labelSmall: textTheme.labelLarge?.copyWith(color: color.label),
     );
 
     // Define default page transition animations (disabled)
@@ -127,13 +130,14 @@ class TailwindTheme {
 
     return ThemeData(
       extensions: [
-        colors,
+        color,
         text,
+        components,
       ],
       useMaterial3: true,
       brightness: brightness,
       fontFamily: text.fontFamily,
-      scaffoldBackgroundColor: colors.background,
+      scaffoldBackgroundColor: color.background,
       splashColor: Colors.transparent,
       splashFactory: NoSplash.splashFactory,
       hoverColor: Colors.transparent,
@@ -141,22 +145,22 @@ class TailwindTheme {
       focusColor: Colors.transparent,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.standard,
-      dividerColor: colors.divider,
-      disabledColor: colors.disabled,
+      dividerColor: color.divider,
+      disabledColor: color.disabled,
       textTheme: textTheme,
-      cardColor: colors.card,
-      hintColor: colors.label,
-      primaryColor: colors.primary,
+      cardColor: color.card,
+      hintColor: color.label,
+      primaryColor: color.primary,
 
       /// AppBar
       appBarTheme: AppBarTheme(
-        backgroundColor: colors.background,
+        backgroundColor: color.background,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: colors.background,
+          statusBarColor: color.background,
           statusBarIconBrightness: brightness,
           statusBarBrightness: brightness,
           systemStatusBarContrastEnforced: true,
-          systemNavigationBarColor: colors.background,
+          systemNavigationBarColor: color.background,
           systemNavigationBarIconBrightness: brightness,
           systemNavigationBarContrastEnforced: true,
         ),
@@ -164,7 +168,7 @@ class TailwindTheme {
 
       /// Card
       cardTheme: CardTheme(
-        color: colors.card,
+        color: color.card,
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 20,
@@ -172,20 +176,28 @@ class TailwindTheme {
         shape: RoundedRectangleBorder(
           borderRadius: TBorderRadius.rounded_lg,
           side: BorderSide(
-            color: colors.divider,
+            color: color.divider,
           ),
         ),
       ),
 
+      /// Chip
+      chipTheme: const ChipThemeData(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        labelPadding: TOffset.a4,
+        padding: TOffset.a4,
+      ),
+
       /// Divider
       dividerTheme: DividerThemeData(
-        color: colors.divider,
+        color: color.divider,
         thickness: 1,
       ),
 
       /// Drawer
       drawerTheme: DrawerThemeData(
-        backgroundColor: colors.background,
+        backgroundColor: color.background,
       ),
 
       /// Icon
@@ -206,9 +218,9 @@ class TailwindTheme {
         fillColor: WidgetStateProperty.resolveWith(
           (states) {
             if (states.contains(WidgetState.disabled)) {
-              return colors.disabled;
+              return color.disabled;
             } else if (states.contains(WidgetState.selected)) {
-              return light ? colors.primary.shade600 : colors.primary;
+              return light ? color.primary.shade600 : color.primary;
             }
             return TColors.gray.shade300;
           },
@@ -226,7 +238,7 @@ class TailwindTheme {
       /// Text Selection
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: cursorColor,
-        selectionColor: colors.selection,
+        selectionColor: color.selection,
       ),
 
       /// Tooltip

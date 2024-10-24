@@ -22,7 +22,12 @@ class AppScrollView extends ConsumerStatefulWidget {
     return AppScrollView._(
       header: header,
       slivers: children.map((child) {
-        return SliverToBoxAdapter(child: child);
+        return SliverToBoxAdapter(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: child,
+          ),
+        );
       }).toList(),
     );
   }
@@ -140,7 +145,9 @@ class _AppBackgroundState extends State<_AppBackground> {
   void offsetListener() {
     // Only conditionally update widget
     // Once background is scrolled away, no need to rebuild
-    if (attached && widget.controller.offset < _AppBackground.height) {
+    if (attached &&
+        widget.controller.offset < _AppBackground.height &&
+        widget.controller.offset > 0) {
       setState(() {});
     }
   }

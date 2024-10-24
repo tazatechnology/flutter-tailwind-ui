@@ -44,6 +44,7 @@ class TText extends StatelessWidget {
     this.textHeightBehavior,
     this.selectionColor,
     this.extensions = const [],
+    this.theme,
     super.key,
   });
 
@@ -93,6 +94,9 @@ class TText extends StatelessWidget {
 
   /// Custom extensions to parse the text.
   final List<TTextExtension> extensions;
+
+  /// The theme data for the [TText] widget.
+  final TTextTheme? theme;
 
   // -------------------------------------------------
   // METHOD: build
@@ -163,13 +167,12 @@ class TText extends StatelessWidget {
             final tw = details.context.tw;
             final baseFontSize =
                 details.style.fontSize ?? tw.text.style_md.fontSize ?? 16;
+            final theme = this.theme ?? tw.component.text;
             return WidgetSpan(
               child: Container(
                 padding: TOffset.x4,
                 decoration: BoxDecoration(
-                  color: tw.light
-                      ? Colors.black.withOpacity(0.05)
-                      : Colors.white.withOpacity(0.1),
+                  color: theme.codeBackgroundColor,
                   borderRadius: TBorderRadius.rounded,
                 ),
                 // Pass to another TText widget to parse any nested patterns
@@ -209,13 +212,16 @@ class TText extends StatelessWidget {
                 uri: uri,
                 target: kIsWeb ? LinkTarget.blank : LinkTarget.defaultTarget,
                 builder: (context, followLink) {
+                  final theme = this.theme ?? tw.component.text;
                   return InkWell(
                     onTap: followLink,
                     child: TText(
                       details.textMatch,
                       extensions: _getExtensions(),
-                      style: details.style
-                          .copyWith(color: tw.colors.link, height: 0),
+                      style: details.style.copyWith(
+                        color: theme.linkColor,
+                        height: 0,
+                      ),
                     ),
                   );
                 },
@@ -370,4 +376,75 @@ class TTextMatchDetails {
 
   /// The style defined by the wrapping [TText] widget.
   final TextStyle style;
+}
+
+// =================================================
+// CLASS: TTextTheme
+// =================================================
+
+/// Theme data for [TText] widgets.
+class TTextTheme extends ThemeExtension<TTextTheme> {
+  /// Creates a [TTextTheme] object.
+  TTextTheme.raw({
+    required this.linkColor,
+    required this.codeBackgroundColor,
+  });
+
+  /// Creates a [TTextTheme] object.
+  TTextTheme.light({
+    Color? linkColor,
+    Color? codeBackgroundColor,
+  }) {
+    this.linkColor = linkColor ?? TColors.sky;
+    this.codeBackgroundColor = codeBackgroundColor ?? const Color(0xFFf5f5f5);
+  }
+
+  /// Creates a [TTextTheme] object.
+  TTextTheme.dark({
+    Color? linkColor,
+    Color? codeBackgroundColor,
+  }) {
+    this.linkColor = linkColor ?? TColors.sky.shade400;
+    this.codeBackgroundColor = codeBackgroundColor ?? const Color(0xFF333333);
+  }
+
+  /// The color of link [InlineSpan] elements.
+  late final Color linkColor;
+
+  /// The background color of code [InlineSpan] elements.
+  late final Color codeBackgroundColor;
+
+  // -------------------------------------------------
+  // METHOD: copyWith
+  // -------------------------------------------------
+
+  @override
+  TTextTheme copyWith({
+    Color? linkColor,
+    Color? codeBackgroundColor,
+  }) {
+    return TTextTheme.raw(
+      linkColor: linkColor ?? this.linkColor,
+      codeBackgroundColor: codeBackgroundColor ?? this.codeBackgroundColor,
+    );
+  }
+
+  // -------------------------------------------------
+  // METHOD: lerp
+  // -------------------------------------------------
+
+  @override
+  TTextTheme lerp(
+    TTextTheme? other,
+    double t,
+  ) {
+    if (other == null) {
+      return this;
+    }
+    return TTextTheme.raw(
+      linkColor: lerpColor(linkColor, other.linkColor, t),
+      codeBackgroundColor:
+          lerpColor(codeBackgroundColor, other.codeBackgroundColor, t),
+    );
+  }
 }

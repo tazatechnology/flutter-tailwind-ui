@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:url_launcher/link.dart';
 
 enum AppSection {
   gettingStarted,
@@ -65,18 +66,22 @@ class AppRouteHeader extends StatelessWidget {
           children: [
             TText(title, style: titleStyle),
             if (className != null)
-              Container(
-                margin: TOffset.l14,
-                padding: TOffset.x8 + TOffset.y4,
-                decoration: BoxDecoration(
-                  color: tw.light
-                      ? TColors.neutral.shade100
-                      : TColors.neutral.shade800,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: TText(
-                  '[Dart Docs](https://pub.dev/documentation/flutter_tailwind_ui/latest/flutter_tailwind_ui/$className-class.html)',
-                  style: tw.text.style_xs,
+              Padding(
+                padding: TOffset.l14,
+                child: Link(
+                  uri: Uri.parse(
+                    'https://pub.dev/documentation/flutter_tailwind_ui/latest/flutter_tailwind_ui/$className-class.html',
+                  ),
+                  builder: (context, followLink) {
+                    return TBadge(
+                      theme: TBadgeTheme.fromColor(
+                        color: TColors.neutral,
+                        context: context,
+                      ),
+                      onPressed: followLink,
+                      child: const Text('Dart Docs'),
+                    );
+                  },
                 ),
               ),
           ],
