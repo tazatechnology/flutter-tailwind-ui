@@ -110,4 +110,52 @@ extension XTailwindTextStyle on TextStyle {
   TextStyle mono(BuildContext context) {
     return copyWith(fontFamily: context.tw.text.fontFamilyMono);
   }
+
+  /// Method to copy this [TextStyle] without a given property
+  TextStyle copyWithout({
+    bool removeColor = false,
+    bool removeBackgroundColor = false,
+    bool removeFontSize = false,
+    bool removeFontWeight = false,
+    bool removeFontStyle = false,
+    bool removeLetterSpacing = false,
+    bool removeWordSpacing = false,
+    bool removeTextBaseline = false,
+    bool removeHeight = false,
+    bool removeLocale = false,
+    bool removeForeground = false,
+    bool removeBackground = false,
+    bool removeShadows = false,
+    bool removeFontFeatures = false,
+    bool removeDecoration = false,
+    bool removeDecorationColor = false,
+    bool removeDecorationStyle = false,
+    bool removeDecorationThickness = false,
+    bool removeDebugLabel = false,
+    bool removeOverflow = false,
+  }) {
+    return TextStyle(
+      color: removeColor ? null : color,
+      backgroundColor: removeBackgroundColor ? null : backgroundColor,
+      fontSize: removeFontSize ? null : fontSize,
+      fontWeight: removeFontWeight ? null : fontWeight,
+      fontStyle: removeFontStyle ? null : fontStyle,
+      letterSpacing: removeLetterSpacing ? null : letterSpacing,
+      wordSpacing: removeWordSpacing ? null : wordSpacing,
+      textBaseline: removeTextBaseline ? null : textBaseline,
+      height: removeHeight ? null : height,
+      locale: removeLocale ? null : locale,
+      foreground: removeForeground ? null : foreground,
+      background: removeBackground ? null : background,
+      shadows: removeShadows ? null : shadows,
+      fontFeatures: removeFontFeatures ? null : fontFeatures,
+      decoration: removeDecoration ? null : decoration,
+      decorationColor: removeDecorationColor ? null : decorationColor,
+      decorationStyle: removeDecorationStyle ? null : decorationStyle,
+      decorationThickness:
+          removeDecorationThickness ? null : decorationThickness,
+      debugLabel: removeDebugLabel ? null : debugLabel,
+      overflow: removeOverflow ? null : overflow,
+    );
+  }
 }

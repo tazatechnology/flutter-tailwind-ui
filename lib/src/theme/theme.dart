@@ -245,6 +245,7 @@ class TailwindTheme {
       tooltipTheme: TooltipThemeData(
         preferBelow: false,
         verticalOffset: 16,
+        waitDuration: const Duration(milliseconds: 350),
         decoration: BoxDecoration(
           color: light ? TColors.gray.shade900 : TColors.gray.shade700,
           borderRadius: TBorderRadius.rounded_md,

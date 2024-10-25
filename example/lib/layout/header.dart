@@ -74,7 +74,7 @@ class AppRouteHeader extends StatelessWidget {
                   ),
                   builder: (context, followLink) {
                     return TBadge(
-                      tooltip: 'API Docs for $className',
+                      tooltip: 'API Docs for `$className`',
                       theme: TBadgeTheme.fromColor(
                         color: TColors.neutral,
                         context: context,

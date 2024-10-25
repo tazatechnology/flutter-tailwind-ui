@@ -11,16 +11,22 @@ class ComponentRouteTText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ComponentRoute(
+    return ComponentRoute(
       name: 'TText',
       description:
           'A rich text widget with basic markdown formatting and extendable styling',
       children: [
-        TText(
+        const TText(
           'Content is **bold**\nThis should be _italic_\nThis should be _**bold/italic**_\nensuring the `currentIndex` is updated\nAnd here is a link to [google](https://google.com)',
         ),
-        TText(
+        const TText(
           'Content is `_italic_` and so is this: *italic*',
+        ),
+        Text.rich(
+          TRichParser().parse(
+            context: context,
+            text: '`code snippet`',
+          ),
         ),
       ],
     );

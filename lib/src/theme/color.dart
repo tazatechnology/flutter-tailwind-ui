@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui/src/utilities/lerp.dart';
 
 // =================================================
 // CLASS: TailwindColorTheme
