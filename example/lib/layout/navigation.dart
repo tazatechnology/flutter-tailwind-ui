@@ -4,9 +4,9 @@ import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
 import 'package:flutter_tailwind_ui_app/providers/router.dart';
 import 'package:go_router/go_router.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: AppNavigation
-// =================================================
+// =============================================================================
 
 class AppNavigation extends StatefulWidget {
   const AppNavigation({super.key});
@@ -18,9 +18,9 @@ class AppNavigation extends StatefulWidget {
 class _AppNavigationState extends State<AppNavigation> {
   final scrollController = ScrollController();
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: build
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
@@ -36,6 +36,7 @@ class _AppNavigationState extends State<AppNavigation> {
     // Component routes
     final componentRoutes = {
       'TBadge': AppRouter.badge,
+      'TButton': AppRouter.button,
       'TCodeBlock': AppRouter.code_block,
       'TRadioList': AppRouter.radio_list,
       'TRowColumn': AppRouter.row_column,
@@ -44,60 +45,62 @@ class _AppNavigationState extends State<AppNavigation> {
       'TText': AppRouter.text,
     };
 
-    return ListView(
-      padding: TOffset.x24 + topPadding,
-      controller: scrollController,
-      children: [
-        const AppNavigationSection(
-          title: 'Getting Started',
-          items: [
-            AppNavigationItem(
-              title: 'About',
-              route: AppRouter.about,
-            ),
-            AppNavigationItem(
-              title: 'Quick Start',
-              route: AppRouter.usage,
-              isLast: true,
-            ),
-          ],
-        ),
-        const AppNavigationSection(
-          title: 'Design System',
-          items: [
-            AppNavigationItem(
-              title: 'Colors',
-              route: AppRouter.colors,
-            ),
-            AppNavigationItem(
-              title: 'Spacing',
-              route: AppRouter.spacing,
-            ),
-            AppNavigationItem(
-              title: 'Typography',
-              route: AppRouter.typography,
-              isLast: true,
-            ),
-          ],
-        ),
-        AppNavigationSection(
-          title: 'Components',
-          items: [
-            for (final entry in componentRoutes.entries)
+    return ExcludeFocus(
+      child: ListView(
+        padding: TOffset.x24 + topPadding,
+        controller: scrollController,
+        children: [
+          const AppNavigationSection(
+            title: 'Getting Started',
+            items: [
               AppNavigationItem(
-                title: '`${entry.key}`',
-                route: entry.value,
+                title: 'About',
+                route: AppRouter.about,
               ),
-          ],
-        ),
-      ],
+              AppNavigationItem(
+                title: 'Quick Start',
+                route: AppRouter.usage,
+                isLast: true,
+              ),
+            ],
+          ),
+          const AppNavigationSection(
+            title: 'Design System',
+            items: [
+              AppNavigationItem(
+                title: 'Colors',
+                route: AppRouter.colors,
+              ),
+              AppNavigationItem(
+                title: 'Spacing',
+                route: AppRouter.spacing,
+              ),
+              AppNavigationItem(
+                title: 'Typography',
+                route: AppRouter.typography,
+                isLast: true,
+              ),
+            ],
+          ),
+          AppNavigationSection(
+            title: 'Components',
+            items: [
+              for (final entry in componentRoutes.entries)
+                AppNavigationItem(
+                  title: '`${entry.key}`',
+                  route: entry.value,
+                ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: AppNavigationSection
-// =================================================
+// =============================================================================
 
 class AppNavigationSection extends StatelessWidget {
   const AppNavigationSection({
@@ -141,9 +144,9 @@ class AppNavigationSection extends StatelessWidget {
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: AppNavigationItem
-// =================================================
+// =============================================================================
 
 class AppNavigationItem extends StatefulWidget {
   const AppNavigationItem({

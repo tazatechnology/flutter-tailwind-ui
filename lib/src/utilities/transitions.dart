@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: TNoPageTransitionsBuilder
-// =================================================
+// =============================================================================
 
 /// A [PageTransitionsBuilder] that does not animate page transitions
 class TNoPageTransitionsBuilder extends PageTransitionsBuilder {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind_ui_app/layout/layout.dart';
+import 'package:flutter_tailwind_ui_app/layout/header.dart';
+import 'package:flutter_tailwind_ui_app/layout/scroll_view.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: ComponentRoute
-// =================================================
+// =============================================================================
 
 class ComponentRoute extends StatelessWidget {
   const ComponentRoute({
@@ -21,7 +22,7 @@ class ComponentRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final header = AppRouteHeader(
-      section: AppSection.components,
+      section: AppSectionType.components,
       titleMono: true,
       title: name,
       className: name,

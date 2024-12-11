@@ -1,19 +1,29 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/header.dart';
 import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
+import 'package:flutter_tailwind_ui_app/layout/toc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:universal_html/html.dart' as html;
 
 /// Allows nested children to enable/disable outer scroll physics
 final outerScrollPhysicsProvider = StateProvider<ScrollPhysics>((ref) {
   return const BouncingScrollPhysics();
 });
 
-// =================================================
+// =============================================================================
 // CLASS: AppScrollView
-// =================================================
+// =============================================================================
 
 class AppScrollView extends ConsumerStatefulWidget {
+  /// Default constructor
+  const AppScrollView._({
+    required this.slivers,
+    required this.header,
+  });
+
   /// Factory constructor for non-sliver content
   factory AppScrollView.children({
     required AppRouteHeader? header,
@@ -22,6 +32,7 @@ class AppScrollView extends ConsumerStatefulWidget {
     return AppScrollView._(
       header: header,
       slivers: children.map((child) {
+        // The Align widget prevents the child from stretching to full width
         return SliverToBoxAdapter(
           child: Align(
             alignment: Alignment.centerLeft,
@@ -43,13 +54,67 @@ class AppScrollView extends ConsumerStatefulWidget {
     );
   }
 
-  /// Default constructor
-  const AppScrollView._({
-    required this.slivers,
-    required this.header,
-  });
-  final List<Widget> slivers;
+  /// The header to place at the top of te scroll view
   final AppRouteHeader? header;
+
+  /// The sliver children of the scroll view
+  final List<Widget> slivers;
+
+  // ---------------------------------------------------------------------------
+  // METHOD: ensureVisible
+  // ---------------------------------------------------------------------------
+
+  /// Scroll an [AppRouteSection] element into view without a [ScrollController]
+  static Future<void> ensureVisible({
+    required AppRouteSection section,
+    Duration duration = kThemeAnimationDuration,
+    Curve curve = Curves.easeInOut,
+  }) async {
+    final context = section.globalKey.currentContext;
+    if (context == null) {
+      return;
+    }
+    final renderObject = context.findRenderObject();
+    if (renderObject == null) {
+      return;
+    }
+
+    final sectionPosition = renderObject.getTransformTo(null).getTranslation();
+
+    // Extract the scroll state
+    final scrollable = Scrollable.of(context);
+    final position = scrollable.position;
+
+    // Get the app bar height offset
+    final tw = context.tw;
+    final appBarHeight = AppScaffold.toolbarHeight * (tw.screen.is_lg ? 1 : 2);
+
+    // Update the browser URL to add the section fragment
+    AppScrollView.updateUrlFragment(context, section.fragment);
+
+    await position.animateTo(
+      position.pixels + sectionPosition.y - appBarHeight,
+      duration: duration,
+      curve: curve,
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: updateUrlFragment
+  // ---------------------------------------------------------------------------
+
+  /// Updates the URL fragment
+  static void updateUrlFragment(BuildContext context, String? fragment) {
+    if (!kIsWeb) {
+      return;
+    }
+    final uri = GoRouterState.of(context).uri;
+    if (fragment == null) {
+      html.window.history.pushState(null, '', uri.path);
+    } else {
+      html.window.history.pushState(null, '', '${uri.path}?loc=$fragment');
+    }
+  }
 
   @override
   ConsumerState<AppScrollView> createState() => _AppScrollViewState();
@@ -57,10 +122,128 @@ class AppScrollView extends ConsumerStatefulWidget {
 
 class _AppScrollViewState extends ConsumerState<AppScrollView> {
   final scrollController = ScrollController();
+  final scrollThreshold = 200.0;
+  bool showScrollButton = false;
+  String? loc;
+  // ---------------------------------------------------------------------------
+  // METHOD: initState
+  // ---------------------------------------------------------------------------
 
-  // -------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(scrollListener);
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: didChangeDependencies
+  // ---------------------------------------------------------------------------
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final uri = GoRouterState.of(context).uri;
+    loc = uri.queryParameters['loc'];
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: dispose
+  // ---------------------------------------------------------------------------
+
+  @override
+  void dispose() {
+    scrollController.removeListener(scrollListener);
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: scrollListener
+  // ---------------------------------------------------------------------------
+
+  void scrollListener() {
+    // Check if the scroll position is beyond the threshold
+    if (scrollController.offset >= scrollThreshold) {
+      if (!showScrollButton) {
+        setState(() {
+          showScrollButton = true;
+        });
+      }
+    } else {
+      if (showScrollButton) {
+        setState(() {
+          showScrollButton = false;
+        });
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: scrollToTop
+  // ---------------------------------------------------------------------------
+
+  Future<void> scrollToTop() async {
+    if (kIsWeb) {
+      AppScrollView.updateUrlFragment(context, null);
+    }
+    await scrollController.animateTo(
+      0,
+      duration: kTabScrollDuration,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: scrollToSection
+  // ---------------------------------------------------------------------------
+
+  Future<void> scrollToSection(AppRouteSection section) async {
+    loc = null;
+    await Future.microtask(() {
+      if (mounted) {
+        AppScrollView.ensureVisible(section: section);
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: extractTOC
+  // ---------------------------------------------------------------------------
+
+  AppRouteContents? extractTOC() {
+    final List<AppRouteSection> sections = [];
+    for (final s in widget.slivers) {
+      if (s is SliverToBoxAdapter) {
+        final sa = s.child;
+        if (sa is Align) {
+          final saa = sa.child;
+          if (saa is AppRouteSection) {
+            if (saa.fragment == loc) {
+              scrollToSection(saa);
+            }
+            sections.add(saa);
+          }
+        } else if (sa is AppRouteSection) {
+          if (sa.fragment == loc) {
+            scrollToSection(sa);
+          }
+          sections.add(sa);
+        }
+      }
+    }
+    if (sections.isNotEmpty) {
+      return AppRouteContents(
+        scrollController: scrollController,
+        sections: sections,
+      );
+    } else {
+      return null;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
   // METHOD: build
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -71,44 +254,91 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
     }
     final physics = ref.watch(outerScrollPhysicsProvider);
     const yPad = TOffset.y16;
-    final xPad = tw.screen.is_sm ? TOffset.x32 : TOffset.x16;
-    return Stack(
-      children: [
-        _AppBackground(controller: scrollController),
-        SelectionArea(
-          child: CustomScrollView(
-            physics: physics,
-            controller: scrollController,
-            slivers: [
-              // Top padding for the toolbar and additional padding
-              SliverPadding(
-                padding: EdgeInsets.only(top: toolbarHeight) + yPad,
-              ),
-              if (widget.header != null) ...[
+    EdgeInsets xPad = tw.screen.is_sm ? TOffset.x32 : TOffset.x16;
+
+    // Add artificial padding to limit the width of the content
+    final effectiveContentWidth = tw.screen.width - AppScaffold.navigationWidth;
+    if (effectiveContentWidth > TScreen.screen_lg) {
+      final right = effectiveContentWidth - TScreen.screen_lg;
+      xPad += EdgeInsets.only(right: right);
+    }
+
+    // Try to extract a table of contents
+    final toc = extractTOC();
+
+    return PrimaryScrollController(
+      controller: scrollController,
+      child: Stack(
+        children: [
+          _AppBackground(controller: scrollController),
+          SelectionArea(
+            child: CustomScrollView(
+              physics: physics,
+              primary: true,
+              // controller: scrollController,
+              slivers: [
+                // Top padding for the toolbar and additional padding
                 SliverPadding(
-                  padding: xPad,
-                  sliver: SliverToBoxAdapter(child: widget.header),
+                  padding: EdgeInsets.only(top: toolbarHeight) + yPad,
+                ),
+                if (widget.header != null) ...[
+                  SliverPadding(
+                    padding: xPad,
+                    sliver: SliverToBoxAdapter(child: widget.header),
+                  ),
+                ],
+                if (toc != null) ...[
+                  SliverPadding(
+                    padding: xPad + TOffset.b8,
+                    sliver: SliverToBoxAdapter(child: toc),
+                  ),
+                ],
+                ...widget.slivers.map((sliver) {
+                  // Common horizontal padding for the content
+                  return SliverPadding(padding: xPad, sliver: sliver);
+                }),
+                // Extra bottom padding for last content in scroll view
+                const SliverPadding(
+                  padding: EdgeInsets.only(top: TSpace.v64),
                 ),
               ],
-              ...widget.slivers.map((sliver) {
-                // Common horizontal padding for the content
-                return SliverPadding(padding: xPad, sliver: sliver);
-              }),
-              // Extra bottom padding for last content in scroll view
-              const SliverPadding(
-                padding: EdgeInsets.only(top: TSpace.v64),
-              ),
-            ],
+            ),
           ),
-        ),
-      ],
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: AnimatedOpacity(
+              duration: kThemeAnimationDuration,
+              curve: Curves.easeInOut,
+              opacity: showScrollButton ? 1 : 0,
+              child: showScrollButton
+                  ? FloatingActionButton.small(
+                      key: const Key('scroll-to-top'),
+                      elevation: 0,
+                      hoverElevation: 0,
+                      focusElevation: 0,
+                      highlightElevation: 0,
+                      disabledElevation: 0,
+                      backgroundColor: TColors.indigo.withOpacity(0.85),
+                      onPressed: scrollToTop,
+                      child: const Icon(
+                        Icons.arrow_upward,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: _AppBackground
-// =================================================
+// =============================================================================
 
 class _AppBackground extends StatefulWidget {
   const _AppBackground({
@@ -123,9 +353,9 @@ class _AppBackground extends StatefulWidget {
 class _AppBackgroundState extends State<_AppBackground> {
   bool attached = false;
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: initState
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   void initState() {
@@ -138,9 +368,9 @@ class _AppBackgroundState extends State<_AppBackground> {
     super.initState();
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: offsetListener
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   void offsetListener() {
     // Only conditionally update widget
@@ -152,9 +382,9 @@ class _AppBackgroundState extends State<_AppBackground> {
     }
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: dispose
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   void dispose() {
@@ -162,9 +392,9 @@ class _AppBackgroundState extends State<_AppBackground> {
     super.dispose();
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: build
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {

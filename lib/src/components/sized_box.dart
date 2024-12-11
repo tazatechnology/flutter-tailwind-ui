@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: TSizedBox
-// =================================================
+// =============================================================================
 
 /// SizedBox with Tailwind CSS standard dimensions
 class TSizedBox extends SizedBox {
@@ -44,9 +44,9 @@ class TSizedBox extends SizedBox {
     double? size,
   }) : super(height: size);
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Static: Square SizedBox
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// SizedBox with a square dimension of 0px
   static const s0 = TSizedBox.square(size: TSpace.v0);
@@ -153,9 +153,9 @@ class TSizedBox extends SizedBox {
   /// SizedBox with a square dimension of 384px
   static const s384 = TSizedBox.square(size: TSpace.v384);
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Static: Horizontal SizedBox
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// SizedBox with a width of 0px
   static const x0 = TSizedBox.x(size: TSpace.v0);
@@ -262,9 +262,9 @@ class TSizedBox extends SizedBox {
   /// SizedBox with a width of 384px
   static const x384 = TSizedBox.x(size: TSpace.v384);
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Static: Vertical SizedBox
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// SizedBox with a height of 0px
   static const y0 = TSizedBox.y(size: TSpace.v0);

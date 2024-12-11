@@ -1,0 +1,16 @@
+targets:
+  $default:
+    builders:
+      flutter_tailwind_ui_app|source_generator:
+        enabled: true
+        generate_for:
+          - lib/*.dart
+          - lib/**/*.dart
+
+builders:
+  source_generator:
+    import: "package:flutter_tailwind_ui_app/builder/source_generator.dart"
+    builder_factories: ["sourceBuilder"]
+    build_extensions: {".dart": [".g.dart"]}
+    auto_apply: dependents
+    build_to: source

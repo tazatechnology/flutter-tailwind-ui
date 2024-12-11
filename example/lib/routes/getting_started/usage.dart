@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui_app/layout/header.dart';
 import 'package:flutter_tailwind_ui_app/layout/scroll_view.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: UsageRoute
-// =================================================
+// =============================================================================
 
 class UsageRoute extends StatelessWidget {
   const UsageRoute({super.key});
@@ -13,7 +13,7 @@ class UsageRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScrollView.children(
       header: const AppRouteHeader(
-        section: AppSection.gettingStarted,
+        section: AppSectionType.gettingStarted,
         title: 'Quick Start',
         description: 'Get started quickly with Flutter Tailwind UI',
       ),

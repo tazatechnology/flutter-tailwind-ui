@@ -1,64 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
-// =================================================
-// CLASS: TailwindComponentsTheme
-// =================================================
+// =============================================================================
+// CLASS: TailwindComponentTheme
+// =============================================================================
 
 /// Theme definitions for each Flutter Tailwind UI component
-class TailwindComponentsTheme extends ThemeExtension<TailwindComponentsTheme> {
-  /// Light theme constructor for [TailwindComponentsTheme]
-  TailwindComponentsTheme.raw({
-    required this.badge,
-    required this.text,
+/// TODO: should this be removed in favor of component level styling only
+class TailwindComponentTheme extends ThemeExtension<TailwindComponentTheme> {
+  /// Light theme constructor for [TailwindComponentTheme]
+  const TailwindComponentTheme({
+    this.badge = const TBadgeTheme(),
+    this.codeBlock = const TCodeBlockTheme(),
   });
 
-  /// Light theme constructor for [TailwindComponentsTheme]
-  TailwindComponentsTheme.light({
-    TBadgeTheme? badge,
-    TTextTheme? text,
-  }) {
-    this.badge = badge ?? TBadgeTheme.light();
-    this.text = text ?? TTextTheme.light();
-  }
-
-  /// Dark theme constructor for [TailwindComponentsTheme]
-  TailwindComponentsTheme.dark({
-    TBadgeTheme? badge,
-    TTextTheme? text,
-  }) {
-    this.badge = badge ?? TBadgeTheme.dark();
-    this.text = text ?? TTextTheme.dark();
-  }
-
   /// Theme options for the [TBadge] component
-  late final TBadgeTheme badge;
+  final TBadgeTheme badge;
 
-  /// Theme options for the [TText] component
-  late final TTextTheme text;
+  /// Theme options for the [TCodeBlock] component
+  final TCodeBlockTheme codeBlock;
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: copyWith
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
-  TailwindComponentsTheme copyWith({
+  TailwindComponentTheme copyWith({
     TBadgeTheme? badge,
-    TTextTheme? text,
+    TCodeBlockTheme? codeBlock,
   }) {
-    return TailwindComponentsTheme.raw(
+    return TailwindComponentTheme(
       badge: badge ?? this.badge,
-      text: text ?? this.text,
+      codeBlock: codeBlock ?? this.codeBlock,
     );
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: lerp
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
-  TailwindComponentsTheme lerp(
-    TailwindComponentsTheme? other,
+  TailwindComponentTheme lerp(
+    TailwindComponentTheme? other,
     double t,
   ) {
     return other ?? this;

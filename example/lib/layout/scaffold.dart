@@ -12,9 +12,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/link.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: AppScaffold
-// =================================================
+// =============================================================================
 
 class AppScaffold extends ConsumerStatefulWidget {
   const AppScaffold({
@@ -37,9 +37,9 @@ class AppScaffold extends ConsumerStatefulWidget {
 }
 
 class _AppScaffoldState extends ConsumerState<AppScaffold> {
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: build
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -158,9 +158,9 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: _ScaffoldHeader
-// =================================================
+// =============================================================================
 
 class _ScaffoldHeader extends StatelessWidget {
   const _ScaffoldHeader();
@@ -216,9 +216,9 @@ class _ScaffoldHeader extends StatelessWidget {
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: _ScaffoldMobileNavigation
-// =================================================
+// =============================================================================
 
 class _ScaffoldMobileNavigation extends StatelessWidget {
   const _ScaffoldMobileNavigation();
@@ -239,9 +239,9 @@ class _ScaffoldMobileNavigation extends StatelessWidget {
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: _FlutterTailwindLogo
-// =================================================
+// =============================================================================
 
 class _FlutterTailwindLogo extends StatelessWidget {
   const _FlutterTailwindLogo();

@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 
-// =================================================
-// CLASS:
-// =================================================
+// =============================================================================
+// EXTENSION: XTailwindColor
+// =============================================================================
 
 /// Extension on [Color] to provide useful methods
 extension XTailwindColor on Color {
+  /// Check if this color is black
+  bool get isBlack => value == Colors.black.value;
+
+  /// Check if this color is white
+  bool get isWhite => value == Colors.white.value;
+
+  /// Check if this color is transparent
+  bool get isTransparent => value == Colors.transparent.value;
+
+  // ---------------------------------------------------------------------------
+  // METHOD: darken
+  // ---------------------------------------------------------------------------
+
   /// Darken a color by [percent] amount (1 = black)
   Color darken([double percent = 0.1]) {
     if (percent <= 0.001) {
@@ -21,6 +34,10 @@ extension XTailwindColor on Color {
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // METHOD: lighten
+  // ---------------------------------------------------------------------------
+
   /// Lighten a color by [percent] amount (1 = white)
   Color lighten([double percent = 0.1]) {
     if (percent <= 0.001) {
@@ -35,6 +52,10 @@ extension XTailwindColor on Color {
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // METHOD: contrastBlackWhite
+  // ---------------------------------------------------------------------------
+
   /// Get a black or white contrast color
   Color? contrastBlackWhite() {
     if (this == Colors.transparent) {
@@ -42,6 +63,10 @@ extension XTailwindColor on Color {
     }
     return computeLuminance() < 0.5 ? Colors.white : Colors.black;
   }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: toHex
+  // ---------------------------------------------------------------------------
 
   /// Get a hex string representation of this color
   String toHex({bool leadingHashSign = true}) {
@@ -61,24 +86,77 @@ extension XTailwindColor on Color {
     return value;
   }
 
+  // ---------------------------------------------------------------------------
+  // METHOD: toMaterialColor
+  // ---------------------------------------------------------------------------
+
   /// Get a [MaterialColor] representation of this color
   MaterialColor toMaterialColor() {
-    final colorShades = {
-      50: _tintColor(this, 0.9),
-      100: _tintColor(this, 0.8),
-      200: _tintColor(this, 0.6),
-      300: _tintColor(this, 0.4),
-      400: _tintColor(this, 0.2),
-      500: this,
-      600: _shadeColor(this, 0.1),
-      700: _shadeColor(this, 0.2),
-      800: _shadeColor(this, 0.3),
-      900: _shadeColor(this, 0.4),
-    };
+    if (this is MaterialColor) {
+      return this as MaterialColor;
+    }
+    Map<int, Color> colorShades;
+    if (this == Colors.transparent) {
+      colorShades = {
+        50: Colors.transparent,
+        100: Colors.transparent,
+        200: Colors.transparent,
+        300: Colors.transparent,
+        400: Colors.transparent,
+        500: Colors.transparent,
+        600: Colors.transparent,
+        700: Colors.transparent,
+        800: Colors.transparent,
+        900: Colors.transparent,
+      };
+    } else if (this == Colors.white) {
+      colorShades = {
+        50: Colors.white,
+        100: Colors.white,
+        200: Colors.white,
+        300: Colors.white,
+        400: Colors.white,
+        500: Colors.white,
+        600: Colors.white,
+        700: Colors.white,
+        800: Colors.white,
+        900: Colors.white,
+      };
+    } else if (this == Colors.black) {
+      colorShades = {
+        50: Colors.black,
+        100: Colors.black,
+        200: Colors.black,
+        300: Colors.black,
+        400: Colors.black,
+        500: Colors.black,
+        600: Colors.black,
+        700: Colors.black,
+        800: Colors.black,
+        900: Colors.black,
+      };
+    } else {
+      colorShades = {
+        50: _tintColor(this, 0.9),
+        100: _tintColor(this, 0.8),
+        200: _tintColor(this, 0.6),
+        300: _tintColor(this, 0.4),
+        400: _tintColor(this, 0.2),
+        500: this,
+        600: _shadeColor(this, 0.1),
+        700: _shadeColor(this, 0.2),
+        800: _shadeColor(this, 0.3),
+        900: _shadeColor(this, 0.4),
+      };
+    }
 
     return MaterialColor(value, colorShades);
   }
 }
+
+// ---------------------------------------------------------------------------
+// METHOD: _tintColor
+// ---------------------------------------------------------------------------
 
 /// Tints the given color by lightening it based on the provided factor.
 ///
@@ -89,6 +167,10 @@ Color _tintColor(Color color, double factor) => Color.fromRGBO(
       (color.blue + ((255 - color.blue) * factor)).round(),
       1,
     );
+
+// ---------------------------------------------------------------------------
+// METHOD: _shadeColor
+// ---------------------------------------------------------------------------
 
 /// Shades the given color by darkening it based on the provided factor.
 ///

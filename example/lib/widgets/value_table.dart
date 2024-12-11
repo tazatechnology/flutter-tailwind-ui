@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/scroll_view.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: AppValueTable
-// =================================================
+// =============================================================================
 
 class AppValueTable extends ConsumerStatefulWidget {
   const AppValueTable({
@@ -15,6 +15,8 @@ class AppValueTable extends ConsumerStatefulWidget {
     this.itemHeight = TSpace.v40,
     this.nameWidth = TSpace.v208,
     this.valueWidth = TSpace.v112,
+    this.nameAlignment = Alignment.centerLeft,
+    this.valueAlignment = Alignment.centerLeft,
     super.key,
   });
 
@@ -36,6 +38,12 @@ class AppValueTable extends ConsumerStatefulWidget {
   /// The width of the value column.
   final double? valueWidth;
 
+  /// The alignment of the name column.
+  final Alignment nameAlignment;
+
+  /// The alignment of the value column.
+  final Alignment valueAlignment;
+
   @override
   ConsumerState<AppValueTable> createState() => _AppValueTableState();
 }
@@ -43,9 +51,9 @@ class AppValueTable extends ConsumerStatefulWidget {
 class _AppValueTableState extends ConsumerState<AppValueTable> {
   final scrollController = ScrollController();
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: dispose
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   void dispose() {
@@ -53,9 +61,9 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
     super.dispose();
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: build
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +75,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
       effectiveHeight += widget.itemHeight;
     }
 
-    return Container(
-      margin: TOffset.y24,
+    return SizedBox(
       height: effectiveHeight,
       child: Column(
         children: [
@@ -91,12 +98,14 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
               child: Row(
                 children: [
                   if (widget.header.elementAtOrNull(0) != null)
-                    SizedBox(
+                    Container(
+                      alignment: widget.nameAlignment,
                       width: widget.nameWidth,
                       child: widget.header.elementAt(0),
                     ),
                   if (widget.header.elementAtOrNull(1) != null)
-                    SizedBox(
+                    Container(
+                      alignment: widget.valueAlignment,
                       width: widget.valueWidth,
                       child: widget.header.elementAt(1),
                     ),
@@ -129,8 +138,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
               child: MediaQuery.removePadding(
                 context: context,
                 removeTop: true,
-                child: TScrollbar(
-                  visible: true,
+                child: Scrollbar(
                   child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
                     controller: scrollController,
@@ -144,8 +152,9 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                         height: widget.itemHeight,
                         child: Row(
                           children: [
-                            SizedBox(
+                            Container(
                               width: widget.nameWidth,
+                              alignment: widget.nameAlignment,
                               child: Text(
                                 item.name,
                                 style: tw.text.style_xs.copyWith(
@@ -155,7 +164,8 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                               ),
                             ),
                             if (item.value != null)
-                              SizedBox(
+                              Container(
+                                alignment: widget.valueAlignment,
                                 width: widget.valueWidth,
                                 child: Text(
                                   item.value!,
@@ -186,9 +196,9 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: AppValueTableItem
-// =================================================
+// =============================================================================
 
 class AppValueTableItem {
   AppValueTableItem({

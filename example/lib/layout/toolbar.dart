@@ -6,9 +6,9 @@ import 'package:flutter_tailwind_ui_app/providers/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/link.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: AppToolbar
-// =================================================
+// =============================================================================
 
 class AppToolbar extends StatelessWidget {
   const AppToolbar({super.key});
@@ -60,9 +60,9 @@ class AppToolbar extends StatelessWidget {
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: ThemeToggleButton
-// =================================================
+// =============================================================================
 
 class ThemeToggleButton extends ConsumerWidget {
   const ThemeToggleButton({super.key});

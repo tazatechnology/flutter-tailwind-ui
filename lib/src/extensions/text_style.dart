@@ -107,8 +107,15 @@ extension XTailwindTextStyle on TextStyle {
       copyWith(letterSpacing: TLetterSpacing.tracking_widest);
 
   /// Convert existing text style to monospace font
-  TextStyle mono(BuildContext context) {
-    return copyWith(fontFamily: context.tw.text.fontFamilyMono);
+  ///
+  /// If [context] is provided, it will use the [TailwindTextTheme] monospaced
+  /// font family for the given [BuildContext]. Otherwise, it will use the
+  /// default monospaced font family.
+  TextStyle mono([BuildContext? context]) {
+    return copyWith(
+      fontFamily: context?.tw.text.fontFamilyMono ??
+          TailwindTextTheme.defaultFontFamilyMono,
+    );
   }
 
   /// Method to copy this [TextStyle] without a given property

@@ -2,9 +2,9 @@ import 'package:flutter/rendering.dart';
 
 import 'package:flutter_tailwind_ui/src/constants/space.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: TOffset
-// =================================================
+// =============================================================================
 
 /// [EdgeInsets] for padding and margin based on Tailwind scaling system.
 ///
@@ -17,9 +17,9 @@ abstract final class TOffset {
   /// Equivalent to EdgeInsets.zero and Tailwind padding class: `p-0`
   static const zero = EdgeInsets.zero;
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // All Side Offset
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Creates [EdgeInsets] with the given value for all sides.
   static EdgeInsets a(double value) => EdgeInsets.all(value);
@@ -199,9 +199,9 @@ abstract final class TOffset {
   /// Equivalent to Tailwind padding class: `p-96`
   static const a384 = EdgeInsets.all(TSpace.v384);
 
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 // Horizontal Offset
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 
   /// Creates [EdgeInsets] with the given value in the horizontal direction.
   static EdgeInsets x(double value) => EdgeInsets.symmetric(horizontal: value);
@@ -381,9 +381,9 @@ abstract final class TOffset {
   /// Equivalent to Tailwind padding class: `px-96`
   static const x384 = EdgeInsets.symmetric(horizontal: TSpace.v384);
 
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 // Vertical Offset
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 
   /// Creates [EdgeInsets] with the given value in the vertical direction.
   static EdgeInsets y(double value) => EdgeInsets.symmetric(vertical: value);
@@ -563,9 +563,9 @@ abstract final class TOffset {
   /// Equivalent to Tailwind padding class: `py-96`
   static const y384 = EdgeInsets.symmetric(vertical: TSpace.v384);
 
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 // Left Side Offset
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 
   /// Creates [EdgeInsets] with only the given value on the left side.
   static EdgeInsets l(double value) => EdgeInsets.only(left: value);
@@ -745,9 +745,9 @@ abstract final class TOffset {
   /// Equivalent to Tailwind padding class: `pl-96`
   static const l384 = EdgeInsets.only(left: TSpace.v384);
 
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 // Top Side Offset
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 
   /// Creates [EdgeInsets] with only the given value on the top side.
   static EdgeInsets t(double value) => EdgeInsets.only(top: value);
@@ -927,9 +927,9 @@ abstract final class TOffset {
   /// Equivalent to Tailwind padding class: `pt-96`
   static const t384 = EdgeInsets.only(top: TSpace.v384);
 
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 // Right Side Offset
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 
   /// Creates [EdgeInsets] with only the given value on the right side.
   static EdgeInsets r(double value) => EdgeInsets.only(right: value);
@@ -1109,9 +1109,9 @@ abstract final class TOffset {
   /// Equivalent to Tailwind padding class: `pr-96`
   static const r384 = EdgeInsets.only(right: TSpace.v384);
 
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 // Bottom Side Offset
-// -------------------------------------------------
+// ---------------------------------------------------------------------------
 
   /// Creates [EdgeInsets] with only the given value on the bottom side.
   static EdgeInsets b(double value) => EdgeInsets.only(bottom: value);

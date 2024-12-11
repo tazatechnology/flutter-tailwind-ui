@@ -1,54 +1,67 @@
 // ignore_for_file: constant_identifier_names
 import 'package:flutter/material.dart';
 
-/// The [ColorSwatch] shades used by Flutter [MaterialColor] definitions
-const DEFAULT_COLOR_SWATCH_SHADES = [
-  50,
-  100,
-  200,
-  300,
-  400,
-  500,
-  600,
-  700,
-  800,
-  900,
-];
+/// Defines a single color as well a color swatch with eleven shades of the color.
+///
+/// Matches the shades of the Tailwind CSS color palette.
+class TMaterialColor extends MaterialColor {
+  /// Creates a [TMaterialColor] with the given primary [Color] and [Map] of swatches.
+  const TMaterialColor(super.primary, super.swatch);
 
-/// The [ColorSwatch] shades used by Tailwind [MaterialColor] definitions
-const DEFAULT_TAILWIND_COLOR_SWATCH_SHADES = [
-  50,
-  100,
-  200,
-  300,
-  400,
-  500,
-  600,
-  700,
-  800,
-  900,
-  950,
-];
+  /// The lightest shade.
+  @override
+  Color get shade50 => this[50]!;
 
-// =================================================
+  /// The second lightest shade.
+  @override
+  Color get shade100 => this[100]!;
+
+  /// The third lightest shade.
+  @override
+  Color get shade200 => this[200]!;
+
+  /// The fourth lightest shade.
+  @override
+  Color get shade300 => this[300]!;
+
+  /// The fifth lightest shade.
+  @override
+  Color get shade400 => this[400]!;
+
+  /// The default shade.
+  @override
+  Color get shade500 => this[500]!;
+
+  /// The fifth darkest shade.
+  @override
+  Color get shade600 => this[600]!;
+
+  /// The fourth darkest shade.
+  @override
+  Color get shade700 => this[700]!;
+
+  /// The third darkest shade.
+  @override
+  Color get shade800 => this[800]!;
+
+  /// The second shade.
+  @override
+  Color get shade900 => this[900]!;
+
+  /// The darkest shade.
+  Color get shade950 => this[950]!;
+}
+
+// =============================================================================
 // CLASS: TColors
-// =================================================
+// =============================================================================
 
 /// Class that contains the Tailwind CSS color palettes
 ///
 /// https://tailwindcss.com/docs/customizing-colors
 abstract final class TColors {
-  /// Completely opaque black.
-  static const black = Colors.black;
-
-  /// Completely opaque white.
-  static const white = Colors.white;
-
-  /// Completely invisible.
-  static const transparent = Colors.transparent;
-
   /// Slate color palette
-  static const MaterialColor slate = MaterialColor(
+  static const TMaterialColor slate = TMaterialColor(
     0xFF64748b,
     <int, Color>{
       50: Color(0xFFf8fafc),
@@ -66,7 +79,7 @@ abstract final class TColors {
   );
 
   /// Gray color palette
-  static const MaterialColor gray = MaterialColor(
+  static const TMaterialColor gray = TMaterialColor(
     0xFF6b7280,
     <int, Color>{
       50: Color(0xFFf9fafb),
@@ -84,7 +97,7 @@ abstract final class TColors {
   );
 
   /// Zinc color palette
-  static const MaterialColor zinc = MaterialColor(
+  static const TMaterialColor zinc = TMaterialColor(
     0xFF71717a,
     <int, Color>{
       50: Color(0xFFfafafa),
@@ -102,7 +115,7 @@ abstract final class TColors {
   );
 
   /// Neutral color palette
-  static const MaterialColor neutral = MaterialColor(
+  static const TMaterialColor neutral = TMaterialColor(
     0xFF737373,
     <int, Color>{
       50: Color(0xFFfafafa),
@@ -120,7 +133,7 @@ abstract final class TColors {
   );
 
   /// Stone color palette
-  static const MaterialColor stone = MaterialColor(
+  static const TMaterialColor stone = TMaterialColor(
     0xFF78716c,
     <int, Color>{
       50: Color(0xFFfafaf9),
@@ -138,7 +151,7 @@ abstract final class TColors {
   );
 
   /// Red color palette
-  static const MaterialColor red = MaterialColor(
+  static const TMaterialColor red = TMaterialColor(
     0xFFef4444,
     <int, Color>{
       50: Color(0xFFfef2f2),
@@ -156,7 +169,7 @@ abstract final class TColors {
   );
 
   /// Orange color palette
-  static const MaterialColor orange = MaterialColor(
+  static const TMaterialColor orange = TMaterialColor(
     0xFFf97316,
     <int, Color>{
       50: Color(0xFFfff7ed),
@@ -174,7 +187,7 @@ abstract final class TColors {
   );
 
   /// Amber color palette
-  static const MaterialColor amber = MaterialColor(
+  static const TMaterialColor amber = TMaterialColor(
     0xFFf59e0b,
     <int, Color>{
       50: Color(0xFFfffbeb),
@@ -192,7 +205,7 @@ abstract final class TColors {
   );
 
   /// Yellow color palette
-  static const MaterialColor yellow = MaterialColor(
+  static const TMaterialColor yellow = TMaterialColor(
     0xFFeab308,
     <int, Color>{
       50: Color(0xFFfefce8),
@@ -210,7 +223,7 @@ abstract final class TColors {
   );
 
   /// Lime color palette
-  static const MaterialColor lime = MaterialColor(
+  static const TMaterialColor lime = TMaterialColor(
     0xFF84cc16,
     <int, Color>{
       50: Color(0xFFf7fee7),
@@ -228,7 +241,7 @@ abstract final class TColors {
   );
 
   /// Green color palette
-  static const MaterialColor green = MaterialColor(
+  static const TMaterialColor green = TMaterialColor(
     0xFF22c55e,
     <int, Color>{
       50: Color(0xFFf0fdf4),
@@ -246,7 +259,7 @@ abstract final class TColors {
   );
 
   /// Emerald color palette
-  static const MaterialColor emerald = MaterialColor(
+  static const TMaterialColor emerald = TMaterialColor(
     0xFF10b981,
     <int, Color>{
       50: Color(0xFFecfdf5),
@@ -264,7 +277,7 @@ abstract final class TColors {
   );
 
   /// Teal color palette
-  static const MaterialColor teal = MaterialColor(
+  static const TMaterialColor teal = TMaterialColor(
     0xFF14b8a6,
     <int, Color>{
       50: Color(0xFFf0fdfa),
@@ -282,7 +295,7 @@ abstract final class TColors {
   );
 
   /// Cyan color palette
-  static const MaterialColor cyan = MaterialColor(
+  static const TMaterialColor cyan = TMaterialColor(
     0xFF06b6d4,
     <int, Color>{
       50: Color(0xFFecfeff),
@@ -300,7 +313,7 @@ abstract final class TColors {
   );
 
   /// Sky color palette
-  static const MaterialColor sky = MaterialColor(
+  static const TMaterialColor sky = TMaterialColor(
     0xFF0ea5e9,
     <int, Color>{
       50: Color(0xFFf0f9ff),
@@ -318,7 +331,7 @@ abstract final class TColors {
   );
 
   /// Blue color palette
-  static const MaterialColor blue = MaterialColor(
+  static const TMaterialColor blue = TMaterialColor(
     0xFF3b82f6,
     <int, Color>{
       50: Color(0xFFeff6ff),
@@ -336,7 +349,7 @@ abstract final class TColors {
   );
 
   /// Indigo color palette
-  static const MaterialColor indigo = MaterialColor(
+  static const TMaterialColor indigo = TMaterialColor(
     0xFF6366f1,
     <int, Color>{
       50: Color(0xFFeef2ff),
@@ -354,7 +367,7 @@ abstract final class TColors {
   );
 
   /// Violet color palette
-  static const MaterialColor violet = MaterialColor(
+  static const TMaterialColor violet = TMaterialColor(
     0xFF8b5cf6,
     <int, Color>{
       50: Color(0xFFf5f3ff),
@@ -372,7 +385,7 @@ abstract final class TColors {
   );
 
   /// Purple color palette
-  static const MaterialColor purple = MaterialColor(
+  static const TMaterialColor purple = TMaterialColor(
     0xFFA855F7,
     <int, Color>{
       50: Color(0xFFfaf5ff),
@@ -390,7 +403,7 @@ abstract final class TColors {
   );
 
   /// Fuchsia color palette
-  static const MaterialColor fuchsia = MaterialColor(
+  static const TMaterialColor fuchsia = TMaterialColor(
     0xFFD946EF,
     <int, Color>{
       50: Color(0xFFfdf4ff),
@@ -408,7 +421,7 @@ abstract final class TColors {
   );
 
   /// Pink color palette
-  static const MaterialColor pink = MaterialColor(
+  static const TMaterialColor pink = TMaterialColor(
     0xFFec4899,
     <int, Color>{
       50: Color(0xFFfdf2f8),
@@ -426,7 +439,7 @@ abstract final class TColors {
   );
 
   /// Rose color palette
-  static const MaterialColor rose = MaterialColor(
+  static const TMaterialColor rose = TMaterialColor(
     0xFFf43f5e,
     <int, Color>{
       50: Color(0xFFfff1f2),

@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
+// =============================================================================
+// CLASS: THighlighter
+// =============================================================================
+
 /// A standalone class responsible for loading and caching highlighter instances.
 class THighlighter {
   /// A list of default supported languages for syntax highlighting.
@@ -28,26 +32,26 @@ class THighlighter {
   /// Map to store cached highlighter theme instances for different brightness levels.
   static final Map<Brightness, HighlighterTheme> _highlighterThemes = {};
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: clearCache
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Clear the cached highlighters for all languages.
   static void clearCache() {
     _highlighters.clear();
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: loadHighlighter
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   static String _getLanguageKey(String language, Brightness brightness) {
     return '$language-${brightness.name}';
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: load
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Load a syntax highlighter for the specified language and brightness.
   static Future<void> load({
@@ -101,9 +105,9 @@ class THighlighter {
     }
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: parse
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Parse and return an InlineSpan for the given code using the loaded highlighter.
   static InlineSpan parse({
@@ -161,9 +165,9 @@ class THighlighter {
     }
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _loadThemeForBrightness
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Load and cache the highlighter theme for the given brightness level.
   static Future<HighlighterTheme> _loadThemeForBrightness(

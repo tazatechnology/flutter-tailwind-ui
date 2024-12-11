@@ -1,11 +1,12 @@
 // Components
 export 'src/components/badge.dart';
+export 'src/components/button.dart';
 export 'src/components/code_block.dart';
+export 'src/components/gesture_detector.dart';
 export 'src/components/radio.dart';
 export 'src/components/row_column.dart';
 export 'src/components/scrollbar.dart';
 export 'src/components/sized_box.dart';
-export 'src/components/state.dart' show TState, TStateProperty;
 export 'src/components/text.dart';
 export 'src/components/tooltip.dart';
 // Constants
@@ -20,6 +21,8 @@ export 'src/constants/space.dart';
 export 'src/extensions/build_context.dart' show XTailwindBuildContext;
 export 'src/extensions/color.dart';
 export 'src/extensions/text_style.dart';
+export 'src/extensions/widget_state.dart';
+
 // Theme
 export 'src/theme/color.dart';
 export 'src/theme/component.dart';

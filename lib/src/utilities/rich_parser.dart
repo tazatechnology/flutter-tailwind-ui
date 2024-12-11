@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:url_launcher/link.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: TRichParser
-// =================================================
+// =============================================================================
 
 /// Text
 class TRichParser {
@@ -17,9 +17,9 @@ class TRichParser {
   /// Text
   final List<TRichBuilder>? builders;
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: parse
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Parses the text and returns a rich [TextSpan] object.
   TextSpan parse({
@@ -27,8 +27,10 @@ class TRichParser {
     required String text,
     TextStyle? style,
   }) {
-    /// Get the effective extensions
-    final effectiveBuilders = TRichBuilder.markdown.toList();
+    /// Start with the globally defined builders in the Tailwind theme
+    final effectiveBuilders = context.tw.text.richBuilders.toList();
+
+    /// Get the effective extensions by merging the global and local builders
     if (builders != null) {
       for (final ext in builders ?? <TRichBuilder>[]) {
         final index = effectiveBuilders.indexWhere((e) => e.regex == ext.regex);
@@ -55,9 +57,9 @@ class TRichParser {
     );
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _parseMatch
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   List<InlineSpan> _parseMatch({
     required BuildContext context,
@@ -86,7 +88,7 @@ class TRichParser {
                     builders: builders,
                     text: text,
                     baseStyle: style,
-                    rendererMatch: builders[ii],
+                    builderMatch: builders[ii],
                     textMatch: currentMatch,
                   ),
                 ),
@@ -120,9 +122,9 @@ class TRichParser {
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: TRichBuilderMatch
-// =================================================
+// =============================================================================
 
 /// A class that represents the context of a text match.
 class TRichBuilderMatch {
@@ -130,7 +132,7 @@ class TRichBuilderMatch {
   const TRichBuilderMatch({
     required this.context,
     required this.builders,
-    required this.rendererMatch,
+    required this.builderMatch,
     required this.text,
     required this.textMatch,
     required this.baseStyle,
@@ -143,7 +145,7 @@ class TRichBuilderMatch {
   final List<TRichBuilder> builders;
 
   /// The custom extensions defined by the wrapping [TText] widget.
-  final TRichBuilder rendererMatch;
+  final TRichBuilder builderMatch;
 
   /// The entire text of the wrapping [TText] widget.
   final String text;
@@ -155,9 +157,9 @@ class TRichBuilderMatch {
   final TextStyle baseStyle;
 }
 
-// =================================================
+// =============================================================================
 // CLASS: TRichBuilder
-// =================================================
+// =============================================================================
 
 /// A class that represents a custom extension for [TText]
 class TRichBuilder {
@@ -177,7 +179,7 @@ class TRichBuilder {
   /// The style to use for the text.
   final TextStyle? style;
 
-  /// The default extensions for the [TText] widget.
+  /// The default extensions for the [TRichParser.parse] method.
   static List<TRichBuilder> markdown = List.unmodifiable([
     /// Bold: **text**
     TRichBuilder(
@@ -199,28 +201,43 @@ class TRichBuilder {
       style: const TextStyle().italic,
     ),
 
+    /// Monospace: ``text``
+    TRichBuilder(
+      regex: RegExp('``([^`]+)``'),
+      // Use a builder so that context can be used to look up the monospace font
+      // It is possible for a use to define a custom monospace font in the theme
+      builder: (details) {
+        return TRichParser(builders: details.builders).parse(
+          context: details.context,
+          text: details.textMatch,
+          style: details.baseStyle.mono(details.context).copyWith(height: 1.5),
+        );
+      },
+    ),
+
     /// Code: `text`
     TRichBuilder(
       regex: RegExp('`([^`]+)`'),
       builder: (details) {
-        final tw = details.context.tw;
-        final theme = tw.component.text;
+        final context = details.context;
+        final tw = context.tw;
+        final backgroundColor =
+            tw.light ? const Color(0xFFf5f5f5) : const Color(0xFF333333);
         return WidgetSpan(
           child: Container(
             padding: TOffset.x4,
             decoration: BoxDecoration(
-              color: theme.codeBackgroundColor,
+              color: backgroundColor,
               borderRadius: TBorderRadius.rounded,
             ),
-            // Pass to another TText widget to parse any nested patterns
-            child: TText(
-              details.textMatch,
-              builders: details.builders,
-              // Scale text down to line up with surrounding text
+            // Pass to another TRichParser to parse the text inside the code block
+            child: Text.rich(
+              TRichParser(builders: details.builders).parse(
+                context: details.context,
+                text: details.textMatch,
+                style: details.baseStyle.mono(context).copyWith(height: 1.5),
+              ),
               textScaler: const TextScaler.linear(0.85),
-              style: details.baseStyle.mono(details.context).copyWith(
-                    height: 1.5,
-                  ),
             ),
           ),
         );
@@ -232,7 +249,7 @@ class TRichBuilder {
       regex: RegExp(r'\[([^\]]+)\]\(([^)]+)\)'),
       builder: (details) {
         final tw = details.context.tw;
-
+        final linkColor = tw.light ? TColors.sky : TColors.sky.shade400;
         // Create a regular expression to match for the URL
         final urlRegex = RegExp(
           r'\[' + RegExp.escape(details.textMatch) + r'\]\(([^)]+)\)',
@@ -247,15 +264,17 @@ class TRichBuilder {
             uri: uri,
             target: kIsWeb ? LinkTarget.blank : LinkTarget.defaultTarget,
             builder: (context, followLink) {
-              final theme = tw.component.text;
               return InkWell(
                 onTap: followLink,
-                child: TText(
-                  details.textMatch,
-                  builders: details.builders,
-                  style: details.baseStyle.copyWith(
-                    color: theme.linkColor,
-                    height: 0,
+                // Pass to another TRichParser to parse the text inside the link
+                child: Text.rich(
+                  TRichParser(builders: details.builders).parse(
+                    context: details.context,
+                    text: details.textMatch,
+                    style: details.baseStyle.copyWith(
+                      color: linkColor,
+                      height: 0,
+                    ),
                   ),
                 ),
               );

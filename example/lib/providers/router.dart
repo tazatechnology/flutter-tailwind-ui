@@ -1,4 +1,5 @@
 // ignore_for_file: constant_identifier_names
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
 import 'package:flutter_tailwind_ui_app/routes/routes.dart';
@@ -7,16 +8,25 @@ import 'package:go_router/go_router.dart';
 /// App router provider
 final appRouterProvider = Provider<AppRouter>((ref) => AppRouter());
 
-// =================================================
+// =============================================================================
 // CLASS: AppRouter
-// =================================================
+// =============================================================================
 
 class AppRouter {
   AppRouter() {
+    final componentMap = <String, Widget>{
+      AppRouter.badge: const ComponentRouteTBadge(),
+      AppRouter.button: const ComponentRouteTButton(),
+      AppRouter.code_block: const ComponentRouteTCodeBlock(),
+      AppRouter.radio_list: const ComponentRouteTRadioList(),
+      AppRouter.row_column: const ComponentRouteTRowColumn(),
+      AppRouter.scrollbar: const ComponentRouteTScrollbar(),
+      AppRouter.sized_box: const ComponentRouteTSizedBox(),
+      AppRouter.text: const ComponentRouteTText(),
+    };
+
     final routes = [
-      // -------------------------------------------------
-      // Getting Started
-      // -------------------------------------------------
+      /// Getting Started
       GoRoute(
         name: about,
         path: '/',
@@ -27,9 +37,8 @@ class AppRouter {
         path: '/$usage',
         builder: (context, state) => const UsageRoute(),
       ),
-      // -------------------------------------------------
-      // Design System
-      // -------------------------------------------------
+
+      /// Design System
       GoRoute(
         name: colors,
         path: '/$colors',
@@ -45,44 +54,14 @@ class AppRouter {
         path: '/$typography',
         builder: (context, state) => const TypographyRoute(),
       ),
-      // -------------------------------------------------
-      // Components
-      // -------------------------------------------------
-      GoRoute(
-        name: badge,
-        path: '/$badge',
-        builder: (context, state) => const ComponentRouteTBadge(),
-      ),
-      GoRoute(
-        name: code_block,
-        path: '/$code_block',
-        builder: (context, state) => const ComponentRouteTCodeBlock(),
-      ),
-      GoRoute(
-        name: radio_list,
-        path: '/$radio_list',
-        builder: (context, state) => const ComponentRouteTRadioList(),
-      ),
-      GoRoute(
-        name: row_column,
-        path: '/$row_column',
-        builder: (context, state) => const ComponentRouteTRowColumn(),
-      ),
-      GoRoute(
-        name: scrollbar,
-        path: '/$scrollbar',
-        builder: (context, state) => const ComponentRouteTScrollbar(),
-      ),
-      GoRoute(
-        name: sized_box,
-        path: '/$sized_box',
-        builder: (context, state) => const ComponentRouteTSizedBox(),
-      ),
-      GoRoute(
-        name: text,
-        path: '/$text',
-        builder: (context, state) => const ComponentRouteTText(),
-      ),
+
+      /// Components
+      for (final c in componentMap.entries)
+        GoRoute(
+          name: c.key,
+          path: '/${c.key}',
+          builder: (context, state) => c.value,
+        ),
     ];
 
     /// Build the outer instance
@@ -95,19 +74,29 @@ class AppRouter {
           routes: routes,
         ),
       ],
+      redirect: (context, state) {
+        // Redirect to the default route on page not found
+        if (state.topRoute == null) {
+          return '/';
+        }
+        return null;
+      },
     );
   }
   late final GoRouter router;
 
-  // Getting Started
+  /// Getting Started
   static const String about = 'about';
   static const String usage = 'usage';
-  // Design System
+
+  /// Design System
   static const String colors = 'colors';
   static const String spacing = 'spacing';
   static const String typography = 'typography';
-  // Components
+
+  /// Components
   static const String badge = 'badge';
+  static const String button = 'button';
   static const String code_block = 'code-block';
   static const String radio_list = 'radio-list';
   static const String row_column = 'row-column';

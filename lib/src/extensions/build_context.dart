@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
-// =================================================
+// =============================================================================
 // EXTENSION: XTailwindBuildContext
-// =================================================
+// =============================================================================
 
 /// Extension methods for the [BuildContext] class
 ///
@@ -19,9 +19,9 @@ extension XTailwindBuildContext on BuildContext {
   ThemeData get theme => Theme.of(this);
 }
 
-// =================================================
+// =============================================================================
 // CLASS: TailwindContext
-// =================================================
+// =============================================================================
 
 /// Wrapper class for all the Tailwind related context properties
 ///
@@ -35,6 +35,9 @@ class TailwindContext {
   /// The current theme data
   ThemeData get _theme => Theme.of(_ctx);
 
+  /// Is the current theme [Brightness] value
+  Brightness get brightness => _theme.brightness;
+
   /// Is the current theme the light theme
   bool get light => _theme.brightness == Brightness.light;
 
@@ -47,7 +50,7 @@ class TailwindContext {
   /// The current Tailwind color theme
   TailwindColorTheme get colors {
     return Theme.of(_ctx).extension<TailwindColorTheme>() ??
-        (light ? TailwindColorTheme.light() : TailwindColorTheme.dark());
+        (TailwindColorTheme.fallback(brightness: _theme.brightness));
   }
 
   /// The current Tailwind text theme
@@ -56,17 +59,15 @@ class TailwindContext {
   }
 
   /// The current Tailwind component themes
-  TailwindComponentsTheme get component {
-    return Theme.of(_ctx).extension<TailwindComponentsTheme>() ??
-        (light
-            ? TailwindComponentsTheme.light()
-            : TailwindComponentsTheme.dark());
+  TailwindComponentTheme get component {
+    return Theme.of(_ctx).extension<TailwindComponentTheme>() ??
+        const TailwindComponentTheme();
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: TailwindScreenContext
-// =================================================
+// =============================================================================
 
 /// Text
 class TailwindScreenContext {

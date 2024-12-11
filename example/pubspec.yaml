@@ -8,24 +8,25 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
-  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
   flutter_app_info: ^3.0.2
   flutter_riverpod: ^2.6.1
-  flutter_svg: ^2.0.10+1
+  flutter_svg: ^2.0.16
   flutter_tailwind_ui:
     path: ../
   flutter_web_plugins:
     sdk: flutter
-  font_awesome_flutter: ^10.7.0
-  go_router: ^14.2.9
+  font_awesome_flutter: ^10.8.0
+  go_router: ^14.6.1
+  universal_html: ^2.2.4
   url_launcher: ^6.3.1
+  window_manager: ^0.4.3
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.14.1
-  flutter_test:
-    sdk: flutter
+  build_runner: ^2.4.13
+  flutter_launcher_icons: ^0.14.2
+  source_gen: ^1.5.0
   very_good_analysis: ^6.0.0
 
 # Icon generation settings

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: TailwindTheme
-// =================================================
+// =============================================================================
 
 /// Tailwind theme data to replicate the Tailwind CSS design system
 ///
@@ -15,13 +15,13 @@ class TailwindTheme {
   factory TailwindTheme.light({
     TailwindColorTheme? color,
     TailwindTextTheme? text,
-    TailwindComponentsTheme? components,
+    TailwindComponentTheme? components,
   }) {
     return TailwindTheme._(
       brightness: Brightness.light,
-      color: color ?? TailwindColorTheme.light(),
+      color: color ?? TailwindColorTheme.fallback(brightness: Brightness.light),
       text: text ?? TailwindTextTheme(),
-      components: components ?? TailwindComponentsTheme.light(),
+      component: components ?? const TailwindComponentTheme(),
     );
   }
 
@@ -29,13 +29,13 @@ class TailwindTheme {
   factory TailwindTheme.dark({
     TailwindColorTheme? color,
     TailwindTextTheme? text,
-    TailwindComponentsTheme? components,
+    TailwindComponentTheme? components,
   }) {
     return TailwindTheme._(
       brightness: Brightness.dark,
-      color: color ?? TailwindColorTheme.dark(),
+      color: color ?? TailwindColorTheme.fallback(brightness: Brightness.dark),
       text: text ?? TailwindTextTheme(),
-      components: components ?? TailwindComponentsTheme.dark(),
+      component: components ?? const TailwindComponentTheme(),
     );
   }
 
@@ -44,9 +44,9 @@ class TailwindTheme {
     required this.brightness,
     required TailwindColorTheme color,
     required TailwindTextTheme text,
-    required TailwindComponentsTheme components,
+    required TailwindComponentTheme component,
   }) {
-    data = _buildThemeData(color: color, text: text, components: components);
+    data = _buildThemeData(color: color, text: text, component: component);
   }
 
   /// The Flutter [ThemeData] instance
@@ -55,14 +55,14 @@ class TailwindTheme {
   /// The brightness of the theme (light or dark)
   final Brightness brightness;
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _buildTheme
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   ThemeData _buildThemeData({
     required TailwindColorTheme color,
     required TailwindTextTheme text,
-    required TailwindComponentsTheme components,
+    required TailwindComponentTheme component,
   }) {
     final light = brightness == Brightness.light;
 
@@ -129,11 +129,7 @@ class TailwindTheme {
     }
 
     return ThemeData(
-      extensions: [
-        color,
-        text,
-        components,
-      ],
+      extensions: [color, text, component],
       useMaterial3: true,
       brightness: brightness,
       fontFamily: text.fontFamily,
@@ -249,6 +245,13 @@ class TailwindTheme {
         decoration: BoxDecoration(
           color: light ? TColors.gray.shade900 : TColors.gray.shade700,
           borderRadius: TBorderRadius.rounded_md,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 4),
+              blurRadius: 8,
+            ),
+          ],
         ),
         textStyle: const TextStyle(
           color: Colors.white,

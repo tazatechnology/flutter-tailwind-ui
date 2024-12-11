@@ -1,14 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/constants/text.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: TailwindTextTheme
-// =================================================
+// =============================================================================
 
 /// Tailwind theme extension to replicate the Tailwind CSS design system
 ///
-/// Primarily used to define font sizes and line heights
+/// Primarily used to define font sizes, line heights, and rich text
 class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
   /// Constructor for [TailwindTextTheme]
   TailwindTextTheme({
@@ -27,6 +28,7 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
     TextStyle? style_7xl,
     TextStyle? style_8xl,
     TextStyle? style_9xl,
+    List<TRichBuilder>? richBuilders,
   }) {
     this.style_xs = TTextStyle.text_xs.merge(style_xs);
     this.style_sm = TTextStyle.text_sm.merge(style_sm);
@@ -41,7 +43,15 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
     this.style_7xl = TTextStyle.text_7xl.merge(style_7xl);
     this.style_8xl = TTextStyle.text_8xl.merge(style_8xl);
     this.style_9xl = TTextStyle.text_9xl.merge(style_9xl);
+    this.richBuilders = richBuilders ?? TRichBuilder.markdown.toList();
   }
+
+  /// The default font family
+  static const defaultFontFamily = 'packages/flutter_tailwind_ui/Geist';
+
+  /// The default monospace font family (packaged with )
+  static const defaultFontFamilyMono =
+      'packages/flutter_tailwind_ui/JetBrainsMono';
 
   /// The body text font
   ///
@@ -122,12 +132,17 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
   /// If not defined, will fallback to [TTextStyle.text_9xl]
   late final TextStyle style_9xl;
 
-  // -------------------------------------------------
+  /// The default [TRichBuilder] extensions for rich text parsing
+  late final List<TRichBuilder> richBuilders;
+
+  // ---------------------------------------------------------------------------
   // METHOD: copyWith
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   TailwindTextTheme copyWith({
+    String? fontFamily,
+    String? fontFamilyMono,
     TextStyle? style_xs,
     TextStyle? style_sm,
     TextStyle? style_md,
@@ -141,8 +156,11 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
     TextStyle? style_7xl,
     TextStyle? style_8xl,
     TextStyle? style_9xl,
+    List<TRichBuilder>? richBuilders,
   }) {
     return TailwindTextTheme(
+      fontFamily: fontFamily ?? this.fontFamily,
+      fontFamilyMono: fontFamilyMono ?? this.fontFamilyMono,
       style_xs: style_xs ?? this.style_xs,
       style_sm: style_sm ?? this.style_sm,
       style_md: style_md ?? this.style_md,
@@ -156,12 +174,13 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
       style_7xl: style_7xl ?? this.style_7xl,
       style_8xl: style_8xl ?? this.style_8xl,
       style_9xl: style_9xl ?? this.style_9xl,
+      richBuilders: richBuilders ?? this.richBuilders,
     );
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: lerp
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   TailwindTextTheme lerp(
@@ -172,6 +191,8 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
       return this;
     }
     return TailwindTextTheme(
+      fontFamily: other.fontFamily,
+      fontFamilyMono: other.fontFamilyMono,
       style_xs: TextStyle.lerp(style_xs, other.style_xs, t) ?? style_xs,
       style_sm: TextStyle.lerp(style_sm, other.style_sm, t) ?? style_sm,
       style_md: TextStyle.lerp(style_md, other.style_md, t) ?? style_md,
@@ -185,6 +206,7 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
       style_7xl: TextStyle.lerp(style_7xl, other.style_7xl, t) ?? style_7xl,
       style_8xl: TextStyle.lerp(style_8xl, other.style_8xl, t) ?? style_8xl,
       style_9xl: TextStyle.lerp(style_9xl, other.style_9xl, t) ?? style_9xl,
+      richBuilders: other.richBuilders,
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/providers/router.dart';
 import 'package:flutter_tailwind_ui_app/providers/theme.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:window_manager/window_manager.dart';
 
 void main() async {
   // Initialize the Flutter app
@@ -14,6 +15,16 @@ void main() async {
   // Will remove the "#" from website URLs
   if (kIsWeb) {
     usePathUrlStrategy();
+  }
+
+  // Desktop only window management
+  if (!kIsWeb) {
+    await windowManager.ensureInitialized();
+    const windowOptions = WindowOptions(
+      // Generally the smallest window sizes to design for in modern UIs
+      minimumSize: Size(360, 540),
+    );
+    await windowManager.waitUntilReadyToShow(windowOptions);
   }
 
   runApp(
@@ -28,9 +39,9 @@ void main() async {
   );
 }
 
-// =================================================
+// =============================================================================
 // CLASS: FlutterTailwindApp
-// =================================================
+// =============================================================================
 
 class FlutterTailwindApp extends ConsumerWidget {
   const FlutterTailwindApp({super.key});
@@ -42,8 +53,6 @@ class FlutterTailwindApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ref.watch(themeModeProvider),
       themeAnimationDuration: Duration.zero,
-      // theme: ref.watch(themeLightProvider),
-      // darkTheme: ref.watch(themDarkProvider),
       theme: TailwindTheme.light().data,
       darkTheme: TailwindTheme.dark().data,
       routerConfig: ref.read(appRouterProvider).router,

@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui_app/layout/layout.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+part of 'design_system.dart';
+
+/// The [ColorSwatch] shades used by Tailwind [MaterialColor] definitions
+const _shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
 /// List of all the Flutter Tailwind UI color palettes
 const _colors = {
@@ -57,9 +55,9 @@ extension on ColorFormat {
 /// Provider for how to copy a color to the clipboard
 final _colorFormatProvider = StateProvider<ColorFormat>((_) => ColorFormat.hex);
 
-// =================================================
+// =============================================================================
 // CLASS: ColorsRoute
-// =================================================
+// =============================================================================
 
 class ColorsRoute extends ConsumerWidget {
   const ColorsRoute({super.key});
@@ -71,19 +69,29 @@ class ColorsRoute extends ConsumerWidget {
 
     return AppScrollView.slivers(
       header: const AppRouteHeader(
-        section: AppSection.designSystem,
+        section: AppSectionType.designSystem,
         title: 'Colors',
         description: 'The default color palettes',
       ),
       slivers: [
         SliverToBoxAdapter(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TText(
+          child: AppRouteSection(
+            title: 'Design Principles',
+            children: const [
+              TText(
                 "Flutter Tailwind UI includes an expertly-crafted default color palette out-of-the-box that is a great starting point if you don't have your own specific branding in mind. These colors have been ported from the Tailwind CSS default color palettes and are accessible from the `TColors` class.",
               ),
-              TSizedBox.y16,
+            ],
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: AppRouteSection(
+            title: 'Color Palette Reference',
+            children: [
+              const TText(
+                "Flutter Tailwind UI includes an expertly-crafted default color palette out-of-the-box that is a great starting point if you don't have your own specific branding in mind. These colors have been ported from the Tailwind CSS default color palettes and are accessible from the `TColors` class.\n\nUse the reference below to copy any color to your clipboard in the format of your choice.",
+              ),
+              const Divider(height: TSpace.v48),
               TRadioList<ColorFormat>.card(
                 direction: tw.screen.is_md ? Axis.horizontal : Axis.vertical,
                 expanded: true,
@@ -121,9 +129,9 @@ class ColorsRoute extends ConsumerWidget {
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: ColorPalette
-// =================================================
+// =============================================================================
 
 class ColorPalette extends StatelessWidget {
   const ColorPalette({
@@ -138,7 +146,7 @@ class ColorPalette extends StatelessWidget {
   Widget build(BuildContext context) {
     final tw = context.tw;
     final light = tw.light;
-    final swatches = DEFAULT_TAILWIND_COLOR_SWATCH_SHADES.map<Widget>((shade) {
+    final swatches = _shades.map<Widget>((shade) {
       return Expanded(
         child: ColorSwatch(
           key: ValueKey(color[shade]?.value.toString()),
@@ -201,9 +209,9 @@ class ColorPalette extends StatelessWidget {
   }
 }
 
-// =================================================
+// =============================================================================
 // CLASS: ColorSwatch
-// =================================================
+// =============================================================================
 
 class ColorSwatch extends ConsumerStatefulWidget {
   const ColorSwatch({
@@ -228,9 +236,9 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
   late final Color color;
   late final String hexColor;
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: copy
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   void initState() {
@@ -239,9 +247,9 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
     hexColor = color.value.toRadixString(16).substring(2);
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: copy
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   Future<void> copy() async {
     if (copied) {
@@ -268,9 +276,9 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
     });
   }
 
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: build
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -278,7 +286,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
     final tw = context.tw;
     final light = tw.light;
     bool isLast = false;
-    if (widget.shade == DEFAULT_TAILWIND_COLOR_SWATCH_SHADES.last) {
+    if (widget.shade == _shades.last) {
       isLast = true;
     }
     if (!tw.screen.is_md) {

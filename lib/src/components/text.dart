@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui/src/utilities/lerp.dart';
 
-// =================================================
+// =============================================================================
 // CLASS: TText
-// =================================================
+// =============================================================================
 
 /// A widget that renders text with markdown rich formatting.
 ///
@@ -39,8 +38,7 @@ class TText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-    this.builders = const [],
-    this.theme,
+    this.builders,
     super.key,
   });
 
@@ -88,15 +86,12 @@ class TText extends StatelessWidget {
   /// The color to use when painting the selection.
   final Color? selectionColor;
 
-  /// Custom extensions to parse the text.
-  final List<TRichBuilder> builders;
+  /// Custom builders to pass to the [TRichParser].
+  final List<TRichBuilder>? builders;
 
-  /// The theme data for the [TText] widget.
-  final TTextTheme? theme;
-
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: build
-  // -------------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -119,77 +114,6 @@ class TText extends StatelessWidget {
       textWidthBasis: textWidthBasis,
       textHeightBehavior: textHeightBehavior,
       selectionColor: selectionColor,
-    );
-  }
-}
-
-// =================================================
-// CLASS: TTextTheme
-// =================================================
-
-/// Theme data for [TText] widgets.
-class TTextTheme extends ThemeExtension<TTextTheme> {
-  /// Creates a [TTextTheme] object.
-  TTextTheme.raw({
-    required this.linkColor,
-    required this.codeBackgroundColor,
-  });
-
-  /// Creates a [TTextTheme] object.
-  TTextTheme.light({
-    Color? linkColor,
-    Color? codeBackgroundColor,
-  }) {
-    this.linkColor = linkColor ?? TColors.sky;
-    this.codeBackgroundColor = codeBackgroundColor ?? const Color(0xFFf5f5f5);
-  }
-
-  /// Creates a [TTextTheme] object.
-  TTextTheme.dark({
-    Color? linkColor,
-    Color? codeBackgroundColor,
-  }) {
-    this.linkColor = linkColor ?? TColors.sky.shade400;
-    this.codeBackgroundColor = codeBackgroundColor ?? const Color(0xFF333333);
-  }
-
-  /// The color of link [InlineSpan] elements.
-  late final Color linkColor;
-
-  /// The background color of code [InlineSpan] elements.
-  late final Color codeBackgroundColor;
-
-  // -------------------------------------------------
-  // METHOD: copyWith
-  // -------------------------------------------------
-
-  @override
-  TTextTheme copyWith({
-    Color? linkColor,
-    Color? codeBackgroundColor,
-  }) {
-    return TTextTheme.raw(
-      linkColor: linkColor ?? this.linkColor,
-      codeBackgroundColor: codeBackgroundColor ?? this.codeBackgroundColor,
-    );
-  }
-
-  // -------------------------------------------------
-  // METHOD: lerp
-  // -------------------------------------------------
-
-  @override
-  TTextTheme lerp(
-    TTextTheme? other,
-    double t,
-  ) {
-    if (other == null) {
-      return this;
-    }
-    return TTextTheme.raw(
-      linkColor: lerpColor(linkColor, other.linkColor, t),
-      codeBackgroundColor:
-          lerpColor(codeBackgroundColor, other.codeBackgroundColor, t),
     );
   }
 }

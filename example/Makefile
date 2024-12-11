@@ -54,6 +54,9 @@ build-web: clean
 build-windows: clean
 	@flutter build windows
 
+build-runner:
+	@dart run build_runner build --delete-conflicting-outputs
+
 run: clean
 	@flutter run --release
 
