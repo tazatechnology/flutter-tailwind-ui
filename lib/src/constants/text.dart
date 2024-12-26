@@ -1,6 +1,7 @@
+// Match Tailwind naming conventions for traceability
 // ignore_for_file: constant_identifier_names
 import 'package:flutter/widgets.dart';
-import 'package:flutter_tailwind_ui/src/constants/font_size.dart';
+import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 // =============================================================================
 // CLASS: TLetterSpacing
@@ -41,7 +42,7 @@ abstract final class TTextStyle {
   static const text_xs = TextStyle(fontSize: TFontSize.text_xs, height: 1);
 
   /// [TextStyle] equivalent to Tailwind font size `text-sm`
-  static const text_sm = TextStyle(fontSize: TFontSize.text_sm, height: 1.25);
+  static const text_sm = TextStyle(fontSize: TFontSize.text_sm, height: 1.4);
 
   /// [TextStyle] equivalent to Tailwind font size `text-base`
   static const text_md = TextStyle(fontSize: TFontSize.text_md, height: 1.5);

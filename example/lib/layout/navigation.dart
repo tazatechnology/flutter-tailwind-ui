@@ -87,8 +87,9 @@ class _AppNavigationState extends State<AppNavigation> {
             items: [
               for (final entry in componentRoutes.entries)
                 AppNavigationItem(
-                  title: '`${entry.key}`',
+                  title: entry.key,
                   route: entry.value,
+                  isComponent: true,
                 ),
             ],
           ),
@@ -153,11 +154,13 @@ class AppNavigationItem extends StatefulWidget {
     required this.title,
     required this.route,
     this.isLast = false,
+    this.isComponent = false,
     super.key,
   });
   final String title;
   final String route;
   final bool isLast;
+  final bool isComponent;
   @override
   State<AppNavigationItem> createState() => _AppNavigationItemState();
 }
@@ -179,36 +182,51 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
     final hoveredBorder =
         tw.light ? TColors.slate.shade300 : TColors.slate.shade500;
 
-    return InkWell(
-      onTap: () {
-        if (!showSideBar) {
-          Scaffold.of(context).closeDrawer();
-        }
-        context.goNamed(widget.route);
-      },
-      onHover: (value) {
-        setState(() => isHovered = value);
-      },
-      child: Container(
-        margin: widget.isLast ? TOffset.b0 : TOffset.b6,
-        padding: TOffset.y2 + TOffset.x24,
-        decoration: BoxDecoration(
-          border: Border(
-            left: BorderSide(
-              color: isActive
-                  ? activeColor
-                  : (isHovered ? hoveredBorder : Colors.transparent),
-              width: 1.75,
-            ),
+    Color badgeColor = Colors.transparent;
+    if (widget.isComponent) {
+      badgeColor = tw.light ? TColors.gray.shade100 : TColors.gray.shade800;
+    }
+    return Container(
+      margin: widget.isLast ? TOffset.b0 : TOffset.b4,
+      padding: TOffset.x16 + (widget.isComponent ? TOffset.y4 : TOffset.y2),
+      decoration: BoxDecoration(
+        border: Border(
+          left: BorderSide(
+            color: isActive
+                ? activeColor
+                : (isHovered ? hoveredBorder : Colors.transparent),
+            width: 1.25,
           ),
         ),
-        child: TText(
-          widget.title,
-          style: tw.text.style_sm.copyWith(
-            color: isActive ? activeColor : inactiveColor,
-            fontWeight: isActive ? FontWeight.w500 : FontWeight.normal,
+      ),
+      child: TBadge.filled(
+        color: badgeColor,
+        baseTextStyle: widget.isComponent ? tw.text.style_xs : tw.text.style_sm,
+        theme: TBadgeTheme(
+          padding: WidgetStatePropertyAll(
+            widget.isComponent ? TOffset.x4 + TOffset.y2 : TOffset.y0,
           ),
+          textStyle: WidgetStateTextStyle.resolveWith((states) {
+            return TextStyle(
+              color: isActive ? activeColor : inactiveColor,
+              fontWeight: isActive || (states.hovered && widget.isComponent)
+                  ? FontWeight.w600
+                  : FontWeight.normal,
+              fontFamily: widget.isComponent ? tw.text.fontFamilyMono : null,
+            );
+          }),
+          borderRadius: const WidgetStatePropertyAll(TBorderRadius.rounded_md),
         ),
+        onPressed: () {
+          if (!showSideBar) {
+            Scaffold.of(context).closeDrawer();
+          }
+          context.goNamed(widget.route);
+        },
+        onHover: (value) {
+          setState(() => isHovered = value);
+        },
+        child: TText(widget.title),
       ),
     );
   }

@@ -1,16 +1,16 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/header.dart';
 import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
-import 'package:flutter_tailwind_ui_app/layout/toc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:universal_html/html.dart' as html;
 
 /// Allows nested children to enable/disable outer scroll physics
 final outerScrollPhysicsProvider = StateProvider<ScrollPhysics>((ref) {
-  return const BouncingScrollPhysics();
+  return const ClampingScrollPhysics();
 });
 
 // =============================================================================
@@ -64,16 +64,20 @@ class AppScrollView extends ConsumerStatefulWidget {
   // METHOD: ensureVisible
   // ---------------------------------------------------------------------------
 
-  /// Scroll an [AppRouteSection] element into view without a [ScrollController]
+  /// Scroll an [AppSection] element into view without a [ScrollController]
   static Future<void> ensureVisible({
-    required AppRouteSection section,
+    required AppSection section,
     Duration duration = kThemeAnimationDuration,
     Curve curve = Curves.easeInOut,
   }) async {
-    final context = section.globalKey.currentContext;
+    if (section.key is! GlobalKey) {
+      return;
+    }
+    final context = (section.key! as GlobalKey).currentContext;
     if (context == null) {
       return;
     }
+
     final renderObject = context.findRenderObject();
     if (renderObject == null) {
       return;
@@ -125,6 +129,9 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
   final scrollThreshold = 200.0;
   bool showScrollButton = false;
   String? loc;
+
+  List<AppSection> sections = [];
+
   // ---------------------------------------------------------------------------
   // METHOD: initState
   // ---------------------------------------------------------------------------
@@ -133,6 +140,9 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
   void initState() {
     super.initState();
     scrollController.addListener(scrollListener);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      discoverSections(context);
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -155,6 +165,45 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
     scrollController.removeListener(scrollListener);
     scrollController.dispose();
     super.dispose();
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: discoverSections
+  // ---------------------------------------------------------------------------
+
+  void discoverSections(BuildContext context) {
+    void traverse(Element element) {
+      final widget = element.widget;
+
+      // Look for SectionWidgets with GlobalKeys
+      if (widget is AppSection && widget.key is GlobalKey) {
+        sections.add(widget);
+      }
+
+      // Recursively visit child elements
+      element.visitChildElements(traverse);
+    }
+
+    // Start traversal from the root context
+    context.visitChildElements(traverse);
+
+    AppSection? locSection;
+
+    if (sections.isNotEmpty) {
+      // Scroll to the section if the URL fragment is set
+      // This would happen on page load when the URL contains a fragment
+      if (loc != null && loc!.isNotEmpty) {
+        locSection = sections.firstWhereOrNull(
+          (s) => s.fragment == loc,
+        );
+      }
+
+      if (locSection != null) {
+        Future.microtask(() {
+          AppScrollView.ensureVisible(section: locSection!);
+        });
+      }
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -197,48 +246,13 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
   // METHOD: scrollToSection
   // ---------------------------------------------------------------------------
 
-  Future<void> scrollToSection(AppRouteSection section) async {
+  Future<void> scrollToSection(AppSection section) async {
     loc = null;
     await Future.microtask(() {
       if (mounted) {
         AppScrollView.ensureVisible(section: section);
       }
     });
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: extractTOC
-  // ---------------------------------------------------------------------------
-
-  AppRouteContents? extractTOC() {
-    final List<AppRouteSection> sections = [];
-    for (final s in widget.slivers) {
-      if (s is SliverToBoxAdapter) {
-        final sa = s.child;
-        if (sa is Align) {
-          final saa = sa.child;
-          if (saa is AppRouteSection) {
-            if (saa.fragment == loc) {
-              scrollToSection(saa);
-            }
-            sections.add(saa);
-          }
-        } else if (sa is AppRouteSection) {
-          if (sa.fragment == loc) {
-            scrollToSection(sa);
-          }
-          sections.add(sa);
-        }
-      }
-    }
-    if (sections.isNotEmpty) {
-      return AppRouteContents(
-        scrollController: scrollController,
-        sections: sections,
-      );
-    } else {
-      return null;
-    }
   }
 
   // ---------------------------------------------------------------------------
@@ -263,9 +277,6 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
       xPad += EdgeInsets.only(right: right);
     }
 
-    // Try to extract a table of contents
-    final toc = extractTOC();
-
     return PrimaryScrollController(
       controller: scrollController,
       child: Stack(
@@ -287,12 +298,6 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
                     sliver: SliverToBoxAdapter(child: widget.header),
                   ),
                 ],
-                if (toc != null) ...[
-                  SliverPadding(
-                    padding: xPad + TOffset.b8,
-                    sliver: SliverToBoxAdapter(child: toc),
-                  ),
-                ],
                 ...widget.slivers.map((sliver) {
                   // Common horizontal padding for the content
                   return SliverPadding(padding: xPad, sliver: sliver);
@@ -304,30 +309,32 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
               ],
             ),
           ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: AnimatedOpacity(
-              duration: kThemeAnimationDuration,
-              curve: Curves.easeInOut,
-              opacity: showScrollButton ? 1 : 0,
-              child: showScrollButton
-                  ? FloatingActionButton.small(
-                      key: const Key('scroll-to-top'),
-                      elevation: 0,
-                      hoverElevation: 0,
-                      focusElevation: 0,
-                      highlightElevation: 0,
-                      disabledElevation: 0,
-                      backgroundColor: TColors.indigo.withOpacity(0.85),
-                      onPressed: scrollToTop,
-                      child: const Icon(
-                        Icons.arrow_upward,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
+          ExcludeFocus(
+            child: Positioned(
+              bottom: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                duration: kThemeAnimationDuration,
+                curve: Curves.easeInOut,
+                opacity: showScrollButton ? 1 : 0,
+                child: showScrollButton
+                    ? FloatingActionButton.small(
+                        key: const Key('scroll-to-top'),
+                        elevation: 0,
+                        hoverElevation: 0,
+                        focusElevation: 0,
+                        highlightElevation: 0,
+                        disabledElevation: 0,
+                        backgroundColor: TColors.indigo.withValues(alpha: 0.85),
+                        onPressed: scrollToTop,
+                        child: const Icon(
+                          Icons.arrow_upward,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ),
             ),
           ),
         ],

@@ -1,8 +1,8 @@
+// Match Tailwind naming conventions for traceability
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui/src/constants/text.dart';
 
 /// Extension methods for the [TextStyle] class
 extension XTailwindTextStyle on TextStyle {

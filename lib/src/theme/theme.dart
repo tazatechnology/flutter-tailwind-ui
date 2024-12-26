@@ -15,13 +15,11 @@ class TailwindTheme {
   factory TailwindTheme.light({
     TailwindColorTheme? color,
     TailwindTextTheme? text,
-    TailwindComponentTheme? components,
   }) {
     return TailwindTheme._(
       brightness: Brightness.light,
-      color: color ?? TailwindColorTheme.fallback(brightness: Brightness.light),
+      color: color ?? TailwindColorTheme.light(),
       text: text ?? TailwindTextTheme(),
-      component: components ?? const TailwindComponentTheme(),
     );
   }
 
@@ -29,13 +27,11 @@ class TailwindTheme {
   factory TailwindTheme.dark({
     TailwindColorTheme? color,
     TailwindTextTheme? text,
-    TailwindComponentTheme? components,
   }) {
     return TailwindTheme._(
       brightness: Brightness.dark,
-      color: color ?? TailwindColorTheme.fallback(brightness: Brightness.dark),
+      color: color ?? TailwindColorTheme.dark(),
       text: text ?? TailwindTextTheme(),
-      component: components ?? const TailwindComponentTheme(),
     );
   }
 
@@ -44,9 +40,8 @@ class TailwindTheme {
     required this.brightness,
     required TailwindColorTheme color,
     required TailwindTextTheme text,
-    required TailwindComponentTheme component,
   }) {
-    data = _buildThemeData(color: color, text: text, component: component);
+    data = _buildThemeData(color: color, text: text);
   }
 
   /// The Flutter [ThemeData] instance
@@ -62,7 +57,6 @@ class TailwindTheme {
   ThemeData _buildThemeData({
     required TailwindColorTheme color,
     required TailwindTextTheme text,
-    required TailwindComponentTheme component,
   }) {
     final light = brightness == Brightness.light;
 
@@ -77,12 +71,12 @@ class TailwindTheme {
       cursorColor = TColors.gray.shade600;
       thumbColor = TColors.gray.shade300;
       trackColor = TColors.neutral.shade50;
-      trackBorderColor = const Color(0xFFededed);
+      trackBorderColor = const Color(0xffededed);
     } else {
       cursorColor = TColors.gray.shade300;
       thumbColor = TColors.gray.shade500;
       trackColor = Colors.transparent;
-      trackBorderColor = const Color(0xFF3d3d3d);
+      trackBorderColor = const Color(0xff3d3d3d);
     }
 
     // Define the default text theme
@@ -129,7 +123,7 @@ class TailwindTheme {
     }
 
     return ThemeData(
-      extensions: [color, text, component],
+      extensions: [color, text],
       useMaterial3: true,
       brightness: brightness,
       fontFamily: text.fontFamily,
@@ -247,7 +241,7 @@ class TailwindTheme {
           borderRadius: TBorderRadius.rounded_md,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               offset: const Offset(0, 4),
               blurRadius: 8,
             ),

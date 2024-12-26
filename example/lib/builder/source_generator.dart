@@ -1,3 +1,4 @@
+// Packages are only defined in local development
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:analyzer/dart/element/element.dart';
@@ -182,8 +183,8 @@ class SourceBuilder implements Builder {
     if (generatedCode.isNotEmpty) {
       final partFileId = buildStep.inputId.changeExtension('.g.dart');
       await buildStep.writeAsString(partFileId, '''
-// ignore_for_file: unnecessary_raw_strings
 // Generated code - do not modify by hand
+// ignore_for_file: unnecessary_raw_strings
 
 part of '${buildStep.inputId.pathSegments.last}';
 

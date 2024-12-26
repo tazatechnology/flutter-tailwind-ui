@@ -28,14 +28,14 @@ class TypographyRoute extends StatelessWidget {
 
     return AppScrollView.children(
       header: const AppRouteHeader(
-        section: AppSectionType.designSystem,
+        section: AppRouteType.designSystem,
         title: 'Typography',
         description:
             'The default font family and font size system for consistent typography.',
       ),
       children: [
         /// Font Family
-        AppRouteSection(title: 'Font Family'),
+        AppSection(title: 'Font Family'),
         const TText(
           'Having both a serif font (`Geist`) and a monospaced font (`JetBrains Mono`) pre-packaged in your design system is highly beneficial because it provides immediate access to a professional typographic hierarchy. The serif font offers readability and elegance for body text, while the monospaced font is perfect for code snippets and technical content, ensuring clarity and consistency across various elements.',
         ),
@@ -49,7 +49,7 @@ class TypographyRoute extends StatelessWidget {
         ),
 
         /// Font Size
-        AppRouteSection(title: 'Font Size'),
+        AppSection(title: 'Font Size'),
         const Text(
           'The Flutter Tailwind UI package includes a standard set of font sizes that align with the Tailwind CSS default font size system, making it easy for developers to implement consistent typography across their UI. This pre-packaged sizing ensures an intuitive, scalable approach to font sizing, maintaining a cohesive visual hierarchy without the need for additional configuration.',
         ),

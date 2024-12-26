@@ -1,5 +1,5 @@
-// ignore_for_file: unnecessary_raw_strings
 // Generated code - do not modify by hand
+// ignore_for_file: unnecessary_raw_strings
 
 part of 'design_system.dart';
 

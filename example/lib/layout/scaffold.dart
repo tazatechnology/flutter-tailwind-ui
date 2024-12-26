@@ -104,8 +104,9 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
               height: appBarHeight,
               decoration: BoxDecoration(
                 color: tw.light
-                    ? Colors.white.withOpacity(0.65)
-                    : context.theme.scaffoldBackgroundColor.withOpacity(0.75),
+                    ? Colors.white.withValues(alpha: 0.65)
+                    : context.theme.scaffoldBackgroundColor
+                        .withValues(alpha: 0.75),
                 border: appBarBorder,
               ),
               child: Column(
@@ -195,7 +196,7 @@ class _ScaffoldHeader extends StatelessWidget {
                         padding: TOffset.x20,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: TColors.slate.shade400.withOpacity(0.1),
+                          color: TColors.slate.shade400.withValues(alpha: 0.1),
                           borderRadius: TBorderRadius.rounded_full,
                         ),
                         child: Text(

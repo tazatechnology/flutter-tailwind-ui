@@ -8,16 +8,8 @@ ARGS ?=
 init:
 	@find $(ROOT) -name pubspec.yaml -execdir bash -c "pwd && flutter pub get" \;
 
-# Get the latest tagged version
-tag:
-	@git describe --tags --abbrev=0 $$(git tag --sort=-creatordate | grep '^v' | head -n 1)
-
-# Get the latest commit
-sha:
-	@git rev-parse --short=8 HEAD
-
 code:
-	@code $(ROOT)/.vscode/flutter_tailwind_ui.code-workspace
+	@make -C $(ROOT) code
 
 outdated:
 	@flutter pub outdated $(ARGS)

@@ -98,7 +98,7 @@ class THighlighter {
       // Construct and cache the highlighter instance.
       final highlighter = Highlighter(language: language, theme: theme);
       _highlighters[languageKey] = highlighter;
-    } catch (e) {
+    } on Exception catch (e) {
       if (kDebugMode) {
         print("Error constructing highlighter for language ('$language'): $e");
       }
@@ -119,7 +119,7 @@ class THighlighter {
     final fallbackSpan = TextSpan(text: code);
     try {
       return _highlighters[languageKey]?.highlight(code) ?? fallbackSpan;
-    } catch (e) {
+    } on Exception catch (e) {
       if (kDebugMode) {
         print("Error parsing code for language ('$language'): $e");
       }

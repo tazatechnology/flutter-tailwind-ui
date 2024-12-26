@@ -13,7 +13,7 @@ class UsageRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScrollView.children(
       header: const AppRouteHeader(
-        section: AppSectionType.gettingStarted,
+        section: AppRouteType.gettingStarted,
         title: 'Quick Start',
         description: 'Get started quickly with Flutter Tailwind UI',
       ),

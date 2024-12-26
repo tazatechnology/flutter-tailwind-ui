@@ -40,16 +40,16 @@ class SpacingRoute extends StatelessWidget {
 
     return AppScrollView.children(
       header: const AppRouteHeader(
-        section: AppSectionType.designSystem,
+        section: AppRouteType.designSystem,
         title: 'Spacing Scale',
         description: 'The default space scaling system',
       ),
       children: [
-        AppRouteSection(title: 'Design Principles'),
+        AppSection(title: 'Design Principles'),
         const TText(
           'The Flutter Tailwind UI spacing scale is a predefined set of values that helps developers consistently apply margin, padding, width, height, and other spacing-related properties in a design system.\n\nThese values range from `0px` to `384px` and can be accessed as `static const` values from the `TSpace` class. The values scale exponentially and this ensures consistent, scalable, and flexible spacing throughout your designs, enhancing both visual harmony and maintainability.',
         ),
-        AppRouteSection(title: 'Spacing Value Reference'),
+        AppSection(title: 'Spacing Value Reference'),
         AppValueTable(
           height: null,
           header: const [Text('Name'), Text('Value')],

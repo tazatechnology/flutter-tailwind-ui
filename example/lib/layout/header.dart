@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/scroll_view.dart';
 import 'package:url_launcher/link.dart';
 
-enum AppSectionType {
+// =============================================================================
+// ENUM: AppRouteType
+// =============================================================================
+
+enum AppRouteType {
   gettingStarted,
   designSystem,
   components,
 }
 
-extension AppSectionExtension on AppSectionType {
+extension XAppRouteType on AppRouteType {
   String get name {
     switch (this) {
-      case AppSectionType.gettingStarted:
+      case AppRouteType.gettingStarted:
         return 'Getting Started';
-      case AppSectionType.designSystem:
+      case AppRouteType.designSystem:
         return 'Design System';
-      case AppSectionType.components:
+      case AppRouteType.components:
         return 'Components';
     }
   }
@@ -36,7 +39,7 @@ class AppRouteHeader extends StatelessWidget {
     this.titleMono = false,
     this.className,
   });
-  final AppSectionType section;
+  final AppRouteType section;
   final String title;
   final String description;
   final bool titleMono;
@@ -82,6 +85,7 @@ class AppRouteHeader extends StatelessWidget {
                   uri: Uri.parse('$baseUrl$className-class.html'),
                   builder: (context, followLink) {
                     return TBadge.soft(
+                      color: TColors.sky,
                       tooltip: 'API Docs for ``**$className**``',
                       onPressed: followLink,
                       child: const Text('Dart Docs'),
@@ -102,106 +106,86 @@ class AppRouteHeader extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: AppRouteSection
+// CLASS: AppSection
 // =============================================================================
 
-class AppRouteSection extends StatefulWidget {
-  AppRouteSection({
-    required this.title,
-    this.children,
-    super.key,
-  }) {
-    // Create a web url friendly fragment from title
-    fragment = title
-        .toLowerCase()
-        .replaceAll(' ', '-')
-        .replaceAll(RegExp(r'[^a-z0-9\-]'), '');
-    globalKey = GlobalKey(debugLabel: fragment);
-  }
-  final String title;
-  final List<Widget>? children;
-  late final GlobalKey globalKey;
-  late final String fragment;
-
-  @override
-  State<AppRouteSection> createState() => _AppRouteSectionState();
+String _getFragment(String title) {
+  return title
+      .toLowerCase()
+      .replaceAll(' ', '-')
+      .replaceAll(RegExp(r'[^a-z0-9\-]'), '');
 }
 
-class _AppRouteSectionState extends State<AppRouteSection> {
-  bool isHovered = false;
-  // ---------------------------------------------------------------------------
-  // METHOD: build
-  // ---------------------------------------------------------------------------
+class AppSection extends StatelessWidget {
+  AppSection({
+    required this.title,
+    this.trailing,
+    this.children,
+  }) : super(key: GlobalKey(debugLabel: _getFragment(title))) {
+    fragment = _getFragment(title);
+  }
+
+  final String title;
+  late final String fragment;
+  final Widget? trailing;
+  final List<Widget>? children;
 
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    final target = AppInfo.of(context).target;
-
-    return Padding(
-      padding: TOffset.t16,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: TOffset.b12,
-            child: GestureDetector(
-              onTap: () {
-                AppScrollView.ensureVisible(section: widget);
-              },
-              child: MouseRegion(
-                onHover: (event) {
-                  if (isHovered || target.isMobileWeb) {
-                    return;
-                  }
-                  setState(() => isHovered = true);
-                },
-                onExit: (event) {
-                  if (!isHovered || target.isMobileWeb) {
-                    return;
-                  }
-                  setState(() => isHovered = false);
-                },
-                child: Stack(
-                  alignment: Alignment.centerRight,
-                  clipBehavior: Clip.none,
-                  children: [
-                    DefaultSelectionStyle.merge(
-                      mouseCursor: SystemMouseCursors.click,
-                      child: Text(
-                        key: widget.globalKey,
-                        widget.title,
-                        style: tw.text.style_lg.bold.copyWith(
-                          color: tw.light
-                              ? TColors.slate.shade700
-                              : TColors.slate.shade200,
-                        ),
-                      ),
-                    ),
-                    if (isHovered)
-                      const Positioned(
-                        right: -TSpace.v32,
-                        child: Card(
-                          child: Padding(
-                            padding: TOffset.a4,
-                            child: Icon(
-                              Icons.tag,
-                              size: 16,
-                              color: TColors.sky,
-                            ),
+    return Column(
+      children: [
+        Padding(
+          padding: TOffset.y16,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: TGestureDetector(
+                  onTap: () {
+                    AppScrollView.ensureVisible(section: this);
+                  },
+                  builder: (context, states) {
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TText(
+                          title,
+                          style: tw.text.style_lg.bold.copyWith(
+                            color: tw.light
+                                ? TColors.slate.shade700
+                                : TColors.slate.shade300,
+                            decoration: states.focused
+                                ? TextDecoration.underline
+                                : TextDecoration.none,
+                            decorationColor: tw.colors.focus,
                           ),
                         ),
-                      ),
-                  ],
+                        if (states.hovered)
+                          const Padding(
+                            padding: TOffset.l4,
+                            child: Card(
+                              child: Padding(
+                                padding: TOffset.a4,
+                                child: Icon(
+                                  Icons.tag,
+                                  size: 16,
+                                  color: TColors.sky,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
                 ),
               ),
-            ),
+              if (trailing != null) trailing!,
+            ],
           ),
-          if (widget.children != null) ...[
-            ...widget.children!,
-          ],
-        ],
-      ),
+        ),
+        if (children != null) ...children!,
+      ],
     );
   }
 }

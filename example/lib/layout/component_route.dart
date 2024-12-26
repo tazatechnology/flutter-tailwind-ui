@@ -22,7 +22,7 @@ class ComponentRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final header = AppRouteHeader(
-      section: AppSectionType.components,
+      section: AppRouteType.components,
       titleMono: true,
       title: name,
       className: name,

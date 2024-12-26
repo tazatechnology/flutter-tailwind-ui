@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui/src/internal/styled_container.dart';
 
 // =============================================================================
 // ENUM: TButtonVariant
@@ -10,11 +11,14 @@ enum TButtonVariant {
   /// A basic button.
   basic,
 
+  /// An outlined button.
+  outlined,
+
   /// A filled button.
   filled,
 
-  /// An outlined button.
-  outlined,
+  /// A filled button.
+  soft,
 
   /// A link button.
   link,
@@ -43,7 +47,7 @@ enum TButtonSize {
 }
 
 /// Extension on [TButtonSize] to provide useful methods
-extension XTButtonSize on TButtonSize {
+extension _XTButtonSize on TButtonSize {
   /// The padding associated with the given [TButtonSize].
   EdgeInsets get padding {
     switch (this) {
@@ -90,8 +94,8 @@ extension XTButtonSize on TButtonSize {
 // CLASS: TButton
 // =============================================================================
 
-/// A button is a clickable element that triggers an action.
-class TButton extends StatefulWidget {
+/// A highly customizable button widget.
+class TButton extends StatelessWidget {
   /// Creates a basic [TButton] button ([TButtonVariant.basic]).
   const TButton({
     super.key,
@@ -100,49 +104,68 @@ class TButton extends StatefulWidget {
     this.trailing,
     this.theme,
     this.size = TButtonSize.md,
-    this.onPressed,
-    this.onHover,
-    this.tooltip,
-  })  : variant = TButtonVariant.basic,
-        color = null;
-
-  /// Creates a filled [TButton] button ([TButtonVariant.filled]).
-  const TButton.filled({
-    super.key,
     this.color,
-    this.child,
-    this.leading,
-    this.trailing,
-    this.theme,
-    this.size = TButtonSize.md,
+    this.baseTextStyle,
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : variant = TButtonVariant.filled;
+  }) : variant = TButtonVariant.basic;
 
   /// Creates an outlined [TButton] button ([TButtonVariant.outlined]).
   const TButton.outlined({
     super.key,
-    this.color,
     this.child,
     this.leading,
     this.trailing,
     this.theme,
     this.size = TButtonSize.md,
+    this.color,
+    this.baseTextStyle,
     this.onPressed,
     this.onHover,
     this.tooltip,
   }) : variant = TButtonVariant.outlined;
 
-  /// Creates a link [TButton] button ([TButtonVariant.link]).
-  const TButton.link({
+  /// Creates a filled [TButton] button ([TButtonVariant.filled]).
+  const TButton.filled({
     super.key,
-    this.color,
     this.child,
     this.leading,
     this.trailing,
     this.theme,
     this.size = TButtonSize.md,
+    this.color,
+    this.baseTextStyle,
+    this.onPressed,
+    this.onHover,
+    this.tooltip,
+  }) : variant = TButtonVariant.filled;
+
+  /// Creates a soft [TButton] button ([TButtonVariant.soft]).
+  const TButton.soft({
+    super.key,
+    this.child,
+    this.leading,
+    this.trailing,
+    this.theme,
+    this.size = TButtonSize.md,
+    this.color,
+    this.baseTextStyle,
+    this.onPressed,
+    this.onHover,
+    this.tooltip,
+  }) : variant = TButtonVariant.soft;
+
+  /// Creates a link [TButton] button ([TButtonVariant.link]).
+  const TButton.link({
+    super.key,
+    this.child,
+    this.leading,
+    this.trailing,
+    this.theme,
+    this.size = TButtonSize.md,
+    this.color,
+    this.baseTextStyle,
     this.onPressed,
     this.onHover,
     this.tooltip,
@@ -157,16 +180,15 @@ class TButton extends StatefulWidget {
     this.trailing,
     this.theme,
     this.size = TButtonSize.md,
+    this.color,
+    this.baseTextStyle,
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : color = null;
+  });
 
   /// The variant of the button.
   final TButtonVariant variant;
-
-  /// The color to use for button styling.
-  final Color? color;
 
   /// The custom theme override for the button.
   final Widget? child;
@@ -183,6 +205,14 @@ class TButton extends StatefulWidget {
   /// The custom theme override for the button.
   final TButtonSize size;
 
+  /// The color to use for button styling.
+  final Color? color;
+
+  /// The base text style for the badge.
+  ///
+  /// Default: [TTextStyle.text_xs] with [FontWeight.w500].
+  final TextStyle? baseTextStyle;
+
   /// An action to call when the button is pressed.
   final VoidCallback? onPressed;
 
@@ -193,198 +223,40 @@ class TButton extends StatefulWidget {
   final String? tooltip;
 
   @override
-  State<TButton> createState() => _TButtonState();
-}
-
-class _TButtonState extends State<TButton> {
-  // ---------------------------------------------------------------------------
-  // METHOD: dispose
-  // ---------------------------------------------------------------------------
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: getTheme
-  // ---------------------------------------------------------------------------
-
-  /// Resolve the theme based on variant and user provided values
-  TButtonTheme getTheme() {
-    final tw = context.tw;
-
-    final textColorFallback = tw.dark ? Colors.white : Colors.black;
-
-    /// Define a fallback theme
-    TButtonTheme theme = TButtonTheme(
-      borderRadius: WidgetStateProperty.all(widget.size.borerRadius),
-      textStyle: WidgetStateProperty.resolveWith((states) {
-        return TextStyle(color: textColorFallback);
-      }),
-    );
-
-    switch (widget.variant) {
+  Widget build(BuildContext context) {
+    TStyledContainerVariant styledVariant;
+    switch (variant) {
       case TButtonVariant.basic:
-        theme = theme.copyWith(
-          backgroundColor: WidgetStateProperty.resolveWith((states) {
-            if (states.hovered) {
-              return tw.dark ? TColors.zinc.shade800 : TColors.zinc.shade100;
-            }
-            return null;
-          }),
-        );
-      case TButtonVariant.filled:
-        final color = (widget.color ?? tw.colors.primary).toMaterialColor();
-        final backgroundColor = tw.dark ? color.shade700 : color;
-        theme = theme.copyWith(
-          backgroundColor: WidgetStateProperty.resolveWith((states) {
-            if (color.isTransparent) {
-              return Colors.transparent;
-            }
-            return backgroundColor.withOpacity(states.hovered ? 0.9 : 1);
-          }),
-          textStyle: WidgetStateProperty.resolveWith((states) {
-            if (color.isTransparent) {
-              return TextStyle(color: textColorFallback);
-            }
-            return TextStyle(color: color.contrastBlackWhite());
-          }),
-        );
+        styledVariant = TStyledContainerVariant.basic;
       case TButtonVariant.outlined:
-        if (widget.color == null) {
-          theme = theme.copyWith(
-            backgroundColor: WidgetStateProperty.resolveWith((states) {
-              if (states.hovered) {
-                return tw.dark ? TColors.gray.shade800 : TColors.gray.shade100;
-              }
-              return null;
-            }),
-            border: WidgetStateProperty.all(
-              Border.all(
-                color: tw.dark ? TColors.gray.shade700 : TColors.gray.shade200,
-                strokeAlign: BorderSide.strokeAlignOutside,
-              ),
-            ),
-            textStyle: WidgetStateProperty.resolveWith((states) {
-              return TextStyle(color: textColorFallback);
-            }),
-          );
-        } else {
-          final color = widget.color!.toMaterialColor();
-          final backgroundColor = tw.dark ? color.shade700 : color;
-          theme = theme.copyWith(
-            backgroundColor: WidgetStateProperty.resolveWith((states) {
-              return states.hovered ? backgroundColor : null;
-            }),
-            border: WidgetStateProperty.all(Border.all(color: backgroundColor)),
-            textStyle: WidgetStateProperty.resolveWith((states) {
-              if (states.hovered) {
-                return TextStyle(color: backgroundColor.contrastBlackWhite());
-              }
-              return TextStyle(
-                color: widget.color == null ? textColorFallback : color,
-              );
-            }),
-          );
-        }
+        styledVariant = TStyledContainerVariant.outlined;
+      case TButtonVariant.filled:
+        styledVariant = TStyledContainerVariant.filled;
+      case TButtonVariant.soft:
+        styledVariant = TStyledContainerVariant.soft;
       case TButtonVariant.link:
-        final textStyle = TextStyle(
-          color: widget.color,
-          decorationColor: widget.color,
-          decorationStyle: TextDecorationStyle.solid,
-        );
-        theme = theme.copyWith(
-          textStyle: WidgetStateProperty.resolveWith((states) {
-            if (states.hovered) {
-              return textStyle.underline;
-            }
-            return textStyle;
-          }),
-        );
+        styledVariant = TStyledContainerVariant.link;
     }
 
-    /// Override the fallback theme (via merge) with the user provided theme
-    return theme.merge(widget.theme);
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: build
-  // ---------------------------------------------------------------------------
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = getTheme();
-
-    return TGestureDetector(
-      onTap: widget.onPressed,
-      onHover: widget.onHover,
-      behavior: HitTestBehavior.translucent,
-      builder: (context, states) {
-        final resolvedTextStyle = theme.textStyle?.resolve(states);
-        final effectiveTextStyle = TextStyle(
-          fontSize: widget.size.fontSize,
-        ).medium.merge(resolvedTextStyle);
-
-        final effectiveBorder = theme.border?.resolve(states);
-
-        final effectiveBorderRadius = theme.borderRadius?.resolve(states);
-
-        final effectivePadding =
-            theme.padding?.resolve(states) ?? widget.size.padding;
-        final effectiveHorizontalOffset = (effectivePadding.horizontal) / 2;
-
-        final effectiveBackgroundColor = theme.backgroundColor?.resolve(states);
-
-        // Define the button content
-        final hasChild = widget.child != null;
-        final List<Widget> content = [];
-        if (widget.leading != null) {
-          content.add(
-            Padding(
-              padding: EdgeInsets.only(
-                right: hasChild ? effectiveHorizontalOffset : 0,
-              ),
-              child: widget.leading,
-            ),
-          );
-        }
-        if (hasChild) {
-          content.add(widget.child!);
-        }
-        if (widget.trailing != null) {
-          content.add(
-            Padding(
-              padding: EdgeInsets.only(
-                left: hasChild ? effectiveHorizontalOffset : 0,
-              ),
-              child: widget.trailing,
-            ),
-          );
-        }
-
-        // Build the button
-        return DefaultTextStyle.merge(
-          style: DefaultTextStyle.of(context).style.merge(effectiveTextStyle),
-          child: TTooltip(
-            message: widget.tooltip,
-            child: AnimatedContainer(
-              duration: theme.animationDuration,
-              padding: effectivePadding,
-              decoration: BoxDecoration(
-                color: effectiveBackgroundColor,
-                border: effectiveBorder,
-                borderRadius: effectiveBorderRadius,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: content,
-              ),
-            ),
-          ),
-        );
-      },
+    return TStyledContainer(
+      color: color,
+      focusColor: theme?.focusColor,
+      animationDuration: theme?.animationDuration ?? Duration.zero,
+      variant: styledVariant,
+      tooltip: tooltip,
+      baseTextStyle:
+          TextStyle(fontSize: size.fontSize).medium.merge(baseTextStyle),
+      textStyle: theme?.textStyle,
+      backgroundColor: theme?.backgroundColor,
+      padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
+      border: theme?.border,
+      borderRadius:
+          theme?.borderRadius ?? WidgetStatePropertyAll(size.borerRadius),
+      leading: leading,
+      trailing: trailing,
+      onTap: onPressed,
+      onHover: onHover,
+      child: child,
     );
   }
 }
@@ -403,6 +275,7 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
     this.border,
     this.borderRadius,
     this.textStyle,
+    this.focusColor,
   });
 
   /// The duration of the badge animation.
@@ -422,6 +295,9 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
 
   /// Text
   final WidgetStateProperty<TextStyle?>? textStyle;
+
+  /// The color of the focus border.
+  final Color? focusColor;
 
   // ---------------------------------------------------------------------------
   // METHOD: copyWith

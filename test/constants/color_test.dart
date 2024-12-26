@@ -29,15 +29,11 @@ void main() {
         final color = TColors.get(name);
         for (final e in shades.entries) {
           final shade = int.parse(e.key);
-          final hex = e.value.toUpperCase().replaceFirst('#', '');
-          final colorShadeValue = color[shade]
-              ?.value
-              .toRadixString(16)
-              .padLeft(8, '0')
-              .toUpperCase();
-
+          final hex = e.value.replaceFirst('#', '');
+          final colorShadeValue = color[shade]?.toHex();
+          // Add alpha channel to hex code and compare to the expected value
           expect(
-            'FF$hex',
+            '#ff$hex',
             colorShadeValue,
             reason: 'Mismatch in $name color $shade',
           );

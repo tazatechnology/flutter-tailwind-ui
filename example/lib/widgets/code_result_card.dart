@@ -27,20 +27,29 @@ class AppCodeResultCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tw = context.tw;
     return Container(
       margin: margin,
       constraints: constraints,
       width: double.infinity,
-      child: Card(
-        child: ClipRRect(
-          borderRadius: TBorderRadius.rounded_lg,
-          child: CustomPaint(
-            painter: _GridPaperPainter(context),
-            child: Container(
-              padding: TOffset.a20,
-              alignment: alignment,
-              child: child,
-            ),
+      decoration: BoxDecoration(
+        color: tw.colors.card,
+        borderRadius: TBorderRadius.rounded_lg,
+        border: Border.all(
+          width: 0.5,
+          color: tw.light
+              ? Colors.black.withValues(alpha: 0.1)
+              : Colors.white.withValues(alpha: 0.1),
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: TBorderRadius.rounded_lg,
+        child: CustomPaint(
+          painter: _GridPaperPainter(context),
+          child: Container(
+            padding: TOffset.a20,
+            alignment: alignment,
+            child: child,
           ),
         ),
       ),
@@ -60,7 +69,9 @@ class _GridPaperPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final tw = context.tw;
-    final color = context.theme.dividerColor.withOpacity(tw.light ? 0.4 : 0.25);
+    final color = tw.light
+        ? context.theme.dividerColor.withValues(alpha: 0.4)
+        : TColors.slate.shade700.withValues(alpha: 0.3);
     final paint = Paint()
       ..color = color
       ..strokeWidth = 0.75;

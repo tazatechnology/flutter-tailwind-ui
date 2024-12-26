@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+int _floatToInt8(double x) {
+  return (x * 255.0).round() & 0xff;
+}
+
 // =============================================================================
 // EXTENSION: XTailwindColor
 // =============================================================================
@@ -7,49 +11,31 @@ import 'package:flutter/material.dart';
 /// Extension on [Color] to provide useful methods
 extension XTailwindColor on Color {
   /// Check if this color is black
-  bool get isBlack => value == Colors.black.value;
+  bool get isBlack => toInt() == Colors.black.toInt();
 
   /// Check if this color is white
-  bool get isWhite => value == Colors.white.value;
+  bool get isWhite => toInt() == Colors.white.toInt();
 
   /// Check if this color is transparent
-  bool get isTransparent => value == Colors.transparent.value;
+  bool get isTransparent => toInt() == Colors.transparent.toInt();
 
   // ---------------------------------------------------------------------------
-  // METHOD: darken
+  // METHOD: toInt
   // ---------------------------------------------------------------------------
 
-  /// Darken a color by [percent] amount (1 = black)
-  Color darken([double percent = 0.1]) {
-    if (percent <= 0.001) {
-      return this;
-    } else {
-      final p = 1 - percent;
-      return Color.fromARGB(
-        alpha,
-        (red * p).round(),
-        (green * p).round(),
-        (blue * p).round(),
-      );
-    }
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: lighten
-  // ---------------------------------------------------------------------------
-
-  /// Lighten a color by [percent] amount (1 = white)
-  Color lighten([double percent = 0.1]) {
-    if (percent <= 0.001) {
-      return this;
-    } else {
-      return Color.fromARGB(
-        alpha,
-        red + ((255 - red) * percent).round(),
-        green + ((255 - green) * percent).round(),
-        blue + ((255 - blue) * percent).round(),
-      );
-    }
+  /// A 32 bit value representing this color.
+  ///
+  /// The bits are assigned as follows:
+  ///
+  /// * Bits 24-31 are the alpha value.
+  /// * Bits 16-23 are the red value.
+  /// * Bits 8-15 are the green value.
+  /// * Bits 0-7 are the blue value.
+  int toInt() {
+    return _floatToInt8(a) << 24 |
+        _floatToInt8(r) << 16 |
+        _floatToInt8(g) << 8 |
+        _floatToInt8(b) << 0;
   }
 
   // ---------------------------------------------------------------------------
@@ -69,14 +55,19 @@ extension XTailwindColor on Color {
   // ---------------------------------------------------------------------------
 
   /// Get a hex string representation of this color
-  String toHex({bool leadingHashSign = true}) {
-    String value = '${alpha.toRadixString(16).padLeft(2, '0')}'
-        '${red.toRadixString(16).padLeft(2, '0')}'
-        '${green.toRadixString(16).padLeft(2, '0')}'
-        '${blue.toRadixString(16).padLeft(2, '0')}';
+  String toHex({
+    bool leadingHashSign = true,
+    bool includeAlpha = true,
+  }) {
+    final rHex = (r * 255).toInt().toRadixString(16).padLeft(2, '0');
+    final gHex = (g * 255).toInt().toRadixString(16).padLeft(2, '0');
+    final bHex = (b * 255).toInt().toRadixString(16).padLeft(2, '0');
+    final aHex = (a * 255).toInt().toRadixString(16).padLeft(2, '0');
 
-    if (value.startsWith('ff')) {
-      value = value.substring(2);
+    String value = '$rHex$gHex$bHex';
+
+    if (includeAlpha) {
+      value = '$aHex$value';
     }
 
     if (leadingHashSign) {
@@ -150,7 +141,7 @@ extension XTailwindColor on Color {
       };
     }
 
-    return MaterialColor(value, colorShades);
+    return MaterialColor(toInt(), colorShades);
   }
 }
 
@@ -162,9 +153,9 @@ extension XTailwindColor on Color {
 ///
 /// The factor should be between 0 and 1, where 1 results in the lightest tint.
 Color _tintColor(Color color, double factor) => Color.fromRGBO(
-      (color.red + ((255 - color.red) * factor)).round(),
-      (color.green + ((255 - color.green) * factor)).round(),
-      (color.blue + ((255 - color.blue) * factor)).round(),
+      (color.r + ((255 - color.r) * factor)).round(),
+      (color.g + ((255 - color.g) * factor)).round(),
+      (color.b + ((255 - color.b) * factor)).round(),
       1,
     );
 
@@ -176,8 +167,8 @@ Color _tintColor(Color color, double factor) => Color.fromRGBO(
 ///
 /// The factor should be between 0 and 1, where 1 results in the darkest shade.
 Color _shadeColor(Color color, double factor) => Color.fromRGBO(
-      (color.red * (1 - factor)).round(),
-      (color.green * (1 - factor)).round(),
-      (color.blue * (1 - factor)).round(),
+      (color.r * (1 - factor)).round(),
+      (color.g * (1 - factor)).round(),
+      (color.b * (1 - factor)).round(),
       1,
     );

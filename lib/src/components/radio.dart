@@ -286,7 +286,8 @@ class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
             border: Border.all(
               color: widget.selected
                   ? selectedColor
-                  : TColors.gray.shade300.withOpacity(isEnabled ? 1 : 0.75),
+                  : TColors.gray.shade300
+                      .withValues(alpha: isEnabled ? 1 : 0.75),
             ),
           ),
           child: widget.selected ? radioDot : null,

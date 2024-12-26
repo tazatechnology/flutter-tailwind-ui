@@ -222,7 +222,7 @@ class TRichBuilder {
         final context = details.context;
         final tw = context.tw;
         final backgroundColor =
-            tw.light ? const Color(0xFFf5f5f5) : const Color(0xFF333333);
+            tw.light ? const Color(0xfff5f5f5) : const Color(0xff333333);
         return WidgetSpan(
           child: Container(
             padding: TOffset.x4,

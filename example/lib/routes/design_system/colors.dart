@@ -69,13 +69,13 @@ class ColorsRoute extends ConsumerWidget {
 
     return AppScrollView.slivers(
       header: const AppRouteHeader(
-        section: AppSectionType.designSystem,
+        section: AppRouteType.designSystem,
         title: 'Colors',
         description: 'The default color palettes',
       ),
       slivers: [
         SliverToBoxAdapter(
-          child: AppRouteSection(
+          child: AppSection(
             title: 'Design Principles',
             children: const [
               TText(
@@ -85,7 +85,7 @@ class ColorsRoute extends ConsumerWidget {
           ),
         ),
         SliverToBoxAdapter(
-          child: AppRouteSection(
+          child: AppSection(
             title: 'Color Palette Reference',
             children: [
               const TText(
@@ -149,7 +149,7 @@ class ColorPalette extends StatelessWidget {
     final swatches = _shades.map<Widget>((shade) {
       return Expanded(
         child: ColorSwatch(
-          key: ValueKey(color[shade]?.value.toString()),
+          key: ValueKey(color[shade]?.toHex()),
           name: name,
           color: color,
           shade: shade,
@@ -199,9 +199,7 @@ class ColorPalette extends StatelessWidget {
               children: swatches.sublist(0, 6),
             ),
             TSizedBox.y16,
-            Row(
-              children: swatches.sublist(6),
-            ),
+            Row(children: swatches.sublist(6)),
           ],
         ],
       ),
@@ -234,7 +232,6 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
       copied ? SystemMouseCursors.basic : SystemMouseCursors.click;
 
   late final Color color;
-  late final String hexColor;
 
   // ---------------------------------------------------------------------------
   // METHOD: copy
@@ -244,7 +241,6 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
   void initState() {
     super.initState();
     color = widget.color[widget.shade] ?? Colors.transparent;
-    hexColor = color.value.toRadixString(16).substring(2);
   }
 
   // ---------------------------------------------------------------------------
@@ -261,9 +257,9 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
       case ColorFormat.hex:
         text = color.toHex();
       case ColorFormat.rgb:
-        text = 'rgb(${color.red}, ${color.green}, ${color.blue})';
+        text = 'rgb(${color.r}, ${color.g}, ${color.b})';
       case ColorFormat.flutter:
-        text = 'Color(0xFF$hexColor)';
+        text = 'Color(0x${color.toHex(leadingHashSign: false)})';
       case ColorFormat.tailwind:
         text = 'TColors.${widget.name.toLowerCase()}.shade${widget.shade}';
     }
@@ -320,7 +316,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
               child: copied
                   ? FaIcon(
                       FontAwesomeIcons.check,
-                      color: color.contrastBlackWhite()?.withOpacity(0.8),
+                      color: color.contrastBlackWhite()?.withValues(alpha: 0.8),
                     )
                   : null,
             ),
@@ -334,7 +330,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
               ),
             ),
             Text(
-              copied ? 'Copied' : color.toHex(),
+              copied ? 'Copied' : color.toHex(includeAlpha: false),
               style: tw.text.style_xs.copyWith(
                 fontSize: 10,
                 fontWeight: copied ? FontWeight.bold : FontWeight.normal,

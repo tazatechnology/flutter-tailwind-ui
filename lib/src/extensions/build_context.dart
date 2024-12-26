@@ -1,3 +1,4 @@
+// Match Tailwind naming conventions for traceability
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
@@ -50,18 +51,12 @@ class TailwindContext {
   /// The current Tailwind color theme
   TailwindColorTheme get colors {
     return Theme.of(_ctx).extension<TailwindColorTheme>() ??
-        (TailwindColorTheme.fallback(brightness: _theme.brightness));
+        (dark ? TailwindColorTheme.dark() : TailwindColorTheme.light());
   }
 
   /// The current Tailwind text theme
   TailwindTextTheme get text {
     return Theme.of(_ctx).extension<TailwindTextTheme>() ?? TailwindTextTheme();
-  }
-
-  /// The current Tailwind component themes
-  TailwindComponentTheme get component {
-    return Theme.of(_ctx).extension<TailwindComponentTheme>() ??
-        const TailwindComponentTheme();
   }
 }
 

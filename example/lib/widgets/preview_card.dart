@@ -9,14 +9,14 @@ import 'package:flutter_tailwind_ui_app/widgets/code_result_card.dart';
 
 class AppPreviewCard extends ConsumerStatefulWidget {
   const AppPreviewCard({
-    required this.title,
     required this.code,
     required this.child,
+    this.title,
     this.alignment = Alignment.center,
     this.description,
     super.key,
   });
-  final String title;
+  final String? title;
   final String? description;
   final String code;
   final Widget child;
@@ -53,75 +53,72 @@ class _AppPreviewCardState extends ConsumerState<AppPreviewCard> {
   Widget build(BuildContext context) {
     final tw = context.tw;
     final codeFontSize = tw.screen.is_md ? 13.0 : 12.0;
-
-    return Padding(
-      padding: TOffset.t16,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: TText(
-                  widget.title,
-                  style: tw.text.style_md.medium.copyWith(height: 0),
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (widget.title != null)
+              TText(
+                widget.title!,
+                style: tw.text.style_sm.semibold,
               ),
-              Container(
-                padding: TOffset.a2,
-                decoration: BoxDecoration(
-                  color: TColors.slate[tw.light ? 100 : 800],
-                  borderRadius: TBorderRadius.rounded_md,
-                ),
-                child: Row(
-                  children: [
-                    _ToggleButton(
-                      label: 'Preview',
-                      icon: Icons.visibility_outlined,
-                      controller: controllerPreview,
-                      onTap: () => toggleCodeView(value: false),
-                    ),
-                    TSizedBox.x4,
-                    _ToggleButton(
-                      label: 'Code',
-                      icon: Icons.code,
-                      controller: controllerCode,
-                      onTap: () => toggleCodeView(value: true),
-                    ),
-                  ],
-                ),
+            if (widget.title == null) const Spacer(),
+            Container(
+              padding: TOffset.a2,
+              decoration: BoxDecoration(
+                color: TColors.slate[tw.light ? 100 : 800],
+                borderRadius: TBorderRadius.rounded_md,
               ),
-            ],
+              child: Row(
+                children: [
+                  _ToggleButton(
+                    label: 'Preview',
+                    icon: Icons.visibility_outlined,
+                    controller: controllerPreview,
+                    onTap: () => toggleCodeView(value: false),
+                  ),
+                  TSizedBox.x4,
+                  _ToggleButton(
+                    label: 'Code',
+                    icon: Icons.code,
+                    controller: controllerCode,
+                    onTap: () => toggleCodeView(value: true),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        if (widget.description != null && widget.description!.isNotEmpty)
+          Padding(
+            padding: TOffset.t12,
+            child: TText(
+              widget.description!,
+              style: tw.text.style_sm,
+            ),
           ),
-          if (widget.description != null && widget.description!.isNotEmpty)
-            Padding(
-              padding: TOffset.t12,
-              child: TText(
-                widget.description!,
-                style: tw.text.style_sm,
-              ),
-            ),
-          if (!showCode)
-            AppCodeResultCard(
+        if (!showCode)
+          AppCodeResultCard(
+            margin: TOffset.y16,
+            alignment: widget.alignment,
+            child: widget.child,
+          ),
+        if (showCode)
+          TCodeBlock(
+            code: widget.code,
+            scrollDirection: Axis.horizontal,
+            theme: TCodeBlockTheme(
+              backgroundColor: tw.dark ? tw.colors.card : null,
               margin: TOffset.y16,
-              alignment: widget.alignment,
-              child: widget.child,
-            ),
-          if (showCode)
-            TCodeBlock(
-              code: widget.code,
-              scrollDirection: Axis.horizontal,
-              theme: TCodeBlockTheme(
-                margin: TOffset.y16,
-                fontSize: codeFontSize,
-                constraints: const BoxConstraints(
-                  minHeight: AppCodeResultCard.minHeight,
-                ),
+              fontSize: codeFontSize,
+              constraints: const BoxConstraints(
+                minHeight: AppCodeResultCard.minHeight,
               ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }
@@ -145,15 +142,16 @@ class _ToggleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    final selectedColor = tw.light ? Colors.white : Colors.white12;
+    final selectedColor = tw.light ? Colors.white : TColors.slate.shade700;
     final selected = controller.value.selected;
     return SizedBox(
       width: tw.screen.is_md ? 100 : 50,
-      child: TButton.filled(
-        color: selected ? selectedColor : Colors.transparent,
+      child: TButton.raw(
+        variant: selected ? TButtonVariant.filled : TButtonVariant.basic,
+        color: selected ? selectedColor : null,
         onPressed: onTap,
         size: TButtonSize.xs,
-        leading: Icon(icon, size: 14, color: selected ? TColors.sky : null),
+        leading: Icon(icon, color: selected ? TColors.sky : null),
         child: tw.screen.is_md ? Text(label) : null,
       ),
     );

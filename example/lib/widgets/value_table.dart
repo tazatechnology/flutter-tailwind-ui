@@ -133,7 +133,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                 }
                 // Allow outer scroll view to scroll
                 ref.read(outerScrollPhysicsProvider.notifier).state =
-                    const BouncingScrollPhysics();
+                    const ClampingScrollPhysics();
               },
               child: MediaQuery.removePadding(
                 context: context,

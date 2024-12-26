@@ -1,8 +1,9 @@
+// Match Tailwind naming conventions for traceability
+// ignore_for_file: constant_identifier_names
+
 // =============================================================================
 // CLASS: TScale
 // =============================================================================
-
-// ignore_for_file: constant_identifier_names
 
 /// Tailwind spacing scale system for padding, margin, width, height, etc.
 ///

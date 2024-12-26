@@ -98,7 +98,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    final theme = tw.component.codeBlock.merge(widget.theme);
+    final theme = widget.theme ?? const TCodeBlockTheme();
 
     final light = theme.brightness == Brightness.light;
 
@@ -109,8 +109,8 @@ class _TCodeBlockState extends State<TCodeBlock> {
         Border.all(
           width: 0.5,
           color: light
-              ? Colors.black.withOpacity(0.1)
-              : Colors.white.withOpacity(0.1),
+              ? Colors.black.withValues(alpha: 0.1)
+              : Colors.white.withValues(alpha: 0.1),
         );
 
     final effectiveBorderRadius =
@@ -137,7 +137,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
               brightness: theme.brightness,
               textSelectionTheme: TextSelectionThemeData(
                 selectionColor:
-                    light ? const Color(0xFFb6d7ff) : const Color(0xFF385479),
+                    light ? const Color(0xffb6d7ff) : const Color(0xff385479),
               ),
             ),
             child: Container(
@@ -203,8 +203,8 @@ class _TCodeBlockState extends State<TCodeBlock> {
                       : SystemMouseCursors.click,
                   onPressed: () => copy(code),
                   hoverColor: light
-                      ? Colors.black.withOpacity(0.03)
-                      : Colors.white.withOpacity(0.1),
+                      ? Colors.black.withValues(alpha: 0.03)
+                      : Colors.white.withValues(alpha: 0.1),
                   iconSize: copied ? 16 : 14,
                   icon: Icon(
                     copied ? Icons.check : Icons.copy,

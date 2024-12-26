@@ -13,7 +13,7 @@ class AboutRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScrollView.children(
       header: const AppRouteHeader(
-        section: AppSectionType.gettingStarted,
+        section: AppRouteType.gettingStarted,
         title: 'About',
         description: 'Philosophy and code principles',
       ),
