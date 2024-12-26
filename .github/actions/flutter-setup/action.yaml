@@ -4,7 +4,7 @@ description: Setup the Flutter environment
 inputs:
   flutter-version:
     required: false
-    default: "3.24.3"
+    default: "3.27.1"
     description: The Flutter version to use
   configure-linux:
     required: false

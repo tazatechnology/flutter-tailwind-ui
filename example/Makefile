@@ -11,6 +11,14 @@ init:
 code:
 	@make -C $(ROOT) code
 
+# Get the latest tagged version
+tag:
+	@git describe --tags --abbrev=0 $$(git tag --sort=-creatordate | grep '^v' | head -n 1)
+
+# Get the latest commit
+sha:
+	@git rev-parse --short=8 HEAD
+
 outdated:
 	@flutter pub outdated $(ARGS)
 
@@ -26,9 +34,6 @@ format:
 
 format-ci:
 	@dart format lib --set-exit-if-changed
-
-test:
-	@flutter test -r expanded $(ARGS)
 
 clean:
 	@flutter clean

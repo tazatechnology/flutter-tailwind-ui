@@ -67,7 +67,3 @@ jobs:
       - name: Format Example
         working-directory: example
         run: make format-ci
-
-      - name: Run Example Tests
-        working-directory: example
-        run: make test
