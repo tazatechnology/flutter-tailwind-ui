@@ -18,6 +18,7 @@ class AppRouter {
     final componentMap = <String, Widget>{
       AppRouter.badge: const ComponentRouteTBadge(),
       AppRouter.button: const ComponentRouteTButton(),
+      AppRouter.icon_button: const ComponentRouteTIconButton(),
       AppRouter.code_block: const ComponentRouteTCodeBlock(),
       AppRouter.radio_list: const ComponentRouteTRadioList(),
       AppRouter.row_column: const ComponentRouteTRowColumn(),
@@ -98,6 +99,7 @@ class AppRouter {
   /// Components
   static const String badge = 'badge';
   static const String button = 'button';
+  static const String icon_button = 'icon-button';
   static const String code_block = 'code-block';
   static const String radio_list = 'radio-list';
   static const String row_column = 'row-column';

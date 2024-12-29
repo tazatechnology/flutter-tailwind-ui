@@ -41,6 +41,7 @@ class TStyledContainer extends StatelessWidget {
     this.loading,
     this.tooltip,
     this.baseTextStyle,
+    this.iconSize,
     this.animationDuration = Duration.zero,
     this.backgroundColor,
     this.padding,
@@ -83,6 +84,9 @@ class TStyledContainer extends StatelessWidget {
 
   /// The fallback text style.
   final TextStyle? baseTextStyle;
+
+  /// The fallback icon size.
+  final double? iconSize;
 
   /// The duration of the animation.
   final Duration animationDuration;
@@ -378,6 +382,7 @@ class TStyledContainer extends StatelessWidget {
           mouseCursor: mouseCursor,
           builder: (context, states) {
             final tw = context.tw;
+            final iconTheme = IconTheme.of(context);
 
             // Resolve the effective text style
             final effectiveTextStyle = DefaultTextStyle.of(context)
@@ -400,6 +405,14 @@ class TStyledContainer extends StatelessWidget {
             // Resolve the effective border radius
             final effectiveBorderRadius =
                 _effectiveBorderRadius(context, states);
+
+            // Based on the icon size, determine a fallback loading size
+            final effectiveIconSize =
+                iconSize ?? effectiveTextStyle.fontSize ?? TFontSize.text_sm;
+            double loadingSize = effectiveIconSize;
+            if (iconSize != null) {
+              loadingSize -= effectivePadding.vertical / 3;
+            }
 
             // Define the button content
             final hasChild = child != null;
@@ -433,8 +446,8 @@ class TStyledContainer extends StatelessWidget {
               focusColor: focusColor ?? tw.colors.focus,
               borderRadius: effectiveBorderRadius,
               child: IconTheme(
-                data: context.theme.iconTheme.copyWith(
-                  size: effectiveTextStyle.fontSize,
+                data: iconTheme.copyWith(
+                  size: effectiveIconSize,
                   color: effectiveTextStyle.color,
                 ),
                 child: DefaultTextStyle.merge(
@@ -464,7 +477,7 @@ class TStyledContainer extends StatelessWidget {
                           if (isLoading)
                             loading ??
                                 SizedBox.square(
-                                  dimension: effectiveTextStyle.fontSize ?? 12,
+                                  dimension: loadingSize,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2.5,
                                     color: effectiveTextStyle.color,

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 /// Defines a single color as well a color swatch with eleven shades of the color.
 ///
 /// Matches the shades of the Tailwind CSS color palette.
+///
+/// Unlike [MaterialColor], a [TMaterialColor] contains an extra [shade950].
 class TMaterialColor extends MaterialColor {
   /// Creates a [TMaterialColor] with the given primary [Color] and [Map] of swatches.
   const TMaterialColor(super.primary, super.swatch);

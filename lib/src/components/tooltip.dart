@@ -79,8 +79,9 @@ class _TTooltipState extends State<TTooltip> {
 
     String? effectiveMessage;
     InlineSpan? effectiveRichMessage;
+    final tooltipTheme = TooltipTheme.of(context);
 
-    final textStyle = context.theme.tooltipTheme.textStyle
+    final textStyle = tooltipTheme.textStyle
         ?.copyWithout(removeColor: true)
         .merge(widget.textStyle);
 

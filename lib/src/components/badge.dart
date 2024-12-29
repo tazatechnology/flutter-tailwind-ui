@@ -35,7 +35,7 @@ enum TBadgeSize {
 }
 
 /// Extension on [TBadgeSize] to provide useful methods
-extension _XTBadgeSize on TBadgeSize {
+extension XTailwindTBadgeSize on TBadgeSize {
   /// The padding associated with the given [TBadgeSize].
   EdgeInsets get padding {
     switch (this) {

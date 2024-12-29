@@ -344,7 +344,7 @@ class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
         child = content;
       case TRadioListVariant.card:
         RoundedRectangleBorder cardShape;
-        final themeCardShape = context.theme.cardTheme.shape;
+        final themeCardShape = CardTheme.of(context).shape;
         if (themeCardShape is RoundedRectangleBorder) {
           cardShape = themeCardShape;
         } else {

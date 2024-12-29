@@ -1,156 +1,117 @@
 part of 'components.dart';
 
 // =============================================================================
-// CLASS: ComponentRouteTButton
+// CLASS: ComponentRouteTIconButton
 // =============================================================================
 
-class ComponentRouteTButton extends StatelessWidget {
-  const ComponentRouteTButton({super.key});
+class ComponentRouteTIconButton extends StatelessWidget {
+  const ComponentRouteTIconButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ComponentRoute(
-      name: 'TButton',
-      description: 'A highly customizable button widget.',
+      name: 'TIconButton',
+      description: 'A widget',
       children: [
         AppSection(
-          title: 'Button Types',
+          title: 'Icon Button Types',
           children: const [
             AppPreviewCard(
               title: 'Basic',
-              code: _TButtonBasicSource.code,
-              child: _TButtonBasic(),
+              code: _TIconButtonBasicSource.code,
+              child: _TIconButtonBasic(),
             ),
             AppPreviewCard(
               title: 'Outlined',
-              code: _TButtonOutlinedSource.code,
-              child: _TButtonOutlined(),
+              code: _TIconButtonOutlinedSource.code,
+              child: _TIconButtonOutlined(),
             ),
             AppPreviewCard(
               title: 'Filled',
-              code: _TButtonFilledSource.code,
-              child: _TButtonFilled(),
+              code: _TIconButtonFilledSource.code,
+              child: _TIconButtonFilled(),
             ),
             AppPreviewCard(
               title: 'Soft',
-              code: _TButtonSoftSource.code,
-              child: _TButtonSoft(),
-            ),
-            AppPreviewCard(
-              title: 'Link',
-              code: _TButtonLinkSource.code,
-              child: _TButtonLink(),
+              code: _TIconButtonSoftSource.code,
+              child: _TIconButtonSoft(),
             ),
           ],
         ),
         AppSection(
-          title: 'Button Sizes',
+          title: 'Icon Button Sizes',
           children: const [
             AppPreviewCard(
               title: 'Basic',
-              code: _TButtonBasicSizesSource.code,
-              child: _TButtonBasicSizes(),
+              code: _TIconButtonBasicSizesSource.code,
+              child: _TIconButtonBasicSizes(),
             ),
             AppPreviewCard(
               title: 'Outlined',
-              code: _TButtonOutlinedSizesSource.code,
-              child: _TButtonOutlinedSizes(),
+              code: _TIconButtonOutlinedSizesSource.code,
+              child: _TIconButtonOutlinedSizes(),
             ),
             AppPreviewCard(
               title: 'Filled',
-              code: _TButtonFilledSizesSource.code,
-              child: _TButtonFilledSizes(),
+              code: _TIconButtonFilledSizesSource.code,
+              child: _TIconButtonFilledSizes(),
             ),
             AppPreviewCard(
               title: 'Soft',
-              code: _TButtonSoftSizesSource.code,
-              child: _TButtonSoftSizes(),
-            ),
-            AppPreviewCard(
-              title: 'Link',
-              code: _TButtonLinkSizesSource.code,
-              child: _TButtonLinkSizes(),
+              code: _TIconButtonSoftSizesSource.code,
+              child: _TIconButtonSoftSizes(),
             ),
           ],
         ),
         AppSection(
-          title: 'Button Colors',
+          title: 'Icon Button Colors',
           children: const [
             AppPreviewCard(
               title: 'Basic',
-              code: _TButtonBasicColorsSource.code,
-              child: _TButtonBasicColors(),
+              code: _TIconButtonBasicColorsSource.code,
+              child: _TIconButtonBasicColors(),
             ),
             AppPreviewCard(
               title: 'Outlined',
-              code: _TButtonOutlinedColorsSource.code,
-              child: _TButtonOutlinedColors(),
+              code: _TIconButtonOutlinedColorsSource.code,
+              child: _TIconButtonOutlinedColors(),
             ),
             AppPreviewCard(
               title: 'Filled',
-              code: _TButtonFilledColorsSource.code,
-              child: _TButtonFilledColors(),
+              code: _TIconButtonFilledColorsSource.code,
+              child: _TIconButtonFilledColors(),
             ),
             AppPreviewCard(
               title: 'Soft',
-              code: _TButtonSoftColorsSource.code,
-              child: _TButtonSoftColors(),
-            ),
-            AppPreviewCard(
-              title: 'Link',
-              code: _TButtonLinkColorsSource.code,
-              child: _TButtonLinkColors(),
+              code: _TIconButtonSoftColorsSource.code,
+              child: _TIconButtonSoftColors(),
             ),
           ],
         ),
         AppSection(
-          title: 'Button with leading',
-          children: const [
-            AppPreviewCard(
-              title: 'Custom leading widget',
-              description:
-                  'Note that icon is automatically styled to match the dynamic button theme.',
-              code: _TButtonLeadingSource.code,
-              child: _TButtonLeading(),
-            ),
-          ],
-        ),
-        AppSection(
-          title: 'Button with trailing',
-          children: const [
-            AppPreviewCard(
-              title: 'Custom trailing widget',
-              description:
-                  'Note that icon is automatically styled to match the dynamic button theme.',
-              code: _TButtonTrailingSource.code,
-              child: _TButtonTrailing(),
-            ),
-          ],
-        ),
-        AppSection(
-          title: 'Button with callbacks',
+          title: 'Icon Button with callbacks',
           children: const [
             AppPreviewCard(
               title: 'Custom gesture callbacks',
               description:
-                  '`TButton` supports `onPressed` and `onHover` callbacks.',
-              code: _TButtonCallbackSource.code,
-              child: _TButtonCallback(),
+                  '`TIconButton` supports `onPressed` and `onHover` callbacks.',
+              code: _TIconButtonCallbackSource.code,
+              child: _TIconButtonCallback(),
             ),
           ],
         ),
         AppSection(
-          title: 'Button with controller',
+          title: 'Icon Button with controller',
           children: const [
             AppPreviewCard(
               title: 'Controller to manage loading state',
-              code: _TButtonLoadingSource.code,
-              child: _TButtonLoading(),
+              code: _TIconButtonLoadingSource.code,
+              child: _TIconButtonLoading(),
             ),
             AppPreviewCard(
               title: 'Custom loading widget',
-              code: _TButtonLoadingCustomSource.code,
-              child: _TButtonLoadingCustom(),
+              code: _TIconButtonLoadingCustomSource.code,
+              child: _TIconButtonLoadingCustom(),
             ),
           ],
         ),
@@ -160,92 +121,76 @@ class ComponentRouteTButton extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonBasic
+// CLASS: _TIconButtonBasic
 // =============================================================================
 
 @GenerateSource()
-class _TButtonBasic extends StatelessWidget {
-  const _TButtonBasic();
+class _TIconButtonBasic extends StatelessWidget {
+  const _TIconButtonBasic();
 
   @override
   Widget build(BuildContext context) {
-    return const TButton(
-      child: Text('Button'),
+    return const TIconButton(
+      icon: Icon(Icons.add),
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TButtonOutlined
+// CLASS: _TIconButtonOutlined
 // =============================================================================
 
 @GenerateSource()
-class _TButtonOutlined extends StatelessWidget {
-  const _TButtonOutlined();
+class _TIconButtonOutlined extends StatelessWidget {
+  const _TIconButtonOutlined();
 
   @override
   Widget build(BuildContext context) {
-    return const TButton.outlined(
-      child: Text('Button'),
+    return const TIconButton.outlined(
+      icon: Icon(Icons.add),
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TButtonFilled
+// CLASS: _TIconButtonFilled
 // =============================================================================
 
 @GenerateSource()
-class _TButtonFilled extends StatelessWidget {
-  const _TButtonFilled();
+class _TIconButtonFilled extends StatelessWidget {
+  const _TIconButtonFilled();
 
   @override
   Widget build(BuildContext context) {
-    return const TButton.filled(
-      child: Text('Button'),
+    return const TIconButton.filled(
+      icon: Icon(Icons.add),
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TButtonSoft
+// CLASS: _TIconButtonSoft
 // =============================================================================
 
 @GenerateSource()
-class _TButtonSoft extends StatelessWidget {
-  const _TButtonSoft();
+class _TIconButtonSoft extends StatelessWidget {
+  const _TIconButtonSoft();
 
   @override
   Widget build(BuildContext context) {
-    return const TButton.soft(
-      child: Text('Button'),
+    return const TIconButton.soft(
+      icon: Icon(Icons.add),
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TButtonLink
+// CLASS: _TIconButtonBasicSizes
 // =============================================================================
 
 @GenerateSource()
-class _TButtonLink extends StatelessWidget {
-  const _TButtonLink();
-
-  @override
-  Widget build(BuildContext context) {
-    return const TButton.link(
-      child: Text('Button'),
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TButtonBasicSizes
-// =============================================================================
-
-@GenerateSource()
-class _TButtonBasicSizes extends StatelessWidget {
-  const _TButtonBasicSizes();
+class _TIconButtonBasicSizes extends StatelessWidget {
+  const _TIconButtonBasicSizes();
 
   @override
   Widget build(BuildContext context) {
@@ -254,11 +199,11 @@ class _TButtonBasicSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
-          TButton(
+        for (final size in TIconButtonSize.values)
+          TIconButton(
             size: size,
             tooltip: '``$size``',
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );
@@ -266,12 +211,12 @@ class _TButtonBasicSizes extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonOutlinedSizes
+// CLASS: _TIconButtonOutlinedSizes
 // =============================================================================
 
 @GenerateSource()
-class _TButtonOutlinedSizes extends StatelessWidget {
-  const _TButtonOutlinedSizes();
+class _TIconButtonOutlinedSizes extends StatelessWidget {
+  const _TIconButtonOutlinedSizes();
 
   @override
   Widget build(BuildContext context) {
@@ -280,11 +225,11 @@ class _TButtonOutlinedSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
-          TButton.outlined(
+        for (final size in TIconButtonSize.values)
+          TIconButton.outlined(
             size: size,
             tooltip: '``$size``',
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );
@@ -292,12 +237,12 @@ class _TButtonOutlinedSizes extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonFilledSizes
+// CLASS: _TIconButtonFilledSizes
 // =============================================================================
 
 @GenerateSource()
-class _TButtonFilledSizes extends StatelessWidget {
-  const _TButtonFilledSizes();
+class _TIconButtonFilledSizes extends StatelessWidget {
+  const _TIconButtonFilledSizes();
 
   @override
   Widget build(BuildContext context) {
@@ -306,11 +251,11 @@ class _TButtonFilledSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
-          TButton.filled(
+        for (final size in TIconButtonSize.values)
+          TIconButton.filled(
             size: size,
             tooltip: '``$size``',
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );
@@ -318,12 +263,12 @@ class _TButtonFilledSizes extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonSoftSizes
+// CLASS: _TIconButtonSoftSizes
 // =============================================================================
 
 @GenerateSource()
-class _TButtonSoftSizes extends StatelessWidget {
-  const _TButtonSoftSizes();
+class _TIconButtonSoftSizes extends StatelessWidget {
+  const _TIconButtonSoftSizes();
 
   @override
   Widget build(BuildContext context) {
@@ -332,11 +277,11 @@ class _TButtonSoftSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
-          TButton.soft(
+        for (final size in TIconButtonSize.values)
+          TIconButton.soft(
             size: size,
             tooltip: '``$size``',
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );
@@ -344,38 +289,12 @@ class _TButtonSoftSizes extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonLinkSizes
+// CLASS: _TIconButtonBasicColors
 // =============================================================================
 
 @GenerateSource()
-class _TButtonLinkSizes extends StatelessWidget {
-  const _TButtonLinkSizes();
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: TSpace.v24,
-      runSpacing: TSpace.v8,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        for (final size in TButtonSize.values)
-          TButton.link(
-            size: size,
-            tooltip: '``$size``',
-            child: const Text('Button'),
-          ),
-      ],
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TButtonBasicColors
-// =============================================================================
-
-@GenerateSource()
-class _TButtonBasicColors extends StatelessWidget {
-  const _TButtonBasicColors();
+class _TIconButtonBasicColors extends StatelessWidget {
+  const _TIconButtonBasicColors();
 
   @override
   Widget build(BuildContext context) {
@@ -392,9 +311,9 @@ class _TButtonBasicColors extends StatelessWidget {
           TColors.yellow,
           TColors.purple,
         ])
-          TButton(
+          TIconButton(
             color: color,
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );
@@ -402,12 +321,12 @@ class _TButtonBasicColors extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonOutlinedColors
+// CLASS: _TIconButtonOutlinedColors
 // =============================================================================
 
 @GenerateSource()
-class _TButtonOutlinedColors extends StatelessWidget {
-  const _TButtonOutlinedColors();
+class _TIconButtonOutlinedColors extends StatelessWidget {
+  const _TIconButtonOutlinedColors();
 
   @override
   Widget build(BuildContext context) {
@@ -424,9 +343,9 @@ class _TButtonOutlinedColors extends StatelessWidget {
           TColors.yellow,
           TColors.purple,
         ])
-          TButton.outlined(
+          TIconButton.outlined(
             color: color,
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );
@@ -434,12 +353,12 @@ class _TButtonOutlinedColors extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonFilledColors
+// CLASS: _TIconButtonFilledColors
 // =============================================================================
 
 @GenerateSource()
-class _TButtonFilledColors extends StatelessWidget {
-  const _TButtonFilledColors();
+class _TIconButtonFilledColors extends StatelessWidget {
+  const _TIconButtonFilledColors();
 
   @override
   Widget build(BuildContext context) {
@@ -456,9 +375,9 @@ class _TButtonFilledColors extends StatelessWidget {
           TColors.yellow,
           TColors.purple,
         ])
-          TButton.filled(
+          TIconButton.filled(
             color: color,
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );
@@ -466,12 +385,12 @@ class _TButtonFilledColors extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonSoftColors
+// CLASS: _TIconButtonSoftColors
 // =============================================================================
 
 @GenerateSource()
-class _TButtonSoftColors extends StatelessWidget {
-  const _TButtonSoftColors();
+class _TIconButtonSoftColors extends StatelessWidget {
+  const _TIconButtonSoftColors();
 
   @override
   Widget build(BuildContext context) {
@@ -488,9 +407,9 @@ class _TButtonSoftColors extends StatelessWidget {
           TColors.yellow,
           TColors.purple,
         ])
-          TButton.soft(
+          TIconButton.soft(
             color: color,
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );
@@ -498,103 +417,17 @@ class _TButtonSoftColors extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonLinkColors
+// CLASS: _TIconButtonCallback
 // =============================================================================
 
 @GenerateSource()
-class _TButtonLinkColors extends StatelessWidget {
-  const _TButtonLinkColors();
+class _TIconButtonCallback extends StatelessWidget {
+  const _TIconButtonCallback();
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: TSpace.v24,
-      runSpacing: TSpace.v8,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        for (final color in [
-          TColors.slate,
-          TColors.red,
-          TColors.green,
-          TColors.blue,
-          TColors.yellow,
-          TColors.purple,
-        ])
-          TButton.link(
-            color: color,
-            child: const Text('Button'),
-          ),
-      ],
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TButtonLeading
-// =============================================================================
-
-@GenerateSource()
-class _TButtonLeading extends StatelessWidget {
-  const _TButtonLeading();
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: TSpace.v24,
-      runSpacing: TSpace.v8,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        for (final variant in TButtonVariant.values)
-          TButton.raw(
-            variant: variant,
-            color: TColors.indigo,
-            leading: const Icon(Icons.arrow_back),
-            child: const Text('Button'),
-          ),
-      ],
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TButtonTrailing
-// =============================================================================
-
-@GenerateSource()
-class _TButtonTrailing extends StatelessWidget {
-  const _TButtonTrailing();
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: TSpace.v24,
-      runSpacing: TSpace.v8,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        for (final variant in TButtonVariant.values)
-          TButton.raw(
-            variant: variant,
-            color: TColors.indigo,
-            trailing: const Icon(Icons.arrow_forward),
-            child: const Text('Button'),
-          ),
-      ],
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TButtonCallback
-// =============================================================================
-
-@GenerateSource()
-class _TButtonCallback extends StatelessWidget {
-  const _TButtonCallback();
-
-  @override
-  Widget build(BuildContext context) {
-    return TButton.filled(
-      child: const Text('Button'),
+    return TIconButton.filled(
+      icon: const Icon(Icons.add),
       onPressed: () {
         // Handle button press
       },
@@ -606,20 +439,20 @@ class _TButtonCallback extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonLoading
+// CLASS: _TIconButtonLoading
 // =============================================================================
 
 @GenerateSource(buildMethodOnly: false)
-class _TButtonLoading extends StatefulWidget {
-  const _TButtonLoading();
+class _TIconButtonLoading extends StatefulWidget {
+  const _TIconButtonLoading();
 
   @override
-  State<_TButtonLoading> createState() => _TButtonLoadingState();
+  State<_TIconButtonLoading> createState() => _TIconButtonLoadingState();
 }
 
-class _TButtonLoadingState extends State<_TButtonLoading> {
+class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
   late final controllers = List.generate(
-    TButtonVariant.values.length,
+    TIconButtonVariant.values.length,
     (_) => TWidgetController(),
   );
 
@@ -649,12 +482,12 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TButtonVariant.values)
-          TButton.raw(
+        for (final variant in TIconButtonVariant.values)
+          TIconButton.raw(
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );
@@ -662,20 +495,21 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
 }
 
 // =============================================================================
-// CLASS: _TButtonLoadingCustom
+// CLASS: _TIconButtonLoadingCustom
 // =============================================================================
 
 @GenerateSource(buildMethodOnly: false)
-class _TButtonLoadingCustom extends StatefulWidget {
-  const _TButtonLoadingCustom();
+class _TIconButtonLoadingCustom extends StatefulWidget {
+  const _TIconButtonLoadingCustom();
 
   @override
-  State<_TButtonLoadingCustom> createState() => _TButtonLoadingCustomState();
+  State<_TIconButtonLoadingCustom> createState() =>
+      _TIconButtonLoadingCustomState();
 }
 
-class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
+class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
   late final controllers = List.generate(
-    TButtonVariant.values.length,
+    TIconButtonVariant.values.length,
     (_) => TWidgetController(),
   );
 
@@ -705,13 +539,13 @@ class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TButtonVariant.values)
-          TButton.raw(
+        for (final variant in TIconButtonVariant.values)
+          TIconButton.raw(
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
             loading: const Icon(Icons.hourglass_bottom_rounded),
-            child: const Text('Button'),
+            icon: const Icon(Icons.add),
           ),
       ],
     );

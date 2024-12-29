@@ -72,7 +72,7 @@ class AppRouteHeader extends StatelessWidget {
         Text(
           section.name,
           style: tw.text.style_sm.semibold.copyWith(
-            color: TColors.sky[tw.light ? 500 : 400],
+            color: tw.light ? TColors.sky.shade500 : TColors.sky.shade400,
           ),
         ),
         Row(

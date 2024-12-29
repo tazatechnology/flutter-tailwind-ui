@@ -277,10 +277,10 @@ class _TBadgeOutlinedColors extends StatelessWidget {
         for (final color in [
           TColors.slate,
           TColors.red,
-          TColors.yellow,
           TColors.green,
           TColors.blue,
-          TColors.violet,
+          TColors.yellow,
+          TColors.purple,
         ])
           TBadge.outlined(
             color: color,
@@ -309,10 +309,10 @@ class _TBadgeFilledColors extends StatelessWidget {
         for (final color in [
           TColors.slate,
           TColors.red,
-          TColors.yellow,
           TColors.green,
           TColors.blue,
-          TColors.violet,
+          TColors.yellow,
+          TColors.purple,
         ])
           TBadge.filled(
             color: color,
@@ -341,10 +341,10 @@ class _TBadgeSoftColors extends StatelessWidget {
         for (final color in [
           TColors.slate,
           TColors.red,
-          TColors.yellow,
           TColors.green,
           TColors.blue,
-          TColors.violet,
+          TColors.yellow,
+          TColors.purple,
         ])
           TBadge.soft(
             color: color,

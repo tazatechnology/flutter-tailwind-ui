@@ -72,7 +72,7 @@ class TRowColumn extends StatelessWidget {
                   ? Border(
                       right: BorderSide(
                         color: context.theme.dividerColor,
-                        width: context.theme.dividerTheme.thickness ?? 1,
+                        width: DividerTheme.of(context).thickness ?? 1,
                       ),
                     )
                   : null,

@@ -98,10 +98,10 @@ Wrap(
     for (final color in [
       TColors.slate,
       TColors.red,
-      TColors.yellow,
       TColors.green,
       TColors.blue,
-      TColors.violet,
+      TColors.yellow,
+      TColors.purple,
     ])
       TBadge.outlined(
         color: color,
@@ -123,10 +123,10 @@ Wrap(
     for (final color in [
       TColors.slate,
       TColors.red,
-      TColors.yellow,
       TColors.green,
       TColors.blue,
-      TColors.violet,
+      TColors.yellow,
+      TColors.purple,
     ])
       TBadge.filled(
         color: color,
@@ -148,10 +148,10 @@ Wrap(
     for (final color in [
       TColors.slate,
       TColors.red,
-      TColors.yellow,
       TColors.green,
       TColors.blue,
-      TColors.violet,
+      TColors.yellow,
+      TColors.purple,
     ])
       TBadge.soft(
         color: color,
@@ -448,10 +448,10 @@ Wrap(
     for (final color in [
       TColors.slate,
       TColors.red,
-      TColors.yellow,
       TColors.green,
       TColors.blue,
-      TColors.violet,
+      TColors.yellow,
+      TColors.purple,
     ])
       TButton(
         color: color,
@@ -473,10 +473,10 @@ Wrap(
     for (final color in [
       TColors.slate,
       TColors.red,
-      TColors.yellow,
       TColors.green,
       TColors.blue,
-      TColors.violet,
+      TColors.yellow,
+      TColors.purple,
     ])
       TButton.outlined(
         color: color,
@@ -498,10 +498,10 @@ Wrap(
     for (final color in [
       TColors.slate,
       TColors.red,
-      TColors.yellow,
       TColors.green,
       TColors.blue,
-      TColors.violet,
+      TColors.yellow,
+      TColors.purple,
     ])
       TButton.filled(
         color: color,
@@ -523,10 +523,10 @@ Wrap(
     for (final color in [
       TColors.slate,
       TColors.red,
-      TColors.yellow,
       TColors.green,
       TColors.blue,
-      TColors.violet,
+      TColors.yellow,
+      TColors.purple,
     ])
       TButton.soft(
         color: color,
@@ -548,10 +548,10 @@ Wrap(
     for (final color in [
       TColors.slate,
       TColors.red,
-      TColors.yellow,
       TColors.green,
       TColors.blue,
-      TColors.violet,
+      TColors.yellow,
+      TColors.purple,
     ])
       TButton.link(
         color: color,
@@ -722,6 +722,347 @@ class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
             onPressed: onPressed,
             loading: const Icon(Icons.hourglass_bottom_rounded),
             child: const Text('Button'),
+          ),
+      ],
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TIconButtonBasic]
+class _TIconButtonBasicSource {
+  static const String code = r"""
+const TIconButton(
+  icon: Icon(Icons.add),
+)
+""";
+}
+
+/// Source code for [_TIconButtonOutlined]
+class _TIconButtonOutlinedSource {
+  static const String code = r"""
+const TIconButton.outlined(
+  icon: Icon(Icons.add),
+)
+""";
+}
+
+/// Source code for [_TIconButtonFilled]
+class _TIconButtonFilledSource {
+  static const String code = r"""
+const TIconButton.filled(
+  icon: Icon(Icons.add),
+)
+""";
+}
+
+/// Source code for [_TIconButtonSoft]
+class _TIconButtonSoftSource {
+  static const String code = r"""
+const TIconButton.soft(
+  icon: Icon(Icons.add),
+)
+""";
+}
+
+/// Source code for [_TIconButtonBasicSizes]
+class _TIconButtonBasicSizesSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final size in TIconButtonSize.values)
+      TIconButton(
+        size: size,
+        tooltip: '``$size``',
+        icon: const Icon(Icons.add),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TIconButtonOutlinedSizes]
+class _TIconButtonOutlinedSizesSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final size in TIconButtonSize.values)
+      TIconButton.outlined(
+        size: size,
+        tooltip: '``$size``',
+        icon: const Icon(Icons.add),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TIconButtonFilledSizes]
+class _TIconButtonFilledSizesSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final size in TIconButtonSize.values)
+      TIconButton.filled(
+        size: size,
+        tooltip: '``$size``',
+        icon: const Icon(Icons.add),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TIconButtonSoftSizes]
+class _TIconButtonSoftSizesSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final size in TIconButtonSize.values)
+      TIconButton.soft(
+        size: size,
+        tooltip: '``$size``',
+        icon: const Icon(Icons.add),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TIconButtonBasicColors]
+class _TIconButtonBasicColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in [
+      TColors.slate,
+      TColors.red,
+      TColors.green,
+      TColors.blue,
+      TColors.yellow,
+      TColors.purple,
+    ])
+      TIconButton(
+        color: color,
+        icon: const Icon(Icons.add),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TIconButtonOutlinedColors]
+class _TIconButtonOutlinedColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in [
+      TColors.slate,
+      TColors.red,
+      TColors.green,
+      TColors.blue,
+      TColors.yellow,
+      TColors.purple,
+    ])
+      TIconButton.outlined(
+        color: color,
+        icon: const Icon(Icons.add),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TIconButtonFilledColors]
+class _TIconButtonFilledColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in [
+      TColors.slate,
+      TColors.red,
+      TColors.green,
+      TColors.blue,
+      TColors.yellow,
+      TColors.purple,
+    ])
+      TIconButton.filled(
+        color: color,
+        icon: const Icon(Icons.add),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TIconButtonSoftColors]
+class _TIconButtonSoftColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in [
+      TColors.slate,
+      TColors.red,
+      TColors.green,
+      TColors.blue,
+      TColors.yellow,
+      TColors.purple,
+    ])
+      TIconButton.soft(
+        color: color,
+        icon: const Icon(Icons.add),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TIconButtonCallback]
+class _TIconButtonCallbackSource {
+  static const String code = r"""
+TIconButton.filled(
+  icon: const Icon(Icons.add),
+  onPressed: () {
+    // Handle button press
+  },
+  onHover: (isHovered) {
+    // Handle button hover
+  },
+)
+""";
+}
+
+/// Source code for [_TIconButtonLoading]
+class _TIconButtonLoadingSource {
+  static const String code = r"""
+class _TIconButtonLoading extends StatefulWidget {
+  const _TIconButtonLoading();
+
+  @override
+  State<_TIconButtonLoading> createState() => _TIconButtonLoadingState();
+}
+
+class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
+  late final controllers = List.generate(
+    TIconButtonVariant.values.length,
+    (_) => TWidgetController(),
+  );
+
+  @override
+  void dispose() {
+    for (final controller in controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  Future<void> onPressed() async {
+    for (final controller in controllers) {
+      controller.loading = true;
+    }
+    await Future.delayed(const Duration(seconds: 1), () {
+      for (final controller in controllers) {
+        controller.loading = false;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final variant in TIconButtonVariant.values)
+          TIconButton.raw(
+            variant: variant,
+            controller: controllers[variant.index],
+            onPressed: onPressed,
+            icon: const Icon(Icons.add),
+          ),
+      ],
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TIconButtonLoadingCustom]
+class _TIconButtonLoadingCustomSource {
+  static const String code = r"""
+class _TIconButtonLoadingCustom extends StatefulWidget {
+  const _TIconButtonLoadingCustom();
+
+  @override
+  State<_TIconButtonLoadingCustom> createState() =>
+      _TIconButtonLoadingCustomState();
+}
+
+class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
+  late final controllers = List.generate(
+    TIconButtonVariant.values.length,
+    (_) => TWidgetController(),
+  );
+
+  @override
+  void dispose() {
+    for (final controller in controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  Future<void> onPressed() async {
+    for (final controller in controllers) {
+      controller.loading = true;
+    }
+    await Future.delayed(const Duration(seconds: 1), () {
+      for (final controller in controllers) {
+        controller.loading = false;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final variant in TIconButtonVariant.values)
+          TIconButton.raw(
+            variant: variant,
+            controller: controllers[variant.index],
+            onPressed: onPressed,
+            loading: const Icon(Icons.hourglass_bottom_rounded),
+            icon: const Icon(Icons.add),
           ),
       ],
     );

@@ -37,6 +37,7 @@ class _AppNavigationState extends State<AppNavigation> {
     final componentRoutes = {
       'TBadge': AppRouter.badge,
       'TButton': AppRouter.button,
+      'TIconButton': AppRouter.icon_button,
       'TCodeBlock': AppRouter.code_block,
       'TRadioList': AppRouter.radio_list,
       'TRowColumn': AppRouter.row_column,

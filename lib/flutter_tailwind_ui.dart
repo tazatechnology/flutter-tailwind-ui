@@ -4,6 +4,7 @@ export 'src/components/button.dart';
 export 'src/components/code_block.dart';
 export 'src/components/focus_border.dart';
 export 'src/components/gesture_detector.dart';
+export 'src/components/icon_button.dart';
 export 'src/components/radio.dart';
 export 'src/components/row_column.dart';
 export 'src/components/scrollbar.dart';

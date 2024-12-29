@@ -47,11 +47,12 @@ enum TButtonSize {
 }
 
 /// Extension on [TButtonSize] to provide useful methods
-extension _XTButtonSize on TButtonSize {
+extension XTailwindTButtonSize on TButtonSize {
   /// The padding associated with the given [TButtonSize].
   EdgeInsets get padding {
     switch (this) {
       case TButtonSize.xs:
+        return TOffset.x6 + TOffset.y2;
       case TButtonSize.sm:
         return TOffset.x8 + TOffset.y4;
       case TButtonSize.md:
@@ -94,8 +95,8 @@ extension _XTButtonSize on TButtonSize {
 // CLASS: TButton
 // =============================================================================
 
-/// A highly customizable button widget.
-class TButton extends StatefulWidget {
+/// A highly customizable button
+class TButton extends StatelessWidget {
   /// Creates a basic [TButton] button ([TButtonVariant.basic]).
   const TButton({
     super.key,
@@ -241,33 +242,10 @@ class TButton extends StatefulWidget {
   final String? tooltip;
 
   @override
-  State<TButton> createState() => _TButtonState();
-}
-
-class _TButtonState extends State<TButton> {
-  late final controller = widget.controller ?? TWidgetController();
-
-  // ---------------------------------------------------------------------------
-  // METHOD: dispose
-  // ---------------------------------------------------------------------------
-
-  @override
-  void dispose() {
-    if (widget.controller == null) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: build
-  // ---------------------------------------------------------------------------
-
-  @override
   Widget build(BuildContext context) {
     // Map the button variant to the styled container variant.
     TStyledContainerVariant styledVariant;
-    switch (widget.variant) {
+    switch (variant) {
       case TButtonVariant.basic:
         styledVariant = TStyledContainerVariant.basic;
       case TButtonVariant.outlined:
@@ -282,28 +260,26 @@ class _TButtonState extends State<TButton> {
 
     return TStyledContainer(
       controller: controller,
-      color: widget.color,
-      focusColor: widget.theme?.focusColor,
-      animationDuration: widget.theme?.animationDuration ?? Duration.zero,
+      color: color,
+      focusColor: theme?.focusColor,
+      animationDuration: theme?.animationDuration ?? Duration.zero,
       variant: styledVariant,
-      tooltip: widget.tooltip,
-      baseTextStyle: TextStyle(fontSize: widget.size.fontSize)
-          .medium
-          .merge(widget.baseTextStyle),
-      textStyle: widget.theme?.textStyle,
-      backgroundColor: widget.theme?.backgroundColor,
-      padding:
-          widget.theme?.padding ?? WidgetStatePropertyAll(widget.size.padding),
-      border: widget.theme?.border,
-      borderRadius: widget.theme?.borderRadius ??
-          WidgetStatePropertyAll(widget.size.borerRadius),
-      mouseCursor: widget.theme?.mouseCursor,
-      leading: widget.leading,
-      trailing: widget.trailing,
-      loading: widget.loading,
-      onTap: widget.onPressed,
-      onHover: widget.onHover,
-      child: widget.child,
+      tooltip: tooltip,
+      baseTextStyle:
+          TextStyle(fontSize: size.fontSize).medium.merge(baseTextStyle),
+      textStyle: theme?.textStyle,
+      backgroundColor: theme?.backgroundColor,
+      padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
+      border: theme?.border,
+      borderRadius:
+          theme?.borderRadius ?? WidgetStatePropertyAll(size.borerRadius),
+      mouseCursor: theme?.mouseCursor,
+      leading: leading,
+      trailing: trailing,
+      loading: loading,
+      onTap: onPressed,
+      onHover: onHover,
+      child: child,
     );
   }
 }
