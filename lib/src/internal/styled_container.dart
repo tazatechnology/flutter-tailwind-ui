@@ -38,6 +38,7 @@ class TStyledContainer extends StatelessWidget {
     this.focusColor,
     this.leading,
     this.trailing,
+    this.loading,
     this.tooltip,
     this.baseTextStyle,
     this.animationDuration = Duration.zero,
@@ -46,6 +47,8 @@ class TStyledContainer extends StatelessWidget {
     this.border,
     this.borderRadius,
     this.textStyle,
+    this.mouseCursor,
+    this.controller,
     this.onTap,
     this.onLongPress,
     this.onHover,
@@ -72,6 +75,9 @@ class TStyledContainer extends StatelessWidget {
   /// The a trailing widget.
   final Widget? trailing;
 
+  /// The widget to display when the [TWidgetController] is in a loading state.
+  final Widget? loading;
+
   /// The a trailing widget for the badge.
   final String? tooltip;
 
@@ -95,6 +101,12 @@ class TStyledContainer extends StatelessWidget {
 
   /// The text style of the container.
   final WidgetStateProperty<TextStyle?>? textStyle;
+
+  /// The mouse cursor to apply on pointer events.
+  final WidgetStateProperty<MouseCursor?>? mouseCursor;
+
+  /// The controller to manage the states of the widget.
+  final TWidgetController? controller;
 
   /// An action to call when the container is tapped.
   ///
@@ -350,94 +362,122 @@ class TStyledContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TGestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap: onTap,
-      onLongPress: onLongPress,
-      onHover: onHover,
-      onFocus: onFocus,
-      descendantsAreFocusable: false,
-      builder: (context, states) {
-        final tw = context.tw;
+    return ListenableBuilder(
+      listenable: controller ?? TWidgetController(),
+      builder: (context, _) {
+        final isLoading = controller?.loading ?? false;
 
-        // Resolve the effective text style
-        final effectiveTextStyle = DefaultTextStyle.of(context)
-            .style
-            .merge(baseTextStyle)
-            .merge(_effectiveTextStyle(context, states));
+        return TGestureDetector(
+          controller: controller,
+          behavior: HitTestBehavior.translucent,
+          onTap: isLoading ? null : onTap,
+          onLongPress: isLoading ? null : onLongPress,
+          onHover: onHover,
+          onFocus: onFocus,
+          descendantsAreFocusable: false,
+          mouseCursor: mouseCursor,
+          builder: (context, states) {
+            final tw = context.tw;
 
-        // Resolve the effective padding
-        final effectivePadding = _effectivePadding(context, states);
-        final effectiveHorizontalOffset =
-            (effectivePadding.horizontal / 4).clamp(6, 12).toDouble();
+            // Resolve the effective text style
+            final effectiveTextStyle = DefaultTextStyle.of(context)
+                .style
+                .merge(baseTextStyle)
+                .merge(_effectiveTextStyle(context, states));
 
-        // Resolve the effective background color
-        final effectiveBackgroundColor =
-            _effectiveBackgroundColor(context, states);
+            // Resolve the effective padding
+            final effectivePadding = _effectivePadding(context, states);
+            final effectiveHorizontalOffset =
+                (effectivePadding.horizontal / 4).clamp(6, 12).toDouble();
 
-        // Resolve the effective border
-        final effectiveBorder = _effectiveBorder(context, states);
+            // Resolve the effective background color
+            final effectiveBackgroundColor =
+                _effectiveBackgroundColor(context, states);
 
-        // Resolve the effective border radius
-        final effectiveBorderRadius = _effectiveBorderRadius(context, states);
+            // Resolve the effective border
+            final effectiveBorder = _effectiveBorder(context, states);
 
-        // Define the button content
-        final hasChild = child != null;
-        final List<Widget> content = [];
-        if (leading != null) {
-          content.add(
-            Padding(
-              padding: EdgeInsets.only(
-                right: hasChild ? effectiveHorizontalOffset : 0,
-              ),
-              child: leading,
-            ),
-          );
-        }
-        if (hasChild) {
-          content.add(child!);
-        }
-        if (trailing != null) {
-          content.add(
-            Padding(
-              padding: EdgeInsets.only(
-                left: hasChild ? effectiveHorizontalOffset : 0,
-              ),
-              child: trailing,
-            ),
-          );
-        }
+            // Resolve the effective border radius
+            final effectiveBorderRadius =
+                _effectiveBorderRadius(context, states);
 
-        return TFocusBorder(
-          focused: states.focused,
-          focusColor: focusColor ?? tw.colors.focus,
-          borderRadius: effectiveBorderRadius,
-          child: IconTheme(
-            data: context.theme.iconTheme.copyWith(
-              size: effectiveTextStyle.fontSize,
-              color: effectiveTextStyle.color,
-            ),
-            child: DefaultTextStyle.merge(
-              style: effectiveTextStyle,
-              child: TTooltip(
-                message: tooltip,
-                child: AnimatedContainer(
-                  duration: animationDuration,
-                  padding: effectivePadding,
-                  decoration: BoxDecoration(
-                    color: effectiveBackgroundColor,
-                    border: effectiveBorder,
-                    borderRadius: effectiveBorderRadius,
+            // Define the button content
+            final hasChild = child != null;
+            final List<Widget> content = [];
+            if (leading != null) {
+              content.add(
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: hasChild ? effectiveHorizontalOffset : 0,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: content,
+                  child: leading,
+                ),
+              );
+            }
+            if (hasChild) {
+              content.add(child!);
+            }
+            if (trailing != null) {
+              content.add(
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: hasChild ? effectiveHorizontalOffset : 0,
+                  ),
+                  child: trailing,
+                ),
+              );
+            }
+
+            return TFocusBorder(
+              focused: states.focused,
+              focusColor: focusColor ?? tw.colors.focus,
+              borderRadius: effectiveBorderRadius,
+              child: IconTheme(
+                data: context.theme.iconTheme.copyWith(
+                  size: effectiveTextStyle.fontSize,
+                  color: effectiveTextStyle.color,
+                ),
+                child: DefaultTextStyle.merge(
+                  style: effectiveTextStyle,
+                  child: TTooltip(
+                    message: tooltip,
+                    child: AnimatedContainer(
+                      duration: animationDuration,
+                      padding: effectivePadding,
+                      decoration: BoxDecoration(
+                        color: effectiveBackgroundColor,
+                        border: effectiveBorder,
+                        borderRadius: effectiveBorderRadius,
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          AnimatedOpacity(
+                            opacity: isLoading ? 0 : 1,
+                            duration: animationDuration,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: content,
+                            ),
+                          ),
+                          if (isLoading)
+                            loading ??
+                                SizedBox.square(
+                                  dimension: effectiveTextStyle.fontSize ?? 12,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    color: effectiveTextStyle.color,
+                                  ),
+                                ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

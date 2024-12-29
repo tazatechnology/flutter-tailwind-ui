@@ -95,17 +95,19 @@ extension _XTButtonSize on TButtonSize {
 // =============================================================================
 
 /// A highly customizable button widget.
-class TButton extends StatelessWidget {
+class TButton extends StatefulWidget {
   /// Creates a basic [TButton] button ([TButtonVariant.basic]).
   const TButton({
     super.key,
     this.child,
     this.leading,
     this.trailing,
+    this.loading,
     this.theme,
     this.size = TButtonSize.md,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
@@ -117,10 +119,12 @@ class TButton extends StatelessWidget {
     this.child,
     this.leading,
     this.trailing,
+    this.loading,
     this.theme,
     this.size = TButtonSize.md,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
@@ -132,10 +136,12 @@ class TButton extends StatelessWidget {
     this.child,
     this.leading,
     this.trailing,
+    this.loading,
     this.theme,
     this.size = TButtonSize.md,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
@@ -147,10 +153,12 @@ class TButton extends StatelessWidget {
     this.child,
     this.leading,
     this.trailing,
+    this.loading,
     this.theme,
     this.size = TButtonSize.md,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
@@ -162,10 +170,12 @@ class TButton extends StatelessWidget {
     this.child,
     this.leading,
     this.trailing,
+    this.loading,
     this.theme,
     this.size = TButtonSize.md,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
@@ -178,10 +188,12 @@ class TButton extends StatelessWidget {
     this.child,
     this.leading,
     this.trailing,
+    this.loading,
     this.theme,
     this.size = TButtonSize.md,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
@@ -199,6 +211,9 @@ class TButton extends StatelessWidget {
   /// The a trailing widget for the badge.
   final Widget? trailing;
 
+  /// The widget to display when the [TWidgetController] is in a loading state.
+  final Widget? loading;
+
   /// The custom theme override for the button.
   final TButtonTheme? theme;
 
@@ -213,6 +228,9 @@ class TButton extends StatelessWidget {
   /// Default: [TTextStyle.text_xs] with [FontWeight.w500].
   final TextStyle? baseTextStyle;
 
+  /// The controller for the button.
+  final TWidgetController? controller;
+
   /// An action to call when the button is pressed.
   final VoidCallback? onPressed;
 
@@ -223,9 +241,33 @@ class TButton extends StatelessWidget {
   final String? tooltip;
 
   @override
+  State<TButton> createState() => _TButtonState();
+}
+
+class _TButtonState extends State<TButton> {
+  late final controller = widget.controller ?? TWidgetController();
+
+  // ---------------------------------------------------------------------------
+  // METHOD: dispose
+  // ---------------------------------------------------------------------------
+
+  @override
+  void dispose() {
+    if (widget.controller == null) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: build
+  // ---------------------------------------------------------------------------
+
+  @override
   Widget build(BuildContext context) {
+    // Map the button variant to the styled container variant.
     TStyledContainerVariant styledVariant;
-    switch (variant) {
+    switch (widget.variant) {
       case TButtonVariant.basic:
         styledVariant = TStyledContainerVariant.basic;
       case TButtonVariant.outlined:
@@ -239,24 +281,29 @@ class TButton extends StatelessWidget {
     }
 
     return TStyledContainer(
-      color: color,
-      focusColor: theme?.focusColor,
-      animationDuration: theme?.animationDuration ?? Duration.zero,
+      controller: controller,
+      color: widget.color,
+      focusColor: widget.theme?.focusColor,
+      animationDuration: widget.theme?.animationDuration ?? Duration.zero,
       variant: styledVariant,
-      tooltip: tooltip,
-      baseTextStyle:
-          TextStyle(fontSize: size.fontSize).medium.merge(baseTextStyle),
-      textStyle: theme?.textStyle,
-      backgroundColor: theme?.backgroundColor,
-      padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
-      border: theme?.border,
-      borderRadius:
-          theme?.borderRadius ?? WidgetStatePropertyAll(size.borerRadius),
-      leading: leading,
-      trailing: trailing,
-      onTap: onPressed,
-      onHover: onHover,
-      child: child,
+      tooltip: widget.tooltip,
+      baseTextStyle: TextStyle(fontSize: widget.size.fontSize)
+          .medium
+          .merge(widget.baseTextStyle),
+      textStyle: widget.theme?.textStyle,
+      backgroundColor: widget.theme?.backgroundColor,
+      padding:
+          widget.theme?.padding ?? WidgetStatePropertyAll(widget.size.padding),
+      border: widget.theme?.border,
+      borderRadius: widget.theme?.borderRadius ??
+          WidgetStatePropertyAll(widget.size.borerRadius),
+      mouseCursor: widget.theme?.mouseCursor,
+      leading: widget.leading,
+      trailing: widget.trailing,
+      loading: widget.loading,
+      onTap: widget.onPressed,
+      onHover: widget.onHover,
+      child: widget.child,
     );
   }
 }
@@ -275,6 +322,7 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
     this.border,
     this.borderRadius,
     this.textStyle,
+    this.mouseCursor,
     this.focusColor,
   });
 
@@ -296,6 +344,9 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
   /// Text
   final WidgetStateProperty<TextStyle?>? textStyle;
 
+  /// The mouse cursor style to apply based on the state of the button.
+  final WidgetStateProperty<MouseCursor?>? mouseCursor;
+
   /// The color of the focus border.
   final Color? focusColor;
 
@@ -311,6 +362,8 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
     WidgetStateProperty<BoxBorder?>? border,
     WidgetStateProperty<BorderRadius?>? borderRadius,
     WidgetStateProperty<TextStyle?>? textStyle,
+    WidgetStateProperty<MouseCursor?>? mouseCursor,
+    Color? focusColor,
   }) {
     return TButtonTheme(
       animationDuration: animationDuration ?? this.animationDuration,
@@ -319,6 +372,8 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
       border: border ?? this.border,
       borderRadius: borderRadius ?? this.borderRadius,
       textStyle: textStyle ?? this.textStyle,
+      mouseCursor: mouseCursor ?? this.mouseCursor,
+      focusColor: focusColor ?? this.focusColor,
     );
   }
 
@@ -338,6 +393,8 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
       border: other.border,
       borderRadius: other.borderRadius,
       textStyle: other.textStyle,
+      mouseCursor: other.mouseCursor,
+      focusColor: other.focusColor,
     );
   }
 
@@ -386,6 +443,8 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
         t,
         TextStyle.lerp,
       ),
+      mouseCursor: other.mouseCursor,
+      focusColor: Color.lerp(focusColor, other.focusColor, t),
     );
   }
 }

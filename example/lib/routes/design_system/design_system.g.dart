@@ -1,5 +1,5 @@
 // Generated code - do not modify by hand
-// ignore_for_file: unnecessary_raw_strings
+// ignore_for_file: unnecessary_raw_strings, prefer_single_quotes
 
 part of 'design_system.dart';
 

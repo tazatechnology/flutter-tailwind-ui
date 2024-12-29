@@ -31,15 +31,23 @@ class SourceGenerator extends GeneratorForAnnotation<GenerateSource> {
       );
     }
 
+    final elementIndex = element.nameOffset + element.nameLength;
+
+    // Search for the existence of "State<" and its index
+    final stateIndex = element.source.contents.data.indexOf(
+      'extends State<$className>',
+    );
+    final bool isStatefulWidget = stateIndex != -1;
+
     // Get the source range for the annotated class
     final sourceRange = element.source.contents.data.substring(
       element.nameOffset - 'class '.length, // Include the 'class' keyword
-      element.nameOffset +
-          element.nameLength +
-          element.source.contents.data
-              .substring(element.nameOffset + element.nameLength)
-              .indexOf('}') +
-          1,
+      elementIndex +
+          element.source.contents.data.substring(elementIndex).indexOf(
+                RegExp(r'(^|\n)\}(?=\n|$)'),
+                isStatefulWidget ? stateIndex - elementIndex : 0,
+              ) +
+          2,
     );
 
     String source;
@@ -184,7 +192,7 @@ class SourceBuilder implements Builder {
       final partFileId = buildStep.inputId.changeExtension('.g.dart');
       await buildStep.writeAsString(partFileId, '''
 // Generated code - do not modify by hand
-// ignore_for_file: unnecessary_raw_strings
+// ignore_for_file: unnecessary_raw_strings, prefer_single_quotes
 
 part of '${buildStep.inputId.pathSegments.last}';
 

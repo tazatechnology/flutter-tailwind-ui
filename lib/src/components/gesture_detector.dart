@@ -513,21 +513,11 @@ class TGestureDetector extends StatefulWidget {
   final bool? descendantsAreTraversable;
 
   @override
-  State<TGestureDetector> createState() => _TWidgetStateConsumerState();
+  State<TGestureDetector> createState() => _TGestureDetectorState();
 }
 
-class _TWidgetStateConsumerState extends State<TGestureDetector> {
-  late final WidgetStatesController controller;
-
-  // ---------------------------------------------------------------------------
-  // METHOD: initState
-  // ---------------------------------------------------------------------------
-
-  @override
-  void initState() {
-    controller = widget.controller ?? WidgetStatesController();
-    super.initState();
-  }
+class _TGestureDetectorState extends State<TGestureDetector> {
+  late final controller = widget.controller ?? WidgetStatesController();
 
   // ---------------------------------------------------------------------------
   // METHOD: dispose
@@ -535,7 +525,9 @@ class _TWidgetStateConsumerState extends State<TGestureDetector> {
 
   @override
   void dispose() {
-    controller.dispose();
+    if (widget.controller == null) {
+      controller.dispose();
+    }
     super.dispose();
   }
 

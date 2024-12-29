@@ -60,10 +60,12 @@ class TBadge extends StatelessWidget {
     required this.child,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.theme,
     this.size = TBadgeSize.md,
     this.leading,
     this.trailing,
+    this.loading,
     this.tooltip,
     this.onPressed,
     this.onHover,
@@ -75,10 +77,12 @@ class TBadge extends StatelessWidget {
     required this.child,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.theme,
     this.size = TBadgeSize.md,
     this.leading,
     this.trailing,
+    this.loading,
     this.tooltip,
     this.onPressed,
     this.onHover,
@@ -90,10 +94,12 @@ class TBadge extends StatelessWidget {
     required this.child,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.theme,
     this.size = TBadgeSize.md,
     this.leading,
     this.trailing,
+    this.loading,
     this.tooltip,
     this.onPressed,
     this.onHover,
@@ -106,10 +112,12 @@ class TBadge extends StatelessWidget {
     required this.variant,
     this.color,
     this.baseTextStyle,
+    this.controller,
     this.theme,
     this.size = TBadgeSize.md,
     this.leading,
     this.trailing,
+    this.loading,
     this.tooltip,
     this.onPressed,
     this.onHover,
@@ -128,6 +136,9 @@ class TBadge extends StatelessWidget {
   /// The a leading widget for the badge.
   final Widget? trailing;
 
+  /// The widget to display when the [TWidgetController] is in a loading state.
+  final Widget? loading;
+
   /// The custom theme override for the badge.
   final TBadgeTheme? theme;
 
@@ -141,6 +152,9 @@ class TBadge extends StatelessWidget {
   ///
   /// Default: [TTextStyle.text_xs] with [FontWeight.w500].
   final TextStyle? baseTextStyle;
+
+  /// The controller for the badge.
+  final TWidgetController? controller;
 
   /// The tooltip to display when hovering over the badge.
   final String? tooltip;
@@ -157,6 +171,7 @@ class TBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Map the badge variant to the styled container variant.
     TStyledContainerVariant styledVariant;
     switch (variant) {
       case TBadgeVariant.outlined:
@@ -168,6 +183,7 @@ class TBadge extends StatelessWidget {
     }
 
     return TStyledContainer(
+      controller: controller,
       color: color,
       focusColor: theme?.focusColor,
       animationDuration: theme?.animationDuration ?? Duration.zero,
@@ -180,8 +196,10 @@ class TBadge extends StatelessWidget {
       border: theme?.border,
       borderRadius: theme?.borderRadius ??
           const WidgetStatePropertyAll(TBorderRadius.rounded_full),
+      mouseCursor: theme?.mouseCursor,
       leading: leading,
       trailing: trailing,
+      loading: loading,
       onTap: onPressed,
       onHover: onHover,
       child: child,
@@ -203,6 +221,7 @@ class TBadgeTheme extends ThemeExtension<TBadgeTheme> {
     this.border,
     this.borderRadius,
     this.textStyle,
+    this.mouseCursor,
     this.focusColor,
   });
 
@@ -224,6 +243,9 @@ class TBadgeTheme extends ThemeExtension<TBadgeTheme> {
   /// Text
   final WidgetStateProperty<TextStyle?>? textStyle;
 
+  /// Text
+  final WidgetStateProperty<MouseCursor?>? mouseCursor;
+
   /// The color of the focus border.
   final Color? focusColor;
 
@@ -239,6 +261,8 @@ class TBadgeTheme extends ThemeExtension<TBadgeTheme> {
     WidgetStateProperty<BoxBorder?>? border,
     WidgetStateProperty<BorderRadius?>? borderRadius,
     WidgetStateProperty<TextStyle?>? textStyle,
+    WidgetStateProperty<MouseCursor?>? mouseCursor,
+    Color? focusColor,
   }) {
     return TBadgeTheme(
       animationDuration: animationDuration ?? this.animationDuration,
@@ -247,6 +271,8 @@ class TBadgeTheme extends ThemeExtension<TBadgeTheme> {
       border: border ?? this.border,
       borderRadius: borderRadius ?? this.borderRadius,
       textStyle: textStyle ?? this.textStyle,
+      mouseCursor: mouseCursor ?? this.mouseCursor,
+      focusColor: focusColor ?? this.focusColor,
     );
   }
 
@@ -266,6 +292,8 @@ class TBadgeTheme extends ThemeExtension<TBadgeTheme> {
       border: other.border,
       borderRadius: other.borderRadius,
       textStyle: other.textStyle,
+      mouseCursor: other.mouseCursor,
+      focusColor: other.focusColor,
     );
   }
 
@@ -313,6 +341,8 @@ class TBadgeTheme extends ThemeExtension<TBadgeTheme> {
         t,
         TextStyle.lerp,
       ),
+      mouseCursor: other.mouseCursor,
+      focusColor: Color.lerp(focusColor, other.focusColor, t),
     );
   }
 }

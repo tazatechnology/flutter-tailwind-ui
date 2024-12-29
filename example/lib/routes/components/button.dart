@@ -139,6 +139,21 @@ class ComponentRouteTButton extends StatelessWidget {
             ),
           ],
         ),
+        AppSection(
+          title: 'Button with controller',
+          children: const [
+            AppPreviewCard(
+              title: 'Controller to manage loading state',
+              code: _TButtonLoadingSource.code,
+              child: _TButtonLoading(),
+            ),
+            AppPreviewCard(
+              title: 'Custom loading widget',
+              code: _TButtonLoadingCustomSource.code,
+              child: _TButtonLoadingCustom(),
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -523,36 +538,18 @@ class _TButtonLeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Wrap(
+    return Wrap(
       spacing: TSpace.v24,
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        TButton(
-          color: TColors.indigo,
-          leading: Icon(Icons.arrow_back),
-          child: Text('Button'),
-        ),
-        TButton.outlined(
-          color: TColors.indigo,
-          leading: Icon(Icons.arrow_back),
-          child: Text('Button'),
-        ),
-        TButton.filled(
-          color: TColors.indigo,
-          leading: Icon(Icons.arrow_back),
-          child: Text('Button'),
-        ),
-        TButton.soft(
-          color: TColors.indigo,
-          leading: Icon(Icons.arrow_back),
-          child: Text('Button'),
-        ),
-        TButton.link(
-          color: TColors.indigo,
-          leading: Icon(Icons.arrow_back),
-          child: Text('Button'),
-        ),
+        for (final variant in TButtonVariant.values)
+          TButton.raw(
+            variant: variant,
+            color: TColors.indigo,
+            leading: const Icon(Icons.arrow_back),
+            child: const Text('Button'),
+          ),
       ],
     );
   }
@@ -568,36 +565,18 @@ class _TButtonTrailing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Wrap(
+    return Wrap(
       spacing: TSpace.v24,
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        TButton(
-          color: TColors.indigo,
-          trailing: Icon(Icons.arrow_forward),
-          child: Text('Button'),
-        ),
-        TButton.outlined(
-          color: TColors.indigo,
-          trailing: Icon(Icons.arrow_forward),
-          child: Text('Button'),
-        ),
-        TButton.filled(
-          color: TColors.indigo,
-          trailing: Icon(Icons.arrow_forward),
-          child: Text('Button'),
-        ),
-        TButton.soft(
-          color: TColors.indigo,
-          trailing: Icon(Icons.arrow_forward),
-          child: Text('Button'),
-        ),
-        TButton.link(
-          color: TColors.indigo,
-          trailing: Icon(Icons.arrow_forward),
-          child: Text('Button'),
-        ),
+        for (final variant in TButtonVariant.values)
+          TButton.raw(
+            variant: variant,
+            color: TColors.indigo,
+            trailing: const Icon(Icons.arrow_forward),
+            child: const Text('Button'),
+          ),
       ],
     );
   }
@@ -621,6 +600,119 @@ class _TButtonCallback extends StatelessWidget {
       onHover: (isHovered) {
         // Handle button hover
       },
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TButtonLoading
+// =============================================================================
+
+@GenerateSource(buildMethodOnly: false)
+class _TButtonLoading extends StatefulWidget {
+  const _TButtonLoading();
+
+  @override
+  State<_TButtonLoading> createState() => _TButtonLoadingState();
+}
+
+class _TButtonLoadingState extends State<_TButtonLoading> {
+  late final controllers = List.generate(
+    TButtonVariant.values.length,
+    (_) => TWidgetController(),
+  );
+
+  @override
+  void dispose() {
+    for (final controller in controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  Future<void> onPressed() async {
+    for (final controller in controllers) {
+      controller.loading = true;
+    }
+    await Future.delayed(const Duration(seconds: 1), () {
+      for (final controller in controllers) {
+        controller.loading = false;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final variant in TButtonVariant.values)
+          TButton.raw(
+            variant: variant,
+            controller: controllers[variant.index],
+            onPressed: onPressed,
+            child: const Text('Button'),
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TButtonLoadingCustom
+// =============================================================================
+
+@GenerateSource(buildMethodOnly: false)
+class _TButtonLoadingCustom extends StatefulWidget {
+  const _TButtonLoadingCustom();
+
+  @override
+  State<_TButtonLoadingCustom> createState() => _TButtonLoadingCustomState();
+}
+
+class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
+  late final controllers = List.generate(
+    TButtonVariant.values.length,
+    (_) => TWidgetController(),
+  );
+
+  @override
+  void dispose() {
+    for (final controller in controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  Future<void> onPressed() async {
+    for (final controller in controllers) {
+      controller.loading = true;
+    }
+    await Future.delayed(const Duration(seconds: 1), () {
+      for (final controller in controllers) {
+        controller.loading = false;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final variant in TButtonVariant.values)
+          TButton.raw(
+            variant: variant,
+            controller: controllers[variant.index],
+            onPressed: onPressed,
+            loading: const Icon(Icons.hourglass_bottom_rounded),
+            child: const Text('Button'),
+          ),
+      ],
     );
   }
 }

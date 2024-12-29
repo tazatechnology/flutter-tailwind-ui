@@ -10,6 +10,8 @@ export 'src/components/scrollbar.dart';
 export 'src/components/sized_box.dart';
 export 'src/components/text.dart';
 export 'src/components/tooltip.dart';
+export 'src/components/widget_controller.dart';
+
 // Constants
 export 'src/constants/colors.dart';
 export 'src/constants/enums.dart';
