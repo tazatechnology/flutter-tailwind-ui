@@ -96,7 +96,9 @@ class _AppPreviewCardState extends ConsumerState<AppPreviewCard> {
             padding: TOffset.t12,
             child: TText(
               widget.description!,
-              style: tw.text.style_sm,
+              style: tw.text.style_sm.copyWith(
+                height: TTextStyle.text_md.height,
+              ),
             ),
           ),
         if (!showCode)

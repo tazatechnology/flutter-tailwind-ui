@@ -11,7 +11,7 @@ class ComponentRouteTIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComponentRoute(
       name: 'TIconButton',
-      description: 'A widget',
+      description: 'A highly customizable icon button widget.',
       children: [
         AppSection(
           title: 'Icon Button Types',
@@ -109,9 +109,33 @@ class ComponentRouteTIconButton extends StatelessWidget {
               child: _TIconButtonLoading(),
             ),
             AppPreviewCard(
+              title: 'Controller to manage disabled state',
+              code: _TIconButtonDisabledSource.code,
+              child: _TIconButtonDisabled(),
+            ),
+            AppPreviewCard(
               title: 'Custom loading widget',
               code: _TIconButtonLoadingCustomSource.code,
               child: _TIconButtonLoadingCustom(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Custom icon button theming',
+          children: const [
+            AppPreviewCard(
+              title: 'Static theme (``TButtonTheme``)',
+              description:
+                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TButtonTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
+              code: _TIconButtonCustomThemeSource.code,
+              child: _TIconButtonCustomTheme(),
+            ),
+            AppPreviewCard(
+              title: 'Stateful theme (``TButtonTheme``)',
+              description:
+                  'For full theme control, you can use the `WidgetStateProperty.resolveWith()` method to dynamically change the button theme based on the current `WidgetState`.',
+              code: _TIconButtonStatefulThemeSource.code,
+              child: _TIconButtonStatefulTheme(),
             ),
           ],
         ),
@@ -199,7 +223,7 @@ class _TIconButtonBasicSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TIconButtonSize.values)
+        for (final size in TButtonSize.values)
           TIconButton(
             size: size,
             tooltip: '``$size``',
@@ -225,7 +249,7 @@ class _TIconButtonOutlinedSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TIconButtonSize.values)
+        for (final size in TButtonSize.values)
           TIconButton.outlined(
             size: size,
             tooltip: '``$size``',
@@ -251,7 +275,7 @@ class _TIconButtonFilledSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TIconButtonSize.values)
+        for (final size in TButtonSize.values)
           TIconButton.filled(
             size: size,
             tooltip: '``$size``',
@@ -277,7 +301,7 @@ class _TIconButtonSoftSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TIconButtonSize.values)
+        for (final size in TButtonSize.values)
           TIconButton.soft(
             size: size,
             tooltip: '``$size``',
@@ -484,9 +508,36 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
       children: [
         for (final variant in TIconButtonVariant.values)
           TIconButton.raw(
+            tooltip: '``$variant``',
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
+            icon: const Icon(Icons.add),
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TIconButtonDisabled
+// =============================================================================
+
+@GenerateSource()
+class _TIconButtonDisabled extends StatelessWidget {
+  const _TIconButtonDisabled();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final variant in TIconButtonVariant.values)
+          TIconButton.raw(
+            variant: variant,
+            controller: TWidgetController(disabled: true),
             icon: const Icon(Icons.add),
           ),
       ],
@@ -548,6 +599,76 @@ class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
             icon: const Icon(Icons.add),
           ),
       ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TIconButtonCustomTheme
+// =============================================================================
+
+@GenerateSource()
+class _TIconButtonCustomTheme extends StatelessWidget {
+  const _TIconButtonCustomTheme();
+
+  @override
+  Widget build(BuildContext context) {
+    return TIconButton.filled(
+      theme: TButtonTheme.all(
+        border: Border.all(color: TColors.sky.shade100),
+        backgroundColor: TColors.sky.shade50,
+        padding: TOffset.a6,
+        borderRadius: TBorderRadius.rounded_none,
+        textStyle: TextStyle(color: TColors.sky.shade800).medium,
+      ),
+      onPressed: () {},
+      icon: const Icon(Icons.add),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TIconButtonStatefulTheme
+// =============================================================================
+
+@GenerateSource()
+class _TIconButtonStatefulTheme extends StatelessWidget {
+  const _TIconButtonStatefulTheme();
+
+  @override
+  Widget build(BuildContext context) {
+    return TIconButton.filled(
+      theme: TButtonTheme(
+        animationDuration: const Duration(milliseconds: 250),
+        border: WidgetStateProperty.resolveWith((states) {
+          if (states.hovered) {
+            return Border.all(color: TColors.sky);
+          }
+          return Border.all(color: TColors.sky.shade100);
+        }),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.hovered) {
+            return TColors.sky.shade100;
+          }
+          return TColors.sky.shade50;
+        }),
+        padding: const WidgetStatePropertyAll(TOffset.a6),
+        borderRadius: WidgetStateProperty.resolveWith((states) {
+          if (states.hovered) {
+            return TBorderRadius.rounded_full;
+          }
+          return TBorderRadius.rounded_none;
+        }),
+        textStyle: WidgetStateProperty.resolveWith((states) {
+          final style = TextStyle(color: TColors.sky.shade800).medium;
+          if (states.hovered) {
+            return style.semibold;
+          }
+          return style.medium;
+        }),
+      ),
+      onPressed: () {},
+      icon: const Icon(Icons.add),
     );
   }
 }

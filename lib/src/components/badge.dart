@@ -202,7 +202,7 @@ class TBadge extends StatelessWidget {
       loading: loading,
       onTap: onPressed,
       onHover: onHover,
-      child: child,
+      child: SelectionContainer.disabled(child: child),
     );
   }
 }
@@ -224,6 +224,35 @@ class TBadgeTheme extends ThemeExtension<TBadgeTheme> {
     this.mouseCursor,
     this.focusColor,
   });
+
+  /// Set badge theme data for every [WidgetState] at once.
+  ///
+  /// Useful if you want to set the same theme for every [WidgetState].
+  factory TBadgeTheme.all({
+    Duration? animationDuration,
+    Color? backgroundColor,
+    EdgeInsetsGeometry? padding,
+    BoxBorder? border,
+    BorderRadius? borderRadius,
+    TextStyle? textStyle,
+    MouseCursor? mouseCursor,
+    Color? focusColor,
+  }) {
+    return TBadgeTheme(
+      animationDuration: animationDuration ?? Duration.zero,
+      backgroundColor: backgroundColor == null
+          ? null
+          : WidgetStatePropertyAll(backgroundColor),
+      padding: padding == null ? null : WidgetStatePropertyAll(padding),
+      border: border == null ? null : WidgetStatePropertyAll(border),
+      borderRadius:
+          borderRadius == null ? null : WidgetStatePropertyAll(borderRadius),
+      textStyle: textStyle == null ? null : WidgetStatePropertyAll(textStyle),
+      mouseCursor:
+          mouseCursor == null ? null : WidgetStatePropertyAll(mouseCursor),
+      focusColor: focusColor,
+    );
+  }
 
   /// The duration of the badge animation.
   final Duration animationDuration;

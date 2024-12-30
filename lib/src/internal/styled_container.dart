@@ -41,7 +41,6 @@ class TStyledContainer extends StatelessWidget {
     this.loading,
     this.tooltip,
     this.baseTextStyle,
-    this.iconSize,
     this.animationDuration = Duration.zero,
     this.backgroundColor,
     this.padding,
@@ -84,9 +83,6 @@ class TStyledContainer extends StatelessWidget {
 
   /// The fallback text style.
   final TextStyle? baseTextStyle;
-
-  /// The fallback icon size.
-  final double? iconSize;
 
   /// The duration of the animation.
   final Duration animationDuration;
@@ -189,14 +185,18 @@ class TStyledContainer extends StatelessWidget {
   ) {
     final tw = context.tw;
     final effectiveColor = (color ?? tw.colors.primary).toMaterialColor();
-
+    final borderDisabled = WidgetStatePropertyAll(
+      Border.all(color: tw.colors.disabled),
+    );
     WidgetStateProperty<BoxBorder?> borderStyled;
     switch (variant) {
       case TStyledContainerVariant.basic:
       case TStyledContainerVariant.link:
         borderStyled = const WidgetStatePropertyAll(null);
       case TStyledContainerVariant.outlined:
-        if (color == null) {
+        if (states.disabled) {
+          borderStyled = borderDisabled;
+        } else if (color == null) {
           borderStyled = WidgetStatePropertyAll(
             Border.all(color: _defaultBorderColor(context)),
           );
@@ -206,17 +206,25 @@ class TStyledContainer extends StatelessWidget {
           });
         }
       case TStyledContainerVariant.filled:
-        borderStyled = WidgetStatePropertyAll(
-          Border.all(color: effectiveColor),
-        );
-      case TStyledContainerVariant.soft:
-        borderStyled = WidgetStateProperty.resolveWith((states) {
-          return Border.all(
-            color: tw.dark
-                ? effectiveColor.shade400.withValues(alpha: 0.3)
-                : effectiveColor.shade700.withValues(alpha: 0.1),
+        if (states.disabled) {
+          borderStyled = borderDisabled;
+        } else {
+          borderStyled = WidgetStatePropertyAll(
+            Border.all(color: effectiveColor),
           );
-        });
+        }
+      case TStyledContainerVariant.soft:
+        if (states.disabled) {
+          borderStyled = borderDisabled;
+        } else {
+          borderStyled = WidgetStateProperty.resolveWith((states) {
+            return Border.all(
+              color: tw.dark
+                  ? effectiveColor.shade400.withValues(alpha: 0.3)
+                  : effectiveColor.shade700.withValues(alpha: 0.1),
+            );
+          });
+        }
     }
     return border?.resolve(states) ?? borderStyled.resolve(states);
   }
@@ -258,6 +266,9 @@ class TStyledContainer extends StatelessWidget {
     switch (variant) {
       case TStyledContainerVariant.basic:
         backgroundColorStyled = WidgetStateProperty.resolveWith((states) {
+          if (states.disabled) {
+            return Colors.transparent;
+          }
           if (states.hovered) {
             return _defaultBackgroundColor(context);
           }
@@ -267,6 +278,9 @@ class TStyledContainer extends StatelessWidget {
         backgroundColorStyled = const WidgetStatePropertyAll(null);
       case TStyledContainerVariant.outlined:
         backgroundColorStyled = WidgetStateProperty.resolveWith((states) {
+          if (states.disabled) {
+            return Colors.transparent;
+          }
           if (states.hovered) {
             return color == null
                 ? _defaultBackgroundColor(context)
@@ -276,6 +290,9 @@ class TStyledContainer extends StatelessWidget {
         });
       case TStyledContainerVariant.filled:
         backgroundColorStyled = WidgetStateProperty.resolveWith((states) {
+          if (states.disabled) {
+            return tw.colors.disabled;
+          }
           if (effectiveColor.isTransparent) {
             return effectiveColor;
           }
@@ -286,6 +303,9 @@ class TStyledContainer extends StatelessWidget {
         });
       case TStyledContainerVariant.soft:
         backgroundColorStyled = WidgetStateProperty.resolveWith((states) {
+          if (states.disabled) {
+            return tw.colors.disabled;
+          }
           if (states.hovered) {
             return tw.dark
                 ? effectiveColor.shade400.withValues(alpha: 0.2)
@@ -312,7 +332,9 @@ class TStyledContainer extends StatelessWidget {
   ) {
     final tw = context.tw;
     final effectiveColor = (color ?? tw.colors.primary).toMaterialColor();
-
+    if (states.disabled) {
+      return TextStyle(color: tw.colors.onDisabled);
+    }
     WidgetStateProperty<TextStyle?> textStyleStyled;
     switch (variant) {
       case TStyledContainerVariant.basic:
@@ -349,13 +371,12 @@ class TStyledContainer extends StatelessWidget {
           }
           return TextStyle(color: effectiveColor.contrastBlackWhite());
         });
-
       case TStyledContainerVariant.soft:
-        textStyleStyled = WidgetStatePropertyAll(
-          TextStyle(
+        textStyleStyled = WidgetStateProperty.resolveWith((states) {
+          return TextStyle(
             color: tw.dark ? effectiveColor.shade400 : effectiveColor.shade700,
-          ),
-        );
+          );
+        });
     }
     return textStyle?.resolve(states) ?? textStyleStyled.resolve(states);
   }
@@ -382,7 +403,6 @@ class TStyledContainer extends StatelessWidget {
           mouseCursor: mouseCursor,
           builder: (context, states) {
             final tw = context.tw;
-            final iconTheme = IconTheme.of(context);
 
             // Resolve the effective text style
             final effectiveTextStyle = DefaultTextStyle.of(context)
@@ -402,17 +422,36 @@ class TStyledContainer extends StatelessWidget {
             // Resolve the effective border
             final effectiveBorder = _effectiveBorder(context, states);
 
-            // Resolve the effective border radius
-            final effectiveBorderRadius =
-                _effectiveBorderRadius(context, states);
+            // Estimate the height of the content as a function of the font size
+            final estimatedHeight = effectiveTextStyle.fontSize
+                    ?.multiply(effectiveTextStyle.height) ??
+                TFontSize.text_md * (TTextStyle.text_md.height ?? 1.5);
 
-            // Based on the icon size, determine a fallback loading size
-            final effectiveIconSize =
-                iconSize ?? effectiveTextStyle.fontSize ?? TFontSize.text_sm;
-            double loadingSize = effectiveIconSize;
-            if (iconSize != null) {
-              loadingSize -= effectivePadding.vertical / 3;
+            // Estimate the height of the content with padding
+            final estimatedHeightWithPad =
+                estimatedHeight + effectivePadding.vertical / 2;
+
+            // Define the icon theme
+            final iconTheme = IconTheme.of(context).copyWith(
+              // This size will apply to everything except leading/trailing
+              size: estimatedHeight,
+              color: effectiveTextStyle.color,
+            );
+
+            // Resolve the effective border radius
+            // Clamp border radius to estimated size of the widget to ensure
+            // smooth animations and avoid snapping.
+            var br = _effectiveBorderRadius(context, states);
+            if (br != null) {
+              final rMax = Radius.circular(estimatedHeightWithPad);
+              br = BorderRadius.only(
+                topLeft: br.topLeft.clamp(maximum: rMax),
+                topRight: br.topRight.clamp(maximum: rMax),
+                bottomLeft: br.bottomLeft.clamp(maximum: rMax),
+                bottomRight: br.bottomRight.clamp(maximum: rMax),
+              );
             }
+            final effectiveBorderRadius = br;
 
             // Define the button content
             final hasChild = child != null;
@@ -423,7 +462,11 @@ class TStyledContainer extends StatelessWidget {
                   padding: EdgeInsets.only(
                     right: hasChild ? effectiveHorizontalOffset : 0,
                   ),
-                  child: leading,
+                  // Should be smaller than the effective content height
+                  child: IconTheme(
+                    data: iconTheme.copyWith(size: effectiveTextStyle.fontSize),
+                    child: leading!,
+                  ),
                 ),
               );
             }
@@ -436,7 +479,11 @@ class TStyledContainer extends StatelessWidget {
                   padding: EdgeInsets.only(
                     left: hasChild ? effectiveHorizontalOffset : 0,
                   ),
-                  child: trailing,
+                  // Should be smaller than the effective content height
+                  child: IconTheme(
+                    data: iconTheme.copyWith(size: effectiveTextStyle.fontSize),
+                    child: trailing!,
+                  ),
                 ),
               );
             }
@@ -445,23 +492,20 @@ class TStyledContainer extends StatelessWidget {
               focused: states.focused,
               focusColor: focusColor ?? tw.colors.focus,
               borderRadius: effectiveBorderRadius,
-              child: IconTheme(
-                data: iconTheme.copyWith(
-                  size: effectiveIconSize,
-                  color: effectiveTextStyle.color,
-                ),
-                child: DefaultTextStyle.merge(
-                  style: effectiveTextStyle,
-                  child: TTooltip(
-                    message: tooltip,
-                    child: AnimatedContainer(
-                      duration: animationDuration,
-                      padding: effectivePadding,
-                      decoration: BoxDecoration(
-                        color: effectiveBackgroundColor,
-                        border: effectiveBorder,
-                        borderRadius: effectiveBorderRadius,
-                      ),
+              child: DefaultTextStyle.merge(
+                style: effectiveTextStyle,
+                child: TTooltip(
+                  message: tooltip,
+                  child: AnimatedContainer(
+                    duration: animationDuration,
+                    padding: effectivePadding,
+                    decoration: BoxDecoration(
+                      color: effectiveBackgroundColor,
+                      border: effectiveBorder,
+                      borderRadius: effectiveBorderRadius,
+                    ),
+                    child: IconTheme(
+                      data: iconTheme,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
@@ -477,7 +521,7 @@ class TStyledContainer extends StatelessWidget {
                           if (isLoading)
                             loading ??
                                 SizedBox.square(
-                                  dimension: loadingSize,
+                                  dimension: estimatedHeight * 0.75,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2.5,
                                     color: effectiveTextStyle.color,

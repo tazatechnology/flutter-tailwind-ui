@@ -19,6 +19,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     required this.divider,
     required this.selection,
     required this.disabled,
+    required this.onDisabled,
   }) {
     this.primary = primary.toMaterialColor();
   }
@@ -35,6 +36,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? divider,
     Color? selection,
     Color? disabled,
+    Color? onDisabled,
   }) {
     final theme = TailwindColorTheme._fallback(brightness: Brightness.light);
     return theme.copyWith(
@@ -48,6 +50,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       divider: divider,
       selection: selection,
       disabled: disabled,
+      onDisabled: onDisabled,
     );
   }
 
@@ -63,6 +66,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? divider,
     Color? selection,
     Color? disabled,
+    Color? onDisabled,
   }) {
     final theme = TailwindColorTheme._fallback(brightness: Brightness.dark);
     return theme.copyWith(
@@ -76,6 +80,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       divider: divider,
       selection: selection,
       disabled: disabled,
+      onDisabled: onDisabled,
     );
   }
 
@@ -94,7 +99,8 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         focus: TColors.slate.shade700,
         divider: TColors.gray.shade200,
         selection: const Color(0xffb6d7ff),
-        disabled: TColors.gray.shade400,
+        disabled: TColors.gray.shade200,
+        onDisabled: TColors.gray.shade500,
       );
     } else {
       return TailwindColorTheme._(
@@ -108,6 +114,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         divider: TColors.neutral.shade800,
         selection: const Color(0xff385479),
         disabled: TColors.gray.shade600,
+        onDisabled: TColors.gray.shade400,
       );
     }
   }
@@ -156,6 +163,9 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   /// The color of disabled elements
   final Color disabled;
 
+  /// Color of text on disabled elements
+  final Color onDisabled;
+
   // ---------------------------------------------------------------------------
   // METHOD: copyWith
   // ---------------------------------------------------------------------------
@@ -172,6 +182,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? divider,
     Color? selection,
     Color? disabled,
+    Color? onDisabled,
   }) {
     return TailwindColorTheme._(
       primary: primary?.toMaterialColor() ?? this.primary,
@@ -184,6 +195,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       divider: divider ?? this.divider,
       selection: selection ?? this.selection,
       disabled: disabled ?? this.disabled,
+      onDisabled: onDisabled ?? this.onDisabled,
     );
   }
 
@@ -246,6 +258,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       divider: _lerpColor(divider, other.divider, t),
       selection: _lerpColor(selection, other.selection, t),
       disabled: _lerpColor(disabled, other.disabled, t),
+      onDisabled: _lerpColor(onDisabled, other.onDisabled, t),
     );
   }
 }

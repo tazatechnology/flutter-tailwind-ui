@@ -39,7 +39,7 @@ abstract final class TLetterSpacing {
 /// https://tailwindcss.com/docs/font-size
 abstract final class TTextStyle {
   /// [TextStyle] equivalent to Tailwind font size `text-xs`
-  static const text_xs = TextStyle(fontSize: TFontSize.text_xs, height: 1);
+  static const text_xs = TextStyle(fontSize: TFontSize.text_xs, height: 1.3);
 
   /// [TextStyle] equivalent to Tailwind font size `text-sm`
   static const text_sm = TextStyle(fontSize: TFontSize.text_sm, height: 1.4);

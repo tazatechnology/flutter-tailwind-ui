@@ -236,21 +236,17 @@ TBadge.filled(
 /// Source code for [_TBadgeCustomTheme]
 class _TBadgeCustomThemeSource {
   static const String code = r"""
-final border = Border.all(color: TColors.sky.shade100);
-final backgroundColor = TColors.sky.shade50;
-final padding = TOffset.x10 + TOffset.y4;
-const borderRadius = TBorderRadius.rounded_none;
-final textStyle = TextStyle(color: TColors.sky.shade800).medium;
-return TBadge.filled(
-  theme: TBadgeTheme(
-    border: WidgetStateProperty.all(border),
-    backgroundColor: WidgetStateProperty.all(backgroundColor),
-    padding: WidgetStateProperty.all(padding),
-    borderRadius: WidgetStateProperty.all(borderRadius),
-    textStyle: WidgetStateProperty.all(textStyle),
+TBadge.filled(
+  theme: TBadgeTheme.all(
+    border: Border.all(color: TColors.sky.shade100),
+    backgroundColor: TColors.sky.shade50,
+    padding: TOffset.x10 + TOffset.y4,
+    borderRadius: TBorderRadius.rounded_none,
+    textStyle: TextStyle(color: TColors.sky.shade800).medium,
   ),
+  onPressed: () {},
   child: const Text('Badge'),
-);
+)
 """;
 }
 
@@ -280,7 +276,7 @@ TBadge.filled(
     }),
     borderRadius: WidgetStateProperty.resolveWith((states) {
       if (states.hovered) {
-        return TBorderRadius.rounded_2xl;
+        return TBorderRadius.rounded_full;
       }
       return TBorderRadius.rounded_none;
     }),
@@ -292,6 +288,7 @@ TBadge.filled(
       return style.medium;
     }),
   ),
+  onPressed: () {},
   child: const Text('Badge'),
 )
 """;
@@ -661,6 +658,7 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
       children: [
         for (final variant in TButtonVariant.values)
           TButton.raw(
+            tooltip: '``$variant``',
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
@@ -670,6 +668,26 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
     );
   }
 }
+""";
+}
+
+/// Source code for [_TButtonDisabled]
+class _TButtonDisabledSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final variant in TButtonVariant.values)
+      TButton.raw(
+        variant: variant,
+        controller: TWidgetController(disabled: true),
+        child: const Text('Button'),
+        onPressed: () {},
+      ),
+  ],
+)
 """;
 }
 
@@ -730,6 +748,95 @@ class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
 """;
 }
 
+/// Source code for [_TButtonCustomTheme]
+class _TButtonCustomThemeSource {
+  static const String code = r"""
+TButton.filled(
+  theme: TButtonTheme.all(
+    border: Border.all(color: TColors.sky.shade100),
+    backgroundColor: TColors.sky.shade50,
+    padding: TOffset.x10 + TOffset.y4,
+    borderRadius: TBorderRadius.rounded_none,
+    textStyle: TextStyle(color: TColors.sky.shade800).medium,
+  ),
+  onPressed: () {},
+  child: const Text('Button'),
+)
+""";
+}
+
+/// Source code for [_TButtonStatefulTheme]
+class _TButtonStatefulThemeSource {
+  static const String code = r"""
+TButton.filled(
+  theme: TButtonTheme(
+    animationDuration: const Duration(milliseconds: 250),
+    border: WidgetStateProperty.resolveWith((states) {
+      if (states.hovered) {
+        return Border.all(color: TColors.sky);
+      }
+      return Border.all(color: TColors.sky.shade100);
+    }),
+    backgroundColor: WidgetStateProperty.resolveWith((states) {
+      if (states.hovered) {
+        return TColors.sky.shade100;
+      }
+      return TColors.sky.shade50;
+    }),
+    padding: WidgetStateProperty.resolveWith((states) {
+      if (states.hovered) {
+        return TOffset.x16 + TOffset.y4;
+      }
+      return TOffset.x10 + TOffset.y4;
+    }),
+    borderRadius: WidgetStateProperty.resolveWith((states) {
+      if (states.hovered) {
+        return TBorderRadius.rounded_full;
+      }
+      return TBorderRadius.rounded_none;
+    }),
+    textStyle: WidgetStateProperty.resolveWith((states) {
+      final style = TextStyle(color: TColors.sky.shade800).medium;
+      if (states.hovered) {
+        return style.semibold;
+      }
+      return style.medium;
+    }),
+  ),
+  onPressed: () {},
+  child: const Text('Button'),
+)
+""";
+}
+
+/// Source code for [_TButtonIconCompare]
+class _TButtonIconCompareSource {
+  static const String code = r"""
+Column(
+  spacing: TSpace.v6,
+  children: [
+    for (final size in TButtonSize.values)
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: TSpace.v6,
+        children: [
+          TIconButton.filled(
+            size: size,
+            onPressed: () {},
+            icon: const Icon(Icons.add),
+          ),
+          TButton.filled(
+            size: size,
+            onPressed: () {},
+            child: const Text('Button'),
+          ),
+        ],
+      ),
+  ],
+)
+""";
+}
+
 /// Source code for [_TIconButtonBasic]
 class _TIconButtonBasicSource {
   static const String code = r"""
@@ -774,7 +881,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TIconButtonSize.values)
+    for (final size in TButtonSize.values)
       TIconButton(
         size: size,
         tooltip: '``$size``',
@@ -793,7 +900,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TIconButtonSize.values)
+    for (final size in TButtonSize.values)
       TIconButton.outlined(
         size: size,
         tooltip: '``$size``',
@@ -812,7 +919,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TIconButtonSize.values)
+    for (final size in TButtonSize.values)
       TIconButton.filled(
         size: size,
         tooltip: '``$size``',
@@ -831,7 +938,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TIconButtonSize.values)
+    for (final size in TButtonSize.values)
       TIconButton.soft(
         size: size,
         tooltip: '``$size``',
@@ -1001,6 +1108,7 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
       children: [
         for (final variant in TIconButtonVariant.values)
           TIconButton.raw(
+            tooltip: '``$variant``',
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
@@ -1010,6 +1118,25 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
     );
   }
 }
+""";
+}
+
+/// Source code for [_TIconButtonDisabled]
+class _TIconButtonDisabledSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final variant in TIconButtonVariant.values)
+      TIconButton.raw(
+        variant: variant,
+        controller: TWidgetController(disabled: true),
+        icon: const Icon(Icons.add),
+      ),
+  ],
+)
 """;
 }
 
@@ -1068,5 +1195,61 @@ class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
     );
   }
 }
+""";
+}
+
+/// Source code for [_TIconButtonCustomTheme]
+class _TIconButtonCustomThemeSource {
+  static const String code = r"""
+TIconButton.filled(
+  theme: TButtonTheme.all(
+    border: Border.all(color: TColors.sky.shade100),
+    backgroundColor: TColors.sky.shade50,
+    padding: TOffset.a6,
+    borderRadius: TBorderRadius.rounded_none,
+    textStyle: TextStyle(color: TColors.sky.shade800).medium,
+  ),
+  onPressed: () {},
+  icon: const Icon(Icons.add),
+)
+""";
+}
+
+/// Source code for [_TIconButtonStatefulTheme]
+class _TIconButtonStatefulThemeSource {
+  static const String code = r"""
+TIconButton.filled(
+  theme: TButtonTheme(
+    animationDuration: const Duration(milliseconds: 250),
+    border: WidgetStateProperty.resolveWith((states) {
+      if (states.hovered) {
+        return Border.all(color: TColors.sky);
+      }
+      return Border.all(color: TColors.sky.shade100);
+    }),
+    backgroundColor: WidgetStateProperty.resolveWith((states) {
+      if (states.hovered) {
+        return TColors.sky.shade100;
+      }
+      return TColors.sky.shade50;
+    }),
+    padding: const WidgetStatePropertyAll(TOffset.a6),
+    borderRadius: WidgetStateProperty.resolveWith((states) {
+      if (states.hovered) {
+        return TBorderRadius.rounded_full;
+      }
+      return TBorderRadius.rounded_none;
+    }),
+    textStyle: WidgetStateProperty.resolveWith((states) {
+      final style = TextStyle(color: TColors.sky.shade800).medium;
+      if (states.hovered) {
+        return style.semibold;
+      }
+      return style.medium;
+    }),
+  ),
+  onPressed: () {},
+  icon: const Icon(Icons.add),
+)
 """;
 }

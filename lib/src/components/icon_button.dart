@@ -22,60 +22,6 @@ enum TIconButtonVariant {
 }
 
 // =============================================================================
-// ENUM: TIconButtonSize
-// =============================================================================
-
-/// The size of the icon button.
-enum TIconButtonSize {
-  /// A small icon button.
-  sm,
-
-  /// A medium icon button.
-  md,
-
-  /// A large icon button.
-  lg,
-}
-
-/// Extension on [TIconButtonSize] to provide useful methods
-extension XTailwindTIconButtonSize on TIconButtonSize {
-  /// The font size associated with the given [TIconButtonSize].
-  double get iconSize {
-    switch (this) {
-      case TIconButtonSize.sm:
-        return TSpace.v14;
-      case TIconButtonSize.md:
-        return TSpace.v16;
-      case TIconButtonSize.lg:
-        return TSpace.v20;
-    }
-  }
-
-  /// The padding associated with the given [TIconButtonSize].
-  EdgeInsets get padding {
-    switch (this) {
-      case TIconButtonSize.sm:
-        return TOffset.a4;
-      case TIconButtonSize.md:
-        return TOffset.a6;
-      case TIconButtonSize.lg:
-        return TOffset.a8;
-    }
-  }
-
-  /// The border radius associated with the given [TIconButtonSize].
-  BorderRadius get borerRadius {
-    switch (this) {
-      case TIconButtonSize.sm:
-      case TIconButtonSize.md:
-        return TBorderRadius.rounded;
-      case TIconButtonSize.lg:
-        return TBorderRadius.rounded_md;
-    }
-  }
-}
-
-// =============================================================================
 // CLASS: TIconButton
 // =============================================================================
 
@@ -87,7 +33,7 @@ class TIconButton extends StatelessWidget {
     this.icon,
     this.loading,
     this.theme,
-    this.size = TIconButtonSize.md,
+    this.size = TButtonSize.md,
     this.color,
     this.controller,
     this.onPressed,
@@ -101,7 +47,7 @@ class TIconButton extends StatelessWidget {
     this.icon,
     this.loading,
     this.theme,
-    this.size = TIconButtonSize.md,
+    this.size = TButtonSize.md,
     this.color,
     this.controller,
     this.onPressed,
@@ -115,7 +61,7 @@ class TIconButton extends StatelessWidget {
     this.icon,
     this.loading,
     this.theme,
-    this.size = TIconButtonSize.md,
+    this.size = TButtonSize.md,
     this.color,
     this.controller,
     this.onPressed,
@@ -129,7 +75,7 @@ class TIconButton extends StatelessWidget {
     this.icon,
     this.loading,
     this.theme,
-    this.size = TIconButtonSize.md,
+    this.size = TButtonSize.md,
     this.color,
     this.controller,
     this.onPressed,
@@ -144,7 +90,7 @@ class TIconButton extends StatelessWidget {
     this.icon,
     this.loading,
     this.theme,
-    this.size = TIconButtonSize.md,
+    this.size = TButtonSize.md,
     this.color,
     this.controller,
     this.onPressed,
@@ -165,7 +111,7 @@ class TIconButton extends StatelessWidget {
   final TButtonTheme? theme;
 
   /// The custom theme override for the button.
-  final TIconButtonSize size;
+  final TButtonSize size;
 
   /// The color to use for button styling.
   final Color? color;
@@ -197,6 +143,9 @@ class TIconButton extends StatelessWidget {
         styledVariant = TStyledContainerVariant.soft;
     }
 
+    // Icon padding should be square.
+    final iconPadding = EdgeInsets.all(size.padding.vertical / 2);
+
     return TStyledContainer(
       controller: controller,
       color: color,
@@ -204,18 +153,20 @@ class TIconButton extends StatelessWidget {
       animationDuration: theme?.animationDuration ?? Duration.zero,
       variant: styledVariant,
       tooltip: tooltip,
+      baseTextStyle: size.textStyle,
       textStyle: theme?.textStyle,
-      iconSize: size.iconSize,
       backgroundColor: theme?.backgroundColor,
-      padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
+      padding: theme?.padding ?? WidgetStatePropertyAll(iconPadding),
       border: theme?.border,
       borderRadius:
-          theme?.borderRadius ?? WidgetStatePropertyAll(size.borerRadius),
+          theme?.borderRadius ?? WidgetStatePropertyAll(size.borderRadius),
       mouseCursor: theme?.mouseCursor,
       loading: loading,
       onTap: onPressed,
       onHover: onHover,
-      child: icon,
+      child: SelectionContainer.disabled(
+        child: icon ?? const SizedBox.shrink(),
+      ),
     );
   }
 }

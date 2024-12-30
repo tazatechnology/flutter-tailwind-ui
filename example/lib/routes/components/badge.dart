@@ -115,7 +115,7 @@ class ComponentRouteTBadge extends StatelessWidget {
             AppPreviewCard(
               title: 'Static theme (``TBadgeTheme``)',
               description:
-                  'All theming is powered by the `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to  `WidgetStateProperty.all()`',
+                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TBadgeTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
               code: _TBadgeCustomThemeSource.code,
               child: _TBadgeCustomTheme(),
             ),
@@ -457,19 +457,15 @@ class _TBadgeCustomTheme extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final border = Border.all(color: TColors.sky.shade100);
-    final backgroundColor = TColors.sky.shade50;
-    final padding = TOffset.x10 + TOffset.y4;
-    const borderRadius = TBorderRadius.rounded_none;
-    final textStyle = TextStyle(color: TColors.sky.shade800).medium;
     return TBadge.filled(
-      theme: TBadgeTheme(
-        border: WidgetStateProperty.all(border),
-        backgroundColor: WidgetStateProperty.all(backgroundColor),
-        padding: WidgetStateProperty.all(padding),
-        borderRadius: WidgetStateProperty.all(borderRadius),
-        textStyle: WidgetStateProperty.all(textStyle),
+      theme: TBadgeTheme.all(
+        border: Border.all(color: TColors.sky.shade100),
+        backgroundColor: TColors.sky.shade50,
+        padding: TOffset.x10 + TOffset.y4,
+        borderRadius: TBorderRadius.rounded_none,
+        textStyle: TextStyle(color: TColors.sky.shade800).medium,
       ),
+      onPressed: () {},
       child: const Text('Badge'),
     );
   }
@@ -508,7 +504,7 @@ class _TBadgeStatefulTheme extends StatelessWidget {
         }),
         borderRadius: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
-            return TBorderRadius.rounded_2xl;
+            return TBorderRadius.rounded_full;
           }
           return TBorderRadius.rounded_none;
         }),
@@ -520,6 +516,7 @@ class _TBadgeStatefulTheme extends StatelessWidget {
           return style.medium;
         }),
       ),
+      onPressed: () {},
       child: const Text('Badge'),
     );
   }

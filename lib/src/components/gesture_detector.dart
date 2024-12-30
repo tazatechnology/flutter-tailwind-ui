@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 // =============================================================================
 // CLASS: TGestureDetector
@@ -537,9 +538,12 @@ class _TGestureDetectorState extends State<TGestureDetector> {
 
   @override
   Widget build(BuildContext context) {
-    final mouseCursorFallback = widget.onTap != null
-        ? SystemMouseCursors.click
-        : SystemMouseCursors.basic;
+    MouseCursor mouseCursorFallback = SystemMouseCursors.basic;
+    if (controller.disabled) {
+      mouseCursorFallback = SystemMouseCursors.forbidden;
+    } else if (widget.onTap != null) {
+      mouseCursorFallback = SystemMouseCursors.click;
+    }
 
     return ListenableBuilder(
       listenable: controller,
@@ -548,120 +552,125 @@ class _TGestureDetectorState extends State<TGestureDetector> {
         final mouseCursor = widget.mouseCursor?.resolve(controller.value) ??
             mouseCursorFallback;
 
-        return DefaultSelectionStyle.merge(
+        final content = DefaultSelectionStyle.merge(
           mouseCursor: mouseCursor,
-          child: GestureDetector(
-            onTap: widget.onTap,
-            onTapDown: (details) {
-              widget.onTapDown?.call(details);
-              controller.update(WidgetState.pressed, true);
+          child: Focus(
+            canRequestFocus: widget.canRequestFocus ?? widget.onTap != null,
+            focusNode: widget.focusNode,
+            skipTraversal: widget.skipTraversal,
+            descendantsAreFocusable: widget.descendantsAreFocusable,
+            descendantsAreTraversable: widget.descendantsAreTraversable,
+            onFocusChange: (value) {
+              widget.onFocus?.call(value);
+              controller.update(WidgetState.focused, value);
             },
-            onTapUp: (details) {
-              widget.onTapUp?.call(details);
-              controller.update(WidgetState.pressed, false);
+            onKeyEvent: (node, event) {
+              if (widget.onKeyEvent != null) {
+                return widget.onKeyEvent!.call(node, event);
+              }
+              // Propagate enter key events to the onTap callback
+              if (event.logicalKey == LogicalKeyboardKey.enter) {
+                widget.onTap?.call();
+                return KeyEventResult.handled;
+              }
+              return KeyEventResult.ignored;
             },
-            onTapCancel: () {
-              widget.onTapCancel?.call();
-              controller.update(WidgetState.pressed, false);
-            },
-            onDoubleTap: widget.onDoubleTap,
-            onDoubleTapDown: widget.onDoubleTapDown,
-            onDoubleTapCancel: widget.onDoubleTapCancel,
-            onLongPress: widget.onLongPress,
-            onLongPressDown: widget.onLongPressDown,
-            onLongPressMoveUpdate: widget.onLongPressMoveUpdate,
-            onLongPressUp: widget.onLongPressUp,
-            onLongPressStart: (details) {
-              widget.onLongPressStart?.call(details);
-              controller.update(WidgetState.dragged, true);
-            },
-            onLongPressEnd: (details) {
-              widget.onLongPressEnd?.call(details);
-              controller.update(WidgetState.dragged, false);
-            },
-            onLongPressCancel: () {
-              widget.onLongPressCancel?.call();
-              controller.update(WidgetState.dragged, false);
-            },
-            onSecondaryTap: widget.onSecondaryTap,
-            onSecondaryTapUp: widget.onSecondaryTapUp,
-            onSecondaryTapDown: widget.onSecondaryTapDown,
-            onSecondaryTapCancel: widget.onSecondaryTapCancel,
-            onSecondaryLongPress: widget.onSecondaryLongPress,
-            onSecondaryLongPressStart: widget.onSecondaryLongPressStart,
-            onSecondaryLongPressMoveUpdate:
-                widget.onSecondaryLongPressMoveUpdate,
-            onSecondaryLongPressUp: widget.onSecondaryLongPressUp,
-            onSecondaryLongPressEnd: widget.onSecondaryLongPressEnd,
-            onSecondaryLongPressDown: widget.onSecondaryLongPressDown,
-            onSecondaryLongPressCancel: widget.onSecondaryLongPressCancel,
-            onTertiaryTapDown: widget.onTertiaryTapDown,
-            onTertiaryTapUp: widget.onTertiaryTapUp,
-            onTertiaryTapCancel: widget.onTertiaryTapCancel,
-            onTertiaryLongPressDown: widget.onTertiaryLongPressDown,
-            onTertiaryLongPressCancel: widget.onTertiaryLongPressCancel,
-            onTertiaryLongPress: widget.onTertiaryLongPress,
-            onTertiaryLongPressStart: widget.onTertiaryLongPressStart,
-            onTertiaryLongPressMoveUpdate: widget.onTertiaryLongPressMoveUpdate,
-            onTertiaryLongPressUp: widget.onTertiaryLongPressUp,
-            onTertiaryLongPressEnd: widget.onTertiaryLongPressEnd,
-            onVerticalDragDown: widget.onVerticalDragDown,
-            onVerticalDragStart: widget.onVerticalDragStart,
-            onVerticalDragUpdate: widget.onVerticalDragUpdate,
-            onVerticalDragEnd: widget.onVerticalDragEnd,
-            onVerticalDragCancel: widget.onVerticalDragCancel,
-            onHorizontalDragDown: widget.onHorizontalDragDown,
-            onHorizontalDragStart: widget.onHorizontalDragStart,
-            onHorizontalDragUpdate: widget.onHorizontalDragUpdate,
-            onHorizontalDragEnd: widget.onHorizontalDragEnd,
-            onHorizontalDragCancel: widget.onHorizontalDragCancel,
-            onPanDown: widget.onPanDown,
-            onPanStart: widget.onPanStart,
-            onPanUpdate: widget.onPanUpdate,
-            onPanEnd: widget.onPanEnd,
-            onPanCancel: widget.onPanCancel,
-            onScaleStart: widget.onScaleStart,
-            onScaleUpdate: widget.onScaleUpdate,
-            onScaleEnd: widget.onScaleEnd,
-            onForcePressStart: widget.onForcePressStart,
-            onForcePressPeak: widget.onForcePressPeak,
-            onForcePressUpdate: widget.onForcePressUpdate,
-            onForcePressEnd: widget.onForcePressEnd,
-            child: Focus(
-              canRequestFocus: widget.canRequestFocus ?? widget.onTap != null,
-              focusNode: widget.focusNode,
-              skipTraversal: widget.skipTraversal,
-              descendantsAreFocusable: widget.descendantsAreFocusable,
-              descendantsAreTraversable: widget.descendantsAreTraversable,
-              onFocusChange: (value) {
-                widget.onFocus?.call(value);
-                controller.update(WidgetState.focused, value);
+            child: MouseRegion(
+              cursor: mouseCursor,
+              child: child,
+              onEnter: (event) {
+                widget.onHover?.call(true);
+                controller.update(WidgetState.hovered, true);
               },
-              onKeyEvent: (node, event) {
-                if (widget.onKeyEvent != null) {
-                  return widget.onKeyEvent!.call(node, event);
-                }
-                // Propagate enter key events to the onTap callback
-                if (event.logicalKey == LogicalKeyboardKey.enter) {
-                  widget.onTap?.call();
-                  return KeyEventResult.handled;
-                }
-                return KeyEventResult.ignored;
+              onExit: (event) {
+                widget.onHover?.call(false);
+                controller.update(WidgetState.hovered, false);
               },
-              child: MouseRegion(
-                cursor: mouseCursor,
-                child: child,
-                onEnter: (event) {
-                  widget.onHover?.call(true);
-                  controller.update(WidgetState.hovered, true);
-                },
-                onExit: (event) {
-                  widget.onHover?.call(false);
-                  controller.update(WidgetState.hovered, false);
-                },
-              ),
             ),
           ),
+        );
+
+        if (controller.disabled) {
+          return content;
+        }
+
+        return GestureDetector(
+          onTap: widget.onTap,
+          onTapDown: (details) {
+            widget.onTapDown?.call(details);
+            controller.update(WidgetState.pressed, true);
+          },
+          onTapUp: (details) {
+            widget.onTapUp?.call(details);
+            controller.update(WidgetState.pressed, false);
+          },
+          onTapCancel: () {
+            widget.onTapCancel?.call();
+            controller.update(WidgetState.pressed, false);
+          },
+          onDoubleTap: widget.onDoubleTap,
+          onDoubleTapDown: widget.onDoubleTapDown,
+          onDoubleTapCancel: widget.onDoubleTapCancel,
+          onLongPress: widget.onLongPress,
+          onLongPressDown: widget.onLongPressDown,
+          onLongPressMoveUpdate: widget.onLongPressMoveUpdate,
+          onLongPressUp: widget.onLongPressUp,
+          onLongPressStart: (details) {
+            widget.onLongPressStart?.call(details);
+            controller.update(WidgetState.dragged, true);
+          },
+          onLongPressEnd: (details) {
+            widget.onLongPressEnd?.call(details);
+            controller.update(WidgetState.dragged, false);
+          },
+          onLongPressCancel: () {
+            widget.onLongPressCancel?.call();
+            controller.update(WidgetState.dragged, false);
+          },
+          onSecondaryTap: widget.onSecondaryTap,
+          onSecondaryTapUp: widget.onSecondaryTapUp,
+          onSecondaryTapDown: widget.onSecondaryTapDown,
+          onSecondaryTapCancel: widget.onSecondaryTapCancel,
+          onSecondaryLongPress: widget.onSecondaryLongPress,
+          onSecondaryLongPressStart: widget.onSecondaryLongPressStart,
+          onSecondaryLongPressMoveUpdate: widget.onSecondaryLongPressMoveUpdate,
+          onSecondaryLongPressUp: widget.onSecondaryLongPressUp,
+          onSecondaryLongPressEnd: widget.onSecondaryLongPressEnd,
+          onSecondaryLongPressDown: widget.onSecondaryLongPressDown,
+          onSecondaryLongPressCancel: widget.onSecondaryLongPressCancel,
+          onTertiaryTapDown: widget.onTertiaryTapDown,
+          onTertiaryTapUp: widget.onTertiaryTapUp,
+          onTertiaryTapCancel: widget.onTertiaryTapCancel,
+          onTertiaryLongPressDown: widget.onTertiaryLongPressDown,
+          onTertiaryLongPressCancel: widget.onTertiaryLongPressCancel,
+          onTertiaryLongPress: widget.onTertiaryLongPress,
+          onTertiaryLongPressStart: widget.onTertiaryLongPressStart,
+          onTertiaryLongPressMoveUpdate: widget.onTertiaryLongPressMoveUpdate,
+          onTertiaryLongPressUp: widget.onTertiaryLongPressUp,
+          onTertiaryLongPressEnd: widget.onTertiaryLongPressEnd,
+          onVerticalDragDown: widget.onVerticalDragDown,
+          onVerticalDragStart: widget.onVerticalDragStart,
+          onVerticalDragUpdate: widget.onVerticalDragUpdate,
+          onVerticalDragEnd: widget.onVerticalDragEnd,
+          onVerticalDragCancel: widget.onVerticalDragCancel,
+          onHorizontalDragDown: widget.onHorizontalDragDown,
+          onHorizontalDragStart: widget.onHorizontalDragStart,
+          onHorizontalDragUpdate: widget.onHorizontalDragUpdate,
+          onHorizontalDragEnd: widget.onHorizontalDragEnd,
+          onHorizontalDragCancel: widget.onHorizontalDragCancel,
+          onPanDown: widget.onPanDown,
+          onPanStart: widget.onPanStart,
+          onPanUpdate: widget.onPanUpdate,
+          onPanEnd: widget.onPanEnd,
+          onPanCancel: widget.onPanCancel,
+          onScaleStart: widget.onScaleStart,
+          onScaleUpdate: widget.onScaleUpdate,
+          onScaleEnd: widget.onScaleEnd,
+          onForcePressStart: widget.onForcePressStart,
+          onForcePressPeak: widget.onForcePressPeak,
+          onForcePressUpdate: widget.onForcePressUpdate,
+          onForcePressEnd: widget.onForcePressEnd,
+          child: content,
         );
       },
     );

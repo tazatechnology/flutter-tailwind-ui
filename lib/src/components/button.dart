@@ -52,7 +52,7 @@ extension XTailwindTButtonSize on TButtonSize {
   EdgeInsets get padding {
     switch (this) {
       case TButtonSize.xs:
-        return TOffset.x6 + TOffset.y2;
+        return TOffset.x6 + TOffset.y4;
       case TButtonSize.sm:
         return TOffset.x8 + TOffset.y4;
       case TButtonSize.md:
@@ -64,21 +64,21 @@ extension XTailwindTButtonSize on TButtonSize {
     }
   }
 
-  /// The font size associated with the given [TButtonSize].
-  double get fontSize {
+  /// The default text style associated with the given [TButtonSize].
+  TextStyle get textStyle {
     switch (this) {
       case TButtonSize.xs:
-        return TFontSize.text_xs;
+        return TTextStyle.text_xs.medium;
       case TButtonSize.sm:
       case TButtonSize.md:
       case TButtonSize.lg:
       case TButtonSize.xl:
-        return TFontSize.text_sm;
+        return TTextStyle.text_sm.medium;
     }
   }
 
   /// The border radius associated with the given [TButtonSize].
-  BorderRadius get borerRadius {
+  BorderRadius get borderRadius {
     switch (this) {
       case TButtonSize.xs:
       case TButtonSize.sm:
@@ -265,21 +265,22 @@ class TButton extends StatelessWidget {
       animationDuration: theme?.animationDuration ?? Duration.zero,
       variant: styledVariant,
       tooltip: tooltip,
-      baseTextStyle:
-          TextStyle(fontSize: size.fontSize).medium.merge(baseTextStyle),
+      baseTextStyle: size.textStyle.merge(baseTextStyle),
       textStyle: theme?.textStyle,
       backgroundColor: theme?.backgroundColor,
       padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
       border: theme?.border,
       borderRadius:
-          theme?.borderRadius ?? WidgetStatePropertyAll(size.borerRadius),
+          theme?.borderRadius ?? WidgetStatePropertyAll(size.borderRadius),
       mouseCursor: theme?.mouseCursor,
       leading: leading,
       trailing: trailing,
       loading: loading,
       onTap: onPressed,
       onHover: onHover,
-      child: child,
+      child: SelectionContainer.disabled(
+        child: child ?? const SizedBox.shrink(),
+      ),
     );
   }
 }
@@ -301,6 +302,35 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
     this.mouseCursor,
     this.focusColor,
   });
+
+  /// Set button theme data for every [WidgetState] at once.
+  ///
+  /// Useful if you want to set the same theme for every [WidgetState].
+  factory TButtonTheme.all({
+    Duration? animationDuration,
+    Color? backgroundColor,
+    EdgeInsetsGeometry? padding,
+    BoxBorder? border,
+    BorderRadius? borderRadius,
+    TextStyle? textStyle,
+    MouseCursor? mouseCursor,
+    Color? focusColor,
+  }) {
+    return TButtonTheme(
+      animationDuration: animationDuration ?? Duration.zero,
+      backgroundColor: backgroundColor == null
+          ? null
+          : WidgetStatePropertyAll(backgroundColor),
+      padding: padding == null ? null : WidgetStatePropertyAll(padding),
+      border: border == null ? null : WidgetStatePropertyAll(border),
+      borderRadius:
+          borderRadius == null ? null : WidgetStatePropertyAll(borderRadius),
+      textStyle: textStyle == null ? null : WidgetStatePropertyAll(textStyle),
+      mouseCursor:
+          mouseCursor == null ? null : WidgetStatePropertyAll(mouseCursor),
+      focusColor: focusColor,
+    );
+  }
 
   /// The duration of the badge animation.
   final Duration animationDuration;

@@ -289,7 +289,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.2"
+    version: "0.0.3"
   flutter_web_plugins:
     dependency: "direct main"
     description: flutter

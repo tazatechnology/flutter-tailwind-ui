@@ -22,9 +22,11 @@ export 'src/constants/radius.dart';
 export 'src/constants/screen.dart';
 export 'src/constants/space.dart';
 export 'src/constants/text.dart';
+
 // Extensions
 export 'src/extensions/build_context.dart';
 export 'src/extensions/color.dart';
+export 'src/extensions/numeric.dart';
 export 'src/extensions/text_style.dart';
 export 'src/extensions/widget_state.dart';
 
@@ -32,6 +34,7 @@ export 'src/extensions/widget_state.dart';
 export 'src/theme/color.dart';
 export 'src/theme/text.dart';
 export 'src/theme/theme.dart';
+
 // Utilities
 export 'src/utilities/highlighter.dart';
 export 'src/utilities/rich_parser.dart';

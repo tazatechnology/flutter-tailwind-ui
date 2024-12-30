@@ -148,9 +148,45 @@ class ComponentRouteTButton extends StatelessWidget {
               child: _TButtonLoading(),
             ),
             AppPreviewCard(
+              title: 'Controller to manage disabled state',
+              code: _TButtonDisabledSource.code,
+              child: _TButtonDisabled(),
+            ),
+            AppPreviewCard(
               title: 'Custom loading widget',
               code: _TButtonLoadingCustomSource.code,
               child: _TButtonLoadingCustom(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Custom button theming',
+          children: const [
+            AppPreviewCard(
+              title: 'Static theme (``TButtonTheme``)',
+              description:
+                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TButtonTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
+              code: _TButtonCustomThemeSource.code,
+              child: _TButtonCustomTheme(),
+            ),
+            AppPreviewCard(
+              title: 'Stateful theme (``TButtonTheme``)',
+              description:
+                  'For full theme control, you can use the `WidgetStateProperty.resolveWith()` method to dynamically change the button theme based on the current `WidgetState`.',
+              code: _TButtonStatefulThemeSource.code,
+              child: _TButtonStatefulTheme(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Icon only button',
+          children: const [
+            AppPreviewCard(
+              title: 'Use `TIconButton` for icon only buttons',
+              description:
+                  '`TButton` has a complimentary `TIconButton` widget for icon only buttons. This widget has the analogous sizing, styling, and theming capabilities as `TButton` to ensure UI consistency out of the box.',
+              code: _TButtonIconCompareSource.code,
+              child: _TButtonIconCompare(),
             ),
           ],
         ),
@@ -651,10 +687,38 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
       children: [
         for (final variant in TButtonVariant.values)
           TButton.raw(
+            tooltip: '``$variant``',
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
             child: const Text('Button'),
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TButtonDisabled
+// =============================================================================
+
+@GenerateSource()
+class _TButtonDisabled extends StatelessWidget {
+  const _TButtonDisabled();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final variant in TButtonVariant.values)
+          TButton.raw(
+            variant: variant,
+            controller: TWidgetController(disabled: true),
+            child: const Text('Button'),
+            onPressed: () {},
           ),
       ],
     );
@@ -712,6 +776,116 @@ class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
             onPressed: onPressed,
             loading: const Icon(Icons.hourglass_bottom_rounded),
             child: const Text('Button'),
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TButtonCustomTheme
+// =============================================================================
+
+@GenerateSource()
+class _TButtonCustomTheme extends StatelessWidget {
+  const _TButtonCustomTheme();
+
+  @override
+  Widget build(BuildContext context) {
+    return TButton.filled(
+      theme: TButtonTheme.all(
+        border: Border.all(color: TColors.sky.shade100),
+        backgroundColor: TColors.sky.shade50,
+        padding: TOffset.x10 + TOffset.y4,
+        borderRadius: TBorderRadius.rounded_none,
+        textStyle: TextStyle(color: TColors.sky.shade800).medium,
+      ),
+      onPressed: () {},
+      child: const Text('Button'),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TButtonStatefulTheme
+// =============================================================================
+
+@GenerateSource()
+class _TButtonStatefulTheme extends StatelessWidget {
+  const _TButtonStatefulTheme();
+
+  @override
+  Widget build(BuildContext context) {
+    return TButton.filled(
+      theme: TButtonTheme(
+        animationDuration: const Duration(milliseconds: 250),
+        border: WidgetStateProperty.resolveWith((states) {
+          if (states.hovered) {
+            return Border.all(color: TColors.sky);
+          }
+          return Border.all(color: TColors.sky.shade100);
+        }),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.hovered) {
+            return TColors.sky.shade100;
+          }
+          return TColors.sky.shade50;
+        }),
+        padding: WidgetStateProperty.resolveWith((states) {
+          if (states.hovered) {
+            return TOffset.x16 + TOffset.y4;
+          }
+          return TOffset.x10 + TOffset.y4;
+        }),
+        borderRadius: WidgetStateProperty.resolveWith((states) {
+          if (states.hovered) {
+            return TBorderRadius.rounded_full;
+          }
+          return TBorderRadius.rounded_none;
+        }),
+        textStyle: WidgetStateProperty.resolveWith((states) {
+          final style = TextStyle(color: TColors.sky.shade800).medium;
+          if (states.hovered) {
+            return style.semibold;
+          }
+          return style.medium;
+        }),
+      ),
+      onPressed: () {},
+      child: const Text('Button'),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TButtonIconCompare
+// =============================================================================
+
+@GenerateSource()
+class _TButtonIconCompare extends StatelessWidget {
+  const _TButtonIconCompare();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: TSpace.v6,
+      children: [
+        for (final size in TButtonSize.values)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: TSpace.v6,
+            children: [
+              TIconButton.filled(
+                size: size,
+                onPressed: () {},
+                icon: const Icon(Icons.add),
+              ),
+              TButton.filled(
+                size: size,
+                onPressed: () {},
+                child: const Text('Button'),
+              ),
+            ],
           ),
       ],
     );
