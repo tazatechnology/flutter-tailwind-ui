@@ -460,7 +460,7 @@ class _TBadgeCustomTheme extends StatelessWidget {
     return TBadge.filled(
       theme: TBadgeTheme.all(
         border: Border.all(color: TColors.sky.shade100),
-        backgroundColor: TColors.sky.shade50,
+        backgroundColor: TColors.sky.shade200,
         padding: TOffset.x10 + TOffset.y4,
         borderRadius: TBorderRadius.rounded_none,
         textStyle: TextStyle(color: TColors.sky.shade800).medium,
@@ -494,7 +494,7 @@ class _TBadgeStatefulTheme extends StatelessWidget {
           if (states.hovered) {
             return TColors.sky.shade100;
           }
-          return TColors.sky.shade50;
+          return TColors.sky.shade200;
         }),
         padding: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {

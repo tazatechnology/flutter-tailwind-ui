@@ -156,6 +156,7 @@ class TIconButton extends StatelessWidget {
       baseTextStyle: size.textStyle,
       textStyle: theme?.textStyle,
       backgroundColor: theme?.backgroundColor,
+      elevation: theme?.elevation,
       padding: theme?.padding ?? WidgetStatePropertyAll(iconPadding),
       border: theme?.border,
       borderRadius:

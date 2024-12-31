@@ -20,6 +20,7 @@ export 'src/constants/font_size.dart';
 export 'src/constants/offset.dart';
 export 'src/constants/radius.dart';
 export 'src/constants/screen.dart';
+export 'src/constants/shadow.dart';
 export 'src/constants/space.dart';
 export 'src/constants/text.dart';
 

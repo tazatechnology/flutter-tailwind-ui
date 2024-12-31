@@ -1,3 +1,5 @@
+import 'dart:ui' show lerpDouble;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/internal/styled_container.dart';
@@ -268,6 +270,7 @@ class TButton extends StatelessWidget {
       baseTextStyle: size.textStyle.merge(baseTextStyle),
       textStyle: theme?.textStyle,
       backgroundColor: theme?.backgroundColor,
+      elevation: theme?.elevation,
       padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
       border: theme?.border,
       borderRadius:
@@ -295,6 +298,7 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
   const TButtonTheme({
     this.animationDuration = Duration.zero,
     this.backgroundColor,
+    this.elevation,
     this.padding,
     this.border,
     this.borderRadius,
@@ -309,6 +313,7 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
   factory TButtonTheme.all({
     Duration? animationDuration,
     Color? backgroundColor,
+    double? elevation,
     EdgeInsetsGeometry? padding,
     BoxBorder? border,
     BorderRadius? borderRadius,
@@ -321,6 +326,7 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
       backgroundColor: backgroundColor == null
           ? null
           : WidgetStatePropertyAll(backgroundColor),
+      elevation: elevation == null ? null : WidgetStatePropertyAll(elevation),
       padding: padding == null ? null : WidgetStatePropertyAll(padding),
       border: border == null ? null : WidgetStatePropertyAll(border),
       borderRadius:
@@ -337,6 +343,9 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
 
   /// The background color of the badge.
   final WidgetStateProperty<Color?>? backgroundColor;
+
+  /// The elevation of the button.
+  final WidgetStateProperty<double?>? elevation;
 
   /// Text
   final WidgetStateProperty<EdgeInsetsGeometry?>? padding;
@@ -364,6 +373,7 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
   TButtonTheme copyWith({
     Duration? animationDuration,
     WidgetStateProperty<Color?>? backgroundColor,
+    WidgetStateProperty<double?>? elevation,
     WidgetStateProperty<EdgeInsetsGeometry?>? padding,
     WidgetStateProperty<BoxBorder?>? border,
     WidgetStateProperty<BorderRadius?>? borderRadius,
@@ -374,6 +384,7 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
     return TButtonTheme(
       animationDuration: animationDuration ?? this.animationDuration,
       backgroundColor: backgroundColor ?? this.backgroundColor,
+      elevation: elevation ?? this.elevation,
       padding: padding ?? this.padding,
       border: border ?? this.border,
       borderRadius: borderRadius ?? this.borderRadius,
@@ -395,6 +406,7 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
     return copyWith(
       animationDuration: other.animationDuration,
       backgroundColor: other.backgroundColor,
+      elevation: other.elevation,
       padding: other.padding,
       border: other.border,
       borderRadius: other.borderRadius,
@@ -425,11 +437,11 @@ class TButtonTheme extends ThemeExtension<TButtonTheme> {
         t,
         Color.lerp,
       ),
-      padding: WidgetStateProperty.lerp<EdgeInsetsGeometry?>(
-        padding,
-        other.padding,
+      elevation: WidgetStateProperty.lerp<double?>(
+        elevation,
+        other.elevation,
         t,
-        EdgeInsetsGeometry.lerp,
+        lerpDouble,
       ),
       border: WidgetStateProperty.lerp<BoxBorder?>(
         border,

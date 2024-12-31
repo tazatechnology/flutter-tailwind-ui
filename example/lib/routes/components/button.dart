@@ -795,7 +795,8 @@ class _TButtonCustomTheme extends StatelessWidget {
     return TButton.filled(
       theme: TButtonTheme.all(
         border: Border.all(color: TColors.sky.shade100),
-        backgroundColor: TColors.sky.shade50,
+        backgroundColor: TColors.sky.shade200,
+        elevation: TShadow.shadow,
         padding: TOffset.x10 + TOffset.y4,
         borderRadius: TBorderRadius.rounded_none,
         textStyle: TextStyle(color: TColors.sky.shade800).medium,
@@ -829,7 +830,13 @@ class _TButtonStatefulTheme extends StatelessWidget {
           if (states.hovered) {
             return TColors.sky.shade100;
           }
-          return TColors.sky.shade50;
+          return TColors.sky.shade200;
+        }),
+        elevation: WidgetStateProperty.resolveWith((states) {
+          if (states.hovered) {
+            return TShadow.shadow_md;
+          }
+          return TShadow.shadow;
         }),
         padding: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
@@ -877,11 +884,13 @@ class _TButtonIconCompare extends StatelessWidget {
             children: [
               TIconButton.filled(
                 size: size,
+                tooltip: '``$size``',
                 onPressed: () {},
                 icon: const Icon(Icons.add),
               ),
               TButton.filled(
                 size: size,
+                tooltip: '``$size``',
                 onPressed: () {},
                 child: const Text('Button'),
               ),

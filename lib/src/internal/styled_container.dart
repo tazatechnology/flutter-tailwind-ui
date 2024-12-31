@@ -43,6 +43,7 @@ class TStyledContainer extends StatelessWidget {
     this.baseTextStyle,
     this.animationDuration = Duration.zero,
     this.backgroundColor,
+    this.elevation,
     this.padding,
     this.border,
     this.borderRadius,
@@ -89,6 +90,9 @@ class TStyledContainer extends StatelessWidget {
 
   /// The background color of the container.
   final WidgetStateProperty<Color?>? backgroundColor;
+
+  /// The elevation of the container.
+  final WidgetStateProperty<double?>? elevation;
 
   /// The padding of the container.
   final WidgetStateProperty<EdgeInsetsGeometry?>? padding;
@@ -322,6 +326,30 @@ class TStyledContainer extends StatelessWidget {
   }
 
   // ---------------------------------------------------------------------------
+  // METHOD: _effectiveElevation
+  // ---------------------------------------------------------------------------
+
+  /// Returns the effective elevation of the styled container.
+  double? _effectiveElevation(
+    BuildContext context,
+    Set<WidgetState> states,
+  ) {
+    WidgetStateProperty<double?> elevationStyled;
+    switch (variant) {
+      case TStyledContainerVariant.basic:
+      case TStyledContainerVariant.link:
+      case TStyledContainerVariant.outlined:
+        // Basic, link, and outlined containers have no elevation for any state
+        return 0;
+      case TStyledContainerVariant.filled:
+      case TStyledContainerVariant.soft:
+        // By default, filled and soft containers should have no elevation
+        elevationStyled = const WidgetStatePropertyAll(0);
+    }
+    return elevation?.resolve(states) ?? elevationStyled.resolve(states);
+  }
+
+  // ---------------------------------------------------------------------------
   // METHOD: _effectiveTextStyle
   // ---------------------------------------------------------------------------
 
@@ -419,6 +447,9 @@ class TStyledContainer extends StatelessWidget {
             final effectiveBackgroundColor =
                 _effectiveBackgroundColor(context, states);
 
+            // Resolve the effective elevation
+            final effectiveElevation = _effectiveElevation(context, states);
+
             // Resolve the effective border
             final effectiveBorder = _effectiveBorder(context, states);
 
@@ -496,38 +527,45 @@ class TStyledContainer extends StatelessWidget {
                 style: effectiveTextStyle,
                 child: TTooltip(
                   message: tooltip,
-                  child: AnimatedContainer(
+                  child: AnimatedPhysicalModel(
                     duration: animationDuration,
-                    padding: effectivePadding,
-                    decoration: BoxDecoration(
-                      color: effectiveBackgroundColor,
-                      border: effectiveBorder,
-                      borderRadius: effectiveBorderRadius,
-                    ),
-                    child: IconTheme(
-                      data: iconTheme,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          AnimatedOpacity(
-                            opacity: isLoading ? 0 : 1,
-                            duration: animationDuration,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: content,
+                    shadowColor: Colors.black,
+                    color: Colors.transparent,
+                    borderRadius: effectiveBorderRadius,
+                    elevation: effectiveElevation ?? 0,
+                    child: AnimatedContainer(
+                      duration: animationDuration,
+                      padding: effectivePadding,
+                      decoration: BoxDecoration(
+                        color: effectiveBackgroundColor,
+                        border: effectiveBorder,
+                        borderRadius: effectiveBorderRadius,
+                      ),
+                      child: IconTheme(
+                        data: iconTheme,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            AnimatedOpacity(
+                              opacity: isLoading ? 0 : 1,
+                              duration: animationDuration,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: content,
+                              ),
                             ),
-                          ),
-                          if (isLoading)
-                            loading ??
-                                SizedBox.square(
-                                  dimension: estimatedHeight * 0.75,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2.5,
-                                    color: effectiveTextStyle.color,
+                            if (isLoading)
+                              loading ??
+                                  SizedBox.square(
+                                    dimension: estimatedHeight * 0.75,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2.5,
+                                      color: effectiveTextStyle.color,
+                                    ),
                                   ),
-                                ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
