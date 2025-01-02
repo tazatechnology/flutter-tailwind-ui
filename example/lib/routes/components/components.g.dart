@@ -105,6 +105,7 @@ Wrap(
     ])
       TBadge.outlined(
         color: color,
+        onPressed: () {},
         child: const Text('Badge'),
       ),
   ],
@@ -130,6 +131,7 @@ Wrap(
     ])
       TBadge.filled(
         color: color,
+        onPressed: () {},
         child: const Text('Badge'),
       ),
   ],
@@ -155,6 +157,7 @@ Wrap(
     ])
       TBadge.soft(
         color: color,
+        onPressed: () {},
         child: const Text('Badge'),
       ),
   ],
@@ -172,17 +175,17 @@ const Wrap(
   children: [
     TBadge.outlined(
       color: TColors.indigo,
-      leading: Icon(Icons.arrow_back),
+      leading: Icon(Icons.check),
       child: Text('Badge'),
     ),
     TBadge.filled(
       color: TColors.indigo,
-      leading: Icon(Icons.arrow_back),
+      leading: Icon(Icons.check),
       child: Text('Badge'),
     ),
     TBadge.soft(
       color: TColors.indigo,
-      leading: Icon(Icons.arrow_back),
+      leading: Icon(Icons.check),
       child: Text('Badge'),
     ),
   ],
@@ -200,17 +203,17 @@ const Wrap(
   children: [
     TBadge.outlined(
       color: TColors.indigo,
-      trailing: Icon(Icons.arrow_forward),
+      trailing: Icon(Icons.check),
       child: Text('Badge'),
     ),
     TBadge.filled(
       color: TColors.indigo,
-      trailing: Icon(Icons.arrow_forward),
+      trailing: Icon(Icons.check),
       child: Text('Badge'),
     ),
     TBadge.soft(
       color: TColors.indigo,
-      trailing: Icon(Icons.arrow_forward),
+      trailing: Icon(Icons.check),
       child: Text('Badge'),
     ),
   ],
@@ -222,13 +225,81 @@ const Wrap(
 class _TBadgeCallbackSource {
   static const String code = r"""
 TBadge.filled(
-  child: const Text('Badge'),
   onPressed: () {
     // Handle badge press
   },
   onHover: (isHovered) {
     // Handle badge hover
   },
+  child: const Text('Badge'),
+)
+""";
+}
+
+/// Source code for [_TBadgeLeadingCallback]
+class _TBadgeLeadingCallbackSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    TBadge.outlined(
+      color: TColors.indigo,
+      leading: const Icon(Icons.add),
+      tooltipLeading: 'Add',
+      onPressedLeading: () {},
+      child: const Text('Badge'),
+    ),
+    TBadge.filled(
+      color: TColors.indigo,
+      leading: const Icon(Icons.add),
+      tooltipLeading: 'Add',
+      onPressedLeading: () {},
+      child: const Text('Badge'),
+    ),
+    TBadge.soft(
+      color: TColors.indigo,
+      leading: const Icon(Icons.add),
+      tooltipLeading: 'Add',
+      onPressedLeading: () {},
+      child: const Text('Badge'),
+    ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TBadgeTrailingCallback]
+class _TBadgeTrailingCallbackSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    TBadge.outlined(
+      color: TColors.indigo,
+      trailing: const Icon(Icons.close),
+      tooltipTrailing: 'Remove',
+      onPressedTrailing: () {},
+      child: const Text('Badge'),
+    ),
+    TBadge.filled(
+      color: TColors.indigo,
+      trailing: const Icon(Icons.close),
+      tooltipTrailing: 'Remove',
+      onPressedTrailing: () {},
+      child: const Text('Badge'),
+    ),
+    TBadge.soft(
+      color: TColors.indigo,
+      trailing: const Icon(Icons.close),
+      tooltipTrailing: 'Remove',
+      onPressedTrailing: () {},
+      child: const Text('Badge'),
+    ),
+  ],
 )
 """;
 }
@@ -297,8 +368,9 @@ TBadge.filled(
 /// Source code for [_TButtonBasic]
 class _TButtonBasicSource {
   static const String code = r"""
-const TButton(
-  child: Text('Button'),
+TButton(
+  onPressed: () {},
+  child: const Text('Button'),
 )
 """;
 }
@@ -306,8 +378,9 @@ const TButton(
 /// Source code for [_TButtonOutlined]
 class _TButtonOutlinedSource {
   static const String code = r"""
-const TButton.outlined(
-  child: Text('Button'),
+TButton.outlined(
+  onPressed: () {},
+  child: const Text('Button'),
 )
 """;
 }
@@ -315,8 +388,9 @@ const TButton.outlined(
 /// Source code for [_TButtonFilled]
 class _TButtonFilledSource {
   static const String code = r"""
-const TButton.filled(
-  child: Text('Button'),
+TButton.filled(
+  onPressed: () {},
+  child: const Text('Button'),
 )
 """;
 }
@@ -324,8 +398,9 @@ const TButton.filled(
 /// Source code for [_TButtonSoft]
 class _TButtonSoftSource {
   static const String code = r"""
-const TButton.soft(
-  child: Text('Button'),
+TButton.soft(
+  onPressed: () {},
+  child: const Text('Button'),
 )
 """;
 }
@@ -333,8 +408,9 @@ const TButton.soft(
 /// Source code for [_TButtonLink]
 class _TButtonLinkSource {
   static const String code = r"""
-const TButton.link(
-  child: Text('Button'),
+TButton.link(
+  onPressed: () {},
+  child: const Text('Button'),
 )
 """;
 }
@@ -351,6 +427,7 @@ Wrap(
       TButton(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -370,6 +447,7 @@ Wrap(
       TButton.outlined(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -389,6 +467,7 @@ Wrap(
       TButton.filled(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -408,6 +487,7 @@ Wrap(
       TButton.soft(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -427,6 +507,7 @@ Wrap(
       TButton.link(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -452,6 +533,7 @@ Wrap(
     ])
       TButton(
         color: color,
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -477,6 +559,7 @@ Wrap(
     ])
       TButton.outlined(
         color: color,
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -502,6 +585,7 @@ Wrap(
     ])
       TButton.filled(
         color: color,
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -527,6 +611,7 @@ Wrap(
     ])
       TButton.soft(
         color: color,
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -552,6 +637,7 @@ Wrap(
     ])
       TButton.link(
         color: color,
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -572,6 +658,7 @@ Wrap(
         variant: variant,
         color: TColors.indigo,
         leading: const Icon(Icons.arrow_back),
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -592,6 +679,7 @@ Wrap(
         variant: variant,
         color: TColors.indigo,
         trailing: const Icon(Icons.arrow_forward),
+        onPressed: () {},
         child: const Text('Button'),
       ),
   ],
@@ -683,8 +771,8 @@ Wrap(
       TButton.raw(
         variant: variant,
         controller: TWidgetController(disabled: true),
-        child: const Text('Button'),
         onPressed: () {},
+        child: const Text('Button'),
       ),
   ],
 )
@@ -849,8 +937,9 @@ Column(
 /// Source code for [_TIconButtonBasic]
 class _TIconButtonBasicSource {
   static const String code = r"""
-const TIconButton(
-  icon: Icon(Icons.add),
+TIconButton(
+  onPressed: () {},
+  icon: const Icon(Icons.add),
 )
 """;
 }
@@ -858,8 +947,9 @@ const TIconButton(
 /// Source code for [_TIconButtonOutlined]
 class _TIconButtonOutlinedSource {
   static const String code = r"""
-const TIconButton.outlined(
-  icon: Icon(Icons.add),
+TIconButton.outlined(
+  onPressed: () {},
+  icon: const Icon(Icons.add),
 )
 """;
 }
@@ -867,8 +957,9 @@ const TIconButton.outlined(
 /// Source code for [_TIconButtonFilled]
 class _TIconButtonFilledSource {
   static const String code = r"""
-const TIconButton.filled(
-  icon: Icon(Icons.add),
+TIconButton.filled(
+  onPressed: () {},
+  icon: const Icon(Icons.add),
 )
 """;
 }
@@ -876,8 +967,9 @@ const TIconButton.filled(
 /// Source code for [_TIconButtonSoft]
 class _TIconButtonSoftSource {
   static const String code = r"""
-const TIconButton.soft(
-  icon: Icon(Icons.add),
+TIconButton.soft(
+  onPressed: () {},
+  icon: const Icon(Icons.add),
 )
 """;
 }
@@ -894,6 +986,7 @@ Wrap(
       TIconButton(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         icon: const Icon(Icons.add),
       ),
   ],
@@ -913,6 +1006,7 @@ Wrap(
       TIconButton.outlined(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         icon: const Icon(Icons.add),
       ),
   ],
@@ -932,6 +1026,7 @@ Wrap(
       TIconButton.filled(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         icon: const Icon(Icons.add),
       ),
   ],
@@ -951,6 +1046,7 @@ Wrap(
       TIconButton.soft(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         icon: const Icon(Icons.add),
       ),
   ],
@@ -976,6 +1072,7 @@ Wrap(
     ])
       TIconButton(
         color: color,
+        onPressed: () {},
         icon: const Icon(Icons.add),
       ),
   ],
@@ -1001,6 +1098,7 @@ Wrap(
     ])
       TIconButton.outlined(
         color: color,
+        onPressed: () {},
         icon: const Icon(Icons.add),
       ),
   ],
@@ -1026,6 +1124,7 @@ Wrap(
     ])
       TIconButton.filled(
         color: color,
+        onPressed: () {},
         icon: const Icon(Icons.add),
       ),
   ],
@@ -1051,6 +1150,7 @@ Wrap(
     ])
       TIconButton.soft(
         color: color,
+        onPressed: () {},
         icon: const Icon(Icons.add),
       ),
   ],

@@ -205,8 +205,9 @@ class _TButtonBasic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TButton(
-      child: Text('Button'),
+    return TButton(
+      onPressed: () {},
+      child: const Text('Button'),
     );
   }
 }
@@ -221,8 +222,9 @@ class _TButtonOutlined extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TButton.outlined(
-      child: Text('Button'),
+    return TButton.outlined(
+      onPressed: () {},
+      child: const Text('Button'),
     );
   }
 }
@@ -237,8 +239,9 @@ class _TButtonFilled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TButton.filled(
-      child: Text('Button'),
+    return TButton.filled(
+      onPressed: () {},
+      child: const Text('Button'),
     );
   }
 }
@@ -253,8 +256,9 @@ class _TButtonSoft extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TButton.soft(
-      child: Text('Button'),
+    return TButton.soft(
+      onPressed: () {},
+      child: const Text('Button'),
     );
   }
 }
@@ -269,8 +273,9 @@ class _TButtonLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TButton.link(
-      child: Text('Button'),
+    return TButton.link(
+      onPressed: () {},
+      child: const Text('Button'),
     );
   }
 }
@@ -294,6 +299,7 @@ class _TButtonBasicSizes extends StatelessWidget {
           TButton(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -320,6 +326,7 @@ class _TButtonOutlinedSizes extends StatelessWidget {
           TButton.outlined(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -346,6 +353,7 @@ class _TButtonFilledSizes extends StatelessWidget {
           TButton.filled(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -372,6 +380,7 @@ class _TButtonSoftSizes extends StatelessWidget {
           TButton.soft(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -398,6 +407,7 @@ class _TButtonLinkSizes extends StatelessWidget {
           TButton.link(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -430,6 +440,7 @@ class _TButtonBasicColors extends StatelessWidget {
         ])
           TButton(
             color: color,
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -462,6 +473,7 @@ class _TButtonOutlinedColors extends StatelessWidget {
         ])
           TButton.outlined(
             color: color,
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -494,6 +506,7 @@ class _TButtonFilledColors extends StatelessWidget {
         ])
           TButton.filled(
             color: color,
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -526,6 +539,7 @@ class _TButtonSoftColors extends StatelessWidget {
         ])
           TButton.soft(
             color: color,
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -558,6 +572,7 @@ class _TButtonLinkColors extends StatelessWidget {
         ])
           TButton.link(
             color: color,
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -585,6 +600,7 @@ class _TButtonLeading extends StatelessWidget {
             variant: variant,
             color: TColors.indigo,
             leading: const Icon(Icons.arrow_back),
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -612,6 +628,7 @@ class _TButtonTrailing extends StatelessWidget {
             variant: variant,
             color: TColors.indigo,
             trailing: const Icon(Icons.arrow_forward),
+            onPressed: () {},
             child: const Text('Button'),
           ),
       ],
@@ -717,8 +734,8 @@ class _TButtonDisabled extends StatelessWidget {
           TButton.raw(
             variant: variant,
             controller: TWidgetController(disabled: true),
-            child: const Text('Button'),
             onPressed: () {},
+            child: const Text('Button'),
           ),
       ],
     );
@@ -794,12 +811,12 @@ class _TButtonCustomTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return TButton.filled(
       theme: TButtonTheme.all(
-        border: Border.all(color: TColors.sky.shade100),
-        backgroundColor: TColors.sky.shade200,
+        border: Border.all(color: TColors.slate),
+        backgroundColor: Colors.black,
         elevation: TShadow.shadow,
         padding: TOffset.x10 + TOffset.y4,
         borderRadius: TBorderRadius.rounded_none,
-        textStyle: TextStyle(color: TColors.sky.shade800).medium,
+        textStyle: const TextStyle(color: Colors.white).medium,
       ),
       onPressed: () {},
       child: const Text('Button'),
@@ -822,15 +839,15 @@ class _TButtonStatefulTheme extends StatelessWidget {
         animationDuration: const Duration(milliseconds: 250),
         border: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
-            return Border.all(color: TColors.sky);
+            return Border.all(color: TColors.sky, width: 1.5);
           }
-          return Border.all(color: TColors.sky.shade100);
+          return Border.all(color: TColors.slate);
         }),
         backgroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
-            return TColors.sky.shade100;
+            return TColors.slate.shade800;
           }
-          return TColors.sky.shade200;
+          return Colors.black;
         }),
         elevation: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
@@ -851,7 +868,7 @@ class _TButtonStatefulTheme extends StatelessWidget {
           return TBorderRadius.rounded_none;
         }),
         textStyle: WidgetStateProperty.resolveWith((states) {
-          final style = TextStyle(color: TColors.sky.shade800).medium;
+          final style = const TextStyle(color: Colors.white).medium;
           if (states.hovered) {
             return style.semibold;
           }

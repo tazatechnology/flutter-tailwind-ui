@@ -40,11 +40,33 @@ extension XTailwindTBadgeSize on TBadgeSize {
   EdgeInsets get padding {
     switch (this) {
       case TBadgeSize.sm:
-        return TOffset.x6 + TOffset.y2;
+        return TOffset.x6;
       case TBadgeSize.md:
-        return TOffset.x8 + TOffset.y4;
+        return TOffset.x8;
       case TBadgeSize.lg:
-        return TOffset.x10 + TOffset.y6;
+        return TOffset.x10;
+    }
+  }
+
+  /// The fixed height associated with the given [TBadgeSize].
+  double get height {
+    switch (this) {
+      case TBadgeSize.sm:
+        return 22;
+      case TBadgeSize.md:
+        return 26;
+      case TBadgeSize.lg:
+        return 30;
+    }
+  }
+
+  /// The default text style associated with the given [TBadgeSize].
+  TextStyle get textStyle {
+    switch (this) {
+      case TBadgeSize.sm:
+      case TBadgeSize.md:
+      case TBadgeSize.lg:
+        return TTextStyle.text_xs.medium;
     }
   }
 }
@@ -67,7 +89,11 @@ class TBadge extends StatelessWidget {
     this.trailing,
     this.loading,
     this.tooltip,
+    this.tooltipLeading,
+    this.tooltipTrailing,
     this.onPressed,
+    this.onPressedLeading,
+    this.onPressedTrailing,
     this.onHover,
     super.key,
   }) : variant = TBadgeVariant.outlined;
@@ -84,7 +110,11 @@ class TBadge extends StatelessWidget {
     this.trailing,
     this.loading,
     this.tooltip,
+    this.tooltipLeading,
+    this.tooltipTrailing,
     this.onPressed,
+    this.onPressedLeading,
+    this.onPressedTrailing,
     this.onHover,
     super.key,
   }) : variant = TBadgeVariant.filled;
@@ -101,7 +131,11 @@ class TBadge extends StatelessWidget {
     this.trailing,
     this.loading,
     this.tooltip,
+    this.tooltipLeading,
+    this.tooltipTrailing,
     this.onPressed,
+    this.onPressedLeading,
+    this.onPressedTrailing,
     this.onHover,
     super.key,
   }) : variant = TBadgeVariant.soft;
@@ -119,7 +153,11 @@ class TBadge extends StatelessWidget {
     this.trailing,
     this.loading,
     this.tooltip,
+    this.tooltipLeading,
+    this.tooltipTrailing,
     this.onPressed,
+    this.onPressedLeading,
+    this.onPressedTrailing,
     this.onHover,
     super.key,
   });
@@ -159,8 +197,20 @@ class TBadge extends StatelessWidget {
   /// The tooltip to display when hovering over the badge.
   final String? tooltip;
 
+  /// The tooltip to display when hovering over the leading widget.
+  final String? tooltipLeading;
+
+  /// The tooltip to display when hovering over the trailing widget.
+  final String? tooltipTrailing;
+
   /// An action to call when the badge is pressed.
   final GestureTapCallback? onPressed;
+
+  /// An action to call when the badge leading widget is pressed.
+  final GestureTapCallback? onPressedLeading;
+
+  /// An action to call when the badge trailing widget is pressed.
+  final GestureTapCallback? onPressedTrailing;
 
   /// Called when a pointer enters or exits the response area.
   final ValueChanged<bool>? onHover;
@@ -183,25 +233,39 @@ class TBadge extends StatelessWidget {
     }
 
     return TStyledContainer(
+      options: TStyledContainerOptions(
+        fillOnHover: false,
+        height: size.height,
+      ),
       controller: controller,
       color: color,
       focusColor: theme?.focusColor,
       animationDuration: theme?.animationDuration ?? Duration.zero,
       variant: styledVariant,
-      tooltip: tooltip,
-      baseTextStyle: TTextStyle.text_xs.medium.merge(baseTextStyle),
+      baseTextStyle: size.textStyle.merge(baseTextStyle),
       textStyle: theme?.textStyle,
       backgroundColor: theme?.backgroundColor,
-      padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
+      padding: WidgetStateProperty.resolveWith((states) {
+        final pad = theme?.padding?.resolve(states);
+        if (pad == null) {
+          return size.padding;
+        }
+        return EdgeInsets.symmetric(horizontal: pad.horizontal / 2);
+      }),
       border: theme?.border,
       borderRadius: theme?.borderRadius ??
           const WidgetStatePropertyAll(TBorderRadius.rounded_full),
       mouseCursor: theme?.mouseCursor,
+      tooltip: tooltip,
+      tooltipLeading: tooltipLeading,
+      tooltipTrailing: tooltipTrailing,
+      onTap: onPressed,
+      onTapLeading: onPressedLeading,
+      onTapTrailing: onPressedTrailing,
+      loading: loading,
+      onHover: onHover,
       leading: leading,
       trailing: trailing,
-      loading: loading,
-      onTap: onPressed,
-      onHover: onHover,
       child: SelectionContainer.disabled(child: child),
     );
   }

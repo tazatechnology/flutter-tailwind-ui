@@ -188,7 +188,7 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
       badgeColor = tw.light ? TColors.gray.shade100 : TColors.gray.shade800;
     }
     return Container(
-      margin: widget.isLast ? TOffset.b0 : TOffset.b4,
+      margin: widget.isLast ? TOffset.b0 : TOffset.b2,
       padding: TOffset.x16 + (widget.isComponent ? TOffset.y4 : TOffset.y2),
       decoration: BoxDecoration(
         border: Border(
@@ -203,10 +203,8 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
       child: TBadge.filled(
         color: badgeColor,
         baseTextStyle: widget.isComponent ? tw.text.style_xs : tw.text.style_sm,
+        size: TBadgeSize.sm,
         theme: TBadgeTheme(
-          padding: WidgetStatePropertyAll(
-            widget.isComponent ? TOffset.x4 + TOffset.y2 : TOffset.y0,
-          ),
           textStyle: WidgetStateTextStyle.resolveWith((states) {
             return TextStyle(
               color: isActive ? activeColor : inactiveColor,

@@ -154,8 +154,9 @@ class _TIconButtonBasic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TIconButton(
-      icon: Icon(Icons.add),
+    return TIconButton(
+      onPressed: () {},
+      icon: const Icon(Icons.add),
     );
   }
 }
@@ -170,8 +171,9 @@ class _TIconButtonOutlined extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TIconButton.outlined(
-      icon: Icon(Icons.add),
+    return TIconButton.outlined(
+      onPressed: () {},
+      icon: const Icon(Icons.add),
     );
   }
 }
@@ -186,8 +188,9 @@ class _TIconButtonFilled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TIconButton.filled(
-      icon: Icon(Icons.add),
+    return TIconButton.filled(
+      onPressed: () {},
+      icon: const Icon(Icons.add),
     );
   }
 }
@@ -202,8 +205,9 @@ class _TIconButtonSoft extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TIconButton.soft(
-      icon: Icon(Icons.add),
+    return TIconButton.soft(
+      onPressed: () {},
+      icon: const Icon(Icons.add),
     );
   }
 }
@@ -227,6 +231,7 @@ class _TIconButtonBasicSizes extends StatelessWidget {
           TIconButton(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             icon: const Icon(Icons.add),
           ),
       ],
@@ -253,6 +258,7 @@ class _TIconButtonOutlinedSizes extends StatelessWidget {
           TIconButton.outlined(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             icon: const Icon(Icons.add),
           ),
       ],
@@ -279,6 +285,7 @@ class _TIconButtonFilledSizes extends StatelessWidget {
           TIconButton.filled(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             icon: const Icon(Icons.add),
           ),
       ],
@@ -305,6 +312,7 @@ class _TIconButtonSoftSizes extends StatelessWidget {
           TIconButton.soft(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             icon: const Icon(Icons.add),
           ),
       ],
@@ -337,6 +345,7 @@ class _TIconButtonBasicColors extends StatelessWidget {
         ])
           TIconButton(
             color: color,
+            onPressed: () {},
             icon: const Icon(Icons.add),
           ),
       ],
@@ -369,6 +378,7 @@ class _TIconButtonOutlinedColors extends StatelessWidget {
         ])
           TIconButton.outlined(
             color: color,
+            onPressed: () {},
             icon: const Icon(Icons.add),
           ),
       ],
@@ -401,6 +411,7 @@ class _TIconButtonFilledColors extends StatelessWidget {
         ])
           TIconButton.filled(
             color: color,
+            onPressed: () {},
             icon: const Icon(Icons.add),
           ),
       ],
@@ -433,6 +444,7 @@ class _TIconButtonSoftColors extends StatelessWidget {
         ])
           TIconButton.soft(
             color: color,
+            onPressed: () {},
             icon: const Icon(Icons.add),
           ),
       ],
@@ -615,12 +627,12 @@ class _TIconButtonCustomTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return TIconButton.filled(
       theme: TButtonTheme.all(
-        border: Border.all(color: TColors.sky.shade100),
-        backgroundColor: TColors.sky.shade200,
+        border: Border.all(color: TColors.slate),
+        backgroundColor: Colors.black,
         elevation: TShadow.shadow,
         padding: TOffset.a6,
         borderRadius: TBorderRadius.rounded_none,
-        textStyle: TextStyle(color: TColors.sky.shade800).medium,
+        textStyle: const TextStyle(color: Colors.white).medium,
       ),
       onPressed: () {},
       icon: const Icon(Icons.add),
@@ -643,15 +655,15 @@ class _TIconButtonStatefulTheme extends StatelessWidget {
         animationDuration: const Duration(milliseconds: 250),
         border: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
-            return Border.all(color: TColors.sky);
+            return Border.all(color: TColors.sky, width: 1.5);
           }
-          return Border.all(color: TColors.sky.shade100);
+          return Border.all(color: TColors.slate);
         }),
         backgroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
-            return TColors.sky.shade100;
+            return TColors.slate.shade800;
           }
-          return TColors.sky.shade200;
+          return Colors.black;
         }),
         elevation: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
@@ -667,7 +679,7 @@ class _TIconButtonStatefulTheme extends StatelessWidget {
           return TBorderRadius.rounded_none;
         }),
         textStyle: WidgetStateProperty.resolveWith((states) {
-          final style = TextStyle(color: TColors.sky.shade800).medium;
+          final style = const TextStyle(color: Colors.white).medium;
           if (states.hovered) {
             return style.semibold;
           }
