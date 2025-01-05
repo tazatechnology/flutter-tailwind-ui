@@ -1,141 +1,129 @@
 part of 'components.dart';
 
 // =============================================================================
-// CLASS: ComponentRouteTIconButton
+// CLASS: ComponentRouteTSplitButton
 // =============================================================================
 
-class ComponentRouteTIconButton extends StatelessWidget {
-  const ComponentRouteTIconButton({super.key});
+class ComponentRouteTSplitButton extends StatelessWidget {
+  const ComponentRouteTSplitButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ComponentRoute(
-      name: 'TIconButton',
-      description: 'A highly customizable icon button widget.',
+      name: 'TSplitButton',
+      description: 'A widget',
       children: [
         AppSection(
-          title: 'Icon Button Types',
+          title: 'Split Button Types',
           children: const [
             AppPreviewCard(
               title: 'Basic',
-              code: _TIconButtonBasicSource.code,
-              child: _TIconButtonBasic(),
+              code: _TSplitButtonBasicSource.code,
+              child: _TSplitButtonBasic(),
             ),
             AppPreviewCard(
               title: 'Outlined',
-              code: _TIconButtonOutlinedSource.code,
-              child: _TIconButtonOutlined(),
+              code: _TSplitButtonOutlinedSource.code,
+              child: _TSplitButtonOutlined(),
             ),
             AppPreviewCard(
               title: 'Filled',
-              code: _TIconButtonFilledSource.code,
-              child: _TIconButtonFilled(),
+              code: _TSplitButtonFilledSource.code,
+              child: _TSplitButtonFilled(),
             ),
             AppPreviewCard(
               title: 'Soft',
-              code: _TIconButtonSoftSource.code,
-              child: _TIconButtonSoft(),
+              code: _TSplitButtonSoftSource.code,
+              child: _TSplitButtonSoft(),
             ),
           ],
         ),
         AppSection(
-          title: 'Icon Button Sizes',
+          title: 'Split Button Sizes',
           children: const [
             AppPreviewCard(
               title: 'Basic',
-              code: _TIconButtonBasicSizesSource.code,
-              child: _TIconButtonBasicSizes(),
+              code: _TSplitButtonBasicSizesSource.code,
+              child: _TSplitButtonBasicSizes(),
             ),
             AppPreviewCard(
               title: 'Outlined',
-              code: _TIconButtonOutlinedSizesSource.code,
-              child: _TIconButtonOutlinedSizes(),
+              code: _TSplitButtonOutlinedSizesSource.code,
+              child: _TSplitButtonOutlinedSizes(),
             ),
             AppPreviewCard(
               title: 'Filled',
-              code: _TIconButtonFilledSizesSource.code,
-              child: _TIconButtonFilledSizes(),
+              code: _TSplitButtonFilledSizesSource.code,
+              child: _TSplitButtonFilledSizes(),
             ),
             AppPreviewCard(
               title: 'Soft',
-              code: _TIconButtonSoftSizesSource.code,
-              child: _TIconButtonSoftSizes(),
+              code: _TSplitButtonSoftSizesSource.code,
+              child: _TSplitButtonSoftSizes(),
             ),
           ],
         ),
         AppSection(
-          title: 'Icon Button Colors',
+          title: 'Split Button Colors',
           children: const [
             AppPreviewCard(
               title: 'Basic',
-              code: _TIconButtonBasicColorsSource.code,
-              child: _TIconButtonBasicColors(),
+              code: _TSplitButtonBasicColorsSource.code,
+              child: _TSplitButtonBasicColors(),
             ),
             AppPreviewCard(
               title: 'Outlined',
-              code: _TIconButtonOutlinedColorsSource.code,
-              child: _TIconButtonOutlinedColors(),
+              code: _TSplitButtonOutlinedColorsSource.code,
+              child: _TSplitButtonOutlinedColors(),
             ),
             AppPreviewCard(
               title: 'Filled',
-              code: _TIconButtonFilledColorsSource.code,
-              child: _TIconButtonFilledColors(),
+              code: _TSplitButtonFilledColorsSource.code,
+              child: _TSplitButtonFilledColors(),
             ),
             AppPreviewCard(
               title: 'Soft',
-              code: _TIconButtonSoftColorsSource.code,
-              child: _TIconButtonSoftColors(),
+              code: _TSplitButtonSoftColorsSource.code,
+              child: _TSplitButtonSoftColors(),
             ),
           ],
         ),
         AppSection(
-          title: 'Icon Button with Callbacks',
+          title: 'Leading, Trailing, and Callbacks',
           children: const [
             AppPreviewCard(
-              title: 'Custom gesture callbacks',
+              title: 'No leading and trailing provided',
+              description: 'If no `leading` or `trailing` widget is provided, '
+                  'the button will fallback to a standard `TButton`.',
+              code: _TSplitButtonNoLeadingTrailingSource.code,
+              child: _TSplitButtonNoLeadingTrailing(),
+            ),
+            AppPreviewCard(
+              title: 'Mix and match leading and trailing',
               description:
-                  '`TIconButton` supports `onPressed` and `onHover` callbacks.',
-              code: _TIconButtonCallbackSource.code,
-              child: _TIconButtonCallback(),
+                  'Define a `leading`, a `trailing`, or both. Each widget can also be customized with its own accompanying callbacks, controllers, tooltip, etc.',
+              code: _TSplitButtonLeadingTrailingSource.code,
+              child: _TSplitButtonLeadingTrailing(),
             ),
           ],
         ),
         AppSection(
-          title: 'Icon Button with Controller',
+          title: 'Split Button with Controller',
           children: const [
             AppPreviewCard(
               title: 'Controller to manage loading state',
-              code: _TIconButtonLoadingSource.code,
-              child: _TIconButtonLoading(),
+              code: _TSplitButtonLoadingSource.code,
+              child: _TSplitButtonLoading(),
             ),
             AppPreviewCard(
               title: 'Controller to manage disabled state',
-              code: _TIconButtonDisabledSource.code,
-              child: _TIconButtonDisabled(),
+              code: _TSplitButtonDisabledSource.code,
+              child: _TSplitButtonDisabled(),
             ),
             AppPreviewCard(
               title: 'Custom loading widget',
-              code: _TIconButtonLoadingCustomSource.code,
-              child: _TIconButtonLoadingCustom(),
-            ),
-          ],
-        ),
-        AppSection(
-          title: 'Custom Icon Button Theming',
-          children: const [
-            AppPreviewCard(
-              title: 'Static theme (``TButtonTheme``)',
-              description:
-                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TButtonTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
-              code: _TIconButtonCustomThemeSource.code,
-              child: _TIconButtonCustomTheme(),
-            ),
-            AppPreviewCard(
-              title: 'Stateful theme (``TButtonTheme``)',
-              description:
-                  'For full theme control, you can use the `WidgetStateProperty.resolveWith()` method to dynamically change the button theme based on the current `WidgetState`.',
-              code: _TIconButtonStatefulThemeSource.code,
-              child: _TIconButtonStatefulTheme(),
+              code: _TSplitButtonLoadingCustomSource.code,
+              child: _TSplitButtonLoadingCustom(),
             ),
           ],
         ),
@@ -145,80 +133,88 @@ class ComponentRouteTIconButton extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonBasic
+// CLASS: _TSplitButtonBasic
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonBasic extends StatelessWidget {
-  const _TIconButtonBasic();
+class _TSplitButtonBasic extends StatelessWidget {
+  const _TSplitButtonBasic();
 
   @override
   Widget build(BuildContext context) {
-    return TIconButton(
+    return TSplitButton(
       onPressed: () {},
-      icon: const Icon(Icons.add),
+      onPressedTrailing: () {},
+      trailing: const Icon(Icons.keyboard_arrow_down),
+      child: const Text('Button'),
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TIconButtonOutlined
+// CLASS: _TSplitButtonOutlined
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonOutlined extends StatelessWidget {
-  const _TIconButtonOutlined();
+class _TSplitButtonOutlined extends StatelessWidget {
+  const _TSplitButtonOutlined();
 
   @override
   Widget build(BuildContext context) {
-    return TIconButton.outlined(
+    return TSplitButton.outlined(
       onPressed: () {},
-      icon: const Icon(Icons.add),
+      onPressedTrailing: () {},
+      trailing: const Icon(Icons.keyboard_arrow_down),
+      child: const Text('Button'),
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TIconButtonFilled
+// CLASS: _TSplitButtonFilled
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonFilled extends StatelessWidget {
-  const _TIconButtonFilled();
+class _TSplitButtonFilled extends StatelessWidget {
+  const _TSplitButtonFilled();
 
   @override
   Widget build(BuildContext context) {
-    return TIconButton.filled(
+    return TSplitButton.filled(
       onPressed: () {},
-      icon: const Icon(Icons.add),
+      onPressedTrailing: () {},
+      trailing: const Icon(Icons.keyboard_arrow_down),
+      child: const Text('Button'),
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TIconButtonSoft
+// CLASS: _TSplitButtonSoft
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonSoft extends StatelessWidget {
-  const _TIconButtonSoft();
+class _TSplitButtonSoft extends StatelessWidget {
+  const _TSplitButtonSoft();
 
   @override
   Widget build(BuildContext context) {
-    return TIconButton.soft(
+    return TSplitButton.soft(
       onPressed: () {},
-      icon: const Icon(Icons.add),
+      onPressedTrailing: () {},
+      trailing: const Icon(Icons.keyboard_arrow_down),
+      child: const Text('Button'),
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TIconButtonBasicSizes
+// CLASS: _TSplitButtonBasicSizes
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonBasicSizes extends StatelessWidget {
-  const _TIconButtonBasicSizes();
+class _TSplitButtonBasicSizes extends StatelessWidget {
+  const _TSplitButtonBasicSizes();
 
   @override
   Widget build(BuildContext context) {
@@ -228,11 +224,13 @@ class _TIconButtonBasicSizes extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final size in TButtonSize.values)
-          TIconButton(
+          TSplitButton(
             size: size,
             tooltip: '``$size``',
             onPressed: () {},
-            icon: const Icon(Icons.add),
+            onPressedTrailing: () {},
+            trailing: const Icon(Icons.keyboard_arrow_down),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -240,12 +238,12 @@ class _TIconButtonBasicSizes extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonOutlinedSizes
+// CLASS: _TSplitButtonOutlinedSizes
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonOutlinedSizes extends StatelessWidget {
-  const _TIconButtonOutlinedSizes();
+class _TSplitButtonOutlinedSizes extends StatelessWidget {
+  const _TSplitButtonOutlinedSizes();
 
   @override
   Widget build(BuildContext context) {
@@ -255,11 +253,13 @@ class _TIconButtonOutlinedSizes extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final size in TButtonSize.values)
-          TIconButton.outlined(
+          TSplitButton.outlined(
             size: size,
             tooltip: '``$size``',
             onPressed: () {},
-            icon: const Icon(Icons.add),
+            onPressedTrailing: () {},
+            trailing: const Icon(Icons.keyboard_arrow_down),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -267,12 +267,12 @@ class _TIconButtonOutlinedSizes extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonFilledSizes
+// CLASS: _TSplitButtonFilledSizes
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonFilledSizes extends StatelessWidget {
-  const _TIconButtonFilledSizes();
+class _TSplitButtonFilledSizes extends StatelessWidget {
+  const _TSplitButtonFilledSizes();
 
   @override
   Widget build(BuildContext context) {
@@ -282,11 +282,13 @@ class _TIconButtonFilledSizes extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final size in TButtonSize.values)
-          TIconButton.filled(
+          TSplitButton.filled(
             size: size,
             tooltip: '``$size``',
             onPressed: () {},
-            icon: const Icon(Icons.add),
+            onPressedTrailing: () {},
+            trailing: const Icon(Icons.keyboard_arrow_down),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -294,12 +296,12 @@ class _TIconButtonFilledSizes extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonSoftSizes
+// CLASS: _TSplitButtonSoftSizes
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonSoftSizes extends StatelessWidget {
-  const _TIconButtonSoftSizes();
+class _TSplitButtonSoftSizes extends StatelessWidget {
+  const _TSplitButtonSoftSizes();
 
   @override
   Widget build(BuildContext context) {
@@ -309,11 +311,13 @@ class _TIconButtonSoftSizes extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final size in TButtonSize.values)
-          TIconButton.soft(
+          TSplitButton.soft(
             size: size,
             tooltip: '``$size``',
             onPressed: () {},
-            icon: const Icon(Icons.add),
+            onPressedTrailing: () {},
+            trailing: const Icon(Icons.keyboard_arrow_down),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -321,12 +325,12 @@ class _TIconButtonSoftSizes extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonBasicColors
+// CLASS: _TSplitButtonBasicColors
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonBasicColors extends StatelessWidget {
-  const _TIconButtonBasicColors();
+class _TSplitButtonBasicColors extends StatelessWidget {
+  const _TSplitButtonBasicColors();
 
   @override
   Widget build(BuildContext context) {
@@ -336,10 +340,12 @@ class _TIconButtonBasicColors extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final color in PREVIEW_COLORS)
-          TIconButton(
+          TSplitButton(
             color: color,
             onPressed: () {},
-            icon: const Icon(Icons.add),
+            onPressedTrailing: () {},
+            trailing: const Icon(Icons.keyboard_arrow_down),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -347,12 +353,12 @@ class _TIconButtonBasicColors extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonOutlinedColors
+// CLASS: _TSplitButtonOutlinedColors
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonOutlinedColors extends StatelessWidget {
-  const _TIconButtonOutlinedColors();
+class _TSplitButtonOutlinedColors extends StatelessWidget {
+  const _TSplitButtonOutlinedColors();
 
   @override
   Widget build(BuildContext context) {
@@ -362,10 +368,12 @@ class _TIconButtonOutlinedColors extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final color in PREVIEW_COLORS)
-          TIconButton.outlined(
+          TSplitButton.outlined(
             color: color,
             onPressed: () {},
-            icon: const Icon(Icons.add),
+            onPressedTrailing: () {},
+            trailing: const Icon(Icons.keyboard_arrow_down),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -373,12 +381,12 @@ class _TIconButtonOutlinedColors extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonFilledColors
+// CLASS: _TSplitButtonFilledColors
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonFilledColors extends StatelessWidget {
-  const _TIconButtonFilledColors();
+class _TSplitButtonFilledColors extends StatelessWidget {
+  const _TSplitButtonFilledColors();
 
   @override
   Widget build(BuildContext context) {
@@ -388,10 +396,12 @@ class _TIconButtonFilledColors extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final color in PREVIEW_COLORS)
-          TIconButton.filled(
+          TSplitButton.filled(
             color: color,
             onPressed: () {},
-            icon: const Icon(Icons.add),
+            onPressedTrailing: () {},
+            trailing: const Icon(Icons.keyboard_arrow_down),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -399,12 +409,12 @@ class _TIconButtonFilledColors extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonSoftColors
+// CLASS: _TSplitButtonSoftColors
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonSoftColors extends StatelessWidget {
-  const _TIconButtonSoftColors();
+class _TSplitButtonSoftColors extends StatelessWidget {
+  const _TSplitButtonSoftColors();
 
   @override
   Widget build(BuildContext context) {
@@ -414,10 +424,12 @@ class _TIconButtonSoftColors extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final color in PREVIEW_COLORS)
-          TIconButton.soft(
+          TSplitButton.soft(
             color: color,
             onPressed: () {},
-            icon: const Icon(Icons.add),
+            onPressedTrailing: () {},
+            trailing: const Icon(Icons.keyboard_arrow_down),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -425,40 +437,97 @@ class _TIconButtonSoftColors extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonCallback
+// CLASS: _TSplitButtonNoLeadingTrailing
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonCallback extends StatelessWidget {
-  const _TIconButtonCallback();
+class _TSplitButtonNoLeadingTrailing extends StatelessWidget {
+  const _TSplitButtonNoLeadingTrailing();
 
   @override
   Widget build(BuildContext context) {
-    return TIconButton.filled(
-      icon: const Icon(Icons.add),
-      onPressed: () {
-        // Handle button press
-      },
-      onHover: (isHovered) {
-        // Handle button hover
-      },
+    return TSplitButton.filled(
+      child: const Text('Button'),
+      onPressed: () {},
+      onHover: (value) {},
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TIconButtonLoading
+// CLASS: _TSplitButtonLeadingTrailing
+// =============================================================================
+
+@GenerateSource()
+class _TSplitButtonLeadingTrailing extends StatelessWidget {
+  const _TSplitButtonLeadingTrailing();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        TSplitButton.filled(
+          onPressed: () {},
+          onPressedLeading: () {},
+          onHover: (value) {},
+          onHoverLeading: (value) {},
+          tooltip: 'Child Tooltip',
+          tooltipLeading: 'Leading Tooltip',
+          controller: TWidgetController(),
+          controllerLeading: TWidgetController(),
+          leading: const Icon(Icons.add),
+          child: const Text('Button'),
+        ),
+        TSplitButton.filled(
+          onPressed: () {},
+          onPressedLeading: () {},
+          onPressedTrailing: () {},
+          onHover: (value) {},
+          onHoverLeading: (value) {},
+          onHoverTrailing: (value) {},
+          tooltip: 'Child Tooltip',
+          tooltipLeading: 'Leading Tooltip',
+          tooltipTrailing: 'Trailing Tooltip',
+          controller: TWidgetController(),
+          controllerLeading: TWidgetController(),
+          controllerTrailing: TWidgetController(),
+          leading: const Icon(Icons.add),
+          trailing: const Icon(Icons.remove),
+          child: const Text('Button'),
+        ),
+        TSplitButton.filled(
+          onPressed: () {},
+          onPressedTrailing: () {},
+          onHover: (value) {},
+          onHoverTrailing: (value) {},
+          tooltip: 'Child Tooltip',
+          tooltipTrailing: 'Trailing Tooltip',
+          controller: TWidgetController(),
+          controllerTrailing: TWidgetController(),
+          trailing: const Icon(Icons.remove),
+          child: const Text('Button'),
+        ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSplitButtonLoading
 // =============================================================================
 
 @GenerateSource(buildMethodOnly: false)
-class _TIconButtonLoading extends StatefulWidget {
-  const _TIconButtonLoading();
+class _TSplitButtonLoading extends StatefulWidget {
+  const _TSplitButtonLoading();
 
   @override
-  State<_TIconButtonLoading> createState() => _TIconButtonLoadingState();
+  State<_TSplitButtonLoading> createState() => _TSplitButtonLoadingState();
 }
 
-class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
+class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
   final controllers =
       List.generate(TVariant.values.length, (_) => TWidgetController());
 
@@ -489,12 +558,13 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final variant in TVariant.values)
-          TIconButton.raw(
+          TSplitButton.raw(
             tooltip: '``$variant``',
             variant: variant,
-            controller: controllers[variant.index],
-            onPressed: onPressed,
-            icon: const Icon(Icons.add),
+            controllerTrailing: controllers[variant.index],
+            onPressedTrailing: onPressed,
+            trailing: const Icon(Icons.download),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -502,12 +572,12 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonDisabled
+// CLASS: _TSplitButtonDisabled
 // =============================================================================
 
 @GenerateSource()
-class _TIconButtonDisabled extends StatelessWidget {
-  const _TIconButtonDisabled();
+class _TSplitButtonDisabled extends StatelessWidget {
+  const _TSplitButtonDisabled();
 
   @override
   Widget build(BuildContext context) {
@@ -517,10 +587,12 @@ class _TIconButtonDisabled extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final variant in TVariant.values)
-          TIconButton.raw(
+          TSplitButton.raw(
             variant: variant,
             controller: TWidgetController(disabled: true),
-            icon: const Icon(Icons.add),
+            controllerTrailing: TWidgetController(disabled: true),
+            trailing: const Icon(Icons.download),
+            child: const Text('Button'),
           ),
       ],
     );
@@ -528,19 +600,20 @@ class _TIconButtonDisabled extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TIconButtonLoadingCustom
+// CLASS: _TSplitButtonLoadingCustom
 // =============================================================================
 
 @GenerateSource(buildMethodOnly: false)
-class _TIconButtonLoadingCustom extends StatefulWidget {
-  const _TIconButtonLoadingCustom();
+class _TSplitButtonLoadingCustom extends StatefulWidget {
+  const _TSplitButtonLoadingCustom();
 
   @override
-  State<_TIconButtonLoadingCustom> createState() =>
-      _TIconButtonLoadingCustomState();
+  State<_TSplitButtonLoadingCustom> createState() =>
+      _TSplitButtonLoadingCustomState();
 }
 
-class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
+class _TSplitButtonLoadingCustomState
+    extends State<_TSplitButtonLoadingCustom> {
   final controllers =
       List.generate(TVariant.values.length, (_) => TWidgetController());
 
@@ -571,78 +644,16 @@ class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final variant in TVariant.values)
-          TIconButton.raw(
+          TSplitButton.raw(
+            tooltip: '``$variant``',
             variant: variant,
-            controller: controllers[variant.index],
-            onPressed: onPressed,
-            loading: const Icon(Icons.hourglass_bottom),
-            icon: const Icon(Icons.add),
+            controllerTrailing: controllers[variant.index],
+            onPressedTrailing: onPressed,
+            trailing: const Icon(Icons.download),
+            loadingTrailing: const Icon(Icons.hourglass_bottom),
+            child: const Text('Button'),
           ),
       ],
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TIconButtonCustomTheme
-// =============================================================================
-
-@GenerateSource()
-class _TIconButtonCustomTheme extends StatelessWidget {
-  const _TIconButtonCustomTheme();
-
-  @override
-  Widget build(BuildContext context) {
-    return TIconButton.filled(
-      theme: TButtonTheme.all(
-        height: 32,
-        backgroundColor: Colors.black,
-        elevation: TShadow.shadow,
-        border: Border.all(color: TColors.slate),
-        borderRadius: TBorderRadius.rounded_none,
-      ),
-      onPressed: () {},
-      icon: const Icon(Icons.add),
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TIconButtonStatefulTheme
-// =============================================================================
-
-@GenerateSource()
-class _TIconButtonStatefulTheme extends StatelessWidget {
-  const _TIconButtonStatefulTheme();
-
-  @override
-  Widget build(BuildContext context) {
-    return TIconButton.filled(
-      theme: TButtonTheme(
-        animationDuration: const Duration(milliseconds: 250),
-        height: WidgetStateProperty.resolveWith((states) {
-          return states.hovered ? 48 : 32;
-        }),
-        backgroundColor: WidgetStateProperty.resolveWith((states) {
-          return states.hovered ? TColors.slate.shade800 : Colors.black;
-        }),
-        elevation: WidgetStateProperty.resolveWith((states) {
-          return states.hovered ? TShadow.shadow_md : TShadow.shadow;
-        }),
-        border: WidgetStateProperty.resolveWith((states) {
-          if (states.hovered) {
-            return Border.all(color: TColors.sky, width: 1.5);
-          }
-          return Border.all(color: TColors.slate);
-        }),
-        borderRadius: WidgetStateProperty.resolveWith((states) {
-          return states.hovered
-              ? TBorderRadius.rounded_full
-              : TBorderRadius.rounded_none;
-        }),
-      ),
-      onPressed: () {},
-      icon: const Icon(Icons.add),
     );
   }
 }

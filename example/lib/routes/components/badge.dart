@@ -17,6 +17,11 @@ class ComponentRouteTBadge extends StatelessWidget {
           title: 'Badge Types',
           children: const [
             AppPreviewCard(
+              title: 'Basic',
+              code: _TBadgeBasicSource.code,
+              child: _TBadgeBasic(),
+            ),
+            AppPreviewCard(
               title: 'Outlined',
               code: _TBadgeOutlinedSource.code,
               child: _TBadgeOutlined(),
@@ -36,6 +41,11 @@ class ComponentRouteTBadge extends StatelessWidget {
         AppSection(
           title: 'Badge Sizes',
           children: const [
+            AppPreviewCard(
+              title: 'Basic',
+              code: _TBadgeBasicSizesSource.code,
+              child: _TBadgeBasicSizes(),
+            ),
             AppPreviewCard(
               title: 'Outlined',
               code: _TBadgeOutlinedSizesSource.code,
@@ -57,6 +67,11 @@ class ComponentRouteTBadge extends StatelessWidget {
           title: 'Badge Colors',
           children: const [
             AppPreviewCard(
+              title: 'Basic',
+              code: _TBadgeBasicColorsSource.code,
+              child: _TBadgeBasicColors(),
+            ),
+            AppPreviewCard(
               title: 'Outlined',
               code: _TBadgeOutlinedColorsSource.code,
               child: _TBadgeOutlinedColors(),
@@ -74,7 +89,7 @@ class ComponentRouteTBadge extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Badge with leading',
+          title: 'Badge with Leading',
           children: const [
             AppPreviewCard(
               title: 'Custom leading widget',
@@ -86,7 +101,7 @@ class ComponentRouteTBadge extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Badge with trailing',
+          title: 'Badge with Trailing',
           children: const [
             AppPreviewCard(
               title: 'Custom trailing widget',
@@ -98,7 +113,7 @@ class ComponentRouteTBadge extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Badge with callbacks',
+          title: 'Badge with Callbacks',
           children: const [
             AppPreviewCard(
               title: 'Custom gesture callbacks',
@@ -148,6 +163,23 @@ class ComponentRouteTBadge extends StatelessWidget {
 }
 
 // =============================================================================
+// CLASS: _TBadgeBasic
+// =============================================================================
+
+@GenerateSource()
+class _TBadgeBasic extends StatelessWidget {
+  const _TBadgeBasic();
+
+  @override
+  Widget build(BuildContext context) {
+    return TBadge(
+      child: const Text('Badge'),
+      onPressed: () {},
+    );
+  }
+}
+
+// =============================================================================
 // CLASS: _TBadgeOutlined
 // =============================================================================
 
@@ -157,8 +189,9 @@ class _TBadgeOutlined extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TBadge.outlined(
-      child: Text('Badge'),
+    return TBadge.outlined(
+      child: const Text('Badge'),
+      onPressed: () {},
     );
   }
 }
@@ -173,8 +206,9 @@ class _TBadgeFilled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TBadge.filled(
-      child: Text('Badge'),
+    return TBadge.filled(
+      child: const Text('Badge'),
+      onPressed: () {},
     );
   }
 }
@@ -189,8 +223,36 @@ class _TBadgeSoft extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TBadge.soft(
-      child: Text('Badge'),
+    return TBadge.soft(
+      child: const Text('Badge'),
+      onPressed: () {},
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TBadgeBasicSizes
+// =============================================================================
+
+@GenerateSource()
+class _TBadgeBasicSizes extends StatelessWidget {
+  const _TBadgeBasicSizes();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final size in TBadgeSize.values)
+          TBadge(
+            size: size,
+            tooltip: '``$size``',
+            onPressed: () {},
+            child: const Text('Badge'),
+          ),
+      ],
     );
   }
 }
@@ -214,6 +276,7 @@ class _TBadgeOutlinedSizes extends StatelessWidget {
           TBadge.outlined(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             child: const Text('Badge'),
           ),
       ],
@@ -240,6 +303,7 @@ class _TBadgeFilledSizes extends StatelessWidget {
           TBadge.filled(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
             child: const Text('Badge'),
           ),
       ],
@@ -266,6 +330,33 @@ class _TBadgeSoftSizes extends StatelessWidget {
           TBadge.soft(
             size: size,
             tooltip: '``$size``',
+            onPressed: () {},
+            child: const Text('Badge'),
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TBadgeBasicColors
+// =============================================================================
+
+@GenerateSource()
+class _TBadgeBasicColors extends StatelessWidget {
+  const _TBadgeBasicColors();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final color in PREVIEW_COLORS)
+          TBadge(
+            color: color,
+            onPressed: () {},
             child: const Text('Badge'),
           ),
       ],
@@ -288,14 +379,7 @@ class _TBadgeOutlinedColors extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final color in [
-          TColors.slate,
-          TColors.red,
-          TColors.green,
-          TColors.blue,
-          TColors.yellow,
-          TColors.purple,
-        ])
+        for (final color in PREVIEW_COLORS)
           TBadge.outlined(
             color: color,
             onPressed: () {},
@@ -321,14 +405,7 @@ class _TBadgeFilledColors extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final color in [
-          TColors.slate,
-          TColors.red,
-          TColors.green,
-          TColors.blue,
-          TColors.yellow,
-          TColors.purple,
-        ])
+        for (final color in PREVIEW_COLORS)
           TBadge.filled(
             color: color,
             onPressed: () {},
@@ -354,14 +431,7 @@ class _TBadgeSoftColors extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final color in [
-          TColors.slate,
-          TColors.red,
-          TColors.green,
-          TColors.blue,
-          TColors.yellow,
-          TColors.purple,
-        ])
+        for (final color in PREVIEW_COLORS)
           TBadge.soft(
             color: color,
             onPressed: () {},
@@ -382,26 +452,19 @@ class _TBadgeLeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Wrap(
+    return Wrap(
       spacing: TSpace.v24,
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        TBadge.outlined(
-          color: TColors.indigo,
-          leading: Icon(Icons.check),
-          child: Text('Badge'),
-        ),
-        TBadge.filled(
-          color: TColors.indigo,
-          leading: Icon(Icons.check),
-          child: Text('Badge'),
-        ),
-        TBadge.soft(
-          color: TColors.indigo,
-          leading: Icon(Icons.check),
-          child: Text('Badge'),
-        ),
+        for (final variant in TVariant.values)
+          TBadge.raw(
+            variant: variant,
+            color: TColors.indigo,
+            leading: const Icon(Icons.check),
+            onPressed: () {},
+            child: const Text('Badge'),
+          ),
       ],
     );
   }
@@ -417,26 +480,19 @@ class _TBadgeTrailing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Wrap(
+    return Wrap(
       spacing: TSpace.v24,
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        TBadge.outlined(
-          color: TColors.indigo,
-          trailing: Icon(Icons.check),
-          child: Text('Badge'),
-        ),
-        TBadge.filled(
-          color: TColors.indigo,
-          trailing: Icon(Icons.check),
-          child: Text('Badge'),
-        ),
-        TBadge.soft(
-          color: TColors.indigo,
-          trailing: Icon(Icons.check),
-          child: Text('Badge'),
-        ),
+        for (final variant in TVariant.values)
+          TBadge.raw(
+            variant: variant,
+            color: TColors.indigo,
+            trailing: const Icon(Icons.check),
+            onPressed: () {},
+            child: const Text('Badge'),
+          ),
       ],
     );
   }
@@ -479,27 +535,14 @@ class _TBadgeLeadingCallback extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        TBadge.outlined(
-          color: TColors.indigo,
-          leading: const Icon(Icons.add),
-          tooltipLeading: 'Add',
-          onPressedLeading: () {},
-          child: const Text('Badge'),
-        ),
-        TBadge.filled(
-          color: TColors.indigo,
-          leading: const Icon(Icons.add),
-          tooltipLeading: 'Add',
-          onPressedLeading: () {},
-          child: const Text('Badge'),
-        ),
-        TBadge.soft(
-          color: TColors.indigo,
-          leading: const Icon(Icons.add),
-          tooltipLeading: 'Add',
-          onPressedLeading: () {},
-          child: const Text('Badge'),
-        ),
+        for (final variant in TVariant.values)
+          TBadge.raw(
+            variant: variant,
+            leading: const Icon(Icons.add),
+            tooltipLeading: 'Add',
+            onPressedLeading: () {},
+            child: const Text('Badge'),
+          ),
       ],
     );
   }
@@ -520,27 +563,15 @@ class _TBadgeTrailingCallback extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        TBadge.outlined(
-          color: TColors.indigo,
-          trailing: const Icon(Icons.close),
-          tooltipTrailing: 'Remove',
-          onPressedTrailing: () {},
-          child: const Text('Badge'),
-        ),
-        TBadge.filled(
-          color: TColors.indigo,
-          trailing: const Icon(Icons.close),
-          tooltipTrailing: 'Remove',
-          onPressedTrailing: () {},
-          child: const Text('Badge'),
-        ),
-        TBadge.soft(
-          color: TColors.indigo,
-          trailing: const Icon(Icons.close),
-          tooltipTrailing: 'Remove',
-          onPressedTrailing: () {},
-          child: const Text('Badge'),
-        ),
+        for (final variant in TVariant.values)
+          TBadge.raw(
+            variant: variant,
+            color: TColors.indigo,
+            trailing: const Icon(Icons.close),
+            tooltipTrailing: 'Remove',
+            onPressedTrailing: () {},
+            child: const Text('Badge'),
+          ),
       ],
     );
   }
@@ -558,9 +589,8 @@ class _TBadgeCustomTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return TBadge.filled(
       theme: TBadgeTheme.all(
-        border: Border.all(color: TColors.slate),
         backgroundColor: Colors.black,
-        padding: TOffset.x10 + TOffset.y4,
+        border: Border.all(color: TColors.slate),
         borderRadius: TBorderRadius.rounded_none,
         textStyle: const TextStyle(color: Colors.white).medium,
       ),
@@ -583,36 +613,26 @@ class _TBadgeStatefulTheme extends StatelessWidget {
     return TBadge.filled(
       theme: TBadgeTheme(
         animationDuration: const Duration(milliseconds: 250),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          return states.hovered ? TColors.slate.shade800 : Colors.black;
+        }),
+        padding: WidgetStateProperty.resolveWith((states) {
+          return states.hovered ? TOffset.x16 : TOffset.x10;
+        }),
         border: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
             return Border.all(color: TColors.sky, width: 1.5);
           }
           return Border.all(color: TColors.slate);
         }),
-        backgroundColor: WidgetStateProperty.resolveWith((states) {
-          if (states.hovered) {
-            return TColors.slate.shade800;
-          }
-          return Colors.black;
-        }),
-        padding: WidgetStateProperty.resolveWith((states) {
-          if (states.hovered) {
-            return TOffset.x16 + TOffset.y4;
-          }
-          return TOffset.x10 + TOffset.y4;
-        }),
         borderRadius: WidgetStateProperty.resolveWith((states) {
-          if (states.hovered) {
-            return TBorderRadius.rounded_full;
-          }
-          return TBorderRadius.rounded_none;
+          return states.hovered
+              ? TBorderRadius.rounded_full
+              : TBorderRadius.rounded_none;
         }),
         textStyle: WidgetStateProperty.resolveWith((states) {
-          final style = const TextStyle(color: Colors.white).medium;
-          if (states.hovered) {
-            return style.semibold;
-          }
-          return style.medium;
+          const style = TextStyle(color: Colors.white);
+          return states.hovered ? style.semibold : style.medium;
         }),
       ),
       onPressed: () {},

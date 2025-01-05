@@ -146,16 +146,34 @@ class _ToggleButton extends StatelessWidget {
     final tw = context.tw;
     final selectedColor = tw.light ? Colors.white : TColors.slate.shade700;
     final selected = controller.value.selected;
-    return SizedBox(
-      width: tw.screen.is_md ? 100 : 50,
-      child: TButton.raw(
-        variant: selected ? TButtonVariant.filled : TButtonVariant.basic,
-        color: selected ? selectedColor : null,
-        onPressed: onTap,
-        size: TButtonSize.xs,
-        leading: Icon(icon, color: selected ? TColors.sky : null),
-        child: tw.screen.is_md ? Text(label) : null,
-      ),
-    );
+    final variant = selected ? TVariant.filled : TVariant.basic;
+    final icon = Icon(this.icon, color: selected ? TColors.sky : null);
+    final color = selected ? selectedColor : null;
+    final width = tw.screen.is_md ? 100.0 : 50.0;
+
+    if (tw.screen.is_md) {
+      return SizedBox(
+        width: width,
+        child: TButton.raw(
+          variant: variant,
+          color: color,
+          onPressed: onTap,
+          size: TButtonSize.xs,
+          leading: icon,
+          child: Text(label),
+        ),
+      );
+    } else {
+      return SizedBox(
+        width: width,
+        child: TIconButton.raw(
+          variant: variant,
+          color: color,
+          onPressed: onTap,
+          size: TButtonSize.xs,
+          icon: icon,
+        ),
+      );
+    }
   }
 }

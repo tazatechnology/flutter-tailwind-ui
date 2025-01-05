@@ -3,22 +3,6 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/internal/styled_container.dart';
 
 // =============================================================================
-// ENUM: TBadgeVariant
-// =============================================================================
-
-/// The variant of the badge.
-enum TBadgeVariant {
-  /// A outlined themed badge.
-  outlined,
-
-  /// A filled themed badge.
-  filled,
-
-  /// An soft themed button.
-  soft,
-}
-
-// =============================================================================
 // ENUM: TBadgeSize
 // =============================================================================
 
@@ -36,6 +20,16 @@ enum TBadgeSize {
 
 /// Extension on [TBadgeSize] to provide useful methods
 extension XTailwindTBadgeSize on TBadgeSize {
+  /// The default text style associated with the given [TBadgeSize].
+  TextStyle get textStyle {
+    switch (this) {
+      case TBadgeSize.sm:
+      case TBadgeSize.md:
+      case TBadgeSize.lg:
+        return TTextStyle.text_xs.medium;
+    }
+  }
+
   /// The padding associated with the given [TBadgeSize].
   EdgeInsets get padding {
     switch (this) {
@@ -59,16 +53,6 @@ extension XTailwindTBadgeSize on TBadgeSize {
         return 30;
     }
   }
-
-  /// The default text style associated with the given [TBadgeSize].
-  TextStyle get textStyle {
-    switch (this) {
-      case TBadgeSize.sm:
-      case TBadgeSize.md:
-      case TBadgeSize.lg:
-        return TTextStyle.text_xs.medium;
-    }
-  }
 }
 
 // =============================================================================
@@ -77,7 +61,28 @@ extension XTailwindTBadgeSize on TBadgeSize {
 
 /// A badge is a small status descriptor for UI elements.
 class TBadge extends StatelessWidget {
-  /// Creates a [TBadge] widget.
+  /// Creates a basic [TBadge] button ([TVariant.basic]).
+  const TBadge({
+    required this.child,
+    this.color,
+    this.baseTextStyle,
+    this.controller,
+    this.theme,
+    this.size = TBadgeSize.md,
+    this.leading,
+    this.trailing,
+    this.loading,
+    this.tooltip,
+    this.tooltipLeading,
+    this.tooltipTrailing,
+    this.onPressed,
+    this.onPressedLeading,
+    this.onPressedTrailing,
+    this.onHover,
+    super.key,
+  }) : variant = TVariant.basic;
+
+  /// Creates a basic [TBadge] button ([TVariant.outlined]).
   const TBadge.outlined({
     required this.child,
     this.color,
@@ -96,9 +101,9 @@ class TBadge extends StatelessWidget {
     this.onPressedTrailing,
     this.onHover,
     super.key,
-  }) : variant = TBadgeVariant.outlined;
+  }) : variant = TVariant.outlined;
 
-  /// Creates a [TBadge] widget.
+  /// Creates a basic [TBadge] button ([TVariant.filled]).
   const TBadge.filled({
     required this.child,
     this.color,
@@ -117,9 +122,9 @@ class TBadge extends StatelessWidget {
     this.onPressedTrailing,
     this.onHover,
     super.key,
-  }) : variant = TBadgeVariant.filled;
+  }) : variant = TVariant.filled;
 
-  /// Creates a [TBadge] widget.
+  /// Creates a basic [TBadge] button ([TVariant.soft]).
   const TBadge.soft({
     required this.child,
     this.color,
@@ -138,7 +143,7 @@ class TBadge extends StatelessWidget {
     this.onPressedTrailing,
     this.onHover,
     super.key,
-  }) : variant = TBadgeVariant.soft;
+  }) : variant = TVariant.soft;
 
   /// Creates a [TBadge] widget.
   const TBadge.raw({
@@ -163,7 +168,7 @@ class TBadge extends StatelessWidget {
   });
 
   /// The variant of the button.
-  final TBadgeVariant variant;
+  final TVariant variant;
 
   /// The custom theme override for the badge.
   final Widget child;
@@ -195,12 +200,18 @@ class TBadge extends StatelessWidget {
   final TWidgetController? controller;
 
   /// The tooltip to display when hovering over the badge.
+  ///
+  /// Rendered using the [TTooltip] widget and supports rich text formatting.
   final String? tooltip;
 
   /// The tooltip to display when hovering over the leading widget.
+  ///
+  /// Rendered using the [TTooltip] widget and supports rich text formatting.
   final String? tooltipLeading;
 
   /// The tooltip to display when hovering over the trailing widget.
+  ///
+  /// Rendered using the [TTooltip] widget and supports rich text formatting.
   final String? tooltipTrailing;
 
   /// An action to call when the badge is pressed.
@@ -221,37 +232,17 @@ class TBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Map the badge variant to the styled container variant.
-    TStyledContainerVariant styledVariant;
-    switch (variant) {
-      case TBadgeVariant.outlined:
-        styledVariant = TStyledContainerVariant.outlined;
-      case TBadgeVariant.filled:
-        styledVariant = TStyledContainerVariant.filled;
-      case TBadgeVariant.soft:
-        styledVariant = TStyledContainerVariant.soft;
-    }
-
     return TStyledContainer(
-      options: TStyledContainerOptions(
-        fillOnHover: false,
-        height: size.height,
-      ),
+      height: WidgetStatePropertyAll(size.height),
       controller: controller,
       color: color,
       focusColor: theme?.focusColor,
       animationDuration: theme?.animationDuration ?? Duration.zero,
-      variant: styledVariant,
+      variant: variant,
       baseTextStyle: size.textStyle.merge(baseTextStyle),
       textStyle: theme?.textStyle,
       backgroundColor: theme?.backgroundColor,
-      padding: WidgetStateProperty.resolveWith((states) {
-        final pad = theme?.padding?.resolve(states);
-        if (pad == null) {
-          return size.padding;
-        }
-        return EdgeInsets.symmetric(horizontal: pad.horizontal / 2);
-      }),
+      padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
       border: theme?.border,
       borderRadius: theme?.borderRadius ??
           const WidgetStatePropertyAll(TBorderRadius.rounded_full),

@@ -3,34 +3,15 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/internal/styled_container.dart';
 
 // =============================================================================
-// ENUM: TIconButtonVariant
-// =============================================================================
-
-/// The variant of the button.
-enum TIconButtonVariant {
-  /// A basic button.
-  basic,
-
-  /// An outlined button.
-  outlined,
-
-  /// A filled button.
-  filled,
-
-  /// A filled button.
-  soft,
-}
-
-// =============================================================================
 // CLASS: TIconButton
 // =============================================================================
 
 /// A highly customizable button
 class TIconButton extends StatelessWidget {
-  /// Creates a basic [TIconButton] button ([TIconButtonVariant.basic]).
+  /// Creates a basic [TIconButton] button ([TVariant.basic]).
   const TIconButton({
+    required this.icon,
     super.key,
-    this.icon,
     this.loading,
     this.theme,
     this.size = TButtonSize.md,
@@ -39,12 +20,12 @@ class TIconButton extends StatelessWidget {
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : variant = TIconButtonVariant.basic;
+  }) : variant = TVariant.basic;
 
-  /// Creates an outlined [TIconButton] button ([TIconButtonVariant.outlined]).
+  /// Creates an outlined [TIconButton] button ([TVariant.outlined]).
   const TIconButton.outlined({
+    required this.icon,
     super.key,
-    this.icon,
     this.loading,
     this.theme,
     this.size = TButtonSize.md,
@@ -53,12 +34,12 @@ class TIconButton extends StatelessWidget {
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : variant = TIconButtonVariant.outlined;
+  }) : variant = TVariant.outlined;
 
-  /// Creates a filled [TIconButton] button ([TIconButtonVariant.filled]).
+  /// Creates a filled [TIconButton] button ([TVariant.filled]).
   const TIconButton.filled({
+    required this.icon,
     super.key,
-    this.icon,
     this.loading,
     this.theme,
     this.size = TButtonSize.md,
@@ -67,12 +48,12 @@ class TIconButton extends StatelessWidget {
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : variant = TIconButtonVariant.filled;
+  }) : variant = TVariant.filled;
 
-  /// Creates a soft [TIconButton] button ([TIconButtonVariant.soft]).
+  /// Creates a soft [TIconButton] button ([TVariant.soft]).
   const TIconButton.soft({
+    required this.icon,
     super.key,
-    this.icon,
     this.loading,
     this.theme,
     this.size = TButtonSize.md,
@@ -81,13 +62,13 @@ class TIconButton extends StatelessWidget {
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : variant = TIconButtonVariant.soft;
+  }) : variant = TVariant.soft;
 
   /// Creates a raw [TIconButton] button.
   const TIconButton.raw({
     required this.variant,
+    required this.icon,
     super.key,
-    this.icon,
     this.loading,
     this.theme,
     this.size = TButtonSize.md,
@@ -99,10 +80,10 @@ class TIconButton extends StatelessWidget {
   });
 
   /// The variant of the button.
-  final TIconButtonVariant variant;
+  final TVariant variant;
 
   /// The icon to display on the button.
-  final Widget? icon;
+  final Widget icon;
 
   /// The widget to display when the [TWidgetController] is in a loading state.
   final Widget? loading;
@@ -126,38 +107,30 @@ class TIconButton extends StatelessWidget {
   final ValueChanged<bool>? onHover;
 
   /// The tooltip to display when hovering over the button.
+  ///
+  /// Rendered using the [TTooltip] widget and supports rich text formatting.
   final String? tooltip;
 
   @override
   Widget build(BuildContext context) {
-    // Map the button variant to the styled container variant.
-    TStyledContainerVariant styledVariant;
-    switch (variant) {
-      case TIconButtonVariant.basic:
-        styledVariant = TStyledContainerVariant.basic;
-      case TIconButtonVariant.outlined:
-        styledVariant = TStyledContainerVariant.outlined;
-      case TIconButtonVariant.filled:
-        styledVariant = TStyledContainerVariant.filled;
-      case TIconButtonVariant.soft:
-        styledVariant = TStyledContainerVariant.soft;
-    }
-
-    // Icon padding should be square.
-    final iconPadding = EdgeInsets.all(size.padding.vertical / 2);
-
+    final dimension = WidgetStateProperty.resolveWith((states) {
+      return theme?.height?.resolve(states) ?? size.height;
+    });
     return TStyledContainer(
+      iconSize: theme?.iconSize,
+      height: dimension,
+      width: dimension,
       controller: controller,
       color: color,
       focusColor: theme?.focusColor,
       animationDuration: theme?.animationDuration ?? Duration.zero,
-      variant: styledVariant,
+      variant: variant,
       tooltip: tooltip,
       baseTextStyle: size.textStyle,
       textStyle: theme?.textStyle,
       backgroundColor: theme?.backgroundColor,
       elevation: theme?.elevation,
-      padding: theme?.padding ?? WidgetStatePropertyAll(iconPadding),
+      padding: theme?.padding,
       border: theme?.border,
       borderRadius:
           theme?.borderRadius ?? WidgetStatePropertyAll(size.borderRadius),
@@ -165,9 +138,7 @@ class TIconButton extends StatelessWidget {
       loading: loading,
       onTap: onPressed,
       onHover: onHover,
-      child: SelectionContainer.disabled(
-        child: icon ?? const SizedBox.shrink(),
-      ),
+      child: SelectionContainer.disabled(child: icon),
     );
   }
 }

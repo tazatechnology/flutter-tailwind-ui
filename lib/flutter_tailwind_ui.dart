@@ -9,6 +9,7 @@ export 'src/components/radio.dart';
 export 'src/components/row_column.dart';
 export 'src/components/scrollbar.dart';
 export 'src/components/sized_box.dart';
+export 'src/components/split_button.dart';
 export 'src/components/text.dart';
 export 'src/components/tooltip.dart';
 export 'src/components/widget_controller.dart';
@@ -25,6 +26,7 @@ export 'src/constants/space.dart';
 export 'src/constants/text.dart';
 
 // Extensions
+export 'src/extensions/border.dart';
 export 'src/extensions/build_context.dart';
 export 'src/extensions/color.dart';
 export 'src/extensions/numeric.dart';

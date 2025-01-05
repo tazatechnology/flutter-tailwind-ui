@@ -33,17 +33,22 @@ class _AppNavigationState extends State<AppNavigation> {
       );
     }
 
-    // Component routes
-    final componentRoutes = {
-      'TBadge': AppRouter.badge,
-      'TButton': AppRouter.button,
-      'TIconButton': AppRouter.icon_button,
-      'TCodeBlock': AppRouter.code_block,
-      'TRadioList': AppRouter.radio_list,
-      'TRowColumn': AppRouter.row_column,
-      'TScrollbar': AppRouter.scrollbar,
-      'TSizedBox': AppRouter.sized_box,
-      'TText': AppRouter.text,
+    // Component sections
+    final componentSections = {
+      'Badges & Buttons': {
+        'TBadge': AppRouter.badge,
+        'TButton': AppRouter.button,
+        'TIconButton': AppRouter.icon_button,
+        'TSplitButton': AppRouter.split_button,
+      },
+      'Layout': {
+        'TCodeBlock': AppRouter.code_block,
+        'TRadioList': AppRouter.radio_list,
+        'TRowColumn': AppRouter.row_column,
+        'TScrollbar': AppRouter.scrollbar,
+        'TSizedBox': AppRouter.sized_box,
+        'TText': AppRouter.text,
+      },
     };
 
     return ExcludeFocus(
@@ -86,12 +91,21 @@ class _AppNavigationState extends State<AppNavigation> {
           AppNavigationSection(
             title: 'Components',
             items: [
-              for (final entry in componentRoutes.entries)
-                AppNavigationItem(
+              for (final entry in componentSections.entries) ...[
+                AppNavigationSubtitle(
                   title: entry.key,
-                  route: entry.value,
-                  isComponent: true,
+                  padding: TOffset.x16 +
+                      (entry.key == componentSections.keys.first
+                          ? TOffset.b8
+                          : TOffset.y8),
                 ),
+                for (final component in entry.value.entries)
+                  AppNavigationItem(
+                    title: component.key,
+                    route: component.value,
+                    isComponent: true,
+                  ),
+              ],
             ],
           ),
         ],
@@ -111,7 +125,7 @@ class AppNavigationSection extends StatelessWidget {
     super.key,
   });
   final String title;
-  final List<AppNavigationItem> items;
+  final List<Widget> items;
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
@@ -226,6 +240,32 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
           setState(() => isHovered = value);
         },
         child: TText(widget.title),
+      ),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: AppNavigationSubtitle
+// =============================================================================
+
+class AppNavigationSubtitle extends StatelessWidget {
+  const AppNavigationSubtitle({
+    required this.title,
+    required this.padding,
+    super.key,
+  });
+  final String title;
+  final EdgeInsetsGeometry padding;
+  @override
+  Widget build(BuildContext context) {
+    final tw = context.tw;
+    return Padding(
+      padding: padding,
+      child: SelectableText(
+        title,
+        style: tw.text.style_xs.normal.tracking_wider
+            .copyWith(color: TColors.slate.shade400),
       ),
     );
   }

@@ -1,3 +1,26 @@
+// =============================================================================
+// ENUM: TVariant
+// =============================================================================
+
+/// The variant of the styled container.
+enum TVariant {
+  /// A basic styled container.
+  basic,
+
+  /// An outlined styled container.
+  outlined,
+
+  /// A filled styled container.
+  filled,
+
+  /// A filled styled container with soft colors.
+  soft,
+}
+
+// =============================================================================
+// ENUM: TControlAffinity
+// =============================================================================
+
 /// Enum for the control affinity (position) of a control element
 ///
 /// This applies to radios, checkboxes, and switches

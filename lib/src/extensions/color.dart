@@ -153,9 +153,9 @@ extension XTailwindColor on Color {
 ///
 /// The factor should be between 0 and 1, where 1 results in the lightest tint.
 Color _tintColor(Color color, double factor) => Color.fromRGBO(
-      (color.r + ((255 - color.r) * factor)).round(),
-      (color.g + ((255 - color.g) * factor)).round(),
-      (color.b + ((255 - color.b) * factor)).round(),
+      ((color.r + (1.0 - color.r) * factor) * 255).round(),
+      ((color.g + (1.0 - color.g) * factor) * 255).round(),
+      ((color.b + (1.0 - color.b) * factor) * 255).round(),
       1,
     );
 
@@ -167,8 +167,8 @@ Color _tintColor(Color color, double factor) => Color.fromRGBO(
 ///
 /// The factor should be between 0 and 1, where 1 results in the darkest shade.
 Color _shadeColor(Color color, double factor) => Color.fromRGBO(
-      (color.r * (1 - factor)).round(),
-      (color.g * (1 - factor)).round(),
-      (color.b * (1 - factor)).round(),
+      (color.r * (1 - factor) * 255).round(),
+      (color.g * (1 - factor) * 255).round(),
+      (color.b * (1 - factor) * 255).round(),
       1,
     );

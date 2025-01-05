@@ -3,11 +3,22 @@
 
 part of 'components.dart';
 
+/// Source code for [_TBadgeBasic]
+class _TBadgeBasicSource {
+  static const String code = r"""
+TBadge(
+  child: const Text('Badge'),
+  onPressed: () {},
+)
+""";
+}
+
 /// Source code for [_TBadgeOutlined]
 class _TBadgeOutlinedSource {
   static const String code = r"""
-const TBadge.outlined(
-  child: Text('Badge'),
+TBadge.outlined(
+  child: const Text('Badge'),
+  onPressed: () {},
 )
 """;
 }
@@ -15,8 +26,9 @@ const TBadge.outlined(
 /// Source code for [_TBadgeFilled]
 class _TBadgeFilledSource {
   static const String code = r"""
-const TBadge.filled(
-  child: Text('Badge'),
+TBadge.filled(
+  child: const Text('Badge'),
+  onPressed: () {},
 )
 """;
 }
@@ -24,8 +36,29 @@ const TBadge.filled(
 /// Source code for [_TBadgeSoft]
 class _TBadgeSoftSource {
   static const String code = r"""
-const TBadge.soft(
-  child: Text('Badge'),
+TBadge.soft(
+  child: const Text('Badge'),
+  onPressed: () {},
+)
+""";
+}
+
+/// Source code for [_TBadgeBasicSizes]
+class _TBadgeBasicSizesSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final size in TBadgeSize.values)
+      TBadge(
+        size: size,
+        tooltip: '``$size``',
+        onPressed: () {},
+        child: const Text('Badge'),
+      ),
+  ],
 )
 """;
 }
@@ -42,6 +75,7 @@ Wrap(
       TBadge.outlined(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         child: const Text('Badge'),
       ),
   ],
@@ -61,6 +95,7 @@ Wrap(
       TBadge.filled(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
         child: const Text('Badge'),
       ),
   ],
@@ -80,6 +115,26 @@ Wrap(
       TBadge.soft(
         size: size,
         tooltip: '``$size``',
+        onPressed: () {},
+        child: const Text('Badge'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TBadgeBasicColors]
+class _TBadgeBasicColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in PREVIEW_COLORS)
+      TBadge(
+        color: color,
+        onPressed: () {},
         child: const Text('Badge'),
       ),
   ],
@@ -95,14 +150,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TBadge.outlined(
         color: color,
         onPressed: () {},
@@ -121,14 +169,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TBadge.filled(
         color: color,
         onPressed: () {},
@@ -147,14 +188,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TBadge.soft(
         color: color,
         onPressed: () {},
@@ -168,26 +202,19 @@ Wrap(
 /// Source code for [_TBadgeLeading]
 class _TBadgeLeadingSource {
   static const String code = r"""
-const Wrap(
+Wrap(
   spacing: TSpace.v24,
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    TBadge.outlined(
-      color: TColors.indigo,
-      leading: Icon(Icons.check),
-      child: Text('Badge'),
-    ),
-    TBadge.filled(
-      color: TColors.indigo,
-      leading: Icon(Icons.check),
-      child: Text('Badge'),
-    ),
-    TBadge.soft(
-      color: TColors.indigo,
-      leading: Icon(Icons.check),
-      child: Text('Badge'),
-    ),
+    for (final variant in TVariant.values)
+      TBadge.raw(
+        variant: variant,
+        color: TColors.indigo,
+        leading: const Icon(Icons.check),
+        onPressed: () {},
+        child: const Text('Badge'),
+      ),
   ],
 )
 """;
@@ -196,26 +223,19 @@ const Wrap(
 /// Source code for [_TBadgeTrailing]
 class _TBadgeTrailingSource {
   static const String code = r"""
-const Wrap(
+Wrap(
   spacing: TSpace.v24,
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    TBadge.outlined(
-      color: TColors.indigo,
-      trailing: Icon(Icons.check),
-      child: Text('Badge'),
-    ),
-    TBadge.filled(
-      color: TColors.indigo,
-      trailing: Icon(Icons.check),
-      child: Text('Badge'),
-    ),
-    TBadge.soft(
-      color: TColors.indigo,
-      trailing: Icon(Icons.check),
-      child: Text('Badge'),
-    ),
+    for (final variant in TVariant.values)
+      TBadge.raw(
+        variant: variant,
+        color: TColors.indigo,
+        trailing: const Icon(Icons.check),
+        onPressed: () {},
+        child: const Text('Badge'),
+      ),
   ],
 )
 """;
@@ -244,27 +264,14 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    TBadge.outlined(
-      color: TColors.indigo,
-      leading: const Icon(Icons.add),
-      tooltipLeading: 'Add',
-      onPressedLeading: () {},
-      child: const Text('Badge'),
-    ),
-    TBadge.filled(
-      color: TColors.indigo,
-      leading: const Icon(Icons.add),
-      tooltipLeading: 'Add',
-      onPressedLeading: () {},
-      child: const Text('Badge'),
-    ),
-    TBadge.soft(
-      color: TColors.indigo,
-      leading: const Icon(Icons.add),
-      tooltipLeading: 'Add',
-      onPressedLeading: () {},
-      child: const Text('Badge'),
-    ),
+    for (final variant in TVariant.values)
+      TBadge.raw(
+        variant: variant,
+        leading: const Icon(Icons.add),
+        tooltipLeading: 'Add',
+        onPressedLeading: () {},
+        child: const Text('Badge'),
+      ),
   ],
 )
 """;
@@ -278,27 +285,15 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    TBadge.outlined(
-      color: TColors.indigo,
-      trailing: const Icon(Icons.close),
-      tooltipTrailing: 'Remove',
-      onPressedTrailing: () {},
-      child: const Text('Badge'),
-    ),
-    TBadge.filled(
-      color: TColors.indigo,
-      trailing: const Icon(Icons.close),
-      tooltipTrailing: 'Remove',
-      onPressedTrailing: () {},
-      child: const Text('Badge'),
-    ),
-    TBadge.soft(
-      color: TColors.indigo,
-      trailing: const Icon(Icons.close),
-      tooltipTrailing: 'Remove',
-      onPressedTrailing: () {},
-      child: const Text('Badge'),
-    ),
+    for (final variant in TVariant.values)
+      TBadge.raw(
+        variant: variant,
+        color: TColors.indigo,
+        trailing: const Icon(Icons.close),
+        tooltipTrailing: 'Remove',
+        onPressedTrailing: () {},
+        child: const Text('Badge'),
+      ),
   ],
 )
 """;
@@ -309,11 +304,10 @@ class _TBadgeCustomThemeSource {
   static const String code = r"""
 TBadge.filled(
   theme: TBadgeTheme.all(
-    border: Border.all(color: TColors.sky.shade100),
-    backgroundColor: TColors.sky.shade200,
-    padding: TOffset.x10 + TOffset.y4,
+    backgroundColor: Colors.black,
+    border: Border.all(color: TColors.slate),
     borderRadius: TBorderRadius.rounded_none,
-    textStyle: TextStyle(color: TColors.sky.shade800).medium,
+    textStyle: const TextStyle(color: Colors.white).medium,
   ),
   onPressed: () {},
   child: const Text('Badge'),
@@ -327,36 +321,26 @@ class _TBadgeStatefulThemeSource {
 TBadge.filled(
   theme: TBadgeTheme(
     animationDuration: const Duration(milliseconds: 250),
-    border: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return Border.all(color: TColors.sky);
-      }
-      return Border.all(color: TColors.sky.shade100);
-    }),
     backgroundColor: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return TColors.sky.shade100;
-      }
-      return TColors.sky.shade200;
+      return states.hovered ? TColors.slate.shade800 : Colors.black;
     }),
     padding: WidgetStateProperty.resolveWith((states) {
+      return states.hovered ? TOffset.x16 : TOffset.x10;
+    }),
+    border: WidgetStateProperty.resolveWith((states) {
       if (states.hovered) {
-        return TOffset.x16 + TOffset.y4;
+        return Border.all(color: TColors.sky, width: 1.5);
       }
-      return TOffset.x10 + TOffset.y4;
+      return Border.all(color: TColors.slate);
     }),
     borderRadius: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return TBorderRadius.rounded_full;
-      }
-      return TBorderRadius.rounded_none;
+      return states.hovered
+          ? TBorderRadius.rounded_full
+          : TBorderRadius.rounded_none;
     }),
     textStyle: WidgetStateProperty.resolveWith((states) {
-      final style = TextStyle(color: TColors.sky.shade800).medium;
-      if (states.hovered) {
-        return style.semibold;
-      }
-      return style.medium;
+      const style = TextStyle(color: Colors.white);
+      return states.hovered ? style.semibold : style.medium;
     }),
   ),
   onPressed: () {},
@@ -399,16 +383,6 @@ TButton.filled(
 class _TButtonSoftSource {
   static const String code = r"""
 TButton.soft(
-  onPressed: () {},
-  child: const Text('Button'),
-)
-""";
-}
-
-/// Source code for [_TButtonLink]
-class _TButtonLinkSource {
-  static const String code = r"""
-TButton.link(
   onPressed: () {},
   child: const Text('Button'),
 )
@@ -495,26 +469,6 @@ Wrap(
 """;
 }
 
-/// Source code for [_TButtonLinkSizes]
-class _TButtonLinkSizesSource {
-  static const String code = r"""
-Wrap(
-  spacing: TSpace.v24,
-  runSpacing: TSpace.v8,
-  crossAxisAlignment: WrapCrossAlignment.center,
-  children: [
-    for (final size in TButtonSize.values)
-      TButton.link(
-        size: size,
-        tooltip: '``$size``',
-        onPressed: () {},
-        child: const Text('Button'),
-      ),
-  ],
-)
-""";
-}
-
 /// Source code for [_TButtonBasicColors]
 class _TButtonBasicColorsSource {
   static const String code = r"""
@@ -523,14 +477,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TButton(
         color: color,
         onPressed: () {},
@@ -549,14 +496,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TButton.outlined(
         color: color,
         onPressed: () {},
@@ -575,14 +515,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TButton.filled(
         color: color,
         onPressed: () {},
@@ -601,41 +534,8 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TButton.soft(
-        color: color,
-        onPressed: () {},
-        child: const Text('Button'),
-      ),
-  ],
-)
-""";
-}
-
-/// Source code for [_TButtonLinkColors]
-class _TButtonLinkColorsSource {
-  static const String code = r"""
-Wrap(
-  spacing: TSpace.v24,
-  runSpacing: TSpace.v8,
-  crossAxisAlignment: WrapCrossAlignment.center,
-  children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
-      TButton.link(
         color: color,
         onPressed: () {},
         child: const Text('Button'),
@@ -653,7 +553,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TButtonVariant.values)
+    for (final variant in TVariant.values)
       TButton.raw(
         variant: variant,
         color: TColors.indigo,
@@ -674,7 +574,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TButtonVariant.values)
+    for (final variant in TVariant.values)
       TButton.raw(
         variant: variant,
         color: TColors.indigo,
@@ -713,10 +613,8 @@ class _TButtonLoading extends StatefulWidget {
 }
 
 class _TButtonLoadingState extends State<_TButtonLoading> {
-  late final controllers = List.generate(
-    TButtonVariant.values.length,
-    (_) => TWidgetController(),
-  );
+  final controllers =
+      List.generate(TVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -744,7 +642,7 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TButtonVariant.values)
+        for (final variant in TVariant.values)
           TButton.raw(
             tooltip: '``$variant``',
             variant: variant,
@@ -767,7 +665,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TButtonVariant.values)
+    for (final variant in TVariant.values)
       TButton.raw(
         variant: variant,
         controller: TWidgetController(disabled: true),
@@ -790,10 +688,8 @@ class _TButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
-  late final controllers = List.generate(
-    TButtonVariant.values.length,
-    (_) => TWidgetController(),
-  );
+  final controllers =
+      List.generate(TVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -821,12 +717,12 @@ class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TButtonVariant.values)
+        for (final variant in TVariant.values)
           TButton.raw(
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
-            loading: const Icon(Icons.hourglass_bottom_rounded),
+            loading: const Icon(Icons.hourglass_bottom),
             child: const Text('Button'),
           ),
       ],
@@ -841,12 +737,12 @@ class _TButtonCustomThemeSource {
   static const String code = r"""
 TButton.filled(
   theme: TButtonTheme.all(
-    border: Border.all(color: TColors.sky.shade100),
-    backgroundColor: TColors.sky.shade200,
+    height: 32,
+    backgroundColor: Colors.black,
     elevation: TShadow.shadow,
-    padding: TOffset.x10 + TOffset.y4,
+    border: Border.all(color: TColors.slate),
     borderRadius: TBorderRadius.rounded_none,
-    textStyle: TextStyle(color: TColors.sky.shade800).medium,
+    textStyle: const TextStyle(color: Colors.white).medium,
   ),
   onPressed: () {},
   child: const Text('Button'),
@@ -860,42 +756,32 @@ class _TButtonStatefulThemeSource {
 TButton.filled(
   theme: TButtonTheme(
     animationDuration: const Duration(milliseconds: 250),
-    border: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return Border.all(color: TColors.sky);
-      }
-      return Border.all(color: TColors.sky.shade100);
+    height: WidgetStateProperty.resolveWith((states) {
+      return states.hovered ? 48 : 32;
     }),
     backgroundColor: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return TColors.sky.shade100;
-      }
-      return TColors.sky.shade200;
+      return states.hovered ? TColors.slate.shade800 : Colors.black;
     }),
     elevation: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return TShadow.shadow_md;
-      }
-      return TShadow.shadow;
+      return states.hovered ? TShadow.shadow_md : TShadow.shadow;
     }),
     padding: WidgetStateProperty.resolveWith((states) {
+      return states.hovered ? TOffset.x16 : TOffset.x10;
+    }),
+    border: WidgetStateProperty.resolveWith((states) {
       if (states.hovered) {
-        return TOffset.x16 + TOffset.y4;
+        return Border.all(color: TColors.sky, width: 1.5);
       }
-      return TOffset.x10 + TOffset.y4;
+      return Border.all(color: TColors.slate);
     }),
     borderRadius: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return TBorderRadius.rounded_full;
-      }
-      return TBorderRadius.rounded_none;
+      return states.hovered
+          ? TBorderRadius.rounded_full
+          : TBorderRadius.rounded_none;
     }),
     textStyle: WidgetStateProperty.resolveWith((states) {
-      final style = TextStyle(color: TColors.sky.shade800).medium;
-      if (states.hovered) {
-        return style.semibold;
-      }
-      return style.medium;
+      const style = TextStyle(color: Colors.white);
+      return states.hovered ? style.semibold : style.medium;
     }),
   ),
   onPressed: () {},
@@ -1062,14 +948,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TIconButton(
         color: color,
         onPressed: () {},
@@ -1088,14 +967,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TIconButton.outlined(
         color: color,
         onPressed: () {},
@@ -1114,14 +986,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TIconButton.filled(
         color: color,
         onPressed: () {},
@@ -1140,14 +1005,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final color in [
-      TColors.slate,
-      TColors.red,
-      TColors.green,
-      TColors.blue,
-      TColors.yellow,
-      TColors.purple,
-    ])
+    for (final color in PREVIEW_COLORS)
       TIconButton.soft(
         color: color,
         onPressed: () {},
@@ -1184,10 +1042,8 @@ class _TIconButtonLoading extends StatefulWidget {
 }
 
 class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
-  late final controllers = List.generate(
-    TIconButtonVariant.values.length,
-    (_) => TWidgetController(),
-  );
+  final controllers =
+      List.generate(TVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -1215,7 +1071,7 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TIconButtonVariant.values)
+        for (final variant in TVariant.values)
           TIconButton.raw(
             tooltip: '``$variant``',
             variant: variant,
@@ -1238,7 +1094,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TIconButtonVariant.values)
+    for (final variant in TVariant.values)
       TIconButton.raw(
         variant: variant,
         controller: TWidgetController(disabled: true),
@@ -1261,10 +1117,8 @@ class _TIconButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
-  late final controllers = List.generate(
-    TIconButtonVariant.values.length,
-    (_) => TWidgetController(),
-  );
+  final controllers =
+      List.generate(TVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -1292,12 +1146,12 @@ class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TIconButtonVariant.values)
+        for (final variant in TVariant.values)
           TIconButton.raw(
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
-            loading: const Icon(Icons.hourglass_bottom_rounded),
+            loading: const Icon(Icons.hourglass_bottom),
             icon: const Icon(Icons.add),
           ),
       ],
@@ -1312,12 +1166,11 @@ class _TIconButtonCustomThemeSource {
   static const String code = r"""
 TIconButton.filled(
   theme: TButtonTheme.all(
-    border: Border.all(color: TColors.sky.shade100),
-    backgroundColor: TColors.sky.shade200,
+    height: 32,
+    backgroundColor: Colors.black,
     elevation: TShadow.shadow,
-    padding: TOffset.a6,
+    border: Border.all(color: TColors.slate),
     borderRadius: TBorderRadius.rounded_none,
-    textStyle: TextStyle(color: TColors.sky.shade800).medium,
   ),
   onPressed: () {},
   icon: const Icon(Icons.add),
@@ -1331,41 +1184,450 @@ class _TIconButtonStatefulThemeSource {
 TIconButton.filled(
   theme: TButtonTheme(
     animationDuration: const Duration(milliseconds: 250),
-    border: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return Border.all(color: TColors.sky);
-      }
-      return Border.all(color: TColors.sky.shade100);
+    height: WidgetStateProperty.resolveWith((states) {
+      return states.hovered ? 48 : 32;
     }),
     backgroundColor: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return TColors.sky.shade100;
-      }
-      return TColors.sky.shade200;
+      return states.hovered ? TColors.slate.shade800 : Colors.black;
     }),
     elevation: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return TShadow.shadow_md;
-      }
-      return TShadow.shadow;
+      return states.hovered ? TShadow.shadow_md : TShadow.shadow;
     }),
-    padding: const WidgetStatePropertyAll(TOffset.a6),
+    border: WidgetStateProperty.resolveWith((states) {
+      if (states.hovered) {
+        return Border.all(color: TColors.sky, width: 1.5);
+      }
+      return Border.all(color: TColors.slate);
+    }),
     borderRadius: WidgetStateProperty.resolveWith((states) {
-      if (states.hovered) {
-        return TBorderRadius.rounded_full;
-      }
-      return TBorderRadius.rounded_none;
-    }),
-    textStyle: WidgetStateProperty.resolveWith((states) {
-      final style = TextStyle(color: TColors.sky.shade800).medium;
-      if (states.hovered) {
-        return style.semibold;
-      }
-      return style.medium;
+      return states.hovered
+          ? TBorderRadius.rounded_full
+          : TBorderRadius.rounded_none;
     }),
   ),
   onPressed: () {},
   icon: const Icon(Icons.add),
 )
+""";
+}
+
+/// Source code for [_TSplitButtonBasic]
+class _TSplitButtonBasicSource {
+  static const String code = r"""
+TSplitButton(
+  onPressed: () {},
+  onPressedTrailing: () {},
+  trailing: const Icon(Icons.keyboard_arrow_down),
+  child: const Text('Button'),
+)
+""";
+}
+
+/// Source code for [_TSplitButtonOutlined]
+class _TSplitButtonOutlinedSource {
+  static const String code = r"""
+TSplitButton.outlined(
+  onPressed: () {},
+  onPressedTrailing: () {},
+  trailing: const Icon(Icons.keyboard_arrow_down),
+  child: const Text('Button'),
+)
+""";
+}
+
+/// Source code for [_TSplitButtonFilled]
+class _TSplitButtonFilledSource {
+  static const String code = r"""
+TSplitButton.filled(
+  onPressed: () {},
+  onPressedTrailing: () {},
+  trailing: const Icon(Icons.keyboard_arrow_down),
+  child: const Text('Button'),
+)
+""";
+}
+
+/// Source code for [_TSplitButtonSoft]
+class _TSplitButtonSoftSource {
+  static const String code = r"""
+TSplitButton.soft(
+  onPressed: () {},
+  onPressedTrailing: () {},
+  trailing: const Icon(Icons.keyboard_arrow_down),
+  child: const Text('Button'),
+)
+""";
+}
+
+/// Source code for [_TSplitButtonBasicSizes]
+class _TSplitButtonBasicSizesSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final size in TButtonSize.values)
+      TSplitButton(
+        size: size,
+        tooltip: '``$size``',
+        onPressed: () {},
+        onPressedTrailing: () {},
+        trailing: const Icon(Icons.keyboard_arrow_down),
+        child: const Text('Button'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonOutlinedSizes]
+class _TSplitButtonOutlinedSizesSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final size in TButtonSize.values)
+      TSplitButton.outlined(
+        size: size,
+        tooltip: '``$size``',
+        onPressed: () {},
+        onPressedTrailing: () {},
+        trailing: const Icon(Icons.keyboard_arrow_down),
+        child: const Text('Button'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonFilledSizes]
+class _TSplitButtonFilledSizesSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final size in TButtonSize.values)
+      TSplitButton.filled(
+        size: size,
+        tooltip: '``$size``',
+        onPressed: () {},
+        onPressedTrailing: () {},
+        trailing: const Icon(Icons.keyboard_arrow_down),
+        child: const Text('Button'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonSoftSizes]
+class _TSplitButtonSoftSizesSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final size in TButtonSize.values)
+      TSplitButton.soft(
+        size: size,
+        tooltip: '``$size``',
+        onPressed: () {},
+        onPressedTrailing: () {},
+        trailing: const Icon(Icons.keyboard_arrow_down),
+        child: const Text('Button'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonBasicColors]
+class _TSplitButtonBasicColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in PREVIEW_COLORS)
+      TSplitButton(
+        color: color,
+        onPressed: () {},
+        onPressedTrailing: () {},
+        trailing: const Icon(Icons.keyboard_arrow_down),
+        child: const Text('Button'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonOutlinedColors]
+class _TSplitButtonOutlinedColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in PREVIEW_COLORS)
+      TSplitButton.outlined(
+        color: color,
+        onPressed: () {},
+        onPressedTrailing: () {},
+        trailing: const Icon(Icons.keyboard_arrow_down),
+        child: const Text('Button'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonFilledColors]
+class _TSplitButtonFilledColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in PREVIEW_COLORS)
+      TSplitButton.filled(
+        color: color,
+        onPressed: () {},
+        onPressedTrailing: () {},
+        trailing: const Icon(Icons.keyboard_arrow_down),
+        child: const Text('Button'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonSoftColors]
+class _TSplitButtonSoftColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in PREVIEW_COLORS)
+      TSplitButton.soft(
+        color: color,
+        onPressed: () {},
+        onPressedTrailing: () {},
+        trailing: const Icon(Icons.keyboard_arrow_down),
+        child: const Text('Button'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonNoLeadingTrailing]
+class _TSplitButtonNoLeadingTrailingSource {
+  static const String code = r"""
+TSplitButton.filled(
+  child: const Text('Button'),
+  onPressed: () {},
+  onHover: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSplitButtonLeadingTrailing]
+class _TSplitButtonLeadingTrailingSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    TSplitButton.filled(
+      onPressed: () {},
+      onPressedLeading: () {},
+      onHover: (value) {},
+      onHoverLeading: (value) {},
+      tooltip: 'Child Tooltip',
+      tooltipLeading: 'Leading Tooltip',
+      controller: TWidgetController(),
+      controllerLeading: TWidgetController(),
+      leading: const Icon(Icons.add),
+      child: const Text('Button'),
+    ),
+    TSplitButton.filled(
+      onPressed: () {},
+      onPressedLeading: () {},
+      onPressedTrailing: () {},
+      onHover: (value) {},
+      onHoverLeading: (value) {},
+      onHoverTrailing: (value) {},
+      tooltip: 'Child Tooltip',
+      tooltipLeading: 'Leading Tooltip',
+      tooltipTrailing: 'Trailing Tooltip',
+      controller: TWidgetController(),
+      controllerLeading: TWidgetController(),
+      controllerTrailing: TWidgetController(),
+      leading: const Icon(Icons.add),
+      trailing: const Icon(Icons.remove),
+      child: const Text('Button'),
+    ),
+    TSplitButton.filled(
+      onPressed: () {},
+      onPressedTrailing: () {},
+      onHover: (value) {},
+      onHoverTrailing: (value) {},
+      tooltip: 'Child Tooltip',
+      tooltipTrailing: 'Trailing Tooltip',
+      controller: TWidgetController(),
+      controllerTrailing: TWidgetController(),
+      trailing: const Icon(Icons.remove),
+      child: const Text('Button'),
+    ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonLoading]
+class _TSplitButtonLoadingSource {
+  static const String code = r"""
+class _TSplitButtonLoading extends StatefulWidget {
+  const _TSplitButtonLoading();
+
+  @override
+  State<_TSplitButtonLoading> createState() => _TSplitButtonLoadingState();
+}
+
+class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
+  final controllers =
+      List.generate(TVariant.values.length, (_) => TWidgetController());
+
+  @override
+  void dispose() {
+    for (final controller in controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  Future<void> onPressed() async {
+    for (final controller in controllers) {
+      controller.loading = true;
+    }
+    await Future.delayed(const Duration(seconds: 1), () {
+      for (final controller in controllers) {
+        controller.loading = false;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final variant in TVariant.values)
+          TSplitButton.raw(
+            tooltip: '``$variant``',
+            variant: variant,
+            controllerTrailing: controllers[variant.index],
+            onPressedTrailing: onPressed,
+            trailing: const Icon(Icons.download),
+            child: const Text('Button'),
+          ),
+      ],
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSplitButtonDisabled]
+class _TSplitButtonDisabledSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final variant in TVariant.values)
+      TSplitButton.raw(
+        variant: variant,
+        controller: TWidgetController(disabled: true),
+        controllerTrailing: TWidgetController(disabled: true),
+        trailing: const Icon(Icons.download),
+        child: const Text('Button'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSplitButtonLoadingCustom]
+class _TSplitButtonLoadingCustomSource {
+  static const String code = r"""
+class _TSplitButtonLoadingCustom extends StatefulWidget {
+  const _TSplitButtonLoadingCustom();
+
+  @override
+  State<_TSplitButtonLoadingCustom> createState() =>
+      _TSplitButtonLoadingCustomState();
+}
+
+class _TSplitButtonLoadingCustomState
+    extends State<_TSplitButtonLoadingCustom> {
+  final controllers =
+      List.generate(TVariant.values.length, (_) => TWidgetController());
+
+  @override
+  void dispose() {
+    for (final controller in controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  Future<void> onPressed() async {
+    for (final controller in controllers) {
+      controller.loading = true;
+    }
+    await Future.delayed(const Duration(seconds: 1), () {
+      for (final controller in controllers) {
+        controller.loading = false;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final variant in TVariant.values)
+          TSplitButton.raw(
+            tooltip: '``$variant``',
+            variant: variant,
+            controllerTrailing: controllers[variant.index],
+            onPressedTrailing: onPressed,
+            trailing: const Icon(Icons.download),
+            loadingTrailing: const Icon(Icons.hourglass_bottom),
+            child: const Text('Button'),
+          ),
+      ],
+    );
+  }
+}
 """;
 }

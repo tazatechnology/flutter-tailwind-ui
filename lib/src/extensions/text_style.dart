@@ -4,6 +4,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
+// =============================================================================
+// EXTENSION: TextStyle
+// =============================================================================
+
 /// Extension methods for the [TextStyle] class
 extension XTailwindTextStyle on TextStyle {
   /// Add thin font weight (100)

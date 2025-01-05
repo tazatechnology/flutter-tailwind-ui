@@ -2,49 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 // =============================================================================
-// CLASS: TStyledContainerOptions
-// =============================================================================
-
-/// Fallback options for the styled container.
-class TStyledContainerOptions {
-  /// Creates a [TStyledContainerOptions].
-  const TStyledContainerOptions({
-    this.fillOnHover = true,
-    this.height,
-  });
-
-  /// Whether to fill the outlined variant on hover.
-  ///
-  /// Only applicable to the outlined variant containers that are buttons.
-  final bool fillOnHover;
-
-  /// A fixed height for the container.
-  final double? height;
-}
-
-// =============================================================================
-// ENUM: TStyledContainerVariant
-// =============================================================================
-
-/// The variant of the styled container.
-enum TStyledContainerVariant {
-  /// A basic styled container.
-  basic,
-
-  /// A link styled container.
-  link,
-
-  /// An outlined styled container.
-  outlined,
-
-  /// A filled styled container.
-  filled,
-
-  /// A filled styled container with soft colors.
-  soft,
-}
-
-// =============================================================================
 // CLASS: TStyledContainer
 // =============================================================================
 
@@ -81,11 +38,13 @@ class TStyledContainer extends StatelessWidget {
     this.onFocus,
     this.canRequestFocus,
     this.focusNode,
-    this.options = const TStyledContainerOptions(),
+    this.iconSize,
+    this.height,
+    this.width,
   });
 
   /// The variant of the styled container.
-  final TStyledContainerVariant variant;
+  final TVariant variant;
 
   /// The color to apply to variant styling.
   final Color? color;
@@ -120,6 +79,12 @@ class TStyledContainer extends StatelessWidget {
   /// The duration of the animation.
   final Duration animationDuration;
 
+  /// The fixed height of the container.
+  final WidgetStateProperty<double?>? height;
+
+  /// The fixed width of the container.
+  final WidgetStateProperty<double?>? width;
+
   /// The background color of the container.
   final WidgetStateProperty<Color?>? backgroundColor;
 
@@ -140,6 +105,9 @@ class TStyledContainer extends StatelessWidget {
 
   /// The mouse cursor to apply on pointer events.
   final WidgetStateProperty<MouseCursor?>? mouseCursor;
+
+  /// The size of the main content icon.
+  final WidgetStateProperty<double?>? iconSize;
 
   /// The controller to manage the states of the widget.
   final TWidgetController? controller;
@@ -180,207 +148,105 @@ class TStyledContainer extends StatelessWidget {
   /// See: [TGestureDetector.focusNode]
   final FocusNode? focusNode;
 
-  /// The options to apply to the styled container.
-  final TStyledContainerOptions options;
-
-  // ---------------------------------------------------------------------------
-  // PROPERTIES
-  // ---------------------------------------------------------------------------
-
   /// Returns true if the container has a callback interaction.
   bool get hasCallback => onTap != null || onLongPress != null;
 
-  /// Returns true if the container has a leading widget.
-  bool get hasLeading => leading != null;
-
-  /// Returns true if the container has a trailing widget.
-  bool get hasTrailing => trailing != null;
-
   // ---------------------------------------------------------------------------
-  // METHOD: _defaultBorderColor
+  // METHOD: defaultBorderColor
   // ---------------------------------------------------------------------------
 
-  Color _defaultBorderColor(BuildContext context) {
+  /// Returns the default border color based on the theme.
+  static Color defaultBorderColor(BuildContext context) {
     return context.tw.dark ? TColors.gray.shade700 : TColors.gray.shade200;
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: _defaultBackgroundColor
+  // METHOD: defaultBackgroundColor
   // ---------------------------------------------------------------------------
 
-  Color _defaultBackgroundColor(BuildContext context) {
+  /// Returns the default background color based on the theme.
+  static Color defaultBackgroundColor(BuildContext context) {
     return context.tw.dark ? Colors.white10 : TColors.zinc.shade100;
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: _defaultTextColor
+  // METHOD: defaultTextColor
   // ---------------------------------------------------------------------------
 
-  Color _defaultTextColor(BuildContext context) {
+  /// Returns the default text color based on the theme.
+  static Color defaultTextColor(BuildContext context) {
     return context.tw.dark ? Colors.white : Colors.black;
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: _effectiveColor
-  // ---------------------------------------------------------------------------
-
-  MaterialColor _effectiveColor(BuildContext context) {
-    return (color ?? context.tw.colors.primary).toMaterialColor();
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: _effectivePadding
+  // METHOD: resolvePadding
   // ---------------------------------------------------------------------------
 
   /// Returns the effective padding of the styled container.
-  EdgeInsets _effectivePadding(
-    BuildContext context,
-    Set<WidgetState> states,
-  ) {
+  static EdgeInsets resolvePadding({
+    required BuildContext context,
+    required Set<WidgetState> states,
+    required WidgetStateProperty<EdgeInsetsGeometry?>? padding,
+  }) {
     return (padding?.resolve(states) ?? EdgeInsets.zero)
         .resolve(Directionality.of(context));
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: _effectiveBorder
+  // METHOD: resolveColor
   // ---------------------------------------------------------------------------
 
-  /// Returns the effective border of the styled container.
-  BoxBorder? _effectiveBorder(
-    BuildContext context,
-    Set<WidgetState> states,
-  ) {
-    final tw = context.tw;
-    final effectiveColor = _effectiveColor(context);
-    final borderDisabled = WidgetStatePropertyAll(
-      Border.all(color: tw.colors.disabled),
-    );
-    WidgetStateProperty<BoxBorder?> borderFallback;
-    switch (variant) {
-      case TStyledContainerVariant.basic:
-      case TStyledContainerVariant.link:
-        borderFallback = const WidgetStatePropertyAll(null);
-      case TStyledContainerVariant.outlined:
-        if (states.disabled) {
-          borderFallback = borderDisabled;
-        } else if (color == null) {
-          borderFallback = WidgetStatePropertyAll(
-            Border.all(color: _defaultBorderColor(context)),
-          );
-        } else {
-          borderFallback = WidgetStateProperty.resolveWith((states) {
-            return Border.all(color: effectiveColor);
-          });
-        }
-      case TStyledContainerVariant.filled:
-        if (states.disabled) {
-          borderFallback = borderDisabled;
-        } else {
-          borderFallback = WidgetStatePropertyAll(
-            Border.all(color: effectiveColor),
-          );
-        }
-      case TStyledContainerVariant.soft:
-        if (states.disabled) {
-          borderFallback = borderDisabled;
-        } else {
-          borderFallback = WidgetStateProperty.resolveWith((states) {
-            return Border.all(
-              color: tw.dark
-                  ? effectiveColor.shade400.withValues(alpha: 0.3)
-                  : effectiveColor.shade700.withValues(alpha: 0.1),
-            );
-          });
-        }
-    }
-
-    // Resolve the border
-    final b = border?.resolve(states) ?? borderFallback.resolve(states);
-
-    // Copy the border and ensure stroke align is defined
-    const strokeAlign = BorderSide.strokeAlignInside;
-    if (b is Border) {
-      return Border(
-        top: b.top.copyWith(strokeAlign: strokeAlign),
-        left: b.left.copyWith(strokeAlign: strokeAlign),
-        bottom: b.bottom.copyWith(strokeAlign: strokeAlign),
-        right: b.right.copyWith(strokeAlign: strokeAlign),
-      );
-    } else if (b is BorderDirectional) {
-      return BorderDirectional(
-        top: b.top.copyWith(strokeAlign: strokeAlign),
-        start: b.start.copyWith(strokeAlign: strokeAlign),
-        end: b.end.copyWith(strokeAlign: strokeAlign),
-        bottom: b.bottom.copyWith(strokeAlign: strokeAlign),
-      );
-    } else {
-      return b;
-    }
+  /// Resolves the effective color based on the context and the color property.
+  static MaterialColor resolveColor({
+    required BuildContext context,
+    required Color? color,
+  }) {
+    return (color ?? context.tw.colors.primary).toMaterialColor();
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: _effectiveBorderRadius
-  // ---------------------------------------------------------------------------
-
-  /// Returns the effective border radius of the styled container.
-  BorderRadius? _effectiveBorderRadius(
-    BuildContext context,
-    Set<WidgetState> states,
-  ) {
-    WidgetStateProperty<BorderRadius?> borderRadiusFallback;
-    switch (variant) {
-      case TStyledContainerVariant.basic:
-      case TStyledContainerVariant.link:
-      case TStyledContainerVariant.outlined:
-      case TStyledContainerVariant.filled:
-      case TStyledContainerVariant.soft:
-        borderRadiusFallback = const WidgetStatePropertyAll(null);
-    }
-    return borderRadius?.resolve(states) ??
-        borderRadiusFallback.resolve(states);
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: _effectiveBackgroundColor
+  // METHOD: resolveBackgroundColor
   // ---------------------------------------------------------------------------
 
   /// Returns the effective background color of the styled container.
-  Color? _effectiveBackgroundColor(
-    BuildContext context,
-    Set<WidgetState> states,
-  ) {
+  static Color? resolveBackgroundColor({
+    required BuildContext context,
+    required Set<WidgetState> states,
+    required WidgetStateProperty<Color?>? backgroundColor,
+    required TVariant variant,
+    required Color? color,
+    required bool hasCallback,
+  }) {
     final tw = context.tw;
-    final effectiveColor = _effectiveColor(context);
-
+    final effectiveColor = resolveColor(context: context, color: color);
     WidgetStateProperty<Color?> backgroundColorFallback;
     switch (variant) {
-      case TStyledContainerVariant.basic:
+      case TVariant.basic:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
             return Colors.transparent;
           }
           if (states.hovered && hasCallback) {
-            return _defaultBackgroundColor(context);
+            return defaultBackgroundColor(context);
           }
           return null;
         });
-      case TStyledContainerVariant.link:
-        backgroundColorFallback = const WidgetStatePropertyAll(null);
-      case TStyledContainerVariant.outlined:
+
+      case TVariant.outlined:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
             return Colors.transparent;
           }
           if (states.hovered && hasCallback) {
-            if (color == null) {
-              return _defaultBackgroundColor(context);
-            } else if (options.fillOnHover) {
+            if (color != null) {
               return effectiveColor;
+            } else {
+              return defaultBackgroundColor(context);
             }
           }
           return null;
         });
-      case TStyledContainerVariant.filled:
+      case TVariant.filled:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
             return tw.colors.disabled;
@@ -393,19 +259,15 @@ class TStyledContainer extends StatelessWidget {
           }
           return effectiveColor;
         });
-      case TStyledContainerVariant.soft:
+      case TVariant.soft:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
             return tw.colors.disabled;
           }
           if (states.hovered && hasCallback) {
-            return tw.dark
-                ? effectiveColor.shade400.withValues(alpha: 0.2)
-                : effectiveColor.shade100;
+            return effectiveColor.shade400.withValues(alpha: 0.2);
           }
-          return tw.dark
-              ? effectiveColor.shade400.withValues(alpha: 0.1)
-              : effectiveColor.shade50;
+          return effectiveColor.shade400.withValues(alpha: 0.1);
         });
     }
 
@@ -414,23 +276,128 @@ class TStyledContainer extends StatelessWidget {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: _effectiveElevation
+  // METHOD: resolveBorder
+  // ---------------------------------------------------------------------------
+
+  /// Returns the effective border of the styled container.
+  static BoxBorder? resolveBorder({
+    required BuildContext context,
+    required Set<WidgetState> states,
+    required WidgetStateProperty<BoxBorder?>? border,
+    required WidgetStateProperty<Color?>? backgroundColor,
+    required TVariant variant,
+    required Color? color,
+    required bool hasCallback,
+  }) {
+    final tw = context.tw;
+    final effectiveColor = resolveColor(context: context, color: color);
+    final effectiveBackgroundColor = resolveBackgroundColor(
+      context: context,
+      states: states,
+      backgroundColor: backgroundColor,
+      variant: variant,
+      color: color,
+      hasCallback: hasCallback,
+    );
+    final borderDisabled = WidgetStatePropertyAll(
+      Border.all(color: tw.colors.disabled),
+    );
+    WidgetStateProperty<BoxBorder?> borderFallback;
+    final noBorder = Border.all(color: Colors.transparent);
+    switch (variant) {
+      case TVariant.basic:
+        borderFallback = WidgetStateProperty.resolveWith((states) {
+          if (states.hovered && hasCallback) {
+            return noBorder;
+          }
+          return Border.all(
+            color: effectiveBackgroundColor ?? Colors.transparent,
+          );
+        });
+      case TVariant.outlined:
+        if (states.disabled) {
+          borderFallback = borderDisabled;
+        } else if (color == null) {
+          borderFallback = WidgetStatePropertyAll(
+            Border.all(color: defaultBorderColor(context)),
+          );
+        } else {
+          borderFallback = WidgetStateProperty.resolveWith((states) {
+            return Border.all(color: effectiveColor);
+          });
+        }
+      case TVariant.filled:
+        if (states.disabled) {
+          borderFallback = borderDisabled;
+        } else {
+          borderFallback = WidgetStatePropertyAll(
+            Border.all(color: effectiveColor),
+          );
+        }
+      case TVariant.soft:
+        if (states.disabled) {
+          borderFallback = borderDisabled;
+        } else {
+          borderFallback = WidgetStateProperty.resolveWith((states) {
+            if (states.hovered && hasCallback) {
+              return noBorder;
+            }
+            return Border.all(
+              color: effectiveBackgroundColor ?? Colors.transparent,
+            );
+          });
+        }
+    }
+
+    // Resolve the border
+    final b = border?.resolve(states) ?? borderFallback.resolve(states);
+
+    // Copy the border and ensure stroke align is defined
+    return b?.copyWith(strokeAlign: BorderSide.strokeAlignInside);
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: resolveBorderRadius
+  // ---------------------------------------------------------------------------
+
+  /// Returns the effective border radius of the styled container.
+  static BorderRadius? resolveBorderRadius({
+    required BuildContext context,
+    required Set<WidgetState> states,
+    required WidgetStateProperty<BorderRadius?>? borderRadius,
+    required TVariant variant,
+  }) {
+    WidgetStateProperty<BorderRadius?> borderRadiusFallback;
+    switch (variant) {
+      case TVariant.basic:
+      case TVariant.outlined:
+      case TVariant.filled:
+      case TVariant.soft:
+        borderRadiusFallback = const WidgetStatePropertyAll(null);
+    }
+    return borderRadius?.resolve(states) ??
+        borderRadiusFallback.resolve(states);
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: resolveElevation
   // ---------------------------------------------------------------------------
 
   /// Returns the effective elevation of the styled container.
-  double? _effectiveElevation(
-    BuildContext context,
-    Set<WidgetState> states,
-  ) {
+  static double? resolveElevation({
+    required BuildContext context,
+    required Set<WidgetState> states,
+    required WidgetStateProperty<double?>? elevation,
+    required TVariant variant,
+  }) {
     WidgetStateProperty<double?> elevationFallback;
     switch (variant) {
-      case TStyledContainerVariant.basic:
-      case TStyledContainerVariant.link:
-      case TStyledContainerVariant.outlined:
+      case TVariant.basic:
+      case TVariant.outlined:
         // Basic, link, and outlined containers have no elevation for any state
         return 0;
-      case TStyledContainerVariant.filled:
-      case TStyledContainerVariant.soft:
+      case TVariant.filled:
+      case TVariant.soft:
         // By default, filled and soft containers should have no elevation
         elevationFallback = const WidgetStatePropertyAll(0);
     }
@@ -438,59 +405,49 @@ class TStyledContainer extends StatelessWidget {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: _effectiveTextStyle
+  // METHOD: resolveTextStyle
   // ---------------------------------------------------------------------------
 
   /// Returns the effective border radius of the styled container.
-  TextStyle? _effectiveTextStyle(
-    BuildContext context,
-    Set<WidgetState> states,
-  ) {
+  static TextStyle? resolveTextStyle({
+    required BuildContext context,
+    required Set<WidgetState> states,
+    required WidgetStateProperty<TextStyle?>? textStyle,
+    required TVariant variant,
+    required Color? color,
+    required bool hasCallback,
+  }) {
     final tw = context.tw;
-    final effectiveColor = _effectiveColor(context);
+    final effectiveColor = resolveColor(context: context, color: color);
     if (states.disabled) {
       return TextStyle(color: tw.colors.onDisabled);
     }
     WidgetStateProperty<TextStyle?> textStyleFallback;
     switch (variant) {
-      case TStyledContainerVariant.basic:
+      case TVariant.basic:
         textStyleFallback = WidgetStateProperty.resolveWith((states) {
           return TextStyle(
-            color: color == null ? _defaultTextColor(context) : effectiveColor,
+            color: color == null ? defaultTextColor(context) : effectiveColor,
           );
         });
-      case TStyledContainerVariant.link:
+      case TVariant.outlined:
         textStyleFallback = WidgetStateProperty.resolveWith((states) {
-          final base = TextStyle(color: effectiveColor);
-          if (states.hovered && hasCallback) {
-            return base.copyWith(
-              decoration: TextDecoration.underline,
-              decorationColor: effectiveColor,
-            );
-          }
-          return base;
-        });
-      case TStyledContainerVariant.outlined:
-        textStyleFallback = WidgetStateProperty.resolveWith((states) {
-          if (states.hovered &&
-              color != null &&
-              hasCallback &&
-              options.fillOnHover) {
+          if (states.hovered && color != null && hasCallback) {
             return TextStyle(color: effectiveColor.contrastBlackWhite());
           }
           if (color != null) {
             return TextStyle(color: effectiveColor);
           }
-          return TextStyle(color: _defaultTextColor(context));
+          return TextStyle(color: defaultTextColor(context));
         });
-      case TStyledContainerVariant.filled:
+      case TVariant.filled:
         textStyleFallback = WidgetStateProperty.resolveWith((states) {
           if (effectiveColor.isTransparent) {
-            return TextStyle(color: _defaultTextColor(context));
+            return TextStyle(color: defaultTextColor(context));
           }
           return TextStyle(color: effectiveColor.contrastBlackWhite());
         });
-      case TStyledContainerVariant.soft:
+      case TVariant.soft:
         textStyleFallback = WidgetStateProperty.resolveWith((states) {
           return TextStyle(
             color: tw.dark ? effectiveColor.shade400 : effectiveColor.shade700,
@@ -527,22 +484,17 @@ class TStyledContainer extends StatelessWidget {
       return Padding(padding: outerPad, child: effectiveChild);
     }
 
-    final tw = context.tw;
-    final effectiveColor = _effectiveColor(context);
-
+    final effectiveColor = resolveColor(context: context, color: color);
     Color? hoverColor;
     switch (variant) {
-      case TStyledContainerVariant.basic:
-      case TStyledContainerVariant.link:
-        hoverColor = Colors.transparent;
-      case TStyledContainerVariant.outlined:
-        hoverColor = _defaultBackgroundColor(context);
-      case TStyledContainerVariant.filled:
+      case TVariant.basic:
+        hoverColor = defaultBackgroundColor(context);
+      case TVariant.outlined:
+        hoverColor = defaultBackgroundColor(context);
+      case TVariant.filled:
         hoverColor = effectiveColor.shade400;
-      case TStyledContainerVariant.soft:
-        hoverColor = tw.dark
-            ? effectiveColor.shade400.withValues(alpha: 0.2)
-            : effectiveColor.shade100;
+      case TVariant.soft:
+        hoverColor = effectiveColor.shade400.withValues(alpha: 0.2);
     }
 
     return Padding(
@@ -564,13 +516,14 @@ class TStyledContainer extends StatelessWidget {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: _estimateTextHeight
+  // METHOD: estimateTextHeight
   // ---------------------------------------------------------------------------
 
-  double _estimateTextHeight(
-    BuildContext context,
-    TextStyle style,
-  ) {
+  /// Estimates the height of the text based on the style.
+  static double estimateTextHeight({
+    required BuildContext context,
+    required TextStyle style,
+  }) {
     final textPainter = TextPainter(
       text: TextSpan(text: 'Text', style: style),
       textDirection: Directionality.of(context),
@@ -601,62 +554,122 @@ class TStyledContainer extends StatelessWidget {
           mouseCursor: mouseCursor,
           builder: (context, states) {
             final tw = context.tw;
+            final defaultTextStyle = DefaultTextStyle.of(context).style;
+
+            // Resolve the effective container height and width
+            final effectiveHeight = height?.resolve(states);
+            final effectiveWidth = width?.resolve(states);
 
             // Resolve the effective text style
-            final effectiveTextStyle = DefaultTextStyle.of(context)
-                .style
-                .merge(baseTextStyle)
-                .merge(_effectiveTextStyle(context, states));
+            TextStyle? effectiveTextStyle = resolveTextStyle(
+              context: context,
+              states: states,
+              textStyle: textStyle,
+              variant: variant,
+              color: color,
+              hasCallback: hasCallback,
+            );
+
+            // Merge the text style with the base text style
+            effectiveTextStyle =
+                defaultTextStyle.merge(baseTextStyle).merge(effectiveTextStyle);
 
             // Resolve the effective padding
-            final effectivePadding = _effectivePadding(context, states);
-
-            // Resolve the effective background color
-            final effectiveBackgroundColor =
-                _effectiveBackgroundColor(context, states);
-
-            // Resolve the effective elevation
-            final effectiveElevation = _effectiveElevation(context, states);
+            final effectivePadding = resolvePadding(
+              context: context,
+              states: states,
+              padding: padding,
+            );
 
             // Resolve the effective border
-            final effectiveBorder = _effectiveBorder(context, states);
+            final effectiveBorder = resolveBorder(
+              context: context,
+              states: states,
+              border: border,
+              backgroundColor: backgroundColor,
+              variant: variant,
+              color: color,
+              hasCallback: hasCallback,
+            );
+
+            // Resolve the effective background color
+            final effectiveBackgroundColor = resolveBackgroundColor(
+              context: context,
+              states: states,
+              backgroundColor: backgroundColor,
+              variant: variant,
+              color: color,
+              hasCallback: hasCallback,
+            );
+
+            // Resolve the effective elevation
+            final effectiveElevation = resolveElevation(
+              context: context,
+              states: states,
+              elevation: elevation,
+              variant: variant,
+            );
 
             // Estimate the height of the text
-            final textHeight = _estimateTextHeight(context, effectiveTextStyle);
+            final textHeight = estimateTextHeight(
+              context: context,
+              style: effectiveTextStyle,
+            );
+
+            // Resolve the effective icon size
+            final effectiveIconSize = iconSize?.resolve(states);
 
             // Estimate the height of the content with padding
-            final widgetHeight = options.height ??
-                textHeight +
-                    effectivePadding.vertical +
-                    (effectiveBorder?.top.width ?? 0) +
-                    (effectiveBorder?.bottom.width ?? 0);
+            final widgetHeight = (effectiveHeight ?? textHeight) +
+                effectivePadding.vertical +
+                (effectiveBorder?.top.width ?? 0) +
+                (effectiveBorder?.bottom.width ?? 0);
 
             // Define the icon theme
             final iconTheme = IconTheme.of(context).copyWith(
               // This size will apply to everything except leading/trailing
-              size: textHeight,
+              size: effectiveIconSize ?? textHeight,
               color: effectiveTextStyle.color,
             );
 
-            // Resolve the effective border radius
-            // Clamp border radius to estimated size of the widget to ensure
-            // smooth animations and avoid snapping.
-            var br = _effectiveBorderRadius(context, states);
-            if (br != null) {
-              final rMax = Radius.circular(widgetHeight / 2);
-              br = BorderRadius.only(
-                topLeft: br.topLeft.clamp(maximum: rMax),
-                topRight: br.topRight.clamp(maximum: rMax),
-                bottomLeft: br.bottomLeft.clamp(maximum: rMax),
-                bottomRight: br.bottomRight.clamp(maximum: rMax),
+            // Resolve the effective loading widget
+            final progressTheme = context.theme.progressIndicatorTheme.copyWith(
+              color: effectiveTextStyle.color,
+            );
+            Widget effectiveLoading;
+            if (loading != null) {
+              effectiveLoading = loading!;
+            } else {
+              effectiveLoading = SizedBox.square(
+                dimension: widgetHeight * 0.45,
+                child: const CircularProgressIndicator(strokeWidth: 2),
               );
             }
-            final effectiveBorderRadius = br;
+
+            /// Resolve the effective border radius (may be clamped later)
+            BorderRadius? effectiveBorderRadius = resolveBorderRadius(
+              context: context,
+              states: states,
+              borderRadius: borderRadius,
+              variant: variant,
+            );
+            // Clamp border radius to estimated size of the widget to ensure
+            // smooth animations and avoid snapping.
+            if (effectiveBorderRadius != null) {
+              final b = effectiveBorderRadius;
+              final rMax = Radius.circular(widgetHeight / 2);
+              effectiveBorderRadius = BorderRadius.only(
+                topLeft: b.topLeft.clamp(maximum: rMax),
+                topRight: b.topRight.clamp(maximum: rMax),
+                bottomLeft: b.bottomLeft.clamp(maximum: rMax),
+                bottomRight: b.bottomRight.clamp(maximum: rMax),
+              );
+            }
 
             // Define the button content
             final List<Widget> content = [];
 
-            if (hasLeading) {
+            if (leading != null) {
               final effectiveLeading = _wrapAction(
                 isLeading: true,
                 context: context,
@@ -678,7 +691,7 @@ class TStyledContainer extends StatelessWidget {
 
             content.add(child);
 
-            if (hasTrailing) {
+            if (trailing != null) {
               final effectiveTrailing = _wrapAction(
                 isLeading: false,
                 context: context,
@@ -713,7 +726,8 @@ class TStyledContainer extends StatelessWidget {
                     borderRadius: effectiveBorderRadius,
                     elevation: effectiveElevation ?? 0,
                     child: AnimatedContainer(
-                      height: widgetHeight,
+                      height: effectiveHeight,
+                      width: effectiveWidth,
                       duration: animationDuration,
                       padding: effectivePadding,
                       decoration: BoxDecoration(
@@ -736,14 +750,10 @@ class TStyledContainer extends StatelessWidget {
                               ),
                             ),
                             if (isLoading)
-                              loading ??
-                                  SizedBox.square(
-                                    dimension: textHeight * 0.75,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2.5,
-                                      color: effectiveTextStyle.color,
-                                    ),
-                                  ),
+                              ProgressIndicatorTheme(
+                                data: progressTheme,
+                                child: effectiveLoading,
+                              ),
                           ],
                         ),
                       ),

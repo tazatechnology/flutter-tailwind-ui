@@ -36,11 +36,6 @@ class ComponentRouteTButton extends StatelessWidget {
               code: _TButtonSoftSource.code,
               child: _TButtonSoft(),
             ),
-            AppPreviewCard(
-              title: 'Link',
-              code: _TButtonLinkSource.code,
-              child: _TButtonLink(),
-            ),
           ],
         ),
         AppSection(
@@ -65,11 +60,6 @@ class ComponentRouteTButton extends StatelessWidget {
               title: 'Soft',
               code: _TButtonSoftSizesSource.code,
               child: _TButtonSoftSizes(),
-            ),
-            AppPreviewCard(
-              title: 'Link',
-              code: _TButtonLinkSizesSource.code,
-              child: _TButtonLinkSizes(),
             ),
           ],
         ),
@@ -96,39 +86,10 @@ class ComponentRouteTButton extends StatelessWidget {
               code: _TButtonSoftColorsSource.code,
               child: _TButtonSoftColors(),
             ),
-            AppPreviewCard(
-              title: 'Link',
-              code: _TButtonLinkColorsSource.code,
-              child: _TButtonLinkColors(),
-            ),
           ],
         ),
         AppSection(
-          title: 'Button with leading',
-          children: const [
-            AppPreviewCard(
-              title: 'Custom leading widget',
-              description:
-                  'Note that icon is automatically styled to match the dynamic button theme.',
-              code: _TButtonLeadingSource.code,
-              child: _TButtonLeading(),
-            ),
-          ],
-        ),
-        AppSection(
-          title: 'Button with trailing',
-          children: const [
-            AppPreviewCard(
-              title: 'Custom trailing widget',
-              description:
-                  'Note that icon is automatically styled to match the dynamic button theme.',
-              code: _TButtonTrailingSource.code,
-              child: _TButtonTrailing(),
-            ),
-          ],
-        ),
-        AppSection(
-          title: 'Button with callbacks',
+          title: 'Button with Callbacks',
           children: const [
             AppPreviewCard(
               title: 'Custom gesture callbacks',
@@ -140,7 +101,26 @@ class ComponentRouteTButton extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Button with controller',
+          title: 'Button with Leading and Trailing',
+          children: const [
+            AppPreviewCard(
+              title: 'Custom leading widget',
+              description:
+                  'Note that if the widget contains an icon, is automatically styled to match the dynamic button theme',
+              code: _TButtonLeadingSource.code,
+              child: _TButtonLeading(),
+            ),
+            AppPreviewCard(
+              title: 'Custom trailing widget',
+              description:
+                  'Note that if the widget contains an icon, is automatically styled to match the dynamic button theme.',
+              code: _TButtonTrailingSource.code,
+              child: _TButtonTrailing(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Button with Controller',
           children: const [
             AppPreviewCard(
               title: 'Controller to manage loading state',
@@ -160,7 +140,7 @@ class ComponentRouteTButton extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Custom button theming',
+          title: 'Custom Button Theming',
           children: const [
             AppPreviewCard(
               title: 'Static theme (``TButtonTheme``)',
@@ -179,7 +159,7 @@ class ComponentRouteTButton extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Icon only button',
+          title: 'Icon only Button',
           children: const [
             AppPreviewCard(
               title: 'Use `TIconButton` for icon only buttons',
@@ -257,23 +237,6 @@ class _TButtonSoft extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TButton.soft(
-      onPressed: () {},
-      child: const Text('Button'),
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TButtonLink
-// =============================================================================
-
-@GenerateSource()
-class _TButtonLink extends StatelessWidget {
-  const _TButtonLink();
-
-  @override
-  Widget build(BuildContext context) {
-    return TButton.link(
       onPressed: () {},
       child: const Text('Button'),
     );
@@ -389,33 +352,6 @@ class _TButtonSoftSizes extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TButtonLinkSizes
-// =============================================================================
-
-@GenerateSource()
-class _TButtonLinkSizes extends StatelessWidget {
-  const _TButtonLinkSizes();
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: TSpace.v24,
-      runSpacing: TSpace.v8,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        for (final size in TButtonSize.values)
-          TButton.link(
-            size: size,
-            tooltip: '``$size``',
-            onPressed: () {},
-            child: const Text('Button'),
-          ),
-      ],
-    );
-  }
-}
-
-// =============================================================================
 // CLASS: _TButtonBasicColors
 // =============================================================================
 
@@ -430,14 +366,7 @@ class _TButtonBasicColors extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final color in [
-          TColors.slate,
-          TColors.red,
-          TColors.green,
-          TColors.blue,
-          TColors.yellow,
-          TColors.purple,
-        ])
+        for (final color in PREVIEW_COLORS)
           TButton(
             color: color,
             onPressed: () {},
@@ -463,14 +392,7 @@ class _TButtonOutlinedColors extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final color in [
-          TColors.slate,
-          TColors.red,
-          TColors.green,
-          TColors.blue,
-          TColors.yellow,
-          TColors.purple,
-        ])
+        for (final color in PREVIEW_COLORS)
           TButton.outlined(
             color: color,
             onPressed: () {},
@@ -496,14 +418,7 @@ class _TButtonFilledColors extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final color in [
-          TColors.slate,
-          TColors.red,
-          TColors.green,
-          TColors.blue,
-          TColors.yellow,
-          TColors.purple,
-        ])
+        for (final color in PREVIEW_COLORS)
           TButton.filled(
             color: color,
             onPressed: () {},
@@ -529,48 +444,8 @@ class _TButtonSoftColors extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final color in [
-          TColors.slate,
-          TColors.red,
-          TColors.green,
-          TColors.blue,
-          TColors.yellow,
-          TColors.purple,
-        ])
+        for (final color in PREVIEW_COLORS)
           TButton.soft(
-            color: color,
-            onPressed: () {},
-            child: const Text('Button'),
-          ),
-      ],
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TButtonLinkColors
-// =============================================================================
-
-@GenerateSource()
-class _TButtonLinkColors extends StatelessWidget {
-  const _TButtonLinkColors();
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: TSpace.v24,
-      runSpacing: TSpace.v8,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        for (final color in [
-          TColors.slate,
-          TColors.red,
-          TColors.green,
-          TColors.blue,
-          TColors.yellow,
-          TColors.purple,
-        ])
-          TButton.link(
             color: color,
             onPressed: () {},
             child: const Text('Button'),
@@ -595,7 +470,7 @@ class _TButtonLeading extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TButtonVariant.values)
+        for (final variant in TVariant.values)
           TButton.raw(
             variant: variant,
             color: TColors.indigo,
@@ -623,7 +498,7 @@ class _TButtonTrailing extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TButtonVariant.values)
+        for (final variant in TVariant.values)
           TButton.raw(
             variant: variant,
             color: TColors.indigo,
@@ -671,10 +546,8 @@ class _TButtonLoading extends StatefulWidget {
 }
 
 class _TButtonLoadingState extends State<_TButtonLoading> {
-  late final controllers = List.generate(
-    TButtonVariant.values.length,
-    (_) => TWidgetController(),
-  );
+  final controllers =
+      List.generate(TVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -702,7 +575,7 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TButtonVariant.values)
+        for (final variant in TVariant.values)
           TButton.raw(
             tooltip: '``$variant``',
             variant: variant,
@@ -730,7 +603,7 @@ class _TButtonDisabled extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TButtonVariant.values)
+        for (final variant in TVariant.values)
           TButton.raw(
             variant: variant,
             controller: TWidgetController(disabled: true),
@@ -755,10 +628,8 @@ class _TButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
-  late final controllers = List.generate(
-    TButtonVariant.values.length,
-    (_) => TWidgetController(),
-  );
+  final controllers =
+      List.generate(TVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -786,12 +657,12 @@ class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TButtonVariant.values)
+        for (final variant in TVariant.values)
           TButton.raw(
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
-            loading: const Icon(Icons.hourglass_bottom_rounded),
+            loading: const Icon(Icons.hourglass_bottom),
             child: const Text('Button'),
           ),
       ],
@@ -811,10 +682,10 @@ class _TButtonCustomTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return TButton.filled(
       theme: TButtonTheme.all(
-        border: Border.all(color: TColors.slate),
+        height: 32,
         backgroundColor: Colors.black,
         elevation: TShadow.shadow,
-        padding: TOffset.x10 + TOffset.y4,
+        border: Border.all(color: TColors.slate),
         borderRadius: TBorderRadius.rounded_none,
         textStyle: const TextStyle(color: Colors.white).medium,
       ),
@@ -837,42 +708,32 @@ class _TButtonStatefulTheme extends StatelessWidget {
     return TButton.filled(
       theme: TButtonTheme(
         animationDuration: const Duration(milliseconds: 250),
+        height: WidgetStateProperty.resolveWith((states) {
+          return states.hovered ? 48 : 32;
+        }),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          return states.hovered ? TColors.slate.shade800 : Colors.black;
+        }),
+        elevation: WidgetStateProperty.resolveWith((states) {
+          return states.hovered ? TShadow.shadow_md : TShadow.shadow;
+        }),
+        padding: WidgetStateProperty.resolveWith((states) {
+          return states.hovered ? TOffset.x16 : TOffset.x10;
+        }),
         border: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {
             return Border.all(color: TColors.sky, width: 1.5);
           }
           return Border.all(color: TColors.slate);
         }),
-        backgroundColor: WidgetStateProperty.resolveWith((states) {
-          if (states.hovered) {
-            return TColors.slate.shade800;
-          }
-          return Colors.black;
-        }),
-        elevation: WidgetStateProperty.resolveWith((states) {
-          if (states.hovered) {
-            return TShadow.shadow_md;
-          }
-          return TShadow.shadow;
-        }),
-        padding: WidgetStateProperty.resolveWith((states) {
-          if (states.hovered) {
-            return TOffset.x16 + TOffset.y4;
-          }
-          return TOffset.x10 + TOffset.y4;
-        }),
         borderRadius: WidgetStateProperty.resolveWith((states) {
-          if (states.hovered) {
-            return TBorderRadius.rounded_full;
-          }
-          return TBorderRadius.rounded_none;
+          return states.hovered
+              ? TBorderRadius.rounded_full
+              : TBorderRadius.rounded_none;
         }),
         textStyle: WidgetStateProperty.resolveWith((states) {
-          final style = const TextStyle(color: Colors.white).medium;
-          if (states.hovered) {
-            return style.semibold;
-          }
-          return style.medium;
+          const style = TextStyle(color: Colors.white);
+          return states.hovered ? style.semibold : style.medium;
         }),
       ),
       onPressed: () {},
