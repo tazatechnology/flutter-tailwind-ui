@@ -111,6 +111,10 @@ class TIconButton extends StatelessWidget {
   /// Rendered using the [TTooltip] widget and supports rich text formatting.
   final String? tooltip;
 
+  // ---------------------------------------------------------------------------
+  // METHOD: build
+  // ---------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     final dimension = WidgetStateProperty.resolveWith((states) {

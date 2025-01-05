@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
@@ -559,6 +560,8 @@ class TStyledContainer extends StatelessWidget {
             // Resolve the effective container height and width
             final effectiveHeight = height?.resolve(states);
             final effectiveWidth = width?.resolve(states);
+            final effectiveDimension =
+                math.max(effectiveHeight ?? 0, effectiveWidth ?? 0);
 
             // Resolve the effective text style
             TextStyle? effectiveTextStyle = resolveTextStyle(
@@ -620,10 +623,11 @@ class TStyledContainer extends StatelessWidget {
             final effectiveIconSize = iconSize?.resolve(states);
 
             // Estimate the height of the content with padding
-            final widgetHeight = (effectiveHeight ?? textHeight) +
-                effectivePadding.vertical +
-                (effectiveBorder?.top.width ?? 0) +
-                (effectiveBorder?.bottom.width ?? 0);
+            final widgetHeight = effectiveHeight ??
+                textHeight +
+                    effectivePadding.vertical +
+                    (effectiveBorder?.top.width ?? 0) +
+                    (effectiveBorder?.bottom.width ?? 0);
 
             // Define the icon theme
             final iconTheme = IconTheme.of(context).copyWith(
@@ -730,6 +734,10 @@ class TStyledContainer extends StatelessWidget {
                       width: effectiveWidth,
                       duration: animationDuration,
                       padding: effectivePadding,
+                      constraints: BoxConstraints(
+                        minHeight: effectiveDimension,
+                        minWidth: effectiveDimension,
+                      ),
                       decoration: BoxDecoration(
                         color: effectiveBackgroundColor,
                         border: effectiveBorder,

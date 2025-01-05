@@ -44,22 +44,6 @@ extension XTailwindTButtonSize on TButtonSize {
     }
   }
 
-  /// The padding associated with the given [TButtonSize].
-  EdgeInsets get padding {
-    switch (this) {
-      case TButtonSize.xs:
-        return TOffset.x6;
-      case TButtonSize.sm:
-        return TOffset.x8;
-      case TButtonSize.md:
-        return TOffset.x10;
-      case TButtonSize.lg:
-        return TOffset.x12;
-      case TButtonSize.xl:
-        return TOffset.x14;
-    }
-  }
-
   /// The default text style associated with the given [TButtonSize].
   TextStyle get textStyle {
     switch (this) {
@@ -224,6 +208,21 @@ class TButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Fallback padding based on the size of the button.
+    EdgeInsetsGeometry fallbackPadding;
+    switch (size) {
+      case TButtonSize.xs:
+        fallbackPadding = TOffset.x6;
+      case TButtonSize.sm:
+        fallbackPadding = TOffset.x8;
+      case TButtonSize.md:
+        fallbackPadding = TOffset.x10;
+      case TButtonSize.lg:
+        fallbackPadding = TOffset.x12;
+      case TButtonSize.xl:
+        fallbackPadding = TOffset.x14;
+    }
+
     return TStyledContainer(
       height: WidgetStateProperty.resolveWith((states) {
         return theme?.height?.resolve(states) ?? size.height;
@@ -238,7 +237,7 @@ class TButton extends StatelessWidget {
       textStyle: theme?.textStyle,
       backgroundColor: theme?.backgroundColor,
       elevation: theme?.elevation,
-      padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
+      padding: theme?.padding ?? WidgetStatePropertyAll(fallbackPadding),
       border: theme?.border,
       borderRadius:
           theme?.borderRadius ?? WidgetStatePropertyAll(size.borderRadius),

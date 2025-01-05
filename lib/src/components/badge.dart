@@ -30,18 +30,6 @@ extension XTailwindTBadgeSize on TBadgeSize {
     }
   }
 
-  /// The padding associated with the given [TBadgeSize].
-  EdgeInsets get padding {
-    switch (this) {
-      case TBadgeSize.sm:
-        return TOffset.x6;
-      case TBadgeSize.md:
-        return TOffset.x8;
-      case TBadgeSize.lg:
-        return TOffset.x10;
-    }
-  }
-
   /// The fixed height associated with the given [TBadgeSize].
   double get height {
     switch (this) {
@@ -51,6 +39,16 @@ extension XTailwindTBadgeSize on TBadgeSize {
         return 26;
       case TBadgeSize.lg:
         return 30;
+    }
+  }
+
+  /// The border radius associated with the given [TButtonSize].
+  BorderRadius get borderRadius {
+    switch (this) {
+      case TBadgeSize.sm:
+      case TBadgeSize.md:
+      case TBadgeSize.lg:
+        return TBorderRadius.rounded_full;
     }
   }
 }
@@ -232,6 +230,17 @@ class TBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Fallback padding based on the size of the button.
+    EdgeInsetsGeometry fallbackPadding;
+    switch (size) {
+      case TBadgeSize.sm:
+        fallbackPadding = TOffset.x6;
+      case TBadgeSize.md:
+        fallbackPadding = TOffset.x8;
+      case TBadgeSize.lg:
+        fallbackPadding = TOffset.x10;
+    }
+
     return TStyledContainer(
       height: WidgetStatePropertyAll(size.height),
       controller: controller,
@@ -242,10 +251,10 @@ class TBadge extends StatelessWidget {
       baseTextStyle: size.textStyle.merge(baseTextStyle),
       textStyle: theme?.textStyle,
       backgroundColor: theme?.backgroundColor,
-      padding: theme?.padding ?? WidgetStatePropertyAll(size.padding),
+      padding: theme?.padding ?? WidgetStatePropertyAll(fallbackPadding),
       border: theme?.border,
-      borderRadius: theme?.borderRadius ??
-          const WidgetStatePropertyAll(TBorderRadius.rounded_full),
+      borderRadius:
+          theme?.borderRadius ?? WidgetStatePropertyAll(size.borderRadius),
       mouseCursor: theme?.mouseCursor,
       tooltip: tooltip,
       tooltipLeading: tooltipLeading,
