@@ -250,42 +250,6 @@ class TSplitButton extends StatelessWidget {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: _effectiveTextStyle
-  // ---------------------------------------------------------------------------
-
-  TextStyle? _effectiveTextStyle(
-    BuildContext context,
-    Set<WidgetState> states,
-  ) {
-    return TStyledContainer.resolveTextStyle(
-      context: context,
-      states: states,
-      textStyle: theme?.textStyle,
-      variant: variant,
-      color: color,
-      hasCallback: true,
-    );
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: _effectiveBackgroundColor
-  // ---------------------------------------------------------------------------
-
-  Color? _effectiveBackgroundColor(
-    BuildContext context,
-    Set<WidgetState> states,
-  ) {
-    return TStyledContainer.resolveBackgroundColor(
-      context: context,
-      states: states,
-      backgroundColor: theme?.backgroundColor,
-      variant: variant,
-      color: color,
-      hasCallback: true,
-    );
-  }
-
-  // ---------------------------------------------------------------------------
   // METHOD: build
   // ---------------------------------------------------------------------------
 
@@ -293,35 +257,40 @@ class TSplitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final tw = context.tw;
     final baseTheme = theme ?? const TStyleTheme();
-
-    final textStyle = _effectiveTextStyle(context, {});
     final b = _effectiveBorder(context, {});
-    final backgroundColor = _effectiveBackgroundColor(context, {});
-
-    Color? dividerColor;
-    final dividerAlpha = tw.light ? 0.15 : 0.25;
-    switch (variant) {
-      case TStyleVariant.basic:
-        dividerColor = null;
-      case TStyleVariant.outlined:
-        dividerColor = b?.top.color;
-      case TStyleVariant.filled:
-        dividerColor = textStyle?.color?.withValues(alpha: dividerAlpha);
-      case TStyleVariant.soft:
-        dividerColor = textStyle?.color?.withValues(alpha: dividerAlpha);
-    }
 
     // Only show the divider if a color is provided.
-    final divider = dividerColor == null
-        ? null
-        : Container(
-            color: backgroundColor,
-            child: VerticalDivider(
-              color: dividerColor,
-              thickness: 1,
-              width: 1,
-            ),
-          );
+    Widget getDivider({bool disabled = false}) {
+      Color? dividerColor;
+      switch (variant) {
+        case TStyleVariant.basic:
+          dividerColor = null;
+        case TStyleVariant.outlined:
+          if (disabled) {
+            dividerColor = tw.colors.disabled;
+          } else {
+            dividerColor = b?.top.color;
+          }
+        case TStyleVariant.filled:
+        case TStyleVariant.soft:
+          if (disabled) {
+            if (tw.light) {
+              dividerColor = tw.colors.disabled.toMaterialColor().shade600;
+            } else {
+              dividerColor = tw.colors.disabled.toMaterialColor().shade400;
+            }
+          } else {
+            if (variant == TStyleVariant.filled) {
+              dividerColor = Colors.white24;
+            } else {
+              dividerColor = b?.top.color.withValues(alpha: 0.25);
+            }
+          }
+      }
+      return dividerColor == null
+          ? const SizedBox.shrink()
+          : VerticalDivider(color: dividerColor, thickness: 1, width: 1);
+    }
 
     /// The theme for the leading widget.
     final themeLeading = baseTheme.copyWith(
@@ -394,19 +363,29 @@ class TSplitButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (leading != null) ...[
-            TIconButton.raw(
-              size: size,
-              variant: variant,
-              theme: themeLeading.copyWith(iconSize: iconSize),
-              color: color,
-              loading: loadingLeading,
-              tooltip: tooltipLeading,
-              onPressed: onPressedLeading,
-              onHover: onHoverLeading,
-              controller: controllerLeading,
-              icon: leading!,
+            ListenableBuilder(
+              listenable: controllerLeading ?? ValueNotifier(false),
+              builder: (context, child) {
+                return Stack(
+                  alignment: Alignment.centerRight,
+                  children: [
+                    TIconButton.raw(
+                      size: size,
+                      variant: variant,
+                      theme: themeLeading.copyWith(iconSize: iconSize),
+                      color: color,
+                      loading: loadingLeading,
+                      tooltip: tooltipLeading,
+                      onPressed: onPressedLeading,
+                      onHover: onHoverLeading,
+                      controller: controllerLeading,
+                      icon: leading!,
+                    ),
+                    getDivider(disabled: controllerTrailing?.disabled ?? false),
+                  ],
+                );
+              },
             ),
-            if (divider != null) divider,
           ],
           TButton.raw(
             size: size,
@@ -421,18 +400,28 @@ class TSplitButton extends StatelessWidget {
             child: child,
           ),
           if (trailing != null) ...[
-            if (divider != null) divider,
-            TIconButton.raw(
-              size: size,
-              variant: variant,
-              theme: themeTrailing.copyWith(iconSize: iconSize),
-              color: color,
-              loading: loadingTrailing,
-              tooltip: tooltipTrailing,
-              onPressed: onPressedTrailing,
-              onHover: onHoverTrailing,
-              controller: controllerTrailing,
-              icon: trailing!,
+            ListenableBuilder(
+              listenable: controllerTrailing ?? ValueNotifier(false),
+              builder: (context, child) {
+                return Stack(
+                  alignment: Alignment.centerLeft,
+                  children: [
+                    TIconButton.raw(
+                      size: size,
+                      variant: variant,
+                      theme: themeTrailing.copyWith(iconSize: iconSize),
+                      color: color,
+                      loading: loadingTrailing,
+                      tooltip: tooltipTrailing,
+                      onPressed: onPressedTrailing,
+                      onHover: onHoverTrailing,
+                      controller: controllerTrailing,
+                      icon: trailing!,
+                    ),
+                    getDivider(disabled: controllerTrailing?.disabled ?? false),
+                  ],
+                );
+              },
             ),
           ],
         ],

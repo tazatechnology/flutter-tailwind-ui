@@ -109,14 +109,14 @@ class ComponentRouteTIconButton extends StatelessWidget {
               child: _TIconButtonLoading(),
             ),
             AppPreviewCard(
-              title: 'Controller to manage disabled state',
-              code: _TIconButtonDisabledSource.code,
-              child: _TIconButtonDisabled(),
-            ),
-            AppPreviewCard(
               title: 'Custom loading widget',
               code: _TIconButtonLoadingCustomSource.code,
               child: _TIconButtonLoadingCustom(),
+            ),
+            AppPreviewCard(
+              title: 'Controller to manage disabled state',
+              code: _TIconButtonDisabledSource.code,
+              child: _TIconButtonDisabled(),
             ),
           ],
         ),

@@ -128,14 +128,14 @@ class ComponentRouteTButton extends StatelessWidget {
               child: _TButtonLoading(),
             ),
             AppPreviewCard(
-              title: 'Controller to manage disabled state',
-              code: _TButtonDisabledSource.code,
-              child: _TButtonDisabled(),
-            ),
-            AppPreviewCard(
               title: 'Custom loading widget',
               code: _TButtonLoadingCustomSource.code,
               child: _TButtonLoadingCustom(),
+            ),
+            AppPreviewCard(
+              title: 'Controller to manage disabled state',
+              code: _TButtonDisabledSource.code,
+              child: _TButtonDisabled(),
             ),
           ],
         ),

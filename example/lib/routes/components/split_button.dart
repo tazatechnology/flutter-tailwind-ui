@@ -116,14 +116,14 @@ class ComponentRouteTSplitButton extends StatelessWidget {
               child: _TSplitButtonLoading(),
             ),
             AppPreviewCard(
-              title: 'Controller to manage disabled state',
-              code: _TSplitButtonDisabledSource.code,
-              child: _TSplitButtonDisabled(),
-            ),
-            AppPreviewCard(
               title: 'Custom loading widget',
               code: _TSplitButtonLoadingCustomSource.code,
               child: _TSplitButtonLoadingCustom(),
+            ),
+            AppPreviewCard(
+              title: 'Controller to manage disabled state',
+              code: _TSplitButtonDisabledSource.code,
+              child: _TSplitButtonDisabled(),
             ),
           ],
         ),

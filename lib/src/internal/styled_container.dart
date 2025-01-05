@@ -220,30 +220,20 @@ class TStyledContainer extends StatelessWidget {
   }) {
     final tw = context.tw;
     final effectiveColor = resolveColor(context: context, color: color);
+
     WidgetStateProperty<Color?> backgroundColorFallback;
     switch (variant) {
       case TStyleVariant.basic:
-        backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
-          if (states.disabled) {
-            return Colors.transparent;
-          }
-          if (states.hovered && hasCallback) {
-            return defaultBackgroundColor(context);
-          }
-          return null;
-        });
-
       case TStyleVariant.outlined:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
             return Colors.transparent;
           }
           if (states.hovered && hasCallback) {
-            if (color != null) {
-              return effectiveColor;
-            } else {
+            if (color == null) {
               return defaultBackgroundColor(context);
             }
+            return effectiveColor.withValues(alpha: tw.light ? 0.05 : 0.1);
           }
           return null;
         });
@@ -433,9 +423,6 @@ class TStyledContainer extends StatelessWidget {
         });
       case TStyleVariant.outlined:
         textStyleFallback = WidgetStateProperty.resolveWith((states) {
-          if (states.hovered && color != null && hasCallback) {
-            return TextStyle(color: effectiveColor.contrastBlackWhite());
-          }
           if (color != null) {
             return TextStyle(color: effectiveColor);
           }
