@@ -78,6 +78,7 @@ class _RingPainter extends CustomPainter {
       ..strokeWidth = width ?? 1.5;
 
     const offset = 3.0;
+    const borderOffset = Radius.circular(offset);
 
     final rect = Rect.fromLTWH(
       -offset,
@@ -88,7 +89,25 @@ class _RingPainter extends CustomPainter {
     if (borderRadius == null) {
       canvas.drawRect(rect, paint);
     } else {
-      canvas.drawRRect(borderRadius!.toRRect(rect), paint);
+      final br = borderRadius!;
+      final brOffset = br.add(
+        BorderRadius.only(
+          topLeft: (br.topLeft.x > 0 && br.topLeft.y > 0)
+              ? borderOffset
+              : Radius.zero,
+          topRight: (br.topRight.x > 0 && br.topRight.y > 0)
+              ? borderOffset
+              : Radius.zero,
+          bottomRight: (br.bottomRight.x > 0 && br.bottomRight.y > 0)
+              ? borderOffset
+              : Radius.zero,
+          bottomLeft: (br.bottomLeft.x > 0 && br.bottomLeft.y > 0)
+              ? borderOffset
+              : Radius.zero,
+        ),
+      ) as BorderRadius;
+
+      canvas.drawRRect(brOffset.toRRect(rect), paint);
     }
   }
 
