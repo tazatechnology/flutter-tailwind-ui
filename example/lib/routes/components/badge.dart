@@ -142,14 +142,14 @@ class ComponentRouteTBadge extends StatelessWidget {
           title: 'Custom badge theming',
           children: const [
             AppPreviewCard(
-              title: 'Static theme (``TBadgeTheme``)',
+              title: 'Static theme (``TStyleTheme``)',
               description:
-                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TBadgeTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
+                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TStyleTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
               code: _TBadgeCustomThemeSource.code,
               child: _TBadgeCustomTheme(),
             ),
             AppPreviewCard(
-              title: 'Stateful theme (``TBadgeTheme``)',
+              title: 'Stateful theme (``TStyleTheme``)',
               description:
                   'For full theme control, you can use the `WidgetStateProperty.resolveWith()` method to dynamically change the badge theme based on the current `WidgetState`.',
               code: _TBadgeStatefulThemeSource.code,
@@ -245,7 +245,7 @@ class _TBadgeBasicSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TBadgeSize.values)
+        for (final size in TWidgetSize.values)
           TBadge(
             size: size,
             tooltip: '``$size``',
@@ -272,7 +272,7 @@ class _TBadgeOutlinedSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TBadgeSize.values)
+        for (final size in TWidgetSize.values)
           TBadge.outlined(
             size: size,
             tooltip: '``$size``',
@@ -299,7 +299,7 @@ class _TBadgeFilledSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TBadgeSize.values)
+        for (final size in TWidgetSize.values)
           TBadge.filled(
             size: size,
             tooltip: '``$size``',
@@ -326,7 +326,7 @@ class _TBadgeSoftSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TBadgeSize.values)
+        for (final size in TWidgetSize.values)
           TBadge.soft(
             size: size,
             tooltip: '``$size``',
@@ -457,7 +457,7 @@ class _TBadgeLeading extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TBadge.raw(
             variant: variant,
             color: TColors.indigo,
@@ -485,7 +485,7 @@ class _TBadgeTrailing extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TBadge.raw(
             variant: variant,
             color: TColors.indigo,
@@ -535,7 +535,7 @@ class _TBadgeLeadingCallback extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TBadge.raw(
             variant: variant,
             leading: const Icon(Icons.add),
@@ -563,7 +563,7 @@ class _TBadgeTrailingCallback extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TBadge.raw(
             variant: variant,
             color: TColors.indigo,
@@ -588,7 +588,7 @@ class _TBadgeCustomTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TBadge.filled(
-      theme: TBadgeTheme.all(
+      theme: TStyleTheme.all(
         backgroundColor: Colors.black,
         border: Border.all(color: TColors.slate),
         borderRadius: TBorderRadius.rounded_none,
@@ -611,7 +611,7 @@ class _TBadgeStatefulTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TBadge.filled(
-      theme: TBadgeTheme(
+      theme: TStyleTheme(
         animationDuration: const Duration(milliseconds: 250),
         backgroundColor: WidgetStateProperty.resolveWith((states) {
           return states.hovered ? TColors.slate.shade800 : Colors.black;

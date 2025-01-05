@@ -1,9 +1,31 @@
 // =============================================================================
-// ENUM: TVariant
+// ENUM: TWidgetSize
+// =============================================================================
+
+/// A size enumeration used but badges and buttons variants.
+enum TWidgetSize {
+  /// An extra-small button.
+  xs,
+
+  /// A small button.
+  sm,
+
+  /// A medium button.
+  md,
+
+  /// A large button.
+  lg,
+
+  /// An extra-large button.
+  xl,
+}
+
+// =============================================================================
+// ENUM: TStyleVariant
 // =============================================================================
 
 /// The variant of the styled container.
-enum TVariant {
+enum TStyleVariant {
   /// A basic styled container.
   basic,
 

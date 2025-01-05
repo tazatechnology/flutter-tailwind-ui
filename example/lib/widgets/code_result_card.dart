@@ -14,7 +14,7 @@ class AppCodeResultCard extends StatelessWidget {
     super.key,
   });
 
-  static const minHeight = _GridPaperPainter.gridSize * 5.0;
+  static const minHeight = _GridPaperPainter.gridSize * 4.0;
 
   final Widget child;
   final EdgeInsets margin;

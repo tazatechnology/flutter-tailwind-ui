@@ -146,7 +146,7 @@ class _ToggleButton extends StatelessWidget {
     final tw = context.tw;
     final selectedColor = tw.light ? Colors.white : TColors.slate.shade700;
     final selected = controller.value.selected;
-    final variant = selected ? TVariant.filled : TVariant.basic;
+    final variant = selected ? TStyleVariant.filled : TStyleVariant.basic;
     final icon = Icon(this.icon, color: selected ? TColors.sky : null);
     final color = selected ? selectedColor : null;
     final width = tw.screen.is_md ? 100.0 : 50.0;
@@ -158,7 +158,7 @@ class _ToggleButton extends StatelessWidget {
           variant: variant,
           color: color,
           onPressed: onTap,
-          size: TButtonSize.xs,
+          size: TWidgetSize.xs,
           leading: icon,
           child: Text(label),
         ),
@@ -170,7 +170,7 @@ class _ToggleButton extends StatelessWidget {
           variant: variant,
           color: color,
           onPressed: onTap,
-          size: TButtonSize.xs,
+          size: TWidgetSize.xs,
           icon: icon,
         ),
       );

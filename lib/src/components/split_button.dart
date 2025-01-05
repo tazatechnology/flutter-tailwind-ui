@@ -8,13 +8,13 @@ import 'package:flutter_tailwind_ui/src/internal/styled_container.dart';
 
 /// A highly customizable button
 class TSplitButton extends StatelessWidget {
-  /// Creates a basic [TSplitButton] button ([TVariant.basic]).
+  /// Creates a basic [TSplitButton] button ([TStyleVariant.basic]).
   const TSplitButton({
     required this.child,
     super.key,
     this.color,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
     this.controller,
@@ -32,15 +32,15 @@ class TSplitButton extends StatelessWidget {
     this.onHover,
     this.onHoverLeading,
     this.onHoverTrailing,
-  }) : variant = TVariant.basic;
+  }) : variant = TStyleVariant.basic;
 
-  /// Creates an outlined [TSplitButton] button ([TVariant.outlined]).
+  /// Creates an outlined [TSplitButton] button ([TStyleVariant.outlined]).
   const TSplitButton.outlined({
     required this.child,
     super.key,
     this.color,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
     this.controller,
@@ -58,15 +58,15 @@ class TSplitButton extends StatelessWidget {
     this.onHover,
     this.onHoverLeading,
     this.onHoverTrailing,
-  }) : variant = TVariant.outlined;
+  }) : variant = TStyleVariant.outlined;
 
-  /// Creates a filled [TSplitButton] button ([TVariant.filled]).
+  /// Creates a filled [TSplitButton] button ([TStyleVariant.filled]).
   const TSplitButton.filled({
     required this.child,
     super.key,
     this.color,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
     this.controller,
@@ -84,15 +84,15 @@ class TSplitButton extends StatelessWidget {
     this.onHover,
     this.onHoverLeading,
     this.onHoverTrailing,
-  }) : variant = TVariant.filled;
+  }) : variant = TStyleVariant.filled;
 
-  /// Creates a soft [TSplitButton] button ([TVariant.soft]).
+  /// Creates a soft [TSplitButton] button ([TStyleVariant.soft]).
   const TSplitButton.soft({
     required this.child,
     super.key,
     this.color,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
     this.controller,
@@ -110,7 +110,7 @@ class TSplitButton extends StatelessWidget {
     this.onHover,
     this.onHoverLeading,
     this.onHoverTrailing,
-  }) : variant = TVariant.soft;
+  }) : variant = TStyleVariant.soft;
 
   /// Creates a raw [TSplitButton] button.
   const TSplitButton.raw({
@@ -119,7 +119,7 @@ class TSplitButton extends StatelessWidget {
     super.key,
     this.color,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
     this.controller,
@@ -140,7 +140,7 @@ class TSplitButton extends StatelessWidget {
   });
 
   /// The variant of the button.
-  final TVariant variant;
+  final TStyleVariant variant;
 
   /// The custom theme override for the badge.
   final Widget child;
@@ -152,10 +152,10 @@ class TSplitButton extends StatelessWidget {
   final Widget? trailing;
 
   /// The custom theme override for the button.
-  final TButtonTheme? theme;
+  final TStyleTheme? theme;
 
   /// The custom theme override for the button.
-  final TButtonSize size;
+  final TWidgetSize size;
 
   /// The color to use for button styling.
   final Color? color;
@@ -219,11 +219,12 @@ class TSplitButton extends StatelessWidget {
     BuildContext context,
     Set<WidgetState> states,
   ) {
+    final defaultBorderRadius = TButton.getDefaultBorderRadius(size);
     return TStyledContainer.resolveBorderRadius(
       context: context,
       states: states,
       borderRadius:
-          theme?.borderRadius ?? WidgetStatePropertyAll(size.borderRadius),
+          theme?.borderRadius ?? WidgetStatePropertyAll(defaultBorderRadius),
       variant: variant,
     );
   }
@@ -291,7 +292,7 @@ class TSplitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    final baseTheme = theme ?? const TButtonTheme();
+    final baseTheme = theme ?? const TStyleTheme();
 
     final textStyle = _effectiveTextStyle(context, {});
     final b = _effectiveBorder(context, {});
@@ -300,13 +301,13 @@ class TSplitButton extends StatelessWidget {
     Color? dividerColor;
     final dividerAlpha = tw.light ? 0.15 : 0.25;
     switch (variant) {
-      case TVariant.basic:
+      case TStyleVariant.basic:
         dividerColor = null;
-      case TVariant.outlined:
+      case TStyleVariant.outlined:
         dividerColor = b?.top.color;
-      case TVariant.filled:
+      case TStyleVariant.filled:
         dividerColor = textStyle?.color?.withValues(alpha: dividerAlpha);
-      case TVariant.soft:
+      case TStyleVariant.soft:
         dividerColor = textStyle?.color?.withValues(alpha: dividerAlpha);
     }
 
@@ -384,11 +385,11 @@ class TSplitButton extends StatelessWidget {
     /// Default to only be the font size (instead of the full text height).
     final iconSize = WidgetStateProperty.resolveWith((states) {
       return themeLeading.textStyle?.resolve(states)?.fontSize ??
-          size.textStyle.fontSize;
+          TButton.getDefaultTextStyle(size).fontSize;
     });
 
     return SizedBox(
-      height: size.height,
+      height: TButton.getDefaultHeight(size),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -217,8 +217,8 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
       child: TBadge.filled(
         color: badgeColor,
         baseTextStyle: widget.isComponent ? tw.text.style_xs : tw.text.style_sm,
-        size: TBadgeSize.sm,
-        theme: TBadgeTheme(
+        size: TWidgetSize.sm,
+        theme: TStyleTheme(
           textStyle: WidgetStateTextStyle.resolveWith((states) {
             return TextStyle(
               color: isActive ? activeColor : inactiveColor,

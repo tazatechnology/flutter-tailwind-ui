@@ -45,7 +45,7 @@ class TStyledContainer extends StatelessWidget {
   });
 
   /// The variant of the styled container.
-  final TVariant variant;
+  final TStyleVariant variant;
 
   /// The color to apply to variant styling.
   final Color? color;
@@ -214,7 +214,7 @@ class TStyledContainer extends StatelessWidget {
     required BuildContext context,
     required Set<WidgetState> states,
     required WidgetStateProperty<Color?>? backgroundColor,
-    required TVariant variant,
+    required TStyleVariant variant,
     required Color? color,
     required bool hasCallback,
   }) {
@@ -222,7 +222,7 @@ class TStyledContainer extends StatelessWidget {
     final effectiveColor = resolveColor(context: context, color: color);
     WidgetStateProperty<Color?> backgroundColorFallback;
     switch (variant) {
-      case TVariant.basic:
+      case TStyleVariant.basic:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
             return Colors.transparent;
@@ -233,7 +233,7 @@ class TStyledContainer extends StatelessWidget {
           return null;
         });
 
-      case TVariant.outlined:
+      case TStyleVariant.outlined:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
             return Colors.transparent;
@@ -247,7 +247,7 @@ class TStyledContainer extends StatelessWidget {
           }
           return null;
         });
-      case TVariant.filled:
+      case TStyleVariant.filled:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
             return tw.colors.disabled;
@@ -260,7 +260,7 @@ class TStyledContainer extends StatelessWidget {
           }
           return effectiveColor;
         });
-      case TVariant.soft:
+      case TStyleVariant.soft:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
             return tw.colors.disabled;
@@ -286,7 +286,7 @@ class TStyledContainer extends StatelessWidget {
     required Set<WidgetState> states,
     required WidgetStateProperty<BoxBorder?>? border,
     required WidgetStateProperty<Color?>? backgroundColor,
-    required TVariant variant,
+    required TStyleVariant variant,
     required Color? color,
     required bool hasCallback,
   }) {
@@ -306,7 +306,7 @@ class TStyledContainer extends StatelessWidget {
     WidgetStateProperty<BoxBorder?> borderFallback;
     final noBorder = Border.all(color: Colors.transparent);
     switch (variant) {
-      case TVariant.basic:
+      case TStyleVariant.basic:
         borderFallback = WidgetStateProperty.resolveWith((states) {
           if (states.hovered && hasCallback) {
             return noBorder;
@@ -315,7 +315,7 @@ class TStyledContainer extends StatelessWidget {
             color: effectiveBackgroundColor ?? Colors.transparent,
           );
         });
-      case TVariant.outlined:
+      case TStyleVariant.outlined:
         if (states.disabled) {
           borderFallback = borderDisabled;
         } else if (color == null) {
@@ -327,7 +327,7 @@ class TStyledContainer extends StatelessWidget {
             return Border.all(color: effectiveColor);
           });
         }
-      case TVariant.filled:
+      case TStyleVariant.filled:
         if (states.disabled) {
           borderFallback = borderDisabled;
         } else {
@@ -335,7 +335,7 @@ class TStyledContainer extends StatelessWidget {
             Border.all(color: effectiveColor),
           );
         }
-      case TVariant.soft:
+      case TStyleVariant.soft:
         if (states.disabled) {
           borderFallback = borderDisabled;
         } else {
@@ -366,14 +366,14 @@ class TStyledContainer extends StatelessWidget {
     required BuildContext context,
     required Set<WidgetState> states,
     required WidgetStateProperty<BorderRadius?>? borderRadius,
-    required TVariant variant,
+    required TStyleVariant variant,
   }) {
     WidgetStateProperty<BorderRadius?> borderRadiusFallback;
     switch (variant) {
-      case TVariant.basic:
-      case TVariant.outlined:
-      case TVariant.filled:
-      case TVariant.soft:
+      case TStyleVariant.basic:
+      case TStyleVariant.outlined:
+      case TStyleVariant.filled:
+      case TStyleVariant.soft:
         borderRadiusFallback = const WidgetStatePropertyAll(null);
     }
     return borderRadius?.resolve(states) ??
@@ -389,16 +389,16 @@ class TStyledContainer extends StatelessWidget {
     required BuildContext context,
     required Set<WidgetState> states,
     required WidgetStateProperty<double?>? elevation,
-    required TVariant variant,
+    required TStyleVariant variant,
   }) {
     WidgetStateProperty<double?> elevationFallback;
     switch (variant) {
-      case TVariant.basic:
-      case TVariant.outlined:
+      case TStyleVariant.basic:
+      case TStyleVariant.outlined:
         // Basic, link, and outlined containers have no elevation for any state
         return 0;
-      case TVariant.filled:
-      case TVariant.soft:
+      case TStyleVariant.filled:
+      case TStyleVariant.soft:
         // By default, filled and soft containers should have no elevation
         elevationFallback = const WidgetStatePropertyAll(0);
     }
@@ -414,7 +414,7 @@ class TStyledContainer extends StatelessWidget {
     required BuildContext context,
     required Set<WidgetState> states,
     required WidgetStateProperty<TextStyle?>? textStyle,
-    required TVariant variant,
+    required TStyleVariant variant,
     required Color? color,
     required bool hasCallback,
   }) {
@@ -425,13 +425,13 @@ class TStyledContainer extends StatelessWidget {
     }
     WidgetStateProperty<TextStyle?> textStyleFallback;
     switch (variant) {
-      case TVariant.basic:
+      case TStyleVariant.basic:
         textStyleFallback = WidgetStateProperty.resolveWith((states) {
           return TextStyle(
             color: color == null ? defaultTextColor(context) : effectiveColor,
           );
         });
-      case TVariant.outlined:
+      case TStyleVariant.outlined:
         textStyleFallback = WidgetStateProperty.resolveWith((states) {
           if (states.hovered && color != null && hasCallback) {
             return TextStyle(color: effectiveColor.contrastBlackWhite());
@@ -441,14 +441,14 @@ class TStyledContainer extends StatelessWidget {
           }
           return TextStyle(color: defaultTextColor(context));
         });
-      case TVariant.filled:
+      case TStyleVariant.filled:
         textStyleFallback = WidgetStateProperty.resolveWith((states) {
           if (effectiveColor.isTransparent) {
             return TextStyle(color: defaultTextColor(context));
           }
           return TextStyle(color: effectiveColor.contrastBlackWhite());
         });
-      case TVariant.soft:
+      case TStyleVariant.soft:
         textStyleFallback = WidgetStateProperty.resolveWith((states) {
           return TextStyle(
             color: tw.dark ? effectiveColor.shade400 : effectiveColor.shade700,
@@ -488,13 +488,13 @@ class TStyledContainer extends StatelessWidget {
     final effectiveColor = resolveColor(context: context, color: color);
     Color? hoverColor;
     switch (variant) {
-      case TVariant.basic:
+      case TStyleVariant.basic:
         hoverColor = defaultBackgroundColor(context);
-      case TVariant.outlined:
+      case TStyleVariant.outlined:
         hoverColor = defaultBackgroundColor(context);
-      case TVariant.filled:
+      case TStyleVariant.filled:
         hoverColor = effectiveColor.shade400;
-      case TVariant.soft:
+      case TStyleVariant.soft:
         hoverColor = effectiveColor.shade400.withValues(alpha: 0.2);
     }
 

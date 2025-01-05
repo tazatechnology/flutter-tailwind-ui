@@ -124,14 +124,14 @@ class ComponentRouteTIconButton extends StatelessWidget {
           title: 'Custom Icon Button Theming',
           children: const [
             AppPreviewCard(
-              title: 'Static theme (``TButtonTheme``)',
+              title: 'Static theme (``TStyleTheme``)',
               description:
-                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TButtonTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
+                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TStyleTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
               code: _TIconButtonCustomThemeSource.code,
               child: _TIconButtonCustomTheme(),
             ),
             AppPreviewCard(
-              title: 'Stateful theme (``TButtonTheme``)',
+              title: 'Stateful theme (``TStyleTheme``)',
               description:
                   'For full theme control, you can use the `WidgetStateProperty.resolveWith()` method to dynamically change the button theme based on the current `WidgetState`.',
               code: _TIconButtonStatefulThemeSource.code,
@@ -227,7 +227,7 @@ class _TIconButtonBasicSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TIconButton(
             size: size,
             tooltip: '``$size``',
@@ -254,7 +254,7 @@ class _TIconButtonOutlinedSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TIconButton.outlined(
             size: size,
             tooltip: '``$size``',
@@ -281,7 +281,7 @@ class _TIconButtonFilledSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TIconButton.filled(
             size: size,
             tooltip: '``$size``',
@@ -308,7 +308,7 @@ class _TIconButtonSoftSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TIconButton.soft(
             size: size,
             tooltip: '``$size``',
@@ -460,7 +460,7 @@ class _TIconButtonLoading extends StatefulWidget {
 
 class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -488,7 +488,7 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TIconButton.raw(
             tooltip: '``$variant``',
             variant: variant,
@@ -516,7 +516,7 @@ class _TIconButtonDisabled extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TIconButton.raw(
             variant: variant,
             controller: TWidgetController(disabled: true),
@@ -542,7 +542,7 @@ class _TIconButtonLoadingCustom extends StatefulWidget {
 
 class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -570,7 +570,7 @@ class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TIconButton.raw(
             variant: variant,
             controller: controllers[variant.index],
@@ -594,7 +594,7 @@ class _TIconButtonCustomTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TIconButton.filled(
-      theme: TButtonTheme.all(
+      theme: TStyleTheme.all(
         height: 32,
         backgroundColor: Colors.black,
         elevation: TShadow.shadow,
@@ -618,7 +618,7 @@ class _TIconButtonStatefulTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TIconButton.filled(
-      theme: TButtonTheme(
+      theme: TStyleTheme(
         animationDuration: const Duration(milliseconds: 250),
         height: WidgetStateProperty.resolveWith((states) {
           return states.hovered ? 48 : 32;

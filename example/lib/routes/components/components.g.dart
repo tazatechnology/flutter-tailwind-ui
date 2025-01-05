@@ -51,7 +51,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TBadgeSize.values)
+    for (final size in TWidgetSize.values)
       TBadge(
         size: size,
         tooltip: '``$size``',
@@ -71,7 +71,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TBadgeSize.values)
+    for (final size in TWidgetSize.values)
       TBadge.outlined(
         size: size,
         tooltip: '``$size``',
@@ -91,7 +91,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TBadgeSize.values)
+    for (final size in TWidgetSize.values)
       TBadge.filled(
         size: size,
         tooltip: '``$size``',
@@ -111,7 +111,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TBadgeSize.values)
+    for (final size in TWidgetSize.values)
       TBadge.soft(
         size: size,
         tooltip: '``$size``',
@@ -207,7 +207,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TVariant.values)
+    for (final variant in TStyleVariant.values)
       TBadge.raw(
         variant: variant,
         color: TColors.indigo,
@@ -228,7 +228,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TVariant.values)
+    for (final variant in TStyleVariant.values)
       TBadge.raw(
         variant: variant,
         color: TColors.indigo,
@@ -264,7 +264,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TVariant.values)
+    for (final variant in TStyleVariant.values)
       TBadge.raw(
         variant: variant,
         leading: const Icon(Icons.add),
@@ -285,7 +285,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TVariant.values)
+    for (final variant in TStyleVariant.values)
       TBadge.raw(
         variant: variant,
         color: TColors.indigo,
@@ -303,7 +303,7 @@ Wrap(
 class _TBadgeCustomThemeSource {
   static const String code = r"""
 TBadge.filled(
-  theme: TBadgeTheme.all(
+  theme: TStyleTheme.all(
     backgroundColor: Colors.black,
     border: Border.all(color: TColors.slate),
     borderRadius: TBorderRadius.rounded_none,
@@ -319,7 +319,7 @@ TBadge.filled(
 class _TBadgeStatefulThemeSource {
   static const String code = r"""
 TBadge.filled(
-  theme: TBadgeTheme(
+  theme: TStyleTheme(
     animationDuration: const Duration(milliseconds: 250),
     backgroundColor: WidgetStateProperty.resolveWith((states) {
       return states.hovered ? TColors.slate.shade800 : Colors.black;
@@ -397,7 +397,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TButton(
         size: size,
         tooltip: '``$size``',
@@ -417,7 +417,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TButton.outlined(
         size: size,
         tooltip: '``$size``',
@@ -437,7 +437,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TButton.filled(
         size: size,
         tooltip: '``$size``',
@@ -457,7 +457,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TButton.soft(
         size: size,
         tooltip: '``$size``',
@@ -553,7 +553,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TVariant.values)
+    for (final variant in TStyleVariant.values)
       TButton.raw(
         variant: variant,
         color: TColors.indigo,
@@ -574,7 +574,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TVariant.values)
+    for (final variant in TStyleVariant.values)
       TButton.raw(
         variant: variant,
         color: TColors.indigo,
@@ -614,7 +614,7 @@ class _TButtonLoading extends StatefulWidget {
 
 class _TButtonLoadingState extends State<_TButtonLoading> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -642,7 +642,7 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TButton.raw(
             tooltip: '``$variant``',
             variant: variant,
@@ -665,7 +665,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TVariant.values)
+    for (final variant in TStyleVariant.values)
       TButton.raw(
         variant: variant,
         controller: TWidgetController(disabled: true),
@@ -689,7 +689,7 @@ class _TButtonLoadingCustom extends StatefulWidget {
 
 class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -717,7 +717,7 @@ class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TButton.raw(
             variant: variant,
             controller: controllers[variant.index],
@@ -736,7 +736,7 @@ class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
 class _TButtonCustomThemeSource {
   static const String code = r"""
 TButton.filled(
-  theme: TButtonTheme.all(
+  theme: TStyleTheme.all(
     height: 32,
     backgroundColor: Colors.black,
     elevation: TShadow.shadow,
@@ -754,7 +754,7 @@ TButton.filled(
 class _TButtonStatefulThemeSource {
   static const String code = r"""
 TButton.filled(
-  theme: TButtonTheme(
+  theme: TStyleTheme(
     animationDuration: const Duration(milliseconds: 250),
     height: WidgetStateProperty.resolveWith((states) {
       return states.hovered ? 48 : 32;
@@ -796,7 +796,7 @@ class _TButtonIconCompareSource {
 Column(
   spacing: TSpace.v6,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         spacing: TSpace.v6,
@@ -868,7 +868,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TIconButton(
         size: size,
         tooltip: '``$size``',
@@ -888,7 +888,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TIconButton.outlined(
         size: size,
         tooltip: '``$size``',
@@ -908,7 +908,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TIconButton.filled(
         size: size,
         tooltip: '``$size``',
@@ -928,7 +928,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TIconButton.soft(
         size: size,
         tooltip: '``$size``',
@@ -1043,7 +1043,7 @@ class _TIconButtonLoading extends StatefulWidget {
 
 class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -1071,7 +1071,7 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TIconButton.raw(
             tooltip: '``$variant``',
             variant: variant,
@@ -1094,7 +1094,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TVariant.values)
+    for (final variant in TStyleVariant.values)
       TIconButton.raw(
         variant: variant,
         controller: TWidgetController(disabled: true),
@@ -1118,7 +1118,7 @@ class _TIconButtonLoadingCustom extends StatefulWidget {
 
 class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -1146,7 +1146,7 @@ class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TIconButton.raw(
             variant: variant,
             controller: controllers[variant.index],
@@ -1165,7 +1165,7 @@ class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
 class _TIconButtonCustomThemeSource {
   static const String code = r"""
 TIconButton.filled(
-  theme: TButtonTheme.all(
+  theme: TStyleTheme.all(
     height: 32,
     backgroundColor: Colors.black,
     elevation: TShadow.shadow,
@@ -1182,7 +1182,7 @@ TIconButton.filled(
 class _TIconButtonStatefulThemeSource {
   static const String code = r"""
 TIconButton.filled(
-  theme: TButtonTheme(
+  theme: TStyleTheme(
     animationDuration: const Duration(milliseconds: 250),
     height: WidgetStateProperty.resolveWith((states) {
       return states.hovered ? 48 : 32;
@@ -1267,7 +1267,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TSplitButton(
         size: size,
         tooltip: '``$size``',
@@ -1289,7 +1289,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TSplitButton.outlined(
         size: size,
         tooltip: '``$size``',
@@ -1311,7 +1311,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TSplitButton.filled(
         size: size,
         tooltip: '``$size``',
@@ -1333,7 +1333,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final size in TButtonSize.values)
+    for (final size in TWidgetSize.values)
       TSplitButton.soft(
         size: size,
         tooltip: '``$size``',
@@ -1508,7 +1508,7 @@ class _TSplitButtonLoading extends StatefulWidget {
 
 class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -1536,7 +1536,7 @@ class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TSplitButton.raw(
             tooltip: '``$variant``',
             variant: variant,
@@ -1560,7 +1560,7 @@ Wrap(
   runSpacing: TSpace.v8,
   crossAxisAlignment: WrapCrossAlignment.center,
   children: [
-    for (final variant in TVariant.values)
+    for (final variant in TStyleVariant.values)
       TSplitButton.raw(
         variant: variant,
         controller: TWidgetController(disabled: true),
@@ -1587,7 +1587,7 @@ class _TSplitButtonLoadingCustom extends StatefulWidget {
 class _TSplitButtonLoadingCustomState
     extends State<_TSplitButtonLoadingCustom> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -1615,7 +1615,7 @@ class _TSplitButtonLoadingCustomState
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TSplitButton.raw(
             tooltip: '``$variant``',
             variant: variant,

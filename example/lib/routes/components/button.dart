@@ -143,14 +143,14 @@ class ComponentRouteTButton extends StatelessWidget {
           title: 'Custom Button Theming',
           children: const [
             AppPreviewCard(
-              title: 'Static theme (``TButtonTheme``)',
+              title: 'Static theme (``TStyleTheme``)',
               description:
-                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TButtonTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
+                  'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TStyleTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
               code: _TButtonCustomThemeSource.code,
               child: _TButtonCustomTheme(),
             ),
             AppPreviewCard(
-              title: 'Stateful theme (``TButtonTheme``)',
+              title: 'Stateful theme (``TStyleTheme``)',
               description:
                   'For full theme control, you can use the `WidgetStateProperty.resolveWith()` method to dynamically change the button theme based on the current `WidgetState`.',
               code: _TButtonStatefulThemeSource.code,
@@ -258,7 +258,7 @@ class _TButtonBasicSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TButton(
             size: size,
             tooltip: '``$size``',
@@ -285,7 +285,7 @@ class _TButtonOutlinedSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TButton.outlined(
             size: size,
             tooltip: '``$size``',
@@ -312,7 +312,7 @@ class _TButtonFilledSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TButton.filled(
             size: size,
             tooltip: '``$size``',
@@ -339,7 +339,7 @@ class _TButtonSoftSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TButton.soft(
             size: size,
             tooltip: '``$size``',
@@ -470,7 +470,7 @@ class _TButtonLeading extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TButton.raw(
             variant: variant,
             color: TColors.indigo,
@@ -498,7 +498,7 @@ class _TButtonTrailing extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TButton.raw(
             variant: variant,
             color: TColors.indigo,
@@ -547,7 +547,7 @@ class _TButtonLoading extends StatefulWidget {
 
 class _TButtonLoadingState extends State<_TButtonLoading> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -575,7 +575,7 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TButton.raw(
             tooltip: '``$variant``',
             variant: variant,
@@ -603,7 +603,7 @@ class _TButtonDisabled extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TButton.raw(
             variant: variant,
             controller: TWidgetController(disabled: true),
@@ -629,7 +629,7 @@ class _TButtonLoadingCustom extends StatefulWidget {
 
 class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -657,7 +657,7 @@ class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TButton.raw(
             variant: variant,
             controller: controllers[variant.index],
@@ -681,7 +681,7 @@ class _TButtonCustomTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TButton.filled(
-      theme: TButtonTheme.all(
+      theme: TStyleTheme.all(
         height: 32,
         backgroundColor: Colors.black,
         elevation: TShadow.shadow,
@@ -706,7 +706,7 @@ class _TButtonStatefulTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TButton.filled(
-      theme: TButtonTheme(
+      theme: TStyleTheme(
         animationDuration: const Duration(milliseconds: 250),
         height: WidgetStateProperty.resolveWith((states) {
           return states.hovered ? 48 : 32;
@@ -755,7 +755,7 @@ class _TButtonIconCompare extends StatelessWidget {
     return Column(
       spacing: TSpace.v6,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: TSpace.v6,

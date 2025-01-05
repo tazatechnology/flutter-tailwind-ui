@@ -223,7 +223,7 @@ class _TSplitButtonBasicSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TSplitButton(
             size: size,
             tooltip: '``$size``',
@@ -252,7 +252,7 @@ class _TSplitButtonOutlinedSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TSplitButton.outlined(
             size: size,
             tooltip: '``$size``',
@@ -281,7 +281,7 @@ class _TSplitButtonFilledSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TSplitButton.filled(
             size: size,
             tooltip: '``$size``',
@@ -310,7 +310,7 @@ class _TSplitButtonSoftSizes extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final size in TButtonSize.values)
+        for (final size in TWidgetSize.values)
           TSplitButton.soft(
             size: size,
             tooltip: '``$size``',
@@ -529,7 +529,7 @@ class _TSplitButtonLoading extends StatefulWidget {
 
 class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -557,7 +557,7 @@ class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TSplitButton.raw(
             tooltip: '``$variant``',
             variant: variant,
@@ -586,7 +586,7 @@ class _TSplitButtonDisabled extends StatelessWidget {
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TSplitButton.raw(
             variant: variant,
             controller: TWidgetController(disabled: true),
@@ -615,7 +615,7 @@ class _TSplitButtonLoadingCustom extends StatefulWidget {
 class _TSplitButtonLoadingCustomState
     extends State<_TSplitButtonLoadingCustom> {
   final controllers =
-      List.generate(TVariant.values.length, (_) => TWidgetController());
+      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
 
   @override
   void dispose() {
@@ -643,7 +643,7 @@ class _TSplitButtonLoadingCustomState
       runSpacing: TSpace.v8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        for (final variant in TVariant.values)
+        for (final variant in TStyleVariant.values)
           TSplitButton.raw(
             tooltip: '``$variant``',
             variant: variant,

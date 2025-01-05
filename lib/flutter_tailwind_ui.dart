@@ -35,6 +35,7 @@ export 'src/extensions/widget_state.dart';
 
 // Theme
 export 'src/theme/color.dart';
+export 'src/theme/style.dart';
 export 'src/theme/text.dart';
 export 'src/theme/theme.dart';
 

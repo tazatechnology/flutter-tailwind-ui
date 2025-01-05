@@ -8,61 +8,61 @@ import 'package:flutter_tailwind_ui/src/internal/styled_container.dart';
 
 /// A highly customizable button
 class TIconButton extends StatelessWidget {
-  /// Creates a basic [TIconButton] button ([TVariant.basic]).
+  /// Creates a basic [TIconButton] button ([TStyleVariant.basic]).
   const TIconButton({
     required this.icon,
     super.key,
     this.loading,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.color,
     this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : variant = TVariant.basic;
+  }) : variant = TStyleVariant.basic;
 
-  /// Creates an outlined [TIconButton] button ([TVariant.outlined]).
+  /// Creates an outlined [TIconButton] button ([TStyleVariant.outlined]).
   const TIconButton.outlined({
     required this.icon,
     super.key,
     this.loading,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.color,
     this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : variant = TVariant.outlined;
+  }) : variant = TStyleVariant.outlined;
 
-  /// Creates a filled [TIconButton] button ([TVariant.filled]).
+  /// Creates a filled [TIconButton] button ([TStyleVariant.filled]).
   const TIconButton.filled({
     required this.icon,
     super.key,
     this.loading,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.color,
     this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : variant = TVariant.filled;
+  }) : variant = TStyleVariant.filled;
 
-  /// Creates a soft [TIconButton] button ([TVariant.soft]).
+  /// Creates a soft [TIconButton] button ([TStyleVariant.soft]).
   const TIconButton.soft({
     required this.icon,
     super.key,
     this.loading,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.color,
     this.controller,
     this.onPressed,
     this.onHover,
     this.tooltip,
-  }) : variant = TVariant.soft;
+  }) : variant = TStyleVariant.soft;
 
   /// Creates a raw [TIconButton] button.
   const TIconButton.raw({
@@ -71,7 +71,7 @@ class TIconButton extends StatelessWidget {
     super.key,
     this.loading,
     this.theme,
-    this.size = TButtonSize.md,
+    this.size = TWidgetSize.md,
     this.color,
     this.controller,
     this.onPressed,
@@ -80,7 +80,7 @@ class TIconButton extends StatelessWidget {
   });
 
   /// The variant of the button.
-  final TVariant variant;
+  final TStyleVariant variant;
 
   /// The icon to display on the button.
   final Widget icon;
@@ -89,10 +89,10 @@ class TIconButton extends StatelessWidget {
   final Widget? loading;
 
   /// The custom theme override for the button.
-  final TButtonTheme? theme;
+  final TStyleTheme? theme;
 
   /// The custom theme override for the button.
-  final TButtonSize size;
+  final TWidgetSize size;
 
   /// The color to use for button styling.
   final Color? color;
@@ -117,9 +117,13 @@ class TIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final defaultHeight = TButton.getDefaultHeight(size);
+    final defaultTextStyle = TButton.getDefaultTextStyle(size);
+    final defaultBorderRadius = TButton.getDefaultBorderRadius(size);
     final dimension = WidgetStateProperty.resolveWith((states) {
-      return theme?.height?.resolve(states) ?? size.height;
+      return theme?.height?.resolve(states) ?? defaultHeight;
     });
+
     return TStyledContainer(
       iconSize: theme?.iconSize,
       height: dimension,
@@ -130,14 +134,14 @@ class TIconButton extends StatelessWidget {
       animationDuration: theme?.animationDuration ?? Duration.zero,
       variant: variant,
       tooltip: tooltip,
-      baseTextStyle: size.textStyle,
+      baseTextStyle: defaultTextStyle,
       textStyle: theme?.textStyle,
       backgroundColor: theme?.backgroundColor,
       elevation: theme?.elevation,
       padding: theme?.padding,
       border: theme?.border,
       borderRadius:
-          theme?.borderRadius ?? WidgetStatePropertyAll(size.borderRadius),
+          theme?.borderRadius ?? WidgetStatePropertyAll(defaultBorderRadius),
       mouseCursor: theme?.mouseCursor,
       loading: loading,
       onTap: onPressed,
