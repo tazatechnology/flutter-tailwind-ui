@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 /// A custom widget that arranges its children either in a [Column] or [Row]
 /// based on the [axis] property.
@@ -21,7 +20,6 @@ class TRowColumn extends StatelessWidget {
     this.mainAxisAlignment,
     this.crossAxisAlignment,
     this.spacing = 0.0,
-    this.separated = false,
   });
 
   /// The axis in which to arrange the children.
@@ -50,65 +48,24 @@ class TRowColumn extends StatelessWidget {
   /// The amount of space to place between each child.
   final double spacing;
 
-  /// Whether to add a separator element between each child.
-  final bool separated;
-
   @override
   Widget build(BuildContext context) {
-    final spacedChildren = <Widget>[];
-    for (var i = 0; i < children.length; i++) {
-      spacedChildren.add(
-        Flexible(
-          child: Container(
-            padding: EdgeInsets.only(
-              right: axis == Axis.horizontal && i < children.length - 1
-                  ? spacing
-                  : 0.0,
-            ),
-            decoration: BoxDecoration(
-              border: separated &&
-                      axis == Axis.horizontal &&
-                      i < children.length - 1
-                  ? Border(
-                      right: BorderSide(
-                        color: context.theme.dividerColor,
-                        width: DividerTheme.of(context).thickness ?? 1,
-                      ),
-                    )
-                  : null,
-            ),
-            child: children[i],
-          ),
-        ),
-      );
-      if (i < children.length - 1) {
-        if (separated && axis == Axis.vertical) {
-          spacedChildren.add(Divider(height: spacing));
-        } else {
-          spacedChildren.add(
-            SizedBox(
-              width: axis == Axis.horizontal ? spacing : 0.0,
-              height: axis == Axis.vertical ? spacing : 0.0,
-            ),
-          );
-        }
-      }
-    }
-
     switch (axis) {
       case Axis.horizontal:
         return Row(
+          spacing: spacing,
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
           crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-          children: spacedChildren,
+          children: children,
         );
       case Axis.vertical:
         return Column(
+          spacing: spacing,
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
           crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-          children: spacedChildren,
+          children: children,
         );
     }
   }

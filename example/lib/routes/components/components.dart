@@ -7,13 +7,17 @@ import 'package:flutter_tailwind_ui_app/widgets/preview_card.dart';
 
 part 'badge.dart';
 part 'button.dart';
-part 'icon_button.dart';
-part 'split_button.dart';
+part 'card.dart';
+part 'checkbox.dart';
+part 'checkbox_group.dart';
 part 'code_block.dart';
-part 'radio_list.dart';
+part 'icon_button.dart';
+part 'radio.dart';
+part 'radio_group.dart';
 part 'row_column.dart';
 part 'scrollbar.dart';
 part 'sized_box.dart';
+part 'split_button.dart';
 part 'text.dart';
 
 part 'components.g.dart';

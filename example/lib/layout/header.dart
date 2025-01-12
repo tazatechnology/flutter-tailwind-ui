@@ -152,9 +152,6 @@ class AppSection extends StatelessWidget {
                         TText(
                           title,
                           style: tw.text.style_lg.bold.copyWith(
-                            color: tw.light
-                                ? TColors.slate.shade700
-                                : TColors.slate.shade300,
                             decoration: states.focused
                                 ? TextDecoration.underline
                                 : TextDecoration.none,

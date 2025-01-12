@@ -31,6 +31,21 @@ abstract final class TLetterSpacing {
 }
 
 // =============================================================================
+// CLASS: TLeading
+// =============================================================================
+
+/// Tailwind line height constants
+///
+/// https://tailwindcss.com/docs/line-height
+abstract final class TLeading {
+  /// Equivalent to Tailwind line height: `leading-none`
+  static const leading_none = 1.0;
+
+  /// Equivalent to Tailwind line height: `leading-normal`
+  static const leading_normal = 1.5;
+}
+
+// =============================================================================
 // CLASS: TTextStyle
 // =============================================================================
 

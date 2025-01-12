@@ -1,150 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui/src/extensions/key_event.dart';
+import 'package:flutter_tailwind_ui/src/internal/selection_group.dart';
 
 // =============================================================================
-// enum: TRadioListVariant
+// CLASS: TRadio
 // =============================================================================
 
-/// The style
-enum TRadioListVariant {
-  /// Basic list
-  basic,
-
-  /// Place items in separated cards
-  card,
-
-  /// Place items in a combined panel
-  panel,
-}
-
-// =============================================================================
-// CLASS: TRadioListItem
-// =============================================================================
-
-/// A radio list item
-class TRadioListItem<T> {
-  /// Creates a radio item widget
-  const TRadioListItem({
+/// A Tailwind UI inspired radio button
+class TRadio extends StatelessWidget {
+  /// Creates a radio button
+  const TRadio({
     required this.value,
-    required this.onChanged,
+    this.onChanged,
+    this.color,
     this.enabled = true,
-    this.title,
+    this.focusNode,
+    super.key,
   });
 
-  /// The title widget
-  final Widget? title;
+  /// The value of the radio button
+  final bool value;
 
-  /// The value
-  final T value;
+  /// The callback when the value changes
+  final ValueChanged<bool>? onChanged;
 
-  /// The on changed callback
-  final ValueChanged<T> onChanged;
+  /// The color of the radio button
+  final Color? color;
 
-  /// Whether the item is enabled
+  /// Flag to enable or disable the radio button
   final bool enabled;
-}
 
-// =============================================================================
-// CLASS: TRadioList
-// =============================================================================
-
-/// A radio list widget
-class TRadioList<T> extends StatelessWidget {
-  /// Creates a radio list widget with raw properties
-  const TRadioList.basic({
-    required this.items,
-    required this.groupValue,
-    super.key,
-    this.direction = Axis.vertical,
-    this.mouseCursor = SystemMouseCursors.basic,
-    this.controlAffinity = TControlAffinity.leading,
-    this.separated = false,
-    this.title,
-    this.description,
-    this.spacing,
-    this.constraints,
-    this.expanded = false,
-  })  : variant = TRadioListVariant.basic,
-        padding = null;
-
-  /// Creates a radio list widget with raw properties
-  const TRadioList.card({
-    required this.items,
-    required this.groupValue,
-    super.key,
-    this.direction = Axis.vertical,
-    this.mouseCursor = SystemMouseCursors.basic,
-    this.controlAffinity = TControlAffinity.leading,
-    this.padding = const EdgeInsets.symmetric(
-      horizontal: TSpace.v16,
-      vertical: TSpace.v12,
-    ),
-    this.title,
-    this.description,
-    this.spacing,
-    this.constraints,
-    this.expanded = false,
-  })  : variant = TRadioListVariant.card,
-        separated = false;
-
-  /// Creates a radio list widget with raw properties
-  const TRadioList.panel({
-    required this.items,
-    required this.groupValue,
-    super.key,
-    this.direction = Axis.vertical,
-    this.mouseCursor = SystemMouseCursors.basic,
-    this.controlAffinity = TControlAffinity.leading,
-    this.padding = const EdgeInsets.symmetric(
-      horizontal: TSpace.v16,
-      vertical: TSpace.v12,
-    ),
-    this.title,
-    this.description,
-    this.spacing,
-    this.constraints,
-    this.expanded = false,
-  })  : variant = TRadioListVariant.panel,
-        separated = false;
-
-  /// The radio items
-  final List<TRadioListItem<T>> items;
-
-  /// The group value
-  final T groupValue;
-
-  /// The direction of the radio list
-  final Axis direction;
-
-  /// The spacing between items
-  final double? spacing;
-
-  /// The mouse cursor
-  final MouseCursor mouseCursor;
-
-  /// The title of the radio list
-  final Widget? title;
-
-  /// The description of the radio list
-  final Widget? description;
-
-  /// The size constraints of the radio list
-  final BoxConstraints? constraints;
-
-  /// The location of the radio control
-  final TControlAffinity controlAffinity;
-
-  /// Whether the items are separated
-  final bool separated;
-
-  /// Whether the items are expanded
-  final bool expanded;
-
-  /// The style of the radio list
-  final TRadioListVariant variant;
-
-  /// Padding for card and panel variants
-  final EdgeInsetsGeometry? padding;
+  /// The focus node of the radio button
+  final FocusNode? focusNode;
 
   // ---------------------------------------------------------------------------
   // METHOD: build
@@ -153,84 +41,193 @@ class TRadioList<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    final effectiveSpacing = spacing ?? TSpace.v14;
+    final color =
+        enabled ? this.color ?? tw.colors.primary : tw.colors.disabled;
 
-    return ConstrainedBox(
-      constraints: constraints ?? const BoxConstraints(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (title != null)
-            DefaultTextStyle.merge(
-              style: tw.text.style_sm.semibold,
-              child: title!,
-            ),
-          if (description != null)
-            Padding(
-              padding: TOffset.t4 + TOffset.b16,
-              child: DefaultTextStyle.merge(
-                style: tw.text.style_sm.copyWith(color: tw.colors.label),
-                child: description!,
+    final radioIndicator = Icon(
+      Icons.circle,
+      size: 7,
+      color: color.contrastBlackWhite(),
+    );
+
+    final canRequestFocus = enabled && (focusNode?.canRequestFocus ?? false);
+
+    return TGestureDetector(
+      mouseCursor: WidgetStatePropertyAll(
+        enabled ? SystemMouseCursors.click : SystemMouseCursors.forbidden,
+      ),
+      focusNode: focusNode,
+      canRequestFocus: enabled && canRequestFocus,
+      onTap: () {
+        if (enabled) {
+          onChanged?.call(!value);
+        }
+      },
+      onKeyEvent: focusNode?.onKeyEvent,
+      builder: (context, states) {
+        Color borderColor;
+        if (value) {
+          borderColor = color;
+        } else if (states.disabled) {
+          borderColor = tw.colors.disabled;
+        } else {
+          borderColor =
+              tw.light ? const Color(0xffccccd4) : const Color(0xff4d5866);
+        }
+
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            TFocusBorder(
+              focusColor: color,
+              focused: states.focused,
+              borderRadius: TBorderRadius.rounded_full,
+              child: Container(
+                width: defaultControlSize,
+                height: defaultControlSize,
+                decoration: BoxDecoration(
+                  color: value
+                      ? color
+                      : (enabled
+                          ? Colors.transparent
+                          : tw.colors.disabled.withValues(alpha: 0.5)),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: borderColor,
+                  ),
+                ),
+                child: value ? radioIndicator : null,
               ),
             ),
-          TRowColumn(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            axis: direction,
-            spacing: effectiveSpacing,
-            separated: separated,
-            children: items.map<Widget>((item) {
-              return _TRadioListItemWidget(
-                item: item,
-                selected: item.value == groupValue,
-                mouseCursor: mouseCursor,
-                controlAffinity: controlAffinity,
-                direction: direction,
-                style: variant,
-                expanded: expanded,
-                padding: padding,
-              );
-            }).toList(),
-          ),
-        ],
-      ),
+            // Hidden outer container for the focus border
+            Container(
+              width: defaultControlSize,
+              height: defaultControlSize,
+              decoration: const BoxDecoration(
+                color: Colors.transparent,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
 
 // =============================================================================
-// CLASS: _TRadioListItemWidget
+// CLASS: TRadioGroupItem
 // =============================================================================
 
-class _TRadioListItemWidget<T> extends StatefulWidget {
-  const _TRadioListItemWidget({
-    required this.item,
-    required this.selected,
-    required this.mouseCursor,
-    required this.controlAffinity,
-    required this.direction,
-    required this.style,
-    required this.expanded,
-    this.padding,
+/// A radio group item
+class TRadioGroupItem<T> extends TSelectionGroupItem<T> {
+  /// Creates a radio item
+  const TRadioGroupItem({
+    required super.value,
+    required super.title,
+    super.description,
+    super.enabled = true,
   });
-  final TRadioListItem<T> item;
-  final bool selected;
-  final MouseCursor mouseCursor;
-  final TControlAffinity controlAffinity;
-  final Axis direction;
-  final TRadioListVariant style;
-  final bool expanded;
-  final EdgeInsetsGeometry? padding;
-
-  @override
-  State<_TRadioListItemWidget<T>> createState() =>
-      _TRadioListItemWidgetState<T>();
 }
 
-class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
-  late final bool isEnabled;
-  late final FocusNode focusNode;
-  bool get isFocused => focusNode.hasFocus;
+// =============================================================================
+// CLASS: TRadioGroup
+// =============================================================================
+
+/// A Tailwind UI inspired radio group
+class TRadioGroup<T> extends StatefulWidget {
+  /// Creates a basic [TRadioGroup]
+  const TRadioGroup({
+    required this.children,
+    super.key,
+    this.groupValue,
+    this.onChanged,
+    this.color,
+    this.width = TScreen.max_w_sm,
+    this.spacing,
+    this.affinity = TControlAffinity.leading,
+  })  : variant = TSelectionGroupVariant.basic,
+        _radius = 0;
+
+  /// Creates a [TRadioGroup] as a card variant
+  const TRadioGroup.separated({
+    required this.children,
+    super.key,
+    this.groupValue,
+    this.onChanged,
+    this.color,
+    this.width = TScreen.max_w_sm,
+    this.spacing,
+    this.affinity = TControlAffinity.leading,
+  })  : variant = TSelectionGroupVariant.separated,
+        _radius = 0;
+
+  /// Creates a [TRadioGroup] as a card variant
+  const TRadioGroup.card({
+    required this.children,
+    super.key,
+    this.groupValue,
+    this.onChanged,
+    this.color,
+    this.width = TScreen.max_w_sm,
+    double radius = TRadiusScale.radius_lg,
+    this.spacing,
+    this.affinity = TControlAffinity.leading,
+  })  : variant = TSelectionGroupVariant.card,
+        _radius = radius;
+
+  /// Creates a [TRadioGroup] as a panel variant
+  const TRadioGroup.panel({
+    required this.children,
+    super.key,
+    this.groupValue,
+    this.onChanged,
+    this.color,
+    this.width = TScreen.max_w_sm,
+    double radius = TRadiusScale.radius_lg,
+    this.spacing,
+    this.affinity = TControlAffinity.leading,
+  })  : variant = TSelectionGroupVariant.panel,
+        _radius = radius;
+
+  /// The children of the radio group.
+  final List<TRadioGroupItem<T>> children;
+
+  /// The value of the radio group.
+  final T? groupValue;
+
+  /// The callback when the value changes.
+  final ValueChanged<T>? onChanged;
+
+  /// The variant of the radio group.
+  final TSelectionGroupVariant variant;
+
+  /// The color of the radio elements.
+  final Color? color;
+
+  /// The maximum width of the radio group.
+  final double width;
+
+  /// The spacing between the radio elements.
+  ///
+  /// If not specified, default is based on [TSelectionGroupVariant].
+  final double? spacing;
+
+  /// The control affinity of the radio group.
+  final TControlAffinity affinity;
+
+  /// The radius value for rounded corners
+  ///
+  /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
+  final double _radius;
+
+  @override
+  State<TRadioGroup<T>> createState() => _TRadioGroupState<T>();
+}
+
+class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
+  late T? groupValue;
+  late final List<FocusNode> focusNodes;
 
   // ---------------------------------------------------------------------------
   // METHOD: initState
@@ -238,17 +235,17 @@ class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
 
   @override
   void initState() {
-    super.initState();
-    isEnabled = widget.item.enabled;
-    focusNode = FocusNode(
-      canRequestFocus: isEnabled,
-      descendantsAreFocusable: isEnabled,
-      skipTraversal: !isEnabled,
-      descendantsAreTraversable: isEnabled,
+    groupValue = widget.groupValue;
+    focusNodes = List.generate(
+      widget.children.length,
+      (ii) => FocusNode(
+        debugLabel: widget.children[ii].value.toString(),
+        descendantsAreFocusable: false,
+        descendantsAreTraversable: false,
+      ),
     );
-    focusNode.addListener(() {
-      setState(() {});
-    });
+    updateFocusNodes();
+    super.initState();
   }
 
   // ---------------------------------------------------------------------------
@@ -257,8 +254,86 @@ class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
 
   @override
   void dispose() {
-    focusNode.dispose();
+    for (final f in focusNodes) {
+      f.dispose();
+    }
     super.dispose();
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: updateFocusNodes
+  // ---------------------------------------------------------------------------
+
+  void updateFocusNodes() {
+    for (var ii = 0; ii < widget.children.length; ii++) {
+      final f = focusNodes[ii];
+      // Focus is only enabled for the first item (if none are selected)
+      bool canRequestFocus = true;
+      if (groupValue == null) {
+        canRequestFocus = ii == 0;
+      } else {
+        canRequestFocus = widget.children[ii].value == groupValue;
+      }
+      f.skipTraversal = !canRequestFocus;
+      f.canRequestFocus = canRequestFocus;
+      f.onKeyEvent = (node, event) {
+        // Check for traversal events
+        final nextRequested =
+            event.logicalKey.isArrowDown || event.logicalKey.isArrowRight;
+        final previousRequested =
+            event.logicalKey.isArrowUp || event.logicalKey.isArrowLeft;
+
+        // Handle up/down arrow keys to traverse the radio group
+        if ((nextRequested || previousRequested) && !event.isKeyUp) {
+          final index = widget.children.indexOf(widget.children[ii]);
+
+          // Update index and handle out-of-bounds
+          int nextIndex = nextRequested ? index + 1 : index - 1;
+          if (nextIndex < 0) {
+            nextIndex = widget.children.length - 1;
+          } else if (nextIndex >= widget.children.length) {
+            nextIndex = 0;
+          }
+
+          // Make sure that the next item is enabled, else go to the next one
+          while (!widget.children[nextIndex].enabled) {
+            nextIndex += nextRequested ? 1 : -1;
+            if (nextIndex < 0) {
+              nextIndex = widget.children.length - 1;
+            } else if (nextIndex >= widget.children.length) {
+              nextIndex = 0;
+            }
+          }
+
+          // Handle focus and group value
+          final nextItem = widget.children[nextIndex];
+          setState(() {
+            groupValue = nextItem.value;
+            updateFocusNodes();
+            focusNodes[nextIndex].requestFocus();
+          });
+
+          return KeyEventResult.handled;
+        }
+
+        return KeyEventResult.ignored;
+      };
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: onChanged
+  // ---------------------------------------------------------------------------
+
+  void onChanged({required TRadioGroupItem<T> item, required bool status}) {
+    if (!item.enabled || !status) {
+      return;
+    }
+    setState(() {
+      groupValue = item.value;
+      updateFocusNodes();
+    });
+    widget.onChanged?.call(item.value);
   }
 
   // ---------------------------------------------------------------------------
@@ -267,126 +342,38 @@ class _TRadioListItemWidgetState<T> extends State<_TRadioListItemWidget<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final tw = context.tw;
-    final theme = context.theme;
-    final isVertical = widget.direction == Axis.vertical;
-    final selectedColor = tw.colors.primary[tw.light ? 600 : 400]!;
-
-    /// Radio control
-    const radioDot = Icon(Icons.circle, size: 7, color: Colors.white);
-    final radioControl = Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: TSpace.v16,
-          height: TSpace.v16,
-          decoration: BoxDecoration(
-            color: widget.selected ? selectedColor : Colors.transparent,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: widget.selected
-                  ? selectedColor
-                  : TColors.gray.shade300
-                      .withValues(alpha: isEnabled ? 1 : 0.75),
-            ),
-          ),
-          child: widget.selected ? radioDot : null,
-        ),
-        Container(
-          width: TSpace.v24,
-          height: TSpace.v24,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: isFocused ? selectedColor : Colors.transparent,
-              width: 1.75,
-            ),
-          ),
-        ),
-      ],
-    );
-
-    /// Title widget
-    final titleWidget = widget.item.title == null
-        ? const SizedBox.shrink()
-        : Expanded(
-            flex: widget.expanded ? 1 : 0,
-            child: Padding(
-              padding:
-                  widget.controlAffinity.isLeading ? TOffset.l12 : TOffset.r12,
-              // Change the text theme for this title
-              child: DefaultTextStyle.merge(
-                style: tw.text.style_sm.copyWith(
-                  fontWeight: isEnabled ? FontWeight.w500 : FontWeight.normal,
-                  color: isEnabled ? null : theme.disabledColor,
-                ),
-                child: widget.item.title!,
-              ),
-            ),
-          );
-
-    /// Content layout
-    final content = Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: widget.controlAffinity.isLeading
-          ? MainAxisAlignment.start
-          : MainAxisAlignment.spaceBetween,
-      children: widget.controlAffinity.isLeading
-          ? [radioControl, titleWidget]
-          : [titleWidget, const Spacer(), radioControl],
-    );
-
-    /// Style the child
-    Widget child;
-    switch (widget.style) {
-      case TRadioListVariant.basic:
-        child = content;
-      case TRadioListVariant.card:
-        RoundedRectangleBorder cardShape;
-        final themeCardShape = CardTheme.of(context).shape;
-        if (themeCardShape is RoundedRectangleBorder) {
-          cardShape = themeCardShape;
-        } else {
-          cardShape = const RoundedRectangleBorder();
-        }
-        child = Card(
-          shape: cardShape.copyWith(
-            side: BorderSide(
-              width: widget.selected ? 2 : 1,
-              color: widget.selected ? selectedColor : cardShape.side.color,
-            ),
-          ),
-          child: Container(
-            width: isVertical ? double.infinity : null,
-            padding: widget.padding,
-            child: content,
+    return TSelectionGroupList(
+      variant: widget.variant,
+      width: widget.width,
+      spacing: widget.spacing ?? widget.variant.spacing,
+      items: widget.children,
+      radius: widget._radius,
+      itemBuilder: (context, index) {
+        final item = widget.children[index];
+        final selected = groupValue == item.value;
+        return TSelectionGroupTile(
+          key: ValueKey(item.value),
+          index: index,
+          numItems: widget.children.length,
+          variant: widget.variant,
+          color: widget.color,
+          title: item.title,
+          description: item.description,
+          width: widget.width,
+          radius: widget._radius,
+          selected: selected,
+          enabled: item.enabled,
+          affinity: widget.affinity,
+          onChanged: (status) => onChanged(item: item, status: status),
+          control: TRadio(
+            color: widget.color,
+            value: selected,
+            enabled: item.enabled,
+            focusNode: focusNodes[index],
+            onChanged: (status) => onChanged(item: item, status: status),
           ),
         );
-      case TRadioListVariant.panel:
-        child = content;
-    }
-
-    /// Build the widget
-    return InkWell(
-      key: ValueKey(widget.item.value),
-      mouseCursor: widget.mouseCursor,
-      focusNode: focusNode,
-      onTap: () {
-        if (!isEnabled) {
-          return;
-        }
-        widget.item.onChanged(widget.item.value);
       },
-      onHighlightChanged: (value) {
-        if (focusNode.canRequestFocus) {
-          focusNode.requestFocus();
-        }
-      },
-      onFocusChange: (value) {
-        setState(() {});
-      },
-      child: child,
     );
   }
 }

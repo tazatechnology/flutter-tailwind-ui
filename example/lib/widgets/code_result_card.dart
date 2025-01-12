@@ -70,7 +70,7 @@ class _GridPaperPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final tw = context.tw;
     final color = tw.light
-        ? context.theme.dividerColor.withValues(alpha: 0.4)
+        ? context.theme.dividerColor.withValues(alpha: 0.3)
         : TColors.slate.shade700.withValues(alpha: 0.3);
     final paint = Paint()
       ..color = color

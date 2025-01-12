@@ -56,10 +56,9 @@ class FlutterTailwindApp extends ConsumerWidget {
       theme: TailwindTheme.light().data,
       darkTheme: TailwindTheme.dark(
         color: TailwindColorTheme.dark(
-          // Matches the Tailwind dark theme
+          // Matches the Tailwind documentation dark theme
           background: TColors.slate.shade900,
           card: TColors.slate.shade800,
-          divider: TColors.slate.shade800,
         ),
       ).data,
       routerConfig: ref.read(appRouterProvider).router,

@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui/src/extensions/key_event.dart';
 
 // =============================================================================
 // CLASS: TGestureDetector
@@ -77,6 +78,7 @@ class TGestureDetector extends StatefulWidget {
     this.trackpadScrollToScaleFactor = kDefaultTrackpadScrollToScaleFactor,
     this.supportedDevices,
     this.onKeyEvent,
+    this.propagateEnterKey = false,
     this.mouseCursor,
     this.onHover,
     this.onFocus,
@@ -470,6 +472,11 @@ class TGestureDetector extends StatefulWidget {
   /// See: [Focus.onKeyEvent]
   final FocusOnKeyEventCallback? onKeyEvent;
 
+  /// Optionally propagate the enter key event to the [onTap] callback.
+  ///
+  /// Can be used in combination with [Focus.onKeyEvent] to handle the enter key
+  final bool propagateEnterKey;
+
   /// Stateful mouse cursor property.
   ///
   /// When not provided, or when the value is `null`, the cursor will fallback to
@@ -545,19 +552,20 @@ class _TGestureDetectorState extends State<TGestureDetector> {
       mouseCursorFallback = SystemMouseCursors.click;
     }
 
+    final canRequestFocus = widget.canRequestFocus ?? false;
+
     return ListenableBuilder(
       listenable: controller,
       builder: (context, _) {
         final child = widget.builder(context, controller.value);
         final mouseCursor = widget.mouseCursor?.resolve(controller.value) ??
             mouseCursorFallback;
-
         final content = DefaultSelectionStyle.merge(
           mouseCursor: mouseCursor,
           child: Focus(
-            canRequestFocus: widget.canRequestFocus ?? widget.onTap != null,
+            canRequestFocus: canRequestFocus,
             focusNode: widget.focusNode,
-            skipTraversal: widget.skipTraversal,
+            skipTraversal: widget.skipTraversal ?? !canRequestFocus,
             descendantsAreFocusable: widget.descendantsAreFocusable,
             descendantsAreTraversable: widget.descendantsAreTraversable,
             onFocusChange: (value) {
@@ -568,11 +576,15 @@ class _TGestureDetectorState extends State<TGestureDetector> {
               if (widget.onKeyEvent != null) {
                 return widget.onKeyEvent!.call(node, event);
               }
+
               // Propagate enter key events to the onTap callback
-              if (event.logicalKey == LogicalKeyboardKey.enter) {
+              if (event.isEnterKeyDown &&
+                  controller.enabled &&
+                  widget.propagateEnterKey) {
                 widget.onTap?.call();
                 return KeyEventResult.handled;
               }
+
               return KeyEventResult.ignored;
             },
             child: MouseRegion(

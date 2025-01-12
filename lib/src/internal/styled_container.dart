@@ -530,6 +530,9 @@ class TStyledContainer extends StatelessWidget {
       listenable: controller ?? TWidgetController(),
       builder: (context, _) {
         final isLoading = controller?.loading ?? false;
+        final isEnabled = !(controller?.disabled ?? false);
+
+        final canRequestFocus = onTap != null && isEnabled;
 
         return TGestureDetector(
           controller: controller,
@@ -538,8 +541,12 @@ class TStyledContainer extends StatelessWidget {
           onLongPress: isLoading ? null : onLongPress,
           onHover: onHover,
           onFocus: onFocus,
+          canRequestFocus: canRequestFocus,
+          skipTraversal: !canRequestFocus,
           descendantsAreFocusable: false,
+          descendantsAreTraversable: false,
           mouseCursor: mouseCursor,
+          propagateEnterKey: true,
           builder: (context, states) {
             final tw = context.tw;
             final defaultTextStyle = DefaultTextStyle.of(context).style;

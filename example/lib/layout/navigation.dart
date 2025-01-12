@@ -35,25 +35,34 @@ class _AppNavigationState extends State<AppNavigation> {
 
     // Component sections
     final componentSections = {
+      'Text': {
+        'TText': AppRouter.text,
+      },
       'Badges & Buttons': {
         'TBadge': AppRouter.badge,
         'TButton': AppRouter.button,
         'TIconButton': AppRouter.icon_button,
         'TSplitButton': AppRouter.split_button,
       },
+      'Selection Controls & Groups': {
+        'TRadio': AppRouter.radio,
+        'TRadioGroup': AppRouter.radio_group,
+        'TCheckbox': AppRouter.checkbox,
+        'TCheckboxGroup': AppRouter.checkbox_group,
+      },
       'Layout': {
-        'TCodeBlock': AppRouter.code_block,
-        'TRadioList': AppRouter.radio_list,
+        'TCard': AppRouter.card,
         'TRowColumn': AppRouter.row_column,
-        'TScrollbar': AppRouter.scrollbar,
         'TSizedBox': AppRouter.sized_box,
-        'TText': AppRouter.text,
+      },
+      'Other': {
+        'TCodeBlock': AppRouter.code_block,
       },
     };
 
     return ExcludeFocus(
       child: ListView(
-        padding: TOffset.x24 + topPadding,
+        padding: TOffset.x24 + topPadding + TOffset.b24,
         controller: scrollController,
         children: [
           const AppNavigationSection(

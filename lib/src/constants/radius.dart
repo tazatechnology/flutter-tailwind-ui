@@ -72,7 +72,7 @@ abstract final class TRadius {
   /// Circular radius of 0px (none)
   ///
   /// Used to define Tailwind equivalents for: `rounded-*-none`
-  static const rounded_none = Radius.zero;
+  static const none = Radius.zero;
 
   /// Circular radius of 2px (sm)
   ///

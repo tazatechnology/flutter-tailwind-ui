@@ -53,8 +53,10 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
       appBarHeight += AppScaffold.toolbarHeight;
     }
 
+    final borderColor = tw.light ? tw.colors.divider : TColors.slate.shade700;
+
     final appBarBorder = Border(
-      bottom: BorderSide(color: tw.colors.divider),
+      bottom: BorderSide(color: borderColor),
     );
 
     Widget? drawer;
@@ -103,18 +105,16 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
             child: Container(
               height: appBarHeight,
               decoration: BoxDecoration(
-                color: tw.light
-                    ? Colors.white.withValues(alpha: 0.65)
-                    : context.theme.scaffoldBackgroundColor
-                        .withValues(alpha: 0.75),
+                color: context.theme.scaffoldBackgroundColor
+                    .withValues(alpha: 0.75),
                 border: appBarBorder,
               ),
               child: Column(
                 children: [
                   Expanded(
                     child: Container(
-                      height: AppScaffold.toolbarHeight,
-                      padding: TOffset.y16 + appBarXPad,
+                      height: appBarHeight,
+                      padding: appBarXPad,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         border: showSideBar ? null : appBarBorder,
@@ -143,10 +143,7 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
             Container(
               decoration: BoxDecoration(
                 border: Border(
-                  right: BorderSide(
-                    color: tw.colors.divider,
-                    width: 0.5,
-                  ),
+                  right: BorderSide(color: borderColor, width: 0.5),
                 ),
               ),
               width: AppScaffold.navigationWidth,
@@ -187,24 +184,12 @@ class _ScaffoldHeader extends StatelessWidget {
                 uri: Uri.parse('https://pub.dev/packages/flutter_tailwind_ui'),
                 target: LinkTarget.blank,
                 builder: (context, followLink) {
-                  return InkWell(
-                    onTap: followLink,
-                    child: Tooltip(
-                      message: 'Dart Package',
-                      child: Container(
-                        height: double.infinity,
-                        padding: TOffset.x20,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: TColors.slate.shade400.withValues(alpha: 0.1),
-                          borderRadius: TBorderRadius.rounded_full,
-                        ),
-                        child: Text(
-                          'v${package.versionWithoutBuild}',
-                          style: tw.text.style_xs.mono(context),
-                        ),
-                      ),
-                    ),
+                  return TBadge.soft(
+                    color: TColors.slate,
+                    baseTextStyle: tw.text.style_xs.light,
+                    onPressed: followLink,
+                    tooltip: 'Dart Package',
+                    child: TText('``v${package.versionWithoutBuild}``'),
                   );
                 },
               ),

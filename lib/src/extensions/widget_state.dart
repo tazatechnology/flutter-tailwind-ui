@@ -60,4 +60,7 @@ extension XTailwindWidgetStatesController on WidgetStatesController {
 
   /// Returns true if the set contains a [WidgetState.error] state
   bool get error => value.contains(WidgetState.error);
+
+  /// Returns true if the set does not contain a [WidgetState.disabled] state
+  bool get enabled => !disabled;
 }

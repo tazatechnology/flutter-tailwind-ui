@@ -820,6 +820,234 @@ Column(
 """;
 }
 
+/// Source code for [_TCardBasic]
+class _TCardBasicSource {
+  static const String code = r"""
+const TCard(
+  child: Text('Example Card'),
+)
+""";
+}
+
+/// Source code for [_TCheckboxActive]
+class _TCheckboxActiveSource {
+  static const String code = r"""
+class _TCheckboxActive extends StatefulWidget {
+  const _TCheckboxActive();
+
+  @override
+  State<_TCheckboxActive> createState() => _TCheckboxActiveState();
+}
+
+class _TCheckboxActiveState extends State<_TCheckboxActive> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return TCheckbox(
+      value: _value,
+      onChanged: (value) => setState(() => _value = value),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TCheckboxActiveDisabled]
+class _TCheckboxActiveDisabledSource {
+  static const String code = r"""
+TCheckbox(
+  enabled: false,
+  value: true,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TCheckboxInactiveDisabled]
+class _TCheckboxInactiveDisabledSource {
+  static const String code = r"""
+TCheckbox(
+  enabled: false,
+  value: false,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TCheckboxColors]
+class _TCheckboxColorsSource {
+  static const String code = r"""
+class _TCheckboxColors extends StatefulWidget {
+  const _TCheckboxColors();
+
+  @override
+  State<_TCheckboxColors> createState() => _TCheckboxColorsState();
+}
+
+class _TCheckboxColorsState extends State<_TCheckboxColors> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final color in PREVIEW_COLORS)
+          TCheckbox(
+            color: color,
+            value: _value,
+            onChanged: (value) => setState(() => _value = value),
+          ),
+      ],
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TCheckboxGroupBasic]
+class _TCheckboxGroupBasicSource {
+  static const String code = r"""
+TCheckboxGroup(
+  groupValues: [TSelectionGroupVariant.values.first],
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TCheckboxGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} checkbox group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TCheckboxGroupSeparated]
+class _TCheckboxGroupSeparatedSource {
+  static const String code = r"""
+TCheckboxGroup.separated(
+  groupValues: [TSelectionGroupVariant.values.first],
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TCheckboxGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} checkbox group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TCheckboxGroupCard]
+class _TCheckboxGroupCardSource {
+  static const String code = r"""
+TCheckboxGroup.card(
+  groupValues: [TSelectionGroupVariant.values.first],
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TCheckboxGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} checkbox group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TCheckboxGroupPanel]
+class _TCheckboxGroupPanelSource {
+  static const String code = r"""
+TCheckboxGroup.panel(
+  groupValues: [TSelectionGroupVariant.values.first],
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TCheckboxGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} checkbox group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TCheckboxGroupBasicTrailing]
+class _TCheckboxGroupBasicTrailingSource {
+  static const String code = r"""
+TCheckboxGroup(
+  groupValues: [TSelectionGroupVariant.values.first],
+  affinity: TControlAffinity.trailing,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TCheckboxGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} checkbox group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TCheckboxGroupSeparatedTrailing]
+class _TCheckboxGroupSeparatedTrailingSource {
+  static const String code = r"""
+TCheckboxGroup.separated(
+  groupValues: [TSelectionGroupVariant.values.first],
+  affinity: TControlAffinity.trailing,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TCheckboxGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} checkbox group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TCheckboxGroupCardTrailing]
+class _TCheckboxGroupCardTrailingSource {
+  static const String code = r"""
+TCheckboxGroup.card(
+  groupValues: [TSelectionGroupVariant.values.first],
+  affinity: TControlAffinity.trailing,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TCheckboxGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} checkbox group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TCheckboxGroupPanelTrailing]
+class _TCheckboxGroupPanelTrailingSource {
+  static const String code = r"""
+TCheckboxGroup.panel(
+  groupValues: [TSelectionGroupVariant.values.first],
+  affinity: TControlAffinity.trailing,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TCheckboxGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} checkbox group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
 /// Source code for [_TIconButtonBasic]
 class _TIconButtonBasicSource {
   static const String code = r"""
@@ -1207,6 +1435,225 @@ TIconButton.filled(
   ),
   onPressed: () {},
   icon: const Icon(Icons.add),
+)
+""";
+}
+
+/// Source code for [_TRadioActive]
+class _TRadioActiveSource {
+  static const String code = r"""
+class _TRadioActive extends StatefulWidget {
+  const _TRadioActive();
+
+  @override
+  State<_TRadioActive> createState() => _TRadioActiveState();
+}
+
+class _TRadioActiveState extends State<_TRadioActive> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadio(
+      value: _value,
+      onChanged: (value) => setState(() => _value = value),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TRadioActiveDisabled]
+class _TRadioActiveDisabledSource {
+  static const String code = r"""
+TRadio(
+  enabled: false,
+  value: true,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TRadioInactiveDisabled]
+class _TRadioInactiveDisabledSource {
+  static const String code = r"""
+TRadio(
+  enabled: false,
+  value: false,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TRadioColors]
+class _TRadioColorsSource {
+  static const String code = r"""
+class _TRadioColors extends StatefulWidget {
+  const _TRadioColors();
+
+  @override
+  State<_TRadioColors> createState() => _TRadioColorsState();
+}
+
+class _TRadioColorsState extends State<_TRadioColors> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final color in PREVIEW_COLORS)
+          TRadio(
+            color: color,
+            value: _value,
+            onChanged: (value) => setState(() => _value = value),
+          ),
+      ],
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TRadioGroupBasic]
+class _TRadioGroupBasicSource {
+  static const String code = r"""
+TRadioGroup(
+  groupValue: TSelectionGroupVariant.values.first,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TRadioGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} radio group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TRadioGroupSeparated]
+class _TRadioGroupSeparatedSource {
+  static const String code = r"""
+TRadioGroup.separated(
+  groupValue: TSelectionGroupVariant.values.first,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TRadioGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} radio group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TRadioGroupCard]
+class _TRadioGroupCardSource {
+  static const String code = r"""
+TRadioGroup.card(
+  groupValue: TSelectionGroupVariant.values.first,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TRadioGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} radio group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TRadioGroupPanel]
+class _TRadioGroupPanelSource {
+  static const String code = r"""
+TRadioGroup.panel(
+  groupValue: TSelectionGroupVariant.values.first,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TRadioGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} radio group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TRadioGroupBasicTrailing]
+class _TRadioGroupBasicTrailingSource {
+  static const String code = r"""
+TRadioGroup(
+  affinity: TControlAffinity.trailing,
+  groupValue: TSelectionGroupVariant.values.first,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TRadioGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} radio group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TRadioGroupSeparatedTrailing]
+class _TRadioGroupSeparatedTrailingSource {
+  static const String code = r"""
+TRadioGroup.separated(
+  affinity: TControlAffinity.trailing,
+  groupValue: TSelectionGroupVariant.values.first,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TRadioGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} radio group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TRadioGroupCardTrailing]
+class _TRadioGroupCardTrailingSource {
+  static const String code = r"""
+TRadioGroup.card(
+  affinity: TControlAffinity.trailing,
+  groupValue: TSelectionGroupVariant.values.first,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TRadioGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} radio group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TRadioGroupPanelTrailing]
+class _TRadioGroupPanelTrailingSource {
+  static const String code = r"""
+TRadioGroup.panel(
+  affinity: TControlAffinity.trailing,
+  groupValue: TSelectionGroupVariant.values.first,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TRadioGroupItem(
+        title: TText(variant.title),
+        description: Text('Creates a ${variant.name} radio group'),
+        value: variant,
+      ),
+  ],
 )
 """;
 }

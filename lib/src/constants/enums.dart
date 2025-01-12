@@ -39,6 +39,15 @@ enum TStyleVariant {
   soft,
 }
 
+/// Extension for the [TStyleVariant] enum
+extension XTailwindTStyleVariant on TStyleVariant {
+  /// Return the name of the variant
+  String get title {
+    final n = toString().split('.').last;
+    return n[0].toUpperCase() + n.substring(1);
+  }
+}
+
 // =============================================================================
 // ENUM: TControlAffinity
 // =============================================================================
@@ -62,13 +71,9 @@ extension XTailwindTControlAffinity on TControlAffinity {
   /// Returns whether the control is trailing
   bool get isTrailing => this == TControlAffinity.trailing;
 
-  /// Returns the name of the control affinity
-  String get name {
-    switch (this) {
-      case TControlAffinity.leading:
-        return 'Leading';
-      case TControlAffinity.trailing:
-        return 'Trailing';
-    }
+  /// Return the name of the variant
+  String get title {
+    final n = toString().split('.').last;
+    return n[0].toUpperCase() + n.substring(1);
   }
 }

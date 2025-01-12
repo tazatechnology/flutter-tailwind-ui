@@ -15,10 +15,9 @@ class AppToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tw = context.tw;
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: tw.screen.is_sm ? TSpace.v20 : TSpace.v14,
+    final light = context.tw.light;
+    return Row(
+      spacing: TSpace.v14,
       children: [
         Link(
           uri: Uri.parse(
@@ -26,16 +25,14 @@ class AppToolbar extends StatelessWidget {
           ),
           target: LinkTarget.blank,
           builder: (context, followLink) {
-            return Tooltip(
-              message: 'API Reference',
-              child: InkWell(
-                onTap: followLink,
-                child: SvgPicture.asset(
-                  'assets/img/dart.svg',
-                  semanticsLabel: 'Tailwind UI (Flutter)',
-                  height: TSpace.v20,
-                ),
+            return TIconButton(
+              tooltip: 'API Reference',
+              icon: SvgPicture.asset(
+                'assets/img/dart.svg',
+                semanticsLabel: 'Tailwind UI (Flutter)',
+                height: TSpace.v20,
               ),
+              onPressed: followLink,
             );
           },
         ),
@@ -46,12 +43,11 @@ class AppToolbar extends StatelessWidget {
           ),
           target: LinkTarget.blank,
           builder: (context, followLink) {
-            return Tooltip(
-              message: 'GitHub Repository',
-              child: InkWell(
-                onTap: followLink,
-                child: const Icon(FontAwesomeIcons.github, size: 20),
-              ),
+            return TIconButton(
+              color: light ? TColors.slate : TColors.slate.shade400,
+              tooltip: 'GitHub Repository',
+              icon: const Icon(FontAwesomeIcons.github, size: TSpace.v20),
+              onPressed: followLink,
             );
           },
         ),
@@ -70,33 +66,31 @@ class ThemeToggleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final light = context.tw.light;
-
-    return Tooltip(
-      message: 'Toggle Theme',
-      child: InkWell(
-        onTap: () {
-          final notifier = ref.read(themeModeProvider.notifier);
-          if (light) {
-            notifier.state = ThemeMode.dark;
-          } else {
-            notifier.state = ThemeMode.light;
-          }
+    return TIconButton(
+      color: light ? TColors.slate : TColors.slate.shade400,
+      tooltip: 'Toggle Theme',
+      onPressed: () {
+        final notifier = ref.read(themeModeProvider.notifier);
+        if (light) {
+          notifier.state = ThemeMode.dark;
+        } else {
+          notifier.state = ThemeMode.light;
+        }
+      },
+      icon: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 375),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return RotationTransition(
+            turns: child.key == const ValueKey('sun')
+                ? Tween<double>(begin: 0, end: 0.25).animate(animation)
+                : Tween<double>(begin: 0, end: -0.1).animate(animation),
+            child: FadeTransition(opacity: animation, child: child),
+          );
         },
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 375),
-          transitionBuilder: (Widget child, Animation<double> animation) {
-            return RotationTransition(
-              turns: child.key == const ValueKey('sun')
-                  ? Tween<double>(begin: 0, end: 0.25).animate(animation)
-                  : Tween<double>(begin: 0, end: -0.1).animate(animation),
-              child: FadeTransition(opacity: animation, child: child),
-            );
-          },
-          child: Icon(
-            light ? Icons.light_mode : Icons.nightlight,
-            key: ValueKey(light ? 'sun' : 'moon'),
-            size: 24,
-          ),
+        child: Icon(
+          light ? Icons.light_mode : Icons.nightlight,
+          key: ValueKey(light ? 'sun' : 'moon'),
+          size: TSpace.v20,
         ),
       ),
     );

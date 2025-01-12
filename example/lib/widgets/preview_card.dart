@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/widgets/code_result_card.dart';
 
@@ -7,7 +6,7 @@ import 'package:flutter_tailwind_ui_app/widgets/code_result_card.dart';
 // CLASS: AppPreviewCard
 // =============================================================================
 
-class AppPreviewCard extends ConsumerStatefulWidget {
+class AppPreviewCard extends StatefulWidget {
   const AppPreviewCard({
     required this.code,
     required this.child,
@@ -23,13 +22,24 @@ class AppPreviewCard extends ConsumerStatefulWidget {
   final Alignment alignment;
 
   @override
-  ConsumerState<AppPreviewCard> createState() => _AppPreviewCardState();
+  State<AppPreviewCard> createState() => _AppPreviewCardState();
 }
 
-class _AppPreviewCardState extends ConsumerState<AppPreviewCard> {
+class _AppPreviewCardState extends State<AppPreviewCard> {
   final controllerPreview = WidgetStatesController({WidgetState.selected});
   final controllerCode = WidgetStatesController();
   bool get showCode => controllerCode.value.selected;
+
+  // ---------------------------------------------------------------------------
+  // METHOD: dispose
+  // ---------------------------------------------------------------------------
+
+  @override
+  void dispose() {
+    controllerPreview.dispose();
+    controllerCode.dispose();
+    super.dispose();
+  }
 
   // ---------------------------------------------------------------------------
   // METHOD: toggleCodeView
@@ -101,25 +111,41 @@ class _AppPreviewCardState extends ConsumerState<AppPreviewCard> {
               ),
             ),
           ),
-        if (!showCode)
-          AppCodeResultCard(
-            margin: TOffset.y16,
-            alignment: widget.alignment,
-            child: widget.child,
-          ),
-        if (showCode)
-          TCodeBlock(
-            code: widget.code,
-            scrollDirection: Axis.horizontal,
-            theme: TCodeBlockTheme(
-              backgroundColor: tw.dark ? tw.colors.card : null,
-              margin: TOffset.y16,
-              fontSize: codeFontSize,
-              constraints: const BoxConstraints(
-                minHeight: AppCodeResultCard.minHeight,
+        ExcludeFocus(
+          excluding: showCode,
+          child: ExcludeFocusTraversal(
+            excluding: showCode,
+            child: Offstage(
+              offstage: showCode,
+              child: AppCodeResultCard(
+                margin: TOffset.y16,
+                alignment: widget.alignment,
+                child: widget.child,
               ),
             ),
           ),
+        ),
+        ExcludeFocus(
+          excluding: !showCode,
+          child: ExcludeFocusTraversal(
+            excluding: !showCode,
+            child: Offstage(
+              offstage: !showCode,
+              child: TCodeBlock(
+                code: widget.code,
+                scrollDirection: Axis.horizontal,
+                theme: TCodeBlockTheme(
+                  backgroundColor: tw.dark ? tw.colors.card : null,
+                  margin: TOffset.y16,
+                  fontSize: codeFontSize,
+                  constraints: const BoxConstraints(
+                    minHeight: AppCodeResultCard.minHeight,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

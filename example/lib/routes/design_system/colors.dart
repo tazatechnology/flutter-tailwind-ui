@@ -64,7 +64,6 @@ class ColorsRoute extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tw = context.tw;
     final colorFormat = ref.watch(_colorFormatProvider);
 
     return AppScrollView.slivers(
@@ -92,24 +91,18 @@ class ColorsRoute extends ConsumerWidget {
                 "Flutter Tailwind UI includes an expertly-crafted default color palette out-of-the-box that is a great starting point if you don't have your own specific branding in mind. These colors have been ported from the Tailwind CSS default color palettes and are accessible from the `TColors` class.\n\nUse the reference below to copy any color to your clipboard in the format of your choice.",
               ),
               const Divider(height: TSpace.v48),
-              TRadioList<ColorFormat>.card(
-                direction: tw.screen.is_md ? Axis.horizontal : Axis.vertical,
-                expanded: true,
-                title: const Text('Select color format'),
-                description: const Text(
-                  'Determines the format of the color when copied to clipboard',
-                ),
+              TRadioGroup.card(
                 groupValue: colorFormat,
-                items: [
+                children: [
                   for (final format in ColorFormat.values)
-                    TRadioListItem(
+                    TRadioGroupItem(
                       title: TText(format.name),
                       value: format,
-                      onChanged: (value) {
-                        ref.read(_colorFormatProvider.notifier).state = value;
-                      },
                     ),
                 ],
+                onChanged: (value) {
+                  ref.read(_colorFormatProvider.notifier).state = value;
+                },
               ),
             ],
           ),

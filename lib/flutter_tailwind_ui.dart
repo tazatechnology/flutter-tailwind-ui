@@ -1,6 +1,8 @@
 // Components
 export 'src/components/badge.dart';
 export 'src/components/button.dart';
+export 'src/components/card.dart';
+export 'src/components/checkbox.dart';
 export 'src/components/code_block.dart';
 export 'src/components/focus_border.dart';
 export 'src/components/gesture_detector.dart';
@@ -8,6 +10,7 @@ export 'src/components/icon_button.dart';
 export 'src/components/radio.dart';
 export 'src/components/row_column.dart';
 export 'src/components/scrollbar.dart';
+export 'src/components/selection_group.dart';
 export 'src/components/sized_box.dart';
 export 'src/components/split_button.dart';
 export 'src/components/text.dart';

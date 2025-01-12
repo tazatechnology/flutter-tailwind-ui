@@ -122,6 +122,16 @@ extension XTailwindTextStyle on TextStyle {
     );
   }
 
+  /// Add line height of none
+  ///
+  /// See: [TLeading.leading_none]
+  TextStyle get leading_none => copyWith(height: TLeading.leading_none);
+
+  /// Add line height of normal
+  ///
+  /// See: [TLeading.leading_normal]
+  TextStyle get leading_normal => copyWith(height: TLeading.leading_normal);
+
   /// Method to copy this [TextStyle] without a given property
   TextStyle copyWithout({
     bool removeColor = false,

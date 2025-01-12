@@ -141,6 +141,7 @@ class TailwindTheme {
       cardColor: color.card,
       hintColor: color.label,
       primaryColor: color.primary,
+      shadowColor: color.shadow,
 
       /// AppBar
       appBarTheme: AppBarTheme(
@@ -159,15 +160,14 @@ class TailwindTheme {
       /// Card
       cardTheme: CardTheme(
         color: color.card,
-        shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        elevation: 20,
+        shadowColor: color.shadow,
+        elevation: TShadow.shadow_none,
         margin: EdgeInsets.zero,
+        clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: TBorderRadius.rounded_lg,
-          side: BorderSide(
-            color: color.divider,
-          ),
+          side: BorderSide(color: color.divider),
         ),
       ),
 

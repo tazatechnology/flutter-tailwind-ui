@@ -8,12 +8,14 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 /// Tailwind theme extension to replicate the Tailwind CSS design system
 class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   /// Initialize all the color values
-  TailwindColorTheme._({
+  TailwindColorTheme._(
+    this._brightness, {
     required Color primary,
     required this.title,
     required this.body,
     required this.label,
     required this.background,
+    required this.shadow,
     required this.card,
     required this.focus,
     required this.divider,
@@ -31,6 +33,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? body,
     Color? label,
     Color? background,
+    Color? shadow,
     Color? card,
     Color? focus,
     Color? divider,
@@ -45,6 +48,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       body: body,
       label: label,
       background: background,
+      shadow: shadow,
       card: card,
       focus: focus,
       divider: divider,
@@ -61,6 +65,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? body,
     Color? label,
     Color? background,
+    Color? shadow,
     Color? card,
     Color? focus,
     Color? divider,
@@ -75,6 +80,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       body: body,
       label: label,
       background: background,
+      shadow: shadow,
       card: card,
       focus: focus,
       divider: divider,
@@ -90,11 +96,13 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   }) {
     if (brightness == Brightness.light) {
       return TailwindColorTheme._(
+        brightness,
         primary: TColors.indigo,
         title: TColors.slate.shade900,
-        body: TColors.slate.shade700,
-        label: TColors.slate.shade400,
+        body: TColors.slate.shade800.withValues(alpha: 0.8),
+        label: TColors.slate.shade800.withValues(alpha: 0.5),
         background: Colors.white,
+        shadow: Colors.black26,
         card: Colors.white,
         focus: TColors.slate.shade700,
         divider: TColors.gray.shade200,
@@ -104,20 +112,25 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       );
     } else {
       return TailwindColorTheme._(
+        brightness,
         primary: TColors.indigo,
         title: TColors.slate.shade100,
-        body: TColors.slate.shade400,
-        label: TColors.slate.shade500,
+        body: TColors.slate.shade200.withValues(alpha: 0.9),
+        label: TColors.slate.shade200.withValues(alpha: 0.6),
         background: TColors.neutral.shade950,
+        shadow: Colors.white12,
         card: TColors.neutral.shade900,
         focus: TColors.slate.shade300,
-        divider: TColors.neutral.shade800,
+        divider: TColors.slate.shade600,
         selection: const Color(0xff385479),
         disabled: TColors.gray.shade600,
         onDisabled: TColors.gray.shade400,
       );
     }
   }
+
+  /// Color of text on disabled elements
+  final Brightness _brightness;
 
   /// Primary color palette (brand primary)
   ///
@@ -137,6 +150,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   ///
   /// Used for the scaffold background color
   final Color background;
+
+  /// Shadow color
+  ///
+  /// Used for shadows and applying elevation
+  final Color shadow;
 
   /// Card color
   ///
@@ -166,6 +184,15 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   /// Color of text on disabled elements
   final Color onDisabled;
 
+  /// Color of disabled text
+  Color get disabledTextColor {
+    if (_brightness == Brightness.light) {
+      return Colors.black.withValues(alpha: 0.38);
+    } else {
+      return Colors.white.withValues(alpha: 0.38);
+    }
+  }
+
   // ---------------------------------------------------------------------------
   // METHOD: copyWith
   // ---------------------------------------------------------------------------
@@ -177,6 +204,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? body,
     Color? label,
     Color? background,
+    Color? shadow,
     Color? card,
     Color? focus,
     Color? divider,
@@ -185,11 +213,13 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? onDisabled,
   }) {
     return TailwindColorTheme._(
+      _brightness,
       primary: primary?.toMaterialColor() ?? this.primary,
       title: title ?? this.title,
       body: body ?? this.body,
       label: label ?? this.label,
       background: background ?? this.background,
+      shadow: shadow ?? this.shadow,
       card: card ?? this.card,
       focus: focus ?? this.focus,
       divider: divider ?? this.divider,
@@ -248,11 +278,13 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       return this;
     }
     return TailwindColorTheme._(
+      _brightness,
       primary: _lerpMaterialColor(primary, other.primary, t),
       title: _lerpColor(title, other.title, t),
       body: _lerpColor(body, other.body, t),
       label: _lerpColor(label, other.label, t),
       background: _lerpColor(background, other.background, t),
+      shadow: _lerpColor(shadow, other.shadow, t),
       card: _lerpColor(card, other.card, t),
       focus: _lerpColor(focus, other.focus, t),
       divider: _lerpColor(divider, other.divider, t),
