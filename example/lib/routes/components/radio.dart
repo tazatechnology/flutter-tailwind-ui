@@ -37,9 +37,14 @@ class ComponentRouteTRadio extends StatelessWidget {
           title: 'Radio Theming',
           children: const [
             AppPreviewCard(
-              title: 'Colors',
+              title: 'Custom Colors',
               code: _TRadioColorsSource.code,
               child: _TRadioColors(),
+            ),
+            AppPreviewCard(
+              title: 'Custom Indicator',
+              code: _TRadioIndicatorSource.code,
+              child: _TRadioIndicator(),
             ),
           ],
         ),
@@ -137,6 +142,31 @@ class _TRadioColorsState extends State<_TRadioColors> {
             onChanged: (value) => setState(() => _value = value),
           ),
       ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TRadioIndicator
+// =============================================================================
+
+@GenerateSource(buildMethodOnly: false)
+class _TRadioIndicator extends StatefulWidget {
+  const _TRadioIndicator();
+
+  @override
+  State<_TRadioIndicator> createState() => _TRadioIndicatorState();
+}
+
+class _TRadioIndicatorState extends State<_TRadioIndicator> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadio(
+      value: _value,
+      indicator: const Icon(Icons.star),
+      onChanged: (value) => setState(() => _value = value),
     );
   }
 }

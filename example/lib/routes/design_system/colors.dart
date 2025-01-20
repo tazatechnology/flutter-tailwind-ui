@@ -101,7 +101,9 @@ class ColorsRoute extends ConsumerWidget {
                     ),
                 ],
                 onChanged: (value) {
-                  ref.read(_colorFormatProvider.notifier).state = value;
+                  if (value != null) {
+                    ref.read(_colorFormatProvider.notifier).state = value;
+                  }
                 },
               ),
             ],

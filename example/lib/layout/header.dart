@@ -149,13 +149,15 @@ class AppSection extends StatelessWidget {
                     return Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        TText(
-                          title,
-                          style: tw.text.style_lg.bold.copyWith(
-                            decoration: states.focused
-                                ? TextDecoration.underline
-                                : TextDecoration.none,
-                            decorationColor: tw.colors.focus,
+                        Flexible(
+                          child: TText(
+                            title,
+                            style: tw.text.style_lg.bold.copyWith(
+                              decoration: states.focused
+                                  ? TextDecoration.underline
+                                  : TextDecoration.none,
+                              decorationColor: tw.colors.focus,
+                            ),
                           ),
                         ),
                         if (states.hovered)

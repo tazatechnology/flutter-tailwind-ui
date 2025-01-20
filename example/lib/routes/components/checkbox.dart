@@ -37,9 +37,14 @@ class ComponentRouteTCheckbox extends StatelessWidget {
           title: 'Checkbox Theming',
           children: const [
             AppPreviewCard(
-              title: 'Colors',
+              title: 'Custom Color',
               code: _TCheckboxColorsSource.code,
               child: _TCheckboxColors(),
+            ),
+            AppPreviewCard(
+              title: 'Custom Indicator',
+              code: _TCheckboxIndicatorSource.code,
+              child: _TCheckboxIndicator(),
             ),
           ],
         ),
@@ -137,6 +142,31 @@ class _TCheckboxColorsState extends State<_TCheckboxColors> {
             onChanged: (value) => setState(() => _value = value),
           ),
       ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TCheckboxIndicator
+// =============================================================================
+
+@GenerateSource(buildMethodOnly: false)
+class _TCheckboxIndicator extends StatefulWidget {
+  const _TCheckboxIndicator();
+
+  @override
+  State<_TCheckboxIndicator> createState() => _TCheckboxIndicatorState();
+}
+
+class _TCheckboxIndicatorState extends State<_TCheckboxIndicator> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return TCheckbox(
+      value: _value,
+      indicator: const Icon(Icons.star),
+      onChanged: (value) => setState(() => _value = value),
     );
   }
 }

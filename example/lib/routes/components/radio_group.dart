@@ -39,6 +39,31 @@ class ComponentRouteTRadioGroup extends StatelessWidget {
           ],
         ),
         AppSection(
+          title: 'Radio Group Axis',
+          children: const [
+            AppPreviewCard(
+              title: 'Basic',
+              code: _TRadioGroupBasicHorizontalSource.code,
+              child: _TRadioGroupBasicHorizontal(),
+            ),
+            AppPreviewCard(
+              title: 'Separated',
+              code: _TRadioGroupSeparatedHorizontalSource.code,
+              child: _TRadioGroupSeparatedHorizontal(),
+            ),
+            AppPreviewCard(
+              title: 'Card',
+              code: _TRadioGroupCardHorizontalSource.code,
+              child: _TRadioGroupCardHorizontal(),
+            ),
+            AppPreviewCard(
+              title: 'Panel',
+              code: _TRadioGroupPanelHorizontalSource.code,
+              child: _TRadioGroupPanelHorizontal(),
+            ),
+          ],
+        ),
+        AppSection(
           title: 'Radio Group Control Affinity',
           children: const [
             AppPreviewCard(
@@ -63,6 +88,31 @@ class ComponentRouteTRadioGroup extends StatelessWidget {
             ),
           ],
         ),
+        AppSection(
+          title: 'Radio Group with Disabled Items',
+          children: const [
+            AppPreviewCard(
+              title: 'Basic',
+              code: _TRadioGroupBasicDisabledSource.code,
+              child: _TRadioGroupBasicDisabled(),
+            ),
+            AppPreviewCard(
+              title: 'Separated',
+              code: _TRadioGroupSeparatedDisabledSource.code,
+              child: _TRadioGroupSeparatedDisabled(),
+            ),
+            AppPreviewCard(
+              title: 'Card',
+              code: _TRadioGroupCardDisabledSource.code,
+              child: _TRadioGroupCardDisabled(),
+            ),
+            AppPreviewCard(
+              title: 'Panel',
+              code: _TRadioGroupPanelDisabledSource.code,
+              child: _TRadioGroupPanelDisabled(),
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -79,11 +129,14 @@ class _TRadioGroupBasic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup(
+      title: const Text('Card Types'),
+      description: const Text('Select the card type to use'),
       groupValue: TSelectionGroupVariant.values.first,
+      onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
           TRadioGroupItem(
-            title: TText(variant.title),
+            title: Text(variant.title),
             description: Text('Creates a ${variant.name} radio group'),
             value: variant,
           ),
@@ -103,11 +156,14 @@ class _TRadioGroupSeparated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.separated(
+      title: const Text('Card Types'),
+      description: const Text('Select the card type to use'),
       groupValue: TSelectionGroupVariant.values.first,
+      onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
           TRadioGroupItem(
-            title: TText(variant.title),
+            title: Text(variant.title),
             description: Text('Creates a ${variant.name} radio group'),
             value: variant,
           ),
@@ -127,11 +183,14 @@ class _TRadioGroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.card(
+      title: const Text('Card Types'),
+      description: const Text('Select the card type to use'),
       groupValue: TSelectionGroupVariant.values.first,
+      onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
           TRadioGroupItem(
-            title: TText(variant.title),
+            title: Text(variant.title),
             description: Text('Creates a ${variant.name} radio group'),
             value: variant,
           ),
@@ -151,11 +210,14 @@ class _TRadioGroupPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.panel(
+      title: const Text('Card Types'),
+      description: const Text('Select the card type to use'),
       groupValue: TSelectionGroupVariant.values.first,
+      onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
           TRadioGroupItem(
-            title: TText(variant.title),
+            title: Text(variant.title),
             description: Text('Creates a ${variant.name} radio group'),
             value: variant,
           ),
@@ -175,12 +237,13 @@ class _TRadioGroupBasicTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup(
-      affinity: TControlAffinity.trailing,
       groupValue: TSelectionGroupVariant.values.first,
+      onChanged: (value) {},
+      affinity: TControlAffinity.trailing,
       children: [
         for (final variant in TSelectionGroupVariant.values)
           TRadioGroupItem(
-            title: TText(variant.title),
+            title: Text(variant.title),
             description: Text('Creates a ${variant.name} radio group'),
             value: variant,
           ),
@@ -200,12 +263,13 @@ class _TRadioGroupSeparatedTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.separated(
-      affinity: TControlAffinity.trailing,
       groupValue: TSelectionGroupVariant.values.first,
+      onChanged: (value) {},
+      affinity: TControlAffinity.trailing,
       children: [
         for (final variant in TSelectionGroupVariant.values)
           TRadioGroupItem(
-            title: TText(variant.title),
+            title: Text(variant.title),
             description: Text('Creates a ${variant.name} radio group'),
             value: variant,
           ),
@@ -225,12 +289,13 @@ class _TRadioGroupCardTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.card(
-      affinity: TControlAffinity.trailing,
       groupValue: TSelectionGroupVariant.values.first,
+      onChanged: (value) {},
+      affinity: TControlAffinity.trailing,
       children: [
         for (final variant in TSelectionGroupVariant.values)
           TRadioGroupItem(
-            title: TText(variant.title),
+            title: Text(variant.title),
             description: Text('Creates a ${variant.name} radio group'),
             value: variant,
           ),
@@ -250,14 +315,223 @@ class _TRadioGroupPanelTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.panel(
-      affinity: TControlAffinity.trailing,
       groupValue: TSelectionGroupVariant.values.first,
+      onChanged: (value) {},
+      affinity: TControlAffinity.trailing,
       children: [
         for (final variant in TSelectionGroupVariant.values)
           TRadioGroupItem(
-            title: TText(variant.title),
+            title: Text(variant.title),
             description: Text('Creates a ${variant.name} radio group'),
             value: variant,
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TRadioGroupBasicHorizontal
+// =============================================================================
+
+@GenerateSource()
+class _TRadioGroupBasicHorizontal extends StatelessWidget {
+  const _TRadioGroupBasicHorizontal();
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadioGroup(
+      title: const Text('Card Types'),
+      description: const Text('Select the card type to use'),
+      groupValue: 'Small',
+      onChanged: (value) {},
+      axis: Axis.horizontal,
+      children: [
+        for (final item in ['Small', 'Medium', 'Large'])
+          TRadioGroupItem(
+            title: Text(item),
+            value: item,
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TRadioGroupSeparatedHorizontal
+// =============================================================================
+
+@GenerateSource()
+class _TRadioGroupSeparatedHorizontal extends StatelessWidget {
+  const _TRadioGroupSeparatedHorizontal();
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadioGroup.separated(
+      title: const Text('Card Types'),
+      description: const Text('Select the card type to use'),
+      groupValue: 'Small',
+      onChanged: (value) {},
+      axis: Axis.horizontal,
+      children: [
+        for (final item in ['Small', 'Medium', 'Large'])
+          TRadioGroupItem(
+            title: Text(item),
+            value: item,
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TRadioGroupCardHorizontal
+// =============================================================================
+
+@GenerateSource()
+class _TRadioGroupCardHorizontal extends StatelessWidget {
+  const _TRadioGroupCardHorizontal();
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadioGroup.card(
+      title: const Text('Card Types'),
+      description: const Text('Select the card type to use'),
+      groupValue: 'Small',
+      onChanged: (value) {},
+      axis: Axis.horizontal,
+      children: [
+        for (final item in ['Small', 'Medium', 'Large'])
+          TRadioGroupItem(
+            title: Text(item),
+            value: item,
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TRadioGroupPanelHorizontal
+// =============================================================================
+
+@GenerateSource()
+class _TRadioGroupPanelHorizontal extends StatelessWidget {
+  const _TRadioGroupPanelHorizontal();
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadioGroup.panel(
+      title: const Text('Card Types'),
+      description: const Text('Select the card type to use'),
+      groupValue: 'Small',
+      onChanged: (value) {},
+      axis: Axis.horizontal,
+      children: [
+        for (final item in ['Small', 'Medium', 'Large'])
+          TRadioGroupItem(
+            title: Text(item),
+            value: item,
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TRadioGroupBasicDisabled
+// =============================================================================
+
+@GenerateSource()
+class _TRadioGroupBasicDisabled extends StatelessWidget {
+  const _TRadioGroupBasicDisabled();
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadioGroup(
+      groupValue: const ['Read'],
+      onChanged: (value) {},
+      children: [
+        for (final item in ['Read', 'Write', 'Execute'])
+          TRadioGroupItem(
+            title: Text(item),
+            value: item,
+            enabled: item != 'Write',
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TRadioGroupSeparatedDisabled
+// =============================================================================
+
+@GenerateSource()
+class _TRadioGroupSeparatedDisabled extends StatelessWidget {
+  const _TRadioGroupSeparatedDisabled();
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadioGroup.separated(
+      groupValue: const ['Read'],
+      onChanged: (value) {},
+      children: [
+        for (final item in ['Read', 'Write', 'Execute'])
+          TRadioGroupItem(
+            title: Text(item),
+            value: item,
+            enabled: item != 'Write',
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TRadioGroupCardDisabled
+// =============================================================================
+
+@GenerateSource()
+class _TRadioGroupCardDisabled extends StatelessWidget {
+  const _TRadioGroupCardDisabled();
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadioGroup.card(
+      groupValue: const ['Read'],
+      onChanged: (value) {},
+      children: [
+        for (final item in ['Read', 'Write', 'Execute'])
+          TRadioGroupItem(
+            title: Text(item),
+            value: item,
+            enabled: item != 'Write',
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TRadioGroupPanelDisabled
+// =============================================================================
+
+@GenerateSource()
+class _TRadioGroupPanelDisabled extends StatelessWidget {
+  const _TRadioGroupPanelDisabled();
+
+  @override
+  Widget build(BuildContext context) {
+    return TRadioGroup.panel(
+      groupValue: const ['Read'],
+      onChanged: (value) {},
+      children: [
+        for (final item in ['Read', 'Write', 'Execute'])
+          TRadioGroupItem(
+            title: Text(item),
+            value: item,
+            enabled: item != 'Write',
           ),
       ],
     );

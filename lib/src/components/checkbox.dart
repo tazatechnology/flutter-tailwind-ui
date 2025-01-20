@@ -15,11 +15,13 @@ class TCheckbox extends StatelessWidget {
     this.onChanged,
     this.color,
     this.enabled = true,
+    this.padding = TOffset.a0,
     this.focusNode,
+    this.indicator,
     super.key,
   });
 
-  /// The value of the checkbox button
+  /// The value of the checkbox
   final bool value;
 
   /// The callback when the value changes
@@ -31,8 +33,16 @@ class TCheckbox extends StatelessWidget {
   /// Flag to enable or disable the checkbox
   final bool enabled;
 
-  /// The focus node of the radio button
+  /// The padding of the checkbox
+  ///
+  /// Will be added to the gesture detector
+  final EdgeInsetsGeometry padding;
+
+  /// The focus node of the checkbox button
   final FocusNode? focusNode;
+
+  /// An optional custom indicator widget
+  final Widget? indicator;
 
   // ---------------------------------------------------------------------------
   // METHOD: build
@@ -44,6 +54,11 @@ class TCheckbox extends StatelessWidget {
 
     final color =
         enabled ? this.color ?? tw.colors.primary : tw.colors.disabled;
+
+    final indicator = this.indicator ?? const Icon(Icons.check);
+
+    // Defer to the focus node value if it is set
+    final canRequestFocus = enabled && (focusNode?.canRequestFocus ?? true);
 
     // Have a default spacebar handler for the checkbox
     KeyEventResult onKeyEvent(FocusNode _, KeyEvent event) {
@@ -59,13 +74,13 @@ class TCheckbox extends StatelessWidget {
         enabled ? SystemMouseCursors.click : SystemMouseCursors.forbidden,
       ),
       focusNode: focusNode,
-      canRequestFocus: enabled,
+      onKeyEvent: focusNode?.onKeyEvent ?? onKeyEvent,
+      canRequestFocus: canRequestFocus,
       onTap: () {
         if (enabled) {
           onChanged?.call(!value);
         }
       },
-      onKeyEvent: onKeyEvent,
       builder: (context, states) {
         Color borderColor;
         if (value) {
@@ -79,24 +94,27 @@ class TCheckbox extends StatelessWidget {
 
         return TFocusBorder(
           focused: states.focused,
-          borderRadius: TBorderRadius.rounded,
           focusColor: color,
-          child: Container(
-            width: defaultControlSize,
-            height: defaultControlSize,
-            decoration: BoxDecoration(
-              color: value
-                  ? color
-                  : (enabled
-                      ? Colors.transparent
-                      : tw.colors.disabled.withValues(alpha: 0.5)),
-              border: Border.all(color: borderColor),
-              borderRadius: TBorderRadius.rounded,
+          borderRadius: TBorderRadius.rounded,
+          child: IconTheme(
+            data: context.theme.iconTheme.copyWith(
+              size: kDefaultControlSize - TSpace.v4,
+              color: color.contrastBlackWhite(),
             ),
-            child: Icon(
-              Icons.check,
-              size: defaultControlSize - 4,
-              color: value ? color.contrastBlackWhite() : Colors.transparent,
+            child: Container(
+              margin: padding,
+              width: kDefaultControlSize,
+              height: kDefaultControlSize,
+              decoration: BoxDecoration(
+                color: value
+                    ? color
+                    : (enabled
+                        ? Colors.transparent
+                        : tw.colors.disabled.withValues(alpha: 0.5)),
+                border: Border.all(color: borderColor),
+                borderRadius: TBorderRadius.rounded,
+              ),
+              child: value ? indicator : null,
             ),
           ),
         );
@@ -129,58 +147,81 @@ class TCheckboxGroup<T> extends StatefulWidget {
   /// Creates a checkbox group
   const TCheckboxGroup({
     required this.children,
-    this.groupValues,
+    this.title,
+    this.description,
+    this.groupValue,
+    this.onChanged,
     this.color,
-    this.width = TScreen.max_w_sm,
+    this.width = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
+    this.axis = Axis.vertical,
     super.key,
   })  : variant = TSelectionGroupVariant.basic,
-        _radius = 0;
+        radius = 0;
 
   /// Creates a separated checkbox group
   const TCheckboxGroup.separated({
     required this.children,
-    this.groupValues,
+    this.title,
+    this.description,
+    this.groupValue,
+    this.onChanged,
     this.color,
-    this.width = TScreen.max_w_sm,
+    this.width = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
+    this.axis = Axis.vertical,
     super.key,
   })  : variant = TSelectionGroupVariant.separated,
-        _radius = 0;
+        radius = 0;
 
   /// Creates a card checkbox group
   const TCheckboxGroup.card({
     required this.children,
-    this.groupValues,
+    this.title,
+    this.description,
+    this.groupValue,
+    this.onChanged,
     this.color,
-    this.width = TScreen.max_w_sm,
-    double radius = TRadiusScale.radius_lg,
+    this.width = TScreen.max_w_md,
+    this.radius = TRadiusScale.radius_lg,
     this.spacing,
     this.affinity = TControlAffinity.leading,
+    this.axis = Axis.vertical,
     super.key,
-  })  : variant = TSelectionGroupVariant.card,
-        _radius = radius;
+  }) : variant = TSelectionGroupVariant.card;
 
   /// Creates a card checkbox group
   const TCheckboxGroup.panel({
     required this.children,
-    this.groupValues,
+    this.title,
+    this.description,
+    this.groupValue,
+    this.onChanged,
     this.color,
-    this.width = TScreen.max_w_sm,
-    double radius = TRadiusScale.radius_lg,
-    this.spacing,
+    this.width = TScreen.max_w_md,
+    this.radius = TRadiusScale.radius_lg,
     this.affinity = TControlAffinity.leading,
+    this.axis = Axis.vertical,
     super.key,
   })  : variant = TSelectionGroupVariant.panel,
-        _radius = radius;
+        spacing = 0;
 
   /// The children of the checkbox group.
   final List<TCheckboxGroupItem<T>> children;
 
+  /// The title widget
+  final Widget? title;
+
+  /// The description widget
+  final Widget? description;
+
   /// The value of the radio group.
-  final List<T>? groupValues;
+  final List<T>? groupValue;
+
+  /// Callback when the value changes.
+  final ValueChanged<List<T>>? onChanged;
 
   /// The variant of the checkbox group.
   final TSelectionGroupVariant variant;
@@ -199,15 +240,20 @@ class TCheckboxGroup<T> extends StatefulWidget {
   /// The control affinity of the radio group.
   final TControlAffinity affinity;
 
+  /// The orientation of the radio group.
+  final Axis axis;
+
   /// The radius value for rounded corners
-  final double _radius;
+  ///
+  /// Only used for [TCheckboxGroup.card] and [TCheckboxGroup.panel] variants.
+  final double radius;
 
   @override
   State<TCheckboxGroup<T>> createState() => _TCheckboxGroupState<T>();
 }
 
 class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
-  late final List<T> groupValues;
+  late final List<T> groupValue;
 
   // ---------------------------------------------------------------------------
   // METHOD: initState
@@ -215,7 +261,7 @@ class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
 
   @override
   void initState() {
-    groupValues = widget.groupValues ?? [];
+    groupValue = List.from(widget.groupValue ?? []);
     super.initState();
   }
 
@@ -227,12 +273,13 @@ class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
     if (!item.enabled) {
       return;
     }
-    if (status && !groupValues.contains(item.value)) {
-      groupValues.add(item.value);
-    } else if (!status && groupValues.contains(item.value)) {
-      groupValues.remove(item.value);
+    if (status && !groupValue.contains(item.value)) {
+      groupValue.add(item.value);
+    } else if (!status && groupValue.contains(item.value)) {
+      groupValue.remove(item.value);
     }
     setState(() {});
+    widget.onChanged?.call(groupValue);
   }
 
   // ---------------------------------------------------------------------------
@@ -242,14 +289,17 @@ class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
   @override
   Widget build(BuildContext context) {
     return TSelectionGroupList(
+      axis: widget.axis,
       variant: widget.variant,
       width: widget.width,
       spacing: widget.spacing ?? widget.variant.spacing,
       items: widget.children,
-      radius: widget._radius,
+      radius: widget.radius,
+      title: widget.title,
+      description: widget.description,
       itemBuilder: (context, index) {
         final item = widget.children[index];
-        final selected = groupValues.contains(item.value);
+        final selected = groupValue.contains(item.value);
         return TSelectionGroupTile(
           key: ValueKey(item.value),
           index: index,
@@ -259,10 +309,10 @@ class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
           selected: selected,
           title: item.title,
           description: item.description,
-          width: widget.width,
-          radius: widget._radius,
+          radius: widget.radius,
           enabled: item.enabled,
           affinity: widget.affinity,
+          axis: widget.axis,
           onChanged: (status) => onChanged(item: item, status: status),
           control: TCheckbox(
             color: widget.color,

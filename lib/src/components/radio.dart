@@ -15,24 +15,34 @@ class TRadio extends StatelessWidget {
     this.onChanged,
     this.color,
     this.enabled = true,
+    this.padding = TOffset.a0,
     this.focusNode,
+    this.indicator,
     super.key,
   });
 
-  /// The value of the radio button
+  /// The value of the radio
   final bool value;
 
   /// The callback when the value changes
   final ValueChanged<bool>? onChanged;
 
-  /// The color of the radio button
+  /// The color of the radio
   final Color? color;
 
   /// Flag to enable or disable the radio button
   final bool enabled;
 
-  /// The focus node of the radio button
+  /// The padding of the radio
+  ///
+  /// Will be added to the gesture detector
+  final EdgeInsetsGeometry padding;
+
+  /// The focus node of the radio
   final FocusNode? focusNode;
+
+  /// An optional custom indicator widget
+  final Widget? indicator;
 
   // ---------------------------------------------------------------------------
   // METHOD: build
@@ -41,29 +51,40 @@ class TRadio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
+
     final color =
         enabled ? this.color ?? tw.colors.primary : tw.colors.disabled;
 
-    final radioIndicator = Icon(
-      Icons.circle,
-      size: 7,
-      color: color.contrastBlackWhite(),
-    );
+    final indicator = this.indicator ??
+        const Icon(
+          Icons.circle,
+          size: kDefaultControlSize / 2,
+        );
 
-    final canRequestFocus = enabled && (focusNode?.canRequestFocus ?? false);
+    // Defer to the focus node value if it is set
+    final canRequestFocus = enabled && (focusNode?.canRequestFocus ?? true);
+
+    // Have a default spacebar handler for the checkbox
+    KeyEventResult onKeyEvent(FocusNode _, KeyEvent event) {
+      if (event.isSpaceKeyDown && enabled) {
+        onChanged?.call(!value);
+        return KeyEventResult.handled;
+      }
+      return KeyEventResult.ignored;
+    }
 
     return TGestureDetector(
       mouseCursor: WidgetStatePropertyAll(
         enabled ? SystemMouseCursors.click : SystemMouseCursors.forbidden,
       ),
       focusNode: focusNode,
-      canRequestFocus: enabled && canRequestFocus,
+      onKeyEvent: focusNode?.onKeyEvent ?? onKeyEvent,
+      canRequestFocus: canRequestFocus,
       onTap: () {
         if (enabled) {
           onChanged?.call(!value);
         }
       },
-      onKeyEvent: focusNode?.onKeyEvent,
       builder: (context, states) {
         Color borderColor;
         if (value) {
@@ -75,40 +96,31 @@ class TRadio extends StatelessWidget {
               tw.light ? const Color(0xffccccd4) : const Color(0xff4d5866);
         }
 
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            TFocusBorder(
-              focusColor: color,
-              focused: states.focused,
-              borderRadius: TBorderRadius.rounded_full,
-              child: Container(
-                width: defaultControlSize,
-                height: defaultControlSize,
-                decoration: BoxDecoration(
-                  color: value
-                      ? color
-                      : (enabled
-                          ? Colors.transparent
-                          : tw.colors.disabled.withValues(alpha: 0.5)),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: borderColor,
-                  ),
-                ),
-                child: value ? radioIndicator : null,
-              ),
+        return TFocusBorder(
+          focused: states.focused,
+          focusColor: color,
+          borderRadius: TBorderRadius.rounded_full,
+          child: IconTheme(
+            data: context.theme.iconTheme.copyWith(
+              size: kDefaultControlSize - TSpace.v4,
+              color: color.contrastBlackWhite(),
             ),
-            // Hidden outer container for the focus border
-            Container(
-              width: defaultControlSize,
-              height: defaultControlSize,
-              decoration: const BoxDecoration(
-                color: Colors.transparent,
-                shape: BoxShape.circle,
+            child: Container(
+              margin: padding,
+              width: kDefaultControlSize,
+              height: kDefaultControlSize,
+              decoration: BoxDecoration(
+                color: value
+                    ? color
+                    : (enabled
+                        ? Colors.transparent
+                        : tw.colors.disabled.withValues(alpha: 0.5)),
+                border: Border.all(color: borderColor),
+                borderRadius: TBorderRadius.rounded_full,
               ),
+              child: value ? indicator : null,
             ),
-          ],
+          ),
         );
       },
     );
@@ -140,64 +152,80 @@ class TRadioGroup<T> extends StatefulWidget {
   const TRadioGroup({
     required this.children,
     super.key,
+    this.title,
+    this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.width = TScreen.max_w_sm,
+    this.width = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
+    this.axis = Axis.vertical,
   })  : variant = TSelectionGroupVariant.basic,
-        _radius = 0;
+        radius = 0;
 
   /// Creates a [TRadioGroup] as a card variant
   const TRadioGroup.separated({
     required this.children,
     super.key,
+    this.title,
+    this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.width = TScreen.max_w_sm,
+    this.width = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
+    this.axis = Axis.vertical,
   })  : variant = TSelectionGroupVariant.separated,
-        _radius = 0;
+        radius = 0;
 
   /// Creates a [TRadioGroup] as a card variant
   const TRadioGroup.card({
     required this.children,
     super.key,
+    this.title,
+    this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.width = TScreen.max_w_sm,
-    double radius = TRadiusScale.radius_lg,
+    this.width = TScreen.max_w_md,
+    this.radius = TRadiusScale.radius_lg,
     this.spacing,
     this.affinity = TControlAffinity.leading,
-  })  : variant = TSelectionGroupVariant.card,
-        _radius = radius;
+    this.axis = Axis.vertical,
+  }) : variant = TSelectionGroupVariant.card;
 
   /// Creates a [TRadioGroup] as a panel variant
   const TRadioGroup.panel({
     required this.children,
     super.key,
+    this.title,
+    this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.width = TScreen.max_w_sm,
-    double radius = TRadiusScale.radius_lg,
-    this.spacing,
+    this.width = TScreen.max_w_md,
+    this.radius = TRadiusScale.radius_lg,
     this.affinity = TControlAffinity.leading,
+    this.axis = Axis.vertical,
   })  : variant = TSelectionGroupVariant.panel,
-        _radius = radius;
+        spacing = 0;
 
   /// The children of the radio group.
   final List<TRadioGroupItem<T>> children;
+
+  /// The title widget
+  final Widget? title;
+
+  /// The description widget
+  final Widget? description;
 
   /// The value of the radio group.
   final T? groupValue;
 
   /// The callback when the value changes.
-  final ValueChanged<T>? onChanged;
+  final ValueChanged<T?>? onChanged;
 
   /// The variant of the radio group.
   final TSelectionGroupVariant variant;
@@ -216,10 +244,13 @@ class TRadioGroup<T> extends StatefulWidget {
   /// The control affinity of the radio group.
   final TControlAffinity affinity;
 
+  /// The orientation of the radio group.
+  final Axis axis;
+
   /// The radius value for rounded corners
   ///
   /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
-  final double _radius;
+  final double radius;
 
   @override
   State<TRadioGroup<T>> createState() => _TRadioGroupState<T>();
@@ -316,6 +347,12 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
           return KeyEventResult.handled;
         }
 
+        // Traversing the radio group automatically selects the item
+        // Mark the event as handled if the space key is pressed
+        if (event.logicalKey.isSpace) {
+          return KeyEventResult.handled;
+        }
+
         return KeyEventResult.ignored;
       };
     }
@@ -343,11 +380,14 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
   @override
   Widget build(BuildContext context) {
     return TSelectionGroupList(
+      axis: widget.axis,
       variant: widget.variant,
       width: widget.width,
       spacing: widget.spacing ?? widget.variant.spacing,
       items: widget.children,
-      radius: widget._radius,
+      radius: widget.radius,
+      title: widget.title,
+      description: widget.description,
       itemBuilder: (context, index) {
         final item = widget.children[index];
         final selected = groupValue == item.value;
@@ -359,11 +399,11 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
           color: widget.color,
           title: item.title,
           description: item.description,
-          width: widget.width,
-          radius: widget._radius,
+          radius: widget.radius,
           selected: selected,
           enabled: item.enabled,
           affinity: widget.affinity,
+          axis: widget.axis,
           onChanged: (status) => onChanged(item: item, status: status),
           control: TRadio(
             color: widget.color,
