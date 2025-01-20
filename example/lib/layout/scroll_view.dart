@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/header.dart';
 import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
+import 'package:flutter_tailwind_ui_app/providers/section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:universal_html/html.dart' as html;
 
@@ -211,6 +212,52 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
   // ---------------------------------------------------------------------------
 
   void scrollListener() {
+    // Determine the toolbar height trigger
+    double toolbarHeight = AppScaffold.toolbarHeight;
+    if (!context.tw.screen.is_lg) {
+      toolbarHeight = toolbarHeight * 2;
+    }
+
+    // Check with section is currently in view
+    AppSection? newCurrentSection;
+    final Map<AppSection, double> sectionOffsets = {};
+    for (final section in sections) {
+      final context = (section.key! as GlobalKey).currentContext;
+      if (context == null) {
+        continue;
+      }
+      final renderObject = context.findRenderObject();
+      if (renderObject == null) {
+        continue;
+      }
+      final sectionPosition =
+          renderObject.getTransformTo(null).getTranslation();
+
+      sectionOffsets[section] = sectionPosition.y;
+    }
+
+    // Compare all the section y-offset locations
+    // When the section is within the toolbar height, update the current section
+    for (final k in sectionOffsets.keys.toList().reversed) {
+      final offset = sectionOffsets[k]!;
+      if (offset < toolbarHeight * 2) {
+        newCurrentSection = k;
+        break;
+      }
+    }
+
+    // Always reset the current section when at the top of the page
+    final currentSectionNotifier = ref.read(sectionProvider.notifier);
+    if (scrollController.offset == 0) {
+      currentSectionNotifier.state = null;
+    } else {
+      // Update the current section
+      if (ref.read(sectionProvider) != newCurrentSection &&
+          newCurrentSection != null) {
+        currentSectionNotifier.state = newCurrentSection;
+      }
+    }
+
     // Check if the scroll position is beyond the threshold
     if (scrollController.offset >= scrollThreshold) {
       if (!showScrollButton) {
@@ -286,7 +333,6 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
             child: CustomScrollView(
               physics: physics,
               primary: true,
-              // controller: scrollController,
               slivers: [
                 // Top padding for the toolbar and additional padding
                 SliverPadding(
@@ -367,9 +413,7 @@ class _AppBackgroundState extends State<_AppBackground> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        attached = true;
-      });
+      setState(() => attached = true);
     });
     widget.controller.addListener(offsetListener);
     super.initState();

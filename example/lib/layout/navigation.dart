@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
 import 'package:flutter_tailwind_ui_app/providers/router.dart';
+import 'package:flutter_tailwind_ui_app/providers/section.dart';
 import 'package:go_router/go_router.dart';
 
 // =============================================================================
@@ -173,7 +175,7 @@ class AppNavigationSection extends StatelessWidget {
 // CLASS: AppNavigationItem
 // =============================================================================
 
-class AppNavigationItem extends StatefulWidget {
+class AppNavigationItem extends ConsumerStatefulWidget {
   const AppNavigationItem({
     required this.title,
     required this.route,
@@ -186,10 +188,10 @@ class AppNavigationItem extends StatefulWidget {
   final bool isLast;
   final bool isComponent;
   @override
-  State<AppNavigationItem> createState() => _AppNavigationItemState();
+  ConsumerState<AppNavigationItem> createState() => _AppNavigationItemState();
 }
 
-class _AppNavigationItemState extends State<AppNavigationItem> {
+class _AppNavigationItemState extends ConsumerState<AppNavigationItem> {
   bool isHovered = false;
 
   @override
@@ -243,6 +245,9 @@ class _AppNavigationItemState extends State<AppNavigationItem> {
           if (!showSideBar) {
             Scaffold.of(context).closeDrawer();
           }
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ref.read(sectionProvider.notifier).state = null;
+          });
           context.goNamed(widget.route);
         },
         onHover: (value) {

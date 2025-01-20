@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/navigation.dart';
 import 'package:flutter_tailwind_ui_app/layout/toolbar.dart';
+import 'package:flutter_tailwind_ui_app/providers/section.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/link.dart';
@@ -119,7 +120,9 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
                       decoration: BoxDecoration(
                         border: showSideBar ? null : appBarBorder,
                       ),
-                      child: const _ScaffoldHeader(),
+                      child: _ScaffoldHeader(
+                        appBarXPad: appBarXPad.horizontal / 2,
+                      ),
                     ),
                   ),
                   if (!showSideBar)
@@ -160,40 +163,62 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
 // CLASS: _ScaffoldHeader
 // =============================================================================
 
-class _ScaffoldHeader extends StatelessWidget {
-  const _ScaffoldHeader();
+class _ScaffoldHeader extends ConsumerWidget {
+  const _ScaffoldHeader({
+    required this.appBarXPad,
+  });
+  final double appBarXPad;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentSection = ref.watch(sectionProvider);
     final package = AppInfo.of(context).package;
     final tw = context.tw;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
-            InkWell(
-              child: const _FlutterTailwindLogo(),
-              onTap: () {
-                context.go('/');
-              },
-            ),
-            if (tw.screen.is_sm) ...[
-              TSizedBox.x14,
-              Link(
-                uri: Uri.parse('https://pub.dev/packages/flutter_tailwind_ui'),
-                target: LinkTarget.blank,
-                builder: (context, followLink) {
-                  return TBadge.soft(
-                    color: TColors.slate,
-                    baseTextStyle: tw.text.style_xs.light,
-                    onPressed: followLink,
-                    tooltip: 'Dart Package',
-                    child: TText('``v${package.versionWithoutBuild}``'),
-                  );
-                },
+            SizedBox(
+              width: tw.screen.is_lg
+                  ? AppScaffold.navigationWidth - appBarXPad
+                  : null,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  InkWell(
+                    child: const _FlutterTailwindLogo(),
+                    onTap: () {
+                      context.go('/');
+                    },
+                  ),
+                  if (tw.screen.is_sm) ...[
+                    TSizedBox.x14,
+                    Link(
+                      uri: Uri.parse(
+                        'https://pub.dev/packages/flutter_tailwind_ui',
+                      ),
+                      target: LinkTarget.blank,
+                      builder: (context, followLink) {
+                        return TBadge.soft(
+                          color: TColors.slate,
+                          baseTextStyle: tw.text.style_xs.light,
+                          onPressed: followLink,
+                          tooltip: 'Dart Package',
+                          child: TText('``v${package.versionWithoutBuild}``'),
+                        );
+                      },
+                    ),
+                  ],
+                ],
               ),
-            ],
+            ),
+            if (currentSection != null && tw.screen.is_lg)
+              Text(
+                currentSection.title,
+                style: tw.text.style_sm.light.copyWith(color: tw.colors.label),
+              ),
           ],
         ),
         const AppToolbar(),
@@ -206,11 +231,13 @@ class _ScaffoldHeader extends StatelessWidget {
 // CLASS: _ScaffoldMobileNavigation
 // =============================================================================
 
-class _ScaffoldMobileNavigation extends StatelessWidget {
+class _ScaffoldMobileNavigation extends ConsumerWidget {
   const _ScaffoldMobileNavigation();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentSection = ref.watch(sectionProvider);
+    final tw = context.tw;
     return Row(
       children: [
         InkWell(
@@ -220,6 +247,11 @@ class _ScaffoldMobileNavigation extends StatelessWidget {
             child: FaIcon(FontAwesomeIcons.bars, size: 20),
           ),
         ),
+        if (currentSection != null && !tw.screen.is_lg)
+          Text(
+            currentSection.title,
+            style: tw.text.style_sm.light.copyWith(color: tw.colors.label),
+          ),
       ],
     );
   }

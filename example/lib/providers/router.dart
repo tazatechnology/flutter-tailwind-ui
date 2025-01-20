@@ -7,14 +7,16 @@ import 'package:flutter_tailwind_ui_app/routes/routes.dart';
 import 'package:go_router/go_router.dart';
 
 /// App router provider
-final appRouterProvider = Provider<AppRouter>((ref) => AppRouter());
+final appRouterProvider = Provider<AppRouter>((ref) => AppRouter(ref: ref));
 
 // =============================================================================
 // CLASS: AppRouter
 // =============================================================================
 
 class AppRouter {
-  AppRouter() {
+  AppRouter({
+    required this.ref,
+  }) {
     final componentMap = <String, Widget>{
       AppRouter.badge: const ComponentRouteTBadge(),
       AppRouter.button: const ComponentRouteTButton(),
@@ -90,6 +92,7 @@ class AppRouter {
       },
     );
   }
+  final Ref<AppRouter> ref;
   late final GoRouter router;
 
   /// Getting Started
