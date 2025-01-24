@@ -165,12 +165,12 @@ class TButton extends StatelessWidget {
   static TextStyle getDefaultTextStyle(TWidgetSize size) {
     switch (size) {
       case TWidgetSize.xs:
-        return TTextStyle.text_xs.medium;
+        return TTextStyle.text_xs.copyWith(fontWeight: TFontWeight.medium);
       case TWidgetSize.sm:
       case TWidgetSize.md:
       case TWidgetSize.lg:
       case TWidgetSize.xl:
-        return TTextStyle.text_sm.medium;
+        return TTextStyle.text_sm.copyWith(fontWeight: TFontWeight.medium);
     }
   }
 

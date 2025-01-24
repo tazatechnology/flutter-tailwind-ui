@@ -110,7 +110,7 @@ class THighlighter {
   // ---------------------------------------------------------------------------
 
   /// Parse and return an InlineSpan for the given code using the loaded highlighter.
-  static InlineSpan parse({
+  static TextSpan parse({
     required String code,
     required String language,
     required Brightness brightness,

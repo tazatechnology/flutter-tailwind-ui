@@ -203,7 +203,8 @@ class _ScaffoldHeader extends ConsumerWidget {
                       builder: (context, followLink) {
                         return TBadge.soft(
                           color: TColors.slate,
-                          baseTextStyle: tw.text.style_xs.light,
+                          baseTextStyle: tw.text.style_xs
+                              .copyWith(fontWeight: TFontWeight.light),
                           onPressed: followLink,
                           tooltip: 'Dart Package',
                           child: TText('``v${package.versionWithoutBuild}``'),
@@ -217,7 +218,10 @@ class _ScaffoldHeader extends ConsumerWidget {
             if (currentSection != null && tw.screen.is_lg)
               Text(
                 currentSection.title,
-                style: tw.text.style_sm.light.copyWith(color: tw.colors.label),
+                style: tw.text.style_sm.copyWith(
+                  color: tw.colors.label,
+                  fontWeight: TFontWeight.light,
+                ),
               ),
           ],
         ),
@@ -250,7 +254,10 @@ class _ScaffoldMobileNavigation extends ConsumerWidget {
         if (currentSection != null && !tw.screen.is_lg)
           Text(
             currentSection.title,
-            style: tw.text.style_sm.light.copyWith(color: tw.colors.label),
+            style: tw.text.style_sm.copyWith(
+              color: tw.colors.label,
+              fontWeight: TFontWeight.light,
+            ),
           ),
       ],
     );

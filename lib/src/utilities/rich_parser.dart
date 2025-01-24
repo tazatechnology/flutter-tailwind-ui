@@ -184,21 +184,21 @@ class TRichBuilder {
     /// Bold: **text**
     TRichBuilder(
       regex: RegExp(r'\*\*([^*]+)\*\*'),
-      style: const TextStyle().bold,
+      style: const TextStyle(fontWeight: TFontWeight.bold),
     ),
     TRichBuilder(
       regex: RegExp('__([^_]+)__'),
-      style: const TextStyle().bold,
+      style: const TextStyle(fontWeight: TFontWeight.bold),
     ),
 
     /// Italic: _text_
     TRichBuilder(
       regex: RegExp('_([^_]+)_'),
-      style: const TextStyle().italic,
+      style: const TextStyle(fontStyle: FontStyle.italic),
     ),
     TRichBuilder(
       regex: RegExp(r'\*([^*]+)\*'),
-      style: const TextStyle().italic,
+      style: const TextStyle(fontStyle: FontStyle.italic),
     ),
 
     /// Monospace: ``text``
@@ -210,7 +210,10 @@ class TRichBuilder {
         return TRichParser(builders: details.builders).parse(
           context: details.context,
           text: details.textMatch,
-          style: details.baseStyle.mono(details.context).copyWith(height: 1.5),
+          style: details.baseStyle.copyWith(
+            fontFamily: details.context.tw.text.fontFamilyMono,
+            height: TLineHeight.normal,
+          ),
         );
       },
     ),
@@ -235,7 +238,10 @@ class TRichBuilder {
               TRichParser(builders: details.builders).parse(
                 context: details.context,
                 text: details.textMatch,
-                style: details.baseStyle.mono(context).copyWith(height: 1.5),
+                style: details.baseStyle.copyWith(
+                  fontFamily: tw.text.fontFamilyMono,
+                  height: 1.5,
+                ),
               ),
               textScaler: const TextScaler.linear(0.85),
             ),

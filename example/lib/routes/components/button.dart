@@ -124,11 +124,13 @@ class ComponentRouteTButton extends StatelessWidget {
           children: const [
             AppPreviewCard(
               title: 'Controller to manage loading state',
+              description: 'Tap the button to see the default loading state.',
               code: _TButtonLoadingSource.code,
               child: _TButtonLoading(),
             ),
             AppPreviewCard(
               title: 'Custom loading widget',
+              description: 'Tap the button to see the custom loading state.',
               code: _TButtonLoadingCustomSource.code,
               child: _TButtonLoadingCustom(),
             ),
@@ -687,7 +689,10 @@ class _TButtonCustomTheme extends StatelessWidget {
         elevation: TShadow.shadow,
         border: Border.all(color: TColors.slate),
         borderRadius: TBorderRadius.rounded_none,
-        textStyle: const TextStyle(color: Colors.white).medium,
+        textStyle: const TextStyle(
+          color: Colors.white,
+          fontWeight: TFontWeight.medium,
+        ),
       ),
       onPressed: () {},
       child: const Text('Button'),
@@ -732,8 +737,11 @@ class _TButtonStatefulTheme extends StatelessWidget {
               : TBorderRadius.rounded_none;
         }),
         textStyle: WidgetStateProperty.resolveWith((states) {
-          const style = TextStyle(color: Colors.white);
-          return states.hovered ? style.semibold : style.medium;
+          return TextStyle(
+            color: Colors.white,
+            fontWeight:
+                states.hovered ? TFontWeight.semibold : TFontWeight.medium,
+          );
         }),
       ),
       onPressed: () {},

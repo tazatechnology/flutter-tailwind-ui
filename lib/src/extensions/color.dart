@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
 
+/// Converts a floating point number to an integer in the range 0 to 255.
 int _floatToInt8(double x) {
   return (x * 255.0).round() & 0xff;
 }
+
+/// Tints the given color by lightening it based on the provided factor.
+///
+/// The factor should be between 0 and 1, where 1 results in the lightest tint.
+Color _tintColor(Color color, double factor) => Color.fromRGBO(
+      ((color.r + (1.0 - color.r) * factor) * 255).round(),
+      ((color.g + (1.0 - color.g) * factor) * 255).round(),
+      ((color.b + (1.0 - color.b) * factor) * 255).round(),
+      1,
+    );
+
+/// Shades the given color by darkening it based on the provided factor.
+///
+/// The factor should be between 0 and 1, where 1 results in the darkest shade.
+Color _shadeColor(Color color, double factor) => Color.fromRGBO(
+      (color.r * (1 - factor) * 255).round(),
+      (color.g * (1 - factor) * 255).round(),
+      (color.b * (1 - factor) * 255).round(),
+      1,
+    );
 
 // =============================================================================
 // EXTENSION: XTailwindColor
@@ -144,31 +165,3 @@ extension XTailwindColor on Color {
     return MaterialColor(toInt(), colorShades);
   }
 }
-
-// ---------------------------------------------------------------------------
-// METHOD: _tintColor
-// ---------------------------------------------------------------------------
-
-/// Tints the given color by lightening it based on the provided factor.
-///
-/// The factor should be between 0 and 1, where 1 results in the lightest tint.
-Color _tintColor(Color color, double factor) => Color.fromRGBO(
-      ((color.r + (1.0 - color.r) * factor) * 255).round(),
-      ((color.g + (1.0 - color.g) * factor) * 255).round(),
-      ((color.b + (1.0 - color.b) * factor) * 255).round(),
-      1,
-    );
-
-// ---------------------------------------------------------------------------
-// METHOD: _shadeColor
-// ---------------------------------------------------------------------------
-
-/// Shades the given color by darkening it based on the provided factor.
-///
-/// The factor should be between 0 and 1, where 1 results in the darkest shade.
-Color _shadeColor(Color color, double factor) => Color.fromRGBO(
-      (color.r * (1 - factor) * 255).round(),
-      (color.g * (1 - factor) * 255).round(),
-      (color.b * (1 - factor) * 255).round(),
-      1,
-    );

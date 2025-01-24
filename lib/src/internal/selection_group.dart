@@ -137,16 +137,22 @@ class TSelectionGroupList<T> extends StatelessWidget {
       children: [
         if (title != null)
           DefaultTextStyle.merge(
-            style: tw.text.style_sm.semibold.leading_none.copyWith(
-              color: tw.colors.title,
-            ),
+            style: tw.text.style_sm
+                .copyWith(
+                  fontWeight: TFontWeight.semibold,
+                  height: TLineHeight.none,
+                )
+                .copyWith(
+                  color: tw.colors.title,
+                ),
             child: title!,
           ),
         if (description != null)
           Padding(
             padding: TOffset.t8 + TOffset.b24,
             child: DefaultTextStyle.merge(
-              style: tw.text.style_sm.leading_none.copyWith(
+              style: tw.text.style_sm.copyWith(
+                height: TLineHeight.none,
                 color: tw.colors.label,
               ),
               child: description!,
@@ -254,8 +260,10 @@ class TSelectionGroupTile extends StatelessWidget {
     final styledTitle = Padding(
       padding: EdgeInsets.only(left: sep),
       child: DefaultTextStyle.merge(
-        style: tw.text.style_sm.medium.leading_none.copyWith(
+        style: tw.text.style_sm.copyWith(
           color: enabled ? null : tw.colors.disabledTextColor,
+          fontWeight: TFontWeight.medium,
+          height: TLineHeight.none,
         ),
         child: title,
         maxLines: 100,

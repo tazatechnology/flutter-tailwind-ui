@@ -174,7 +174,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
                           mainAxisAlignment: widget.mainAxisAlignment,
                           crossAxisAlignment: widget.crossAxisAlignment,
                           children: [
-                            Text.rich(
+                            SelectableText.rich(
                               spans,
                               style: context.tw.text.style_sm.copyWith(
                                 fontFamily: tw.text.fontFamilyMono,

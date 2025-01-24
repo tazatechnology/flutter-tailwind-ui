@@ -29,12 +29,21 @@ const _colors = {
   'Rose': TColors.rose,
 };
 
+/// Provider for how to copy a color to the clipboard
+final _colorFormatProvider =
+    StateProvider<ColorFormat>((_) => ColorFormat.tailwind);
+
+// =============================================================================
+// ENUM: ColorFormat
+// =============================================================================
+
 /// Enum for the color format
 enum ColorFormat {
   hex,
-  rgb,
   flutter,
   tailwind,
+  argb,
+  rgbo,
 }
 
 extension on ColorFormat {
@@ -42,18 +51,17 @@ extension on ColorFormat {
     switch (this) {
       case ColorFormat.hex:
         return 'HEX';
-      case ColorFormat.rgb:
-        return 'RGB';
+      case ColorFormat.argb:
+        return 'ARGB';
+      case ColorFormat.rgbo:
+        return 'RGBO';
       case ColorFormat.flutter:
-        return '`Color()`';
+        return '`Color`';
       case ColorFormat.tailwind:
         return '`TColors`';
     }
   }
 }
-
-/// Provider for how to copy a color to the clipboard
-final _colorFormatProvider = StateProvider<ColorFormat>((_) => ColorFormat.hex);
 
 // =============================================================================
 // CLASS: ColorsRoute
@@ -64,35 +72,27 @@ class ColorsRoute extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tw = context.tw;
     final colorFormat = ref.watch(_colorFormatProvider);
-
     return AppScrollView.slivers(
       header: const AppRouteHeader(
         section: AppRouteType.designSystem,
         title: 'Colors',
-        description: 'The default color palettes',
+        description: 'The built-in color palettes',
       ),
       slivers: [
         SliverToBoxAdapter(
           child: AppSection(
-            title: 'Design Principles',
-            children: const [
-              TText(
-                "Flutter Tailwind UI includes an expertly-crafted default color palette out-of-the-box that is a great starting point if you don't have your own specific branding in mind. These colors have been ported from the Tailwind CSS default color palettes and are accessible from the `TColors` class.",
-              ),
-            ],
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: AppSection(
-            title: 'Color Palette Reference',
+            title: 'Overview',
             children: [
               const TText(
                 "Flutter Tailwind UI includes an expertly-crafted default color palette out-of-the-box that is a great starting point if you don't have your own specific branding in mind. These colors have been ported from the Tailwind CSS default color palettes and are accessible from the `TColors` class.\n\nUse the reference below to copy any color to your clipboard in the format of your choice.",
               ),
               const Divider(height: TSpace.v48),
               TRadioGroup.card(
+                width: double.infinity,
                 groupValue: colorFormat,
+                axis: tw.screen.is_md ? Axis.horizontal : Axis.vertical,
                 children: [
                   for (final format in ColorFormat.values)
                     TRadioGroupItem(
@@ -154,8 +154,9 @@ class ColorPalette extends StatelessWidget {
 
     final colorNameWidget = Text(
       name,
-      style: tw.text.style_sm.semibold.copyWith(
+      style: tw.text.style_sm.copyWith(
         color: TColors.slate[light ? 900 : 200],
+        fontWeight: TFontWeight.semibold,
       ),
     );
 
@@ -248,11 +249,16 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
     }
     setState(() => copied = true);
     String text = '';
+    final r = (color.r * 255).toInt();
+    final g = (color.g * 255).toInt();
+    final b = (color.b * 255).toInt();
     switch (ref.read(_colorFormatProvider)) {
       case ColorFormat.hex:
         text = color.toHex();
-      case ColorFormat.rgb:
-        text = 'rgb(${color.r}, ${color.g}, ${color.b})';
+      case ColorFormat.argb:
+        text = 'Color.fromARGB(255, $r, $g, $b)';
+      case ColorFormat.rgbo:
+        text = 'Color.fromRGBO($r, $g, $b, 1)';
       case ColorFormat.flutter:
         text = 'Color(0x${color.toHex(leadingHashSign: false)})';
       case ColorFormat.tailwind:
@@ -319,8 +325,9 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
               padding: TOffset.t8 + TOffset.b2,
               child: Text(
                 widget.shade.toString(),
-                style: tw.text.style_xs.medium.copyWith(
+                style: tw.text.style_xs.copyWith(
                   color: light ? TColors.slate.shade900 : Colors.white,
+                  fontWeight: TFontWeight.medium,
                 ),
               ),
             ),

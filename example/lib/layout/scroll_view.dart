@@ -169,18 +169,34 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
   }
 
   // ---------------------------------------------------------------------------
+  // METHOD: didUpdateWidget
+  // ---------------------------------------------------------------------------
+
+  @override
+  void didUpdateWidget(AppScrollView oldWidget) {
+    if (oldWidget != widget) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        discoverSections(context);
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  // ---------------------------------------------------------------------------
   // METHOD: discoverSections
   // ---------------------------------------------------------------------------
 
   void discoverSections(BuildContext context) {
+    // Clear the sections list on each rebuild
+    sections.clear();
+
+    // Recursive function to traverse the widget tree
     void traverse(Element element) {
       final widget = element.widget;
-
       // Look for SectionWidgets with GlobalKeys
       if (widget is AppSection && widget.key is GlobalKey) {
         sections.add(widget);
       }
-
       // Recursively visit child elements
       element.visitChildElements(traverse);
     }

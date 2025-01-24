@@ -105,11 +105,13 @@ class ComponentRouteTIconButton extends StatelessWidget {
           children: const [
             AppPreviewCard(
               title: 'Controller to manage loading state',
+              description: 'Tap the button to see the default loading state.',
               code: _TIconButtonLoadingSource.code,
               child: _TIconButtonLoading(),
             ),
             AppPreviewCard(
               title: 'Custom loading widget',
+              description: 'Tap the button to see the custom loading state.',
               code: _TIconButtonLoadingCustomSource.code,
               child: _TIconButtonLoadingCustom(),
             ),

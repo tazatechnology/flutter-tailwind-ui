@@ -205,7 +205,9 @@ class TBadge extends StatelessWidget {
       case TWidgetSize.md:
       case TWidgetSize.lg:
       case TWidgetSize.xl:
-        return TTextStyle.text_xs.medium;
+        return TTextStyle.text_xs.copyWith(
+          fontWeight: TFontWeight.medium,
+        );
     }
   }
 

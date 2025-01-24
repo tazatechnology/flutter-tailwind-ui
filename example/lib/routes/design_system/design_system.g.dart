@@ -23,58 +23,126 @@ return Column(
 """;
 }
 
-/// Source code for [_TFontSizes]
-class _TFontSizesSource {
+/// Source code for [_TFontSizeExamples]
+class _TFontSizeExamplesSource {
   static const String code = r"""
 final tw = context.tw;
-
-final styles = [
-  tw.text.style_xs,
-  tw.text.style_sm,
-  tw.text.style_md,
-  tw.text.style_lg,
-  tw.text.style_xl,
-  tw.text.style_2xl,
-];
-
-final styleNames = [
-  'tw.text.style_xs',
-  'tw.text.style_sm',
-  'tw.text.style_md',
-  'tw.text.style_lg',
-  'tw.text.style_xl',
-  'tw.text.style_2xl',
-];
-
 return Column(
   crossAxisAlignment: CrossAxisAlignment.start,
+  spacing: TSpace.v32,
   children: [
-    for (var ii = 0; ii < styles.length; ii++) ...[
-      Padding(
-        padding: TOffset.b4,
-        child: Text(
-          styleNames[ii],
-          style: tw.text.style_sm.copyWith(
-            color: tw.colors.label,
-            fontFamily: tw.text.fontFamilyMono,
+    for (final fontSize in TFontSize.values)
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            TFontSize.getName(fontSize),
+            style: tw.text.style_xs.copyWith(
+              color: TColors.sky,
+              fontFamily: tw.text.fontFamilyMono,
+            ),
           ),
-        ),
+          Text(
+            'The quick brown fox jumps over the lazy dog.',
+            style: TextStyle(fontSize: fontSize),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
-      Padding(
-        padding: TOffset.b4,
-        child: Text(
-          'The quick brown fox jumps over the lazy dog.',
-          style: styles[ii],
-        ),
+  ],
+);
+""";
+}
+
+/// Source code for [_TFontWeightExamples]
+class _TFontWeightExamplesSource {
+  static const String code = r"""
+final tw = context.tw;
+return Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  spacing: TSpace.v32,
+  children: [
+    for (final fontWeight in TFontWeight.values)
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            TFontWeight.getName(fontWeight),
+            style: tw.text.style_xs.copyWith(
+              color: TColors.sky,
+              fontFamily: tw.text.fontFamilyMono,
+            ),
+          ),
+          Text(
+            'The quick brown fox jumps over the lazy dog.',
+            style: TextStyle(fontWeight: fontWeight),
+          ),
+        ],
       ),
-      Padding(
-        padding: TOffset.b12,
-        child: Text(
-          'The quick brown fox jumps over the lazy dog.',
-          style: styles[ii].mono(context),
-        ),
+  ],
+);
+""";
+}
+
+/// Source code for [_TLetterSpacingExamples]
+class _TLetterSpacingExamplesSource {
+  static const String code = r"""
+final tw = context.tw;
+return Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  spacing: TSpace.v32,
+  children: [
+    for (final letterSpacing in TLetterSpacing.values)
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            TLetterSpacing.getName(letterSpacing),
+            style: tw.text.style_xs.copyWith(
+              color: TColors.sky,
+              fontFamily: tw.text.fontFamilyMono,
+            ),
+          ),
+          Text(
+            'The quick brown fox jumps over the lazy dog.',
+            style: TextStyle(letterSpacing: letterSpacing),
+          ),
+        ],
       ),
-    ],
+  ],
+);
+""";
+}
+
+/// Source code for [_TLineHeightExamples]
+class _TLineHeightExamplesSource {
+  static const String code = r"""
+final tw = context.tw;
+return Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  spacing: TSpace.v32,
+  children: [
+    for (final lineHeight in TLineHeight.values)
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: TOffset.b4,
+            child: Text(
+              TLineHeight.getName(lineHeight),
+              style: tw.text.style_xs.copyWith(
+                color: TColors.sky,
+                fontFamily: tw.text.fontFamilyMono,
+              ),
+            ),
+          ),
+          Text(
+            "So I started to walk into the water. I won't lie to you boys, I was terrified. But I pressed on, and as I made my way past the breakers a strange calm came over me. I don't know if it was divine intervention or the kinship of all living things but I tell you Jerry at that moment, I was a marine biologist.",
+            style: TextStyle(height: lineHeight),
+          ),
+        ],
+      ),
   ],
 );
 """;

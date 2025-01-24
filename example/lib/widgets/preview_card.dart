@@ -13,6 +13,7 @@ class AppPreviewCard extends StatefulWidget {
     this.title,
     this.alignment = Alignment.center,
     this.description,
+    this.initialShowCode = false,
     super.key,
   });
   final String? title;
@@ -20,15 +21,31 @@ class AppPreviewCard extends StatefulWidget {
   final String code;
   final Widget child;
   final Alignment alignment;
-
+  final bool initialShowCode;
   @override
   State<AppPreviewCard> createState() => _AppPreviewCardState();
 }
 
 class _AppPreviewCardState extends State<AppPreviewCard> {
-  final controllerPreview = WidgetStatesController({WidgetState.selected});
-  final controllerCode = WidgetStatesController();
+  late final WidgetStatesController controllerPreview;
+  late final WidgetStatesController controllerCode;
   bool get showCode => controllerCode.value.selected;
+
+  // ---------------------------------------------------------------------------
+  // METHOD: initState
+  // ---------------------------------------------------------------------------
+
+  @override
+  void initState() {
+    if (widget.initialShowCode) {
+      controllerPreview = WidgetStatesController();
+      controllerCode = WidgetStatesController({WidgetState.selected});
+    } else {
+      controllerPreview = WidgetStatesController({WidgetState.selected});
+      controllerCode = WidgetStatesController();
+    }
+    super.initState();
+  }
 
   // ---------------------------------------------------------------------------
   // METHOD: dispose
@@ -72,7 +89,9 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
             if (widget.title != null)
               TText(
                 widget.title!,
-                style: tw.text.style_sm.semibold,
+                style: tw.text.style_sm.copyWith(
+                  fontWeight: TFontWeight.semibold,
+                ),
               ),
             if (widget.title == null) const Spacer(),
             Container(
@@ -107,7 +126,7 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
             child: TText(
               widget.description!,
               style: tw.text.style_sm.copyWith(
-                height: TTextStyle.text_md.height,
+                height: TLineHeight.normal,
               ),
             ),
           ),

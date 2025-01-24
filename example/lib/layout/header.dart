@@ -61,9 +61,11 @@ class AppRouteHeader extends StatelessWidget {
     } else {
       titleStyle = tw.text.style_3xl;
     }
-    titleStyle = titleStyle.extrabold.tracking_tight.copyWith(
+    titleStyle = titleStyle.copyWith(
       color: tw.colors.title,
       fontFamily: titleMono ? tw.text.fontFamilyMono : tw.text.fontFamily,
+      fontWeight: TFontWeight.extrabold,
+      letterSpacing: TLetterSpacing.tight,
     );
 
     return Column(
@@ -71,7 +73,8 @@ class AppRouteHeader extends StatelessWidget {
       children: [
         Text(
           section.name,
-          style: tw.text.style_sm.semibold.copyWith(
+          style: tw.text.style_sm.copyWith(
+            fontWeight: TFontWeight.semibold,
             color: tw.light ? TColors.sky.shade500 : TColors.sky.shade400,
           ),
         ),
@@ -97,7 +100,9 @@ class AppRouteHeader extends StatelessWidget {
         ),
         TText(
           description,
-          style: tw.text.style_lg.extralight,
+          style: tw.text.style_lg.copyWith(
+            fontWeight: TFontWeight.extralight,
+          ),
         ),
         TSizedBox.y16,
       ],
@@ -152,7 +157,8 @@ class AppSection extends StatelessWidget {
                         Flexible(
                           child: TText(
                             title,
-                            style: tw.text.style_lg.bold.copyWith(
+                            style: tw.text.style_lg.copyWith(
+                              fontWeight: TFontWeight.bold,
                               decoration: states.focused
                                   ? TextDecoration.underline
                                   : TextDecoration.none,

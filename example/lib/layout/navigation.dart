@@ -35,6 +35,23 @@ class _AppNavigationState extends State<AppNavigation> {
       );
     }
 
+    // Design system sections
+    final designSystemSections = {
+      'Colors': {
+        'Colors': AppRouter.colors,
+      },
+      'Spacing': {
+        'Spacing': AppRouter.spacing,
+      },
+      'Typography': {
+        'Font Family': AppRouter.font_family,
+        'Font Size': AppRouter.font_size,
+        'Font Weight': AppRouter.font_weight,
+        'Letter Spacing': AppRouter.letter_spacing,
+        'Line Height': AppRouter.line_height,
+      },
+    };
+
     // Component sections
     final componentSections = {
       'Text': {
@@ -81,22 +98,24 @@ class _AppNavigationState extends State<AppNavigation> {
               ),
             ],
           ),
-          const AppNavigationSection(
+          AppNavigationSection(
             title: 'Design System',
             items: [
-              AppNavigationItem(
-                title: 'Colors',
-                route: AppRouter.colors,
-              ),
-              AppNavigationItem(
-                title: 'Spacing',
-                route: AppRouter.spacing,
-              ),
-              AppNavigationItem(
-                title: 'Typography',
-                route: AppRouter.typography,
-                isLast: true,
-              ),
+              for (final entry in designSystemSections.entries) ...[
+                if (entry.value.entries.length > 1)
+                  AppNavigationSubtitle(
+                    title: entry.key,
+                    padding: TOffset.x16 +
+                        (entry.key == designSystemSections.keys.first
+                            ? TOffset.b8
+                            : TOffset.y8),
+                  ),
+                for (final item in entry.value.entries)
+                  AppNavigationItem(
+                    title: item.key,
+                    route: item.value,
+                  ),
+              ],
             ],
           ),
           AppNavigationSection(
@@ -147,7 +166,8 @@ class AppNavigationSection extends StatelessWidget {
           padding: TOffset.b12 + TOffset.t24,
           child: Text(
             title,
-            style: tw.text.style_sm.semibold.copyWith(
+            style: tw.text.style_sm.copyWith(
+              fontWeight: TFontWeight.semibold,
               color: TColors.slate[tw.light ? 900 : 200],
             ),
           ),
@@ -278,8 +298,10 @@ class AppNavigationSubtitle extends StatelessWidget {
       padding: padding,
       child: SelectableText(
         title,
-        style: tw.text.style_xs.normal.tracking_wider
-            .copyWith(color: TColors.slate.shade400),
+        style: tw.text.style_xs.copyWith(
+          color: TColors.slate.shade400,
+          letterSpacing: TLetterSpacing.wider,
+        ),
       ),
     );
   }

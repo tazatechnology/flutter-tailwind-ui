@@ -82,7 +82,7 @@ class _TTooltipState extends State<TTooltip> {
     final tooltipTheme = TooltipTheme.of(context);
 
     final textStyle = tooltipTheme.textStyle
-        ?.copyWithout(removeColor: true)
+        ?.copyWithout(color: true)
         .merge(widget.textStyle);
 
     if (widget.rich) {

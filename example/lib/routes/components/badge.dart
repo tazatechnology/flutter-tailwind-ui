@@ -592,7 +592,10 @@ class _TBadgeCustomTheme extends StatelessWidget {
         backgroundColor: Colors.black,
         border: Border.all(color: TColors.slate),
         borderRadius: TBorderRadius.rounded_none,
-        textStyle: const TextStyle(color: Colors.white).medium,
+        textStyle: const TextStyle(
+          fontWeight: TFontWeight.medium,
+          color: Colors.white,
+        ),
       ),
       onPressed: () {},
       child: const Text('Badge'),
@@ -631,8 +634,11 @@ class _TBadgeStatefulTheme extends StatelessWidget {
               : TBorderRadius.rounded_none;
         }),
         textStyle: WidgetStateProperty.resolveWith((states) {
-          const style = TextStyle(color: Colors.white);
-          return states.hovered ? style.semibold : style.medium;
+          return TextStyle(
+            color: Colors.white,
+            fontWeight:
+                states.hovered ? TFontWeight.semibold : TFontWeight.medium,
+          );
         }),
       ),
       onPressed: () {},

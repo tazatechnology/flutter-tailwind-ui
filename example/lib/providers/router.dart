@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
-import 'package:flutter_tailwind_ui_app/routes/routes.dart';
+import 'package:flutter_tailwind_ui_app/routes/components/components.dart';
+import 'package:flutter_tailwind_ui_app/routes/design_system/design_system.dart';
+import 'package:flutter_tailwind_ui_app/routes/getting_started/about.dart';
+import 'package:flutter_tailwind_ui_app/routes/getting_started/usage.dart';
 import 'package:go_router/go_router.dart';
 
 /// App router provider
@@ -17,7 +20,17 @@ class AppRouter {
   AppRouter({
     required this.ref,
   }) {
-    final componentMap = <String, Widget>{
+    final designSystemRoutes = <String, Widget>{
+      AppRouter.colors: const ColorsRoute(),
+      AppRouter.spacing: const SpacingRoute(),
+      AppRouter.font_family: const TypographyRouteFontFamily(),
+      AppRouter.font_size: const TypographyRouteFontSize(),
+      AppRouter.font_weight: const TypographyRouteFontWeight(),
+      AppRouter.letter_spacing: const TypographyRouteLetterSpacing(),
+      AppRouter.line_height: const TypographyRouteLineHeight(),
+    };
+
+    final componentRoutes = <String, Widget>{
       AppRouter.badge: const ComponentRouteTBadge(),
       AppRouter.button: const ComponentRouteTButton(),
       AppRouter.card: const ComponentRouteTCard(),
@@ -48,24 +61,15 @@ class AppRouter {
       ),
 
       /// Design System
-      GoRoute(
-        name: colors,
-        path: '/$colors',
-        builder: (context, state) => const ColorsRoute(),
-      ),
-      GoRoute(
-        name: spacing,
-        path: '/$spacing',
-        builder: (context, state) => const SpacingRoute(),
-      ),
-      GoRoute(
-        name: typography,
-        path: '/$typography',
-        builder: (context, state) => const TypographyRoute(),
-      ),
+      for (final t in designSystemRoutes.entries)
+        GoRoute(
+          name: t.key,
+          path: '/${t.key}',
+          builder: (context, state) => t.value,
+        ),
 
       /// Components
-      for (final c in componentMap.entries)
+      for (final c in componentRoutes.entries)
         GoRoute(
           name: c.key,
           path: '/${c.key}',
@@ -102,7 +106,11 @@ class AppRouter {
   /// Design System
   static const String colors = 'colors';
   static const String spacing = 'spacing';
-  static const String typography = 'typography';
+  static const String font_family = 'font-family';
+  static const String font_size = 'font-size';
+  static const String font_weight = 'font-weight';
+  static const String letter_spacing = 'letter-spacing';
+  static const String line_height = 'line-height';
 
   /// Components
   static const String badge = 'badge';

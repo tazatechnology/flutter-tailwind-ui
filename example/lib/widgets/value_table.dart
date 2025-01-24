@@ -11,7 +11,7 @@ class AppValueTable extends ConsumerStatefulWidget {
   const AppValueTable({
     required this.header,
     required this.items,
-    this.height = TSpace.v320,
+    this.height,
     this.itemHeight = TSpace.v40,
     this.nameWidth = TSpace.v208,
     this.valueWidth = TSpace.v112,
@@ -91,9 +91,10 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
               ),
             ),
             child: DefaultTextStyle(
-              style: tw.text.style_sm.semibold.copyWith(
+              style: tw.text.style_sm.copyWith(
                 color:
                     tw.light ? TColors.slate.shade700 : TColors.slate.shade200,
+                fontWeight: TFontWeight.semibold,
               ),
               child: Row(
                 children: [
@@ -169,7 +170,9 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                                 width: widget.valueWidth,
                                 child: Text(
                                   item.value!,
-                                  style: tw.text.style_xs.mono(context),
+                                  style: tw.text.style_xs.copyWith(
+                                    fontFamily: tw.text.fontFamilyMono,
+                                  ),
                                 ),
                               ),
                             if (item.widget != null) item.widget!,

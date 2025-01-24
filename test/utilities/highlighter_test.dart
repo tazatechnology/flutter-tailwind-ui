@@ -80,16 +80,11 @@ void main() {
             brightness: brightness,
           );
           // Parse dummy code
-          final result = THighlighter.parse(
+          final span = THighlighter.parse(
             code: code,
             language: language,
             brightness: brightness,
           );
-          assert(
-            result is TextSpan,
-            'Returned span is not a TextSpan for language: $language',
-          );
-          final span = result as TextSpan;
           final children = span.children?.length ?? 0;
           assert(
             children > 0,
@@ -102,7 +97,7 @@ void main() {
             brightness: brightness,
           );
           assert(
-            (resultEmpty as TextSpan).children?.isEmpty ?? false,
+            resultEmpty.children?.isEmpty ?? false,
             'Expected only no span for empty code: $language',
           );
         }

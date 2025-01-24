@@ -112,11 +112,13 @@ class ComponentRouteTSplitButton extends StatelessWidget {
           children: const [
             AppPreviewCard(
               title: 'Controller to manage loading state',
+              description: 'Tap the button to see the default loading state.',
               code: _TSplitButtonLoadingSource.code,
               child: _TSplitButtonLoading(),
             ),
             AppPreviewCard(
               title: 'Custom loading widget',
+              description: 'Tap the button to see the custom loading state.',
               code: _TSplitButtonLoadingCustomSource.code,
               child: _TSplitButtonLoadingCustom(),
             ),
