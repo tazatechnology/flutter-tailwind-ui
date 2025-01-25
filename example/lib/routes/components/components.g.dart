@@ -2476,3 +2476,166 @@ class _TSplitButtonLoadingCustomState
 }
 """;
 }
+
+/// Source code for [_TTextBold]
+class _TTextBoldSource {
+  static const String code = r"""
+const TText(
+  'This **text** and this __text__ is bold.',
+)
+""";
+}
+
+/// Source code for [_TTextItalic]
+class _TTextItalicSource {
+  static const String code = r"""
+const TText(
+  'This *text* and this _text_ is italic.',
+)
+""";
+}
+
+/// Source code for [_TTextMonospace]
+class _TTextMonospaceSource {
+  static const String code = r"""
+const TText(
+  'This ``text`` is monospaced.',
+)
+""";
+}
+
+/// Source code for [_TTextCode]
+class _TTextCodeSource {
+  static const String code = r"""
+const TText(
+  'This `text` is highlighted code.',
+)
+""";
+}
+
+/// Source code for [_TTextLink]
+class _TTextLinkSource {
+  static const String code = r"""
+const Column(
+  children: [
+    TText(
+      'This is a [link](https://pub.dev/packages/flutter_tailwind_ui) to the pub.dev page this project.',
+    ),
+    TText(
+      'This is a [link](/font-family) to an internal route of this app.',
+    ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TTextBoldItalic]
+class _TTextBoldItalicSource {
+  static const String code = r"""
+const Column(
+  children: [
+    TText(
+      'This _**text**_ is bold and italic - order does not matter.',
+    ),
+    TText(
+      'This **_text_** is bold and italic - order does not matter.',
+    ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TTextFormattedCode]
+class _TTextFormattedCodeSource {
+  static const String code = r"""
+const Column(
+  children: [
+    TText(
+      'This **`text`** is bold code - order does not matter.',
+    ),
+    TText(
+      'This `**text**` is bold code - order does not matter.',
+    ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TTextFormattedLink]
+class _TTextFormattedLinkSource {
+  static const String code = r"""
+const Column(
+  children: [
+    TText(
+      'This **[text](https://pub.dev)** is a bold link - order does not matter.',
+    ),
+    TText(
+      'This [**text**](https://pub.dev) is a bold link - order does not matter.',
+    ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TTextCustomStyle]
+class _TTextCustomStyleSource {
+  static const String code = r"""
+TText(
+  'This a custom formatter to create <red>colored</red> text',
+  formatters: [
+    TRichFormatter(
+      regex: RegExp(r'<red>(.*?)<\/red>'),
+      style: const TextStyle(color: TColors.red),
+    ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TTextCustomStyleBuilder]
+class _TTextCustomStyleBuilderSource {
+  static const String code = r"""
+TText(
+  'This a custom formatter to create <red>colored</red> text',
+  formatters: [
+    TRichFormatter(
+      regex: RegExp(r'<red>(.*?)<\/red>'),
+      builder: (match) => TextSpan(
+        text: match.textMatch,
+        style: const TextStyle(color: TColors.red),
+      ),
+    ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TTextCustomStyleBuilderAdvanced]
+class _TTextCustomStyleBuilderAdvancedSource {
+  static const String code = r"""
+TText(
+  'This a custom formatter to add an inline <my-button>action</my-button> span',
+  formatters: [
+    TRichFormatter(
+      regex: RegExp(r'<my-button>(.*?)<\/my-button>'),
+      builder: (match) {
+        return WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: TButton.outlined(
+            size: TWidgetSize.xs,
+            tooltip: 'Click me!',
+            child: Text(
+              match.textMatch,
+              style: match.context.tw.text.style_sm.copyWith(
+                fontWeight: TFontWeight.normal,
+              ),
+            ),
+            onPressed: () {},
+          ),
+        );
+      },
+    ),
+  ],
+)
+""";
+}

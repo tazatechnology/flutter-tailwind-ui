@@ -217,7 +217,7 @@ abstract class TLetterSpacing {
 /// https://tailwindcss.com/docs/line-height
 abstract class TLineHeight {
   /// Equivalent to Tailwind line height: `leading-none` (1)
-  static const double none = 1;
+  static const double none = kTextHeightNone;
 
   /// Equivalent to Tailwind line height: `leading-tight` (1.25)
   static const double tight = 1.25;

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:url_launcher/link.dart';
 
+final _captureGroupsRegExp = RegExp(r'(?<!\\)\((?!\?:)(.*?)\)');
+
 // =============================================================================
 // CLASS: TRichParser
 // =============================================================================
@@ -10,12 +12,10 @@ import 'package:url_launcher/link.dart';
 /// Text
 class TRichParser {
   /// Text
-  TRichParser({
-    this.builders,
-  });
+  TRichParser({this.formatters});
 
   /// Text
-  final List<TRichBuilder>? builders;
+  final List<TRichFormatter>? formatters;
 
   // ---------------------------------------------------------------------------
   // METHOD: parse
@@ -28,29 +28,39 @@ class TRichParser {
     TextStyle? style,
   }) {
     /// Start with the globally defined builders in the Tailwind theme
-    final effectiveBuilders = context.tw.text.richBuilders.toList();
+    final effectiveFormatters = context.tw.text.richFormatters.toList();
 
     /// Get the effective extensions by merging the global and local builders
-    if (builders != null) {
-      for (final ext in builders ?? <TRichBuilder>[]) {
-        final index = effectiveBuilders.indexWhere((e) => e.regex == ext.regex);
+    if (formatters != null) {
+      for (final ext in formatters ?? <TRichFormatter>[]) {
+        final index =
+            effectiveFormatters.indexWhere((e) => e.regex == ext.regex);
         if (index != -1) {
-          effectiveBuilders[index] = ext;
+          effectiveFormatters[index] = ext;
         } else {
-          effectiveBuilders.add(ext);
+          effectiveFormatters.add(ext);
         }
       }
     }
 
     /// Create a regular expression to match all the patterns
-    final patterns = effectiveBuilders.map((e) => e.regex.pattern);
-    final regex = RegExp('(${patterns.join('|')})');
+    final patterns = effectiveFormatters.map((e) => e.regex.pattern);
+    final regex = RegExp('(?:${patterns.join('|')})');
+
+    /// Compute the capture group offset once
+    final captureGroupOffsets = <int>[];
+    for (var ii = 0; ii < effectiveFormatters.length; ii++) {
+      captureGroupOffsets.add(
+        effectiveFormatters.take(ii).fold(0, (acc, e) => acc + e.captureGroups),
+      );
+    }
 
     return TextSpan(
       children: _parseMatch(
         context: context,
         regex: regex,
-        builders: effectiveBuilders,
+        formatters: effectiveFormatters,
+        captureGroupOffsets: captureGroupOffsets,
         text: text,
         currentStyle: style,
       ),
@@ -64,7 +74,8 @@ class TRichParser {
   List<InlineSpan> _parseMatch({
     required BuildContext context,
     required RegExp regex,
-    required List<TRichBuilder> builders,
+    required List<TRichFormatter> formatters,
+    required List<int> captureGroupOffsets,
     required String text,
     TextStyle? currentStyle,
   }) {
@@ -76,19 +87,18 @@ class TRichParser {
     text.splitMapJoin(
       regex,
       onMatch: (Match match) {
-        for (var ii = 0; ii < builders.length; ii++) {
-          final matchIndex = (2 + ii).clamp(0, match.groupCount);
-          final currentMatch = match.group(matchIndex);
+        for (var ii = 0; ii < formatters.length; ii++) {
+          final currentMatch = match.group(1 + captureGroupOffsets[ii]);
           if (currentMatch != null) {
-            if (builders[ii].builder != null) {
+            if (formatters[ii].builder != null) {
               spans.add(
-                builders[ii].builder!(
-                  TRichBuilderMatch(
+                formatters[ii].builder!(
+                  TRichFormatterMatch(
                     context: context,
-                    builders: builders,
+                    formatters: formatters,
                     text: text,
                     baseStyle: style,
-                    builderMatch: builders[ii],
+                    formatterMatch: formatters[ii],
                     textMatch: currentMatch,
                   ),
                 ),
@@ -97,10 +107,11 @@ class TRichParser {
               spans.addAll(
                 _parseMatch(
                   regex: regex,
-                  builders: builders,
+                  formatters: formatters,
+                  captureGroupOffsets: captureGroupOffsets,
                   text: currentMatch,
                   context: context,
-                  currentStyle: style.merge(builders[ii].style),
+                  currentStyle: style.merge(formatters[ii].style),
                 ),
               );
             }
@@ -127,12 +138,12 @@ class TRichParser {
 // =============================================================================
 
 /// A class that represents the context of a text match.
-class TRichBuilderMatch {
-  /// Creates a [TRichBuilderMatch] object.
-  const TRichBuilderMatch({
+class TRichFormatterMatch {
+  /// Creates a [TRichFormatterMatch] object.
+  const TRichFormatterMatch({
     required this.context,
-    required this.builders,
-    required this.builderMatch,
+    required this.formatters,
+    required this.formatterMatch,
     required this.text,
     required this.textMatch,
     required this.baseStyle,
@@ -142,10 +153,10 @@ class TRichBuilderMatch {
   final BuildContext context;
 
   /// The composed extensions defined by the wrapping [TText] widget.
-  final List<TRichBuilder> builders;
+  final List<TRichFormatter> formatters;
 
   /// The custom extensions defined by the wrapping [TText] widget.
-  final TRichBuilder builderMatch;
+  final TRichFormatter formatterMatch;
 
   /// The entire text of the wrapping [TText] widget.
   final String text;
@@ -158,75 +169,81 @@ class TRichBuilderMatch {
 }
 
 // =============================================================================
-// CLASS: TRichBuilder
+// CLASS: TRichFormatter
 // =============================================================================
 
 /// A class that represents a custom extension for [TText]
-class TRichBuilder {
-  /// Creates a [TRichBuilder] object.
-  const TRichBuilder({
+class TRichFormatter {
+  /// Creates a [TRichFormatter] object.
+  TRichFormatter({
     required this.regex,
     this.builder,
     this.style,
-  });
+  }) {
+    // Count the number of capturing groups in the regular expression
+    captureGroups = _captureGroupsRegExp
+        .allMatches(regex.pattern)
+        .map((match) => match.group(1) ?? '')
+        .length;
+  }
 
   /// The regular expression to match custom patterns in the text.
   final RegExp regex;
 
   /// A function that builds a [InlineSpan] for the given match.
-  final InlineSpan Function(TRichBuilderMatch details)? builder;
+  final InlineSpan Function(TRichFormatterMatch details)? builder;
 
   /// The style to use for the text.
   final TextStyle? style;
 
-  /// The default extensions for the [TRichParser.parse] method.
-  static List<TRichBuilder> markdown = List.unmodifiable([
-    /// Bold: **text**
-    TRichBuilder(
+  /// The total number of capturing groups in the regular expression.
+  late final int captureGroups;
+
+  /// The default formatters for the [TRichParser.parse] method.
+  static List<TRichFormatter> defaultFormatters = List.unmodifiable([
+    // Bold: **text**
+    TRichFormatter(
       regex: RegExp(r'\*\*([^*]+)\*\*'),
       style: const TextStyle(fontWeight: TFontWeight.bold),
     ),
-    TRichBuilder(
+    TRichFormatter(
       regex: RegExp('__([^_]+)__'),
       style: const TextStyle(fontWeight: TFontWeight.bold),
     ),
-
-    /// Italic: _text_
-    TRichBuilder(
+    // Italic: _text_
+    TRichFormatter(
       regex: RegExp('_([^_]+)_'),
       style: const TextStyle(fontStyle: FontStyle.italic),
     ),
-    TRichBuilder(
+    TRichFormatter(
       regex: RegExp(r'\*([^*]+)\*'),
       style: const TextStyle(fontStyle: FontStyle.italic),
     ),
-
-    /// Monospace: ``text``
-    TRichBuilder(
+    // Monospace: ``text``
+    TRichFormatter(
       regex: RegExp('``([^`]+)``'),
       // Use a builder so that context can be used to look up the monospace font
-      // It is possible for a use to define a custom monospace font in the theme
-      builder: (details) {
-        return TRichParser(builders: details.builders).parse(
-          context: details.context,
-          text: details.textMatch,
-          style: details.baseStyle.copyWith(
-            fontFamily: details.context.tw.text.fontFamilyMono,
+      builder: (match) {
+        return TRichParser(formatters: match.formatters).parse(
+          context: match.context,
+          text: match.textMatch,
+          style: match.baseStyle.copyWith(
+            fontFamily: match.context.tw.text.fontFamilyMono,
             height: TLineHeight.normal,
           ),
         );
       },
     ),
-
-    /// Code: `text`
-    TRichBuilder(
+    // Code: `text`
+    TRichFormatter(
       regex: RegExp('`([^`]+)`'),
-      builder: (details) {
-        final context = details.context;
+      builder: (match) {
+        final context = match.context;
         final tw = context.tw;
         final backgroundColor =
             tw.light ? const Color(0xfff5f5f5) : const Color(0xff333333);
         return WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
           child: Container(
             padding: TOffset.x4,
             decoration: BoxDecoration(
@@ -235,12 +252,12 @@ class TRichBuilder {
             ),
             // Pass to another TRichParser to parse the text inside the code block
             child: Text.rich(
-              TRichParser(builders: details.builders).parse(
-                context: details.context,
-                text: details.textMatch,
-                style: details.baseStyle.copyWith(
+              TRichParser(formatters: match.formatters).parse(
+                context: match.context,
+                text: match.textMatch,
+                style: match.baseStyle.copyWith(
                   fontFamily: tw.text.fontFamilyMono,
-                  height: 1.5,
+                  height: TLineHeight.none,
                 ),
               ),
               textScaler: const TextScaler.linear(0.85),
@@ -249,21 +266,19 @@ class TRichBuilder {
         );
       },
     ),
-
-    /// Link: [text](url)
-    TRichBuilder(
+    // Link: [text](url)
+    TRichFormatter(
       regex: RegExp(r'\[([^\]]+)\]\(([^)]+)\)'),
-      builder: (details) {
-        final tw = details.context.tw;
-        final linkColor = tw.light ? TColors.sky : TColors.sky.shade400;
+      builder: (match) {
+        final tw = match.context.tw;
         // Create a regular expression to match for the URL
         final urlRegex = RegExp(
-          r'\[' + RegExp.escape(details.textMatch) + r'\]\(([^)]+)\)',
+          r'\[' + RegExp.escape(match.textMatch) + r'\]\(([^)]+)\)',
         );
-        final match = urlRegex.firstMatch(details.text);
+        final urlMatch = urlRegex.firstMatch(match.text);
         Uri? uri;
-        if (match != null) {
-          uri = Uri.parse(match.group(1)!);
+        if (urlMatch != null) {
+          uri = Uri.parse(urlMatch.group(1)!);
         }
         return WidgetSpan(
           child: Link(
@@ -274,12 +289,12 @@ class TRichBuilder {
                 onTap: followLink,
                 // Pass to another TRichParser to parse the text inside the link
                 child: Text.rich(
-                  TRichParser(builders: details.builders).parse(
-                    context: details.context,
-                    text: details.textMatch,
-                    style: details.baseStyle.copyWith(
-                      color: linkColor,
-                      height: 0,
+                  TRichParser(formatters: match.formatters).parse(
+                    context: match.context,
+                    text: match.textMatch,
+                    style: match.baseStyle.copyWith(
+                      color: tw.colors.link,
+                      height: TLineHeight.none,
                     ),
                   ),
                 ),

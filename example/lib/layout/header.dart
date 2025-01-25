@@ -139,6 +139,7 @@ class AppSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final tw = context.tw;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: TOffset.y16,

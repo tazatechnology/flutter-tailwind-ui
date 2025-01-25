@@ -168,14 +168,18 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                               Container(
                                 alignment: widget.valueAlignment,
                                 width: widget.valueWidth,
-                                child: Text(
+                                child: TText(
                                   item.value!,
                                   style: tw.text.style_xs.copyWith(
                                     fontFamily: tw.text.fontFamilyMono,
                                   ),
                                 ),
                               ),
-                            if (item.widget != null) item.widget!,
+                            if (item.widget != null)
+                              DefaultTextStyle.merge(
+                                style: tw.text.style_xs,
+                                child: item.widget!,
+                              ),
                           ],
                         ),
                       );
@@ -204,7 +208,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
 // =============================================================================
 
 class AppValueTableItem {
-  AppValueTableItem({
+  const AppValueTableItem({
     required this.name,
     this.value,
     this.widget,

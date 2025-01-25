@@ -13,7 +13,8 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 /// The supported markdown elements are:
 /// - Bold: `**text**` or `__text__`
 /// - Italic: `_text_` or `*text*`
-/// - Code: `` `text` ``
+/// - Monospace: `_text_`
+/// - Code: ``text``
 /// - Link: `[text](url)`
 ///
 /// For more details on the supported markdown elements:
@@ -38,7 +39,7 @@ class TText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-    this.builders,
+    this.formatters,
     super.key,
   });
 
@@ -86,8 +87,8 @@ class TText extends StatelessWidget {
   /// The color to use when painting the selection.
   final Color? selectionColor;
 
-  /// Custom builders to pass to the [TRichParser].
-  final List<TRichBuilder>? builders;
+  /// Custom formatters to pass to the [TRichParser].
+  final List<TRichFormatter>? formatters;
 
   // ---------------------------------------------------------------------------
   // METHOD: build
@@ -96,7 +97,7 @@ class TText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text.rich(
-      TRichParser(builders: builders).parse(
+      TRichParser(formatters: formatters).parse(
         context: context,
         text: data,
         style: style,

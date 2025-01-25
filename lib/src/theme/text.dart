@@ -29,7 +29,7 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
     TextStyle? style_7xl,
     TextStyle? style_8xl,
     TextStyle? style_9xl,
-    List<TRichBuilder>? richBuilders,
+    List<TRichFormatter>? richFormatters,
   }) {
     this.style_xs = TTextStyle.text_xs.merge(style_xs);
     this.style_sm = TTextStyle.text_sm.merge(style_sm);
@@ -44,7 +44,8 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
     this.style_7xl = TTextStyle.text_7xl.merge(style_7xl);
     this.style_8xl = TTextStyle.text_8xl.merge(style_8xl);
     this.style_9xl = TTextStyle.text_9xl.merge(style_9xl);
-    this.richBuilders = richBuilders ?? TRichBuilder.markdown.toList();
+    this.richFormatters =
+        richFormatters ?? TRichFormatter.defaultFormatters.toList();
   }
 
   /// The default font family
@@ -133,8 +134,8 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
   /// If not defined, will fallback to [TTextStyle.text_9xl]
   late final TextStyle style_9xl;
 
-  /// The default [TRichBuilder] extensions for rich text parsing
-  late final List<TRichBuilder> richBuilders;
+  /// The default [TRichFormatter] extensions for rich text parsing
+  late final List<TRichFormatter> richFormatters;
 
   // ---------------------------------------------------------------------------
   // METHOD: copyWith
@@ -157,7 +158,7 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
     TextStyle? style_7xl,
     TextStyle? style_8xl,
     TextStyle? style_9xl,
-    List<TRichBuilder>? richBuilders,
+    List<TRichFormatter>? richFormatters,
   }) {
     return TailwindTextTheme(
       fontFamily: fontFamily ?? this.fontFamily,
@@ -175,7 +176,7 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
       style_7xl: style_7xl ?? this.style_7xl,
       style_8xl: style_8xl ?? this.style_8xl,
       style_9xl: style_9xl ?? this.style_9xl,
-      richBuilders: richBuilders ?? this.richBuilders,
+      richFormatters: richFormatters ?? this.richFormatters,
     );
   }
 
@@ -207,7 +208,7 @@ class TailwindTextTheme extends ThemeExtension<TailwindTextTheme> {
       style_7xl: TextStyle.lerp(style_7xl, other.style_7xl, t) ?? style_7xl,
       style_8xl: TextStyle.lerp(style_8xl, other.style_8xl, t) ?? style_8xl,
       style_9xl: TextStyle.lerp(style_9xl, other.style_9xl, t) ?? style_9xl,
-      richBuilders: other.richBuilders,
+      richFormatters: other.richFormatters,
     );
   }
 }
