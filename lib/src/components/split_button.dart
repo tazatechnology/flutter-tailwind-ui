@@ -32,6 +32,7 @@ class TSplitButton extends StatelessWidget {
     this.onHover,
     this.onHoverLeading,
     this.onHoverTrailing,
+    this.selectableText = false,
   }) : variant = TStyleVariant.basic;
 
   /// Creates an outlined [TSplitButton] button ([TStyleVariant.outlined]).
@@ -58,6 +59,7 @@ class TSplitButton extends StatelessWidget {
     this.onHover,
     this.onHoverLeading,
     this.onHoverTrailing,
+    this.selectableText = false,
   }) : variant = TStyleVariant.outlined;
 
   /// Creates a filled [TSplitButton] button ([TStyleVariant.filled]).
@@ -84,6 +86,7 @@ class TSplitButton extends StatelessWidget {
     this.onHover,
     this.onHoverLeading,
     this.onHoverTrailing,
+    this.selectableText = false,
   }) : variant = TStyleVariant.filled;
 
   /// Creates a soft [TSplitButton] button ([TStyleVariant.soft]).
@@ -110,6 +113,7 @@ class TSplitButton extends StatelessWidget {
     this.onHover,
     this.onHoverLeading,
     this.onHoverTrailing,
+    this.selectableText = false,
   }) : variant = TStyleVariant.soft;
 
   /// Creates a raw [TSplitButton] button.
@@ -137,6 +141,7 @@ class TSplitButton extends StatelessWidget {
     this.onHover,
     this.onHoverLeading,
     this.onHoverTrailing,
+    this.selectableText = false,
   });
 
   /// The variant of the button.
@@ -210,6 +215,9 @@ class TSplitButton extends StatelessWidget {
 
   /// Called when a pointer enters or exits the trailing area.
   final ValueChanged<bool>? onHoverTrailing;
+
+  /// Whether or not the button text is selectable, by default it is not.
+  final bool selectableText;
 
   // ---------------------------------------------------------------------------
   // METHOD: _effectiveBorderRadius
@@ -394,6 +402,7 @@ class TSplitButton extends StatelessWidget {
             color: color,
             loading: loading,
             tooltip: tooltip,
+            selectableText: selectableText,
             onPressed: onPressed,
             onHover: onHover,
             controller: controller,

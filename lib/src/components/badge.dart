@@ -26,6 +26,7 @@ class TBadge extends StatelessWidget {
     this.onPressedLeading,
     this.onPressedTrailing,
     this.onHover,
+    this.selectableText = false,
     super.key,
   }) : variant = TStyleVariant.basic;
 
@@ -47,6 +48,7 @@ class TBadge extends StatelessWidget {
     this.onPressedLeading,
     this.onPressedTrailing,
     this.onHover,
+    this.selectableText = false,
     super.key,
   }) : variant = TStyleVariant.outlined;
 
@@ -68,6 +70,7 @@ class TBadge extends StatelessWidget {
     this.onPressedLeading,
     this.onPressedTrailing,
     this.onHover,
+    this.selectableText = false,
     super.key,
   }) : variant = TStyleVariant.filled;
 
@@ -89,6 +92,7 @@ class TBadge extends StatelessWidget {
     this.onPressedLeading,
     this.onPressedTrailing,
     this.onHover,
+    this.selectableText = false,
     super.key,
   }) : variant = TStyleVariant.soft;
 
@@ -111,6 +115,7 @@ class TBadge extends StatelessWidget {
     this.onPressedLeading,
     this.onPressedTrailing,
     this.onHover,
+    this.selectableText = false,
     super.key,
   });
 
@@ -172,6 +177,9 @@ class TBadge extends StatelessWidget {
 
   /// Called when a pointer enters or exits the response area.
   final ValueChanged<bool>? onHover;
+
+  /// Whether or not the badge text is selectable, by default it is not.
+  final bool selectableText;
 
   // ---------------------------------------------------------------------------
   // METHOD: getDefaultHeight
@@ -289,7 +297,7 @@ class TBadge extends StatelessWidget {
       onHover: onHover,
       leading: leading,
       trailing: trailing,
-      child: SelectionContainer.disabled(child: child),
+      child: selectableText ? child : SelectionContainer.disabled(child: child),
     );
   }
 }

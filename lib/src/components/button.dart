@@ -23,6 +23,7 @@ class TButton extends StatelessWidget {
     this.onPressed,
     this.onHover,
     this.tooltip,
+    this.selectableText = false,
   }) : variant = TStyleVariant.basic;
 
   /// Creates an outlined [TButton] button ([TStyleVariant.outlined]).
@@ -40,6 +41,7 @@ class TButton extends StatelessWidget {
     this.onPressed,
     this.onHover,
     this.tooltip,
+    this.selectableText = false,
   }) : variant = TStyleVariant.outlined;
 
   /// Creates a filled [TButton] button ([TStyleVariant.filled]).
@@ -57,6 +59,7 @@ class TButton extends StatelessWidget {
     this.onPressed,
     this.onHover,
     this.tooltip,
+    this.selectableText = false,
   }) : variant = TStyleVariant.filled;
 
   /// Creates a soft [TButton] button ([TStyleVariant.soft]).
@@ -74,6 +77,7 @@ class TButton extends StatelessWidget {
     this.onPressed,
     this.onHover,
     this.tooltip,
+    this.selectableText = false,
   }) : variant = TStyleVariant.soft;
 
   /// Creates a raw [TButton] button.
@@ -92,6 +96,7 @@ class TButton extends StatelessWidget {
     this.onPressed,
     this.onHover,
     this.tooltip,
+    this.selectableText = false,
   });
 
   /// The variant of the button.
@@ -136,6 +141,9 @@ class TButton extends StatelessWidget {
   ///
   /// Rendered using the [TTooltip] widget and supports rich text formatting.
   final String? tooltip;
+
+  /// Whether or not the button text is selectable, by default it is not.
+  final bool selectableText;
 
   // ---------------------------------------------------------------------------
   // METHOD: getDefaultHeight
@@ -249,7 +257,7 @@ class TButton extends StatelessWidget {
       loading: loading,
       onTap: onPressed,
       onHover: onHover,
-      child: SelectionContainer.disabled(child: child),
+      child: selectableText ? child : SelectionContainer.disabled(child: child),
     );
   }
 }

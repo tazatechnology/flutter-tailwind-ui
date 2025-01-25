@@ -111,16 +111,15 @@ class ComponentRouteTText extends StatelessWidget {
           children: const [
             AppPreviewCard(
               title: 'Using Text Style',
+              description:
+                  'The easiest way to customize the format of the span is to use the `style` argument.',
               code: _TTextCustomStyleSource.code,
               child: _TTextCustomStyle(),
             ),
             AppPreviewCard(
               title: 'Using a Builder',
-              code: _TTextCustomStyleBuilderSource.code,
-              child: _TTextCustomStyleBuilder(),
-            ),
-            AppPreviewCard(
-              title: 'Using a Builder (Advanced)',
+              description:
+                  'For greater control, you can use the `builder` argument to create a custom `InlineSpan`. The `builder` can create complex spans that are more than just styled text.',
               code: _TTextCustomStyleBuilderAdvancedSource.code,
               child: _TTextCustomStyleBuilderAdvanced(),
             ),
@@ -310,31 +309,6 @@ class _TTextCustomStyle extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TTextCustomStyleBuilder
-// =============================================================================
-
-@GenerateSource()
-class _TTextCustomStyleBuilder extends StatelessWidget {
-  const _TTextCustomStyleBuilder();
-
-  @override
-  Widget build(BuildContext context) {
-    return TText(
-      'This a custom formatter to create <red>colored</red> text',
-      formatters: [
-        TRichFormatter(
-          regex: RegExp(r'<red>(.*?)<\/red>'),
-          builder: (match) => TextSpan(
-            text: match.textMatch,
-            style: const TextStyle(color: TColors.red),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// =============================================================================
 // CLASS: _TTextCustomStyleBuilderAdvanced
 // =============================================================================
 
@@ -354,13 +328,23 @@ class _TTextCustomStyleBuilderAdvanced extends StatelessWidget {
               alignment: PlaceholderAlignment.middle,
               child: TButton.outlined(
                 size: TWidgetSize.xs,
-                tooltip: 'Click me!',
-                child: Text(
-                  match.textMatch,
-                  style: match.context.tw.text.style_sm.copyWith(
-                    fontWeight: TFontWeight.normal,
+                selectableText: true,
+                tooltip: 'Click Me',
+                theme: TStyleTheme(
+                  animationDuration: const Duration(milliseconds: 100),
+                  backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                  borderRadius: WidgetStateProperty.resolveWith((states) {
+                    if (states.hovered) {
+                      return TBorderRadius.rounded_full;
+                    } else {
+                      return TBorderRadius.rounded_md;
+                    }
+                  }),
+                  textStyle: WidgetStateProperty.all(
+                    const TextStyle(color: TColors.sky),
                   ),
                 ),
+                child: Text(match.textMatch),
                 onPressed: () {},
               ),
             );

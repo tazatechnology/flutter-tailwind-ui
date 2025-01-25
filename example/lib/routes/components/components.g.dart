@@ -2592,24 +2592,6 @@ TText(
 """;
 }
 
-/// Source code for [_TTextCustomStyleBuilder]
-class _TTextCustomStyleBuilderSource {
-  static const String code = r"""
-TText(
-  'This a custom formatter to create <red>colored</red> text',
-  formatters: [
-    TRichFormatter(
-      regex: RegExp(r'<red>(.*?)<\/red>'),
-      builder: (match) => TextSpan(
-        text: match.textMatch,
-        style: const TextStyle(color: TColors.red),
-      ),
-    ),
-  ],
-)
-""";
-}
-
 /// Source code for [_TTextCustomStyleBuilderAdvanced]
 class _TTextCustomStyleBuilderAdvancedSource {
   static const String code = r"""
@@ -2623,13 +2605,23 @@ TText(
           alignment: PlaceholderAlignment.middle,
           child: TButton.outlined(
             size: TWidgetSize.xs,
-            tooltip: 'Click me!',
-            child: Text(
-              match.textMatch,
-              style: match.context.tw.text.style_sm.copyWith(
-                fontWeight: TFontWeight.normal,
+            selectableText: true,
+            tooltip: 'Click Me',
+            theme: TStyleTheme(
+              animationDuration: const Duration(milliseconds: 100),
+              backgroundColor: WidgetStateProperty.all(Colors.transparent),
+              borderRadius: WidgetStateProperty.resolveWith((states) {
+                if (states.hovered) {
+                  return TBorderRadius.rounded_full;
+                } else {
+                  return TBorderRadius.rounded_md;
+                }
+              }),
+              textStyle: WidgetStateProperty.all(
+                const TextStyle(color: TColors.sky),
               ),
             ),
+            child: Text(match.textMatch),
             onPressed: () {},
           ),
         );

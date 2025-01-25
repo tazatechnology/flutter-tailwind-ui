@@ -242,26 +242,42 @@ class TRichFormatter {
         final tw = context.tw;
         final backgroundColor =
             tw.light ? const Color(0xfff5f5f5) : const Color(0xff333333);
+        final fontSize = match.baseStyle.fontSize ?? TFontSize.text_md;
+        final codeSpan = TRichParser(formatters: match.formatters).parse(
+          context: match.context,
+          text: match.textMatch,
+          style: match.baseStyle.copyWith(
+            fontSize: fontSize,
+            fontFamily: tw.text.fontFamilyMono,
+            height: TLineHeight.none,
+          ),
+        );
+
         return WidgetSpan(
           alignment: PlaceholderAlignment.middle,
-          child: Container(
-            padding: TOffset.x4,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: TBorderRadius.rounded,
-            ),
-            // Pass to another TRichParser to parse the text inside the code block
-            child: Text.rich(
-              TRichParser(formatters: match.formatters).parse(
-                context: match.context,
-                text: match.textMatch,
-                style: match.baseStyle.copyWith(
-                  fontFamily: tw.text.fontFamilyMono,
-                  height: TLineHeight.none,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                padding: TOffset.x2,
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: TBorderRadius.rounded,
+                ),
+                // Hidden span to align span with surrounding text
+                child: Text.rich(
+                  codeSpan,
+                  style: const TextStyle(color: Colors.transparent),
                 ),
               ),
-              textScaler: const TextScaler.linear(0.85),
-            ),
+              // Overlay the formatted code span with smaller font size
+              SelectionContainer.disabled(
+                child: Text.rich(
+                  codeSpan,
+                  textScaler: const TextScaler.linear(0.85),
+                ),
+              ),
+            ],
           ),
         );
       },
