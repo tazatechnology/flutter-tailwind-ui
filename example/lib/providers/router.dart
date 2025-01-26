@@ -23,6 +23,7 @@ class AppRouter {
     final designSystemRoutes = <String, Widget>{
       AppRouter.colors: const ColorsRoute(),
       AppRouter.spacing: const SpacingRoute(),
+      AppRouter.border_radius: const BorderRadiusRoute(),
       AppRouter.font_family: const TypographyRouteFontFamily(),
       AppRouter.font_size: const TypographyRouteFontSize(),
       AppRouter.font_weight: const TypographyRouteFontWeight(),
@@ -106,6 +107,7 @@ class AppRouter {
   /// Design System
   static const String colors = 'colors';
   static const String spacing = 'spacing';
+  static const String border_radius = 'border-radius';
   static const String font_family = 'font-family';
   static const String font_size = 'font-size';
   static const String font_weight = 'font-weight';

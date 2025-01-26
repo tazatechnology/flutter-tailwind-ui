@@ -309,7 +309,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
                   color: light ? Colors.black12 : Colors.white24,
                   width: 0.5,
                 ),
-                borderRadius: TBorderRadius.rounded,
+                borderRadius: TBorderRadius.rounded_sm,
               ),
               constraints: const BoxConstraints(
                 minWidth: TSpace.v40,

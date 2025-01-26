@@ -262,7 +262,7 @@ class TRichFormatter {
                 padding: TOffset.x2,
                 decoration: BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: TBorderRadius.rounded,
+                  borderRadius: TBorderRadius.rounded_sm,
                 ),
                 // Hidden span to align span with surrounding text
                 child: Text.rich(

@@ -202,12 +202,14 @@ class _ScaffoldHeader extends ConsumerWidget {
                       target: LinkTarget.blank,
                       builder: (context, followLink) {
                         return TBadge.soft(
+                          size: TWidgetSize.sm,
                           color: TColors.slate,
-                          baseTextStyle: tw.text.style_xs
-                              .copyWith(fontWeight: TFontWeight.light),
+                          baseTextStyle: const TextStyle(
+                            fontWeight: TFontWeight.medium,
+                          ),
                           onPressed: followLink,
                           tooltip: 'Dart Package',
-                          child: TText('``v${package.versionWithoutBuild}``'),
+                          child: Text('v${package.versionWithoutBuild}'),
                         );
                       },
                     ),

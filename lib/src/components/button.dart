@@ -211,7 +211,7 @@ class TButton extends StatelessWidget {
     switch (size) {
       case TWidgetSize.xs:
       case TWidgetSize.sm:
-        return TBorderRadius.rounded;
+        return TBorderRadius.rounded_sm;
       case TWidgetSize.md:
       case TWidgetSize.lg:
       case TWidgetSize.xl:

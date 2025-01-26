@@ -95,7 +95,7 @@ class TCheckbox extends StatelessWidget {
         return TFocusBorder(
           focused: states.focused,
           focusColor: color,
-          borderRadius: TBorderRadius.rounded,
+          borderRadius: TBorderRadius.rounded_sm,
           child: IconTheme(
             data: context.theme.iconTheme.copyWith(
               size: kDefaultControlSize - TSpace.v4,
@@ -112,7 +112,7 @@ class TCheckbox extends StatelessWidget {
                         ? Colors.transparent
                         : tw.colors.disabled.withValues(alpha: 0.5)),
                 border: Border.all(color: borderColor),
-                borderRadius: TBorderRadius.rounded,
+                borderRadius: TBorderRadius.rounded_sm,
               ),
               child: value ? indicator : null,
             ),
@@ -185,7 +185,7 @@ class TCheckboxGroup<T> extends StatefulWidget {
     this.onChanged,
     this.color,
     this.width = TScreen.max_w_md,
-    this.radius = TRadiusScale.radius_lg,
+    this.radius = TRadius.rounded_lg,
     this.spacing,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -201,7 +201,7 @@ class TCheckboxGroup<T> extends StatefulWidget {
     this.onChanged,
     this.color,
     this.width = TScreen.max_w_md,
-    this.radius = TRadiusScale.radius_lg,
+    this.radius = TRadius.rounded_lg,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
     super.key,

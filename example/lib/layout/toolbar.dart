@@ -15,7 +15,6 @@ class AppToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final light = context.tw.light;
     return Row(
       spacing: TSpace.v14,
       children: [
@@ -44,7 +43,7 @@ class AppToolbar extends StatelessWidget {
           target: LinkTarget.blank,
           builder: (context, followLink) {
             return TIconButton(
-              color: light ? TColors.slate : TColors.slate.shade400,
+              color: TColors.gray.shade400,
               tooltip: 'GitHub Repository',
               icon: const Icon(FontAwesomeIcons.github, size: TSpace.v20),
               onPressed: followLink,
@@ -67,7 +66,7 @@ class ThemeToggleButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final light = context.tw.light;
     return TIconButton(
-      color: light ? TColors.slate : TColors.slate.shade400,
+      color: TColors.gray.shade400,
       tooltip: 'Toggle Theme',
       onPressed: () {
         final notifier = ref.read(themeModeProvider.notifier);

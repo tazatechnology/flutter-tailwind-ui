@@ -124,6 +124,7 @@ String _getFragment(String title) {
 class AppSection extends StatelessWidget {
   AppSection({
     required this.title,
+    this.description,
     this.trailing,
     this.children,
   }) : super(key: GlobalKey(debugLabel: _getFragment(title))) {
@@ -131,6 +132,7 @@ class AppSection extends StatelessWidget {
   }
 
   final String title;
+  final String? description;
   late final String fragment;
   final Widget? trailing;
   final List<Widget>? children;
@@ -190,6 +192,7 @@ class AppSection extends StatelessWidget {
             ],
           ),
         ),
+        if (description != null && description!.isNotEmpty) TText(description!),
         if (children != null) ...children!,
       ],
     );

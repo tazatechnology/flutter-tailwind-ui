@@ -43,6 +43,9 @@ class _AppNavigationState extends State<AppNavigation> {
       'Spacing': {
         'Spacing': AppRouter.spacing,
       },
+      'Border Radius': {
+        'Border Radius': AppRouter.border_radius,
+      },
       'Typography': {
         'Font Family': AppRouter.font_family,
         'Font Size': AppRouter.font_size,

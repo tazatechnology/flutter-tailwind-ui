@@ -372,17 +372,17 @@ class TSelectionGroupTile extends StatelessWidget {
         final BorderRadiusGeometry itemBorderRadius;
         if (axis == Axis.vertical) {
           itemBorderRadius = BorderRadius.only(
-            topLeft: isFirst ? r : TRadius.none,
-            topRight: isFirst ? r : TRadius.none,
-            bottomLeft: isLast ? r : TRadius.none,
-            bottomRight: isLast ? r : TRadius.none,
+            topLeft: isFirst ? r : Radius.zero,
+            topRight: isFirst ? r : Radius.zero,
+            bottomLeft: isLast ? r : Radius.zero,
+            bottomRight: isLast ? r : Radius.zero,
           );
         } else {
           itemBorderRadius = BorderRadius.only(
-            topLeft: isFirst ? r : TRadius.none,
-            bottomLeft: isFirst ? r : TRadius.none,
-            topRight: isLast ? r : TRadius.none,
-            bottomRight: isLast ? r : TRadius.none,
+            topLeft: isFirst ? r : Radius.zero,
+            bottomLeft: isFirst ? r : Radius.zero,
+            topRight: isLast ? r : Radius.zero,
+            bottomRight: isLast ? r : Radius.zero,
           );
         }
 
