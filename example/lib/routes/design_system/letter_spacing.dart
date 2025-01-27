@@ -22,6 +22,7 @@ class TypographyRouteLetterSpacing extends StatelessWidget {
           children: [
             AppValueTable(
               header: const [Text('Variable'), Text('Value')],
+              valueAlignment: Alignment.centerRight,
               items: [
                 for (final letterSpacing in TLetterSpacing.values)
                   AppValueTableItem(
@@ -57,7 +58,6 @@ class _TLetterSpacingExamples extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tw = context.tw;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: TSpace.v32,
@@ -68,9 +68,9 @@ class _TLetterSpacingExamples extends StatelessWidget {
             children: [
               Text(
                 TLetterSpacing.getName(letterSpacing),
-                style: tw.text.style_xs.copyWith(
+                style: TTextStyle.text_xs.copyWith(
                   color: TColors.sky,
-                  fontFamily: tw.text.fontFamilyMono,
+                  fontFamily: TTextStyle.fontFamilyMono,
                 ),
               ),
               Text(

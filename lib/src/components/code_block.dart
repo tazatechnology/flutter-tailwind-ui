@@ -97,7 +97,6 @@ class _TCodeBlockState extends State<TCodeBlock> {
 
   @override
   Widget build(BuildContext context) {
-    final tw = context.tw;
     final theme = widget.theme ?? const TCodeBlockTheme();
 
     final light = theme.brightness == Brightness.light;
@@ -176,8 +175,8 @@ class _TCodeBlockState extends State<TCodeBlock> {
                           children: [
                             SelectableText.rich(
                               spans,
-                              style: context.tw.text.style_sm.copyWith(
-                                fontFamily: tw.text.fontFamilyMono,
+                              style: TTextStyle.text_sm.copyWith(
+                                fontFamily: TTextStyle.fontFamilyMono,
                                 fontSize: theme.fontSize,
                               ),
                             ),

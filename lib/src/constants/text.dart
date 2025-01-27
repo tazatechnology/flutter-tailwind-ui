@@ -209,140 +209,92 @@ abstract class TLetterSpacing {
 }
 
 // =============================================================================
-// CLASS: TLineHeight
-// =============================================================================
-
-/// Tailwind line height constants
-///
-/// https://tailwindcss.com/docs/line-height
-abstract class TLineHeight {
-  /// Equivalent to Tailwind line height: `leading-none` (1)
-  static const double none = kTextHeightNone;
-
-  /// Equivalent to Tailwind line height: `leading-tight` (1.25)
-  static const double tight = 1.25;
-
-  /// Equivalent to Tailwind line height: `leading-snug` (1.375)
-  static const double snug = 1.375;
-
-  /// Equivalent to Tailwind line height: `leading-normal` (1.5)
-  static const double normal = 1.5;
-
-  /// Equivalent to Tailwind line height: `leading-relaxed` (1.625)
-  static const double relaxed = 1.625;
-
-  /// Equivalent to Tailwind line height: `leading-loose` (2)
-  static const double loose = 2;
-
-  /// A list of all the letter spacing values.
-  static const List<double> values = <double>[
-    none,
-    tight,
-    snug,
-    normal,
-    relaxed,
-    loose,
-  ];
-
-  /// A mapping of line height values to their string representations.
-  static final Map<double, String> names = {
-    none: 'TLineHeight.none',
-    tight: 'TLineHeight.tight',
-    snug: 'TLineHeight.snug',
-    normal: 'TLineHeight.normal',
-    relaxed: 'TLineHeight.relaxed',
-    loose: 'TLineHeight.loose',
-  };
-
-  /// A helper method to get the name of the letter spacing value.
-  static String getName(double lineHeight) {
-    return names[lineHeight] ?? lineHeight.toString();
-  }
-}
-
-// =============================================================================
 // CLASS: TTextStyle
 // =============================================================================
 
-/// The default text style for each font breakpoint.
-///
-/// This will define the default  font size and line height for each style.
+/// Tailwind inspired fonts and text styles
 abstract class TTextStyle {
+  /// The default font family (pre-packaged)
+  static const fontFamily = 'packages/flutter_tailwind_ui/Geist';
+
+  /// The default monospace font family (pre-packaged)
+  static const fontFamilyMono = 'packages/flutter_tailwind_ui/JetBrainsMono';
+
   /// Default [TextStyle] equivalent to Tailwind font size `text-xs`
   static const text_xs = TextStyle(
     fontSize: TFontSize.text_xs,
-    height: TLineHeight.none,
+    height: 1 / 0.75,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-sm`
   static const text_sm = TextStyle(
     fontSize: TFontSize.text_sm,
-    height: TLineHeight.tight,
+    height: 1.25 / 0.875,
   );
 
-  /// Default [TextStyle] equivalent to Tailwind font size `text-md`
+  /// Default [TextStyle] equivalent to Tailwind font size `text-base`
   static const text_md = TextStyle(
     fontSize: TFontSize.text_md,
-    height: TLineHeight.normal,
+    height: 1.5 / 1,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-lg`
   static const text_lg = TextStyle(
     fontSize: TFontSize.text_lg,
-    height: TLineHeight.relaxed,
+    height: 1.75 / 1.125,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-xl`
   static const text_xl = TextStyle(
     fontSize: TFontSize.text_xl,
-    height: TLineHeight.relaxed,
+    height: 1.75 / 1.25,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-2xl`
   static const text_2xl = TextStyle(
     fontSize: TFontSize.text_2xl,
-    height: TLineHeight.loose,
+    height: 2 / 1.5,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-3xl`
   static const text_3xl = TextStyle(
     fontSize: TFontSize.text_3xl,
-    height: TLineHeight.loose,
+    height: 2.25 / 1.875,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-4xl`
   static const text_4xl = TextStyle(
     fontSize: TFontSize.text_4xl,
-    height: TLineHeight.loose,
+    height: 2.5 / 2.25,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-5xl`
   static const text_5xl = TextStyle(
     fontSize: TFontSize.text_5xl,
-    height: TLineHeight.none,
+    height: 1,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-6xl`
   static const text_6xl = TextStyle(
     fontSize: TFontSize.text_6xl,
-    height: TLineHeight.none,
+    height: 1,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-7xl`
   static const text_7xl = TextStyle(
     fontSize: TFontSize.text_7xl,
-    height: TLineHeight.none,
+    height: 1,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-8xl`
   static const text_8xl = TextStyle(
     fontSize: TFontSize.text_8xl,
-    height: TLineHeight.none,
+    height: 1,
   );
 
   /// Default [TextStyle] equivalent to Tailwind font size `text-9xl`
   static const text_9xl = TextStyle(
     fontSize: TFontSize.text_9xl,
-    height: TLineHeight.none,
+    height: 1,
   );
 }

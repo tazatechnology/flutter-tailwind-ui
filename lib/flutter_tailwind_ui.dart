@@ -10,7 +10,6 @@ export 'src/components/icon_button.dart';
 export 'src/components/radio.dart';
 export 'src/components/row_column.dart';
 export 'src/components/scrollbar.dart';
-export 'src/components/selection_group.dart';
 export 'src/components/sized_box.dart';
 export 'src/components/split_button.dart';
 export 'src/components/text.dart';
@@ -38,7 +37,6 @@ export 'src/extensions/widget_state.dart';
 // Theme
 export 'src/theme/color.dart';
 export 'src/theme/style.dart';
-export 'src/theme/text.dart';
 export 'src/theme/theme.dart';
 
 // Utilities

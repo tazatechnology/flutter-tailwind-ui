@@ -14,24 +14,20 @@ class TailwindTheme {
   /// Factory constructor for a light Tailwind inspired theme
   factory TailwindTheme.light({
     TailwindColorTheme? color,
-    TailwindTextTheme? text,
   }) {
     return TailwindTheme._(
       brightness: Brightness.light,
       color: color ?? TailwindColorTheme.light(),
-      text: text ?? TailwindTextTheme(),
     );
   }
 
   /// Factory constructor for a dark Tailwind inspired theme
   factory TailwindTheme.dark({
     TailwindColorTheme? color,
-    TailwindTextTheme? text,
   }) {
     return TailwindTheme._(
       brightness: Brightness.dark,
       color: color ?? TailwindColorTheme.dark(),
-      text: text ?? TailwindTextTheme(),
     );
   }
 
@@ -39,13 +35,12 @@ class TailwindTheme {
   TailwindTheme._({
     required this.brightness,
     required TailwindColorTheme color,
-    required TailwindTextTheme text,
   }) {
-    data = _buildThemeData(color: color, text: text);
+    themeData = _buildThemeData(color: color);
   }
 
   /// The Flutter [ThemeData] instance
-  late final ThemeData data;
+  late final ThemeData themeData;
 
   /// The brightness of the theme (light or dark)
   final Brightness brightness;
@@ -56,48 +51,28 @@ class TailwindTheme {
 
   ThemeData _buildThemeData({
     required TailwindColorTheme color,
-    required TailwindTextTheme text,
   }) {
     final light = brightness == Brightness.light;
 
-    // Brightness specific colors
-    Color cursorColor;
-    Color thumbColor;
-    Color trackColor;
-    Color trackBorderColor;
-
-    // Default values inspired by Tailwind CSS
-    if (light) {
-      cursorColor = TColors.gray.shade600;
-      thumbColor = TColors.gray.shade300;
-      trackColor = TColors.neutral.shade50;
-      trackBorderColor = const Color(0xffededed);
-    } else {
-      cursorColor = TColors.gray.shade300;
-      thumbColor = TColors.gray.shade500;
-      trackColor = Colors.transparent;
-      trackBorderColor = const Color(0xff3d3d3d);
-    }
-
     // Define the default text theme
-    TextTheme textTheme = TextTheme(
-      displayLarge: text.style_6xl,
-      displayMedium: text.style_5xl,
-      displaySmall: text.style_4xl,
-      headlineLarge: text.style_4xl,
-      headlineMedium: text.style_3xl,
-      headlineSmall: text.style_2xl,
-      titleLarge: text.style_2xl,
-      titleMedium: text.style_lg,
-      titleSmall: text.style_md,
-      bodyLarge: text.style_lg,
-      bodyMedium: text.style_md,
-      bodySmall: text.style_sm,
-      labelLarge: text.style_md,
-      labelMedium: text.style_sm,
-      labelSmall: text.style_xs,
+    TextTheme textTheme = const TextTheme(
+      displayLarge: TTextStyle.text_6xl,
+      displayMedium: TTextStyle.text_5xl,
+      displaySmall: TTextStyle.text_4xl,
+      headlineLarge: TTextStyle.text_4xl,
+      headlineMedium: TTextStyle.text_3xl,
+      headlineSmall: TTextStyle.text_2xl,
+      titleLarge: TTextStyle.text_2xl,
+      titleMedium: TTextStyle.text_lg,
+      titleSmall: TTextStyle.text_md,
+      bodyLarge: TTextStyle.text_lg,
+      bodyMedium: TTextStyle.text_md,
+      bodySmall: TTextStyle.text_sm,
+      labelLarge: TTextStyle.text_md,
+      labelMedium: TTextStyle.text_sm,
+      labelSmall: TTextStyle.text_xs,
     ).apply(
-      fontFamily: text.fontFamily,
+      fontFamily: TTextStyle.fontFamily,
       bodyColor: color.body,
       displayColor: color.title,
     );
@@ -123,10 +98,10 @@ class TailwindTheme {
     }
 
     return ThemeData(
-      extensions: [color, text],
+      extensions: [color],
       useMaterial3: true,
       brightness: brightness,
-      fontFamily: text.fontFamily,
+      fontFamily: TTextStyle.fontFamily,
       scaffoldBackgroundColor: color.background,
       splashColor: Colors.transparent,
       splashFactory: NoSplash.splashFactory,
@@ -219,15 +194,25 @@ class TailwindTheme {
 
       /// Scrollbar
       scrollbarTheme: ScrollbarThemeData(
-        thumbColor: WidgetStateProperty.all(thumbColor),
         thickness: WidgetStateProperty.all(TSpace.v8),
-        trackColor: WidgetStateProperty.all(trackColor),
-        trackBorderColor: WidgetStateProperty.all(trackBorderColor),
+        trackBorderColor: WidgetStateProperty.all(
+          light ? const Color(0xffe7e7e7) : const Color(0xff3d3d3d),
+        ),
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.dragged) {
+            return light ? const Color(0xff878787) : const Color(0xff939393);
+          } else {
+            return light ? const Color(0xffc7c7c7) : const Color(0xff6b6b6b);
+          }
+        }),
+        trackColor: WidgetStateProperty.all(
+          light ? const Color(0xfffafafa) : const Color(0xff2c2c2c),
+        ),
       ),
 
       /// Text Selection
       textSelectionTheme: TextSelectionThemeData(
-        cursorColor: cursorColor,
+        cursorColor: light ? TColors.gray.shade600 : TColors.gray.shade300,
         selectionColor: color.selection,
       ),
 

@@ -294,28 +294,26 @@ Wrap(
 /// Source code for [_TFontFamily]
 class _TFontFamilySource {
   static const String code = r"""
-final tw = context.tw;
-return Column(
+const Column(
   children: [
     Text(
       'This is the default serif font family.',
-      style: TextStyle(fontFamily: tw.text.fontFamily),
+      style: TextStyle(fontFamily: TTextStyle.fontFamily),
     ),
     TSizedBox.y10,
     Text(
       'This is the default monospaced font family.',
-      style: TextStyle(fontFamily: tw.text.fontFamilyMono),
+      style: TextStyle(fontFamily: TTextStyle.fontFamilyMono),
     ),
   ],
-);
+)
 """;
 }
 
 /// Source code for [_TFontSizeExamples]
 class _TFontSizeExamplesSource {
   static const String code = r"""
-final tw = context.tw;
-return Column(
+Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   spacing: TSpace.v32,
   children: [
@@ -325,9 +323,9 @@ return Column(
         children: [
           Text(
             TFontSize.getName(fontSize),
-            style: tw.text.style_xs.copyWith(
+            style: TTextStyle.text_xs.copyWith(
               color: TColors.sky,
-              fontFamily: tw.text.fontFamilyMono,
+              fontFamily: TTextStyle.fontFamilyMono,
             ),
           ),
           Text(
@@ -339,15 +337,14 @@ return Column(
         ],
       ),
   ],
-);
+)
 """;
 }
 
 /// Source code for [_TFontWeightExamples]
 class _TFontWeightExamplesSource {
   static const String code = r"""
-final tw = context.tw;
-return Column(
+Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   spacing: TSpace.v32,
   children: [
@@ -357,9 +354,9 @@ return Column(
         children: [
           Text(
             TFontWeight.getName(fontWeight),
-            style: tw.text.style_xs.copyWith(
+            style: TTextStyle.text_xs.copyWith(
               color: TColors.sky,
-              fontFamily: tw.text.fontFamilyMono,
+              fontFamily: TTextStyle.fontFamilyMono,
             ),
           ),
           Text(
@@ -369,15 +366,14 @@ return Column(
         ],
       ),
   ],
-);
+)
 """;
 }
 
 /// Source code for [_TLetterSpacingExamples]
 class _TLetterSpacingExamplesSource {
   static const String code = r"""
-final tw = context.tw;
-return Column(
+Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   spacing: TSpace.v32,
   children: [
@@ -387,9 +383,9 @@ return Column(
         children: [
           Text(
             TLetterSpacing.getName(letterSpacing),
-            style: tw.text.style_xs.copyWith(
+            style: TTextStyle.text_xs.copyWith(
               color: TColors.sky,
-              fontFamily: tw.text.fontFamilyMono,
+              fontFamily: TTextStyle.fontFamilyMono,
             ),
           ),
           Text(
@@ -399,39 +395,6 @@ return Column(
         ],
       ),
   ],
-);
-""";
-}
-
-/// Source code for [_TLineHeightExamples]
-class _TLineHeightExamplesSource {
-  static const String code = r"""
-final tw = context.tw;
-return Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  spacing: TSpace.v32,
-  children: [
-    for (final lineHeight in TLineHeight.values)
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: TOffset.b4,
-            child: Text(
-              TLineHeight.getName(lineHeight),
-              style: tw.text.style_xs.copyWith(
-                color: TColors.sky,
-                fontFamily: tw.text.fontFamilyMono,
-              ),
-            ),
-          ),
-          Text(
-            "So I started to walk into the water. I won't lie to you boys, I was terrified. But I pressed on, and as I made my way past the breakers a strange calm came over me. I don't know if it was divine intervention or the kinship of all living things but I tell you Jerry at that moment, I was a marine biologist.",
-            style: TextStyle(height: lineHeight),
-          ),
-        ],
-      ),
-  ],
-);
+)
 """;
 }

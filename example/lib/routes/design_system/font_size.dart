@@ -28,6 +28,7 @@ class TypographyRouteFontSize extends StatelessWidget {
           children: [
             AppValueTable(
               header: const [Text('Variable'), Text('Value')],
+              valueAlignment: Alignment.centerRight,
               items: [
                 for (final fontSize in TFontSize.values)
                   AppValueTableItem(
@@ -63,7 +64,6 @@ class _TFontSizeExamples extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tw = context.tw;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: TSpace.v32,
@@ -74,9 +74,9 @@ class _TFontSizeExamples extends StatelessWidget {
             children: [
               Text(
                 TFontSize.getName(fontSize),
-                style: tw.text.style_xs.copyWith(
+                style: TTextStyle.text_xs.copyWith(
                   color: TColors.sky,
-                  fontFamily: tw.text.fontFamilyMono,
+                  fontFamily: TTextStyle.fontFamilyMono,
                 ),
               ),
               Text(

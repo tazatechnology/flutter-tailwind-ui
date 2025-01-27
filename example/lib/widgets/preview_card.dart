@@ -89,7 +89,7 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
             if (widget.title != null)
               TText(
                 widget.title!,
-                style: tw.text.style_sm.copyWith(
+                style: TTextStyle.text_sm.copyWith(
                   fontWeight: TFontWeight.semibold,
                 ),
               ),
@@ -125,9 +125,7 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
             padding: TOffset.t12,
             child: TText(
               widget.description!,
-              style: tw.text.style_sm.copyWith(
-                height: TLineHeight.normal,
-              ),
+              style: TTextStyle.text_sm.copyWith(),
             ),
           ),
         ExcludeFocus(

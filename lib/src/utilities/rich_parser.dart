@@ -28,7 +28,7 @@ class TRichParser {
     TextStyle? style,
   }) {
     /// Start with the globally defined builders in the Tailwind theme
-    final effectiveFormatters = context.tw.text.richFormatters.toList();
+    final effectiveFormatters = TRichFormatter.defaultFormatters.toList();
 
     /// Get the effective extensions by merging the global and local builders
     if (formatters != null) {
@@ -228,8 +228,7 @@ class TRichFormatter {
           context: match.context,
           text: match.textMatch,
           style: match.baseStyle.copyWith(
-            fontFamily: match.context.tw.text.fontFamilyMono,
-            height: TLineHeight.normal,
+            fontFamily: TTextStyle.fontFamilyMono,
           ),
         );
       },
@@ -242,14 +241,11 @@ class TRichFormatter {
         final tw = context.tw;
         final backgroundColor =
             tw.light ? const Color(0xfff5f5f5) : const Color(0xff333333);
-        final fontSize = match.baseStyle.fontSize ?? TFontSize.text_md;
         final codeSpan = TRichParser(formatters: match.formatters).parse(
           context: match.context,
           text: match.textMatch,
           style: match.baseStyle.copyWith(
-            fontSize: fontSize,
-            fontFamily: tw.text.fontFamilyMono,
-            height: TLineHeight.none,
+            fontFamily: TTextStyle.fontFamilyMono,
           ),
         );
 
@@ -297,6 +293,7 @@ class TRichFormatter {
           uri = Uri.parse(urlMatch.group(1)!);
         }
         return WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
           child: Link(
             uri: uri,
             target: kIsWeb ? LinkTarget.blank : LinkTarget.defaultTarget,
@@ -310,7 +307,6 @@ class TRichFormatter {
                     text: match.textMatch,
                     style: match.baseStyle.copyWith(
                       color: tw.colors.link,
-                      height: TLineHeight.none,
                     ),
                   ),
                 ),

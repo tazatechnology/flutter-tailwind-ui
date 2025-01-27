@@ -28,7 +28,6 @@ class AppRouter {
       AppRouter.font_size: const TypographyRouteFontSize(),
       AppRouter.font_weight: const TypographyRouteFontWeight(),
       AppRouter.letter_spacing: const TypographyRouteLetterSpacing(),
-      AppRouter.line_height: const TypographyRouteLineHeight(),
     };
 
     final componentRoutes = <String, Widget>{
@@ -112,7 +111,6 @@ class AppRouter {
   static const String font_size = 'font-size';
   static const String font_weight = 'font-weight';
   static const String letter_spacing = 'letter-spacing';
-  static const String line_height = 'line-height';
 
   /// Components
   static const String badge = 'badge';

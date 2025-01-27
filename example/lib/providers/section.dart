@@ -5,3 +5,7 @@ import 'package:flutter_tailwind_ui_app/layout/header.dart';
 final sectionProvider = StateProvider<AppSection?>((ref) {
   return null;
 });
+
+String getSectionHeaderName({required String section, required String title}) {
+  return '$section  >  $title';
+}

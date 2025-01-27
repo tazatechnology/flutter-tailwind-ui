@@ -91,7 +91,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
               ),
             ),
             child: DefaultTextStyle(
-              style: tw.text.style_sm.copyWith(
+              style: TTextStyle.text_sm.copyWith(
                 color:
                     tw.light ? TColors.slate.shade700 : TColors.slate.shade200,
                 fontWeight: TFontWeight.semibold,
@@ -158,8 +158,8 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                               alignment: widget.nameAlignment,
                               child: Text(
                                 item.name,
-                                style: tw.text.style_xs.copyWith(
-                                  fontFamily: tw.text.fontFamilyMono,
+                                style: TTextStyle.text_xs.copyWith(
+                                  fontFamily: TTextStyle.fontFamilyMono,
                                   color: TColors.sky[tw.light ? 500 : 300],
                                 ),
                               ),
@@ -170,14 +170,15 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                                 width: widget.valueWidth,
                                 child: TText(
                                   item.value!,
-                                  style: tw.text.style_xs.copyWith(
-                                    fontFamily: tw.text.fontFamilyMono,
+                                  style: TTextStyle.text_xs.copyWith(
+                                    fontFamily: TTextStyle.fontFamilyMono,
+                                    color: TColors.violet[tw.light ? 600 : 400],
                                   ),
                                 ),
                               ),
                             if (item.widget != null)
                               DefaultTextStyle.merge(
-                                style: tw.text.style_xs,
+                                style: TTextStyle.text_xs,
                                 child: item.widget!,
                               ),
                           ],

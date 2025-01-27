@@ -76,7 +76,10 @@ class SpacingRoute extends StatelessWidget {
               padding: TOffset.r12,
               child: Text(
                 tailwindNameMap[value] ?? '-',
-                style: TextStyle(fontFamily: tw.text.fontFamilyMono),
+                style: TextStyle(
+                  fontFamily: TTextStyle.fontFamilyMono,
+                  color: TColors.violet[tw.light ? 600 : 400],
+                ),
               ),
             ),
             Container(

@@ -331,20 +331,43 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
     }
     final physics = ref.watch(outerScrollPhysicsProvider);
     const yPad = TOffset.y16;
-    EdgeInsets xPad = tw.screen.is_sm ? TOffset.x32 : TOffset.x16;
+    EdgeInsets xPad = tw.screen.is_lg ? TOffset.x40 + TOffset.x24 : TOffset.x24;
 
     // Add artificial padding to limit the width of the content
     final effectiveContentWidth = tw.screen.width - AppScaffold.navigationWidth;
-    if (effectiveContentWidth > TScreen.screen_lg) {
-      final right = effectiveContentWidth - TScreen.screen_lg;
+    if (effectiveContentWidth > AppScaffold.sidebarBreakpoint) {
+      final right = effectiveContentWidth - AppScaffold.sidebarBreakpoint;
       xPad += EdgeInsets.only(right: right);
     }
+
+    final lineColor =
+        tw.light ? TColors.gray.shade100 : const Color(0xff202630);
+    final diagonalPattern = CustomPaint(
+      painter: DiagonalStripesPainter(lineColor: lineColor),
+      child: Container(
+        width: TSpace.v40,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          border: Border(
+            right: BorderSide(color: lineColor),
+            left: BorderSide(color: lineColor),
+          ),
+        ),
+      ),
+    );
 
     return PrimaryScrollController(
       controller: scrollController,
       child: Stack(
         children: [
-          _AppBackground(controller: scrollController),
+          if (tw.screen.is_lg)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                diagonalPattern,
+                diagonalPattern,
+              ],
+            ),
           SelectionArea(
             child: CustomScrollView(
               physics: physics,
@@ -406,91 +429,41 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
 }
 
 // =============================================================================
-// CLASS: _AppBackground
+// CLASS: DiagonalStripesPainter
 // =============================================================================
 
-class _AppBackground extends StatefulWidget {
-  const _AppBackground({
-    required this.controller,
+class DiagonalStripesPainter extends CustomPainter {
+  DiagonalStripesPainter({
+    required this.lineColor,
   });
-  final ScrollController controller;
-  static const double height = 500;
-  @override
-  State<_AppBackground> createState() => _AppBackgroundState();
-}
 
-class _AppBackgroundState extends State<_AppBackground> {
-  bool attached = false;
-
-  // ---------------------------------------------------------------------------
-  // METHOD: initState
-  // ---------------------------------------------------------------------------
+  final Color lineColor;
+  static const lineWidth = 1.0;
+  static const gap = 10;
+  static const totalWidth = lineWidth + gap;
 
   @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() => attached = true);
-    });
-    widget.controller.addListener(offsetListener);
-    super.initState();
-  }
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = lineColor
+      ..strokeWidth = lineWidth;
 
-  // ---------------------------------------------------------------------------
-  // METHOD: offsetListener
-  // ---------------------------------------------------------------------------
+    final double diagonalLength = (size.width + size.height) * 1.414; // sqrt(2)
+    final count = (diagonalLength / totalWidth).ceil();
 
-  void offsetListener() {
-    // Only conditionally update widget
-    // Once background is scrolled away, no need to rebuild
-    if (attached &&
-        widget.controller.offset < _AppBackground.height &&
-        widget.controller.offset > 0) {
-      setState(() {});
+    // The painter should be a fixed width
+    canvas.clipRect(Rect.fromLTWH(0, 0, TSpace.v40, size.height));
+
+    for (int i = -count; i < count; i++) {
+      final double offset = i * totalWidth;
+      canvas.drawLine(
+        Offset(offset, 0),
+        Offset(offset + size.height, size.height),
+        paint,
+      );
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // METHOD: dispose
-  // ---------------------------------------------------------------------------
-
   @override
-  void dispose() {
-    widget.controller.removeListener(offsetListener);
-    super.dispose();
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: build
-  // ---------------------------------------------------------------------------
-
-  @override
-  Widget build(BuildContext context) {
-    final tw = context.tw;
-    double offset = 0;
-    if (attached) {
-      offset = widget.controller.offset;
-    }
-
-    return Positioned(
-      top: offset == 0 ? 0 : -offset,
-      left: AppScaffold.navigationWidth,
-      right: 0,
-      child: SizedBox(
-        height: _AppBackground.height,
-        child: Center(
-          child: OverflowBox(
-            maxWidth: TScreen.max_w_6xl,
-            alignment: Alignment.topCenter,
-            child: Image.asset(
-              tw.light
-                  ? 'assets/img/background.png'
-                  : 'assets/img/background_dark.png',
-              width: TScreen.max_w_6xl,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

@@ -50,15 +50,15 @@ extension on ColorFormat {
   String get name {
     switch (this) {
       case ColorFormat.hex:
-        return 'HEX';
+        return '``HEX``';
       case ColorFormat.argb:
-        return 'ARGB';
+        return '``ARGB``';
       case ColorFormat.rgbo:
-        return 'RGBO';
+        return '``RGBO``';
       case ColorFormat.flutter:
-        return '`Color`';
+        return '``Color``';
       case ColorFormat.tailwind:
-        return '`TColors`';
+        return '``TColors``';
     }
   }
 }
@@ -154,7 +154,7 @@ class ColorPalette extends StatelessWidget {
 
     final colorNameWidget = Text(
       name,
-      style: tw.text.style_sm.copyWith(
+      style: TTextStyle.text_sm.copyWith(
         color: TColors.slate[light ? 900 : 200],
         fontWeight: TFontWeight.semibold,
       ),
@@ -325,7 +325,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
               padding: TOffset.t8 + TOffset.b2,
               child: Text(
                 widget.shade.toString(),
-                style: tw.text.style_xs.copyWith(
+                style: TTextStyle.text_xs.copyWith(
                   color: light ? TColors.slate.shade900 : Colors.white,
                   fontWeight: TFontWeight.medium,
                 ),
@@ -333,11 +333,11 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
             ),
             Text(
               copied ? 'Copied' : color.toHex(includeAlpha: false),
-              style: tw.text.style_xs.copyWith(
+              style: TTextStyle.text_xs.copyWith(
                 fontSize: 10,
                 fontWeight: copied ? FontWeight.bold : FontWeight.normal,
                 color: copied ? null : TColors.slate[light ? 500 : 400],
-                fontFamily: tw.text.fontFamilyMono,
+                fontFamily: TTextStyle.fontFamilyMono,
               ),
             ),
           ],

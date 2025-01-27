@@ -22,6 +22,7 @@ class BorderRadiusRoute extends StatelessWidget {
           children: [
             AppValueTable(
               header: const [Text('Variable'), Text('Value')],
+              valueAlignment: Alignment.centerRight,
               items: [
                 for (final scale in TRadius.values)
                   AppValueTableItem(

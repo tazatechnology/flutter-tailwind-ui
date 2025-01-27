@@ -31,7 +31,7 @@ class AppScaffold extends ConsumerStatefulWidget {
   static const toolbarHeight = TSpace.v60;
 
   /// The width of the navigation drawer + scroll x-padding
-  static const navigationWidth = TSpace.v256 + TSpace.v48;
+  static const navigationWidth = TSpace.v288;
 
   /// The breakpoint at which the sidebar is shown
   static const sidebarBreakpoint = TScreen.screen_lg;
@@ -218,9 +218,9 @@ class _ScaffoldHeader extends ConsumerWidget {
               ),
             ),
             if (currentSection != null && tw.screen.is_lg)
-              Text(
+              TText(
                 currentSection.title,
-                style: tw.text.style_sm.copyWith(
+                style: TTextStyle.text_sm.copyWith(
                   color: tw.colors.label,
                   fontWeight: TFontWeight.light,
                 ),
@@ -256,7 +256,7 @@ class _ScaffoldMobileNavigation extends ConsumerWidget {
         if (currentSection != null && !tw.screen.is_lg)
           Text(
             currentSection.title,
-            style: tw.text.style_sm.copyWith(
+            style: TTextStyle.text_sm.copyWith(
               color: tw.colors.label,
               fontWeight: TFontWeight.light,
             ),

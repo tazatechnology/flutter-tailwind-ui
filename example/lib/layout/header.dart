@@ -57,14 +57,14 @@ class AppRouteHeader extends StatelessWidget {
     final tw = context.tw;
     TextStyle titleStyle;
     if (!tw.screen.is_sm) {
-      titleStyle = tw.text.style_2xl;
+      titleStyle = TTextStyle.text_2xl;
     } else {
-      titleStyle = tw.text.style_3xl;
+      titleStyle = TTextStyle.text_3xl;
     }
     titleStyle = titleStyle.copyWith(
       color: tw.colors.title,
-      fontFamily: titleMono ? tw.text.fontFamilyMono : tw.text.fontFamily,
-      fontWeight: TFontWeight.extrabold,
+      fontFamily: titleMono ? TTextStyle.fontFamilyMono : TTextStyle.fontFamily,
+      fontWeight: TFontWeight.medium,
       letterSpacing: TLetterSpacing.tight,
     );
 
@@ -72,39 +72,46 @@ class AppRouteHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          section.name,
-          style: tw.text.style_sm.copyWith(
-            fontWeight: TFontWeight.semibold,
-            color: tw.light ? TColors.sky.shade500 : TColors.sky.shade400,
+          section.name.toUpperCase(),
+          style: TTextStyle.text_xs.copyWith(
+            fontWeight: TFontWeight.medium,
+            letterSpacing: TLetterSpacing.widest,
+            color: tw.light ? TColors.gray.shade600 : TColors.gray.shade400,
           ),
         ),
-        Row(
-          children: [
-            TText(title, style: titleStyle),
-            if (className != null)
-              Padding(
-                padding: TOffset.l14,
-                child: Link(
-                  uri: Uri.parse('$baseUrl$className-class.html'),
-                  builder: (context, followLink) {
-                    return TBadge.soft(
-                      color: TColors.sky,
-                      tooltip: 'API Docs for ``**$className**``',
-                      onPressed: followLink,
-                      child: const Text('Dart Docs'),
-                    );
-                  },
+        Padding(
+          padding: TOffset.t12,
+          child: Row(
+            children: [
+              TText(title, style: titleStyle),
+              if (className != null)
+                Padding(
+                  padding: TOffset.l14,
+                  child: Link(
+                    uri: Uri.parse('$baseUrl$className-class.html'),
+                    builder: (context, followLink) {
+                      return TBadge.soft(
+                        color: TColors.sky,
+                        tooltip: 'API Docs for ``**$className**``',
+                        onPressed: followLink,
+                        child: const Text('Dart Docs'),
+                      );
+                    },
+                  ),
                 ),
-              ),
-          ],
-        ),
-        TText(
-          description,
-          style: tw.text.style_lg.copyWith(
-            fontWeight: TFontWeight.extralight,
+            ],
           ),
         ),
-        TSizedBox.y16,
+        Padding(
+          padding: TOffset.y24,
+          child: TText(
+            description,
+            style: TTextStyle.text_lg.copyWith(
+              fontWeight: TFontWeight.extralight,
+              color: tw.light ? TColors.gray.shade700 : TColors.gray.shade400,
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -160,8 +167,8 @@ class AppSection extends StatelessWidget {
                         Flexible(
                           child: TText(
                             title,
-                            style: tw.text.style_lg.copyWith(
-                              fontWeight: TFontWeight.bold,
+                            style: TTextStyle.text_lg.copyWith(
+                              fontWeight: TFontWeight.semibold,
                               decoration: states.focused
                                   ? TextDecoration.underline
                                   : TextDecoration.none,

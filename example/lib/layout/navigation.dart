@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui_app/layout/header.dart';
 import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
 import 'package:flutter_tailwind_ui_app/providers/router.dart';
 import 'package:flutter_tailwind_ui_app/providers/section.dart';
@@ -35,15 +36,15 @@ class _AppNavigationState extends State<AppNavigation> {
       );
     }
 
-    // Design system sections
-    final designSystemSections = {
-      'Colors': {
+    // Navigation sections
+    final sections = {
+      'Getting Started': {
+        'About': AppRouter.about,
+        'Quick Start': AppRouter.usage,
+      },
+      'Design System': {
         'Colors': AppRouter.colors,
-      },
-      'Spacing': {
         'Spacing': AppRouter.spacing,
-      },
-      'Border Radius': {
         'Border Radius': AppRouter.border_radius,
       },
       'Typography': {
@@ -51,97 +52,57 @@ class _AppNavigationState extends State<AppNavigation> {
         'Font Size': AppRouter.font_size,
         'Font Weight': AppRouter.font_weight,
         'Letter Spacing': AppRouter.letter_spacing,
-        'Line Height': AppRouter.line_height,
       },
-    };
-
-    // Component sections
-    final componentSections = {
       'Text': {
-        'TText': AppRouter.text,
+        '``TText``': AppRouter.text,
       },
       'Badges & Buttons': {
-        'TBadge': AppRouter.badge,
-        'TButton': AppRouter.button,
-        'TIconButton': AppRouter.icon_button,
-        'TSplitButton': AppRouter.split_button,
+        '``TBadge``': AppRouter.badge,
+        '``TButton``': AppRouter.button,
+        '``TIconButton``': AppRouter.icon_button,
+        '``TSplitButton``': AppRouter.split_button,
       },
       'Selection Controls & Groups': {
-        'TRadio': AppRouter.radio,
-        'TRadioGroup': AppRouter.radio_group,
-        'TCheckbox': AppRouter.checkbox,
-        'TCheckboxGroup': AppRouter.checkbox_group,
+        '``TRadio``': AppRouter.radio,
+        '``TRadioGroup``': AppRouter.radio_group,
+        '``TCheckbox``': AppRouter.checkbox,
+        '``TCheckboxGroup``': AppRouter.checkbox_group,
       },
       'Layout': {
-        'TCard': AppRouter.card,
-        'TRowColumn': AppRouter.row_column,
-        'TSizedBox': AppRouter.sized_box,
+        '``TCard``': AppRouter.card,
+        '``TRowColumn``': AppRouter.row_column,
+        '``TSizedBox``': AppRouter.sized_box,
       },
       'Other': {
-        'TCodeBlock': AppRouter.code_block,
+        '``TCodeBlock``': AppRouter.code_block,
       },
     };
 
     return ExcludeFocus(
-      child: ListView(
-        padding: TOffset.x24 + topPadding + TOffset.b24,
-        controller: scrollController,
-        children: [
-          const AppNavigationSection(
-            title: 'Getting Started',
-            items: [
-              AppNavigationItem(
-                title: 'About',
-                route: AppRouter.about,
+      child: TScrollbar(
+        thumbVisibility: const WidgetStatePropertyAll(true),
+        trackVisibility: const WidgetStatePropertyAll(true),
+        thickness: const WidgetStatePropertyAll(TSpace.v8),
+        crossAxisMargin: 3,
+        child: ListView(
+          padding: TOffset.l24 + TOffset.r10 + topPadding + TOffset.b24,
+          controller: scrollController,
+          children: [
+            for (final entry in sections.entries) ...[
+              AppNavigationSection(
+                title: entry.key,
+                items: [
+                  for (final item in entry.value.entries)
+                    AppNavigationItem(
+                      section: entry.key,
+                      title: item.key,
+                      route: item.value,
+                    ),
+                ],
               ),
-              AppNavigationItem(
-                title: 'Quick Start',
-                route: AppRouter.usage,
-                isLast: true,
-              ),
             ],
-          ),
-          AppNavigationSection(
-            title: 'Design System',
-            items: [
-              for (final entry in designSystemSections.entries) ...[
-                if (entry.value.entries.length > 1)
-                  AppNavigationSubtitle(
-                    title: entry.key,
-                    padding: TOffset.x16 +
-                        (entry.key == designSystemSections.keys.first
-                            ? TOffset.b8
-                            : TOffset.y8),
-                  ),
-                for (final item in entry.value.entries)
-                  AppNavigationItem(
-                    title: item.key,
-                    route: item.value,
-                  ),
-              ],
-            ],
-          ),
-          AppNavigationSection(
-            title: 'Components',
-            items: [
-              for (final entry in componentSections.entries) ...[
-                AppNavigationSubtitle(
-                  title: entry.key,
-                  padding: TOffset.x16 +
-                      (entry.key == componentSections.keys.first
-                          ? TOffset.b8
-                          : TOffset.y8),
-                ),
-                for (final component in entry.value.entries)
-                  AppNavigationItem(
-                    title: component.key,
-                    route: component.value,
-                    isComponent: true,
-                  ),
-              ],
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -167,26 +128,37 @@ class AppNavigationSection extends StatelessWidget {
       children: [
         Padding(
           padding: TOffset.b12 + TOffset.t24,
-          child: Text(
-            title,
-            style: tw.text.style_sm.copyWith(
-              fontWeight: TFontWeight.semibold,
-              color: TColors.slate[tw.light ? 900 : 200],
+          child: SelectableText(
+            title.toUpperCase(),
+            style: TTextStyle.text_xs.copyWith(
+              fontWeight: TFontWeight.medium,
+              letterSpacing: TLetterSpacing.widest,
+              fontFamily: TTextStyle.fontFamilyMono,
+              color: tw.light ? TColors.gray : TColors.gray.shade400,
             ),
           ),
         ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                color:
-                    tw.light ? TColors.slate.shade100 : TColors.slate.shade800,
+        IntrinsicHeight(
+          child: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border(
+                    left: BorderSide(
+                      color: tw.light
+                          ? TColors.gray.shade200
+                          : TColors.gray.shade800,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: items,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 6,
+                children: items,
+              ),
+            ],
           ),
         ),
       ],
@@ -200,16 +172,14 @@ class AppNavigationSection extends StatelessWidget {
 
 class AppNavigationItem extends ConsumerStatefulWidget {
   const AppNavigationItem({
+    required this.section,
     required this.title,
     required this.route,
-    this.isLast = false,
-    this.isComponent = false,
     super.key,
   });
+  final String section;
   final String title;
   final String route;
-  final bool isLast;
-  final bool isComponent;
   @override
   ConsumerState<AppNavigationItem> createState() => _AppNavigationItemState();
 }
@@ -221,45 +191,44 @@ class _AppNavigationItemState extends ConsumerState<AppNavigationItem> {
   Widget build(BuildContext context) {
     final tw = context.tw;
 
+    final isComponent = widget.title.startsWith('`');
+
     final state = GoRouterState.of(context);
     final isActive = state.topRoute?.name == widget.route;
     final showSideBar = tw.screen.width >= AppScaffold.sidebarBreakpoint;
 
-    final activeColor = tw.light ? TColors.sky.shade500 : TColors.sky.shade400;
+    final activeColor = tw.light ? TColors.gray.shade950 : Colors.white;
     final inactiveColor =
-        tw.light ? TColors.slate.shade700 : TColors.slate.shade400;
-    final hoveredBorder =
-        tw.light ? TColors.slate.shade300 : TColors.slate.shade500;
+        tw.light ? TColors.gray.shade600 : TColors.gray.shade300;
+    final hoveredBorder = activeColor.withValues(alpha: 0.25);
 
     Color badgeColor = Colors.transparent;
-    if (widget.isComponent) {
+    if (isComponent) {
       badgeColor = tw.light ? TColors.gray.shade100 : TColors.gray.shade800;
     }
     return Container(
-      margin: widget.isLast ? TOffset.b0 : TOffset.b2,
-      padding: TOffset.x16 + (widget.isComponent ? TOffset.y4 : TOffset.y2),
+      padding: TOffset.x16,
       decoration: BoxDecoration(
         border: Border(
           left: BorderSide(
             color: isActive
                 ? activeColor
                 : (isHovered ? hoveredBorder : Colors.transparent),
-            width: 1.25,
           ),
         ),
       ),
       child: TBadge.filled(
         color: badgeColor,
-        baseTextStyle: widget.isComponent ? tw.text.style_xs : tw.text.style_sm,
+        baseTextStyle: isComponent ? TTextStyle.text_xs : TTextStyle.text_sm,
         size: TWidgetSize.sm,
         theme: TStyleTheme(
           textStyle: WidgetStateTextStyle.resolveWith((states) {
             return TextStyle(
               color: isActive ? activeColor : inactiveColor,
-              fontWeight: isActive || (states.hovered && widget.isComponent)
-                  ? FontWeight.w600
-                  : FontWeight.normal,
-              fontFamily: widget.isComponent ? tw.text.fontFamilyMono : null,
+              fontWeight: isActive || (states.hovered && isComponent)
+                  ? TFontWeight.medium
+                  : TFontWeight.normal,
+              fontFamily: isComponent ? TTextStyle.fontFamilyMono : null,
             );
           }),
           borderRadius: const WidgetStatePropertyAll(TBorderRadius.rounded_md),
@@ -269,7 +238,13 @@ class _AppNavigationItemState extends ConsumerState<AppNavigationItem> {
             Scaffold.of(context).closeDrawer();
           }
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            ref.read(sectionProvider.notifier).state = null;
+            // Placeholder section on initial navigation
+            ref.read(sectionProvider.notifier).state = AppSection(
+              title: getSectionHeaderName(
+                section: widget.section,
+                title: widget.title,
+              ),
+            );
           });
           context.goNamed(widget.route);
         },
@@ -277,34 +252,6 @@ class _AppNavigationItemState extends ConsumerState<AppNavigationItem> {
           setState(() => isHovered = value);
         },
         child: TText(widget.title),
-      ),
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: AppNavigationSubtitle
-// =============================================================================
-
-class AppNavigationSubtitle extends StatelessWidget {
-  const AppNavigationSubtitle({
-    required this.title,
-    required this.padding,
-    super.key,
-  });
-  final String title;
-  final EdgeInsetsGeometry padding;
-  @override
-  Widget build(BuildContext context) {
-    final tw = context.tw;
-    return Padding(
-      padding: padding,
-      child: SelectableText(
-        title,
-        style: tw.text.style_xs.copyWith(
-          color: TColors.slate.shade400,
-          letterSpacing: TLetterSpacing.wider,
-        ),
       ),
     );
   }

@@ -43,17 +43,16 @@ class _TFontFamily extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tw = context.tw;
-    return Column(
+    return const Column(
       children: [
         Text(
           'This is the default serif font family.',
-          style: TextStyle(fontFamily: tw.text.fontFamily),
+          style: TextStyle(fontFamily: TTextStyle.fontFamily),
         ),
         TSizedBox.y10,
         Text(
           'This is the default monospaced font family.',
-          style: TextStyle(fontFamily: tw.text.fontFamilyMono),
+          style: TextStyle(fontFamily: TTextStyle.fontFamilyMono),
         ),
       ],
     );

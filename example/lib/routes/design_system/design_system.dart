@@ -17,6 +17,5 @@ part 'font_family.dart';
 part 'font_size.dart';
 part 'font_weight.dart';
 part 'letter_spacing.dart';
-part 'line_height.dart';
 
 part 'design_system.g.dart';
