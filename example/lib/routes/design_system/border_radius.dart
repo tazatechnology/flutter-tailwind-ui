@@ -15,6 +15,7 @@ class BorderRadiusRoute extends StatelessWidget {
         title: 'Border Radius',
         description: 'The built-in border radius breakpoints.',
         className: 'TBorderRadius',
+        reference: 'https://tailwindcss.com/docs/border-radius',
       ),
       children: [
         AppSection(

@@ -99,6 +99,8 @@ class SpacingRoute extends StatelessWidget {
         title: 'Spacing Scale',
         description: 'The built-in space scaling system',
         className: 'TSpace',
+        reference:
+            'https://v3.tailwindcss.com/docs/customizing-spacing#default-spacing-scale',
       ),
       children: [
         AppSection(title: 'Overview'),

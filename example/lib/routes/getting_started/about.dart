@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_tailwind_ui_app/layout/header.dart';
-import 'package:flutter_tailwind_ui_app/layout/scroll_view.dart';
+part of 'getting_started.dart';
 
 // =============================================================================
 // CLASS: AboutRoute

@@ -79,6 +79,8 @@ class ColorsRoute extends ConsumerWidget {
         section: AppRouteType.designSystem,
         title: 'Colors',
         description: 'The built-in color palettes',
+        className: 'TColors',
+        reference: 'https://v3.tailwindcss.com/docs/customizing-colors',
       ),
       slivers: [
         SliverToBoxAdapter(
@@ -96,7 +98,7 @@ class ColorsRoute extends ConsumerWidget {
                 children: [
                   for (final format in ColorFormat.values)
                     TRadioGroupItem(
-                      title: TText(format.name),
+                      title: TText(format.name, style: TTextStyle.text_xs),
                       value: format,
                     ),
                 ],

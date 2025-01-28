@@ -1,4 +1,4 @@
-part of 'design_system.dart';
+part of 'typography.dart';
 
 // =============================================================================
 // CLASS: TypographyRouteFontWeight
@@ -11,10 +11,11 @@ class TypographyRouteFontWeight extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScrollView.children(
       header: const AppRouteHeader(
-        section: AppRouteType.designSystem,
+        section: AppRouteType.typography,
         title: 'Font Weight',
         description: 'The built-in font weight breakpoints.',
         className: 'TFontWeight',
+        reference: 'https://tailwindcss.com/docs/font-weight',
       ),
       children: [
         AppSection(

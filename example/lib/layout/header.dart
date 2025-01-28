@@ -10,6 +10,7 @@ import 'package:url_launcher/link.dart';
 enum AppRouteType {
   gettingStarted,
   designSystem,
+  typography,
   components,
 }
 
@@ -20,6 +21,8 @@ extension XAppRouteType on AppRouteType {
         return 'Getting Started';
       case AppRouteType.designSystem:
         return 'Design System';
+      case AppRouteType.typography:
+        return 'Typography';
       case AppRouteType.components:
         return 'Components';
     }
@@ -38,12 +41,14 @@ class AppRouteHeader extends StatelessWidget {
     super.key,
     this.titleMono = false,
     this.className,
+    this.reference,
   });
   final AppRouteType section;
   final String title;
   final String description;
   final bool titleMono;
   final String? className;
+  final String? reference;
 
   static const baseUrl =
       'https://pub.dev/documentation/flutter_tailwind_ui/latest/flutter_tailwind_ui/';
@@ -88,6 +93,7 @@ class AppRouteHeader extends StatelessWidget {
                 Padding(
                   padding: TOffset.l14,
                   child: Link(
+                    target: LinkTarget.blank,
                     uri: Uri.parse('$baseUrl$className-class.html'),
                     builder: (context, followLink) {
                       return TBadge.soft(
@@ -95,6 +101,22 @@ class AppRouteHeader extends StatelessWidget {
                         tooltip: 'API Docs for ``**$className**``',
                         onPressed: followLink,
                         child: const Text('Dart Docs'),
+                      );
+                    },
+                  ),
+                ),
+              if (reference != null)
+                Padding(
+                  padding: TOffset.l14,
+                  child: Link(
+                    target: LinkTarget.blank,
+                    uri: Uri.parse(reference!),
+                    builder: (context, followLink) {
+                      return TBadge.soft(
+                        color: TColors.indigo,
+                        tooltip: 'Tailwind reference',
+                        onPressed: followLink,
+                        child: const Text('Reference'),
                       );
                     },
                   ),

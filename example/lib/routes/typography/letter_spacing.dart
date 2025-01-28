@@ -1,51 +1,46 @@
-part of 'design_system.dart';
+part of 'typography.dart';
 
 // =============================================================================
-// CLASS: TypographyRouteFontSize
+// CLASS: TypographyRouteLetterSpacing
 // =============================================================================
 
-class TypographyRouteFontSize extends StatelessWidget {
-  const TypographyRouteFontSize({super.key});
+class TypographyRouteLetterSpacing extends StatelessWidget {
+  const TypographyRouteLetterSpacing({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppScrollView.children(
       header: const AppRouteHeader(
-        section: AppRouteType.designSystem,
-        title: 'Font Size',
-        description: 'The built-in font size breakpoints.',
-        className: 'TFontSize',
+        section: AppRouteType.typography,
+        title: 'Line Height',
+        description: 'The built-in letter spacing breakpoints.',
+        className: 'TLetterSpacing',
+        reference: 'https://tailwindcss.com/docs/letter-spacing',
       ),
-      // children: [
-      //   AppSection(title: 'Font Size Values'),
-      //   const Text(
-      //     'The Flutter Tailwind UI package includes a standard set of font sizes that align with the Tailwind CSS default font size system, making it easy for developers to implement consistent typography across their UI. This pre-packaged sizing ensures an intuitive, scalable approach to font sizing, maintaining a cohesive visual hierarchy without the need for additional configuration.',
-      //   ),
-      // ],
       children: [
         AppSection(
-          title: 'Font Size Values',
+          title: 'Letter Spacing Values',
           children: [
             AppValueTable(
               header: const [Text('Variable'), Text('Value')],
               valueAlignment: Alignment.centerRight,
               items: [
-                for (final fontSize in TFontSize.values)
+                for (final letterSpacing in TLetterSpacing.values)
                   AppValueTableItem(
-                    name: TFontSize.getName(fontSize),
-                    value: fontSize.toString(),
+                    name: TLetterSpacing.getName(letterSpacing),
+                    value: letterSpacing.toString(),
                   ),
               ],
             ),
           ],
         ),
         AppSection(
-          title: 'Font Size Examples',
+          title: 'Letter Spacing Examples',
           children: const [
             AppPreviewCard(
               alignment: Alignment.centerLeft,
-              code: _TFontSizeExamplesSource.code,
-              child: _TFontSizeExamples(),
+              code: _TLetterSpacingExamplesSource.code,
+              child: _TLetterSpacingExamples(),
             ),
           ],
         ),
@@ -55,12 +50,12 @@ class TypographyRouteFontSize extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TFontSizeExamples
+// CLASS: _TLetterSpacingExamples
 // =============================================================================
 
 @GenerateSource()
-class _TFontSizeExamples extends StatelessWidget {
-  const _TFontSizeExamples();
+class _TLetterSpacingExamples extends StatelessWidget {
+  const _TLetterSpacingExamples();
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +63,12 @@ class _TFontSizeExamples extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: TSpace.v32,
       children: [
-        for (final fontSize in TFontSize.values)
+        for (final letterSpacing in TLetterSpacing.values)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                TFontSize.getName(fontSize),
+                TLetterSpacing.getName(letterSpacing),
                 style: TTextStyle.text_xs.copyWith(
                   color: TColors.sky,
                   fontFamily: TTextStyle.fontFamilyMono,
@@ -81,9 +76,7 @@ class _TFontSizeExamples extends StatelessWidget {
               ),
               Text(
                 'The quick brown fox jumps over the lazy dog.',
-                style: TextStyle(fontSize: fontSize),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+                style: TextStyle(letterSpacing: letterSpacing),
               ),
             ],
           ),

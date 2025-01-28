@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui_app/layout/scaffold.dart';
-import 'package:flutter_tailwind_ui_app/routes/components/components.dart';
-import 'package:flutter_tailwind_ui_app/routes/design_system/design_system.dart';
-import 'package:flutter_tailwind_ui_app/routes/getting_started/about.dart';
-import 'package:flutter_tailwind_ui_app/routes/getting_started/usage.dart';
+import 'package:flutter_tailwind_ui_app/routes/routes.dart';
+
 import 'package:go_router/go_router.dart';
 
 /// App router provider

@@ -42,7 +42,7 @@ enum TStyleVariant {
 }
 
 /// Extension for the [TStyleVariant] enum
-extension XTailwindTStyleVariant on TStyleVariant {
+extension XTailwindStyleVariant on TStyleVariant {
   /// Return the name of the variant
   String get title {
     final n = toString().split('.').last;
@@ -66,7 +66,7 @@ enum TControlAffinity {
 }
 
 /// Extension for the [TControlAffinity] enum
-extension XTailwindTControlAffinity on TControlAffinity {
+extension XTailwindControlAffinity on TControlAffinity {
   /// Returns whether the control is leading
   bool get isLeading => this == TControlAffinity.leading;
 
@@ -100,7 +100,7 @@ enum TSelectionGroupVariant {
 }
 
 /// Extension for the [TSelectionGroupVariant] enum
-extension XTailwindTSelectionGroupVariant on TSelectionGroupVariant {
+extension XTailwindSelectionGroupVariant on TSelectionGroupVariant {
   /// Return the name of the variant
   String get title {
     final n = toString().split('.').last;

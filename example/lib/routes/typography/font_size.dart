@@ -1,45 +1,46 @@
-part of 'design_system.dart';
+part of 'typography.dart';
 
 // =============================================================================
-// CLASS: TypographyRouteLetterSpacing
+// CLASS: TypographyRouteFontSize
 // =============================================================================
 
-class TypographyRouteLetterSpacing extends StatelessWidget {
-  const TypographyRouteLetterSpacing({super.key});
+class TypographyRouteFontSize extends StatelessWidget {
+  const TypographyRouteFontSize({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppScrollView.children(
       header: const AppRouteHeader(
-        section: AppRouteType.designSystem,
-        title: 'Line Height',
-        description: 'The built-in letter spacing breakpoints.',
-        className: 'TLetterSpacing',
+        section: AppRouteType.typography,
+        title: 'Font Size',
+        description: 'The built-in font size breakpoints.',
+        className: 'TFontSize',
+        reference: 'https://tailwindcss.com/docs/font-size',
       ),
       children: [
         AppSection(
-          title: 'Letter Spacing Values',
+          title: 'Font Size Values',
           children: [
             AppValueTable(
               header: const [Text('Variable'), Text('Value')],
               valueAlignment: Alignment.centerRight,
               items: [
-                for (final letterSpacing in TLetterSpacing.values)
+                for (final fontSize in TFontSize.values)
                   AppValueTableItem(
-                    name: TLetterSpacing.getName(letterSpacing),
-                    value: letterSpacing.toString(),
+                    name: TFontSize.getName(fontSize),
+                    value: fontSize.toString(),
                   ),
               ],
             ),
           ],
         ),
         AppSection(
-          title: 'Letter Spacing Examples',
+          title: 'Font Size Examples',
           children: const [
             AppPreviewCard(
               alignment: Alignment.centerLeft,
-              code: _TLetterSpacingExamplesSource.code,
-              child: _TLetterSpacingExamples(),
+              code: _TFontSizeExamplesSource.code,
+              child: _TFontSizeExamples(),
             ),
           ],
         ),
@@ -49,12 +50,12 @@ class TypographyRouteLetterSpacing extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TLetterSpacingExamples
+// CLASS: _TFontSizeExamples
 // =============================================================================
 
 @GenerateSource()
-class _TLetterSpacingExamples extends StatelessWidget {
-  const _TLetterSpacingExamples();
+class _TFontSizeExamples extends StatelessWidget {
+  const _TFontSizeExamples();
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +63,12 @@ class _TLetterSpacingExamples extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: TSpace.v32,
       children: [
-        for (final letterSpacing in TLetterSpacing.values)
+        for (final fontSize in TFontSize.values)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                TLetterSpacing.getName(letterSpacing),
+                TFontSize.getName(fontSize),
                 style: TTextStyle.text_xs.copyWith(
                   color: TColors.sky,
                   fontFamily: TTextStyle.fontFamilyMono,
@@ -75,7 +76,9 @@ class _TLetterSpacingExamples extends StatelessWidget {
               ),
               Text(
                 'The quick brown fox jumps over the lazy dog.',
-                style: TextStyle(letterSpacing: letterSpacing),
+                style: TextStyle(fontSize: fontSize),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
