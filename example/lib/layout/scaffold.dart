@@ -254,7 +254,7 @@ class _ScaffoldMobileNavigation extends ConsumerWidget {
           ),
         ),
         if (currentSection != null && !tw.screen.is_lg)
-          Text(
+          TText(
             currentSection.title,
             style: TTextStyle.text_sm.copyWith(
               color: tw.colors.label,

@@ -17,6 +17,7 @@ class AppValueTable extends ConsumerStatefulWidget {
     this.valueWidth = TSpace.v112,
     this.nameAlignment = Alignment.centerLeft,
     this.valueAlignment = Alignment.centerLeft,
+    this.valueTextStyle,
     super.key,
   });
 
@@ -43,6 +44,9 @@ class AppValueTable extends ConsumerStatefulWidget {
 
   /// The alignment of the value column.
   final Alignment valueAlignment;
+
+  /// The alignment of the value column.
+  final TextStyle? valueTextStyle;
 
   @override
   ConsumerState<AppValueTable> createState() => _AppValueTableState();
@@ -74,6 +78,8 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
     if (widget.header.isNotEmpty) {
       effectiveHeight += widget.itemHeight;
     }
+
+    final valueTextStyle = widget.valueTextStyle ?? TTextStyle.text_xs;
 
     return SizedBox(
       height: effectiveHeight,
@@ -170,7 +176,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                                 width: widget.valueWidth,
                                 child: TText(
                                   item.value!,
-                                  style: TTextStyle.text_xs.copyWith(
+                                  style: valueTextStyle.copyWith(
                                     fontFamily: TTextStyle.fontFamilyMono,
                                     color: TColors.violet[tw.light ? 600 : 400],
                                   ),
@@ -178,7 +184,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                               ),
                             if (item.widget != null)
                               DefaultTextStyle.merge(
-                                style: TTextStyle.text_xs,
+                                style: valueTextStyle,
                                 child: item.widget!,
                               ),
                           ],

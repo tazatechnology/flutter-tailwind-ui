@@ -2481,7 +2481,7 @@ class _TSplitButtonLoadingCustomState
 class _TTextBoldSource {
   static const String code = r"""
 const TText(
-  'This **text** and this __text__ is bold.',
+  'These are all bold: **text**, __text__, <strong>text</strong>.',
 )
 """;
 }
@@ -2490,7 +2490,16 @@ const TText(
 class _TTextItalicSource {
   static const String code = r"""
 const TText(
-  'This *text* and this _text_ is italic.',
+  'These are all italic: *text*, _text_, <em>text</em>.',
+)
+""";
+}
+
+/// Source code for [_TTextUnderline]
+class _TTextUnderlineSource {
+  static const String code = r"""
+const TText(
+  'These are all underlined: <u>text</u>, <ins>text</ins>.',
 )
 """;
 }
@@ -2499,7 +2508,7 @@ const TText(
 class _TTextMonospaceSource {
   static const String code = r"""
 const TText(
-  'This ``text`` is monospaced.',
+  'These are all monospace: ``text``, <mono>text</mono>.',
 )
 """;
 }
@@ -2508,7 +2517,7 @@ const TText(
 class _TTextCodeSource {
   static const String code = r"""
 const TText(
-  'This `text` is highlighted code.',
+  'These are all code: `text`, <code>text</code>.',
 )
 """;
 }
@@ -2551,10 +2560,10 @@ class _TTextFormattedCodeSource {
 const Column(
   children: [
     TText(
-      'This **`text`** is bold code - order does not matter.',
+      'This **`text`** is bold code - order <u>does</u> matter here.',
     ),
     TText(
-      'This `**text**` is bold code - order does not matter.',
+      'This `**text**` is bold code - order <u>does</u> matter here.',
     ),
   ],
 )
@@ -2584,7 +2593,7 @@ TText(
   'This a custom formatter to create <red>colored</red> text',
   formatters: [
     TRichFormatter(
-      regex: RegExp(r'<red>(.*?)<\/red>'),
+      regex: [RegExp(r'<red>(.*?)<\/red>')],
       style: const TextStyle(color: TColors.red),
     ),
   ],
@@ -2599,7 +2608,7 @@ TText(
   'This a custom formatter to add an inline <my-button>action</my-button> span',
   formatters: [
     TRichFormatter(
-      regex: RegExp(r'<my-button>(.*?)<\/my-button>'),
+      regex: [RegExp(r'<my-button>(.*?)<\/my-button>')],
       builder: (match) {
         return WidgetSpan(
           alignment: PlaceholderAlignment.middle,

@@ -11,8 +11,7 @@ class ComponentRouteTText extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComponentRoute(
       name: 'TText',
-      description:
-          'Rich text with basic markdown formatting and extendable styling',
+      description: 'Inline rich text with extendable regex based styling',
       children: [
         AppSection(
           title: 'Default Formatters',
@@ -23,6 +22,7 @@ class ComponentRouteTText extends StatelessWidget {
             TSizedBox.y14,
             AppValueTable(
               header: [Text('Syntax'), Text('Style')],
+              valueTextStyle: TTextStyle.text_sm,
               items: [
                 AppValueTableItem(
                   name: '**text**',
@@ -33,6 +33,10 @@ class ComponentRouteTText extends StatelessWidget {
                   widget: TText('__Bold Text__'),
                 ),
                 AppValueTableItem(
+                  name: '<strong>text</strong>',
+                  widget: TText('<strong>Bold Text</strong>'),
+                ),
+                AppValueTableItem(
                   name: '*text*',
                   widget: TText('*Italic Text*'),
                 ),
@@ -41,12 +45,32 @@ class ComponentRouteTText extends StatelessWidget {
                   widget: TText('_Italic Text_'),
                 ),
                 AppValueTableItem(
+                  name: '<em>text</em>',
+                  widget: TText('<em>Italic Text</em>'),
+                ),
+                AppValueTableItem(
+                  name: '<u>text</u>',
+                  widget: TText('<u>Underlined Text</u>'),
+                ),
+                AppValueTableItem(
+                  name: '<ins>text</ins>',
+                  widget: TText('<ins>Underlined Text</ins>'),
+                ),
+                AppValueTableItem(
                   name: '``_text_``',
                   widget: TText('``Monospace Text``'),
                 ),
                 AppValueTableItem(
+                  name: '<mono>text</mono>',
+                  widget: TText('<mono>Monospace Text</mono>'),
+                ),
+                AppValueTableItem(
                   name: '`_text_`',
                   widget: TText('`Highlighted Code`'),
+                ),
+                AppValueTableItem(
+                  name: '<code>text</code>',
+                  widget: TText('<code>Highlighted Code</code>'),
                 ),
                 AppValueTableItem(
                   name: '[text](url)',
@@ -68,6 +92,11 @@ class ComponentRouteTText extends StatelessWidget {
               title: 'Italic',
               code: _TTextItalicSource.code,
               child: _TTextItalic(),
+            ),
+            AppPreviewCard(
+              title: 'Underline',
+              code: _TTextUnderlineSource.code,
+              child: _TTextUnderline(),
             ),
             AppPreviewCard(
               title: 'Monospace',
@@ -141,7 +170,7 @@ class _TTextBold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TText(
-      'This **text** and this __text__ is bold.',
+      'These are all bold: **text**, __text__, <strong>text</strong>.',
     );
   }
 }
@@ -157,7 +186,23 @@ class _TTextItalic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TText(
-      'This *text* and this _text_ is italic.',
+      'These are all italic: *text*, _text_, <em>text</em>.',
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TTextUnderline
+// =============================================================================
+
+@GenerateSource()
+class _TTextUnderline extends StatelessWidget {
+  const _TTextUnderline();
+
+  @override
+  Widget build(BuildContext context) {
+    return const TText(
+      'These are all underlined: <u>text</u>, <ins>text</ins>.',
     );
   }
 }
@@ -173,7 +218,7 @@ class _TTextMonospace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TText(
-      'This ``text`` is monospaced.',
+      'These are all monospace: ``text``, <mono>text</mono>.',
     );
   }
 }
@@ -189,7 +234,7 @@ class _TTextCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TText(
-      'This `text` is highlighted code.',
+      'These are all code: `text`, <code>text</code>.',
     );
   }
 }
@@ -253,10 +298,10 @@ class _TTextFormattedCode extends StatelessWidget {
     return const Column(
       children: [
         TText(
-          'This **`text`** is bold code - order does not matter.',
+          'This **`text`** is bold code - order <u>does</u> matter here.',
         ),
         TText(
-          'This `**text**` is bold code - order does not matter.',
+          'This `**text**` is bold code - order <u>does</u> matter here.',
         ),
       ],
     );
@@ -300,7 +345,7 @@ class _TTextCustomStyle extends StatelessWidget {
       'This a custom formatter to create <red>colored</red> text',
       formatters: [
         TRichFormatter(
-          regex: RegExp(r'<red>(.*?)<\/red>'),
+          regex: [RegExp(r'<red>(.*?)<\/red>')],
           style: const TextStyle(color: TColors.red),
         ),
       ],
@@ -322,7 +367,7 @@ class _TTextCustomStyleBuilderAdvanced extends StatelessWidget {
       'This a custom formatter to add an inline <my-button>action</my-button> span',
       formatters: [
         TRichFormatter(
-          regex: RegExp(r'<my-button>(.*?)<\/my-button>'),
+          regex: [RegExp(r'<my-button>(.*?)<\/my-button>')],
           builder: (match) {
             return WidgetSpan(
               alignment: PlaceholderAlignment.middle,

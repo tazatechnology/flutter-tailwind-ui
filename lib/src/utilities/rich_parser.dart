@@ -3,7 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:url_launcher/link.dart';
 
-final _captureGroupsRegExp = RegExp(r'(?<!\\)\((?!\?:)(.*?)\)');
+/// Count the number of capturing groups in a regular expression pattern.
+int _countCaptureGroups(String pattern) {
+  return RegExp(r'(?<!\\)\((?!\?:)(.*?)\)')
+      .allMatches(pattern)
+      .map((match) => match.group(1) ?? '')
+      .length;
+}
+
+/// Unpacks the formatters by expanding each regex pattern into its own formatter.
+List<TRichFormatter> _unpack(List<TRichFormatter> formatters) {
+  final List<TRichFormatter> effectiveFormatters = [];
+  for (final f in formatters) {
+    if (f.regex.isEmpty) {
+      continue;
+    }
+    for (final r in f.regex) {
+      effectiveFormatters.add(
+        TRichFormatter(regex: [r], builder: f.builder, style: f.style),
+      );
+    }
+  }
+
+  return effectiveFormatters;
+}
+
+/// Unpack the default formatters once for performance.
+List<TRichFormatter> _unpackedDefaultFormatters = List.unmodifiable(
+  _unpack(TRichFormatter.defaultFormatters),
+);
 
 // =============================================================================
 // CLASS: TRichParser
@@ -27,31 +55,33 @@ class TRichParser {
     required String text,
     TextStyle? style,
   }) {
-    /// Start with the globally defined builders in the Tailwind theme
-    final effectiveFormatters = TRichFormatter.defaultFormatters.toList();
+    /// Unpack the default formatters
+    final effectiveFormatters = _unpackedDefaultFormatters.toList();
 
-    /// Get the effective extensions by merging the global and local builders
-    if (formatters != null) {
-      for (final ext in formatters ?? <TRichFormatter>[]) {
-        final index =
-            effectiveFormatters.indexWhere((e) => e.regex == ext.regex);
-        if (index != -1) {
-          effectiveFormatters[index] = ext;
-        } else {
-          effectiveFormatters.add(ext);
-        }
+    /// Get the effective formatters by merging the default and user provided
+    for (final f in _unpack(formatters ?? <TRichFormatter>[])) {
+      // Replace the formatter with matching regex if it already exists
+      final index = effectiveFormatters.indexWhere(
+        (e) => e.regex.first == f.regex.first,
+      );
+      if (index != -1) {
+        effectiveFormatters[index] = f;
+      } else {
+        effectiveFormatters.add(f);
       }
     }
 
     /// Create a regular expression to match all the patterns
-    final patterns = effectiveFormatters.map((e) => e.regex.pattern);
+    final patterns = effectiveFormatters.map((e) => e.regex[0].pattern);
     final regex = RegExp('(?:${patterns.join('|')})');
 
     /// Compute the capture group offset once
     final captureGroupOffsets = <int>[];
     for (var ii = 0; ii < effectiveFormatters.length; ii++) {
       captureGroupOffsets.add(
-        effectiveFormatters.take(ii).fold(0, (acc, e) => acc + e.captureGroups),
+        effectiveFormatters
+            .take(ii)
+            .fold(0, (acc, e) => acc + _countCaptureGroups(e.regex[0].pattern)),
       );
     }
 
@@ -179,16 +209,10 @@ class TRichFormatter {
     required this.regex,
     this.builder,
     this.style,
-  }) {
-    // Count the number of capturing groups in the regular expression
-    captureGroups = _captureGroupsRegExp
-        .allMatches(regex.pattern)
-        .map((match) => match.group(1) ?? '')
-        .length;
-  }
+  });
 
-  /// The regular expression to match custom patterns in the text.
-  final RegExp regex;
+  /// The regular expressions to match for this formatter.
+  final List<RegExp> regex;
 
   /// A function that builds a [InlineSpan] for the given match.
   final InlineSpan Function(TRichFormatterMatch details)? builder;
@@ -196,91 +220,77 @@ class TRichFormatter {
   /// The style to use for the text.
   final TextStyle? style;
 
-  /// The total number of capturing groups in the regular expression.
-  late final int captureGroups;
-
   /// The default formatters for the [TRichParser.parse] method.
   static List<TRichFormatter> defaultFormatters = List.unmodifiable([
-    // Bold: **text**
+    // Bold
     TRichFormatter(
-      regex: RegExp(r'\*\*([^*]+)\*\*'),
+      regex: [
+        RegExp(r'\*\*([^*]+)\*\*'),
+        RegExp('__([^_]+)__'),
+        RegExp(r'<strong>(.*?)<\/strong>'),
+      ],
       style: const TextStyle(fontWeight: TFontWeight.bold),
     ),
+    // Italic
     TRichFormatter(
-      regex: RegExp('__([^_]+)__'),
-      style: const TextStyle(fontWeight: TFontWeight.bold),
-    ),
-    // Italic: _text_
-    TRichFormatter(
-      regex: RegExp('_([^_]+)_'),
+      regex: [
+        RegExp('_([^_]+)_'),
+        RegExp(r'\*([^*]+)\*'),
+        RegExp(r'<em>(.*?)<\/em>'),
+      ],
       style: const TextStyle(fontStyle: FontStyle.italic),
     ),
+    // Underline
     TRichFormatter(
-      regex: RegExp(r'\*([^*]+)\*'),
-      style: const TextStyle(fontStyle: FontStyle.italic),
+      regex: [
+        RegExp(r'<u>(.*?)<\/u>'),
+        RegExp(r'<ins>(.*?)<\/ins>'),
+      ],
+      style: const TextStyle(decoration: TextDecoration.underline),
     ),
-    // Monospace: ``text``
+    // Monospace
     TRichFormatter(
-      regex: RegExp('``([^`]+)``'),
-      // Use a builder so that context can be used to look up the monospace font
-      builder: (match) {
-        return TRichParser(formatters: match.formatters).parse(
-          context: match.context,
-          text: match.textMatch,
-          style: match.baseStyle.copyWith(
-            fontFamily: TTextStyle.fontFamilyMono,
-          ),
-        );
-      },
+      regex: [
+        RegExp('``([^`]+)``'),
+        RegExp(r'<mono>(.*?)<\/mono>'),
+      ],
+      style: const TextStyle(fontFamily: TTextStyle.fontFamilyMono),
     ),
-    // Code: `text`
+    // Code
     TRichFormatter(
-      regex: RegExp('`([^`]+)`'),
+      regex: [
+        RegExp('`([^`]+)`'),
+        RegExp(r'<code>(.*?)<\/code>'),
+      ],
       builder: (match) {
-        final context = match.context;
-        final tw = context.tw;
-        final backgroundColor =
-            tw.light ? const Color(0xfff5f5f5) : const Color(0xff333333);
-        final codeSpan = TRichParser(formatters: match.formatters).parse(
-          context: match.context,
-          text: match.textMatch,
-          style: match.baseStyle.copyWith(
-            fontFamily: TTextStyle.fontFamilyMono,
-          ),
-        );
-
+        final fontSize = DefaultTextStyle.of(match.context).style.fontSize ??
+            TFontSize.text_md;
         return WidgetSpan(
           alignment: PlaceholderAlignment.middle,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                padding: TOffset.x2,
-                decoration: BoxDecoration(
-                  color: backgroundColor,
-                  borderRadius: TBorderRadius.rounded_sm,
-                ),
-                // Hidden span to align span with surrounding text
-                child: Text.rich(
-                  codeSpan,
-                  style: const TextStyle(color: Colors.transparent),
-                ),
+          child: Container(
+            padding: TOffset.x4,
+            decoration: BoxDecoration(
+              borderRadius: TBorderRadius.rounded_sm,
+              color: match.context.tw.light
+                  ? const Color(0xfff5f5f5)
+                  : const Color(0xff333333),
+            ),
+            child: Text(
+              match.textMatch,
+              style: match.baseStyle.copyWith(
+                fontSize: fontSize * 0.85,
+                fontFamily: TTextStyle.fontFamilyMono,
               ),
-              // Overlay the formatted code span with smaller font size
-              SelectionContainer.disabled(
-                child: Text.rich(
-                  codeSpan,
-                  textScaler: const TextScaler.linear(0.85),
-                ),
-              ),
-            ],
+            ),
           ),
         );
       },
     ),
-    // Link: [text](url)
+    // Link
     TRichFormatter(
-      regex: RegExp(r'\[([^\]]+)\]\(([^)]+)\)'),
+      regex: [
+        RegExp(r'\[([^\]]+)\]\(([^)]+)\)'),
+      ],
       builder: (match) {
         final tw = match.context.tw;
         // Create a regular expression to match for the URL
