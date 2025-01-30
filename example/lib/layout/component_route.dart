@@ -10,12 +10,14 @@ class ComponentRoute extends StatelessWidget {
   const ComponentRoute({
     required this.name,
     required this.description,
+    this.reference,
     this.children = const [],
     this.slivers = const [],
     super.key,
   });
   final String name;
   final String description;
+  final String? reference;
   final List<Widget> children;
   final List<Widget> slivers;
 
@@ -27,6 +29,7 @@ class ComponentRoute extends StatelessWidget {
       title: name,
       className: name,
       description: description,
+      reference: reference,
     );
     if (slivers.isNotEmpty) {
       return AppScrollView.slivers(

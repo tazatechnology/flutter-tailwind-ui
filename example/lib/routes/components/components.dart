@@ -6,12 +6,14 @@ import 'package:flutter_tailwind_ui_app/layout/header.dart';
 import 'package:flutter_tailwind_ui_app/widgets/preview_card.dart';
 import 'package:flutter_tailwind_ui_app/widgets/value_table.dart';
 
+part 'backdrop_filter.dart';
 part 'badge.dart';
 part 'button.dart';
 part 'card.dart';
 part 'checkbox.dart';
 part 'checkbox_group.dart';
 part 'code_block.dart';
+part 'filter.dart';
 part 'icon_button.dart';
 part 'radio.dart';
 part 'radio_group.dart';

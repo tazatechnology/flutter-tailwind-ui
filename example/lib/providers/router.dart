@@ -29,12 +29,14 @@ class AppRouter {
     };
 
     final componentRoutes = <String, Widget>{
+      AppRouter.backdrop_filter: const ComponentRouteTBackdropFilter(),
       AppRouter.badge: const ComponentRouteTBadge(),
       AppRouter.button: const ComponentRouteTButton(),
       AppRouter.card: const ComponentRouteTCard(),
       AppRouter.checkbox: const ComponentRouteTCheckbox(),
       AppRouter.checkbox_group: const ComponentRouteTCheckboxGroup(),
       AppRouter.code_block: const ComponentRouteTCodeBlock(),
+      AppRouter.filter: const ComponentRouteTFilter(),
       AppRouter.icon_button: const ComponentRouteTIconButton(),
       AppRouter.split_button: const ComponentRouteTSplitButton(),
       AppRouter.radio: const ComponentRouteTRadio(),
@@ -111,12 +113,14 @@ class AppRouter {
   static const String letter_spacing = 'letter-spacing';
 
   /// Components
+  static const String backdrop_filter = 'backdrop-filter';
   static const String badge = 'badge';
   static const String button = 'button';
   static const String card = 'card';
   static const String checkbox = 'checkbox';
   static const String checkbox_group = 'checkbox-group';
   static const String code_block = 'code-block';
+  static const String filter = 'filter';
   static const String icon_button = 'icon-button';
   static const String radio = 'radio';
   static const String radio_group = 'radio-group';

@@ -599,7 +599,7 @@ class _TIconButtonCustomTheme extends StatelessWidget {
       theme: TStyleTheme.all(
         height: 32,
         backgroundColor: Colors.black,
-        elevation: TShadow.shadow,
+        elevation: TElevation.elevation_sm,
         border: Border.all(color: TColors.slate),
         borderRadius: TBorderRadius.rounded_none,
       ),
@@ -629,7 +629,9 @@ class _TIconButtonStatefulTheme extends StatelessWidget {
           return states.hovered ? TColors.slate.shade800 : Colors.black;
         }),
         elevation: WidgetStateProperty.resolveWith((states) {
-          return states.hovered ? TShadow.shadow_md : TShadow.shadow;
+          return states.hovered
+              ? TElevation.elevation_md
+              : TElevation.elevation_sm;
         }),
         border: WidgetStateProperty.resolveWith((states) {
           if (states.hovered) {

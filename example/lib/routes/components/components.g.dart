@@ -3,6 +3,158 @@
 
 part of 'components.dart';
 
+/// Source code for [_TBackdropFilterBlur]
+class _TBackdropFilterBlurSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 2.0, 4.0, 8.0])
+      TBackdropFilter.blur(
+        value: value,
+        background: Image.asset('assets/img/reference.jpeg', height: 100),
+        child: Container(width: 60, height: 60, color: Colors.white30),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TBackdropFilterBrightness]
+class _TBackdropFilterBrightnessSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.5, 1.0, 1.25, 1.5])
+      TBackdropFilter.brightness(
+        value: value,
+        background: Image.asset('assets/img/reference.jpeg', height: 100),
+        child: Container(width: 60, height: 60, color: Colors.white30),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TBackdropFilterContrast]
+class _TBackdropFilterContrastSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.5, 1.0, 1.25, 2.0])
+      TBackdropFilter.contrast(
+        value: value,
+        background: Image.asset('assets/img/reference.jpeg', height: 100),
+        child: Container(width: 60, height: 60, color: Colors.white30),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TBackdropFilterGrayscale]
+class _TBackdropFilterGrayscaleSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 0.5, 0.75, 1.0])
+      TBackdropFilter.grayscale(
+        value: value,
+        background: Image.asset('assets/img/reference.jpeg', height: 100),
+        child: Container(width: 60, height: 60, color: Colors.white30),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TBackdropFilterHueRotate]
+class _TBackdropFilterHueRotateSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 90.0, 180.0, 270.0])
+      TBackdropFilter.hueRotate(
+        value: value,
+        background: Image.asset('assets/img/reference.jpeg', height: 100),
+        child: Container(width: 60, height: 60, color: Colors.white30),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TBackdropFilterInvert]
+class _TBackdropFilterInvertSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 0.25, 0.75, 1.0])
+      TBackdropFilter.invert(
+        value: value,
+        background: Image.asset('assets/img/reference.jpeg', height: 100),
+        child: Container(width: 60, height: 60, color: Colors.white30),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TBackdropFilterSaturate]
+class _TBackdropFilterSaturateSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.5, 1.0, 1.5, 2.0])
+      TBackdropFilter.saturate(
+        value: value,
+        background: Image.asset('assets/img/reference.jpeg', height: 100),
+        child: Container(width: 60, height: 60, color: Colors.white30),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TBackdropFilterSepia]
+class _TBackdropFilterSepiaSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 0.5, 0.75, 1.0])
+      TBackdropFilter.sepia(
+        value: value,
+        background: Image.asset('assets/img/reference.jpeg', height: 100),
+        child: Container(width: 60, height: 60, color: Colors.white30),
+      ),
+  ],
+)
+""";
+}
+
 /// Source code for [_TBadgeBasic]
 class _TBadgeBasicSource {
   static const String code = r"""
@@ -745,7 +897,7 @@ TButton.filled(
   theme: TStyleTheme.all(
     height: 32,
     backgroundColor: Colors.black,
-    elevation: TShadow.shadow,
+    elevation: TElevation.elevation_sm,
     border: Border.all(color: TColors.slate),
     borderRadius: TBorderRadius.rounded_none,
     textStyle: const TextStyle(
@@ -772,7 +924,9 @@ TButton.filled(
       return states.hovered ? TColors.slate.shade800 : Colors.black;
     }),
     elevation: WidgetStateProperty.resolveWith((states) {
-      return states.hovered ? TShadow.shadow_md : TShadow.shadow;
+      return states.hovered
+          ? TElevation.elevation_md
+          : TElevation.elevation_sm;
     }),
     padding: WidgetStateProperty.resolveWith((states) {
       return states.hovered ? TOffset.x16 : TOffset.x10;
@@ -1253,6 +1407,150 @@ TCheckboxGroup.panel(
 """;
 }
 
+/// Source code for [_TFilterBlur]
+class _TFilterBlurSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 2.0, 4.0, 8.0])
+      TFilter.blur(
+        value: value,
+        child: Image.asset('assets/img/reference.jpeg', height: 100),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TFilterBrightness]
+class _TFilterBrightnessSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.5, 1.0, 1.25, 1.5])
+      TFilter.brightness(
+        value: value,
+        child: Image.asset('assets/img/reference.jpeg', height: 100),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TFilterContrast]
+class _TFilterContrastSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.5, 1.0, 1.25, 2.0])
+      TFilter.contrast(
+        value: value,
+        child: Image.asset('assets/img/reference.jpeg', height: 100),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TFilterGrayscale]
+class _TFilterGrayscaleSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 0.5, 0.75, 1.0])
+      TFilter.grayscale(
+        value: value,
+        child: Image.asset('assets/img/reference.jpeg', height: 100),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TFilterHueRotate]
+class _TFilterHueRotateSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 90.0, 180.0, 270.0])
+      TFilter.hueRotate(
+        value: value,
+        child: Image.asset('assets/img/reference.jpeg', height: 100),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TFilterInvert]
+class _TFilterInvertSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 0.25, 0.75, 1.0])
+      TFilter.invert(
+        value: value,
+        child: Image.asset('assets/img/reference.jpeg', height: 100),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TFilterSaturate]
+class _TFilterSaturateSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.5, 1.0, 1.5, 2.0])
+      TFilter.saturate(
+        value: value,
+        child: Image.asset('assets/img/reference.jpeg', height: 100),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TFilterSepia]
+class _TFilterSepiaSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v20,
+  runSpacing: TSpace.v20,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final value in [0.0, 0.5, 0.75, 1.0])
+      TFilter.sepia(
+        value: value,
+        child: Image.asset('assets/img/reference.jpeg', height: 100),
+      ),
+  ],
+)
+""";
+}
+
 /// Source code for [_TIconButtonBasic]
 class _TIconButtonBasicSource {
   static const String code = r"""
@@ -1601,7 +1899,7 @@ TIconButton.filled(
   theme: TStyleTheme.all(
     height: 32,
     backgroundColor: Colors.black,
-    elevation: TShadow.shadow,
+    elevation: TElevation.elevation_sm,
     border: Border.all(color: TColors.slate),
     borderRadius: TBorderRadius.rounded_none,
   ),
@@ -1624,7 +1922,9 @@ TIconButton.filled(
       return states.hovered ? TColors.slate.shade800 : Colors.black;
     }),
     elevation: WidgetStateProperty.resolveWith((states) {
-      return states.hovered ? TShadow.shadow_md : TShadow.shadow;
+      return states.hovered
+          ? TElevation.elevation_md
+          : TElevation.elevation_sm;
     }),
     border: WidgetStateProperty.resolveWith((states) {
       if (states.hovered) {

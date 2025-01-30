@@ -108,18 +108,7 @@ class AppRouteHeader extends StatelessWidget {
               if (reference != null)
                 Padding(
                   padding: TOffset.l14,
-                  child: Link(
-                    target: LinkTarget.blank,
-                    uri: Uri.parse(reference!),
-                    builder: (context, followLink) {
-                      return TBadge.soft(
-                        color: TColors.indigo,
-                        tooltip: 'Tailwind reference',
-                        onPressed: followLink,
-                        child: const Text('Reference'),
-                      );
-                    },
-                  ),
+                  child: ReferenceBadge(reference: reference!),
                 ),
             ],
           ),
@@ -198,8 +187,9 @@ class AppSection extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if (states.hovered)
-                          const Padding(
+                        Opacity(
+                          opacity: states.hovered ? 1 : 0,
+                          child: const Padding(
                             padding: TOffset.l4,
                             child: Card(
                               child: Padding(
@@ -212,6 +202,7 @@ class AppSection extends StatelessWidget {
                               ),
                             ),
                           ),
+                        ),
                       ],
                     );
                   },
@@ -221,9 +212,43 @@ class AppSection extends StatelessWidget {
             ],
           ),
         ),
-        if (description != null && description!.isNotEmpty) TText(description!),
+        if (description != null && description!.isNotEmpty)
+          TText(
+            description!,
+          ),
         if (children != null) ...children!,
       ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: ReferenceBadge
+// =============================================================================
+
+class ReferenceBadge extends StatelessWidget {
+  const ReferenceBadge({
+    required this.reference,
+    this.tooltip = 'Tailwind reference',
+    this.text = 'Reference',
+    super.key,
+  });
+  final String reference;
+  final String tooltip;
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Link(
+      target: LinkTarget.blank,
+      uri: Uri.parse(reference),
+      builder: (context, followLink) {
+        return TBadge.soft(
+          color: TColors.indigo,
+          tooltip: tooltip,
+          onPressed: followLink,
+          child: Text(text),
+        );
+      },
     );
   }
 }

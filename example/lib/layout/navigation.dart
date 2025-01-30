@@ -62,7 +62,7 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TIconButton``': AppRouter.icon_button,
         '``TSplitButton``': AppRouter.split_button,
       },
-      'Selection Controls & Groups': {
+      'Selection Controls': {
         '``TRadio``': AppRouter.radio,
         '``TRadioGroup``': AppRouter.radio_group,
         '``TCheckbox``': AppRouter.checkbox,
@@ -72,6 +72,10 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TCard``': AppRouter.card,
         '``TRowColumn``': AppRouter.row_column,
         '``TSizedBox``': AppRouter.sized_box,
+      },
+      'Filters': {
+        '``TFilter``': AppRouter.filter,
+        '``TBackdropFilter``': AppRouter.backdrop_filter,
       },
       'Other': {
         '``TCodeBlock``': AppRouter.code_block,

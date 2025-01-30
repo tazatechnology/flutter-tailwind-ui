@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui_app/layout/header.dart';
 import 'package:flutter_tailwind_ui_app/widgets/code_result_card.dart';
 
 // =============================================================================
@@ -13,11 +14,13 @@ class AppPreviewCard extends StatefulWidget {
     this.title,
     this.alignment = Alignment.center,
     this.description,
+    this.reference,
     this.initialShowCode = false,
     super.key,
   });
   final String? title;
   final String? description;
+  final String? reference;
   final String code;
   final Widget child;
   final Alignment alignment;
@@ -92,6 +95,10 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
                 style: TTextStyle.text_sm.copyWith(
                   fontWeight: TFontWeight.semibold,
                 ),
+              ),
+            if (widget.reference != null && widget.reference!.isNotEmpty)
+              ReferenceBadge(
+                reference: widget.reference!,
               ),
             if (widget.title == null) const Spacer(),
             Container(

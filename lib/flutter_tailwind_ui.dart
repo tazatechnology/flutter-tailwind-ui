@@ -1,9 +1,11 @@
 // Components
+export 'src/components/backdrop_filter.dart';
 export 'src/components/badge.dart';
 export 'src/components/button.dart';
 export 'src/components/card.dart';
 export 'src/components/checkbox.dart';
 export 'src/components/code_block.dart';
+export 'src/components/filter.dart';
 export 'src/components/focus_border.dart';
 export 'src/components/gesture_detector.dart';
 export 'src/components/icon_button.dart';
@@ -18,11 +20,11 @@ export 'src/components/widget_controller.dart';
 
 // Constants
 export 'src/constants/colors.dart';
+export 'src/constants/elevation.dart';
 export 'src/constants/enums.dart';
 export 'src/constants/offset.dart';
 export 'src/constants/radius.dart';
 export 'src/constants/screen.dart';
-export 'src/constants/shadow.dart';
 export 'src/constants/space.dart';
 export 'src/constants/text.dart';
 
@@ -40,6 +42,7 @@ export 'src/theme/style.dart';
 export 'src/theme/theme.dart';
 
 // Utilities
+export 'src/utilities/filter_matrix.dart';
 export 'src/utilities/highlighter.dart';
 export 'src/utilities/rich_parser.dart';
 export 'src/utilities/transitions.dart';
