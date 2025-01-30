@@ -12,6 +12,7 @@ part 'button.dart';
 part 'card.dart';
 part 'checkbox.dart';
 part 'checkbox_group.dart';
+part 'checkbox_tile.dart';
 part 'code_block.dart';
 part 'filter.dart';
 part 'icon_button.dart';

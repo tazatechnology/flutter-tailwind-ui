@@ -112,7 +112,7 @@ extension XTailwindSelectionGroupVariant on TSelectionGroupVariant {
     switch (this) {
       case TSelectionGroupVariant.basic:
       case TSelectionGroupVariant.separated:
-        return TSpace.v20;
+        return TSpace.v16;
       case TSelectionGroupVariant.card:
         return TSpace.v12;
       case TSelectionGroupVariant.panel:

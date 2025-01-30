@@ -11,7 +11,7 @@ class ComponentRouteTFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComponentRoute(
       name: 'TFilter',
-      description: 'Built-in filter effects',
+      description: 'Apply filter effects to a widget',
       children: [
         AppSection(
           title: 'Blur Filter',

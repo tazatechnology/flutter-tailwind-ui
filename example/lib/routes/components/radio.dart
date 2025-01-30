@@ -11,7 +11,7 @@ class ComponentRouteTRadio extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComponentRoute(
       name: 'TRadio',
-      description: 'A widget',
+      description: 'A primitive radio widget.',
       children: [
         AppSection(
           title: 'Radio States',

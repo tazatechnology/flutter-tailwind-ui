@@ -233,18 +233,18 @@ class TRadioGroup<T> extends StatefulWidget {
   /// The color of the radio elements.
   final Color? color;
 
-  /// The maximum width of the radio group.
+  /// The maximum width of the group.
   final double width;
 
-  /// The spacing between the radio elements.
+  /// The spacing between the group elements.
   ///
   /// If not specified, default is based on [TSelectionGroupVariant].
   final double? spacing;
 
-  /// The control affinity of the radio group.
+  /// The control affinity of the group.
   final TControlAffinity affinity;
 
-  /// The orientation of the radio group.
+  /// The orientation of the group.
   final Axis axis;
 
   /// The radius value for rounded corners

@@ -11,7 +11,7 @@ class ComponentRouteTCheckboxGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComponentRoute(
       name: 'TCheckboxGroup',
-      description: 'A widget',
+      description: 'A checkbox group for multiple value selections',
       children: [
         AppSection(
           title: 'Checkbox Group Types',

@@ -124,6 +124,87 @@ class TCheckbox extends StatelessWidget {
 }
 
 // =============================================================================
+// CLASS: TCheckboxTile
+// =============================================================================
+
+/// A single checkbox item
+class TCheckboxTile extends StatelessWidget {
+  /// Constructor
+  const TCheckboxTile({
+    required this.value,
+    this.title,
+    this.description,
+    this.onChanged,
+    this.color,
+    this.enabled = true,
+    this.padding = TOffset.a0,
+    this.focusNode,
+    this.indicator,
+    this.affinity = TControlAffinity.leading,
+    super.key,
+  });
+
+  /// The value of the checkbox
+  final bool value;
+
+  /// The title of this checkbox tile
+  final Widget? title;
+
+  /// The description of this checkbox tile
+  final Widget? description;
+
+  /// The callback when the value changes
+  final ValueChanged<bool>? onChanged;
+
+  /// The color of the checkbox
+  final Color? color;
+
+  /// Flag to enable or disable the checkbox
+  final bool enabled;
+
+  /// The padding of the checkbox
+  ///
+  /// Will be added to the gesture detector
+  final EdgeInsetsGeometry padding;
+
+  /// The focus node of the checkbox button
+  final FocusNode? focusNode;
+
+  /// An optional custom indicator widget
+  final Widget? indicator;
+
+  /// The control affinity of the checkbox
+  final TControlAffinity affinity;
+
+  @override
+  Widget build(BuildContext context) {
+    return TSelectionGroupTile(
+      variant: TSelectionGroupVariant.basic,
+      index: 0,
+      numItems: 1,
+      color: color,
+      title: title ?? const SizedBox.shrink(),
+      description: description,
+      control: TCheckbox(
+        color: color,
+        value: value,
+        onChanged: onChanged,
+        enabled: enabled,
+        padding: padding,
+        focusNode: focusNode,
+        indicator: indicator,
+      ),
+      radius: 0,
+      selected: value,
+      enabled: enabled,
+      affinity: affinity,
+      axis: Axis.vertical,
+      onChanged: onChanged ?? (value) {},
+    );
+  }
+}
+
+// =============================================================================
 // CLASS: TCheckboxGroupItem
 // =============================================================================
 
@@ -217,30 +298,32 @@ class TCheckboxGroup<T> extends StatefulWidget {
   /// The description widget
   final Widget? description;
 
-  /// The value of the radio group.
+  /// The value of the checkbox group.
   final List<T>? groupValue;
 
   /// Callback when the value changes.
+  ///
+  /// Returns a list of the currently selected values.
   final ValueChanged<List<T>>? onChanged;
 
   /// The variant of the checkbox group.
   final TSelectionGroupVariant variant;
 
-  /// The color of the radio elements.
+  /// The color of the checkbox elements.
   final Color? color;
 
-  /// The maximum width of the radio group.
+  /// The maximum width of the group.
   final double width;
 
-  /// The spacing between the radio elements.
+  /// The spacing between the group elements.
   ///
   /// If not specified, default is based on [TSelectionGroupVariant].
   final double? spacing;
 
-  /// The control affinity of the radio group.
+  /// The control affinity of the group.
   final TControlAffinity affinity;
 
-  /// The orientation of the radio group.
+  /// The orientation of the group.
   final Axis axis;
 
   /// The radius value for rounded corners

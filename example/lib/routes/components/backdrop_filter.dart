@@ -11,7 +11,7 @@ class ComponentRouteTBackdropFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComponentRoute(
       name: 'TBackdropFilter',
-      description: 'Built-in backdrop filter effects',
+      description: 'Apply backdrop filter effects to a widget',
       children: [
         AppSection(
           title: 'Blur Filter',

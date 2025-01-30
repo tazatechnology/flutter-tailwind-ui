@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 
 /// Fixed size of the control widget
 const kDefaultControlSize = TSpace.v16;
@@ -135,29 +136,7 @@ class TSelectionGroupList<T> extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != null)
-          DefaultTextStyle.merge(
-            style: TTextStyle.text_sm
-                .copyWith(
-                  fontWeight: TFontWeight.semibold,
-                  height: kTextHeightNone,
-                )
-                .copyWith(
-                  color: tw.colors.title,
-                ),
-            child: title!,
-          ),
-        if (description != null)
-          Padding(
-            padding: TOffset.t8 + TOffset.b24,
-            child: DefaultTextStyle.merge(
-              style: TTextStyle.text_sm.copyWith(
-                height: kTextHeightNone,
-                color: tw.colors.label,
-              ),
-              child: description!,
-            ),
-          ),
+        TTitleLabelWidget(title: title, description: description),
         // For horizontal axis, wrap the content with IntrinsicHeight
         // This is to ensure the vertical divider height matches the content height
         if (axis == Axis.vertical) content else IntrinsicHeight(child: content),
@@ -323,7 +302,7 @@ class TSelectionGroupTile extends StatelessWidget {
           Flexible(
             child: Padding(
               padding: EdgeInsets.only(
-                top: TSpace.v4,
+                top: TSpace.v2,
                 left: affinity.isLeading ? kDefaultControlSize + sep : 0,
               ),
               child: DefaultTextStyle.merge(

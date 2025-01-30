@@ -1407,6 +1407,126 @@ TCheckboxGroup.panel(
 """;
 }
 
+/// Source code for [_TCheckboxTileActive]
+class _TCheckboxTileActiveSource {
+  static const String code = r"""
+class _TCheckboxTileActive extends StatefulWidget {
+  const _TCheckboxTileActive();
+
+  @override
+  State<_TCheckboxTileActive> createState() => _TCheckboxTileActiveState();
+}
+
+class _TCheckboxTileActiveState extends State<_TCheckboxTileActive> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TCheckboxTile(
+        title: const Text('Checkbox Tile'),
+        description: const Text('This is active.'),
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TCheckboxTileActiveDisabled]
+class _TCheckboxTileActiveDisabledSource {
+  static const String code = r"""
+SizedBox(
+  width: TSpace.v384,
+  child: TCheckboxTile(
+    title: const Text('Checkbox Tile'),
+    description: const Text('This is active and disabled.'),
+    enabled: false,
+    value: true,
+    onChanged: (value) {},
+  ),
+)
+""";
+}
+
+/// Source code for [_TCheckboxTileInactiveDisabled]
+class _TCheckboxTileInactiveDisabledSource {
+  static const String code = r"""
+SizedBox(
+  width: TSpace.v384,
+  child: TCheckboxTile(
+    title: const Text('Checkbox Tile'),
+    description: const Text('This is active and disabled.'),
+    enabled: false,
+    value: false,
+    onChanged: (value) {},
+  ),
+)
+""";
+}
+
+/// Source code for [_TCheckboxTileLeading]
+class _TCheckboxTileLeadingSource {
+  static const String code = r"""
+class _TCheckboxTileLeading extends StatefulWidget {
+  const _TCheckboxTileLeading();
+
+  @override
+  State<_TCheckboxTileLeading> createState() => _TCheckboxTileLeadingState();
+}
+
+class _TCheckboxTileLeadingState extends State<_TCheckboxTileLeading> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TCheckboxTile(
+        title: const Text('Checkbox Tile'),
+        description: const Text('Control is placed at the leading side.'),
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TCheckboxTileTrailing]
+class _TCheckboxTileTrailingSource {
+  static const String code = r"""
+class _TCheckboxTileTrailing extends StatefulWidget {
+  const _TCheckboxTileTrailing();
+
+  @override
+  State<_TCheckboxTileTrailing> createState() => _TCheckboxTileTrailingState();
+}
+
+class _TCheckboxTileTrailingState extends State<_TCheckboxTileTrailing> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TCheckboxTile(
+        title: const Text('Checkbox Tile'),
+        description: const Text('Control is placed at the trailing side.'),
+        affinity: TControlAffinity.trailing,
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
 /// Source code for [_TFilterBlur]
 class _TFilterBlurSource {
   static const String code = r"""

@@ -11,7 +11,7 @@ class ComponentRouteTRadioGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComponentRoute(
       name: 'TRadioGroup',
-      description: 'A widget',
+      description: 'A radio group for single value selections',
       children: [
         AppSection(
           title: 'Radio Group Types',

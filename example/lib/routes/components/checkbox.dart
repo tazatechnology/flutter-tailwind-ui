@@ -11,7 +11,7 @@ class ComponentRouteTCheckbox extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComponentRoute(
       name: 'TCheckbox',
-      description: 'A widget',
+      description: 'A primitive checkbox widget.',
       children: [
         AppSection(
           title: 'Checkbox States',
