@@ -45,6 +45,9 @@ class AppRouter {
       AppRouter.row_column: const ComponentRouteTRowColumn(),
       AppRouter.scrollbar: const ComponentRouteTScrollbar(),
       AppRouter.sized_box: const ComponentRouteTSizedBox(),
+      AppRouter.switch_control: const ComponentRouteTSwitch(),
+      AppRouter.switch_group: const ComponentRouteTSwitchGroup(),
+      AppRouter.switch_tile: const ComponentRouteTSwitchTile(),
       AppRouter.text: const ComponentRouteTText(),
     };
 
@@ -130,5 +133,8 @@ class AppRouter {
   static const String scrollbar = 'scrollbar';
   static const String sized_box = 'sized-box';
   static const String split_button = 'split-button';
+  static const String switch_control = 'switch';
+  static const String switch_group = 'switch-group';
+  static const String switch_tile = 'switch-tile';
   static const String text = 'text';
 }

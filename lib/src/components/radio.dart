@@ -7,9 +7,9 @@ import 'package:flutter_tailwind_ui/src/internal/selection_group.dart';
 // CLASS: TRadio
 // =============================================================================
 
-/// A Tailwind UI inspired radio button
+/// A Tailwind UI inspired radio widget
 class TRadio extends StatelessWidget {
-  /// Creates a radio button
+  /// Construct a radio widget
   const TRadio({
     required this.value,
     this.onChanged,
@@ -18,6 +18,9 @@ class TRadio extends StatelessWidget {
     this.padding = TOffset.a0,
     this.focusNode,
     this.indicator,
+    this.animationTransitionBuilder,
+    this.animationDuration = Duration.zero,
+    this.animationCurve = Curves.easeInOut,
     super.key,
   });
 
@@ -30,7 +33,7 @@ class TRadio extends StatelessWidget {
   /// The color of the radio
   final Color? color;
 
-  /// Flag to enable or disable the radio button
+  /// Flag to enable or disable the radio widget
   final bool enabled;
 
   /// The padding of the radio
@@ -43,6 +46,15 @@ class TRadio extends StatelessWidget {
 
   /// An optional custom indicator widget
   final Widget? indicator;
+
+  /// The transition builder for the indicator when toggling states
+  final AnimatedSwitcherTransitionBuilder? animationTransitionBuilder;
+
+  /// The duration of the switch animations
+  final Duration animationDuration;
+
+  /// The curve of the switch animations
+  final Curve animationCurve;
 
   // ---------------------------------------------------------------------------
   // METHOD: build
@@ -72,6 +84,21 @@ class TRadio extends StatelessWidget {
       }
       return KeyEventResult.ignored;
     }
+
+    // Build the checkbox widget
+    final indicatorWidget = AnimatedSwitcher(
+      duration: animationDuration,
+      switchInCurve: animationCurve,
+      switchOutCurve: animationCurve,
+      transitionBuilder: animationTransitionBuilder ??
+          (child, animation) {
+            return ScaleTransition(scale: animation, child: child);
+          },
+      child: KeyedSubtree(
+        key: ValueKey(value),
+        child: value ? indicator : const SizedBox.shrink(),
+      ),
+    );
 
     return TGestureDetector(
       mouseCursor: WidgetStatePropertyAll(
@@ -105,7 +132,9 @@ class TRadio extends StatelessWidget {
               size: kDefaultControlSize - TSpace.v4,
               color: color.contrastBlackWhite(),
             ),
-            child: Container(
+            child: AnimatedContainer(
+              duration: animationDuration,
+              curve: animationCurve,
               margin: padding,
               width: kDefaultControlSize,
               height: kDefaultControlSize,
@@ -118,7 +147,7 @@ class TRadio extends StatelessWidget {
                 border: Border.all(color: borderColor),
                 borderRadius: TBorderRadius.rounded_full,
               ),
-              child: value ? indicator : null,
+              child: indicatorWidget,
             ),
           ),
         );

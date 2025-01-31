@@ -12,6 +12,8 @@ class ComponentRouteTCheckboxGroup extends StatelessWidget {
     return ComponentRoute(
       name: 'TCheckboxGroup',
       description: 'A checkbox group for multiple value selections',
+      reference:
+          'https://tailwindui.com/components/application-ui/forms/checkboxes',
       children: [
         AppSection(
           title: 'Checkbox Group Types',
@@ -129,8 +131,8 @@ class _TCheckboxGroupBasic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup(
-      title: const Text('Card Types'),
-      description: const Text('Select the card type to use'),
+      title: const Text('Group Types'),
+      description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
@@ -156,8 +158,8 @@ class _TCheckboxGroupSeparated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.separated(
-      title: const Text('Card Types'),
-      description: const Text('Select the card type to use'),
+      title: const Text('Group Types'),
+      description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
@@ -183,8 +185,8 @@ class _TCheckboxGroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.card(
-      title: const Text('Card Types'),
-      description: const Text('Select the card type to use'),
+      title: const Text('Group Types'),
+      description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
@@ -210,8 +212,8 @@ class _TCheckboxGroupPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.panel(
-      title: const Text('Card Types'),
-      description: const Text('Select the card type to use'),
+      title: const Text('Group Types'),
+      description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
@@ -341,13 +343,13 @@ class _TCheckboxGroupBasicHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup(
-      title: const Text('Card Types'),
-      description: const Text('Select the card type to use'),
-      groupValue: const ['Read'],
+      title: const Text('Group Types'),
+      description: const Text('Select the group type to use'),
+      groupValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
-        for (final item in ['Read', 'Write', 'Execute'])
+        for (final item in ['Alpha', 'Beta', 'Gamma'])
           TCheckboxGroupItem(
             title: Text(item),
             value: item,
@@ -368,13 +370,13 @@ class _TCheckboxGroupSeparatedHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.separated(
-      title: const Text('Card Types'),
-      description: const Text('Select the card type to use'),
-      groupValue: const ['Read'],
+      title: const Text('Group Types'),
+      description: const Text('Select the group type to use'),
+      groupValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
-        for (final item in ['Read', 'Write', 'Execute'])
+        for (final item in ['Alpha', 'Beta', 'Gamma'])
           TCheckboxGroupItem(
             title: Text(item),
             value: item,
@@ -395,13 +397,13 @@ class _TCheckboxGroupCardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.card(
-      title: const Text('Card Types'),
-      description: const Text('Select the card type to use'),
-      groupValue: const ['Read'],
+      title: const Text('Group Types'),
+      description: const Text('Select the group type to use'),
+      groupValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
-        for (final item in ['Read', 'Write', 'Execute'])
+        for (final item in ['Alpha', 'Beta', 'Gamma'])
           TCheckboxGroupItem(
             title: Text(item),
             value: item,
@@ -422,13 +424,13 @@ class _TCheckboxGroupPanelHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.panel(
-      title: const Text('Card Types'),
-      description: const Text('Select the card type to use'),
-      groupValue: const ['Read'],
+      title: const Text('Group Types'),
+      description: const Text('Select the group type to use'),
+      groupValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
-        for (final item in ['Read', 'Write', 'Execute'])
+        for (final item in ['Alpha', 'Beta', 'Gamma'])
           TCheckboxGroupItem(
             title: Text(item),
             value: item,
@@ -449,14 +451,14 @@ class _TCheckboxGroupBasicDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup(
-      groupValue: const ['Read'],
+      groupValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
-        for (final item in ['Read', 'Write', 'Execute'])
+        for (final item in ['Alpha', 'Beta', 'Gamma'])
           TCheckboxGroupItem(
             title: Text(item),
             value: item,
-            enabled: item != 'Write',
+            enabled: item != 'Beta',
           ),
       ],
     );
@@ -474,14 +476,14 @@ class _TCheckboxGroupSeparatedDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.separated(
-      groupValue: const ['Read'],
+      groupValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
-        for (final item in ['Read', 'Write', 'Execute'])
+        for (final item in ['Alpha', 'Beta', 'Gamma'])
           TCheckboxGroupItem(
             title: Text(item),
             value: item,
-            enabled: item != 'Write',
+            enabled: item != 'Beta',
           ),
       ],
     );
@@ -499,14 +501,14 @@ class _TCheckboxGroupCardDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.card(
-      groupValue: const ['Read'],
+      groupValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
-        for (final item in ['Read', 'Write', 'Execute'])
+        for (final item in ['Alpha', 'Beta', 'Gamma'])
           TCheckboxGroupItem(
             title: Text(item),
             value: item,
-            enabled: item != 'Write',
+            enabled: item != 'Beta',
           ),
       ],
     );
@@ -524,14 +526,14 @@ class _TCheckboxGroupPanelDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.panel(
-      groupValue: const ['Read'],
+      groupValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
-        for (final item in ['Read', 'Write', 'Execute'])
+        for (final item in ['Alpha', 'Beta', 'Gamma'])
           TCheckboxGroupItem(
             title: Text(item),
             value: item,
-            enabled: item != 'Write',
+            enabled: item != 'Beta',
           ),
       ],
     );

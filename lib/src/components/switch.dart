@@ -4,13 +4,13 @@ import 'package:flutter_tailwind_ui/src/extensions/key_event.dart';
 import 'package:flutter_tailwind_ui/src/internal/selection_group.dart';
 
 // =============================================================================
-// CLASS: TCheckbox
+// CLASS: TSwitch
 // =============================================================================
 
-/// A Tailwind UI inspired checkbox widget
-class TCheckbox extends StatelessWidget {
-  /// Construct a checkbox widget
-  const TCheckbox({
+/// A Tailwind UI inspired switch widget
+class TSwitch extends StatelessWidget {
+  /// Construct a switch widget
+  const TSwitch({
     required this.value,
     this.onChanged,
     this.color,
@@ -19,29 +19,29 @@ class TCheckbox extends StatelessWidget {
     this.focusNode,
     this.indicator,
     this.animationTransitionBuilder,
-    this.animationDuration = Duration.zero,
+    this.animationDuration = const Duration(milliseconds: 200),
     this.animationCurve = Curves.easeInOut,
     super.key,
   });
 
-  /// The value of the checkbox
+  /// The value of the switch
   final bool value;
 
   /// The callback when the value changes
   final ValueChanged<bool>? onChanged;
 
-  /// The color of the checkbox
+  /// The color of the switch
   final Color? color;
 
-  /// Flag to enable or disable the checkbox
+  /// Flag to enable or disable the switch
   final bool enabled;
 
-  /// The padding of the checkbox
+  /// The padding of the switch
   ///
   /// Will be added to the gesture detector
   final EdgeInsetsGeometry padding;
 
-  /// The focus node of the checkbox button
+  /// The focus node of the switch button
   final FocusNode? focusNode;
 
   /// An optional custom indicator widget
@@ -62,17 +62,21 @@ class TCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const size = TSpace.v24;
+    const inset = 2.0;
+    const inset2 = inset * 2;
+    const thumbWidth = size - inset2;
+
     final tw = context.tw;
 
-    final color =
-        enabled ? this.color ?? tw.colors.primary : tw.colors.disabled;
-
-    final indicator = this.indicator ?? const Icon(Icons.check);
+    final color = this.color ?? tw.colors.primary;
+    final bgInactive = tw.light ? TColors.gray.shade200 : TColors.gray.shade800;
+    final bgDisabled = tw.light ? TColors.gray.shade400 : TColors.gray.shade700;
 
     // Defer to the focus node value if it is set
     final canRequestFocus = enabled && (focusNode?.canRequestFocus ?? true);
 
-    // Have a default spacebar handler for the checkbox
+    // Have a default spacebar handler for the switch
     KeyEventResult onKeyEvent(FocusNode _, KeyEvent event) {
       if ((event.isSpaceKeyDown || event.isEnterKeyDown) && enabled) {
         onChanged?.call(!value);
@@ -81,19 +85,46 @@ class TCheckbox extends StatelessWidget {
       return KeyEventResult.ignored;
     }
 
-    // Build the checkbox widget
-    final indicatorWidget = AnimatedSwitcher(
-      duration: animationDuration,
-      switchInCurve: animationCurve,
-      switchOutCurve: animationCurve,
-      transitionBuilder: animationTransitionBuilder ??
-          (child, animation) {
-            return ScaleTransition(scale: animation, child: child);
-          },
-      child: KeyedSubtree(
-        key: ValueKey(value),
-        child: value ? indicator : const SizedBox.shrink(),
+    // Build the indicator widget
+    Widget? indicatorWidget;
+    if (indicator != null) {
+      indicatorWidget = IconTheme(
+        data: context.theme.iconTheme.copyWith(
+          size: thumbWidth * 2 / 3,
+        ),
+        child: AnimatedSwitcher(
+          duration: animationDuration,
+          switchInCurve: animationCurve,
+          switchOutCurve: animationCurve,
+          transitionBuilder: animationTransitionBuilder ??
+              (child, animation) {
+                return ScaleTransition(scale: animation, child: child);
+              },
+          child: KeyedSubtree(
+            key: ValueKey(value),
+            child: indicator ?? const SizedBox.shrink(),
+          ),
+        ),
+      );
+    }
+
+    // The thumb widget
+    final thumb = Container(
+      width: thumbWidth,
+      height: thumbWidth,
+      margin: const EdgeInsets.all(inset),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: TBorderRadius.rounded_full,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: size / 8,
+            offset: Offset(1, 1),
+          ),
+        ],
       ),
+      child: indicatorWidget,
     );
 
     return TGestureDetector(
@@ -109,41 +140,30 @@ class TCheckbox extends StatelessWidget {
         }
       },
       builder: (context, states) {
-        Color borderColor;
-        if (value) {
-          borderColor = color;
-        } else if (states.disabled) {
-          borderColor = tw.colors.disabled;
-        } else {
-          borderColor =
-              tw.light ? const Color(0xffccccd4) : const Color(0xff4d5866);
-        }
-
         return TFocusBorder(
           focused: states.focused,
           focusColor: color,
-          borderRadius: TBorderRadius.rounded_sm,
-          child: IconTheme(
-            data: context.theme.iconTheme.copyWith(
-              size: kDefaultControlSize - TSpace.v4,
-              color: color.contrastBlackWhite(),
+          borderRadius: TBorderRadius.rounded_full,
+          child: AnimatedContainer(
+            margin: padding,
+            duration: animationDuration,
+            curve: animationCurve,
+            width: (size * 2) - inset2,
+            height: size,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(size / 2),
+              color: enabled ? (value ? color : bgInactive) : bgDisabled,
             ),
-            child: AnimatedContainer(
-              duration: animationDuration,
-              curve: animationCurve,
-              margin: padding,
-              width: kDefaultControlSize,
-              height: kDefaultControlSize,
-              decoration: BoxDecoration(
-                color: value
-                    ? color
-                    : (enabled
-                        ? Colors.transparent
-                        : tw.colors.disabled.withValues(alpha: 0.5)),
-                border: Border.all(color: borderColor),
-                borderRadius: TBorderRadius.rounded_sm,
-              ),
-              child: indicatorWidget,
+            child: Stack(
+              children: [
+                AnimatedPositioned(
+                  duration: animationDuration,
+                  curve: animationCurve,
+                  left: value ? thumbWidth : 0.0,
+                  right: value ? 0.0 : thumbWidth,
+                  child: thumb,
+                ),
+              ],
             ),
           ),
         );
@@ -153,13 +173,13 @@ class TCheckbox extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: TCheckboxTile
+// CLASS: TSwitchTile
 // =============================================================================
 
-/// A single checkbox item
-class TCheckboxTile extends StatelessWidget {
-  /// Construct a basic checkbox tile
-  const TCheckboxTile({
+/// A single switch item
+class TSwitchTile extends StatelessWidget {
+  /// Construct a basic switch tile
+  const TSwitchTile({
     required this.value,
     this.title,
     this.description,
@@ -174,8 +194,8 @@ class TCheckboxTile extends StatelessWidget {
   })  : _variant = TSelectionGroupVariant.basic,
         _radius = 0;
 
-  /// Construct a card checkbox tile
-  const TCheckboxTile.card({
+  /// Construct a card switch tile
+  const TSwitchTile.card({
     required this.value,
     this.title,
     this.description,
@@ -191,39 +211,39 @@ class TCheckboxTile extends StatelessWidget {
   })  : _variant = TSelectionGroupVariant.card,
         _radius = radius;
 
-  /// The value of the checkbox
+  /// The value of the switch
   final bool value;
 
-  /// The title of this checkbox tile
+  /// The title of this switch tile
   final Widget? title;
 
-  /// The description of this checkbox tile
+  /// The description of this switch tile
   final Widget? description;
 
   /// The callback when the value changes
   final ValueChanged<bool>? onChanged;
 
-  /// The color of the checkbox
+  /// The color of the switch
   final Color? color;
 
-  /// Flag to enable or disable the checkbox
+  /// Flag to enable or disable the switch
   final bool enabled;
 
-  /// The padding of the checkbox
+  /// The padding of the switch
   ///
   /// Will be added to the gesture detector
   final EdgeInsetsGeometry padding;
 
-  /// The focus node of the checkbox widget
+  /// The focus node of the switch widget
   final FocusNode? focusNode;
 
   /// An optional custom indicator widget
   final Widget? indicator;
 
-  /// The control affinity of the checkbox
+  /// The control affinity of the switch
   final TControlAffinity affinity;
 
-  /// The variant of the checkbox tile
+  /// The variant of the switch tile
   final TSelectionGroupVariant _variant;
 
   /// The radius value for rounded corners (card variant only)
@@ -239,13 +259,14 @@ class TCheckboxTile extends StatelessWidget {
       title: title ?? const SizedBox.shrink(),
       description: description,
       applySelectedBorderColor: false,
+      controlCrossAxisAlignment: CrossAxisAlignment.center,
       radius: _radius,
       selected: value,
       enabled: enabled,
       affinity: affinity,
       axis: Axis.vertical,
       onChanged: onChanged ?? (value) {},
-      control: TCheckbox(
+      control: TSwitch(
         color: color,
         value: value,
         onChanged: onChanged,
@@ -259,13 +280,13 @@ class TCheckboxTile extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: TCheckboxGroupItem
+// CLASS: TSwitchGroupItem
 // =============================================================================
 
 /// A radio group item
-class TCheckboxGroupItem<T> extends TSelectionGroupItem<T> {
+class TSwitchGroupItem<T> extends TSelectionGroupItem<T> {
   /// Creates a radio item
-  const TCheckboxGroupItem({
+  const TSwitchGroupItem({
     required super.value,
     required super.title,
     super.description,
@@ -274,13 +295,13 @@ class TCheckboxGroupItem<T> extends TSelectionGroupItem<T> {
 }
 
 // =============================================================================
-// CLASS: TCheckboxGroup
+// CLASS: TSwitchGroup
 // =============================================================================
 
-/// A checkbox group
-class TCheckboxGroup<T> extends StatefulWidget {
-  /// Creates a checkbox group
-  const TCheckboxGroup({
+/// A switch group
+class TSwitchGroup<T> extends StatefulWidget {
+  /// Creates a switch group
+  const TSwitchGroup({
     required this.children,
     this.title,
     this.description,
@@ -295,8 +316,8 @@ class TCheckboxGroup<T> extends StatefulWidget {
   })  : variant = TSelectionGroupVariant.basic,
         radius = 0;
 
-  /// Creates a separated checkbox group
-  const TCheckboxGroup.separated({
+  /// Creates a separated switch group
+  const TSwitchGroup.separated({
     required this.children,
     this.title,
     this.description,
@@ -311,8 +332,8 @@ class TCheckboxGroup<T> extends StatefulWidget {
   })  : variant = TSelectionGroupVariant.separated,
         radius = 0;
 
-  /// Creates a card checkbox group
-  const TCheckboxGroup.card({
+  /// Creates a card switch group
+  const TSwitchGroup.card({
     required this.children,
     this.title,
     this.description,
@@ -327,8 +348,8 @@ class TCheckboxGroup<T> extends StatefulWidget {
     super.key,
   }) : variant = TSelectionGroupVariant.card;
 
-  /// Creates a card checkbox group
-  const TCheckboxGroup.panel({
+  /// Creates a card switch group
+  const TSwitchGroup.panel({
     required this.children,
     this.title,
     this.description,
@@ -343,8 +364,8 @@ class TCheckboxGroup<T> extends StatefulWidget {
   })  : variant = TSelectionGroupVariant.panel,
         spacing = 0;
 
-  /// The children of the checkbox group.
-  final List<TCheckboxGroupItem<T>> children;
+  /// The children of the switch group.
+  final List<TSwitchGroupItem<T>> children;
 
   /// The title widget
   final Widget? title;
@@ -352,7 +373,7 @@ class TCheckboxGroup<T> extends StatefulWidget {
   /// The description widget
   final Widget? description;
 
-  /// The value of the checkbox group.
+  /// The value of the switch group.
   final List<T>? groupValue;
 
   /// Callback when the value changes.
@@ -360,10 +381,10 @@ class TCheckboxGroup<T> extends StatefulWidget {
   /// Returns a list of the currently selected values.
   final ValueChanged<List<T>>? onChanged;
 
-  /// The variant of the checkbox group.
+  /// The variant of the switch group.
   final TSelectionGroupVariant variant;
 
-  /// The color of the checkbox elements.
+  /// The color of the switch elements.
   final Color? color;
 
   /// The maximum width of the group.
@@ -382,14 +403,14 @@ class TCheckboxGroup<T> extends StatefulWidget {
 
   /// The radius value for rounded corners
   ///
-  /// Only used for [TCheckboxGroup.card] and [TCheckboxGroup.panel] variants.
+  /// Only used for [TSwitchGroup.card] and [TSwitchGroup.panel] variants.
   final double radius;
 
   @override
-  State<TCheckboxGroup<T>> createState() => _TCheckboxGroupState<T>();
+  State<TSwitchGroup<T>> createState() => _TSwitchGroupState<T>();
 }
 
-class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
+class _TSwitchGroupState<T> extends State<TSwitchGroup<T>> {
   late final List<T> groupValue;
 
   // ---------------------------------------------------------------------------
@@ -406,7 +427,7 @@ class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
   // METHOD: onChanged
   // ---------------------------------------------------------------------------
 
-  void onChanged({required TCheckboxGroupItem<T> item, required bool status}) {
+  void onChanged({required TSwitchGroupItem<T> item, required bool status}) {
     if (!item.enabled) {
       return;
     }
@@ -446,12 +467,13 @@ class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
           selected: selected,
           title: item.title,
           description: item.description,
+          controlCrossAxisAlignment: CrossAxisAlignment.center,
           radius: widget.radius,
           enabled: item.enabled,
           affinity: widget.affinity,
           axis: widget.axis,
           onChanged: (status) => onChanged(item: item, status: status),
-          control: TCheckbox(
+          control: TSwitch(
             color: widget.color,
             value: selected,
             enabled: item.enabled,

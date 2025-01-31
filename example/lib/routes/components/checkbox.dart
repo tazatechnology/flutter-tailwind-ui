@@ -12,6 +12,8 @@ class ComponentRouteTCheckbox extends StatelessWidget {
     return ComponentRoute(
       name: 'TCheckbox',
       description: 'A primitive checkbox widget.',
+      reference:
+          'https://tailwindui.com/components/application-ui/forms/checkboxes',
       children: [
         AppSection(
           title: 'Checkbox States',
@@ -165,6 +167,7 @@ class _TCheckboxIndicatorState extends State<_TCheckboxIndicator> {
   Widget build(BuildContext context) {
     return TCheckbox(
       value: _value,
+      animationDuration: const Duration(milliseconds: 200),
       indicator: const Icon(Icons.star),
       onChanged: (value) => setState(() => _value = value),
     );

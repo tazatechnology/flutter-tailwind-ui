@@ -166,7 +166,8 @@ class TSelectionGroupTile extends StatelessWidget {
     required this.affinity,
     required this.axis,
     required this.onChanged,
-    this.shape,
+    this.applySelectedBorderColor = true,
+    this.controlCrossAxisAlignment = CrossAxisAlignment.start,
     super.key,
   });
 
@@ -209,8 +210,11 @@ class TSelectionGroupTile extends StatelessWidget {
   /// The onPressed callback
   final ValueChanged<bool> onChanged;
 
-  /// The shape of the card
-  final RoundedRectangleBorder? shape;
+  /// Optional to apply border color when selected
+  final bool applySelectedBorderColor;
+
+  /// The cross axis alignment of the control (within the [Row] widget)
+  final CrossAxisAlignment controlCrossAxisAlignment;
 
   /// Is this item first in the list
   bool get isFirst => index == 0;
@@ -270,7 +274,40 @@ class TSelectionGroupTile extends StatelessWidget {
     }
 
     /// The children ordering
-    List<Widget> children = [control, effectiveTitle];
+    List<Widget> children = [
+      Padding(
+        // Slight adjustment to align control with title when placed at the start
+        padding: EdgeInsets.only(
+          top: controlCrossAxisAlignment == CrossAxisAlignment.start ? 1 : 0,
+        ),
+        child: control,
+      ),
+      Flexible(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: effectiveTitle,
+            ),
+            if (description != null)
+              Padding(
+                padding: EdgeInsets.only(top: TSpace.v2, left: sep),
+                child: DefaultTextStyle.merge(
+                  style: TTextStyle.text_sm.copyWith(
+                    color:
+                        enabled ? tw.colors.label : tw.colors.disabledTextColor,
+                  ),
+                  child: description!,
+                  maxLines: 100,
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+          ],
+        ),
+      ),
+    ];
     if (affinity.isTrailing) {
       children = children.reversed.toList();
     }
@@ -290,34 +327,10 @@ class TSelectionGroupTile extends StatelessWidget {
     }
 
     /// The primary content
-    final content = Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: childrenAlignment,
-          children: children,
-        ),
-        if (description != null)
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: TSpace.v2,
-                left: affinity.isLeading ? kDefaultControlSize + sep : 0,
-              ),
-              child: DefaultTextStyle.merge(
-                style: TTextStyle.text_sm.copyWith(
-                  color:
-                      enabled ? tw.colors.label : tw.colors.disabledTextColor,
-                ),
-                child: description!,
-                maxLines: 100,
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-      ],
+    final content = Row(
+      crossAxisAlignment: controlCrossAxisAlignment,
+      mainAxisAlignment: childrenAlignment,
+      children: children,
     );
 
     switch (variant) {
@@ -335,10 +348,10 @@ class TSelectionGroupTile extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(radius),
                 side: BorderSide(
-                  color: selected
+                  color: selected && applySelectedBorderColor
                       ? selectedBorderColor
                       : (enabled ? tw.colors.divider : tw.colors.disabled),
-                  width: selected ? 1.5 : 1,
+                  width: selected && applySelectedBorderColor ? 1.5 : 1,
                 ),
               ),
               child: content,

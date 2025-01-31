@@ -22,6 +22,9 @@ part 'row_column.dart';
 part 'scrollbar.dart';
 part 'sized_box.dart';
 part 'split_button.dart';
+part 'switch.dart';
+part 'switch_tile.dart';
+part 'switch_group.dart';
 part 'text.dart';
 
 part 'components.g.dart';

@@ -1091,6 +1091,7 @@ class _TCheckboxIndicatorState extends State<_TCheckboxIndicator> {
   Widget build(BuildContext context) {
     return TCheckbox(
       value: _value,
+      animationDuration: const Duration(milliseconds: 200),
       indicator: const Icon(Icons.star),
       onChanged: (value) => setState(() => _value = value),
     );
@@ -1103,8 +1104,8 @@ class _TCheckboxIndicatorState extends State<_TCheckboxIndicator> {
 class _TCheckboxGroupBasicSource {
   static const String code = r"""
 TCheckboxGroup(
-  title: const Text('Card Types'),
-  description: const Text('Select the card type to use'),
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
@@ -1123,8 +1124,8 @@ TCheckboxGroup(
 class _TCheckboxGroupSeparatedSource {
   static const String code = r"""
 TCheckboxGroup.separated(
-  title: const Text('Card Types'),
-  description: const Text('Select the card type to use'),
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
@@ -1143,8 +1144,8 @@ TCheckboxGroup.separated(
 class _TCheckboxGroupCardSource {
   static const String code = r"""
 TCheckboxGroup.card(
-  title: const Text('Card Types'),
-  description: const Text('Select the card type to use'),
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
@@ -1163,8 +1164,8 @@ TCheckboxGroup.card(
 class _TCheckboxGroupPanelSource {
   static const String code = r"""
 TCheckboxGroup.panel(
-  title: const Text('Card Types'),
-  description: const Text('Select the card type to use'),
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
@@ -1259,13 +1260,13 @@ TCheckboxGroup.panel(
 class _TCheckboxGroupBasicHorizontalSource {
   static const String code = r"""
 TCheckboxGroup(
-  title: const Text('Card Types'),
-  description: const Text('Select the card type to use'),
-  groupValue: const ['Read'],
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TCheckboxGroupItem(
         title: Text(item),
         value: item,
@@ -1279,13 +1280,13 @@ TCheckboxGroup(
 class _TCheckboxGroupSeparatedHorizontalSource {
   static const String code = r"""
 TCheckboxGroup.separated(
-  title: const Text('Card Types'),
-  description: const Text('Select the card type to use'),
-  groupValue: const ['Read'],
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TCheckboxGroupItem(
         title: Text(item),
         value: item,
@@ -1299,13 +1300,13 @@ TCheckboxGroup.separated(
 class _TCheckboxGroupCardHorizontalSource {
   static const String code = r"""
 TCheckboxGroup.card(
-  title: const Text('Card Types'),
-  description: const Text('Select the card type to use'),
-  groupValue: const ['Read'],
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TCheckboxGroupItem(
         title: Text(item),
         value: item,
@@ -1319,13 +1320,13 @@ TCheckboxGroup.card(
 class _TCheckboxGroupPanelHorizontalSource {
   static const String code = r"""
 TCheckboxGroup.panel(
-  title: const Text('Card Types'),
-  description: const Text('Select the card type to use'),
-  groupValue: const ['Read'],
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TCheckboxGroupItem(
         title: Text(item),
         value: item,
@@ -1339,14 +1340,14 @@ TCheckboxGroup.panel(
 class _TCheckboxGroupBasicDisabledSource {
   static const String code = r"""
 TCheckboxGroup(
-  groupValue: const ['Read'],
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TCheckboxGroupItem(
         title: Text(item),
         value: item,
-        enabled: item != 'Write',
+        enabled: item != 'Beta',
       ),
   ],
 )
@@ -1357,14 +1358,14 @@ TCheckboxGroup(
 class _TCheckboxGroupSeparatedDisabledSource {
   static const String code = r"""
 TCheckboxGroup.separated(
-  groupValue: const ['Read'],
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TCheckboxGroupItem(
         title: Text(item),
         value: item,
-        enabled: item != 'Write',
+        enabled: item != 'Beta',
       ),
   ],
 )
@@ -1375,14 +1376,14 @@ TCheckboxGroup.separated(
 class _TCheckboxGroupCardDisabledSource {
   static const String code = r"""
 TCheckboxGroup.card(
-  groupValue: const ['Read'],
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TCheckboxGroupItem(
         title: Text(item),
         value: item,
-        enabled: item != 'Write',
+        enabled: item != 'Beta',
       ),
   ],
 )
@@ -1393,14 +1394,14 @@ TCheckboxGroup.card(
 class _TCheckboxGroupPanelDisabledSource {
   static const String code = r"""
 TCheckboxGroup.panel(
-  groupValue: const ['Read'],
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TCheckboxGroupItem(
         title: Text(item),
         value: item,
-        enabled: item != 'Write',
+        enabled: item != 'Beta',
       ),
   ],
 )
@@ -1459,7 +1460,69 @@ SizedBox(
   width: TSpace.v384,
   child: TCheckboxTile(
     title: const Text('Checkbox Tile'),
+    description: const Text('This is inactive and disabled.'),
+    enabled: false,
+    value: false,
+    onChanged: (value) {},
+  ),
+)
+""";
+}
+
+/// Source code for [_TCheckboxTileCardActive]
+class _TCheckboxTileCardActiveSource {
+  static const String code = r"""
+class _TCheckboxTileCardActive extends StatefulWidget {
+  const _TCheckboxTileCardActive();
+
+  @override
+  State<_TCheckboxTileCardActive> createState() =>
+      _TCheckboxTileCardActiveState();
+}
+
+class _TCheckboxTileCardActiveState extends State<_TCheckboxTileCardActive> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TCheckboxTile.card(
+        title: const Text('Checkbox Tile'),
+        description: const Text('This is active.'),
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TCheckboxTileCardActiveDisabled]
+class _TCheckboxTileCardActiveDisabledSource {
+  static const String code = r"""
+SizedBox(
+  width: TSpace.v384,
+  child: TCheckboxTile.card(
+    title: const Text('Checkbox Tile'),
     description: const Text('This is active and disabled.'),
+    enabled: false,
+    value: true,
+    onChanged: (value) {},
+  ),
+)
+""";
+}
+
+/// Source code for [_TCheckboxTileCardInactiveDisabled]
+class _TCheckboxTileCardInactiveDisabledSource {
+  static const String code = r"""
+SizedBox(
+  width: TSpace.v384,
+  child: TCheckboxTile.card(
+    title: const Text('Checkbox Tile'),
+    description: const Text('This is inactive and disabled.'),
     enabled: false,
     value: false,
     onChanged: (value) {},
@@ -1515,6 +1578,68 @@ class _TCheckboxTileTrailingState extends State<_TCheckboxTileTrailing> {
     return SizedBox(
       width: TSpace.v384,
       child: TCheckboxTile(
+        title: const Text('Checkbox Tile'),
+        description: const Text('Control is placed at the trailing side.'),
+        affinity: TControlAffinity.trailing,
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TCheckboxTileLeadingCard]
+class _TCheckboxTileLeadingCardSource {
+  static const String code = r"""
+class _TCheckboxTileLeadingCard extends StatefulWidget {
+  const _TCheckboxTileLeadingCard();
+
+  @override
+  State<_TCheckboxTileLeadingCard> createState() =>
+      _TCheckboxTileLeadingCardState();
+}
+
+class _TCheckboxTileLeadingCardState extends State<_TCheckboxTileLeadingCard> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TCheckboxTile.card(
+        title: const Text('Checkbox Tile'),
+        description: const Text('Control is placed at the leading side.'),
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TCheckboxTileTrailingCard]
+class _TCheckboxTileTrailingCardSource {
+  static const String code = r"""
+class _TCheckboxTileTrailingCard extends StatefulWidget {
+  const _TCheckboxTileTrailingCard();
+
+  @override
+  State<_TCheckboxTileTrailingCard> createState() =>
+      _TCheckboxTileTrailingCardState();
+}
+
+class _TCheckboxTileTrailingCardState
+    extends State<_TCheckboxTileTrailingCard> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TCheckboxTile.card(
         title: const Text('Checkbox Tile'),
         description: const Text('Control is placed at the trailing side.'),
         affinity: TControlAffinity.trailing,
@@ -2160,6 +2285,7 @@ class _TRadioIndicatorState extends State<_TRadioIndicator> {
   Widget build(BuildContext context) {
     return TRadio(
       value: _value,
+      animationDuration: const Duration(milliseconds: 200),
       indicator: const Icon(Icons.star),
       onChanged: (value) => setState(() => _value = value),
     );
@@ -2408,14 +2534,14 @@ TRadioGroup.panel(
 class _TRadioGroupBasicDisabledSource {
   static const String code = r"""
 TRadioGroup(
-  groupValue: const ['Read'],
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TRadioGroupItem(
         title: Text(item),
         value: item,
-        enabled: item != 'Write',
+        enabled: item != 'Beta',
       ),
   ],
 )
@@ -2426,14 +2552,14 @@ TRadioGroup(
 class _TRadioGroupSeparatedDisabledSource {
   static const String code = r"""
 TRadioGroup.separated(
-  groupValue: const ['Read'],
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TRadioGroupItem(
         title: Text(item),
         value: item,
-        enabled: item != 'Write',
+        enabled: item != 'Beta',
       ),
   ],
 )
@@ -2444,14 +2570,14 @@ TRadioGroup.separated(
 class _TRadioGroupCardDisabledSource {
   static const String code = r"""
 TRadioGroup.card(
-  groupValue: const ['Read'],
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TRadioGroupItem(
         title: Text(item),
         value: item,
-        enabled: item != 'Write',
+        enabled: item != 'Beta',
       ),
   ],
 )
@@ -2462,14 +2588,14 @@ TRadioGroup.card(
 class _TRadioGroupPanelDisabledSource {
   static const String code = r"""
 TRadioGroup.panel(
-  groupValue: const ['Read'],
+  groupValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
-    for (final item in ['Read', 'Write', 'Execute'])
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
       TRadioGroupItem(
         title: Text(item),
         value: item,
-        enabled: item != 'Write',
+        enabled: item != 'Beta',
       ),
   ],
 )
@@ -2894,6 +3020,660 @@ class _TSplitButtonLoadingCustomState
     );
   }
 }
+""";
+}
+
+/// Source code for [_TSwitchActive]
+class _TSwitchActiveSource {
+  static const String code = r"""
+class _TSwitchActive extends StatefulWidget {
+  const _TSwitchActive();
+
+  @override
+  State<_TSwitchActive> createState() => _TSwitchActiveState();
+}
+
+class _TSwitchActiveState extends State<_TSwitchActive> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return TSwitch(
+      value: _value,
+      onChanged: (value) => setState(() => _value = value),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSwitchActiveDisabled]
+class _TSwitchActiveDisabledSource {
+  static const String code = r"""
+TSwitch(
+  enabled: false,
+  value: true,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSwitchInactiveDisabled]
+class _TSwitchInactiveDisabledSource {
+  static const String code = r"""
+TSwitch(
+  enabled: false,
+  value: false,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSwitchColors]
+class _TSwitchColorsSource {
+  static const String code = r"""
+class _TSwitchColors extends StatefulWidget {
+  const _TSwitchColors();
+
+  @override
+  State<_TSwitchColors> createState() => _TSwitchColorsState();
+}
+
+class _TSwitchColorsState extends State<_TSwitchColors> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: TSpace.v24,
+      runSpacing: TSpace.v8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final color in PREVIEW_COLORS)
+          TSwitch(
+            color: color,
+            value: _value,
+            onChanged: (value) => setState(() => _value = value),
+          ),
+      ],
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSwitchIndicator]
+class _TSwitchIndicatorSource {
+  static const String code = r"""
+class _TSwitchIndicator extends StatefulWidget {
+  const _TSwitchIndicator();
+
+  @override
+  State<_TSwitchIndicator> createState() => _TSwitchIndicatorState();
+}
+
+class _TSwitchIndicatorState extends State<_TSwitchIndicator> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return TSwitch(
+      value: _value,
+      indicator: Icon(_value ? Icons.check : Icons.close),
+      onChanged: (value) => setState(() => _value = value),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSwitchTileActive]
+class _TSwitchTileActiveSource {
+  static const String code = r"""
+class _TSwitchTileActive extends StatefulWidget {
+  const _TSwitchTileActive();
+
+  @override
+  State<_TSwitchTileActive> createState() => _TSwitchTileActiveState();
+}
+
+class _TSwitchTileActiveState extends State<_TSwitchTileActive> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TSwitchTile(
+        title: const Text('Switch Tile'),
+        description: const Text('This is active.'),
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSwitchTileActiveDisabled]
+class _TSwitchTileActiveDisabledSource {
+  static const String code = r"""
+SizedBox(
+  width: TSpace.v384,
+  child: TSwitchTile(
+    title: const Text('Switch Tile'),
+    description: const Text('This is active and disabled.'),
+    enabled: false,
+    value: true,
+    onChanged: (value) {},
+  ),
+)
+""";
+}
+
+/// Source code for [_TSwitchTileInactiveDisabled]
+class _TSwitchTileInactiveDisabledSource {
+  static const String code = r"""
+SizedBox(
+  width: TSpace.v384,
+  child: TSwitchTile(
+    title: const Text('Switch Tile'),
+    description: const Text('This is inactive and disabled.'),
+    enabled: false,
+    value: false,
+    onChanged: (value) {},
+  ),
+)
+""";
+}
+
+/// Source code for [_TSwitchTileCardActive]
+class _TSwitchTileCardActiveSource {
+  static const String code = r"""
+class _TSwitchTileCardActive extends StatefulWidget {
+  const _TSwitchTileCardActive();
+
+  @override
+  State<_TSwitchTileCardActive> createState() => _TSwitchTileCardActiveState();
+}
+
+class _TSwitchTileCardActiveState extends State<_TSwitchTileCardActive> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TSwitchTile.card(
+        title: const Text('Switch Tile'),
+        description: const Text('This is active.'),
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSwitchTileCardActiveDisabled]
+class _TSwitchTileCardActiveDisabledSource {
+  static const String code = r"""
+SizedBox(
+  width: TSpace.v384,
+  child: TSwitchTile.card(
+    title: const Text('Switch Tile'),
+    description: const Text('This is active and disabled.'),
+    enabled: false,
+    value: true,
+    onChanged: (value) {},
+  ),
+)
+""";
+}
+
+/// Source code for [_TSwitchTileCardInactiveDisabled]
+class _TSwitchTileCardInactiveDisabledSource {
+  static const String code = r"""
+SizedBox(
+  width: TSpace.v384,
+  child: TSwitchTile.card(
+    title: const Text('Switch Tile'),
+    description: const Text('This is inactive and disabled.'),
+    enabled: false,
+    value: false,
+    onChanged: (value) {},
+  ),
+)
+""";
+}
+
+/// Source code for [_TSwitchTileLeading]
+class _TSwitchTileLeadingSource {
+  static const String code = r"""
+class _TSwitchTileLeading extends StatefulWidget {
+  const _TSwitchTileLeading();
+
+  @override
+  State<_TSwitchTileLeading> createState() => _TSwitchTileLeadingState();
+}
+
+class _TSwitchTileLeadingState extends State<_TSwitchTileLeading> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TSwitchTile(
+        title: const Text('Switch Tile'),
+        description: const Text('Control is placed at the leading side.'),
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSwitchTileTrailing]
+class _TSwitchTileTrailingSource {
+  static const String code = r"""
+class _TSwitchTileTrailing extends StatefulWidget {
+  const _TSwitchTileTrailing();
+
+  @override
+  State<_TSwitchTileTrailing> createState() => _TSwitchTileTrailingState();
+}
+
+class _TSwitchTileTrailingState extends State<_TSwitchTileTrailing> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TSwitchTile(
+        title: const Text('Switch Tile'),
+        description: const Text('Control is placed at the trailing side.'),
+        affinity: TControlAffinity.trailing,
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSwitchTileLeadingCard]
+class _TSwitchTileLeadingCardSource {
+  static const String code = r"""
+class _TSwitchTileLeadingCard extends StatefulWidget {
+  const _TSwitchTileLeadingCard();
+
+  @override
+  State<_TSwitchTileLeadingCard> createState() =>
+      _TSwitchTileLeadingCardState();
+}
+
+class _TSwitchTileLeadingCardState extends State<_TSwitchTileLeadingCard> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TSwitchTile.card(
+        title: const Text('Switch Tile'),
+        description: const Text('Control is placed at the leading side.'),
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSwitchTileTrailingCard]
+class _TSwitchTileTrailingCardSource {
+  static const String code = r"""
+class _TSwitchTileTrailingCard extends StatefulWidget {
+  const _TSwitchTileTrailingCard();
+
+  @override
+  State<_TSwitchTileTrailingCard> createState() =>
+      _TSwitchTileTrailingCardState();
+}
+
+class _TSwitchTileTrailingCardState extends State<_TSwitchTileTrailingCard> {
+  bool _value = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: TSpace.v384,
+      child: TSwitchTile.card(
+        title: const Text('Switch Tile'),
+        description: const Text('Control is placed at the trailing side.'),
+        affinity: TControlAffinity.trailing,
+        value: _value,
+        onChanged: (value) => setState(() => _value = value),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TSwitchGroupBasic]
+class _TSwitchGroupBasicSource {
+  static const String code = r"""
+TSwitchGroup(
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: [TSelectionGroupVariant.values.first],
+  onChanged: (value) {},
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TSwitchGroupItem(
+        title: Text(variant.title),
+        description: Text('Creates a ${variant.name} switch group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupSeparated]
+class _TSwitchGroupSeparatedSource {
+  static const String code = r"""
+TSwitchGroup.separated(
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: [TSelectionGroupVariant.values.first],
+  onChanged: (value) {},
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TSwitchGroupItem(
+        title: Text(variant.title),
+        description: Text('Creates a ${variant.name} switch group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupCard]
+class _TSwitchGroupCardSource {
+  static const String code = r"""
+TSwitchGroup.card(
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: [TSelectionGroupVariant.values.first],
+  onChanged: (value) {},
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TSwitchGroupItem(
+        title: Text(variant.title),
+        description: Text('Creates a ${variant.name} switch group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupPanel]
+class _TSwitchGroupPanelSource {
+  static const String code = r"""
+TSwitchGroup.panel(
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: [TSelectionGroupVariant.values.first],
+  onChanged: (value) {},
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TSwitchGroupItem(
+        title: Text(variant.title),
+        description: Text('Creates a ${variant.name} switch group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupBasicTrailing]
+class _TSwitchGroupBasicTrailingSource {
+  static const String code = r"""
+TSwitchGroup(
+  groupValue: [TSelectionGroupVariant.values.first],
+  onChanged: (value) {},
+  affinity: TControlAffinity.trailing,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TSwitchGroupItem(
+        title: Text(variant.title),
+        description: Text('Creates a ${variant.name} switch group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupSeparatedTrailing]
+class _TSwitchGroupSeparatedTrailingSource {
+  static const String code = r"""
+TSwitchGroup.separated(
+  groupValue: [TSelectionGroupVariant.values.first],
+  onChanged: (value) {},
+  affinity: TControlAffinity.trailing,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TSwitchGroupItem(
+        title: Text(variant.title),
+        description: Text('Creates a ${variant.name} switch group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupCardTrailing]
+class _TSwitchGroupCardTrailingSource {
+  static const String code = r"""
+TSwitchGroup.card(
+  groupValue: [TSelectionGroupVariant.values.first],
+  onChanged: (value) {},
+  affinity: TControlAffinity.trailing,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TSwitchGroupItem(
+        title: Text(variant.title),
+        description: Text('Creates a ${variant.name} switch group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupPanelTrailing]
+class _TSwitchGroupPanelTrailingSource {
+  static const String code = r"""
+TSwitchGroup.panel(
+  groupValue: [TSelectionGroupVariant.values.first],
+  onChanged: (value) {},
+  affinity: TControlAffinity.trailing,
+  children: [
+    for (final variant in TSelectionGroupVariant.values)
+      TSwitchGroupItem(
+        title: Text(variant.title),
+        description: Text('Creates a ${variant.name} switch group'),
+        value: variant,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupBasicHorizontal]
+class _TSwitchGroupBasicHorizontalSource {
+  static const String code = r"""
+TSwitchGroup(
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: const ['Alpha'],
+  onChanged: (value) {},
+  axis: Axis.horizontal,
+  children: [
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
+      TSwitchGroupItem(
+        title: Text(item),
+        value: item,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupSeparatedHorizontal]
+class _TSwitchGroupSeparatedHorizontalSource {
+  static const String code = r"""
+TSwitchGroup.separated(
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: const ['Alpha'],
+  onChanged: (value) {},
+  axis: Axis.horizontal,
+  children: [
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
+      TSwitchGroupItem(
+        title: Text(item),
+        value: item,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupCardHorizontal]
+class _TSwitchGroupCardHorizontalSource {
+  static const String code = r"""
+TSwitchGroup.card(
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: const ['Alpha'],
+  onChanged: (value) {},
+  axis: Axis.horizontal,
+  children: [
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
+      TSwitchGroupItem(
+        title: Text(item),
+        value: item,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupPanelHorizontal]
+class _TSwitchGroupPanelHorizontalSource {
+  static const String code = r"""
+TSwitchGroup.panel(
+  title: const Text('Group Types'),
+  description: const Text('Select the group type to use'),
+  groupValue: const ['Alpha'],
+  onChanged: (value) {},
+  axis: Axis.horizontal,
+  children: [
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
+      TSwitchGroupItem(
+        title: Text(item),
+        value: item,
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupBasicDisabled]
+class _TSwitchGroupBasicDisabledSource {
+  static const String code = r"""
+TSwitchGroup(
+  groupValue: const ['Alpha'],
+  onChanged: (value) {},
+  children: [
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
+      TSwitchGroupItem(
+        title: Text(item),
+        value: item,
+        enabled: item != 'Beta',
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupSeparatedDisabled]
+class _TSwitchGroupSeparatedDisabledSource {
+  static const String code = r"""
+TSwitchGroup.separated(
+  groupValue: const ['Alpha'],
+  onChanged: (value) {},
+  children: [
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
+      TSwitchGroupItem(
+        title: Text(item),
+        value: item,
+        enabled: item != 'Beta',
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupCardDisabled]
+class _TSwitchGroupCardDisabledSource {
+  static const String code = r"""
+TSwitchGroup.card(
+  groupValue: const ['Alpha'],
+  onChanged: (value) {},
+  children: [
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
+      TSwitchGroupItem(
+        title: Text(item),
+        value: item,
+        enabled: item != 'Beta',
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSwitchGroupPanelDisabled]
+class _TSwitchGroupPanelDisabledSource {
+  static const String code = r"""
+TSwitchGroup.panel(
+  groupValue: const ['Alpha'],
+  onChanged: (value) {},
+  children: [
+    for (final item in ['Alpha', 'Beta', 'Gamma'])
+      TSwitchGroupItem(
+        title: Text(item),
+        value: item,
+        enabled: item != 'Beta',
+      ),
+  ],
+)
 """;
 }
 

@@ -63,11 +63,14 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TSplitButton``': AppRouter.split_button,
       },
       'Selection Controls': {
+        '``TRadio``': AppRouter.radio,
+        '``TRadioGroup``': AppRouter.radio_group,
         '``TCheckbox``': AppRouter.checkbox,
         '``TCheckboxTile``': AppRouter.checkbox_tile,
         '``TCheckboxGroup``': AppRouter.checkbox_group,
-        '``TRadio``': AppRouter.radio,
-        '``TRadioGroup``': AppRouter.radio_group,
+        '``TSwitch``': AppRouter.switch_control,
+        '``TSwitchTile``': AppRouter.switch_tile,
+        '``TSwitchGroup``': AppRouter.switch_group,
       },
       'Layout': {
         '``TCard``': AppRouter.card,

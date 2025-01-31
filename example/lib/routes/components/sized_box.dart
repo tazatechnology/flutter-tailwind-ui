@@ -9,13 +9,13 @@ class ComponentRouteTSizedBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ComponentRoute(
+    return ComponentRoute(
       name: 'TSizedBox',
-      description:
-          'A SizedBox widget with pre-defined constructors using `TSpace` values.',
+      description: 'Size widget with pre-defined `TSpace` constructors.',
       children: [
-        TText(
-          'The Flutter Tailwind UI',
+        AppSection(
+          title: 'Section',
+          children: const [],
         ),
       ],
     );

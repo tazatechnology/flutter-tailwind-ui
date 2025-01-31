@@ -1,52 +1,52 @@
 part of 'components.dart';
 
 // =============================================================================
-// CLASS: ComponentRouteTRadio
+// CLASS: ComponentRouteTSwitch
 // =============================================================================
 
-class ComponentRouteTRadio extends StatelessWidget {
-  const ComponentRouteTRadio({super.key});
+class ComponentRouteTSwitch extends StatelessWidget {
+  const ComponentRouteTSwitch({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ComponentRoute(
-      name: 'TRadio',
-      description: 'A primitive radio widget.',
+      name: 'TSwitch',
+      description: 'A primitive checkbox widget.',
       reference:
-          'https://tailwindui.com/components/application-ui/forms/radio-groups',
+          'https://tailwindui.com/components/application-ui/forms/toggles',
       children: [
         AppSection(
-          title: 'Radio States',
+          title: 'Switch States',
           children: const [
             AppPreviewCard(
               title: 'Active',
-              code: _TRadioActiveSource.code,
-              child: _TRadioActive(),
+              code: _TSwitchActiveSource.code,
+              child: _TSwitchActive(),
             ),
             AppPreviewCard(
               title: 'Active (Disabled)',
-              code: _TRadioActiveDisabledSource.code,
-              child: _TRadioActiveDisabled(),
+              code: _TSwitchActiveDisabledSource.code,
+              child: _TSwitchActiveDisabled(),
             ),
             AppPreviewCard(
               title: 'Inactive (Disabled)',
-              code: _TRadioInactiveDisabledSource.code,
-              child: _TRadioInactiveDisabled(),
+              code: _TSwitchInactiveDisabledSource.code,
+              child: _TSwitchInactiveDisabled(),
             ),
           ],
         ),
         AppSection(
-          title: 'Radio Theming',
+          title: 'Switch Theming',
           children: const [
             AppPreviewCard(
-              title: 'Custom Colors',
-              code: _TRadioColorsSource.code,
-              child: _TRadioColors(),
+              title: 'Custom Color',
+              code: _TSwitchColorsSource.code,
+              child: _TSwitchColors(),
             ),
             AppPreviewCard(
               title: 'Custom Indicator',
-              code: _TRadioIndicatorSource.code,
-              child: _TRadioIndicator(),
+              code: _TSwitchIndicatorSource.code,
+              child: _TSwitchIndicator(),
             ),
           ],
         ),
@@ -56,23 +56,23 @@ class ComponentRouteTRadio extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TRadioActive
+// CLASS: _TSwitchActive
 // =============================================================================
 
 @GenerateSource(buildMethodOnly: false)
-class _TRadioActive extends StatefulWidget {
-  const _TRadioActive();
+class _TSwitchActive extends StatefulWidget {
+  const _TSwitchActive();
 
   @override
-  State<_TRadioActive> createState() => _TRadioActiveState();
+  State<_TSwitchActive> createState() => _TSwitchActiveState();
 }
 
-class _TRadioActiveState extends State<_TRadioActive> {
+class _TSwitchActiveState extends State<_TSwitchActive> {
   bool _value = true;
 
   @override
   Widget build(BuildContext context) {
-    return TRadio(
+    return TSwitch(
       value: _value,
       onChanged: (value) => setState(() => _value = value),
     );
@@ -80,16 +80,16 @@ class _TRadioActiveState extends State<_TRadioActive> {
 }
 
 // =============================================================================
-// CLASS: _TRadioActiveDisabled
+// CLASS: _TSwitchActiveDisabled
 // =============================================================================
 
 @GenerateSource()
-class _TRadioActiveDisabled extends StatelessWidget {
-  const _TRadioActiveDisabled();
+class _TSwitchActiveDisabled extends StatelessWidget {
+  const _TSwitchActiveDisabled();
 
   @override
   Widget build(BuildContext context) {
-    return TRadio(
+    return TSwitch(
       enabled: false,
       value: true,
       onChanged: (value) {},
@@ -98,16 +98,16 @@ class _TRadioActiveDisabled extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TRadioInactiveDisabled
+// CLASS: _TSwitchInactiveDisabled
 // =============================================================================
 
 @GenerateSource()
-class _TRadioInactiveDisabled extends StatelessWidget {
-  const _TRadioInactiveDisabled();
+class _TSwitchInactiveDisabled extends StatelessWidget {
+  const _TSwitchInactiveDisabled();
 
   @override
   Widget build(BuildContext context) {
-    return TRadio(
+    return TSwitch(
       enabled: false,
       value: false,
       onChanged: (value) {},
@@ -116,18 +116,18 @@ class _TRadioInactiveDisabled extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TRadioColors
+// CLASS: _TSwitchColors
 // =============================================================================
 
 @GenerateSource(buildMethodOnly: false)
-class _TRadioColors extends StatefulWidget {
-  const _TRadioColors();
+class _TSwitchColors extends StatefulWidget {
+  const _TSwitchColors();
 
   @override
-  State<_TRadioColors> createState() => _TRadioColorsState();
+  State<_TSwitchColors> createState() => _TSwitchColorsState();
 }
 
-class _TRadioColorsState extends State<_TRadioColors> {
+class _TSwitchColorsState extends State<_TSwitchColors> {
   bool _value = true;
 
   @override
@@ -138,7 +138,7 @@ class _TRadioColorsState extends State<_TRadioColors> {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (final color in PREVIEW_COLORS)
-          TRadio(
+          TSwitch(
             color: color,
             value: _value,
             onChanged: (value) => setState(() => _value = value),
@@ -149,26 +149,25 @@ class _TRadioColorsState extends State<_TRadioColors> {
 }
 
 // =============================================================================
-// CLASS: _TRadioIndicator
+// CLASS: _TSwitchIndicator
 // =============================================================================
 
 @GenerateSource(buildMethodOnly: false)
-class _TRadioIndicator extends StatefulWidget {
-  const _TRadioIndicator();
+class _TSwitchIndicator extends StatefulWidget {
+  const _TSwitchIndicator();
 
   @override
-  State<_TRadioIndicator> createState() => _TRadioIndicatorState();
+  State<_TSwitchIndicator> createState() => _TSwitchIndicatorState();
 }
 
-class _TRadioIndicatorState extends State<_TRadioIndicator> {
+class _TSwitchIndicatorState extends State<_TSwitchIndicator> {
   bool _value = true;
 
   @override
   Widget build(BuildContext context) {
-    return TRadio(
+    return TSwitch(
       value: _value,
-      animationDuration: const Duration(milliseconds: 200),
-      indicator: const Icon(Icons.star),
+      indicator: Icon(_value ? Icons.check : Icons.close),
       onChanged: (value) => setState(() => _value = value),
     );
   }

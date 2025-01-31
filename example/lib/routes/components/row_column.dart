@@ -9,12 +9,13 @@ class ComponentRouteTRowColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ComponentRoute(
+    return ComponentRoute(
       name: 'TRowColumn',
       description: 'A widget',
       children: [
-        TText(
-          'The Flutter Tailwind UI',
+        AppSection(
+          title: 'Section',
+          children: const [],
         ),
       ],
     );

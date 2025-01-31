@@ -98,7 +98,7 @@ abstract final class TRadius {
 /// Scaling system is based on 2px increments as defined in [TRadius]
 ///
 /// https://tailwindcss.com/docs/border-radius
-class TBorderRadius {
+abstract class TBorderRadius {
   // ---------------------------------------------------------------------------
   // Border Radius: All
   // ---------------------------------------------------------------------------
