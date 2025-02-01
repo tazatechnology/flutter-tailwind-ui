@@ -18,7 +18,8 @@ class AppRouter {
   AppRouter({
     required this.ref,
   }) {
-    final designSystemRoutes = <String, Widget>{
+    final routeMap = <String, Widget>{
+      // Design System
       AppRouter.colors: const ColorsRoute(),
       AppRouter.spacing: const SpacingRoute(),
       AppRouter.border_radius: const BorderRadiusRoute(),
@@ -26,9 +27,7 @@ class AppRouter {
       AppRouter.font_size: const TypographyRouteFontSize(),
       AppRouter.font_weight: const TypographyRouteFontWeight(),
       AppRouter.letter_spacing: const TypographyRouteLetterSpacing(),
-    };
-
-    final componentRoutes = <String, Widget>{
+      // Components
       AppRouter.backdrop_filter: const ComponentRouteTBackdropFilter(),
       AppRouter.badge: const ComponentRouteTBadge(),
       AppRouter.button: const ComponentRouteTButton(),
@@ -38,13 +37,17 @@ class AppRouter {
       AppRouter.checkbox_tile: const ComponentRouteTCheckboxTile(),
       AppRouter.code_block: const ComponentRouteTCodeBlock(),
       AppRouter.filter: const ComponentRouteTFilter(),
+      AppRouter.form: const ComponentRouteTForm(),
       AppRouter.icon_button: const ComponentRouteTIconButton(),
+      AppRouter.input: const ComponentRouteTInput(),
       AppRouter.split_button: const ComponentRouteTSplitButton(),
       AppRouter.radio: const ComponentRouteTRadio(),
       AppRouter.radio_group: const ComponentRouteTRadioGroup(),
       AppRouter.row_column: const ComponentRouteTRowColumn(),
       AppRouter.scrollbar: const ComponentRouteTScrollbar(),
+      AppRouter.select: const ComponentRouteTSelect(),
       AppRouter.sized_box: const ComponentRouteTSizedBox(),
+      AppRouter.slider: const ComponentRouteTSlider(),
       AppRouter.switch_control: const ComponentRouteTSwitch(),
       AppRouter.switch_group: const ComponentRouteTSwitchGroup(),
       AppRouter.switch_tile: const ComponentRouteTSwitchTile(),
@@ -63,21 +66,11 @@ class AppRouter {
         path: '/$usage',
         builder: (context, state) => const UsageRoute(),
       ),
-
-      /// Design System
-      for (final t in designSystemRoutes.entries)
+      for (final r in routeMap.entries)
         GoRoute(
-          name: t.key,
-          path: '/${t.key}',
-          builder: (context, state) => t.value,
-        ),
-
-      /// Components
-      for (final c in componentRoutes.entries)
-        GoRoute(
-          name: c.key,
-          path: '/${c.key}',
-          builder: (context, state) => c.value,
+          name: r.key,
+          path: '/${r.key}',
+          builder: (context, state) => r.value,
         ),
     ];
 
@@ -126,12 +119,16 @@ class AppRouter {
   static const String checkbox_tile = 'checkbox-tile';
   static const String code_block = 'code-block';
   static const String filter = 'filter';
+  static const String form = 'form';
   static const String icon_button = 'icon-button';
+  static const String input = 'input';
   static const String radio = 'radio';
   static const String radio_group = 'radio-group';
   static const String row_column = 'row-column';
   static const String scrollbar = 'scrollbar';
+  static const String select = 'select';
   static const String sized_box = 'sized-box';
+  static const String slider = 'slider';
   static const String split_button = 'split-button';
   static const String switch_control = 'switch';
   static const String switch_group = 'switch-group';

@@ -18,11 +18,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     required this.background,
     required this.shadow,
     required this.card,
+    required this.icon,
     required this.focus,
     required this.divider,
     required this.selection,
     required this.disabled,
     required this.onDisabled,
+    required this.error,
+    required this.onError,
   }) {
     this.primary = primary.toMaterialColor();
   }
@@ -37,11 +40,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? background,
     Color? shadow,
     Color? card,
+    Color? icon,
     Color? focus,
     Color? divider,
     Color? selection,
     Color? disabled,
     Color? onDisabled,
+    Color? error,
+    Color? onError,
   }) {
     final theme = TailwindColorTheme._fallback(brightness: Brightness.light);
     return theme.copyWith(
@@ -53,11 +59,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       background: background,
       shadow: shadow,
       card: card,
+      icon: icon,
       focus: focus,
       divider: divider,
       selection: selection,
       disabled: disabled,
       onDisabled: onDisabled,
+      error: error,
+      onError: onError,
     );
   }
 
@@ -71,11 +80,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? background,
     Color? shadow,
     Color? card,
+    Color? icon,
     Color? focus,
     Color? divider,
     Color? selection,
     Color? disabled,
     Color? onDisabled,
+    Color? error,
+    Color? onError,
   }) {
     final theme = TailwindColorTheme._fallback(brightness: Brightness.dark);
     return theme.copyWith(
@@ -87,11 +99,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       background: background,
       shadow: shadow,
       card: card,
+      icon: icon,
       focus: focus,
       divider: divider,
       selection: selection,
       disabled: disabled,
       onDisabled: onDisabled,
+      error: error,
+      onError: onError,
     );
   }
 
@@ -110,11 +125,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         background: Colors.white,
         shadow: Colors.black26,
         card: Colors.white,
+        icon: TColors.gray.shade400,
         focus: TColors.gray.shade700,
         divider: TColors.gray.shade200,
         selection: const Color(0xffb6d7ff),
         disabled: TColors.gray.shade200,
         onDisabled: TColors.gray.shade500,
+        error: TColors.red.shade600,
+        onError: TColors.red.shade200,
       );
     } else {
       return TailwindColorTheme._(
@@ -127,11 +145,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         background: TColors.gray.shade950,
         shadow: Colors.white12,
         card: TColors.gray.shade900,
+        icon: TColors.gray.shade400,
         focus: TColors.gray.shade300,
         divider: TColors.gray.shade600,
         selection: const Color(0xff385479),
         disabled: TColors.gray.shade600,
         onDisabled: TColors.gray.shade400,
+        error: TColors.red.shade600,
+        onError: TColors.red.shade200,
       );
     }
   }
@@ -171,6 +192,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   /// The color of cards and surfaces
   final Color card;
 
+  /// Icon color
+  ///
+  /// Default color for icons
+  final Color icon;
+
   /// Focus color
   ///
   /// The focus border color for focusable widgets
@@ -193,6 +219,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
 
   /// Color of text on disabled elements
   final Color onDisabled;
+
+  /// Error color
+  ///
+  /// The color of elements in an error state
+  final Color error;
+
+  /// Color of text on error state elements
+  final Color onError;
 
   /// Color of disabled text
   Color get disabledTextColor {
@@ -217,11 +251,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? background,
     Color? shadow,
     Color? card,
+    Color? icon,
     Color? focus,
     Color? divider,
     Color? selection,
     Color? disabled,
     Color? onDisabled,
+    Color? error,
+    Color? onError,
   }) {
     return TailwindColorTheme._(
       _brightness,
@@ -233,11 +270,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       background: background ?? this.background,
       shadow: shadow ?? this.shadow,
       card: card ?? this.card,
+      icon: icon ?? this.icon,
       focus: focus ?? this.focus,
       divider: divider ?? this.divider,
       selection: selection ?? this.selection,
       disabled: disabled ?? this.disabled,
       onDisabled: onDisabled ?? this.onDisabled,
+      error: error ?? this.error,
+      onError: onError ?? this.onError,
     );
   }
 
@@ -299,11 +339,14 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       background: _lerpColor(background, other.background, t),
       shadow: _lerpColor(shadow, other.shadow, t),
       card: _lerpColor(card, other.card, t),
+      icon: _lerpColor(icon, other.icon, t),
       focus: _lerpColor(focus, other.focus, t),
       divider: _lerpColor(divider, other.divider, t),
       selection: _lerpColor(selection, other.selection, t),
       disabled: _lerpColor(disabled, other.disabled, t),
       onDisabled: _lerpColor(onDisabled, other.onDisabled, t),
+      error: _lerpColor(error, other.error, t),
+      onError: _lerpColor(onError, other.onError, t),
     );
   }
 }

@@ -62,15 +62,21 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TIconButton``': AppRouter.icon_button,
         '``TSplitButton``': AppRouter.split_button,
       },
-      'Selection Controls': {
+      'Form Controls': {
         '``TRadio``': AppRouter.radio,
-        '``TRadioGroup``': AppRouter.radio_group,
         '``TCheckbox``': AppRouter.checkbox,
+        '``TSwitch``': AppRouter.switch_control,
+      },
+      'Form Elements': {
+        '``TInput``': AppRouter.input,
+        '``TSelect``': AppRouter.select,
+        '``TSlider``': AppRouter.slider,
+        '``TRadioGroup``': AppRouter.radio_group,
         '``TCheckboxTile``': AppRouter.checkbox_tile,
         '``TCheckboxGroup``': AppRouter.checkbox_group,
-        '``TSwitch``': AppRouter.switch_control,
         '``TSwitchTile``': AppRouter.switch_tile,
         '``TSwitchGroup``': AppRouter.switch_group,
+        '``TForm``': AppRouter.form,
       },
       'Layout': {
         '``TCard``': AppRouter.card,
@@ -205,7 +211,7 @@ class _AppNavigationItemState extends ConsumerState<AppNavigationItem> {
     final isActive = state.topRoute?.name == widget.route;
     final showSideBar = tw.screen.width >= AppScaffold.sidebarBreakpoint;
 
-    final activeColor = tw.light ? TColors.gray.shade950 : Colors.white;
+    final activeColor = tw.light ? TColors.sky : TColors.sky;
     final inactiveColor =
         tw.light ? TColors.gray.shade600 : TColors.gray.shade300;
     final hoveredBorder = activeColor.withValues(alpha: 0.25);
@@ -234,7 +240,7 @@ class _AppNavigationItemState extends ConsumerState<AppNavigationItem> {
             return TextStyle(
               color: isActive ? activeColor : inactiveColor,
               fontWeight: isActive || (states.hovered && isComponent)
-                  ? TFontWeight.medium
+                  ? TFontWeight.semibold
                   : TFontWeight.normal,
               fontFamily: isComponent ? TTextStyle.fontFamilyMono : null,
             );

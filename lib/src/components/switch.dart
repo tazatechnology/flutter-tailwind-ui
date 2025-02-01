@@ -419,8 +419,8 @@ class _TSwitchGroupState<T> extends State<TSwitchGroup<T>> {
 
   @override
   void initState() {
-    groupValue = List.from(widget.groupValue ?? []);
     super.initState();
+    groupValue = List.from(widget.groupValue ?? []);
   }
 
   // ---------------------------------------------------------------------------

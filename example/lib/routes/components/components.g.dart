@@ -2189,6 +2189,142 @@ TIconButton.filled(
 """;
 }
 
+/// Source code for [_TInputWithLabel]
+class _TInputWithLabelSource {
+  static const String code = r"""
+const TInput(
+  labelText: 'Email',
+  hintText: 'you@example.com',
+)
+""";
+}
+
+/// Source code for [_TInputWithLabelWidget]
+class _TInputWithLabelWidgetSource {
+  static const String code = r"""
+TInput(
+  label: Row(
+    children: [
+      const Icon(Icons.mail_outline, size: 15),
+      TSizedBox.x4,
+      const Text('Email'),
+      const Spacer(),
+      TText(
+        '* Required',
+        style: TextStyle(
+          fontWeight: TFontWeight.normal,
+          color: context.tw.colors.label,
+          fontSize: TFontSize.text_xs,
+        ),
+      ),
+    ],
+  ),
+  hintText: 'you@example.com',
+)
+""";
+}
+
+/// Source code for [_TInputWithHelp]
+class _TInputWithHelpSource {
+  static const String code = r"""
+const TInput(
+  labelText: 'Email',
+  hintText: 'you@example.com',
+  helpText: 'This is a help message.',
+)
+""";
+}
+
+/// Source code for [_TInputWithHelpWidget]
+class _TInputWithHelpWidgetSource {
+  static const String code = r"""
+const TInput(
+  labelText: 'Email',
+  hintText: 'you@example.com',
+  help: TText('This is a help `widget`'),
+)
+""";
+}
+
+/// Source code for [_TInputWithError]
+class _TInputWithErrorSource {
+  static const String code = r"""
+const TInput(
+  initialValue: 'invalid-email',
+  labelText: 'Email',
+  hintText: 'you@example.com',
+  errorText: 'This is an error message.',
+)
+""";
+}
+
+/// Source code for [_TInputWithErrorWidget]
+class _TInputWithErrorWidgetSource {
+  static const String code = r"""
+const TInput(
+  initialValue: 'invalid-email',
+  labelText: 'Email',
+  hintText: 'you@example.com',
+  error: TText('This is an error `widget`'),
+)
+""";
+}
+
+/// Source code for [_TInputWithDisabledState]
+class _TInputWithDisabledStateSource {
+  static const String code = r"""
+const TInput(
+  enabled: false,
+  labelText: 'Email',
+  hintText: 'Enter your email',
+)
+""";
+}
+
+/// Source code for [_TInputWithReadOnlyState]
+class _TInputWithReadOnlyStateSource {
+  static const String code = r"""
+const TInput(
+  readOnly: true,
+  initialValue: 'me@example.com',
+  labelText: 'Email',
+)
+""";
+}
+
+/// Source code for [_TInputWithIconPrefix]
+class _TInputWithIconPrefixSource {
+  static const String code = r"""
+const TInput(
+  labelText: 'Email',
+  hintText: 'you@example.com',
+  prefix: Icon(Icons.mail_outline, size: 15),
+)
+""";
+}
+
+/// Source code for [_TInputWithIconSuffix]
+class _TInputWithIconSuffixSource {
+  static const String code = r"""
+const TInput(
+  obscure: true,
+  labelText: 'Password',
+  hintText: 'Enter your password',
+  suffix: Icon(Icons.security, size: 15),
+)
+""";
+}
+
+/// Source code for [_TInputArea]
+class _TInputAreaSource {
+  static const String code = r"""
+const TInput.area(
+  labelText: 'Bio',
+  hintText: 'Tell us about yourself',
+)
+""";
+}
+
 /// Source code for [_TRadioActive]
 class _TRadioActiveSource {
   static const String code = r"""
@@ -2598,6 +2734,15 @@ TRadioGroup.panel(
         enabled: item != 'Beta',
       ),
   ],
+)
+""";
+}
+
+/// Source code for [_TSlider]
+class _TSliderSource {
+  static const String code = r"""
+TSlider(
+  onChanged: (value) {},
 )
 """;
 }

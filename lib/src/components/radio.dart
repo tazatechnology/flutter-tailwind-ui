@@ -70,7 +70,7 @@ class TRadio extends StatelessWidget {
     final indicator = this.indicator ??
         const Icon(
           Icons.circle,
-          size: kDefaultControlSize / 2,
+          size: kTDefaultControlSize / 2,
         );
 
     // Defer to the focus node value if it is set
@@ -129,15 +129,15 @@ class TRadio extends StatelessWidget {
           borderRadius: TBorderRadius.rounded_full,
           child: IconTheme(
             data: context.theme.iconTheme.copyWith(
-              size: kDefaultControlSize - TSpace.v4,
+              size: kTDefaultControlSize - TSpace.v4,
               color: color.contrastBlackWhite(),
             ),
             child: AnimatedContainer(
               duration: animationDuration,
               curve: animationCurve,
               margin: padding,
-              width: kDefaultControlSize,
-              height: kDefaultControlSize,
+              width: kTDefaultControlSize,
+              height: kTDefaultControlSize,
               decoration: BoxDecoration(
                 color: value
                     ? color
@@ -295,6 +295,7 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
 
   @override
   void initState() {
+    super.initState();
     groupValue = widget.groupValue;
     focusNodes = List.generate(
       widget.children.length,
@@ -305,7 +306,6 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
       ),
     );
     updateFocusNodes();
-    super.initState();
   }
 
   // ---------------------------------------------------------------------------

@@ -167,7 +167,7 @@ class TailwindTheme {
 
       /// Icon
       iconTheme: IconThemeData(
-        color: TColors.slate.shade400,
+        color: color.icon,
       ),
 
       /// Page Transitions
@@ -189,6 +189,66 @@ class TailwindTheme {
             }
             return TColors.gray.shade300;
           },
+        ),
+      ),
+
+      /// Input
+      inputDecorationTheme: InputDecorationTheme(
+        isDense: true,
+        isCollapsed: true,
+        iconColor: color.icon,
+        prefixIconColor: color.icon,
+        suffixIconColor: color.icon,
+        labelStyle: const TextStyle(
+          fontSize: TFontSize.text_sm,
+        ),
+        hintStyle: TextStyle(
+          fontSize: TFontSize.text_sm,
+          color: light ? TColors.gray.shade400 : TColors.gray.shade500,
+        ),
+        helperStyle: TextStyle(
+          fontSize: TFontSize.text_xs + 1,
+          height: 2, // Adds appropriate padding between text box and help text
+          color: color.label,
+        ),
+        errorStyle: TextStyle(
+          fontSize: TFontSize.text_xs + 1,
+          height: 2, // Adds appropriate padding between text box and error text
+          color: color.error,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: TBorderRadius.rounded_md,
+          borderSide: BorderSide(color: color.divider),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: TBorderRadius.rounded_md,
+          borderSide: BorderSide(color: color.divider),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: TBorderRadius.rounded_md,
+          borderSide: BorderSide(color: color.primary, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: TBorderRadius.rounded_md,
+          borderSide: BorderSide(color: color.error),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: TBorderRadius.rounded_md,
+          borderSide: BorderSide(color: color.error, width: 2),
+        ),
+      ),
+
+      /// Slider
+      sliderTheme: SliderThemeData(
+        thumbColor: color.primary,
+        activeTrackColor: color.primary,
+        inactiveTrackColor: color.divider,
+        trackHeight: 5,
+        thumbShape: const RoundSliderThumbShape(
+          enabledThumbRadius: 8,
+          disabledThumbRadius: 8,
+          elevation: 0,
+          pressedElevation: 0,
         ),
       ),
 

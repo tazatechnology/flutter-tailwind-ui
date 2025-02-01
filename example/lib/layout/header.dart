@@ -86,30 +86,37 @@ class AppRouteHeader extends StatelessWidget {
         ),
         Padding(
           padding: TOffset.t12,
-          child: Row(
+          child: TRowColumn(
+            crossAxisAlignment: tw.screen.is_xs
+                ? CrossAxisAlignment.center
+                : CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            axis: tw.screen.is_xs ? Axis.horizontal : Axis.vertical,
             children: [
-              TText(title, style: titleStyle),
-              if (className != null)
-                Padding(
-                  padding: TOffset.l14,
-                  child: Link(
-                    target: LinkTarget.blank,
-                    uri: Uri.parse('$baseUrl$className-class.html'),
-                    builder: (context, followLink) {
-                      return TBadge.soft(
-                        color: TColors.sky,
-                        tooltip: 'API Docs for ``**$className**``',
-                        onPressed: followLink,
-                        child: const Text('Dart Docs'),
-                      );
-                    },
-                  ),
-                ),
-              if (reference != null)
-                Padding(
-                  padding: TOffset.l14,
-                  child: ReferenceBadge(reference: reference!),
-                ),
+              Padding(
+                padding:
+                    TOffset.r14 + (tw.screen.is_xs ? TOffset.b0 : TOffset.b10),
+                child: TText(title, style: titleStyle),
+              ),
+              Row(
+                spacing: TSpace.v12,
+                children: [
+                  if (className != null)
+                    Link(
+                      target: LinkTarget.blank,
+                      uri: Uri.parse('$baseUrl$className-class.html'),
+                      builder: (context, followLink) {
+                        return TBadge.soft(
+                          color: TColors.sky,
+                          tooltip: 'API Docs for ``**$className**``',
+                          onPressed: followLink,
+                          child: const Text('Dart Docs'),
+                        );
+                      },
+                    ),
+                  if (reference != null) ReferenceBadge(reference: reference!),
+                ],
+              ),
             ],
           ),
         ),

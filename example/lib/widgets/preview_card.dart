@@ -16,6 +16,7 @@ class AppPreviewCard extends StatefulWidget {
     this.description,
     this.reference,
     this.initialShowCode = false,
+    this.maxWidth,
     super.key,
   });
   final String? title;
@@ -25,6 +26,8 @@ class AppPreviewCard extends StatefulWidget {
   final Widget child;
   final Alignment alignment;
   final bool initialShowCode;
+  final double? maxWidth;
+
   @override
   State<AppPreviewCard> createState() => _AppPreviewCardState();
 }
@@ -40,6 +43,7 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
 
   @override
   void initState() {
+    super.initState();
     if (widget.initialShowCode) {
       controllerPreview = WidgetStatesController();
       controllerCode = WidgetStatesController({WidgetState.selected});
@@ -47,7 +51,6 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
       controllerPreview = WidgetStatesController({WidgetState.selected});
       controllerCode = WidgetStatesController();
     }
-    super.initState();
   }
 
   // ---------------------------------------------------------------------------
@@ -144,7 +147,12 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
               child: AppCodeResultCard(
                 margin: TOffset.y16,
                 alignment: widget.alignment,
-                child: widget.child,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: widget.maxWidth ?? double.infinity,
+                  ),
+                  child: widget.child,
+                ),
               ),
             ),
           ),

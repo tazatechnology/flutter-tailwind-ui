@@ -2,23 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 // =============================================================================
-// CLASS: TTitleLabelWidget
+// CLASS: TLabelDescriptionWidget
 // =============================================================================
 
-/// Add a title label to a primary widget (e.g. a group of radio buttons)
-class TTitleLabelWidget extends StatelessWidget {
+/// Add a title and or description to the top of a widget.
+class TLabelDescriptionWidget extends StatelessWidget {
   /// Constructor
-  const TTitleLabelWidget({
+  const TLabelDescriptionWidget({
     super.key,
-    this.title,
+    this.label,
     this.description,
   });
 
-  /// The title widget
-  final Widget? title;
+  /// The label widget
+  final Widget? label;
 
   /// The description widget
   final Widget? description;
+
+  /// The default padding for the bottom
+  static const kPadBottom = TOffset.b12;
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +30,21 @@ class TTitleLabelWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != null)
-          DefaultTextStyle.merge(
-            style: TTextStyle.text_sm.copyWith(
-              fontWeight: TFontWeight.semibold,
-              height: kTextHeightNone,
-              color: tw.colors.title,
+        if (label != null)
+          Padding(
+            padding: description == null ? kPadBottom : TOffset.b0,
+            child: DefaultTextStyle.merge(
+              style: TTextStyle.text_sm.copyWith(
+                fontWeight: TFontWeight.medium,
+                height: kTextHeightNone,
+                color: tw.colors.title,
+              ),
+              child: label!,
             ),
-            child: title!,
           ),
         if (description != null)
           Padding(
-            padding: TOffset.t2 + TOffset.b16,
+            padding: TOffset.t2 + kPadBottom,
             child: DefaultTextStyle.merge(
               style: TTextStyle.text_sm.copyWith(
                 height: kTextHeightNone,

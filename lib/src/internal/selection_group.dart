@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 
-/// Fixed size of the control widget
-const kDefaultControlSize = TSpace.v16;
-
 // =============================================================================
 // CLASS: TSelectionGroupItem
 // =============================================================================
@@ -120,7 +117,6 @@ class TSelectionGroupList<T> extends StatelessWidget {
 
     // Define the primary content
     final content = Container(
-      width: width,
       decoration: decoration,
       child: TRowColumn(
         axis: axis,
@@ -132,15 +128,21 @@ class TSelectionGroupList<T> extends StatelessWidget {
       ),
     );
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TTitleLabelWidget(title: title, description: description),
-        // For horizontal axis, wrap the content with IntrinsicHeight
-        // This is to ensure the vertical divider height matches the content height
-        if (axis == Axis.vertical) content else IntrinsicHeight(child: content),
-      ],
+    return SizedBox(
+      width: width,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TLabelDescriptionWidget(label: title, description: description),
+          // For horizontal axis, wrap the content with IntrinsicHeight
+          // This is to ensure the vertical divider height matches the content height
+          if (axis == Axis.vertical)
+            content
+          else
+            IntrinsicHeight(child: content),
+        ],
+      ),
     );
   }
 }

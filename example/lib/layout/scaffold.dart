@@ -96,6 +96,8 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
     }
 
     return Scaffold(
+      // Prevents the keyboard from cutting off the bottom of the screen
+      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       drawer: drawer,
       appBar: PreferredSize(

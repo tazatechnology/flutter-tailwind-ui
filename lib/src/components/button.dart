@@ -157,7 +157,9 @@ class TButton extends StatelessWidget {
       case TWidgetSize.sm:
         return 30;
       case TWidgetSize.md:
-        return 34;
+        // The default height for the default button will match the height
+        // of input elements, e.g. field, select, dropdown, etc.
+        return kTDefaultInputHeight;
       case TWidgetSize.lg:
         return 38;
       case TWidgetSize.xl:

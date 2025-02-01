@@ -388,8 +388,9 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
                   return SliverPadding(padding: xPad, sliver: sliver);
                 }),
                 // Extra bottom padding for last content in scroll view
+                // Also offers padding for the keyboard when displayed
                 const SliverPadding(
-                  padding: EdgeInsets.only(top: TSpace.v64),
+                  padding: EdgeInsets.only(top: TSpace.v288),
                 ),
               ],
             ),

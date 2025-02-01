@@ -7,9 +7,9 @@ import 'package:flutter_tailwind_ui/src/internal/selection_group.dart';
 // CLASS: TCheckbox
 // =============================================================================
 
-/// A Tailwind UI inspired checkbox widget
+/// A Tailwind UI inspired checkbox widget.
 class TCheckbox extends StatelessWidget {
-  /// Construct a checkbox widget
+  /// Construct a checkbox widget.
   const TCheckbox({
     required this.value,
     this.onChanged,
@@ -125,15 +125,15 @@ class TCheckbox extends StatelessWidget {
           borderRadius: TBorderRadius.rounded_sm,
           child: IconTheme(
             data: context.theme.iconTheme.copyWith(
-              size: kDefaultControlSize - TSpace.v4,
+              size: kTDefaultControlSize - TSpace.v4,
               color: color.contrastBlackWhite(),
             ),
             child: AnimatedContainer(
               duration: animationDuration,
               curve: animationCurve,
               margin: padding,
-              width: kDefaultControlSize,
-              height: kDefaultControlSize,
+              width: kTDefaultControlSize,
+              height: kTDefaultControlSize,
               decoration: BoxDecoration(
                 color: value
                     ? color
@@ -398,8 +398,8 @@ class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
 
   @override
   void initState() {
-    groupValue = List.from(widget.groupValue ?? []);
     super.initState();
+    groupValue = List.from(widget.groupValue ?? []);
   }
 
   // ---------------------------------------------------------------------------
