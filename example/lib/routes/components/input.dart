@@ -67,7 +67,7 @@ class ComponentRouteTInput extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Input with states',
+          title: 'Input states',
           children: const [
             AppPreviewCard(
               title: 'Disabled',

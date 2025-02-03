@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/scroll_view.dart';
+import 'package:flutter_tailwind_ui_app/providers/section.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/link.dart';
 
 // =============================================================================
@@ -146,13 +149,14 @@ String _getFragment(String title) {
       .replaceAll(RegExp(r'[^a-z0-9\-]'), '');
 }
 
-class AppSection extends StatelessWidget {
+class AppSection extends ConsumerWidget {
   AppSection({
     required this.title,
     this.description,
     this.trailing,
     this.children,
-  }) : super(key: GlobalKey(debugLabel: _getFragment(title))) {
+    super.key,
+  }) {
     fragment = _getFragment(title);
   }
 
@@ -163,9 +167,17 @@ class AppSection extends StatelessWidget {
   final List<Widget>? children;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Register the global key for this section and retrieve
+    // All keys for sections are stored through the app lifecycle
+    final keyLabel = '${GoRouterState.of(context).uri}#$fragment';
+    final globalKey = ref
+        .read(sectionKeyProvider)
+        .putIfAbsent(keyLabel, () => GlobalKey(debugLabel: keyLabel));
+
     final tw = context.tw;
     return Column(
+      key: globalKey,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(

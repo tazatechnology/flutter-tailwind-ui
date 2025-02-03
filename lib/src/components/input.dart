@@ -14,6 +14,13 @@ class TInput extends StatefulWidget {
     this.initialValue,
     this.controller,
     this.statesController,
+    this.style,
+    this.textDirection,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
+    this.contentPadding,
+    this.fillColor,
+    this.borderColor,
     this.hintText,
     this.label,
     this.labelText,
@@ -74,6 +81,13 @@ class TInput extends StatefulWidget {
     this.initialValue,
     this.controller,
     this.statesController,
+    this.style,
+    this.textDirection,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
+    this.contentPadding,
+    this.fillColor,
+    this.borderColor,
     this.hintText,
     this.label,
     this.labelText,
@@ -116,7 +130,7 @@ class TInput extends StatefulWidget {
     this.magnifierConfiguration,
     this.undoController,
     this.expands = false,
-    this.minLines = 3,
+    this.minLines = 5,
     this.maxLines = 10,
     super.key,
   })  : _isTextArea = true,
@@ -139,7 +153,28 @@ class TInput extends StatefulWidget {
   final TextEditingController? controller;
 
   /// The states controller for the input field.
-  final TWidgetController? statesController;
+  final TWidgetStatesController? statesController;
+
+  /// The style to apply to the input field.
+  final TextStyle? style;
+
+  /// The text direction for the input field.
+  final TextDirection? textDirection;
+
+  /// The text alignment for the input field.
+  final TextAlign textAlign;
+
+  /// The vertical text alignment for the input field.
+  final TextAlignVertical? textAlignVertical;
+
+  /// The padding for the input field.
+  final EdgeInsetsGeometry? contentPadding;
+
+  /// The fill color for the input field.
+  final WidgetStateProperty<Color>? fillColor;
+
+  /// The stateful border color for the input field.
+  final WidgetStateProperty<Color>? borderColor;
 
   /// The hint text to display inside the input field.
   final String? hintText;
@@ -298,7 +333,7 @@ class TInput extends StatefulWidget {
 class _TInputState extends State<TInput> {
   late final isTextArea = widget._isTextArea;
   late final TextEditingController controller;
-  late final TWidgetController statesController;
+  late final TWidgetStatesController statesController;
 
   // ---------------------------------------------------------------------------
   // METHOD: initState
@@ -315,8 +350,11 @@ class _TInputState extends State<TInput> {
     if (widget.statesController != null) {
       statesController = widget.statesController!;
     } else {
-      statesController = TWidgetController();
+      statesController = TWidgetStatesController();
     }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      statesController.addListener(() => setState(() {}));
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -346,6 +384,53 @@ class _TInputState extends State<TInput> {
 
     // Determine if the input field is interactive
     final isInteractive = widget.enabled && !widget.readOnly;
+
+    // Determine if the input field should be filled
+    // Only filled when not interactive and has a fill color
+    final effectiveFillColor =
+        widget.fillColor?.resolve(statesController.value) ??
+            (tw.dark ? Colors.black54 : TColors.gray.shade50);
+    final isFilled = !isInteractive && (!effectiveFillColor.isTransparent);
+
+    // Determine the effective border based on the state
+    final effectiveBorder =
+        WidgetStateProperty.resolveWith<InputBorder?>((states) {
+      if (states.focused && !widget.readOnly) {
+        return inputTheme.focusedBorder?.copyWith(
+          borderSide: inputTheme.focusedBorder?.borderSide.copyWith(
+            color: widget.borderColor?.resolve({WidgetState.focused}) ??
+                inputTheme.focusedBorder?.borderSide.color,
+          ),
+        );
+      } else if (states.error) {
+        return inputTheme.errorBorder?.copyWith(
+          borderSide: inputTheme.errorBorder?.borderSide.copyWith(
+            color: widget.borderColor?.resolve({WidgetState.focused}) ??
+                inputTheme.errorBorder?.borderSide.color,
+          ),
+        );
+      } else if (states.disabled) {
+        return inputTheme.disabledBorder?.copyWith(
+          borderSide: inputTheme.disabledBorder?.borderSide.copyWith(
+            color: widget.borderColor?.resolve({WidgetState.focused}) ??
+                inputTheme.disabledBorder?.borderSide.color,
+          ),
+        );
+      } else {
+        return inputTheme.enabledBorder?.copyWith(
+          borderSide: inputTheme.enabledBorder?.borderSide.copyWith(
+            color: widget.borderColor?.resolve({WidgetState.focused}) ??
+                inputTheme.enabledBorder?.borderSide.color,
+          ),
+        );
+      }
+    });
+
+    // Determine the x-axis padding
+    double xPad = TSpace.v12;
+    if (widget.contentPadding?.horizontal == 0) {
+      xPad = 0;
+    }
 
     // Resolve the label widget
     Widget? label = widget.label;
@@ -427,14 +512,19 @@ class _TInputState extends State<TInput> {
           ignorePointers: widget.ignorePointers,
           enableInteractiveSelection: widget.enableInteractiveSelection,
           onTapAlwaysCalled: widget.onTapAlwaysCalled,
-          canRequestFocus: !widget.readOnly && widget.enabled,
+          canRequestFocus: widget.enabled,
           mouseCursor: mouseCursor,
           cursorWidth: 1,
           cursorHeight: TFontSize.text_sm,
           cursorColor: textSelectionTheme.cursorColor,
           cursorErrorColor: textSelectionTheme.cursorColor,
           cursorOpacityAnimates: false,
-          style: TTextStyle.text_sm.copyWith(height: kTextHeightNone),
+          style: (widget.style ?? TTextStyle.text_sm).copyWith(
+            height: kTextHeightNone,
+          ),
+          textAlign: widget.textAlign,
+          textDirection: widget.textDirection,
+          textAlignVertical: widget.textAlignVertical,
           // Callbacks
           validator: widget.validator,
           inputFormatters: widget.inputFormatters,
@@ -456,22 +546,22 @@ class _TInputState extends State<TInput> {
           maxLines: widget.maxLines,
           // Decoration properties
           decoration: InputDecoration(
-            contentPadding: TOffset.y8,
+            contentPadding: widget.contentPadding ?? TOffset.y8,
             // Used to pad the input text without using content padding
             // Else, content padding will shift the help and error text
             prefixIconConstraints: BoxConstraints(
-              minHeight: kTDefaultInputHeight,
-              minWidth: prefix == null ? TSpace.v12 : kTDefaultInputHeight,
+              minWidth: prefix == null ? xPad : kTDefaultInputHeight,
             ),
             suffixIconConstraints: BoxConstraints(
-              minHeight: kTDefaultInputHeight,
-              minWidth: suffix == null ? TSpace.v12 : kTDefaultInputHeight,
+              minWidth: suffix == null ? xPad : kTDefaultInputHeight,
             ),
-            focusedBorder: isInteractive ? null : inputTheme.disabledBorder,
-            filled: !isInteractive,
-            fillColor: isInteractive
-                ? null
-                : (tw.dark ? Colors.black54 : TColors.gray.shade50),
+            border: effectiveBorder.resolve({}),
+            enabledBorder: effectiveBorder.resolve({}),
+            focusedBorder: effectiveBorder.resolve({WidgetState.focused}),
+            errorBorder: effectiveBorder.resolve({WidgetState.error}),
+            disabledBorder: effectiveBorder.resolve({WidgetState.disabled}),
+            filled: isFilled,
+            fillColor: effectiveFillColor,
             prefixIcon: prefix ?? const SizedBox.shrink(),
             suffixIcon: suffix ?? const SizedBox.shrink(),
             hintText: widget.hintText,

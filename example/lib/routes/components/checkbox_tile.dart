@@ -19,16 +19,19 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
           title: 'Checkbox Tile States',
           children: const [
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Active',
               code: _TCheckboxTileActiveSource.code,
               child: _TCheckboxTileActive(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Active (Disabled)',
               code: _TCheckboxTileActiveDisabledSource.code,
               child: _TCheckboxTileActiveDisabled(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Inactive (Disabled)',
               code: _TCheckboxTileInactiveDisabledSource.code,
               child: _TCheckboxTileInactiveDisabled(),
@@ -39,16 +42,19 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
           title: 'Checkbox Tile States (Card)',
           children: const [
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Active',
               code: _TCheckboxTileCardActiveSource.code,
               child: _TCheckboxTileCardActive(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Active (Disabled)',
               code: _TCheckboxTileCardActiveDisabledSource.code,
               child: _TCheckboxTileCardActiveDisabled(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Inactive (Disabled)',
               code: _TCheckboxTileCardInactiveDisabledSource.code,
               child: _TCheckboxTileCardInactiveDisabled(),
@@ -59,21 +65,25 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
           title: 'Checkbox Tile Control Affinity',
           children: const [
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Leading',
               code: _TCheckboxTileLeadingSource.code,
               child: _TCheckboxTileLeading(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Trailing',
               code: _TCheckboxTileTrailingSource.code,
               child: _TCheckboxTileTrailing(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Leading (Card)',
               code: _TCheckboxTileLeadingCardSource.code,
               child: _TCheckboxTileLeadingCard(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Trailing (Card)',
               code: _TCheckboxTileTrailingCardSource.code,
               child: _TCheckboxTileTrailingCard(),
@@ -89,27 +99,17 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
 // CLASS: _TCheckboxTileActive
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TCheckboxTileActive extends StatefulWidget {
+@GenerateSource()
+class _TCheckboxTileActive extends StatelessWidget {
   const _TCheckboxTileActive();
 
   @override
-  State<_TCheckboxTileActive> createState() => _TCheckboxTileActiveState();
-}
-
-class _TCheckboxTileActiveState extends State<_TCheckboxTileActive> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile(
-        title: const Text('Checkbox Tile'),
-        description: const Text('This is active.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TCheckboxTile(
+      title: const Text('Checkbox Tile'),
+      description: const Text('This is active.'),
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -124,15 +124,12 @@ class _TCheckboxTileActiveDisabled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile(
-        title: const Text('Checkbox Tile'),
-        description: const Text('This is active and disabled.'),
-        enabled: false,
-        value: true,
-        onChanged: (value) {},
-      ),
+    return TCheckboxTile(
+      title: const Text('Checkbox Tile'),
+      description: const Text('This is active and disabled.'),
+      enabled: false,
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -147,15 +144,12 @@ class _TCheckboxTileInactiveDisabled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile(
-        title: const Text('Checkbox Tile'),
-        description: const Text('This is inactive and disabled.'),
-        enabled: false,
-        value: false,
-        onChanged: (value) {},
-      ),
+    return TCheckboxTile(
+      title: const Text('Checkbox Tile'),
+      description: const Text('This is inactive and disabled.'),
+      enabled: false,
+      value: false,
+      onChanged: (value) {},
     );
   }
 }
@@ -164,28 +158,17 @@ class _TCheckboxTileInactiveDisabled extends StatelessWidget {
 // CLASS: _TCheckboxTileCardActive
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TCheckboxTileCardActive extends StatefulWidget {
+@GenerateSource()
+class _TCheckboxTileCardActive extends StatelessWidget {
   const _TCheckboxTileCardActive();
 
   @override
-  State<_TCheckboxTileCardActive> createState() =>
-      _TCheckboxTileCardActiveState();
-}
-
-class _TCheckboxTileCardActiveState extends State<_TCheckboxTileCardActive> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile.card(
-        title: const Text('Checkbox Tile'),
-        description: const Text('This is active.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TCheckboxTile.card(
+      title: const Text('Checkbox Tile'),
+      description: const Text('This is active.'),
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -200,15 +183,12 @@ class _TCheckboxTileCardActiveDisabled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile.card(
-        title: const Text('Checkbox Tile'),
-        description: const Text('This is active and disabled.'),
-        enabled: false,
-        value: true,
-        onChanged: (value) {},
-      ),
+    return TCheckboxTile.card(
+      title: const Text('Checkbox Tile'),
+      description: const Text('This is active and disabled.'),
+      enabled: false,
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -223,15 +203,12 @@ class _TCheckboxTileCardInactiveDisabled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile.card(
-        title: const Text('Checkbox Tile'),
-        description: const Text('This is inactive and disabled.'),
-        enabled: false,
-        value: false,
-        onChanged: (value) {},
-      ),
+    return TCheckboxTile.card(
+      title: const Text('Checkbox Tile'),
+      description: const Text('This is inactive and disabled.'),
+      enabled: false,
+      value: false,
+      onChanged: (value) {},
     );
   }
 }
@@ -240,27 +217,17 @@ class _TCheckboxTileCardInactiveDisabled extends StatelessWidget {
 // CLASS: _TCheckboxTileLeading
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TCheckboxTileLeading extends StatefulWidget {
+@GenerateSource()
+class _TCheckboxTileLeading extends StatelessWidget {
   const _TCheckboxTileLeading();
 
   @override
-  State<_TCheckboxTileLeading> createState() => _TCheckboxTileLeadingState();
-}
-
-class _TCheckboxTileLeadingState extends State<_TCheckboxTileLeading> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile(
-        title: const Text('Checkbox Tile'),
-        description: const Text('Control is placed at the leading side.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TCheckboxTile(
+      title: const Text('Checkbox Tile'),
+      description: const Text('Control is placed at the leading side.'),
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -269,28 +236,18 @@ class _TCheckboxTileLeadingState extends State<_TCheckboxTileLeading> {
 // CLASS: _TCheckboxTileTrailing
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TCheckboxTileTrailing extends StatefulWidget {
+@GenerateSource()
+class _TCheckboxTileTrailing extends StatelessWidget {
   const _TCheckboxTileTrailing();
 
   @override
-  State<_TCheckboxTileTrailing> createState() => _TCheckboxTileTrailingState();
-}
-
-class _TCheckboxTileTrailingState extends State<_TCheckboxTileTrailing> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile(
-        title: const Text('Checkbox Tile'),
-        description: const Text('Control is placed at the trailing side.'),
-        affinity: TControlAffinity.trailing,
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TCheckboxTile(
+      title: const Text('Checkbox Tile'),
+      description: const Text('Control is placed at the trailing side.'),
+      affinity: TControlAffinity.trailing,
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -299,28 +256,17 @@ class _TCheckboxTileTrailingState extends State<_TCheckboxTileTrailing> {
 // CLASS: _TCheckboxTileLeadingCard
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TCheckboxTileLeadingCard extends StatefulWidget {
+@GenerateSource()
+class _TCheckboxTileLeadingCard extends StatelessWidget {
   const _TCheckboxTileLeadingCard();
 
   @override
-  State<_TCheckboxTileLeadingCard> createState() =>
-      _TCheckboxTileLeadingCardState();
-}
-
-class _TCheckboxTileLeadingCardState extends State<_TCheckboxTileLeadingCard> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile.card(
-        title: const Text('Checkbox Tile'),
-        description: const Text('Control is placed at the leading side.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TCheckboxTile.card(
+      title: const Text('Checkbox Tile'),
+      description: const Text('Control is placed at the leading side.'),
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -329,30 +275,18 @@ class _TCheckboxTileLeadingCardState extends State<_TCheckboxTileLeadingCard> {
 // CLASS: _TCheckboxTileTrailingCard
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TCheckboxTileTrailingCard extends StatefulWidget {
+@GenerateSource()
+class _TCheckboxTileTrailingCard extends StatelessWidget {
   const _TCheckboxTileTrailingCard();
 
   @override
-  State<_TCheckboxTileTrailingCard> createState() =>
-      _TCheckboxTileTrailingCardState();
-}
-
-class _TCheckboxTileTrailingCardState
-    extends State<_TCheckboxTileTrailingCard> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile.card(
-        title: const Text('Checkbox Tile'),
-        description: const Text('Control is placed at the trailing side.'),
-        affinity: TControlAffinity.trailing,
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TCheckboxTile.card(
+      title: const Text('Checkbox Tile'),
+      description: const Text('Control is placed at the trailing side.'),
+      affinity: TControlAffinity.trailing,
+      value: true,
+      onChanged: (value) {},
     );
   }
 }

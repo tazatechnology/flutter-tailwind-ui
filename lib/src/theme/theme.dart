@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui/src/internal/slider.dart';
+import 'package:flutter_tailwind_ui/src/internal/transitions.dart';
 
 // =============================================================================
 // CLASS: TailwindTheme
@@ -238,18 +240,24 @@ class TailwindTheme {
         ),
       ),
 
-      /// Slider
+      /// Slider theme defaults
       sliderTheme: SliderThemeData(
         thumbColor: color.primary,
         activeTrackColor: color.primary,
         inactiveTrackColor: color.divider,
+        disabledThumbColor: TColors.gray[light ? 400 : 700],
+        disabledActiveTrackColor: TColors.gray[light ? 400 : 700],
+        disabledInactiveTrackColor: color.disabled,
+        showValueIndicator: ShowValueIndicator.always,
+        overlayShape: SliderComponentShape.noOverlay,
         trackHeight: 5,
-        thumbShape: const RoundSliderThumbShape(
-          enabledThumbRadius: 8,
-          disabledThumbRadius: 8,
-          elevation: 0,
-          pressedElevation: 0,
+        valueIndicatorShape: TSliderValueIndicatorShape(color: color.tooltip),
+        valueIndicatorTextStyle: TextStyle(
+          fontFamily: TTextStyle.fontFamilyMono,
+          fontSize: TFontSize.text_xs,
+          color: color.tooltip.contrastBlackWhite(),
         ),
+        thumbShape: const TSliderThumbShape(),
       ),
 
       /// Scrollbar
@@ -282,7 +290,7 @@ class TailwindTheme {
         verticalOffset: 16,
         waitDuration: const Duration(milliseconds: 350),
         decoration: BoxDecoration(
-          color: light ? TColors.gray.shade900 : TColors.gray.shade700,
+          color: color.tooltip,
           borderRadius: TBorderRadius.rounded_md,
           boxShadow: [
             BoxShadow(

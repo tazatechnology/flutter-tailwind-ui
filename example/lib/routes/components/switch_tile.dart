@@ -19,16 +19,19 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
           title: 'Switch Tile States',
           children: const [
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Active',
               code: _TSwitchTileActiveSource.code,
               child: _TSwitchTileActive(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Active (Disabled)',
               code: _TSwitchTileActiveDisabledSource.code,
               child: _TSwitchTileActiveDisabled(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Inactive (Disabled)',
               code: _TSwitchTileInactiveDisabledSource.code,
               child: _TSwitchTileInactiveDisabled(),
@@ -39,16 +42,19 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
           title: 'Switch Tile States (Card)',
           children: const [
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Active',
               code: _TSwitchTileCardActiveSource.code,
               child: _TSwitchTileCardActive(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Active (Disabled)',
               code: _TSwitchTileCardActiveDisabledSource.code,
               child: _TSwitchTileCardActiveDisabled(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Inactive (Disabled)',
               code: _TSwitchTileCardInactiveDisabledSource.code,
               child: _TSwitchTileCardInactiveDisabled(),
@@ -59,21 +65,25 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
           title: 'Switch Tile Control Affinity',
           children: const [
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Leading',
               code: _TSwitchTileLeadingSource.code,
               child: _TSwitchTileLeading(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Trailing',
               code: _TSwitchTileTrailingSource.code,
               child: _TSwitchTileTrailing(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Leading (Card)',
               code: _TSwitchTileLeadingCardSource.code,
               child: _TSwitchTileLeadingCard(),
             ),
             AppPreviewCard(
+              maxWidth: TScreen.max_w_md,
               title: 'Trailing (Card)',
               code: _TSwitchTileTrailingCardSource.code,
               child: _TSwitchTileTrailingCard(),
@@ -89,27 +99,17 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
 // CLASS: _TSwitchTileActive
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TSwitchTileActive extends StatefulWidget {
+@GenerateSource()
+class _TSwitchTileActive extends StatelessWidget {
   const _TSwitchTileActive();
 
   @override
-  State<_TSwitchTileActive> createState() => _TSwitchTileActiveState();
-}
-
-class _TSwitchTileActiveState extends State<_TSwitchTileActive> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile(
-        title: const Text('Switch Tile'),
-        description: const Text('This is active.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TSwitchTile(
+      title: const Text('Switch Tile'),
+      description: const Text('This is active.'),
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -124,15 +124,12 @@ class _TSwitchTileActiveDisabled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile(
-        title: const Text('Switch Tile'),
-        description: const Text('This is active and disabled.'),
-        enabled: false,
-        value: true,
-        onChanged: (value) {},
-      ),
+    return TSwitchTile(
+      title: const Text('Switch Tile'),
+      description: const Text('This is active and disabled.'),
+      enabled: false,
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -147,15 +144,12 @@ class _TSwitchTileInactiveDisabled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile(
-        title: const Text('Switch Tile'),
-        description: const Text('This is inactive and disabled.'),
-        enabled: false,
-        value: false,
-        onChanged: (value) {},
-      ),
+    return TSwitchTile(
+      title: const Text('Switch Tile'),
+      description: const Text('This is inactive and disabled.'),
+      enabled: false,
+      value: false,
+      onChanged: (value) {},
     );
   }
 }
@@ -164,27 +158,17 @@ class _TSwitchTileInactiveDisabled extends StatelessWidget {
 // CLASS: _TSwitchTileCardActive
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TSwitchTileCardActive extends StatefulWidget {
+@GenerateSource()
+class _TSwitchTileCardActive extends StatelessWidget {
   const _TSwitchTileCardActive();
 
   @override
-  State<_TSwitchTileCardActive> createState() => _TSwitchTileCardActiveState();
-}
-
-class _TSwitchTileCardActiveState extends State<_TSwitchTileCardActive> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile.card(
-        title: const Text('Switch Tile'),
-        description: const Text('This is active.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TSwitchTile.card(
+      title: const Text('Switch Tile'),
+      description: const Text('This is active.'),
+      value: false,
+      onChanged: (value) {},
     );
   }
 }
@@ -199,15 +183,12 @@ class _TSwitchTileCardActiveDisabled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile.card(
-        title: const Text('Switch Tile'),
-        description: const Text('This is active and disabled.'),
-        enabled: false,
-        value: true,
-        onChanged: (value) {},
-      ),
+    return TSwitchTile.card(
+      title: const Text('Switch Tile'),
+      description: const Text('This is active and disabled.'),
+      enabled: false,
+      value: true,
+      onChanged: (value) {},
     );
   }
 }
@@ -222,15 +203,12 @@ class _TSwitchTileCardInactiveDisabled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile.card(
-        title: const Text('Switch Tile'),
-        description: const Text('This is inactive and disabled.'),
-        enabled: false,
-        value: false,
-        onChanged: (value) {},
-      ),
+    return TSwitchTile.card(
+      title: const Text('Switch Tile'),
+      description: const Text('This is inactive and disabled.'),
+      enabled: false,
+      value: false,
+      onChanged: (value) {},
     );
   }
 }
@@ -239,27 +217,17 @@ class _TSwitchTileCardInactiveDisabled extends StatelessWidget {
 // CLASS: _TSwitchTileLeading
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TSwitchTileLeading extends StatefulWidget {
+@GenerateSource()
+class _TSwitchTileLeading extends StatelessWidget {
   const _TSwitchTileLeading();
 
   @override
-  State<_TSwitchTileLeading> createState() => _TSwitchTileLeadingState();
-}
-
-class _TSwitchTileLeadingState extends State<_TSwitchTileLeading> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile(
-        title: const Text('Switch Tile'),
-        description: const Text('Control is placed at the leading side.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TSwitchTile(
+      title: const Text('Switch Tile'),
+      description: const Text('Control is placed at the leading side.'),
+      value: true,
+      onChanged: (value) => {},
     );
   }
 }
@@ -268,28 +236,18 @@ class _TSwitchTileLeadingState extends State<_TSwitchTileLeading> {
 // CLASS: _TSwitchTileTrailing
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TSwitchTileTrailing extends StatefulWidget {
+@GenerateSource()
+class _TSwitchTileTrailing extends StatelessWidget {
   const _TSwitchTileTrailing();
 
   @override
-  State<_TSwitchTileTrailing> createState() => _TSwitchTileTrailingState();
-}
-
-class _TSwitchTileTrailingState extends State<_TSwitchTileTrailing> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile(
-        title: const Text('Switch Tile'),
-        description: const Text('Control is placed at the trailing side.'),
-        affinity: TControlAffinity.trailing,
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TSwitchTile(
+      title: const Text('Switch Tile'),
+      description: const Text('Control is placed at the trailing side.'),
+      affinity: TControlAffinity.trailing,
+      value: true,
+      onChanged: (value) => {},
     );
   }
 }
@@ -298,28 +256,17 @@ class _TSwitchTileTrailingState extends State<_TSwitchTileTrailing> {
 // CLASS: _TSwitchTileLeadingCard
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TSwitchTileLeadingCard extends StatefulWidget {
+@GenerateSource()
+class _TSwitchTileLeadingCard extends StatelessWidget {
   const _TSwitchTileLeadingCard();
 
   @override
-  State<_TSwitchTileLeadingCard> createState() =>
-      _TSwitchTileLeadingCardState();
-}
-
-class _TSwitchTileLeadingCardState extends State<_TSwitchTileLeadingCard> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile.card(
-        title: const Text('Switch Tile'),
-        description: const Text('Control is placed at the leading side.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TSwitchTile.card(
+      title: const Text('Switch Tile'),
+      description: const Text('Control is placed at the leading side.'),
+      value: true,
+      onChanged: (value) => {},
     );
   }
 }
@@ -328,29 +275,18 @@ class _TSwitchTileLeadingCardState extends State<_TSwitchTileLeadingCard> {
 // CLASS: _TSwitchTileTrailingCard
 // =============================================================================
 
-@GenerateSource(buildMethodOnly: false)
-class _TSwitchTileTrailingCard extends StatefulWidget {
+@GenerateSource()
+class _TSwitchTileTrailingCard extends StatelessWidget {
   const _TSwitchTileTrailingCard();
 
   @override
-  State<_TSwitchTileTrailingCard> createState() =>
-      _TSwitchTileTrailingCardState();
-}
-
-class _TSwitchTileTrailingCardState extends State<_TSwitchTileTrailingCard> {
-  bool _value = true;
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile.card(
-        title: const Text('Switch Tile'),
-        description: const Text('Control is placed at the trailing side.'),
-        affinity: TControlAffinity.trailing,
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
+    return TSwitchTile.card(
+      title: const Text('Switch Tile'),
+      description: const Text('Control is placed at the trailing side.'),
+      affinity: TControlAffinity.trailing,
+      value: true,
+      onChanged: (value) => {},
     );
   }
 }

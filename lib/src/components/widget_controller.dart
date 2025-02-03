@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 // =============================================================================
-// CLASS: TWidgetController
+// CLASS: TWidgetStatesController
 // =============================================================================
 
 /// State controller for various library widgets.
 ///
 /// This class extends [WidgetStatesController] and adds additional properties
-/// such as a [TWidgetController.loading] property to manage a loading state.
-class TWidgetController extends WidgetStatesController {
-  /// Creates a [TWidgetController] instance.
-  TWidgetController({
+/// such as [TWidgetStatesController.loading] property to manage a loading state
+class TWidgetStatesController extends WidgetStatesController {
+  /// Creates a [TWidgetStatesController] instance.
+  TWidgetStatesController({
     bool loading = false,
     bool selected = false,
     bool disabled = false,

@@ -93,10 +93,13 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             if (widget.title != null)
-              TText(
-                widget.title!,
-                style: TTextStyle.text_sm.copyWith(
-                  fontWeight: TFontWeight.semibold,
+              Flexible(
+                child: TText(
+                  widget.title!,
+                  style: TTextStyle.text_sm.copyWith(
+                    fontWeight: TFontWeight.semibold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             if (widget.reference != null && widget.reference!.isNotEmpty)

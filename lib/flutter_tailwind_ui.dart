@@ -47,7 +47,7 @@ export 'src/theme/style.dart';
 export 'src/theme/theme.dart';
 
 // Utilities
+export 'src/utilities/debouncer.dart';
 export 'src/utilities/filter_matrix.dart';
 export 'src/utilities/highlighter.dart';
 export 'src/utilities/rich_parser.dart';
-export 'src/utilities/transitions.dart';

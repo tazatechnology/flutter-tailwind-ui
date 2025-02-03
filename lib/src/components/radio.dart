@@ -309,6 +309,20 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
   }
 
   // ---------------------------------------------------------------------------
+  // METHOD: didUpdateWidget
+  // ---------------------------------------------------------------------------
+
+  @override
+  void didUpdateWidget(covariant TRadioGroup<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (groupValue != widget.groupValue) {
+      setState(() {
+        groupValue = widget.groupValue;
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
   // METHOD: dispose
   // ---------------------------------------------------------------------------
 

@@ -157,7 +157,7 @@ class TCheckbox extends StatelessWidget {
 // =============================================================================
 
 /// A single checkbox item
-class TCheckboxTile extends StatelessWidget {
+class TCheckboxTile extends StatefulWidget {
   /// Construct a basic checkbox tile
   const TCheckboxTile({
     required this.value,
@@ -230,29 +230,68 @@ class TCheckboxTile extends StatelessWidget {
   final double _radius;
 
   @override
+  State<TCheckboxTile> createState() => _TCheckboxTileState();
+}
+
+class _TCheckboxTileState extends State<TCheckboxTile> {
+  late bool value = widget.value;
+
+  // ---------------------------------------------------------------------------
+  // METHOD: didUpdateWidget
+  // ---------------------------------------------------------------------------
+
+  @override
+  void didUpdateWidget(covariant TCheckboxTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (value != widget.value) {
+      setState(() {
+        value = widget.value;
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: onChanged
+  // ---------------------------------------------------------------------------
+
+  void onChanged(bool value) {
+    if (!widget.enabled) {
+      return;
+    }
+    setState(() {
+      this.value = value;
+      widget.onChanged?.call(value);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: build
+  // ---------------------------------------------------------------------------
+
+  @override
   Widget build(BuildContext context) {
     return TSelectionGroupTile(
-      variant: _variant,
+      variant: widget._variant,
       index: 0,
       numItems: 1,
-      color: color,
-      title: title ?? const SizedBox.shrink(),
-      description: description,
+      color: widget.color,
+      title: widget.title ?? const SizedBox.shrink(),
+      description: widget.description,
       applySelectedBorderColor: false,
-      radius: _radius,
+      radius: widget._radius,
       selected: value,
-      enabled: enabled,
-      affinity: affinity,
+      enabled: widget.enabled,
+      affinity: widget.affinity,
       axis: Axis.vertical,
-      onChanged: onChanged ?? (value) {},
+      onChanged: onChanged,
       control: TCheckbox(
-        color: color,
+        color: widget.color,
         value: value,
         onChanged: onChanged,
-        enabled: enabled,
-        padding: padding,
-        focusNode: focusNode,
-        indicator: indicator,
+        enabled: widget.enabled,
+        padding: widget.padding,
+        focusNode: widget.focusNode,
+        indicator: widget.indicator,
       ),
     );
   }
@@ -400,6 +439,21 @@ class _TCheckboxGroupState<T> extends State<TCheckboxGroup<T>> {
   void initState() {
     super.initState();
     groupValue = List.from(widget.groupValue ?? []);
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: didUpdateWidget
+  // ---------------------------------------------------------------------------
+
+  @override
+  void didUpdateWidget(covariant TCheckboxGroup<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (groupValue != widget.groupValue && widget.groupValue != null) {
+      setState(() {
+        groupValue.clear();
+        groupValue.addAll(widget.groupValue!);
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------

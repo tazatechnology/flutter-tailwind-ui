@@ -166,13 +166,13 @@ class TSplitButton extends StatelessWidget {
   final Color? color;
 
   /// The controller for the child widget.
-  final TWidgetController? controller;
+  final TWidgetStatesController? controller;
 
   /// The controller for the leading widget.
-  final TWidgetController? controllerLeading;
+  final TWidgetStatesController? controllerLeading;
 
   /// The controller for the trailing widget.
-  final TWidgetController? controllerTrailing;
+  final TWidgetStatesController? controllerTrailing;
 
   /// The widget to display when the child widget is in a loading state.
   final Widget? loading;

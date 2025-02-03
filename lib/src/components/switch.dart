@@ -70,7 +70,7 @@ class TSwitch extends StatelessWidget {
     final tw = context.tw;
 
     final color = this.color ?? tw.colors.primary;
-    final bgInactive = tw.light ? TColors.gray.shade200 : TColors.gray.shade800;
+    final bgColor = tw.light ? TColors.gray.shade200 : TColors.gray.shade800;
     final bgDisabled = tw.light ? TColors.gray.shade400 : TColors.gray.shade700;
 
     // Defer to the focus node value if it is set
@@ -113,10 +113,10 @@ class TSwitch extends StatelessWidget {
       width: thumbWidth,
       height: thumbWidth,
       margin: const EdgeInsets.all(inset),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: enabled || tw.light ? Colors.white : tw.colors.disabled,
         borderRadius: TBorderRadius.rounded_full,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: size / 8,
@@ -152,7 +152,7 @@ class TSwitch extends StatelessWidget {
             height: size,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(size / 2),
-              color: enabled ? (value ? color : bgInactive) : bgDisabled,
+              color: enabled ? (value ? color : bgColor) : bgDisabled,
             ),
             child: Stack(
               children: [
@@ -177,7 +177,7 @@ class TSwitch extends StatelessWidget {
 // =============================================================================
 
 /// A single switch item
-class TSwitchTile extends StatelessWidget {
+class TSwitchTile extends StatefulWidget {
   /// Construct a basic switch tile
   const TSwitchTile({
     required this.value,
@@ -250,30 +250,69 @@ class TSwitchTile extends StatelessWidget {
   final double _radius;
 
   @override
+  State<TSwitchTile> createState() => _TSwitchTileState();
+}
+
+class _TSwitchTileState extends State<TSwitchTile> {
+  late bool value = widget.value;
+
+  // ---------------------------------------------------------------------------
+  // METHOD: didUpdateWidget
+  // ---------------------------------------------------------------------------
+
+  @override
+  void didUpdateWidget(covariant TSwitchTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (value != widget.value) {
+      setState(() {
+        value = widget.value;
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: onChanged
+  // ---------------------------------------------------------------------------
+
+  void onChanged(bool value) {
+    if (!widget.enabled) {
+      return;
+    }
+    setState(() {
+      this.value = value;
+      widget.onChanged?.call(value);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: build
+  // ---------------------------------------------------------------------------
+
+  @override
   Widget build(BuildContext context) {
     return TSelectionGroupTile(
-      variant: _variant,
+      variant: widget._variant,
       index: 0,
       numItems: 1,
-      color: color,
-      title: title ?? const SizedBox.shrink(),
-      description: description,
+      color: widget.color,
+      title: widget.title ?? const SizedBox.shrink(),
+      description: widget.description,
       applySelectedBorderColor: false,
       controlCrossAxisAlignment: CrossAxisAlignment.center,
-      radius: _radius,
+      radius: widget._radius,
       selected: value,
-      enabled: enabled,
-      affinity: affinity,
+      enabled: widget.enabled,
+      affinity: widget.affinity,
       axis: Axis.vertical,
-      onChanged: onChanged ?? (value) {},
+      onChanged: onChanged,
       control: TSwitch(
-        color: color,
+        color: widget.color,
         value: value,
         onChanged: onChanged,
-        enabled: enabled,
-        padding: padding,
-        focusNode: focusNode,
-        indicator: indicator,
+        enabled: widget.enabled,
+        padding: widget.padding,
+        focusNode: widget.focusNode,
+        indicator: widget.indicator,
       ),
     );
   }
@@ -421,6 +460,21 @@ class _TSwitchGroupState<T> extends State<TSwitchGroup<T>> {
   void initState() {
     super.initState();
     groupValue = List.from(widget.groupValue ?? []);
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: didUpdateWidget
+  // ---------------------------------------------------------------------------
+
+  @override
+  void didUpdateWidget(covariant TSwitchGroup<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (groupValue != widget.groupValue && widget.groupValue != null) {
+      setState(() {
+        groupValue.clear();
+        groupValue.addAll(widget.groupValue!);
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------

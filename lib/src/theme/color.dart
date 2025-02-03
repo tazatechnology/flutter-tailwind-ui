@@ -22,6 +22,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     required this.focus,
     required this.divider,
     required this.selection,
+    required this.tooltip,
     required this.disabled,
     required this.onDisabled,
     required this.error,
@@ -44,6 +45,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? focus,
     Color? divider,
     Color? selection,
+    Color? tooltip,
     Color? disabled,
     Color? onDisabled,
     Color? error,
@@ -63,6 +65,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       focus: focus,
       divider: divider,
       selection: selection,
+      tooltip: tooltip,
       disabled: disabled,
       onDisabled: onDisabled,
       error: error,
@@ -129,6 +132,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         focus: TColors.gray.shade700,
         divider: TColors.gray.shade200,
         selection: const Color(0xffb6d7ff),
+        tooltip: TColors.gray.shade900,
         disabled: TColors.gray.shade200,
         onDisabled: TColors.gray.shade500,
         error: TColors.red.shade600,
@@ -149,6 +153,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         focus: TColors.gray.shade300,
         divider: TColors.gray.shade600,
         selection: const Color(0xff385479),
+        tooltip: TColors.gray.shade700,
         disabled: TColors.gray.shade600,
         onDisabled: TColors.gray.shade400,
         error: TColors.red.shade600,
@@ -212,6 +217,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   /// The color of the text selection
   final Color selection;
 
+  /// Tooltip color
+  ///
+  /// The color of the tooltips on widgets
+  final Color tooltip;
+
   /// Disabled color
   ///
   /// The color of disabled elements
@@ -255,6 +265,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? focus,
     Color? divider,
     Color? selection,
+    Color? tooltip,
     Color? disabled,
     Color? onDisabled,
     Color? error,
@@ -274,6 +285,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       focus: focus ?? this.focus,
       divider: divider ?? this.divider,
       selection: selection ?? this.selection,
+      tooltip: tooltip ?? this.tooltip,
       disabled: disabled ?? this.disabled,
       onDisabled: onDisabled ?? this.onDisabled,
       error: error ?? this.error,
@@ -343,6 +355,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       focus: _lerpColor(focus, other.focus, t),
       divider: _lerpColor(divider, other.divider, t),
       selection: _lerpColor(selection, other.selection, t),
+      tooltip: _lerpColor(tooltip, other.tooltip, t),
       disabled: _lerpColor(disabled, other.disabled, t),
       onDisabled: _lerpColor(onDisabled, other.onDisabled, t),
       error: _lerpColor(error, other.error, t),

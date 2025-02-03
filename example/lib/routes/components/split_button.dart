@@ -478,8 +478,8 @@ class _TSplitButtonLeadingTrailing extends StatelessWidget {
           onHoverLeading: (value) {},
           tooltip: 'Child Tooltip',
           tooltipLeading: 'Leading Tooltip',
-          controller: TWidgetController(),
-          controllerLeading: TWidgetController(),
+          controller: TWidgetStatesController(),
+          controllerLeading: TWidgetStatesController(),
           leading: const Icon(Icons.add),
           child: const Text('Button'),
         ),
@@ -493,9 +493,9 @@ class _TSplitButtonLeadingTrailing extends StatelessWidget {
           tooltip: 'Child Tooltip',
           tooltipLeading: 'Leading Tooltip',
           tooltipTrailing: 'Trailing Tooltip',
-          controller: TWidgetController(),
-          controllerLeading: TWidgetController(),
-          controllerTrailing: TWidgetController(),
+          controller: TWidgetStatesController(),
+          controllerLeading: TWidgetStatesController(),
+          controllerTrailing: TWidgetStatesController(),
           leading: const Icon(Icons.add),
           trailing: const Icon(Icons.remove),
           child: const Text('Button'),
@@ -507,8 +507,8 @@ class _TSplitButtonLeadingTrailing extends StatelessWidget {
           onHoverTrailing: (value) {},
           tooltip: 'Child Tooltip',
           tooltipTrailing: 'Trailing Tooltip',
-          controller: TWidgetController(),
-          controllerTrailing: TWidgetController(),
+          controller: TWidgetStatesController(),
+          controllerTrailing: TWidgetStatesController(),
           trailing: const Icon(Icons.remove),
           child: const Text('Button'),
         ),
@@ -530,8 +530,10 @@ class _TSplitButtonLoading extends StatefulWidget {
 }
 
 class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {
@@ -591,8 +593,8 @@ class _TSplitButtonDisabled extends StatelessWidget {
         for (final variant in TStyleVariant.values)
           TSplitButton.raw(
             variant: variant,
-            controller: TWidgetController(disabled: true),
-            controllerTrailing: TWidgetController(disabled: true),
+            controller: TWidgetStatesController(disabled: true),
+            controllerTrailing: TWidgetStatesController(disabled: true),
             trailing: const Icon(Icons.download),
             child: const Text('Button'),
           ),
@@ -616,8 +618,10 @@ class _TSplitButtonLoadingCustom extends StatefulWidget {
 
 class _TSplitButtonLoadingCustomState
     extends State<_TSplitButtonLoadingCustom> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {

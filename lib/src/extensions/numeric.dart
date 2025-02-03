@@ -1,3 +1,69 @@
+import 'package:flutter_tailwind_ui/src/internal/numeric.dart';
+
+// =============================================================================
+// EXTENSION: num
+// =============================================================================
+
+/// Extension on [num] to provide useful methods
+extension XTailwindNum on num {
+  /// Null-aware addition function
+  num? add(num? other) {
+    return other == null ? null : this + other;
+  }
+
+  /// Null-aware subtraction function
+  num? subtract(num? other) {
+    return other == null ? null : this - other;
+  }
+
+  /// Null-aware multiplication function
+  num? multiply(num? other) {
+    return other == null ? null : this * other;
+  }
+
+  /// Null-aware division function
+  num? divide(num? other) {
+    return other == null ? null : this / other;
+  }
+
+  /// An auto formatter for a double value.
+  String autoFormat({int? precision}) {
+    return formatNumber(this, precision: precision);
+  }
+}
+
+// =============================================================================
+// EXTENSION: int
+// =============================================================================
+
+/// Extension on [int] to provide useful methods
+extension XTailwindInt on int {
+  /// Null-aware addition function
+  int? add(int? other) {
+    return other == null ? null : this + other;
+  }
+
+  /// Null-aware subtraction function
+  int? subtract(int? other) {
+    return other == null ? null : this - other;
+  }
+
+  /// Null-aware multiplication function
+  int? multiply(int? other) {
+    return other == null ? null : this * other;
+  }
+
+  /// Null-aware division function
+  double? divide(int? other) {
+    return other == null ? null : this / other;
+  }
+
+  /// An auto formatter for a double value.
+  String autoFormat({int? precision}) {
+    return formatNumber(this, precision: precision);
+  }
+}
+
 // =============================================================================
 // EXTENSION: double
 // =============================================================================
@@ -22,5 +88,10 @@ extension XTailwindDouble on double {
   /// Null-aware division function
   double? divide(double? other) {
     return other == null ? null : this / other;
+  }
+
+  /// An auto formatter for a double value.
+  String autoFormat({int? precision}) {
+    return formatNumber(this, precision: precision);
   }
 }

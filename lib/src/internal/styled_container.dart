@@ -62,7 +62,7 @@ class TStyledContainer extends StatelessWidget {
   /// The a trailing widget.
   final Widget? trailing;
 
-  /// The widget to display when the [TWidgetController] is in a loading state.
+  /// The widget to display when the [TWidgetStatesController] is in a loading state.
   final Widget? loading;
 
   /// Tooltip to display for the entire widget
@@ -111,7 +111,7 @@ class TStyledContainer extends StatelessWidget {
   final WidgetStateProperty<double?>? iconSize;
 
   /// The controller to manage the states of the widget.
-  final TWidgetController? controller;
+  final TWidgetStatesController? controller;
 
   /// An action to call when the container is tapped.
   ///
@@ -527,7 +527,7 @@ class TStyledContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: controller ?? TWidgetController(),
+      listenable: controller ?? TWidgetStatesController(),
       builder: (context, _) {
         final isLoading = controller?.loading ?? false;
         final isEnabled = !(controller?.disabled ?? false);

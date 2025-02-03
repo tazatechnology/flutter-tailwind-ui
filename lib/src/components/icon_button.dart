@@ -85,7 +85,7 @@ class TIconButton extends StatelessWidget {
   /// The icon to display on the button.
   final Widget icon;
 
-  /// The widget to display when the [TWidgetController] is in a loading state.
+  /// The widget to display when the [TWidgetStatesController] is in a loading state.
   final Widget? loading;
 
   /// The custom theme override for the button.
@@ -98,7 +98,7 @@ class TIconButton extends StatelessWidget {
   final Color? color;
 
   /// The controller for the button.
-  final TWidgetController? controller;
+  final TWidgetStatesController? controller;
 
   /// An action to call when the button is pressed.
   final VoidCallback? onPressed;

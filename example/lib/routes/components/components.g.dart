@@ -771,8 +771,10 @@ class _TButtonLoading extends StatefulWidget {
 }
 
 class _TButtonLoadingState extends State<_TButtonLoading> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {
@@ -826,7 +828,7 @@ Wrap(
     for (final variant in TStyleVariant.values)
       TButton.raw(
         variant: variant,
-        controller: TWidgetController(disabled: true),
+        controller: TWidgetStatesController(disabled: true),
         onPressed: () {},
         child: const Text('Button'),
       ),
@@ -846,8 +848,10 @@ class _TButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {
@@ -1411,44 +1415,24 @@ TCheckboxGroup.panel(
 /// Source code for [_TCheckboxTileActive]
 class _TCheckboxTileActiveSource {
   static const String code = r"""
-class _TCheckboxTileActive extends StatefulWidget {
-  const _TCheckboxTileActive();
-
-  @override
-  State<_TCheckboxTileActive> createState() => _TCheckboxTileActiveState();
-}
-
-class _TCheckboxTileActiveState extends State<_TCheckboxTileActive> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile(
-        title: const Text('Checkbox Tile'),
-        description: const Text('This is active.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TCheckboxTile(
+  title: const Text('Checkbox Tile'),
+  description: const Text('This is active.'),
+  value: true,
+  onChanged: (value) {},
+)
 """;
 }
 
 /// Source code for [_TCheckboxTileActiveDisabled]
 class _TCheckboxTileActiveDisabledSource {
   static const String code = r"""
-SizedBox(
-  width: TSpace.v384,
-  child: TCheckboxTile(
-    title: const Text('Checkbox Tile'),
-    description: const Text('This is active and disabled.'),
-    enabled: false,
-    value: true,
-    onChanged: (value) {},
-  ),
+TCheckboxTile(
+  title: const Text('Checkbox Tile'),
+  description: const Text('This is active and disabled.'),
+  enabled: false,
+  value: true,
+  onChanged: (value) {},
 )
 """;
 }
@@ -1456,15 +1440,12 @@ SizedBox(
 /// Source code for [_TCheckboxTileInactiveDisabled]
 class _TCheckboxTileInactiveDisabledSource {
   static const String code = r"""
-SizedBox(
-  width: TSpace.v384,
-  child: TCheckboxTile(
-    title: const Text('Checkbox Tile'),
-    description: const Text('This is inactive and disabled.'),
-    enabled: false,
-    value: false,
-    onChanged: (value) {},
-  ),
+TCheckboxTile(
+  title: const Text('Checkbox Tile'),
+  description: const Text('This is inactive and disabled.'),
+  enabled: false,
+  value: false,
+  onChanged: (value) {},
 )
 """;
 }
@@ -1472,45 +1453,24 @@ SizedBox(
 /// Source code for [_TCheckboxTileCardActive]
 class _TCheckboxTileCardActiveSource {
   static const String code = r"""
-class _TCheckboxTileCardActive extends StatefulWidget {
-  const _TCheckboxTileCardActive();
-
-  @override
-  State<_TCheckboxTileCardActive> createState() =>
-      _TCheckboxTileCardActiveState();
-}
-
-class _TCheckboxTileCardActiveState extends State<_TCheckboxTileCardActive> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile.card(
-        title: const Text('Checkbox Tile'),
-        description: const Text('This is active.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TCheckboxTile.card(
+  title: const Text('Checkbox Tile'),
+  description: const Text('This is active.'),
+  value: true,
+  onChanged: (value) {},
+)
 """;
 }
 
 /// Source code for [_TCheckboxTileCardActiveDisabled]
 class _TCheckboxTileCardActiveDisabledSource {
   static const String code = r"""
-SizedBox(
-  width: TSpace.v384,
-  child: TCheckboxTile.card(
-    title: const Text('Checkbox Tile'),
-    description: const Text('This is active and disabled.'),
-    enabled: false,
-    value: true,
-    onChanged: (value) {},
-  ),
+TCheckboxTile.card(
+  title: const Text('Checkbox Tile'),
+  description: const Text('This is active and disabled.'),
+  enabled: false,
+  value: true,
+  onChanged: (value) {},
 )
 """;
 }
@@ -1518,15 +1478,12 @@ SizedBox(
 /// Source code for [_TCheckboxTileCardInactiveDisabled]
 class _TCheckboxTileCardInactiveDisabledSource {
   static const String code = r"""
-SizedBox(
-  width: TSpace.v384,
-  child: TCheckboxTile.card(
-    title: const Text('Checkbox Tile'),
-    description: const Text('This is inactive and disabled.'),
-    enabled: false,
-    value: false,
-    onChanged: (value) {},
-  ),
+TCheckboxTile.card(
+  title: const Text('Checkbox Tile'),
+  description: const Text('This is inactive and disabled.'),
+  enabled: false,
+  value: false,
+  onChanged: (value) {},
 )
 """;
 }
@@ -1534,121 +1491,50 @@ SizedBox(
 /// Source code for [_TCheckboxTileLeading]
 class _TCheckboxTileLeadingSource {
   static const String code = r"""
-class _TCheckboxTileLeading extends StatefulWidget {
-  const _TCheckboxTileLeading();
-
-  @override
-  State<_TCheckboxTileLeading> createState() => _TCheckboxTileLeadingState();
-}
-
-class _TCheckboxTileLeadingState extends State<_TCheckboxTileLeading> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile(
-        title: const Text('Checkbox Tile'),
-        description: const Text('Control is placed at the leading side.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TCheckboxTile(
+  title: const Text('Checkbox Tile'),
+  description: const Text('Control is placed at the leading side.'),
+  value: true,
+  onChanged: (value) {},
+)
 """;
 }
 
 /// Source code for [_TCheckboxTileTrailing]
 class _TCheckboxTileTrailingSource {
   static const String code = r"""
-class _TCheckboxTileTrailing extends StatefulWidget {
-  const _TCheckboxTileTrailing();
-
-  @override
-  State<_TCheckboxTileTrailing> createState() => _TCheckboxTileTrailingState();
-}
-
-class _TCheckboxTileTrailingState extends State<_TCheckboxTileTrailing> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile(
-        title: const Text('Checkbox Tile'),
-        description: const Text('Control is placed at the trailing side.'),
-        affinity: TControlAffinity.trailing,
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TCheckboxTile(
+  title: const Text('Checkbox Tile'),
+  description: const Text('Control is placed at the trailing side.'),
+  affinity: TControlAffinity.trailing,
+  value: true,
+  onChanged: (value) {},
+)
 """;
 }
 
 /// Source code for [_TCheckboxTileLeadingCard]
 class _TCheckboxTileLeadingCardSource {
   static const String code = r"""
-class _TCheckboxTileLeadingCard extends StatefulWidget {
-  const _TCheckboxTileLeadingCard();
-
-  @override
-  State<_TCheckboxTileLeadingCard> createState() =>
-      _TCheckboxTileLeadingCardState();
-}
-
-class _TCheckboxTileLeadingCardState extends State<_TCheckboxTileLeadingCard> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile.card(
-        title: const Text('Checkbox Tile'),
-        description: const Text('Control is placed at the leading side.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TCheckboxTile.card(
+  title: const Text('Checkbox Tile'),
+  description: const Text('Control is placed at the leading side.'),
+  value: true,
+  onChanged: (value) {},
+)
 """;
 }
 
 /// Source code for [_TCheckboxTileTrailingCard]
 class _TCheckboxTileTrailingCardSource {
   static const String code = r"""
-class _TCheckboxTileTrailingCard extends StatefulWidget {
-  const _TCheckboxTileTrailingCard();
-
-  @override
-  State<_TCheckboxTileTrailingCard> createState() =>
-      _TCheckboxTileTrailingCardState();
-}
-
-class _TCheckboxTileTrailingCardState
-    extends State<_TCheckboxTileTrailingCard> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TCheckboxTile.card(
-        title: const Text('Checkbox Tile'),
-        description: const Text('Control is placed at the trailing side.'),
-        affinity: TControlAffinity.trailing,
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TCheckboxTile.card(
+  title: const Text('Checkbox Tile'),
+  description: const Text('Control is placed at the trailing side.'),
+  affinity: TControlAffinity.trailing,
+  value: true,
+  onChanged: (value) {},
+)
 """;
 }
 
@@ -2018,8 +1904,10 @@ class _TIconButtonLoading extends StatefulWidget {
 }
 
 class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {
@@ -2073,7 +1961,7 @@ Wrap(
     for (final variant in TStyleVariant.values)
       TIconButton.raw(
         variant: variant,
-        controller: TWidgetController(disabled: true),
+        controller: TWidgetStatesController(disabled: true),
         icon: const Icon(Icons.add),
       ),
   ],
@@ -2093,8 +1981,10 @@ class _TIconButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {
@@ -2738,12 +2628,173 @@ TRadioGroup.panel(
 """;
 }
 
-/// Source code for [_TSlider]
-class _TSliderSource {
+/// Source code for [_TSliderEnabled]
+class _TSliderEnabledSource {
   static const String code = r"""
 TSlider(
+  initialValue: 0.5,
   onChanged: (value) {},
 )
+""";
+}
+
+/// Source code for [_TSliderDisabled]
+class _TSliderDisabledSource {
+  static const String code = r"""
+TSlider(
+  enabled: false,
+  initialValue: 0.5,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderEditable]
+class _TSliderEditableSource {
+  static const String code = r"""
+TSlider(
+  editable: true,
+  initialValue: 0.5,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderLabelText]
+class _TSliderLabelTextSource {
+  static const String code = r"""
+TSlider(
+  labelText: 'Slider Label',
+  initialValue: 0.5,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderLabelWidget]
+class _TSliderLabelWidgetSource {
+  static const String code = r"""
+TSlider(
+  label: Row(
+    children: [
+      const Icon(Icons.numbers, size: 15),
+      TSizedBox.x4,
+      const Text('Slider Label'),
+      const Spacer(),
+      TText(
+        '* Required',
+        style: TextStyle(
+          fontWeight: TFontWeight.normal,
+          color: context.tw.colors.label,
+          fontSize: TFontSize.text_xs,
+        ),
+      ),
+    ],
+  ),
+  initialValue: 0.5,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderValueLabels]
+class _TSliderValueLabelsSource {
+  static const String code = r"""
+TSlider(
+  initialValue: 0.5,
+  showValueLabels: true,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderValueLabelsEditable]
+class _TSliderValueLabelsEditableSource {
+  static const String code = r"""
+TSlider(
+  initialValue: 0.5,
+  showValueLabels: true,
+  editable: true,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderValueLabelsFormatter]
+class _TSliderValueLabelsFormatterSource {
+  static const String code = r"""
+TSlider(
+  initialValue: 0.5,
+  showValueLabels: true,
+  formatter: (value) => value.toStringAsFixed(3),
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderTooltipCustomize]
+class _TSliderTooltipCustomizeSource {
+  static const String code = r"""
+TSlider(
+  initialValue: 0.5,
+  tooltipBorderColor: Colors.black,
+  tooltipColor: TColors.red.shade900,
+  tooltipTextStyle: const TextStyle(color: Colors.white),
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderTooltipFormatter]
+class _TSliderTooltipFormatterSource {
+  static const String code = r"""
+TSlider(
+  initialValue: 0.5,
+  tooltipFormatter: (value) => 'Current Value: ${value.toStringAsFixed(3)}',
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderController]
+class _TSliderControllerSource {
+  static const String code = r"""
+class _TSliderController extends StatefulWidget {
+  const _TSliderController();
+
+  @override
+  State<_TSliderController> createState() => _TSliderControllerState();
+}
+
+class _TSliderControllerState extends State<_TSliderController> {
+  final buttonController = TWidgetStatesController();
+  final sliderController = TSliderController(initialValue: 0.5);
+
+  @override
+  void dispose() {
+    buttonController.dispose();
+    sliderController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TSlider(
+          controller: sliderController,
+          showValueLabels: true,
+          onChanged: (value) {},
+        ),
+        TButton(
+          controller: buttonController,
+          onPressed: () => sliderController.value = 0.5,
+          child: const Text('Reset'),
+        ),
+      ],
+    );
+  }
+}
 """;
 }
 
@@ -2993,8 +3044,8 @@ Wrap(
       onHoverLeading: (value) {},
       tooltip: 'Child Tooltip',
       tooltipLeading: 'Leading Tooltip',
-      controller: TWidgetController(),
-      controllerLeading: TWidgetController(),
+      controller: TWidgetStatesController(),
+      controllerLeading: TWidgetStatesController(),
       leading: const Icon(Icons.add),
       child: const Text('Button'),
     ),
@@ -3008,9 +3059,9 @@ Wrap(
       tooltip: 'Child Tooltip',
       tooltipLeading: 'Leading Tooltip',
       tooltipTrailing: 'Trailing Tooltip',
-      controller: TWidgetController(),
-      controllerLeading: TWidgetController(),
-      controllerTrailing: TWidgetController(),
+      controller: TWidgetStatesController(),
+      controllerLeading: TWidgetStatesController(),
+      controllerTrailing: TWidgetStatesController(),
       leading: const Icon(Icons.add),
       trailing: const Icon(Icons.remove),
       child: const Text('Button'),
@@ -3022,8 +3073,8 @@ Wrap(
       onHoverTrailing: (value) {},
       tooltip: 'Child Tooltip',
       tooltipTrailing: 'Trailing Tooltip',
-      controller: TWidgetController(),
-      controllerTrailing: TWidgetController(),
+      controller: TWidgetStatesController(),
+      controllerTrailing: TWidgetStatesController(),
       trailing: const Icon(Icons.remove),
       child: const Text('Button'),
     ),
@@ -3043,8 +3094,10 @@ class _TSplitButtonLoading extends StatefulWidget {
 }
 
 class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {
@@ -3099,8 +3152,8 @@ Wrap(
     for (final variant in TStyleVariant.values)
       TSplitButton.raw(
         variant: variant,
-        controller: TWidgetController(disabled: true),
-        controllerTrailing: TWidgetController(disabled: true),
+        controller: TWidgetStatesController(disabled: true),
+        controllerTrailing: TWidgetStatesController(disabled: true),
         trailing: const Icon(Icons.download),
         child: const Text('Button'),
       ),
@@ -3122,8 +3175,10 @@ class _TSplitButtonLoadingCustom extends StatefulWidget {
 
 class _TSplitButtonLoadingCustomState
     extends State<_TSplitButtonLoadingCustom> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {
@@ -3275,44 +3330,24 @@ class _TSwitchIndicatorState extends State<_TSwitchIndicator> {
 /// Source code for [_TSwitchTileActive]
 class _TSwitchTileActiveSource {
   static const String code = r"""
-class _TSwitchTileActive extends StatefulWidget {
-  const _TSwitchTileActive();
-
-  @override
-  State<_TSwitchTileActive> createState() => _TSwitchTileActiveState();
-}
-
-class _TSwitchTileActiveState extends State<_TSwitchTileActive> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile(
-        title: const Text('Switch Tile'),
-        description: const Text('This is active.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TSwitchTile(
+  title: const Text('Switch Tile'),
+  description: const Text('This is active.'),
+  value: true,
+  onChanged: (value) {},
+)
 """;
 }
 
 /// Source code for [_TSwitchTileActiveDisabled]
 class _TSwitchTileActiveDisabledSource {
   static const String code = r"""
-SizedBox(
-  width: TSpace.v384,
-  child: TSwitchTile(
-    title: const Text('Switch Tile'),
-    description: const Text('This is active and disabled.'),
-    enabled: false,
-    value: true,
-    onChanged: (value) {},
-  ),
+TSwitchTile(
+  title: const Text('Switch Tile'),
+  description: const Text('This is active and disabled.'),
+  enabled: false,
+  value: true,
+  onChanged: (value) {},
 )
 """;
 }
@@ -3320,15 +3355,12 @@ SizedBox(
 /// Source code for [_TSwitchTileInactiveDisabled]
 class _TSwitchTileInactiveDisabledSource {
   static const String code = r"""
-SizedBox(
-  width: TSpace.v384,
-  child: TSwitchTile(
-    title: const Text('Switch Tile'),
-    description: const Text('This is inactive and disabled.'),
-    enabled: false,
-    value: false,
-    onChanged: (value) {},
-  ),
+TSwitchTile(
+  title: const Text('Switch Tile'),
+  description: const Text('This is inactive and disabled.'),
+  enabled: false,
+  value: false,
+  onChanged: (value) {},
 )
 """;
 }
@@ -3336,44 +3368,24 @@ SizedBox(
 /// Source code for [_TSwitchTileCardActive]
 class _TSwitchTileCardActiveSource {
   static const String code = r"""
-class _TSwitchTileCardActive extends StatefulWidget {
-  const _TSwitchTileCardActive();
-
-  @override
-  State<_TSwitchTileCardActive> createState() => _TSwitchTileCardActiveState();
-}
-
-class _TSwitchTileCardActiveState extends State<_TSwitchTileCardActive> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile.card(
-        title: const Text('Switch Tile'),
-        description: const Text('This is active.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TSwitchTile.card(
+  title: const Text('Switch Tile'),
+  description: const Text('This is active.'),
+  value: false,
+  onChanged: (value) {},
+)
 """;
 }
 
 /// Source code for [_TSwitchTileCardActiveDisabled]
 class _TSwitchTileCardActiveDisabledSource {
   static const String code = r"""
-SizedBox(
-  width: TSpace.v384,
-  child: TSwitchTile.card(
-    title: const Text('Switch Tile'),
-    description: const Text('This is active and disabled.'),
-    enabled: false,
-    value: true,
-    onChanged: (value) {},
-  ),
+TSwitchTile.card(
+  title: const Text('Switch Tile'),
+  description: const Text('This is active and disabled.'),
+  enabled: false,
+  value: true,
+  onChanged: (value) {},
 )
 """;
 }
@@ -3381,15 +3393,12 @@ SizedBox(
 /// Source code for [_TSwitchTileCardInactiveDisabled]
 class _TSwitchTileCardInactiveDisabledSource {
   static const String code = r"""
-SizedBox(
-  width: TSpace.v384,
-  child: TSwitchTile.card(
-    title: const Text('Switch Tile'),
-    description: const Text('This is inactive and disabled.'),
-    enabled: false,
-    value: false,
-    onChanged: (value) {},
-  ),
+TSwitchTile.card(
+  title: const Text('Switch Tile'),
+  description: const Text('This is inactive and disabled.'),
+  enabled: false,
+  value: false,
+  onChanged: (value) {},
 )
 """;
 }
@@ -3397,120 +3406,50 @@ SizedBox(
 /// Source code for [_TSwitchTileLeading]
 class _TSwitchTileLeadingSource {
   static const String code = r"""
-class _TSwitchTileLeading extends StatefulWidget {
-  const _TSwitchTileLeading();
-
-  @override
-  State<_TSwitchTileLeading> createState() => _TSwitchTileLeadingState();
-}
-
-class _TSwitchTileLeadingState extends State<_TSwitchTileLeading> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile(
-        title: const Text('Switch Tile'),
-        description: const Text('Control is placed at the leading side.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TSwitchTile(
+  title: const Text('Switch Tile'),
+  description: const Text('Control is placed at the leading side.'),
+  value: true,
+  onChanged: (value) => {},
+)
 """;
 }
 
 /// Source code for [_TSwitchTileTrailing]
 class _TSwitchTileTrailingSource {
   static const String code = r"""
-class _TSwitchTileTrailing extends StatefulWidget {
-  const _TSwitchTileTrailing();
-
-  @override
-  State<_TSwitchTileTrailing> createState() => _TSwitchTileTrailingState();
-}
-
-class _TSwitchTileTrailingState extends State<_TSwitchTileTrailing> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile(
-        title: const Text('Switch Tile'),
-        description: const Text('Control is placed at the trailing side.'),
-        affinity: TControlAffinity.trailing,
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TSwitchTile(
+  title: const Text('Switch Tile'),
+  description: const Text('Control is placed at the trailing side.'),
+  affinity: TControlAffinity.trailing,
+  value: true,
+  onChanged: (value) => {},
+)
 """;
 }
 
 /// Source code for [_TSwitchTileLeadingCard]
 class _TSwitchTileLeadingCardSource {
   static const String code = r"""
-class _TSwitchTileLeadingCard extends StatefulWidget {
-  const _TSwitchTileLeadingCard();
-
-  @override
-  State<_TSwitchTileLeadingCard> createState() =>
-      _TSwitchTileLeadingCardState();
-}
-
-class _TSwitchTileLeadingCardState extends State<_TSwitchTileLeadingCard> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile.card(
-        title: const Text('Switch Tile'),
-        description: const Text('Control is placed at the leading side.'),
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TSwitchTile.card(
+  title: const Text('Switch Tile'),
+  description: const Text('Control is placed at the leading side.'),
+  value: true,
+  onChanged: (value) => {},
+)
 """;
 }
 
 /// Source code for [_TSwitchTileTrailingCard]
 class _TSwitchTileTrailingCardSource {
   static const String code = r"""
-class _TSwitchTileTrailingCard extends StatefulWidget {
-  const _TSwitchTileTrailingCard();
-
-  @override
-  State<_TSwitchTileTrailingCard> createState() =>
-      _TSwitchTileTrailingCardState();
-}
-
-class _TSwitchTileTrailingCardState extends State<_TSwitchTileTrailingCard> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: TSpace.v384,
-      child: TSwitchTile.card(
-        title: const Text('Switch Tile'),
-        description: const Text('Control is placed at the trailing side.'),
-        affinity: TControlAffinity.trailing,
-        value: _value,
-        onChanged: (value) => setState(() => _value = value),
-      ),
-    );
-  }
-}
+TSwitchTile.card(
+  title: const Text('Switch Tile'),
+  description: const Text('Control is placed at the trailing side.'),
+  affinity: TControlAffinity.trailing,
+  value: true,
+  onChanged: (value) => {},
+)
 """;
 }
 

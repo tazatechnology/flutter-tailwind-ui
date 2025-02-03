@@ -174,12 +174,12 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
 
   @override
   void didUpdateWidget(AppScrollView oldWidget) {
+    super.didUpdateWidget(oldWidget);
     if (oldWidget != widget) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         discoverSections(context);
       });
     }
-    super.didUpdateWidget(oldWidget);
   }
 
   // ---------------------------------------------------------------------------

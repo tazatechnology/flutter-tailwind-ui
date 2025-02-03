@@ -111,7 +111,7 @@ class TButton extends StatelessWidget {
   /// The a trailing widget for the badge.
   final Widget? trailing;
 
-  /// The widget to display when the [TWidgetController] is in a loading state.
+  /// The widget to display when the [TWidgetStatesController] is in a loading state.
   final Widget? loading;
 
   /// The custom theme override for the button.
@@ -129,7 +129,7 @@ class TButton extends StatelessWidget {
   final TextStyle? baseTextStyle;
 
   /// The controller for the button.
-  final TWidgetController? controller;
+  final TWidgetStatesController? controller;
 
   /// An action to call when the button is pressed.
   final VoidCallback? onPressed;

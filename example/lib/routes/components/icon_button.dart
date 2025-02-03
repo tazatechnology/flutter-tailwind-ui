@@ -461,8 +461,10 @@ class _TIconButtonLoading extends StatefulWidget {
 }
 
 class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {
@@ -521,7 +523,7 @@ class _TIconButtonDisabled extends StatelessWidget {
         for (final variant in TStyleVariant.values)
           TIconButton.raw(
             variant: variant,
-            controller: TWidgetController(disabled: true),
+            controller: TWidgetStatesController(disabled: true),
             icon: const Icon(Icons.add),
           ),
       ],
@@ -543,8 +545,10 @@ class _TIconButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
-  final controllers =
-      List.generate(TStyleVariant.values.length, (_) => TWidgetController());
+  final controllers = List.generate(
+    TStyleVariant.values.length,
+    (_) => TWidgetStatesController(),
+  );
 
   @override
   void dispose() {
