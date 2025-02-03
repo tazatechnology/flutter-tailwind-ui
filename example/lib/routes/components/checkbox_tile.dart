@@ -9,7 +9,7 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TCheckboxTile',
       description: 'A single checkbox item.',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
       children: [
         AppSection(
           title: 'Checkbox Tile States',
-          children: const [
+          children: [
             AppPreviewCard(
               maxWidth: TScreen.max_w_md,
               title: 'Active',
@@ -40,7 +40,7 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
         ),
         AppSection(
           title: 'Checkbox Tile States (Card)',
-          children: const [
+          children: [
             AppPreviewCard(
               maxWidth: TScreen.max_w_md,
               title: 'Active',
@@ -63,7 +63,7 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
         ),
         AppSection(
           title: 'Checkbox Tile Control Affinity',
-          children: const [
+          children: [
             AppPreviewCard(
               maxWidth: TScreen.max_w_md,
               title: 'Leading',

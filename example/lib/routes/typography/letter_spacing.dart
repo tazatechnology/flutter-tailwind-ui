@@ -34,9 +34,9 @@ class TypographyRouteLetterSpacing extends StatelessWidget {
             ),
           ],
         ),
-        AppSection(
+        const AppSection(
           title: 'Letter Spacing Examples',
-          children: const [
+          children: [
             AppPreviewCard(
               alignment: Alignment.centerLeft,
               code: _TLetterSpacingExamplesSource.code,

@@ -34,9 +34,9 @@ class TypographyRouteFontWeight extends StatelessWidget {
             ),
           ],
         ),
-        AppSection(
+        const AppSection(
           title: 'Font Weight Examples',
-          children: const [
+          children: [
             AppPreviewCard(
               alignment: Alignment.centerLeft,
               code: _TFontWeightExamplesSource.code,

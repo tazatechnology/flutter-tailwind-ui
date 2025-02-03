@@ -9,13 +9,13 @@ class ComponentRouteTRowColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TRowColumn',
       description: 'A widget',
       children: [
         AppSection(
           title: 'Section',
-          children: const [],
+          children: [],
         ),
       ],
     );

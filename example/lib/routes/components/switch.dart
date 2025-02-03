@@ -9,7 +9,7 @@ class ComponentRouteTSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TSwitch',
       description: 'A primitive checkbox widget.',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTSwitch extends StatelessWidget {
       children: [
         AppSection(
           title: 'Switch States',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Active',
               code: _TSwitchActiveSource.code,
@@ -37,7 +37,7 @@ class ComponentRouteTSwitch extends StatelessWidget {
         ),
         AppSection(
           title: 'Switch Theming',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Custom Color',
               code: _TSwitchColorsSource.code,

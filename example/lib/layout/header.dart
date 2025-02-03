@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui_app/layout/scroll_view.dart';
-import 'package:flutter_tailwind_ui_app/providers/section.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/link.dart';
+
+final Map<String, GlobalKey> _sectionKeys = {};
 
 // =============================================================================
 // ENUM: AppRouteType
@@ -142,42 +142,68 @@ class AppRouteHeader extends StatelessWidget {
 // CLASS: AppSection
 // =============================================================================
 
-String _getFragment(String title) {
-  return title
-      .toLowerCase()
-      .replaceAll(' ', '-')
-      .replaceAll(RegExp(r'[^a-z0-9\-]'), '');
-}
-
-class AppSection extends ConsumerWidget {
-  AppSection({
+class AppSection extends StatelessWidget {
+  const AppSection({
     required this.title,
     this.description,
     this.trailing,
     this.children,
     super.key,
-  }) {
-    fragment = _getFragment(title);
-  }
+  });
 
   final String title;
   final String? description;
-  late final String fragment;
   final Widget? trailing;
   final List<Widget>? children;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     // Register the global key for this section and retrieve
     // All keys for sections are stored through the app lifecycle
-    final keyLabel = '${GoRouterState.of(context).uri}#$fragment';
-    final globalKey = ref
-        .read(sectionKeyProvider)
-        .putIfAbsent(keyLabel, () => GlobalKey(debugLabel: keyLabel));
+    final fragment = title
+        .toLowerCase()
+        .replaceAll(' ', '-')
+        .replaceAll(RegExp(r'[^a-z0-9\-]'), '');
+    final debugLabel = '${GoRouterState.of(context).uri}#$fragment';
+    final globalKey = _sectionKeys.putIfAbsent(
+      debugLabel,
+      () => GlobalKey(debugLabel: debugLabel),
+    );
 
+    return AppSectionAnchor(
+      key: globalKey,
+      title: title,
+      description: description,
+      fragment: fragment,
+      trailing: trailing,
+      children: children,
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: AppSectionAnchor
+// =============================================================================
+
+class AppSectionAnchor extends StatelessWidget {
+  const AppSectionAnchor({
+    required this.title,
+    this.description,
+    this.trailing,
+    this.children,
+    this.fragment,
+    super.key,
+  });
+  final String title;
+  final String? description;
+  final Widget? trailing;
+  final String? fragment;
+  final List<Widget>? children;
+
+  @override
+  Widget build(BuildContext context) {
     final tw = context.tw;
     return Column(
-      key: globalKey,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(

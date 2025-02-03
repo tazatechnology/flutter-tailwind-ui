@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -304,6 +305,12 @@ class TailwindTheme {
           color: Colors.white,
           fontSize: TFontSize.text_xs - 1,
         ),
+      ),
+
+      /// Cupertino theme overrides
+      cupertinoOverrideTheme: const CupertinoThemeData(
+        // This will ensure that the selection handles are updated
+        primaryColor: TColors.blue,
       ),
     );
   }

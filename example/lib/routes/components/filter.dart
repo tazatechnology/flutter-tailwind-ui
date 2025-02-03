@@ -9,13 +9,13 @@ class ComponentRouteTFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TFilter',
       description: 'Apply filter effects to a widget',
       children: [
         AppSection(
           title: 'Blur Filter',
-          children: const [
+          children: [
             AppPreviewCard(
               description: 'Utilities for applying blur filters to an element.',
               reference: 'https://tailwindcss.com/docs/filter-blur',
@@ -26,7 +26,7 @@ class ComponentRouteTFilter extends StatelessWidget {
         ),
         AppSection(
           title: 'Brightness Filter',
-          children: const [
+          children: [
             AppPreviewCard(
               description:
                   'Utilities for applying brightness filters to an element.',
@@ -38,7 +38,7 @@ class ComponentRouteTFilter extends StatelessWidget {
         ),
         AppSection(
           title: 'Contrast Filter',
-          children: const [
+          children: [
             AppPreviewCard(
               description:
                   'Utilities for applying contrast filters to an element.',
@@ -50,7 +50,7 @@ class ComponentRouteTFilter extends StatelessWidget {
         ),
         AppSection(
           title: 'Grayscale Filter',
-          children: const [
+          children: [
             AppPreviewCard(
               description:
                   'Utilities for applying grayscale filters to an element.',
@@ -62,7 +62,7 @@ class ComponentRouteTFilter extends StatelessWidget {
         ),
         AppSection(
           title: 'Hue Rotation Filter',
-          children: const [
+          children: [
             AppPreviewCard(
               description:
                   'Utilities for applying hue-rotate filters to an element.',
@@ -74,7 +74,7 @@ class ComponentRouteTFilter extends StatelessWidget {
         ),
         AppSection(
           title: 'Color Inversion Filter',
-          children: const [
+          children: [
             AppPreviewCard(
               description:
                   'Utilities for applying invert filters to an element.',
@@ -86,7 +86,7 @@ class ComponentRouteTFilter extends StatelessWidget {
         ),
         AppSection(
           title: 'Saturation Filter',
-          children: const [
+          children: [
             AppPreviewCard(
               description:
                   'Utilities for applying saturation filters to an element.',
@@ -98,7 +98,7 @@ class ComponentRouteTFilter extends StatelessWidget {
         ),
         AppSection(
           title: 'Sepia Filter',
-          children: const [
+          children: [
             AppPreviewCard(
               description:
                   'Utilities for applying sepia filters to an element.',

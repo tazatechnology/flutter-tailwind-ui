@@ -9,13 +9,13 @@ class ComponentRouteTButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TButton',
       description: 'A highly customizable button widget.',
       children: [
         AppSection(
           title: 'Button Types',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TButtonBasicSource.code,
@@ -40,7 +40,7 @@ class ComponentRouteTButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Button Sizes',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TButtonBasicSizesSource.code,
@@ -65,7 +65,7 @@ class ComponentRouteTButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Button Colors',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TButtonBasicColorsSource.code,
@@ -90,7 +90,7 @@ class ComponentRouteTButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Button with Callbacks',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Custom gesture callbacks',
               description:
@@ -102,7 +102,7 @@ class ComponentRouteTButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Button with Leading and Trailing',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Custom leading widget',
               description:
@@ -121,7 +121,7 @@ class ComponentRouteTButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Button with Controller',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Controller to manage loading state',
               description: 'Tap the button to see the default loading state.',
@@ -143,7 +143,7 @@ class ComponentRouteTButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Custom Button Theming',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Static theme (``TStyleTheme``)',
               description:
@@ -162,7 +162,7 @@ class ComponentRouteTButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Icon only Button',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Use `TIconButton` for icon only buttons',
               description:

@@ -9,7 +9,7 @@ class ComponentRouteTInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TInput',
       description: 'An input field for text input.',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTInput extends StatelessWidget {
       children: [
         AppSection(
           title: 'Input with label',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'String',
               maxWidth: TScreen.max_w_xs,
@@ -34,7 +34,7 @@ class ComponentRouteTInput extends StatelessWidget {
         ),
         AppSection(
           title: 'Input with help message',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'String',
               maxWidth: TScreen.max_w_xs,
@@ -51,7 +51,7 @@ class ComponentRouteTInput extends StatelessWidget {
         ),
         AppSection(
           title: 'Input with error message',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'String',
               maxWidth: TScreen.max_w_xs,
@@ -68,7 +68,7 @@ class ComponentRouteTInput extends StatelessWidget {
         ),
         AppSection(
           title: 'Input states',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Disabled',
               maxWidth: TScreen.max_w_xs,
@@ -85,7 +85,7 @@ class ComponentRouteTInput extends StatelessWidget {
         ),
         AppSection(
           title: 'Input with icon',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Leading',
               maxWidth: TScreen.max_w_xs,
@@ -102,7 +102,7 @@ class ComponentRouteTInput extends StatelessWidget {
         ),
         AppSection(
           title: 'Input Area',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Default',
               maxWidth: TScreen.max_w_md,

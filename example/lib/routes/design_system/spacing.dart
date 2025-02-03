@@ -103,11 +103,11 @@ class SpacingRoute extends StatelessWidget {
             'https://v3.tailwindcss.com/docs/customizing-spacing#default-spacing-scale',
       ),
       children: [
-        AppSection(title: 'Overview'),
+        const AppSection(title: 'Overview'),
         const TText(
           'The Flutter Tailwind UI spacing scale is a predefined set of values that helps developers consistently apply margin, padding, width, height, and other spacing-related properties in a design system.\n\nThese values range from `0px` to `384px` and can be accessed as `static const` values from the `TSpace` class. The values scale exponentially and this ensures consistent, scalable, and flexible spacing throughout your designs, enhancing both visual harmony and maintainability.',
         ),
-        AppSection(title: 'Spacing Value Reference'),
+        const AppSection(title: 'Spacing Value Reference'),
         AppValueTable(
           header: const [Text('Name'), Text('Pixels'), Text('Tailwind Name')],
           nameWidth: TSpace.v96,

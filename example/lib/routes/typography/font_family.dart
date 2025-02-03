@@ -17,19 +17,19 @@ class TypographyRouteFontFamily extends StatelessWidget {
         className: 'TTextStyle',
         reference: 'https://tailwindcss.com/docs/font-family',
       ),
-      children: [
+      children: const [
         AppSection(title: 'Font Family'),
-        const TText(
+        TText(
           'Having both a serif font and a monospaced font pre-packaged in your design system is highly beneficial because it provides immediate access to a professional typographic hierarchy. The serif font offers readability and elegance for body text, while the monospaced font is perfect for code snippets and technical content, ensuring clarity and consistency across various elements.\n\nUsers may of course define their own font families for use, but this package **pre-packages** two fonts that are ready for use right away. This eliminates the need for additional font setup, allowing developers to start building functional UIs right away. The pre-packaged fonts were chosen because they are modern, popular, and open-source.',
         ),
         TSizedBox.y24,
-        const AppPreviewCard(
+        AppPreviewCard(
           title: 'Serif Font Family',
           description: 'Geist by [Vercel](https://vercel.com/font)',
           code: _TFontFamilySource.code,
           child: _TFontFamily(),
         ),
-        const AppPreviewCard(
+        AppPreviewCard(
           title: 'Monospace Font Family',
           description:
               'JetBrains Mono by [JetBrains](https://www.jetbrains.com/lp/mono)',

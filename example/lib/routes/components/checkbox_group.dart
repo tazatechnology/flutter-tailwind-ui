@@ -9,7 +9,7 @@ class ComponentRouteTCheckboxGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TCheckboxGroup',
       description: 'A checkbox group for multiple value selections',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTCheckboxGroup extends StatelessWidget {
       children: [
         AppSection(
           title: 'Checkbox Group Types',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TCheckboxGroupBasicSource.code,
@@ -42,7 +42,7 @@ class ComponentRouteTCheckboxGroup extends StatelessWidget {
         ),
         AppSection(
           title: 'Checkbox Group Axis',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TCheckboxGroupBasicHorizontalSource.code,
@@ -67,7 +67,7 @@ class ComponentRouteTCheckboxGroup extends StatelessWidget {
         ),
         AppSection(
           title: 'Checkbox Group Control Affinity',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TCheckboxGroupBasicTrailingSource.code,
@@ -92,7 +92,7 @@ class ComponentRouteTCheckboxGroup extends StatelessWidget {
         ),
         AppSection(
           title: 'Checkbox Group with Disabled Items',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TCheckboxGroupBasicDisabledSource.code,

@@ -9,7 +9,7 @@ class ComponentRouteTSwitchGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TSwitchGroup',
       description: 'A switch group for multiple value selections',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTSwitchGroup extends StatelessWidget {
       children: [
         AppSection(
           title: 'Switch Group Types',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TSwitchGroupBasicSource.code,
@@ -42,7 +42,7 @@ class ComponentRouteTSwitchGroup extends StatelessWidget {
         ),
         AppSection(
           title: 'Switch Group Axis',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TSwitchGroupBasicHorizontalSource.code,
@@ -67,7 +67,7 @@ class ComponentRouteTSwitchGroup extends StatelessWidget {
         ),
         AppSection(
           title: 'Switch Group Control Affinity',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TSwitchGroupBasicTrailingSource.code,
@@ -92,7 +92,7 @@ class ComponentRouteTSwitchGroup extends StatelessWidget {
         ),
         AppSection(
           title: 'Switch Group with Disabled Items',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TSwitchGroupBasicDisabledSource.code,

@@ -34,9 +34,9 @@ class BorderRadiusRoute extends StatelessWidget {
             ),
           ],
         ),
-        AppSection(
+        const AppSection(
           title: 'Border Radius Gallery',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'All Sides',
               code: _TBorderRadiusAllSource.code,

@@ -9,13 +9,13 @@ class ComponentRouteTBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TBadge',
       description: 'A full customizable badge widget',
       children: [
         AppSection(
           title: 'Badge Types',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TBadgeBasicSource.code,
@@ -40,7 +40,7 @@ class ComponentRouteTBadge extends StatelessWidget {
         ),
         AppSection(
           title: 'Badge Sizes',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TBadgeBasicSizesSource.code,
@@ -65,7 +65,7 @@ class ComponentRouteTBadge extends StatelessWidget {
         ),
         AppSection(
           title: 'Badge Colors',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TBadgeBasicColorsSource.code,
@@ -90,7 +90,7 @@ class ComponentRouteTBadge extends StatelessWidget {
         ),
         AppSection(
           title: 'Badge with Leading',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Custom leading widget',
               description:
@@ -102,7 +102,7 @@ class ComponentRouteTBadge extends StatelessWidget {
         ),
         AppSection(
           title: 'Badge with Trailing',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Custom trailing widget',
               description:
@@ -114,7 +114,7 @@ class ComponentRouteTBadge extends StatelessWidget {
         ),
         AppSection(
           title: 'Badge with Callbacks',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Custom gesture callbacks',
               description:
@@ -140,7 +140,7 @@ class ComponentRouteTBadge extends StatelessWidget {
         ),
         AppSection(
           title: 'Custom badge theming',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Static theme (``TStyleTheme``)',
               description:

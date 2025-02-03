@@ -9,7 +9,7 @@ class ComponentRouteTRadioGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TRadioGroup',
       description: 'A radio group for single value selections',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTRadioGroup extends StatelessWidget {
       children: [
         AppSection(
           title: 'Radio Group Types',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TRadioGroupBasicSource.code,
@@ -42,7 +42,7 @@ class ComponentRouteTRadioGroup extends StatelessWidget {
         ),
         AppSection(
           title: 'Radio Group Axis',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TRadioGroupBasicHorizontalSource.code,
@@ -67,7 +67,7 @@ class ComponentRouteTRadioGroup extends StatelessWidget {
         ),
         AppSection(
           title: 'Radio Group Control Affinity',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TRadioGroupBasicTrailingSource.code,
@@ -92,7 +92,7 @@ class ComponentRouteTRadioGroup extends StatelessWidget {
         ),
         AppSection(
           title: 'Radio Group with Disabled Items',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TRadioGroupBasicDisabledSource.code,

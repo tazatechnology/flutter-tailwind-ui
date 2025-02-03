@@ -9,13 +9,13 @@ class ComponentRouteTSplitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TSplitButton',
       description: 'A widget',
       children: [
         AppSection(
           title: 'Split Button Types',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TSplitButtonBasicSource.code,
@@ -40,7 +40,7 @@ class ComponentRouteTSplitButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Split Button Sizes',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TSplitButtonBasicSizesSource.code,
@@ -65,7 +65,7 @@ class ComponentRouteTSplitButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Split Button Colors',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TSplitButtonBasicColorsSource.code,
@@ -90,7 +90,7 @@ class ComponentRouteTSplitButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Leading, Trailing, and Callbacks',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'No leading and trailing provided',
               description: 'If no `leading` or `trailing` widget is provided, '
@@ -109,7 +109,7 @@ class ComponentRouteTSplitButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Split Button with Controller',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Controller to manage loading state',
               description: 'Tap the button to see the default loading state.',

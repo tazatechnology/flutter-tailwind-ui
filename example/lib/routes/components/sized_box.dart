@@ -9,13 +9,13 @@ class ComponentRouteTSizedBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TSizedBox',
       description: 'Size widget with pre-defined `TSpace` constructors.',
       children: [
         AppSection(
           title: 'Section',
-          children: const [],
+          children: [],
         ),
       ],
     );

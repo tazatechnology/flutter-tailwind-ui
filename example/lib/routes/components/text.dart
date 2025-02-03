@@ -9,13 +9,13 @@ class ComponentRouteTText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TText',
       description: 'Inline rich text with extendable regex based styling',
       children: [
         AppSection(
           title: 'Default Formatters',
-          children: const [
+          children: [
             Text(
               'The following formatters are built-in and available for use without any additional configuration:',
             ),
@@ -82,7 +82,7 @@ class ComponentRouteTText extends StatelessWidget {
         ),
         AppSection(
           title: 'Inline Text Styling',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Bold',
               code: _TTextBoldSource.code,
@@ -117,7 +117,7 @@ class ComponentRouteTText extends StatelessWidget {
         ),
         AppSection(
           title: 'Combining Inline Text Styles',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Bold and Italic',
               code: _TTextBoldItalicSource.code,
@@ -137,7 +137,7 @@ class ComponentRouteTText extends StatelessWidget {
         ),
         AppSection(
           title: 'Custom Styles',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Using Text Style',
               description:

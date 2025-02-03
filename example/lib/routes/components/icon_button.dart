@@ -9,13 +9,13 @@ class ComponentRouteTIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TIconButton',
       description: 'A highly customizable icon button widget.',
       children: [
         AppSection(
           title: 'Icon Button Types',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TIconButtonBasicSource.code,
@@ -40,7 +40,7 @@ class ComponentRouteTIconButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Icon Button Sizes',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TIconButtonBasicSizesSource.code,
@@ -65,7 +65,7 @@ class ComponentRouteTIconButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Icon Button Colors',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TIconButtonBasicColorsSource.code,
@@ -90,7 +90,7 @@ class ComponentRouteTIconButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Icon Button with Callbacks',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Custom gesture callbacks',
               description:
@@ -102,7 +102,7 @@ class ComponentRouteTIconButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Icon Button with Controller',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Controller to manage loading state',
               description: 'Tap the button to see the default loading state.',
@@ -124,7 +124,7 @@ class ComponentRouteTIconButton extends StatelessWidget {
         ),
         AppSection(
           title: 'Custom Icon Button Theming',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Static theme (``TStyleTheme``)',
               description:

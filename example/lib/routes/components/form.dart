@@ -9,7 +9,7 @@ class ComponentRouteTForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TForm',
       description: 'A form to manage and track user input.',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTForm extends StatelessWidget {
       children: [
         AppSection(
           title: 'Section',
-          children: const [],
+          children: [],
         ),
       ],
     );

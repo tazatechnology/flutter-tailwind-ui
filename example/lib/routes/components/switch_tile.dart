@@ -9,7 +9,7 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TSwitchTile',
       description: 'A single switch item.',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
       children: [
         AppSection(
           title: 'Switch Tile States',
-          children: const [
+          children: [
             AppPreviewCard(
               maxWidth: TScreen.max_w_md,
               title: 'Active',
@@ -40,7 +40,7 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
         ),
         AppSection(
           title: 'Switch Tile States (Card)',
-          children: const [
+          children: [
             AppPreviewCard(
               maxWidth: TScreen.max_w_md,
               title: 'Active',
@@ -63,7 +63,7 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
         ),
         AppSection(
           title: 'Switch Tile Control Affinity',
-          children: const [
+          children: [
             AppPreviewCard(
               maxWidth: TScreen.max_w_md,
               title: 'Leading',

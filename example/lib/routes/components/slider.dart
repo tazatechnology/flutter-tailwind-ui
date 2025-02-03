@@ -9,13 +9,13 @@ class ComponentRouteTSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TSlider',
       description: 'A slider widget',
       children: [
         AppSection(
           title: 'Slider with label',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Text',
               maxWidth: TScreen.max_w_md,
@@ -32,7 +32,7 @@ class ComponentRouteTSlider extends StatelessWidget {
         ),
         AppSection(
           title: 'Slider states',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Enabled',
               maxWidth: TScreen.max_w_md,
@@ -49,7 +49,7 @@ class ComponentRouteTSlider extends StatelessWidget {
         ),
         AppSection(
           title: 'Slider with markings',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Editable',
               maxWidth: TScreen.max_w_md,
@@ -78,7 +78,7 @@ class ComponentRouteTSlider extends StatelessWidget {
         ),
         AppSection(
           title: 'Slider tooltip',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Customize tooltip',
               maxWidth: TScreen.max_w_md,
@@ -95,7 +95,7 @@ class ComponentRouteTSlider extends StatelessWidget {
         ),
         AppSection(
           title: 'Slider controller',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Controller to update the value',
               maxWidth: TScreen.max_w_md,

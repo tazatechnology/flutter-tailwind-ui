@@ -65,9 +65,9 @@ class AppScrollView extends ConsumerStatefulWidget {
   // METHOD: ensureVisible
   // ---------------------------------------------------------------------------
 
-  /// Scroll an [AppSection] element into view without a [ScrollController]
+  /// Scroll an [AppSectionAnchor] element into view without a [ScrollController]
   static Future<void> ensureVisible({
-    required AppSection section,
+    required AppSectionAnchor section,
     Duration duration = kThemeAnimationDuration,
     Curve curve = Curves.easeInOut,
   }) async {
@@ -131,7 +131,7 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
   bool showScrollButton = false;
   String? loc;
 
-  List<AppSection> sections = [];
+  List<AppSectionAnchor> sections = [];
 
   // ---------------------------------------------------------------------------
   // METHOD: initState
@@ -194,7 +194,7 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
     void traverse(Element element) {
       final widget = element.widget;
       // Look for SectionWidgets with GlobalKeys
-      if (widget is AppSection && widget.key is GlobalKey) {
+      if (widget is AppSectionAnchor && widget.key is GlobalKey) {
         sections.add(widget);
       }
       // Recursively visit child elements
@@ -204,7 +204,7 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
     // Start traversal from the root context
     context.visitChildElements(traverse);
 
-    AppSection? locSection;
+    AppSectionAnchor? locSection;
 
     if (sections.isNotEmpty) {
       // Scroll to the section if the URL fragment is set
@@ -235,8 +235,8 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
     }
 
     // Check with section is currently in view
-    AppSection? newCurrentSection;
-    final Map<AppSection, double> sectionOffsets = {};
+    AppSectionAnchor? newCurrentSection;
+    final Map<AppSectionAnchor, double> sectionOffsets = {};
     for (final section in sections) {
       final context = (section.key! as GlobalKey).currentContext;
       if (context == null) {
@@ -309,7 +309,7 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
   // METHOD: scrollToSection
   // ---------------------------------------------------------------------------
 
-  Future<void> scrollToSection(AppSection section) async {
+  Future<void> scrollToSection(AppSectionAnchor section) async {
     loc = null;
     await Future.microtask(() {
       if (mounted) {

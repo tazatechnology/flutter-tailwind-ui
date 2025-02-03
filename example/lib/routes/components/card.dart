@@ -9,13 +9,13 @@ class ComponentRouteTCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TCard',
       description: 'A widget',
       children: [
         AppSection(
           title: 'Card Features',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Basic',
               code: _TCardBasicSource.code,

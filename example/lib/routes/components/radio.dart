@@ -9,7 +9,7 @@ class ComponentRouteTRadio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TRadio',
       description: 'A primitive radio widget.',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTRadio extends StatelessWidget {
       children: [
         AppSection(
           title: 'Radio States',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Active',
               code: _TRadioActiveSource.code,
@@ -37,7 +37,7 @@ class ComponentRouteTRadio extends StatelessWidget {
         ),
         AppSection(
           title: 'Radio Theming',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Custom Colors',
               code: _TRadioColorsSource.code,

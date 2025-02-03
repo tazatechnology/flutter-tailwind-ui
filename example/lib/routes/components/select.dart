@@ -9,13 +9,13 @@ class ComponentRouteTSelect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TSelect',
       description: 'A select widget',
       children: [
         AppSection(
           title: 'Section',
-          children: const [],
+          children: [],
         ),
       ],
     );

@@ -9,7 +9,7 @@ class ComponentRouteTCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComponentRoute(
+    return const ComponentRoute(
       name: 'TCheckbox',
       description: 'A primitive checkbox widget.',
       reference:
@@ -17,7 +17,7 @@ class ComponentRouteTCheckbox extends StatelessWidget {
       children: [
         AppSection(
           title: 'Checkbox States',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Active',
               code: _TCheckboxActiveSource.code,
@@ -37,7 +37,7 @@ class ComponentRouteTCheckbox extends StatelessWidget {
         ),
         AppSection(
           title: 'Checkbox Theming',
-          children: const [
+          children: [
             AppPreviewCard(
               title: 'Custom Color',
               code: _TCheckboxColorsSource.code,

@@ -253,7 +253,7 @@ class _AppNavigationItemState extends ConsumerState<AppNavigationItem> {
           }
           WidgetsBinding.instance.addPostFrameCallback((_) {
             // Placeholder section on initial navigation
-            ref.read(sectionProvider.notifier).state = AppSection(
+            ref.read(sectionProvider.notifier).state = AppSectionAnchor(
               title: getSectionHeaderName(
                 section: widget.section,
                 title: widget.title,

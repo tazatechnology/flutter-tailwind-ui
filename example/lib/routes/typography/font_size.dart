@@ -34,9 +34,9 @@ class TypographyRouteFontSize extends StatelessWidget {
             ),
           ],
         ),
-        AppSection(
+        const AppSection(
           title: 'Font Size Examples',
-          children: const [
+          children: [
             AppPreviewCard(
               alignment: Alignment.centerLeft,
               code: _TFontSizeExamplesSource.code,
