@@ -2148,6 +2148,23 @@ TIconButton.filled(
 """;
 }
 
+/// Source code for [_TInputSize]
+class _TInputSizeSource {
+  static const String code = r"""
+Column(
+  spacing: TSpace.v16,
+  children: [
+    for (final size in TInputSize.values)
+      TInput(
+        size: size,
+        labelText: 'Email',
+        hintText: 'you@example.com',
+      ),
+  ],
+)
+""";
+}
+
 /// Source code for [_TInputWithLabel]
 class _TInputWithLabelSource {
   static const String code = r"""
@@ -2308,6 +2325,7 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
         SizedBox(
           width: TScreen.max_w_xs,
           child: TInput(
+            size: TInputSize.md,
             controller: textController,
             labelText: 'Email address',
             hintText: 'you@example.com',
@@ -2319,7 +2337,6 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
         ),
         TButton.filled(
           controller: buttonController,
-          size: TWidgetSize.lg,
           theme: TStyleTheme.all(
             borderRadius: TBorderRadius.rounded_r_md,
           ),
@@ -2746,6 +2763,26 @@ TRadioGroup.panel(
 """;
 }
 
+/// Source code for [_TSelectSize]
+class _TSelectSizeSource {
+  static const String code = r"""
+Column(
+  spacing: TSpace.v16,
+  children: [
+    for (final size in TInputSize.values)
+      TSelect(
+        labelText: 'Select Size',
+        size: size,
+        initialValue: size,
+        items: TInputSize.values,
+        itemBuilder: (value) => Text(value.title),
+        selectedItemBuilder: (value) => Text('Selected: ${value.title}'),
+      ),
+  ],
+)
+""";
+}
+
 /// Source code for [_TSelectLabelText]
 class _TSelectLabelTextSource {
   static const String code = r"""
@@ -2938,8 +2975,8 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
           },
         ),
         TButton.filled(
-          controller: buttonController,
           size: TWidgetSize.lg,
+          controller: buttonController,
           theme: TStyleTheme.all(
             borderRadius: TBorderRadius.rounded_r_md,
           ),

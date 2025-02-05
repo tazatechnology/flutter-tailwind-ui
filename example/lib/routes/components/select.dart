@@ -16,6 +16,16 @@ class ComponentRouteTSelect extends StatelessWidget {
           'https://tailwindui.com/components/application-ui/forms/select-menus',
       children: [
         AppSection(
+          title: 'Select Sizes',
+          children: [
+            AppPreviewCard(
+              title: 'Predefined sizes',
+              code: _TSelectSizeSource.code,
+              child: _TSelectSize(),
+            ),
+          ],
+        ),
+        AppSection(
           title: 'Select with label',
           children: [
             AppPreviewCard(
@@ -90,6 +100,33 @@ class ComponentRouteTSelect extends StatelessWidget {
             ),
           ],
         ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectSize
+// =============================================================================
+
+@GenerateSource()
+class _TSelectSize extends StatelessWidget {
+  const _TSelectSize();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: TSpace.v16,
+      children: [
+        for (final size in TInputSize.values)
+          TSelect(
+            labelText: 'Select Size',
+            size: size,
+            initialValue: size,
+            items: TInputSize.values,
+            itemBuilder: (value) => Text(value.title),
+            selectedItemBuilder: (value) => Text('Selected: ${value.title}'),
+          ),
       ],
     );
   }
@@ -345,8 +382,8 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
           },
         ),
         TButton.filled(
-          controller: buttonController,
           size: TWidgetSize.lg,
+          controller: buttonController,
           theme: TStyleTheme.all(
             borderRadius: TBorderRadius.rounded_r_md,
           ),

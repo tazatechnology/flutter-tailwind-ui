@@ -5,22 +5,22 @@ import 'package:flutter_test/flutter_test.dart';
 import '../app.dart';
 
 void main() {
-  group('TSelect:', () {
+  group('TBadge:', () {
     testWidgets('Height', (WidgetTester tester) async {
-      for (final size in TInputSize.values) {
-        final key = Key('select-$size');
+      for (final size in TWidgetSize.values) {
+        final key = Key('badge-$size');
         await tester.pumpWidget(
           TestMaterialApp(
-            child: TSelect(
+            child: TBadge(
               key: key,
               size: size,
-              items: const [1, 2, 3],
+              child: const Text('Button'),
             ),
           ),
         );
         final finder = find.byKey(key);
         final Size widgetSize = tester.getSize(finder);
-        expect(widgetSize.height, equals(size.height));
+        expect(widgetSize.height, equals(TBadge.getDefaultHeight(size)));
       }
     });
   });

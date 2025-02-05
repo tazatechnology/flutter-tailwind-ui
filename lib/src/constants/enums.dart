@@ -1,25 +1,106 @@
-import 'package:flutter_tailwind_ui/src/constants/space.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 // =============================================================================
 // ENUM: TWidgetSize
 // =============================================================================
 
-/// A size enumeration used but badges and buttons variants.
+/// A size enumeration used by badges and buttons variants.
 enum TWidgetSize {
-  /// An extra-small button.
+  /// An extra-small widget.
   xs,
 
-  /// A small button.
+  /// A small widget.
   sm,
 
-  /// A medium button.
+  /// A medium widget.
   md,
 
-  /// A large button.
+  /// A large widget.
   lg,
 
-  /// An extra-large button.
+  /// An extra-large widget.
   xl,
+}
+
+/// Extension for the [TWidgetSize] enum
+extension XTailwindWidgetSize on TWidgetSize {
+  /// The title of the widget size
+  String get title {
+    switch (this) {
+      case TWidgetSize.xs:
+        return 'Extra Small';
+      case TWidgetSize.sm:
+        return 'Small';
+      case TWidgetSize.md:
+        return 'Medium';
+      case TWidgetSize.lg:
+        return 'Large';
+      case TWidgetSize.xl:
+        return 'Extra Large';
+    }
+  }
+}
+
+// =============================================================================
+// ENUM: TInputSize
+// =============================================================================
+
+/// A size enumeration used but by input fields and select menus.
+enum TInputSize {
+  /// A small widget.
+  sm,
+
+  /// A medium widget.
+  md,
+
+  /// A large widget.
+  lg,
+}
+
+/// Extension for the [TInputSize] enum
+extension XTailwindInputSize on TInputSize {
+  /// The title of the input size
+  String get title {
+    switch (this) {
+      case TInputSize.sm:
+        return 'Small';
+      case TInputSize.md:
+        return 'Medium';
+      case TInputSize.lg:
+        return 'Large';
+    }
+  }
+
+  /// The fixed height for the given input size.
+  ///
+  /// This will match the respective [TWidgetSize] heights for a button.
+  double get height {
+    switch (this) {
+      case TInputSize.sm:
+        return TButton.getDefaultHeight(TWidgetSize.sm);
+      case TInputSize.md:
+        return TButton.getDefaultHeight(TWidgetSize.md);
+      case TInputSize.lg:
+        return TButton.getDefaultHeight(TWidgetSize.lg);
+    }
+  }
+
+  /// Default text style for the given input size
+  ///
+  /// This will match the respective [TWidgetSize] heights for a button.
+  TextStyle get textStyle {
+    TextStyle style;
+    switch (this) {
+      case TInputSize.sm:
+        style = TButton.getDefaultTextStyle(TWidgetSize.sm);
+      case TInputSize.md:
+        style = TButton.getDefaultTextStyle(TWidgetSize.md);
+      case TInputSize.lg:
+        style = TButton.getDefaultTextStyle(TWidgetSize.lg);
+    }
+    return style.copyWith(fontWeight: TFontWeight.normal);
+  }
 }
 
 // =============================================================================

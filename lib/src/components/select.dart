@@ -17,6 +17,7 @@ class TSelect<T> extends StatefulWidget {
     this.itemBuilder,
     this.initialValue,
     this.onChanged,
+    this.size = TInputSize.lg,
     this.enabled = true,
     this.allowDeselect = false,
     this.maxWidth = TScreen.max_w_sm,
@@ -24,7 +25,7 @@ class TSelect<T> extends StatefulWidget {
     this.trailing = const Icon(Icons.keyboard_arrow_down),
     this.selectedIcon = const Icon(Icons.check),
     this.selectedIconAffinity = TControlAffinity.trailing,
-    this.itemExtent = kTDefaultInputHeight,
+    this.itemExtent,
     this.maxVisible = 5,
     this.itemPadding = TOffset.x12,
     this.labelText,
@@ -49,6 +50,9 @@ class TSelect<T> extends StatefulWidget {
 
   /// A callback that is called when the value of the select widget changes
   final ValueChanged<T?>? onChanged;
+
+  /// The size of the select widget
+  final TInputSize size;
 
   /// Whether the select widget is enabled
   final bool enabled;
@@ -76,7 +80,7 @@ class TSelect<T> extends StatefulWidget {
   final TControlAffinity selectedIconAffinity;
 
   /// The height of each item in the list of options
-  final double itemExtent;
+  final double? itemExtent;
 
   /// The maximum number of items to display in list before scrolling
   final int maxVisible;
@@ -106,27 +110,50 @@ class TSelect<T> extends StatefulWidget {
 }
 
 class _TSelectState<T> extends State<TSelect<T>> {
-  final popoverController = TPopoverController();
   late T? selected = widget.initialValue;
-  final ScrollController scrollController = ScrollController();
   late int hoveredIndex = selectedIndex;
-  late final stateControllers = List.generate(
-    widget.items.length,
-    (index) => TWidgetStatesController(),
-  );
 
-  late final maxVisible = widget.maxVisible.clamp(0, widget.items.length);
+  /// The controller for the popover
+  final popoverController = TPopoverController();
+
+  /// Manage the scrolling of the list of options
+  final ScrollController scrollController = ScrollController();
+
+  /// The state controllers for each item in the list
+  late final List<TWidgetStatesController> stateControllers;
+
+  /// The maximum number of items to display in the list before scrolling
+  int get maxVisible => widget.maxVisible.clamp(0, widget.items.length);
+
+  /// The height of the widget
+  double get height => widget.size.height;
+
+  /// The height of each item in the list
+  double get itemExtent => widget.itemExtent ?? height;
 
   /// The index of the selected item
   int get selectedIndex =>
       selected == null ? -1 : widget.items.indexOf(selected as T);
 
-  // Determine if the content will be scrollable
+  /// Determine if the content will be scrollable
   bool get isScrollable => widget.items.length > maxVisible;
 
-  // The right padding accounts for the scrollbar width
+  /// The right padding accounts for the scrollbar width
   EdgeInsets get listViewPadding =>
       TOffset.a6 + (isScrollable ? TOffset.r16 : TOffset.r0);
+
+  // ---------------------------------------------------------------------------
+  // METHOD: initState
+  // ---------------------------------------------------------------------------
+
+  @override
+  void initState() {
+    super.initState();
+    stateControllers = List.generate(
+      widget.items.length,
+      (index) => TWidgetStatesController(),
+    );
+  }
 
   // ---------------------------------------------------------------------------
   // METHOD: dispose
@@ -147,7 +174,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
 
   void scrollToIndex(int index) {
     final maxScrollExtent = scrollController.position.maxScrollExtent;
-    final targetOffset = math.min(index * widget.itemExtent, maxScrollExtent);
+    final targetOffset = math.min(index * itemExtent, maxScrollExtent);
     scrollController.jumpTo(targetOffset);
   }
 
@@ -166,7 +193,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
         controller: scrollController,
         padding: listViewPadding,
         itemCount: widget.items.length,
-        itemExtent: widget.itemExtent,
+        itemExtent: itemExtent,
         physics: const ClampingScrollPhysics(),
         itemBuilder: (context, index) {
           final option = widget.items[index];
@@ -221,7 +248,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                   borderRadius: TBorderRadius.rounded_sm,
                 ),
                 child: DefaultTextStyle.merge(
-                  style: TTextStyle.text_sm.copyWith(
+                  style: widget.size.textStyle.copyWith(
                     fontWeight: isSelected ? TFontWeight.semibold : null,
                   ),
                   child: IconTheme(
@@ -276,12 +303,11 @@ class _TSelectState<T> extends State<TSelect<T>> {
     }
 
     // Resolve the text style for the select widget
-    TextStyle? selectWidgetTextStyle =
-        context.theme.inputDecorationTheme.hintStyle?.copyWith(
+    TextStyle? selectWidgetTextStyle = widget.size.textStyle.copyWith(
       color: selected != null ? tw.colors.body : null,
     );
     if (!widget.enabled) {
-      selectWidgetTextStyle = selectWidgetTextStyle?.copyWith(
+      selectWidgetTextStyle = selectWidgetTextStyle.copyWith(
         color: tw.colors.disabledTextColor,
       );
     }
@@ -304,7 +330,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
 
     // The right padding accounts for the scrollbar width
     final popoverHeight =
-        widget.itemExtent * maxVisible + listViewPadding.vertical + 2;
+        itemExtent * maxVisible + listViewPadding.vertical + 2;
 
     return SizedBox(
       width: widget.maxWidth,
@@ -327,7 +353,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                     : SystemMouseCursors.forbidden,
               ),
               padding: TOffset.x12,
-              height: kTDefaultInputHeight,
+              height: height,
               width: widget.maxWidth,
               fillColor: effectiveFillColor,
               borderColor: widget.borderColor,
@@ -357,7 +383,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                       child: selectWidget,
                     ),
                     SizedBox(
-                      height: kTDefaultInputHeight,
+                      height: height,
                       child: widget.trailing,
                     ),
                   ],

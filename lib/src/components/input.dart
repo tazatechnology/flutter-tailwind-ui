@@ -32,6 +32,7 @@ class TInput extends StatefulWidget {
     this.errorText,
     this.prefix,
     this.suffix,
+    this.size = TInputSize.lg,
     this.enabled = true,
     this.readOnly = false,
     this.autofocus = false,
@@ -143,6 +144,7 @@ class TInput extends StatefulWidget {
         obscureCharacter = '•',
         prefix = null,
         suffix = null,
+        size = TInputSize.lg, // Not used for text area
         assert(
           initialValue == null || controller == null,
           'initialValue and controller cannot be used at the same time',
@@ -216,6 +218,9 @@ class TInput extends StatefulWidget {
 
   /// The widget to display at the end of the input field.
   final Widget? suffix;
+
+  /// The size of the select widget
+  final TInputSize size;
 
   /// Whether the input field is enabled;
   final bool enabled;
@@ -346,6 +351,9 @@ class _TInputState extends State<TInput> {
   late final TextEditingController controller;
   late final TWidgetStatesController statesController;
 
+  /// The height of the input field.
+  double get height => widget.size.height;
+
   // ---------------------------------------------------------------------------
   // METHOD: initState
   // ---------------------------------------------------------------------------
@@ -474,7 +482,7 @@ class _TInputState extends State<TInput> {
 
     // Compute the y-axis padding required to center the text
     final borderWidth = effectiveBorder.resolve({})?.borderSide.width ?? 0;
-    final yPad = (kTDefaultInputHeight - textHeight - 2 * borderWidth) / 2;
+    final yPad = (height - textHeight - 2 * borderWidth) / 2;
 
     // Resolve the content padding and clamp to required height
     final contentPadding = (widget.contentPadding ?? TOffset.y(yPad)).clamp(
@@ -548,10 +556,10 @@ class _TInputState extends State<TInput> {
             // Used to pad the input text without using content padding
             // Else, content padding will shift the help and error text
             prefixIconConstraints: BoxConstraints(
-              minWidth: widget.prefix == null ? xPad : kTDefaultInputHeight,
+              minWidth: widget.prefix == null ? xPad : height,
             ),
             suffixIconConstraints: BoxConstraints(
-              minWidth: widget.suffix == null ? xPad : kTDefaultInputHeight,
+              minWidth: widget.suffix == null ? xPad : height,
             ),
             border: effectiveBorder.resolve({}),
             enabledBorder: effectiveBorder.resolve({}),

@@ -7,14 +7,21 @@ import '../app.dart';
 void main() {
   group('TInput:', () {
     testWidgets('Height', (WidgetTester tester) async {
-      const key = Key('input');
-      await tester.pumpWidget(
-        const TestMaterialApp(child: TInput(key: key)),
-      );
-      final finder = find.byKey(key);
-      final Size size = tester.getSize(finder);
-      // Account for the border thickness
-      expect(size.height, equals(kTDefaultInputHeight - 2));
+      for (final size in TInputSize.values) {
+        final key = Key('input-$size');
+        await tester.pumpWidget(
+          TestMaterialApp(
+            child: TInput(
+              key: key,
+              size: size,
+            ),
+          ),
+        );
+        final finder = find.byKey(key);
+        final Size widgetSize = tester.getSize(finder);
+        // Account for the border thickness due to how inputs are rendered in Flutter
+        expect(widgetSize.height, equals(size.height - 2));
+      }
     });
   });
 }

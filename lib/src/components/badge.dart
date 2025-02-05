@@ -189,15 +189,15 @@ class TBadge extends StatelessWidget {
   static double getDefaultHeight(TWidgetSize size) {
     switch (size) {
       case TWidgetSize.xs:
-        return 18;
+        return TSpace.v20;
       case TWidgetSize.sm:
-        return 22;
+        return TSpace.v24;
       case TWidgetSize.md:
-        return 26;
+        return TSpace.v28;
       case TWidgetSize.lg:
-        return 30;
+        return TSpace.v32;
       case TWidgetSize.xl:
-        return 34;
+        return TSpace.v36;
     }
   }
 

@@ -16,6 +16,17 @@ class ComponentRouteTInput extends StatelessWidget {
           'https://tailwindui.com/components/application-ui/forms/input-groups',
       children: [
         AppSection(
+          title: 'Input Sizes',
+          children: [
+            AppPreviewCard(
+              title: 'Predefined sizes',
+              maxWidth: TScreen.max_w_sm,
+              code: _TInputSizeSource.code,
+              child: _TInputSize(),
+            ),
+          ],
+        ),
+        AppSection(
           title: 'Input with label',
           children: [
             AppPreviewCard(
@@ -121,6 +132,30 @@ class ComponentRouteTInput extends StatelessWidget {
             ),
           ],
         ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TInputSize
+// =============================================================================
+
+@GenerateSource()
+class _TInputSize extends StatelessWidget {
+  const _TInputSize();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: TSpace.v16,
+      children: [
+        for (final size in TInputSize.values)
+          TInput(
+            size: size,
+            labelText: 'Email',
+            hintText: 'you@example.com',
+          ),
       ],
     );
   }
@@ -365,6 +400,7 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
         SizedBox(
           width: TScreen.max_w_xs,
           child: TInput(
+            size: TInputSize.md,
             controller: textController,
             labelText: 'Email address',
             hintText: 'you@example.com',
@@ -376,7 +412,6 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
         ),
         TButton.filled(
           controller: buttonController,
-          size: TWidgetSize.lg,
           theme: TStyleTheme.all(
             borderRadius: TBorderRadius.rounded_r_md,
           ),

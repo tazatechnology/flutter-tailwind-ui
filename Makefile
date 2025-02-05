@@ -28,7 +28,7 @@ format-ci:
 	@dart format lib --set-exit-if-changed
 
 test:
-	@flutter test -r expanded $(ARGS)
+	@flutter test -r github $(ARGS)
 
 publish:
 	@flutter pub publish --dry-run

@@ -153,15 +153,15 @@ class TButton extends StatelessWidget {
   static double getDefaultHeight(TWidgetSize size) {
     switch (size) {
       case TWidgetSize.xs:
-        return 26;
+        return TSpace.v24;
       case TWidgetSize.sm:
-        return 30;
+        return TSpace.v28;
       case TWidgetSize.md:
-        return 34;
+        return TSpace.v32;
       case TWidgetSize.lg:
-        return 38;
+        return TSpace.v36;
       case TWidgetSize.xl:
-        return 42;
+        return TSpace.v40;
     }
   }
 
@@ -173,8 +173,8 @@ class TButton extends StatelessWidget {
   static TextStyle getDefaultTextStyle(TWidgetSize size) {
     switch (size) {
       case TWidgetSize.xs:
-        return TTextStyle.text_xs.copyWith(fontWeight: TFontWeight.medium);
       case TWidgetSize.sm:
+        return TTextStyle.text_xs.copyWith(fontWeight: TFontWeight.medium);
       case TWidgetSize.md:
       case TWidgetSize.lg:
       case TWidgetSize.xl:
