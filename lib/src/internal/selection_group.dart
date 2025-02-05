@@ -350,14 +350,13 @@ class TSelectionGroupTile extends StatelessWidget {
           onTap: enabled ? () => onChanged(!selected) : null,
           builder: (context, states) {
             return TCard(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius),
-                side: BorderSide(
-                  color: selected && applySelectedBorderColor
-                      ? selectedBorderColor
-                      : (enabled ? tw.colors.divider : tw.colors.disabled),
-                  width: selected && applySelectedBorderColor ? 1.5 : 1,
-                ),
+              elevation: TElevation.shadow_xs,
+              borderRadius: BorderRadius.circular(radius),
+              border: BorderSide(
+                color: selected && applySelectedBorderColor
+                    ? selectedBorderColor
+                    : (enabled ? tw.colors.divider : tw.colors.disabled),
+                width: selected && applySelectedBorderColor ? 1.5 : 1,
               ),
               child: content,
             );
@@ -408,12 +407,10 @@ class TSelectionGroupTile extends StatelessWidget {
                 border: Border(bottom: bottom, left: left),
               ),
               child: TCard(
-                shape: RoundedRectangleBorder(
-                  borderRadius: itemBorderRadius,
-                  side: selected
-                      ? BorderSide(color: selectedBorderColor, width: 1.5)
-                      : BorderSide.none,
-                ),
+                borderRadius: itemBorderRadius,
+                border: selected
+                    ? BorderSide(color: selectedBorderColor, width: 1.5)
+                    : BorderSide.none,
                 child: content,
               ),
             );

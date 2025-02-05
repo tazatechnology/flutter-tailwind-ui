@@ -96,7 +96,7 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                 ),
               ),
             ),
-            child: DefaultTextStyle(
+            child: DefaultTextStyle.merge(
               style: TTextStyle.text_sm.copyWith(
                 color:
                     tw.light ? TColors.slate.shade700 : TColors.slate.shade200,

@@ -400,7 +400,6 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
         SizedBox(
           width: TScreen.max_w_xs,
           child: TInput(
-            size: TInputSize.md,
             controller: textController,
             labelText: 'Email address',
             hintText: 'you@example.com',
@@ -411,6 +410,7 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
           ),
         ),
         TButton.filled(
+          size: TWidgetSize.lg,
           controller: buttonController,
           theme: TStyleTheme.all(
             borderRadius: TBorderRadius.rounded_r_md,

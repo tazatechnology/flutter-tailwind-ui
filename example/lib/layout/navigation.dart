@@ -62,12 +62,12 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TIconButton``': AppRouter.icon_button,
         '``TSplitButton``': AppRouter.split_button,
       },
-      'Form Controls': {
+      'Controls': {
         '``TRadio``': AppRouter.radio,
         '``TCheckbox``': AppRouter.checkbox,
         '``TSwitch``': AppRouter.switch_control,
       },
-      'Form Elements': {
+      'User Input': {
         '``TInput``': AppRouter.input,
         '``TSelect``': AppRouter.select,
         '``TSlider``': AppRouter.slider,

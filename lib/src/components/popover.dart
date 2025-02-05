@@ -219,7 +219,7 @@ class _TPopoverState extends State<TPopover> {
                   offset: offset,
                   showWhenUnlinked: false,
                   child: Material(
-                    elevation: TElevation.elevation_lg,
+                    elevation: TElevation.shadow_lg,
                     borderRadius: widget.borderRadius,
                     shadowColor: tw.colors.shadow,
                     child: Container(

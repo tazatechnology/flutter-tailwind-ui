@@ -140,7 +140,7 @@ class TailwindTheme {
         color: color.card,
         surfaceTintColor: Colors.transparent,
         shadowColor: color.shadow,
-        elevation: TElevation.elevation_none,
+        elevation: TElevation.shadow_none,
         margin: EdgeInsets.zero,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(

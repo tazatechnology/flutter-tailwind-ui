@@ -901,7 +901,7 @@ TButton.filled(
   theme: TStyleTheme.all(
     height: 32,
     backgroundColor: Colors.black,
-    elevation: TElevation.elevation_sm,
+    elevation: TElevation.shadow_sm,
     border: Border.all(color: TColors.slate),
     borderRadius: TBorderRadius.rounded_none,
     textStyle: const TextStyle(
@@ -928,9 +928,7 @@ TButton.filled(
       return states.hovered ? TColors.slate.shade800 : Colors.black;
     }),
     elevation: WidgetStateProperty.resolveWith((states) {
-      return states.hovered
-          ? TElevation.elevation_md
-          : TElevation.elevation_sm;
+      return states.hovered ? TElevation.shadow_md : TElevation.shadow_sm;
     }),
     padding: WidgetStateProperty.resolveWith((states) {
       return states.hovered ? TOffset.x16 : TOffset.x10;
@@ -994,7 +992,86 @@ Column(
 class _TCardBasicSource {
   static const String code = r"""
 const TCard(
-  child: Text('Example Card'),
+  child: Text('Card Content'),
+)
+""";
+}
+
+/// Source code for [_TCardElevation]
+class _TCardElevationSource {
+  static const String code = r"""
+const TCard(
+  elevation: TElevation.shadow_2xl,
+  child: Text('Card Content'),
+)
+""";
+}
+
+/// Source code for [_TCardBorderRadius]
+class _TCardBorderRadiusSource {
+  static const String code = r"""
+const TCard(
+  borderRadius: TBorderRadius.rounded_none,
+  child: Text('Card Content'),
+)
+""";
+}
+
+/// Source code for [_TCardBorderSide]
+class _TCardBorderSideSource {
+  static const String code = r"""
+const TCard(
+  border: BorderSide(color: TColors.indigo, width: 2),
+  child: Text('Card Content'),
+)
+""";
+}
+
+/// Source code for [_TCardHeader]
+class _TCardHeaderSource {
+  static const String code = r"""
+TCard(
+  header: const Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text('Card Heading'),
+      TButton.filled(child: Text('Action')),
+    ],
+  ),
+  child: ListView.separated(
+    shrinkWrap: true,
+    itemCount: 3,
+    itemBuilder: (context, index) => const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [Text('Item'), Text('Item')],
+    ),
+    separatorBuilder: (context, index) => const Divider(),
+  ),
+)
+""";
+}
+
+/// Source code for [_TCardHeaderNoBorder]
+class _TCardHeaderNoBorderSource {
+  static const String code = r"""
+TCard(
+  headerBorder: BorderSide.none,
+  header: const Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text('Card Heading'),
+      TButton.filled(child: Text('Action')),
+    ],
+  ),
+  child: ListView.separated(
+    shrinkWrap: true,
+    itemCount: 3,
+    itemBuilder: (context, index) => const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [Text('Item'), Text('Item')],
+    ),
+    separatorBuilder: (context, index) => const Divider(),
+  ),
 )
 """;
 }
@@ -2103,7 +2180,7 @@ TIconButton.filled(
   theme: TStyleTheme.all(
     height: 32,
     backgroundColor: Colors.black,
-    elevation: TElevation.elevation_sm,
+    elevation: TElevation.shadow_sm,
     border: Border.all(color: TColors.slate),
     borderRadius: TBorderRadius.rounded_none,
   ),
@@ -2126,9 +2203,7 @@ TIconButton.filled(
       return states.hovered ? TColors.slate.shade800 : Colors.black;
     }),
     elevation: WidgetStateProperty.resolveWith((states) {
-      return states.hovered
-          ? TElevation.elevation_md
-          : TElevation.elevation_sm;
+      return states.hovered ? TElevation.shadow_md : TElevation.shadow_sm;
     }),
     border: WidgetStateProperty.resolveWith((states) {
       if (states.hovered) {
@@ -2325,7 +2400,6 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
         SizedBox(
           width: TScreen.max_w_xs,
           child: TInput(
-            size: TInputSize.md,
             controller: textController,
             labelText: 'Email address',
             hintText: 'you@example.com',
@@ -2336,6 +2410,7 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
           ),
         ),
         TButton.filled(
+          size: TWidgetSize.lg,
           controller: buttonController,
           theme: TStyleTheme.all(
             borderRadius: TBorderRadius.rounded_r_md,

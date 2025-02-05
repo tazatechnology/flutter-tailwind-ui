@@ -11,7 +11,7 @@ class ComponentRouteTSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return const ComponentRoute(
       name: 'TSlider',
-      description: 'A slider widget',
+      description: 'Slider component',
       children: [
         AppSection(
           title: 'Slider with label',
