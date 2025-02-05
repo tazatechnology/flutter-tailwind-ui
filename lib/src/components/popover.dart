@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 // =============================================================================
-// CLASS: TDropdownController
+// CLASS: TPopoverController
 // =============================================================================
 
-/// A controller for the [TDropdown] widget.
-class TDropdownController {
+/// A controller for the [TPopover] widget.
+class TPopoverController {
   VoidCallback? _showCallback;
   VoidCallback? _hideCallback;
   VoidCallback? _toggleCallback;
@@ -22,29 +22,29 @@ class TDropdownController {
     _toggleCallback = toggle;
   }
 
-  /// Shows the dropdown menu.
+  /// Shows the popover overlay.
   void show() {
     _showCallback?.call();
   }
 
-  /// Hides the dropdown menu.
+  /// Hides the popover overlay.
   void hide() {
     _hideCallback?.call();
   }
 
-  /// Toggles the dropdown menu.
+  /// Toggles the popover overlay.
   void toggle() {
     _toggleCallback?.call();
   }
 }
 // =============================================================================
-// CLASS: TDropdown
+// CLASS: TPopover
 // =============================================================================
 
-/// A widget that triggers a dropdown overlay when pressed.
-class TDropdown extends StatefulWidget {
-  /// Creates a [TDropdown] widget.
-  const TDropdown({
+/// A widget that triggers a popover overlay when pressed.
+class TPopover extends StatefulWidget {
+  /// Creates a [TPopover] widget.
+  const TPopover({
     required this.controller,
     required this.content,
     required this.anchor,
@@ -57,40 +57,40 @@ class TDropdown extends StatefulWidget {
     super.key,
   });
 
-  /// The content of the dropdown menu.
-  final TDropdownController controller;
+  /// The content of the popover overlay.
+  final TPopoverController controller;
 
-  /// The content of the dropdown overlay.
+  /// The content of the popover overlay.
   final Widget content;
 
-  /// The anchor widget that triggers the dropdown overlay when pressed.
+  /// The anchor widget that triggers the popover overlay when pressed.
   final Widget anchor;
 
-  /// The width of the dropdown content.
+  /// The width of the popover content.
   final double? width;
 
-  /// The height of the dropdown content.
+  /// The height of the popover content.
   final double? height;
 
-  /// The border radius of the dropdown content.
+  /// The border radius of the popover content.
   final BorderRadius borderRadius;
 
-  /// The alignment of the dropdown overlay.
+  /// The alignment of the popover overlay.
   ///
   /// The overlay will be positioned in this location relative to the anchor widget.
   final Alignment alignment;
 
-  /// The separation between the anchor and the dropdown menu.
+  /// The separation between the anchor and the popover overlay.
   final double separation;
 
-  /// Whether the dropdown overlay should match the width of the anchor.
+  /// Whether the popover overlay should match the width of the anchor.
   final bool matchAnchorWidth;
 
   @override
-  State<TDropdown> createState() => _TDropdownState();
+  State<TPopover> createState() => _TPopoverState();
 }
 
-class _TDropdownState extends State<TDropdown> {
+class _TPopoverState extends State<TPopover> {
   OverlayEntry? overlayEntry;
   final LayerLink layerLink = LayerLink();
 

@@ -78,7 +78,7 @@ class TSelect<T> extends StatefulWidget {
   /// The height of each item in the list of options
   final double itemExtent;
 
-  /// The maximum number of items to display in dropdown before scrolling
+  /// The maximum number of items to display in list before scrolling
   final int maxVisible;
 
   /// The padding around each item in the list of options
@@ -106,7 +106,7 @@ class TSelect<T> extends StatefulWidget {
 }
 
 class _TSelectState<T> extends State<TSelect<T>> {
-  final dropdownController = TDropdownController();
+  final popoverController = TPopoverController();
   late T? selected = widget.initialValue;
   final ScrollController scrollController = ScrollController();
   late int hoveredIndex = selectedIndex;
@@ -193,7 +193,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                 }
               });
               widget.onChanged?.call(selected);
-              dropdownController.hide();
+              popoverController.hide();
             },
             onHover: (value) {
               if (hoveredIndex != index && value) {
@@ -303,7 +303,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
     });
 
     // The right padding accounts for the scrollbar width
-    final dropdownHeight =
+    final popoverHeight =
         widget.itemExtent * maxVisible + listViewPadding.vertical + 2;
 
     return SizedBox(
@@ -313,10 +313,10 @@ class _TSelectState<T> extends State<TSelect<T>> {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (label != null) TLabelDescriptionWidget(label: label),
-          TDropdown(
-            controller: dropdownController,
+          TPopover(
+            controller: popoverController,
             matchAnchorWidth: true,
-            height: dropdownHeight,
+            height: popoverHeight,
             alignment: Alignment.bottomCenter,
             content: buildListView(),
             anchor: TInputBorderWrapper(
@@ -335,7 +335,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
               onTap: widget.enabled
                   ? () {
                       hoveredIndex = selectedIndex;
-                      dropdownController.show();
+                      popoverController.show();
                       FocusScope.of(context).unfocus();
                       if (selectedIndex >= 0) {
                         WidgetsBinding.instance.addPostFrameCallback((_) {

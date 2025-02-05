@@ -36,7 +36,7 @@ class AppRouter {
       AppRouter.checkbox_group: const ComponentRouteTCheckboxGroup(),
       AppRouter.checkbox_tile: const ComponentRouteTCheckboxTile(),
       AppRouter.code_block: const ComponentRouteTCodeBlock(),
-      AppRouter.dropdown: const ComponentRouteTDropdown(),
+      AppRouter.popover: const ComponentRouteTPopover(),
       AppRouter.filter: const ComponentRouteTFilter(),
       AppRouter.form: const ComponentRouteTForm(),
       AppRouter.icon_button: const ComponentRouteTIconButton(),
@@ -119,7 +119,7 @@ class AppRouter {
   static const String checkbox_group = 'checkbox-group';
   static const String checkbox_tile = 'checkbox-tile';
   static const String code_block = 'code-block';
-  static const String dropdown = 'dropdown';
+  static const String popover = 'popover';
   static const String filter = 'filter';
   static const String form = 'form';
   static const String icon_button = 'icon-button';

@@ -1538,22 +1538,22 @@ TCheckboxTile.card(
 """;
 }
 
-/// Source code for [_TDropdownExample]
-class _TDropdownExampleSource {
+/// Source code for [_TPopoverExample]
+class _TPopoverExampleSource {
   static const String code = r"""
-class _TDropdownExample extends StatefulWidget {
-  const _TDropdownExample();
+class _TPopoverExample extends StatefulWidget {
+  const _TPopoverExample();
 
   @override
-  State<_TDropdownExample> createState() => _TDropdownExampleState();
+  State<_TPopoverExample> createState() => _TPopoverExampleState();
 }
 
-class _TDropdownExampleState extends State<_TDropdownExample> {
-  final controller = TDropdownController();
+class _TPopoverExampleState extends State<_TPopoverExample> {
+  final controller = TPopoverController();
 
   @override
   Widget build(BuildContext context) {
-    return TDropdown(
+    return TPopover(
       controller: controller,
       anchor: TSplitButton.filled(
         trailing: const Icon(Icons.arrow_drop_down, size: 18),
@@ -1571,25 +1571,25 @@ class _TDropdownExampleState extends State<_TDropdownExample> {
 """;
 }
 
-/// Source code for [_TDropdownAlignment]
-class _TDropdownAlignmentSource {
+/// Source code for [_TPopoverAlignment]
+class _TPopoverAlignmentSource {
   static const String code = r"""
-class _TDropdownAlignment extends StatefulWidget {
-  const _TDropdownAlignment(this.alignment);
+class _TPopoverAlignment extends StatefulWidget {
+  const _TPopoverAlignment(this.alignment);
   final Alignment alignment;
 
   @override
-  State<_TDropdownAlignment> createState() => _TDropdownAlignmentState();
+  State<_TPopoverAlignment> createState() => _TPopoverAlignmentState();
 }
 
-class _TDropdownAlignmentState extends State<_TDropdownAlignment> {
-  final controller = TDropdownController();
+class _TPopoverAlignmentState extends State<_TPopoverAlignment> {
+  final controller = TPopoverController();
 
   @override
   Widget build(BuildContext context) {
     String name = widget.alignment.toString().split('.').last;
     name = name[0].toUpperCase() + name.substring(1);
-    return TDropdown(
+    return TPopover(
       alignment: widget.alignment,
       controller: controller,
       anchor: TButton.filled(
@@ -2855,7 +2855,7 @@ TSelect(
     return Text(value);
   },
   selectedItemBuilder: (value) {
-    return Text('Number: $value');
+    return Text(value);
   },
 )
 """;
@@ -2873,7 +2873,7 @@ TSelect(
     return Text(value);
   },
   selectedItemBuilder: (value) {
-    return Text('Number: $value');
+    return Text(value);
   },
 )
 """;
@@ -2891,7 +2891,7 @@ TSelect(
     return Text(value);
   },
   selectedItemBuilder: (value) {
-    return Text('Number: $value');
+    return Text(value);
   },
 )
 """;
@@ -2923,14 +2923,14 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
           labelText: 'Add a user',
           items: const ['User A', 'User B', 'User C'],
           placeholder: const Text('Select user'),
-          maxWidth: TScreen.max_w_256,
+          maxWidth: TScreen.max_w_224,
           borderRadius:
               const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
           itemBuilder: (value) {
             return Text(value);
           },
           selectedItemBuilder: (value) {
-            return Text('Number: $value');
+            return Text(value);
           },
           onChanged: (value) {
             selectedUser = value;
@@ -2943,7 +2943,7 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
           theme: TStyleTheme.all(
             borderRadius: TBorderRadius.rounded_r_md,
           ),
-          child: const Text('Add User'),
+          child: const Text('Add'),
           onPressed: () {},
         ),
       ],

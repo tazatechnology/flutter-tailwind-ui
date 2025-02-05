@@ -1,25 +1,25 @@
 part of 'components.dart';
 
 // =============================================================================
-// CLASS: ComponentRouteTDropdown
+// CLASS: ComponentRouteTPopover
 // =============================================================================
 
-class ComponentRouteTDropdown extends StatelessWidget {
-  const ComponentRouteTDropdown({super.key});
+class ComponentRouteTPopover extends StatelessWidget {
+  const ComponentRouteTPopover({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ComponentRoute(
-      name: 'TDropdown',
-      description: 'A widget to triggers a dropdown overlay',
+      name: 'TPopover',
+      description: 'Display a popover overlay',
       children: [
         const AppSection(
-          title: 'Basic Dropdown',
+          title: 'Basic Popover',
           children: [
             AppPreviewCard(
               title: 'Default',
-              code: _TDropdownExampleSource.code,
-              child: _TDropdownExample(),
+              code: _TPopoverExampleSource.code,
+              child: _TPopoverExample(),
             ),
           ],
         ),
@@ -39,8 +39,8 @@ class ComponentRouteTDropdown extends StatelessWidget {
             ])
               AppPreviewCard(
                 title: '``$alignment``',
-                code: _TDropdownAlignmentSource.code,
-                child: _TDropdownAlignment(alignment),
+                code: _TPopoverAlignmentSource.code,
+                child: _TPopoverAlignment(alignment),
               ),
           ],
         ),
@@ -50,23 +50,23 @@ class ComponentRouteTDropdown extends StatelessWidget {
 }
 
 // =============================================================================
-// CLASS: _TDropdownExample
+// CLASS: _TPopoverExample
 // =============================================================================
 
 @GenerateSource(buildMethodOnly: false)
-class _TDropdownExample extends StatefulWidget {
-  const _TDropdownExample();
+class _TPopoverExample extends StatefulWidget {
+  const _TPopoverExample();
 
   @override
-  State<_TDropdownExample> createState() => _TDropdownExampleState();
+  State<_TPopoverExample> createState() => _TPopoverExampleState();
 }
 
-class _TDropdownExampleState extends State<_TDropdownExample> {
-  final controller = TDropdownController();
+class _TPopoverExampleState extends State<_TPopoverExample> {
+  final controller = TPopoverController();
 
   @override
   Widget build(BuildContext context) {
-    return TDropdown(
+    return TPopover(
       controller: controller,
       anchor: TSplitButton.filled(
         trailing: const Icon(Icons.arrow_drop_down, size: 18),
@@ -83,26 +83,26 @@ class _TDropdownExampleState extends State<_TDropdownExample> {
 }
 
 // =============================================================================
-// CLASS: _TDropdownAlignment
+// CLASS: _TPopoverAlignment
 // =============================================================================
 
 @GenerateSource(buildMethodOnly: false)
-class _TDropdownAlignment extends StatefulWidget {
-  const _TDropdownAlignment(this.alignment);
+class _TPopoverAlignment extends StatefulWidget {
+  const _TPopoverAlignment(this.alignment);
   final Alignment alignment;
 
   @override
-  State<_TDropdownAlignment> createState() => _TDropdownAlignmentState();
+  State<_TPopoverAlignment> createState() => _TPopoverAlignmentState();
 }
 
-class _TDropdownAlignmentState extends State<_TDropdownAlignment> {
-  final controller = TDropdownController();
+class _TPopoverAlignmentState extends State<_TPopoverAlignment> {
+  final controller = TPopoverController();
 
   @override
   Widget build(BuildContext context) {
     String name = widget.alignment.toString().split('.').last;
     name = name[0].toUpperCase() + name.substring(1);
-    return TDropdown(
+    return TPopover(
       alignment: widget.alignment,
       controller: controller,
       anchor: TButton.filled(
