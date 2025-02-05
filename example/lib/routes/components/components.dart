@@ -14,6 +14,7 @@ part 'checkbox.dart';
 part 'checkbox_group.dart';
 part 'checkbox_tile.dart';
 part 'code_block.dart';
+part 'dropdown.dart';
 part 'filter.dart';
 part 'form.dart';
 part 'icon_button.dart';

@@ -43,7 +43,7 @@ class TSelectionGroupList<T> extends StatelessWidget {
     required this.title,
     required this.description,
     required this.spacing,
-    required this.width,
+    required this.maxWidth,
     required this.radius,
     required this.axis,
     super.key,
@@ -68,7 +68,7 @@ class TSelectionGroupList<T> extends StatelessWidget {
   final double spacing;
 
   /// Optional separator
-  final double width;
+  final double maxWidth;
 
   /// Optional separator
   final double radius;
@@ -91,7 +91,7 @@ class TSelectionGroupList<T> extends StatelessWidget {
         if (axis == Axis.vertical) {
           effectiveChildren.add(
             SizedBox(
-              width: width,
+              width: maxWidth,
               child: const Divider(height: 0, thickness: 1),
             ),
           );
@@ -111,7 +111,10 @@ class TSelectionGroupList<T> extends StatelessWidget {
     if (variant == TSelectionGroupVariant.panel) {
       decoration = BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
-        border: Border.all(color: tw.colors.divider, strokeAlign: 1),
+        border: Border.all(
+          color: tw.colors.divider,
+          strokeAlign: BorderSide.strokeAlignOutside,
+        ),
       );
     }
 
@@ -129,7 +132,7 @@ class TSelectionGroupList<T> extends StatelessWidget {
     );
 
     return SizedBox(
-      width: width,
+      width: maxWidth,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

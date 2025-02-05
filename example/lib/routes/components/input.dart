@@ -20,13 +20,13 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'String',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithLabelSource.code,
               child: _TInputWithLabel(),
             ),
             AppPreviewCard(
               title: 'Widget',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithLabelWidgetSource.code,
               child: _TInputWithLabelWidget(),
             ),
@@ -37,13 +37,13 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'String',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithHelpSource.code,
               child: _TInputWithHelp(),
             ),
             AppPreviewCard(
               title: 'Widget',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithHelpWidgetSource.code,
               child: _TInputWithHelpWidget(),
             ),
@@ -54,13 +54,13 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'String',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithErrorSource.code,
               child: _TInputWithError(),
             ),
             AppPreviewCard(
               title: 'Widget',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithErrorWidgetSource.code,
               child: _TInputWithErrorWidget(),
             ),
@@ -71,13 +71,13 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Disabled',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithDisabledStateSource.code,
               child: _TInputWithDisabledState(),
             ),
             AppPreviewCard(
               title: 'Read-Only',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithReadOnlyStateSource.code,
               child: _TInputWithReadOnlyState(),
             ),
@@ -88,13 +88,13 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Leading',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithIconPrefixSource.code,
               child: _TInputWithIconPrefix(),
             ),
             AppPreviewCard(
               title: 'Trailing',
-              maxWidth: TScreen.max_w_xs,
+              maxWidth: TScreen.max_w_sm,
               code: _TInputWithIconSuffixSource.code,
               child: _TInputWithIconSuffix(),
             ),
@@ -108,6 +108,16 @@ class ComponentRouteTInput extends StatelessWidget {
               maxWidth: TScreen.max_w_md,
               code: _TInputAreaSource.code,
               child: _TInputArea(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Gallery',
+          children: [
+            AppPreviewCard(
+              title: 'Email subscribe',
+              code: _TInputGallerySubscribeSource.code,
+              child: _TInputGallerySubscribe(),
             ),
           ],
         ),
@@ -143,18 +153,16 @@ class _TInputWithLabelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TInput(
+    return const TInput(
       label: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(Icons.mail_outline, size: 15),
-          TSizedBox.x4,
-          const Text('Email'),
-          const Spacer(),
+          Text('Email'),
           TText(
             '* Required',
             style: TextStyle(
               fontWeight: TFontWeight.normal,
-              color: context.tw.colors.label,
+              color: TColors.red,
               fontSize: TFontSize.text_xs,
             ),
           ),
@@ -325,6 +333,57 @@ class _TInputArea extends StatelessWidget {
     return const TInput.area(
       labelText: 'Bio',
       hintText: 'Tell us about yourself',
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TInputGallerySubscribe
+// =============================================================================
+
+@GenerateSource(buildMethodOnly: false)
+class _TInputGallerySubscribe extends StatefulWidget {
+  const _TInputGallerySubscribe();
+
+  @override
+  State<_TInputGallerySubscribe> createState() =>
+      _TInputGallerySubscribeState();
+}
+
+class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
+  final buttonController = TWidgetStatesController();
+  final textController = TextEditingController();
+
+  String? selectedUser = 'User A';
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: TScreen.max_w_xs,
+          child: TInput(
+            controller: textController,
+            labelText: 'Email address',
+            hintText: 'you@example.com',
+            borderRadius:
+                const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
+            prefix: const Icon(Icons.mail_outline, size: 15),
+            keyboardType: TextInputType.emailAddress,
+          ),
+        ),
+        TButton.filled(
+          controller: buttonController,
+          size: TWidgetSize.lg,
+          theme: TStyleTheme.all(
+            borderRadius: TBorderRadius.rounded_r_md,
+          ),
+          child: const Text('Subscribe'),
+          onPressed: () {},
+        ),
+      ],
     );
   }
 }

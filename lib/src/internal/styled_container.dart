@@ -504,23 +504,6 @@ class TStyledContainer extends StatelessWidget {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: estimateTextHeight
-  // ---------------------------------------------------------------------------
-
-  /// Estimates the height of the text based on the style.
-  static double estimateTextHeight({
-    required BuildContext context,
-    required TextStyle style,
-  }) {
-    final textPainter = TextPainter(
-      text: TextSpan(text: 'Text', style: style),
-      textDirection: Directionality.of(context),
-    );
-    textPainter.layout();
-    return textPainter.size.height;
-  }
-
-  // ---------------------------------------------------------------------------
   // METHOD: build
   // ---------------------------------------------------------------------------
 
@@ -608,10 +591,7 @@ class TStyledContainer extends StatelessWidget {
             );
 
             // Estimate the height of the text
-            final textHeight = estimateTextHeight(
-              context: context,
-              style: effectiveTextStyle,
-            );
+            final textHeight = effectiveTextStyle.estimateHeight(context);
 
             // Resolve the effective icon size
             final effectiveIconSize = iconSize?.resolve(states);

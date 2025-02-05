@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui/src/extensions/key_event.dart';
 import 'package:flutter_tailwind_ui/src/internal/selection_group.dart';
 
 // =============================================================================
@@ -186,7 +185,7 @@ class TRadioGroup<T> extends StatefulWidget {
     this.groupValue,
     this.onChanged,
     this.color,
-    this.width = TScreen.max_w_md,
+    this.maxWidth = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -202,7 +201,7 @@ class TRadioGroup<T> extends StatefulWidget {
     this.groupValue,
     this.onChanged,
     this.color,
-    this.width = TScreen.max_w_md,
+    this.maxWidth = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -218,7 +217,7 @@ class TRadioGroup<T> extends StatefulWidget {
     this.groupValue,
     this.onChanged,
     this.color,
-    this.width = TScreen.max_w_md,
+    this.maxWidth = TScreen.max_w_md,
     this.radius = TRadius.rounded_lg,
     this.spacing,
     this.affinity = TControlAffinity.leading,
@@ -234,7 +233,7 @@ class TRadioGroup<T> extends StatefulWidget {
     this.groupValue,
     this.onChanged,
     this.color,
-    this.width = TScreen.max_w_md,
+    this.maxWidth = TScreen.max_w_md,
     this.radius = TRadius.rounded_lg,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -263,7 +262,7 @@ class TRadioGroup<T> extends StatefulWidget {
   final Color? color;
 
   /// The maximum width of the group.
-  final double width;
+  final double maxWidth;
 
   /// The spacing between the group elements.
   ///
@@ -425,7 +424,7 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
     return TSelectionGroupList(
       axis: widget.axis,
       variant: widget.variant,
-      width: widget.width,
+      maxWidth: widget.maxWidth,
       spacing: widget.spacing ?? widget.variant.spacing,
       items: widget.children,
       radius: widget.radius,

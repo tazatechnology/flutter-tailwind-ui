@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
+import 'package:flutter_tailwind_ui/src/internal/input_border.dart';
 import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 
 // =============================================================================
@@ -21,6 +22,7 @@ class TInput extends StatefulWidget {
     this.contentPadding,
     this.fillColor,
     this.borderColor,
+    this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
     this.hintText,
     this.label,
     this.labelText,
@@ -35,13 +37,14 @@ class TInput extends StatefulWidget {
     this.autofocus = false,
     this.autocorrect = true,
     this.enableSuggestions = true,
-    this.showCursor = true,
     this.ignorePointers = false,
     this.enableInteractiveSelection = true,
     this.scribbleEnabled = true,
     this.onTapAlwaysCalled = false,
     this.obscure = false,
     this.obscureCharacter = '•',
+    this.showCursor,
+    this.mouseCursor,
     this.focusNode,
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
@@ -88,6 +91,7 @@ class TInput extends StatefulWidget {
     this.contentPadding,
     this.fillColor,
     this.borderColor,
+    this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
     this.hintText,
     this.label,
     this.labelText,
@@ -100,11 +104,12 @@ class TInput extends StatefulWidget {
     this.autofocus = false,
     this.autocorrect = true,
     this.enableSuggestions = true,
-    this.showCursor = true,
     this.ignorePointers = false,
     this.enableInteractiveSelection = true,
     this.scribbleEnabled = true,
     this.onTapAlwaysCalled = false,
+    this.showCursor,
+    this.mouseCursor,
     this.focusNode,
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
@@ -176,6 +181,9 @@ class TInput extends StatefulWidget {
   /// The stateful border color for the input field.
   final WidgetStateProperty<Color>? borderColor;
 
+  /// The stateful border color for the input field.
+  final WidgetStateProperty<BorderRadius>? borderRadius;
+
   /// The hint text to display inside the input field.
   final String? hintText;
 
@@ -227,9 +235,6 @@ class TInput extends StatefulWidget {
   /// Whether the input field should enable scribble.
   final bool scribbleEnabled;
 
-  /// Whether the input field should show the cursor.
-  final bool showCursor;
-
   /// Whether the input field should ignore pointers.
   final bool ignorePointers;
 
@@ -244,6 +249,12 @@ class TInput extends StatefulWidget {
 
   /// The character to use when obscuring the input field.
   final String obscureCharacter;
+
+  /// Whether the input field should show the cursor.
+  final bool? showCursor;
+
+  /// The mouse cursor to use for the input field.
+  final MouseCursor? mouseCursor;
 
   /// The focus node for the input field.
   final FocusNode? focusNode;
@@ -385,46 +396,21 @@ class _TInputState extends State<TInput> {
     // Determine if the input field is interactive
     final isInteractive = widget.enabled && !widget.readOnly;
 
-    // Determine if the input field should be filled
-    // Only filled when not interactive and has a fill color
-    final effectiveFillColor =
-        widget.fillColor?.resolve(statesController.value) ??
-            (tw.dark ? Colors.black54 : TColors.gray.shade50);
-    final isFilled = !isInteractive && (!effectiveFillColor.isTransparent);
+    // Resolve the fill color
+    Color? effectiveFillColor =
+        widget.fillColor?.resolve(statesController.value);
+    if (isInteractive) {
+      effectiveFillColor ??= tw.colors.background;
+    } else {
+      effectiveFillColor ??= tw.dark ? Colors.black54 : TColors.gray.shade50;
+    }
 
     // Determine the effective border based on the state
-    final effectiveBorder =
-        WidgetStateProperty.resolveWith<InputBorder?>((states) {
-      if (states.focused && !widget.readOnly) {
-        return inputTheme.focusedBorder?.copyWith(
-          borderSide: inputTheme.focusedBorder?.borderSide.copyWith(
-            color: widget.borderColor?.resolve({WidgetState.focused}) ??
-                inputTheme.focusedBorder?.borderSide.color,
-          ),
-        );
-      } else if (states.error) {
-        return inputTheme.errorBorder?.copyWith(
-          borderSide: inputTheme.errorBorder?.borderSide.copyWith(
-            color: widget.borderColor?.resolve({WidgetState.focused}) ??
-                inputTheme.errorBorder?.borderSide.color,
-          ),
-        );
-      } else if (states.disabled) {
-        return inputTheme.disabledBorder?.copyWith(
-          borderSide: inputTheme.disabledBorder?.borderSide.copyWith(
-            color: widget.borderColor?.resolve({WidgetState.focused}) ??
-                inputTheme.disabledBorder?.borderSide.color,
-          ),
-        );
-      } else {
-        return inputTheme.enabledBorder?.copyWith(
-          borderSide: inputTheme.enabledBorder?.borderSide.copyWith(
-            color: widget.borderColor?.resolve({WidgetState.focused}) ??
-                inputTheme.enabledBorder?.borderSide.color,
-          ),
-        );
-      }
-    });
+    final effectiveBorder = TInputBorderWrapper.resolveInputBorder(
+      context: context,
+      borderColor: widget.borderColor,
+      borderRadius: widget.borderRadius,
+    );
 
     // Determine the x-axis padding
     double xPad = TSpace.v12;
@@ -469,18 +455,32 @@ class _TInputState extends State<TInput> {
     }
 
     // Resolve the mouse cursor
-    MouseCursor? mouseCursor;
+    MouseCursor? mouseCursor = widget.mouseCursor;
     if (widget.readOnly && controller.text.isEmpty) {
-      mouseCursor = SystemMouseCursors.basic;
+      mouseCursor ??= SystemMouseCursors.basic;
     } else if (!widget.enabled) {
-      mouseCursor = SystemMouseCursors.forbidden;
+      mouseCursor ??= SystemMouseCursors.forbidden;
     }
 
-    // Resolve the prefix widget
-    final prefix = widget.prefix;
+    // Resolve the base text style
+    final style = const TextStyle(
+      fontSize: TFontSize.text_sm,
+      height: kTextHeightNone,
+    ).merge(widget.style);
 
-    // Resolve the suffix widget
-    final suffix = widget.suffix;
+    // Compute the estimated text height
+    // Used to compute input padding
+    final textHeight = style.estimateHeight(context);
+
+    // Compute the y-axis padding required to center the text
+    final borderWidth = effectiveBorder.resolve({})?.borderSide.width ?? 0;
+    final yPad = (kTDefaultInputHeight - textHeight - 2 * borderWidth) / 2;
+
+    // Resolve the content padding and clamp to required height
+    final contentPadding = (widget.contentPadding ?? TOffset.y(yPad)).clamp(
+      EdgeInsets.zero,
+      EdgeInsets.symmetric(horizontal: double.infinity, vertical: yPad),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -504,7 +504,7 @@ class _TInputState extends State<TInput> {
           autocorrect: widget.autocorrect,
           autofillHints: widget.autofillHints,
           autovalidateMode: widget.autovalidateMode,
-          showCursor: widget.showCursor,
+          showCursor: widget.showCursor ?? isInteractive,
           obscureText: widget.obscure,
           obscuringCharacter: widget.obscureCharacter,
           enableSuggestions: widget.enableSuggestions,
@@ -515,13 +515,11 @@ class _TInputState extends State<TInput> {
           canRequestFocus: widget.enabled,
           mouseCursor: mouseCursor,
           cursorWidth: 1,
-          cursorHeight: TFontSize.text_sm,
+          cursorHeight: style.fontSize,
           cursorColor: textSelectionTheme.cursorColor,
           cursorErrorColor: textSelectionTheme.cursorColor,
           cursorOpacityAnimates: false,
-          style: (widget.style ?? TTextStyle.text_sm).copyWith(
-            height: kTextHeightNone,
-          ),
+          style: style,
           textAlign: widget.textAlign,
           textDirection: widget.textDirection,
           textAlignVertical: widget.textAlignVertical,
@@ -546,26 +544,29 @@ class _TInputState extends State<TInput> {
           maxLines: widget.maxLines,
           // Decoration properties
           decoration: InputDecoration(
-            contentPadding: widget.contentPadding ?? TOffset.y8,
+            contentPadding: contentPadding,
             // Used to pad the input text without using content padding
             // Else, content padding will shift the help and error text
             prefixIconConstraints: BoxConstraints(
-              minWidth: prefix == null ? xPad : kTDefaultInputHeight,
+              minWidth: widget.prefix == null ? xPad : kTDefaultInputHeight,
             ),
             suffixIconConstraints: BoxConstraints(
-              minWidth: suffix == null ? xPad : kTDefaultInputHeight,
+              minWidth: widget.suffix == null ? xPad : kTDefaultInputHeight,
             ),
             border: effectiveBorder.resolve({}),
             enabledBorder: effectiveBorder.resolve({}),
             focusedBorder: effectiveBorder.resolve({WidgetState.focused}),
             errorBorder: effectiveBorder.resolve({WidgetState.error}),
             disabledBorder: effectiveBorder.resolve({WidgetState.disabled}),
-            filled: isFilled,
+            filled: !effectiveFillColor.isTransparent,
             fillColor: effectiveFillColor,
-            prefixIcon: prefix ?? const SizedBox.shrink(),
-            suffixIcon: suffix ?? const SizedBox.shrink(),
+            prefixIcon: widget.prefix ?? const SizedBox.shrink(),
+            suffixIcon: widget.suffix ?? const SizedBox.shrink(),
             hintText: widget.hintText,
             hintFadeDuration: Duration.zero,
+            hintStyle: inputTheme.hintStyle?.copyWith(
+              fontSize: style.fontSize,
+            ),
             helper: help,
             error: error,
           ),

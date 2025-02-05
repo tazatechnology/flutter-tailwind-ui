@@ -248,10 +248,9 @@ class _TSliderState extends State<TSlider> {
     }
 
     /// The text style for the markings
-    final markingTextStyle = TextStyle(
+    final markingTextStyle = const TextStyle(
       fontSize: TFontSize.text_xs,
       height: kTextHeightNone,
-      color: tw.colors.label,
       fontWeight: TFontWeight.medium,
     ).merge(widget.textStyle);
 
@@ -296,65 +295,65 @@ class _TSliderState extends State<TSlider> {
 
               return Column(
                 children: [
-                  Slider(
-                    mouseCursor: widget.enabled
-                        ? SystemMouseCursors.click
-                        : SystemMouseCursors.forbidden,
-                    value: value,
-                    min: widget.min,
-                    max: widget.max,
-                    divisions: widget.divisions,
-                    label: tooltipLabel,
-                    semanticFormatterCallback: widget.tooltipFormatter,
-                    autofocus: widget.autofocus,
-                    focusNode: widget.focusNode,
-                    onChanged: widget.enabled ? onChanged : null,
+                  SizedBox(
+                    height: kTDefaultInputHeight,
+                    child: Slider(
+                      mouseCursor: widget.enabled
+                          ? SystemMouseCursors.click
+                          : SystemMouseCursors.forbidden,
+                      value: value,
+                      min: widget.min,
+                      max: widget.max,
+                      divisions: widget.divisions,
+                      label: tooltipLabel,
+                      semanticFormatterCallback: widget.tooltipFormatter,
+                      autofocus: widget.autofocus,
+                      focusNode: widget.focusNode,
+                      onChanged: widget.enabled ? onChanged : null,
+                    ),
                   ),
                   if (widget.showValueLabels || widget.editable)
-                    Padding(
-                      padding: TOffset.t8,
-                      child: DefaultTextStyle.merge(
-                        style: markingTextStyle,
-                        child: Row(
-                          mainAxisAlignment: widget.showValueLabels
-                              ? MainAxisAlignment.spaceBetween
-                              : MainAxisAlignment.center,
-                          children: [
-                            if (widget.showValueLabels)
-                              Flexible(
-                                child: _TSliderInput(
-                                  readOnly: true,
-                                  style: markingTextStyle,
-                                  value: minString,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            if (!widget.showValueLabels) const Spacer(),
+                    DefaultTextStyle.merge(
+                      style: markingTextStyle,
+                      child: Row(
+                        mainAxisAlignment: widget.showValueLabels
+                            ? MainAxisAlignment.spaceBetween
+                            : MainAxisAlignment.center,
+                        children: [
+                          if (widget.showValueLabels)
                             Flexible(
                               child: _TSliderInput(
-                                controller: inputController,
-                                focusNode: valueFocusNode,
-                                readOnly: !widget.enabled || !widget.editable,
+                                readOnly: true,
                                 style: markingTextStyle,
+                                value: minString,
                                 textAlign: TextAlign.center,
-                                onFieldSubmitted: onFieldSubmitted,
-                                onTapOutside: (_) {
-                                  inputController.text = valueString;
-                                },
                               ),
                             ),
-                            if (!widget.showValueLabels) const Spacer(),
-                            if (widget.showValueLabels)
-                              Flexible(
-                                child: _TSliderInput(
-                                  readOnly: true,
-                                  style: markingTextStyle,
-                                  value: maxString,
-                                  textAlign: TextAlign.center,
-                                ),
+                          if (!widget.showValueLabels) const Spacer(),
+                          Flexible(
+                            child: _TSliderInput(
+                              controller: inputController,
+                              focusNode: valueFocusNode,
+                              readOnly: !widget.enabled || !widget.editable,
+                              style: markingTextStyle,
+                              textAlign: TextAlign.center,
+                              onFieldSubmitted: onFieldSubmitted,
+                              onTapOutside: (_) {
+                                inputController.text = valueString;
+                              },
+                            ),
+                          ),
+                          if (!widget.showValueLabels) const Spacer(),
+                          if (widget.showValueLabels)
+                            Flexible(
+                              child: _TSliderInput(
+                                readOnly: true,
+                                style: markingTextStyle,
+                                value: maxString,
+                                textAlign: TextAlign.center,
                               ),
-                          ],
-                        ),
+                            ),
+                        ],
                       ),
                     ),
                 ],
@@ -411,7 +410,6 @@ class _TSliderInput extends StatelessWidget {
       style: style,
       contentPadding: TOffset.y6,
       textAlign: textAlign,
-      fillColor: const WidgetStatePropertyAll(Colors.transparent),
       onFieldSubmitted: onFieldSubmitted,
       onTapOutside: onTapOutside,
     );

@@ -206,8 +206,10 @@ class TailwindTheme {
           fontSize: TFontSize.text_sm,
         ),
         hintStyle: TextStyle(
+          letterSpacing: TLetterSpacing.wide,
           fontSize: TFontSize.text_sm,
-          color: light ? TColors.gray.shade400 : TColors.gray.shade500,
+          height: kTextHeightNone,
+          color: color.hint,
         ),
         helperStyle: TextStyle(
           fontSize: TFontSize.text_xs + 1,
@@ -218,6 +220,12 @@ class TailwindTheme {
           fontSize: TFontSize.text_xs + 1,
           height: 2, // Adds appropriate padding between text box and error text
           color: color.error,
+        ),
+        outlineBorder: BorderSide(color: color.divider),
+        activeIndicatorBorder: BorderSide(color: color.divider),
+        border: OutlineInputBorder(
+          borderRadius: TBorderRadius.rounded_md,
+          borderSide: BorderSide(color: color.divider),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: TBorderRadius.rounded_md,

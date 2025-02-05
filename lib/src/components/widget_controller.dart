@@ -11,12 +11,22 @@ import 'package:flutter/material.dart';
 class TWidgetStatesController extends WidgetStatesController {
   /// Creates a [TWidgetStatesController] instance.
   TWidgetStatesController({
-    bool loading = false,
+    bool hovered = false,
+    bool focused = false,
+    bool pressed = false,
+    bool dragged = false,
     bool selected = false,
+    bool scrolledUnder = false,
     bool disabled = false,
     bool error = false,
+    bool loading = false,
   }) : super({
+          if (hovered) WidgetState.hovered,
+          if (focused) WidgetState.focused,
+          if (pressed) WidgetState.pressed,
+          if (dragged) WidgetState.dragged,
           if (selected) WidgetState.selected,
+          if (scrolledUnder) WidgetState.scrolledUnder,
           if (disabled) WidgetState.disabled,
           if (error) WidgetState.error,
         }) {
@@ -24,48 +34,61 @@ class TWidgetStatesController extends WidgetStatesController {
   }
 
   /// Returns true if the state contains a [WidgetState.hovered] state
-  ///
-  /// This property is read-only.
   bool get hovered => value.contains(WidgetState.hovered);
 
-  /// Returns true if the state contains a [WidgetState.focused] state
-  ///
-  /// This property is read-only.
-  bool get focused => value.contains(WidgetState.focused);
-
-  /// Returns true if the state contains a [WidgetState.pressed] state
-  ///
-  /// This property is read-only.
-  bool get pressed => value.contains(WidgetState.pressed);
-
-  /// Returns true if the state contains a [WidgetState.dragged] state
-  ///
-  /// This property is read-only.
-  bool get dragged => value.contains(WidgetState.dragged);
-
-  /// Returns true if the state contains a [WidgetState.scrolledUnder] state
-  ///
-  /// This property is read-only.
-  bool get scrolledUnder => value.contains(WidgetState.scrolledUnder);
-
-  /// Returns the loading state of the widget.
-  ///
-  /// This property may be set by the controller.
-  bool get loading => _loading;
-  bool _loading = false;
-
-  /// Sets the loading state of the widget.
-  set loading(bool value) {
-    if (_loading == value) {
+  /// Sets the hovered state of the widget.
+  set hovered(bool value) {
+    if (hovered == value) {
       return;
     }
-    _loading = value;
-    notifyListeners();
+    update(WidgetState.hovered, value);
+  }
+
+  /// Returns true if the state contains a [WidgetState.focused] state
+  bool get focused => value.contains(WidgetState.focused);
+
+  /// Sets the focused state of the widget.
+  set focused(bool value) {
+    if (focused == value) {
+      return;
+    }
+    update(WidgetState.focused, value);
+  }
+
+  /// Returns true if the state contains a [WidgetState.pressed] state
+  bool get pressed => value.contains(WidgetState.pressed);
+
+  /// Sets the pressed state of the widget.
+  set pressed(bool value) {
+    if (pressed == value) {
+      return;
+    }
+    update(WidgetState.pressed, value);
+  }
+
+  /// Returns true if the state contains a [WidgetState.dragged] state
+  bool get dragged => value.contains(WidgetState.dragged);
+
+  /// Sets the pressed state of the widget.
+  set dragged(bool value) {
+    if (dragged == value) {
+      return;
+    }
+    update(WidgetState.dragged, value);
+  }
+
+  /// Returns true if the state contains a [WidgetState.scrolledUnder] state
+  bool get scrolledUnder => value.contains(WidgetState.scrolledUnder);
+
+  /// Sets the scrolled under state of the widget.
+  set scrolledUnder(bool value) {
+    if (scrolledUnder == value) {
+      return;
+    }
+    update(WidgetState.scrolledUnder, value);
   }
 
   /// Returns true if the state contains a [WidgetState.selected] state
-  ///
-  /// This property may be set by the controller.
   bool get selected => value.contains(WidgetState.selected);
 
   /// Sets the selected state of the widget.
@@ -90,8 +113,6 @@ class TWidgetStatesController extends WidgetStatesController {
   }
 
   /// Returns true if the state contains a [WidgetState.error] state
-  ///
-  /// This property may be set by the controller.
   bool get error => value.contains(WidgetState.error);
 
   /// Sets the error state of the widget.
@@ -100,5 +121,18 @@ class TWidgetStatesController extends WidgetStatesController {
       return;
     }
     update(WidgetState.error, value);
+  }
+
+  /// Returns the loading state of the widget.
+  bool get loading => _loading;
+  bool _loading = false;
+
+  /// Sets the loading state of the widget.
+  set loading(bool value) {
+    if (_loading == value) {
+      return;
+    }
+    _loading = value;
+    notifyListeners();
   }
 }

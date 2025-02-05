@@ -1538,6 +1538,75 @@ TCheckboxTile.card(
 """;
 }
 
+/// Source code for [_TDropdownExample]
+class _TDropdownExampleSource {
+  static const String code = r"""
+class _TDropdownExample extends StatefulWidget {
+  const _TDropdownExample();
+
+  @override
+  State<_TDropdownExample> createState() => _TDropdownExampleState();
+}
+
+class _TDropdownExampleState extends State<_TDropdownExample> {
+  final controller = TDropdownController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TDropdown(
+      controller: controller,
+      anchor: TSplitButton.filled(
+        trailing: const Icon(Icons.arrow_drop_down, size: 18),
+        onPressedTrailing: controller.toggle,
+        child: const Text('Actions'),
+      ),
+      content: const SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(child: Text('Content')),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TDropdownAlignment]
+class _TDropdownAlignmentSource {
+  static const String code = r"""
+class _TDropdownAlignment extends StatefulWidget {
+  const _TDropdownAlignment(this.alignment);
+  final Alignment alignment;
+
+  @override
+  State<_TDropdownAlignment> createState() => _TDropdownAlignmentState();
+}
+
+class _TDropdownAlignmentState extends State<_TDropdownAlignment> {
+  final controller = TDropdownController();
+
+  @override
+  Widget build(BuildContext context) {
+    String name = widget.alignment.toString().split('.').last;
+    name = name[0].toUpperCase() + name.substring(1);
+    return TDropdown(
+      alignment: widget.alignment,
+      controller: controller,
+      anchor: TButton.filled(
+        onPressed: controller.toggle,
+        child: const Text('Dropdown'),
+      ),
+      content: const SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(child: Text('Content')),
+      ),
+    );
+  }
+}
+""";
+}
+
 /// Source code for [_TFilterBlur]
 class _TFilterBlurSource {
   static const String code = r"""
@@ -2092,18 +2161,16 @@ const TInput(
 /// Source code for [_TInputWithLabelWidget]
 class _TInputWithLabelWidgetSource {
   static const String code = r"""
-TInput(
+const TInput(
   label: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      const Icon(Icons.mail_outline, size: 15),
-      TSizedBox.x4,
-      const Text('Email'),
-      const Spacer(),
+      Text('Email'),
       TText(
         '* Required',
         style: TextStyle(
           fontWeight: TFontWeight.normal,
-          color: context.tw.colors.label,
+          color: TColors.red,
           fontSize: TFontSize.text_xs,
         ),
       ),
@@ -2212,6 +2279,57 @@ const TInput.area(
   labelText: 'Bio',
   hintText: 'Tell us about yourself',
 )
+""";
+}
+
+/// Source code for [_TInputGallerySubscribe]
+class _TInputGallerySubscribeSource {
+  static const String code = r"""
+class _TInputGallerySubscribe extends StatefulWidget {
+  const _TInputGallerySubscribe();
+
+  @override
+  State<_TInputGallerySubscribe> createState() =>
+      _TInputGallerySubscribeState();
+}
+
+class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
+  final buttonController = TWidgetStatesController();
+  final textController = TextEditingController();
+
+  String? selectedUser = 'User A';
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: TScreen.max_w_xs,
+          child: TInput(
+            controller: textController,
+            labelText: 'Email address',
+            hintText: 'you@example.com',
+            borderRadius:
+                const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
+            prefix: const Icon(Icons.mail_outline, size: 15),
+            keyboardType: TextInputType.emailAddress,
+          ),
+        ),
+        TButton.filled(
+          controller: buttonController,
+          size: TWidgetSize.lg,
+          theme: TStyleTheme.all(
+            borderRadius: TBorderRadius.rounded_r_md,
+          ),
+          child: const Text('Subscribe'),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+}
 """;
 }
 
@@ -2628,6 +2746,213 @@ TRadioGroup.panel(
 """;
 }
 
+/// Source code for [_TSelectLabelText]
+class _TSelectLabelTextSource {
+  static const String code = r"""
+TSelect(
+  labelText: 'Size',
+  items: TWidgetSize.values,
+  itemBuilder: (value) {
+    return Text(value.name.toUpperCase());
+  },
+  selectedItemBuilder: (value) {
+    return Text('Selected: ${value.name.toUpperCase()}');
+  },
+)
+""";
+}
+
+/// Source code for [_TSelectLabelWidget]
+class _TSelectLabelWidgetSource {
+  static const String code = r"""
+TSelect(
+  label: const Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text('Size'),
+      TText(
+        '* Required',
+        style: TextStyle(
+          fontWeight: TFontWeight.normal,
+          color: TColors.red,
+          fontSize: TFontSize.text_xs,
+        ),
+      ),
+    ],
+  ),
+  items: TWidgetSize.values,
+  itemBuilder: (value) {
+    return Text(value.name.toUpperCase());
+  },
+  selectedItemBuilder: (value) {
+    return Text('Selected: ${value.name.toUpperCase()}');
+  },
+)
+""";
+}
+
+/// Source code for [_TSelectScrollable]
+class _TSelectScrollableSource {
+  static const String code = r"""
+TSelect(
+  labelText: 'Select a number (0-1,000)',
+  items: List.generate(1000, (ii) => ii),
+  itemBuilder: (value) {
+    return Text(value.toString());
+  },
+  selectedItemBuilder: (value) {
+    return Text('Number: $value');
+  },
+)
+""";
+}
+
+/// Source code for [_TSelectEnabled]
+class _TSelectEnabledSource {
+  static const String code = r"""
+TSelect(
+  labelText: 'Select a number',
+  initialValue: 50,
+  items: List.generate(100, (ii) => ii),
+  itemBuilder: (value) {
+    return Text(value.toString());
+  },
+  selectedItemBuilder: (value) {
+    return Text('Number: $value');
+  },
+)
+""";
+}
+
+/// Source code for [_TSelectDisabled]
+class _TSelectDisabledSource {
+  static const String code = r"""
+TSelect(
+  enabled: false,
+  initialValue: 50,
+  labelText: 'Select a number',
+  items: List.generate(100, (ii) => ii),
+  itemBuilder: (value) {
+    return Text(value.toString());
+  },
+  selectedItemBuilder: (value) {
+    return Text('Number: $value');
+  },
+)
+""";
+}
+
+/// Source code for [_TSelectSelectedIconLeading]
+class _TSelectSelectedIconLeadingSource {
+  static const String code = r"""
+TSelect(
+  initialValue: 'User B',
+  labelText: 'Add a user',
+  items: const ['User A', 'User B', 'User C'],
+  selectedIcon: const Icon(Icons.circle, size: 10),
+  selectedIconAffinity: TControlAffinity.leading,
+  itemBuilder: (value) {
+    return Text(value);
+  },
+  selectedItemBuilder: (value) {
+    return Text('Number: $value');
+  },
+)
+""";
+}
+
+/// Source code for [_TSelectSelectedIconTrailing]
+class _TSelectSelectedIconTrailingSource {
+  static const String code = r"""
+TSelect(
+  initialValue: 'User B',
+  labelText: 'Add a user',
+  items: const ['User A', 'User B', 'User C'],
+  selectedIcon: const Icon(Icons.circle, size: 10),
+  itemBuilder: (value) {
+    return Text(value);
+  },
+  selectedItemBuilder: (value) {
+    return Text('Number: $value');
+  },
+)
+""";
+}
+
+/// Source code for [_TSelectAllowDeselect]
+class _TSelectAllowDeselectSource {
+  static const String code = r"""
+TSelect(
+  initialValue: 'User B',
+  allowDeselect: true,
+  labelText: 'Add a user',
+  items: const ['User A', 'User B', 'User C'],
+  itemBuilder: (value) {
+    return Text(value);
+  },
+  selectedItemBuilder: (value) {
+    return Text('Number: $value');
+  },
+)
+""";
+}
+
+/// Source code for [_TSelectGalleryAddUser]
+class _TSelectGalleryAddUserSource {
+  static const String code = r"""
+class _TSelectGalleryAddUser extends StatefulWidget {
+  const _TSelectGalleryAddUser();
+
+  @override
+  State<_TSelectGalleryAddUser> createState() => _TSelectGalleryAddUserState();
+}
+
+class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
+  final buttonController = TWidgetStatesController();
+  String? selectedUser = 'User A';
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        TSelect(
+          initialValue: selectedUser,
+          allowDeselect: true,
+          labelText: 'Add a user',
+          items: const ['User A', 'User B', 'User C'],
+          placeholder: const Text('Select user'),
+          maxWidth: TScreen.max_w_256,
+          borderRadius:
+              const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
+          itemBuilder: (value) {
+            return Text(value);
+          },
+          selectedItemBuilder: (value) {
+            return Text('Number: $value');
+          },
+          onChanged: (value) {
+            selectedUser = value;
+            buttonController.disabled = selectedUser == null;
+          },
+        ),
+        TButton.filled(
+          controller: buttonController,
+          size: TWidgetSize.lg,
+          theme: TStyleTheme.all(
+            borderRadius: TBorderRadius.rounded_r_md,
+          ),
+          child: const Text('Add User'),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+}
+""";
+}
+
 /// Source code for [_TSliderEnabled]
 class _TSliderEnabledSource {
   static const String code = r"""
@@ -2675,17 +3000,15 @@ TSlider(
 class _TSliderLabelWidgetSource {
   static const String code = r"""
 TSlider(
-  label: Row(
+  label: const Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      const Icon(Icons.numbers, size: 15),
-      TSizedBox.x4,
-      const Text('Slider Label'),
-      const Spacer(),
+      Text('Slider Label'),
       TText(
         '* Required',
         style: TextStyle(
           fontWeight: TFontWeight.normal,
-          color: context.tw.colors.label,
+          color: TColors.red,
           fontSize: TFontSize.text_xs,
         ),
       ),
@@ -2786,7 +3109,8 @@ class _TSliderControllerState extends State<_TSliderController> {
           showValueLabels: true,
           onChanged: (value) {},
         ),
-        TButton(
+        TSizedBox.y8,
+        TButton.outlined(
           controller: buttonController,
           onPressed: () => sliderController.value = 0.5,
           child: const Text('Reset'),

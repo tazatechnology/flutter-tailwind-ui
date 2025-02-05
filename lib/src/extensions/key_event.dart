@@ -86,7 +86,9 @@ extension XTailwindLogicalKeyboardKey on LogicalKeyboardKey {
   bool get isSpace => this == LogicalKeyboardKey.space;
 
   /// Is this a enter key
-  bool get isEnter => this == LogicalKeyboardKey.enter;
+  bool get isEnter =>
+      this == LogicalKeyboardKey.enter ||
+      this == LogicalKeyboardKey.numpadEnter;
 
   /// Is this a tab key
   bool get isTab => this == LogicalKeyboardKey.tab;

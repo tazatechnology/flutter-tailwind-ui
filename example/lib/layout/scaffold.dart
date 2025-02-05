@@ -190,10 +190,9 @@ class _ScaffoldHeader extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   InkWell(
+                    canRequestFocus: false,
                     child: const _FlutterTailwindLogo(),
-                    onTap: () {
-                      context.go('/');
-                    },
+                    onTap: () => context.go('/'),
                   ),
                   if (tw.screen.is_sm) ...[
                     TSizedBox.x14,

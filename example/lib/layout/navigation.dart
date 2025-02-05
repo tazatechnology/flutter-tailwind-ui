@@ -82,6 +82,7 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TCard``': AppRouter.card,
         '``TRowColumn``': AppRouter.row_column,
         '``TSizedBox``': AppRouter.sized_box,
+        '``TDropdown``': AppRouter.dropdown,
       },
       'Filters': {
         '``TFilter``': AppRouter.filter,

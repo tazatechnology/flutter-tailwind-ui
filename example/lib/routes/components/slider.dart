@@ -18,13 +18,13 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Text',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderLabelTextSource.code,
               child: _TSliderLabelText(),
             ),
             AppPreviewCard(
               title: 'Widget',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderLabelWidgetSource.code,
               child: _TSliderLabelWidget(),
             ),
@@ -35,13 +35,13 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Enabled',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderEnabledSource.code,
               child: _TSliderEnabled(),
             ),
             AppPreviewCard(
               title: 'Disabled',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderDisabledSource.code,
               child: _TSliderDisabled(),
             ),
@@ -52,25 +52,25 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Editable',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderEditableSource.code,
               child: _TSliderEditable(),
             ),
             AppPreviewCard(
               title: 'Show value labels',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderValueLabelsSource.code,
               child: _TSliderValueLabels(),
             ),
             AppPreviewCard(
               title: 'Show value labels and editable',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderValueLabelsEditableSource.code,
               child: _TSliderValueLabelsEditable(),
             ),
             AppPreviewCard(
               title: 'Value label formatter',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderValueLabelsFormatterSource.code,
               child: _TSliderValueLabelsFormatter(),
             ),
@@ -81,13 +81,13 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Customize tooltip',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderTooltipCustomizeSource.code,
               child: _TSliderTooltipCustomize(),
             ),
             AppPreviewCard(
               title: 'Value tooltip formatter',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderTooltipFormatterSource.code,
               child: _TSliderTooltipFormatter(),
             ),
@@ -98,7 +98,7 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Controller to update the value',
-              maxWidth: TScreen.max_w_md,
+              maxWidth: TScreen.max_w_sm,
               code: _TSliderControllerSource.code,
               child: _TSliderController(),
             ),
@@ -191,17 +191,15 @@ class _TSliderLabelWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSlider(
-      label: Row(
+      label: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(Icons.numbers, size: 15),
-          TSizedBox.x4,
-          const Text('Slider Label'),
-          const Spacer(),
+          Text('Slider Label'),
           TText(
             '* Required',
             style: TextStyle(
               fontWeight: TFontWeight.normal,
-              color: context.tw.colors.label,
+              color: TColors.red,
               fontSize: TFontSize.text_xs,
             ),
           ),
@@ -339,7 +337,8 @@ class _TSliderControllerState extends State<_TSliderController> {
           showValueLabels: true,
           onChanged: (value) {},
         ),
-        TButton(
+        TSizedBox.y8,
+        TButton.outlined(
           controller: buttonController,
           onPressed: () => sliderController.value = 0.5,
           child: const Text('Reset'),

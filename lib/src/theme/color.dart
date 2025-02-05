@@ -14,9 +14,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     required this.title,
     required this.body,
     required this.label,
+    required this.hint,
     required this.link,
     required this.background,
     required this.shadow,
+    required this.hover,
     required this.card,
     required this.icon,
     required this.focus,
@@ -37,9 +39,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? title,
     Color? body,
     Color? label,
+    Color? hint,
     Color? link,
     Color? background,
     Color? shadow,
+    Color? hover,
     Color? card,
     Color? icon,
     Color? focus,
@@ -57,9 +61,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       title: title,
       body: body,
       label: label,
+      hint: hint,
       link: link,
       background: background,
       shadow: shadow,
+      hover: hover,
       card: card,
       icon: icon,
       focus: focus,
@@ -79,9 +85,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? title,
     Color? body,
     Color? label,
+    Color? hint,
     Color? link,
     Color? background,
     Color? shadow,
+    Color? hover,
     Color? card,
     Color? icon,
     Color? focus,
@@ -98,9 +106,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       title: title,
       body: body,
       label: label,
+      hint: hint,
       link: link,
       background: background,
       shadow: shadow,
+      hover: hover,
       card: card,
       icon: icon,
       focus: focus,
@@ -124,9 +134,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         title: TColors.gray.shade900,
         body: TColors.gray.shade800.withValues(alpha: 0.9),
         label: TColors.gray.shade800.withValues(alpha: 0.6),
+        hint: TColors.gray.shade400,
         link: TColors.sky,
         background: Colors.white,
         shadow: Colors.black26,
+        hover: const Color(0xfff4f4f5),
         card: Colors.white,
         icon: TColors.gray.shade400,
         focus: TColors.gray.shade700,
@@ -145,9 +157,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         title: TColors.gray.shade100,
         body: TColors.gray.shade200.withValues(alpha: 0.9),
         label: TColors.gray.shade200.withValues(alpha: 0.6),
+        hint: TColors.gray.shade500,
         link: TColors.sky.shade400,
         background: TColors.gray.shade950,
         shadow: Colors.white12,
+        hover: const Color(0xff27272a),
         card: TColors.gray.shade900,
         icon: TColors.gray.shade400,
         focus: TColors.gray.shade300,
@@ -179,6 +193,9 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   /// The text color used for labels and captions
   final Color label;
 
+  /// The text color used for hints and placeholders
+  final Color hint;
+
   /// The text color used for links
   final Color link;
 
@@ -191,6 +208,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   ///
   /// Used for shadows and applying elevation
   final Color shadow;
+
+  /// The hover color for selectable elements
+  ///
+  /// Used for selection dropdowns and hover states
+  final Color hover;
 
   /// Card color
   ///
@@ -224,7 +246,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
 
   /// Disabled color
   ///
-  /// The color of disabled elements
+  /// The color of disabled buttons
   final Color disabled;
 
   /// Color of text on disabled elements
@@ -257,9 +279,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? title,
     Color? body,
     Color? label,
+    Color? hint,
     Color? link,
     Color? background,
     Color? shadow,
+    Color? hover,
     Color? card,
     Color? icon,
     Color? focus,
@@ -277,9 +301,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       title: title ?? this.title,
       body: body ?? this.body,
       label: label ?? this.label,
+      hint: hint ?? this.hint,
       link: link ?? this.link,
       background: background ?? this.background,
       shadow: shadow ?? this.shadow,
+      hover: hover ?? this.hover,
       card: card ?? this.card,
       icon: icon ?? this.icon,
       focus: focus ?? this.focus,
@@ -347,9 +373,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       title: _lerpColor(title, other.title, t),
       body: _lerpColor(body, other.body, t),
       label: _lerpColor(label, other.label, t),
+      hint: _lerpColor(hint, other.hint, t),
       link: _lerpColor(link, other.link, t),
       background: _lerpColor(background, other.background, t),
       shadow: _lerpColor(shadow, other.shadow, t),
+      hover: _lerpColor(hover, other.hover, t),
       card: _lerpColor(card, other.card, t),
       icon: _lerpColor(icon, other.icon, t),
       focus: _lerpColor(focus, other.focus, t),
