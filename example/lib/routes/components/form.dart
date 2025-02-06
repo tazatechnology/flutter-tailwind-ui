@@ -211,6 +211,7 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
           contentTextStyle: TTextStyle.text_md.copyWith(
             color: context.tw.color.body,
           ),
+          cancel: const Text('Close'),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -252,13 +253,14 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
       child: TForm(
         controller: controller,
         child: Column(
-          spacing: TSpace.v32,
+          spacing: TSpace.v24,
           children: [
-            const Row(
+            Row(
               spacing: TSpace.v12,
               children: [
-                Expanded(
+                const Expanded(
                   child: TInput(
+                    id: 'id-input',
                     labelText: 'Input',
                     initialValue: 'Bob',
                     hintText: 'Enter your name',
@@ -266,14 +268,16 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
                 ),
                 Expanded(
                   child: TSelect(
+                    id: 'id-select',
                     labelText: 'Select',
                     initialValue: 1,
-                    items: [1, 2, 3],
+                    items: const [1, 2, 3],
                   ),
                 ),
               ],
             ),
-            const TSlider(
+            TSlider(
+              id: 'id-slider',
               labelText: 'Slider',
               initialValue: 0.75,
             ),
@@ -281,31 +285,43 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
               children: [
                 Expanded(
                   child: TRadioGroup(
+                    id: 'id-radio-group',
                     label: const Text('Radio Group'),
-                    groupValue: TSelectionGroupVariant.values.first,
+                    initialValue: 2,
                     children: [
-                      for (final variant in TSelectionGroupVariant.values)
+                      for (final value in [1, 2, 3])
                         TRadioGroupItem(
-                          title: Text(variant.title),
-                          value: variant,
+                          title: Text(value.toString()),
+                          value: value,
                         ),
                     ],
                   ),
                 ),
                 Expanded(
                   child: TCheckboxGroup(
+                    id: 'id-checkbox-group',
                     label: const Text('Checkbox Group'),
-                    groupValue: [TSelectionGroupVariant.values.first],
+                    initialValue: const [2],
                     children: [
-                      for (final variant in TSelectionGroupVariant.values)
+                      for (final value in [1, 2, 3])
                         TCheckboxGroupItem(
-                          title: Text(variant.title),
-                          value: variant,
+                          title: Text(value.toString()),
+                          value: value,
                         ),
                     ],
                   ),
                 ),
               ],
+            ),
+            TCheckboxTile.card(
+              id: 'id-checkbox-tile',
+              title: const Text('Checkbox Tile'),
+              affinity: TControlAffinity.trailing,
+            ),
+            TSwitchTile.card(
+              id: 'id-switch-tile',
+              title: const Text('Switch Tile'),
+              affinity: TControlAffinity.trailing,
             ),
           ],
         ),

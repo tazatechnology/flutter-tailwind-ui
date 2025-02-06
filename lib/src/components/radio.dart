@@ -10,24 +10,27 @@ import 'package:flutter_tailwind_ui/src/internal/selection_group.dart';
 class TRadio extends StatelessWidget {
   /// Construct a radio widget
   const TRadio({
-    required this.value,
-    this.onChanged,
+    super.key,
+    this.animationCurve = Curves.easeInOut,
+    this.animationDuration = Duration.zero,
+    this.animationTransitionBuilder,
     this.color,
     this.enabled = true,
-    this.padding = TOffset.a0,
     this.focusNode,
     this.indicator,
-    this.animationTransitionBuilder,
-    this.animationDuration = Duration.zero,
-    this.animationCurve = Curves.easeInOut,
-    super.key,
+    this.onChanged,
+    this.padding = TOffset.a0,
+    required this.value,
   });
 
-  /// The value of the radio
-  final bool value;
+  /// The transition builder for the indicator when toggling states
+  final AnimatedSwitcherTransitionBuilder? animationTransitionBuilder;
 
-  /// The callback when the value changes
-  final ValueChanged<bool>? onChanged;
+  /// The curve of the switch animations
+  final Curve animationCurve;
+
+  /// The duration of the switch animations
+  final Duration animationDuration;
 
   /// The color of the radio
   final Color? color;
@@ -35,25 +38,22 @@ class TRadio extends StatelessWidget {
   /// Flag to enable or disable the radio widget
   final bool enabled;
 
-  /// The padding of the radio
-  ///
-  /// Will be added to the gesture detector
-  final EdgeInsetsGeometry padding;
-
   /// The focus node of the radio
   final FocusNode? focusNode;
 
   /// An optional custom indicator widget
   final Widget? indicator;
 
-  /// The transition builder for the indicator when toggling states
-  final AnimatedSwitcherTransitionBuilder? animationTransitionBuilder;
+  /// The callback when the value changes
+  final ValueChanged<bool>? onChanged;
 
-  /// The duration of the switch animations
-  final Duration animationDuration;
+  /// The padding of the radio
+  ///
+  /// Will be added to the gesture detector
+  final EdgeInsetsGeometry padding;
 
-  /// The curve of the switch animations
-  final Curve animationCurve;
+  /// The value of the radio
+  final bool value;
 
   // ---------------------------------------------------------------------------
   // METHOD: build
@@ -173,93 +173,131 @@ class TRadioGroupItem<T> extends TSelectionGroupItem<T> {
 // CLASS: TRadioGroup
 // =============================================================================
 
-/// A Tailwind UI inspired radio group
-class TRadioGroup<T> extends StatefulWidget {
-  /// Creates a basic [TRadioGroup]
-  const TRadioGroup({
-    required this.children,
+/// A Tailwind inspired slider field.
+class TRadioGroup<T> extends TFormField<T> {
+  /// Construct a basic [TRadioGroup]
+  TRadioGroup({
     super.key,
-    this.label,
-    this.description,
-    this.groupValue,
-    this.onChanged,
-    this.color,
-    this.spacing,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
-  })  : variant = TSelectionGroupVariant.basic,
-        radius = 0;
-
-  /// Creates a [TRadioGroup] as a card variant
-  const TRadioGroup.separated({
-    required this.children,
-    super.key,
-    this.label,
-    this.description,
-    this.groupValue,
-    this.onChanged,
     this.color,
+    this.description,
+    Object? id,
+    this.initialValue,
+    this.label,
+    this.onChanged,
+    required this.children,
     this.spacing,
+  })  : radius = 0,
+        super(
+          id: id ?? 'TRadioGroup',
+          child: _TRadioGroupFormField<T>(
+            affinity: affinity,
+            color: color,
+            description: description,
+            initialValue: initialValue,
+            label: label,
+            axis: axis,
+            children: children,
+            spacing: spacing,
+            onChanged: onChanged,
+            radius: 0,
+            variant: TSelectionGroupVariant.basic,
+          ),
+        );
+
+  /// Construct a separated [TRadioGroup]
+  TRadioGroup.separated({
+    super.key,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
-  })  : variant = TSelectionGroupVariant.separated,
-        radius = 0;
-
-  /// Creates a [TRadioGroup] as a card variant
-  const TRadioGroup.card({
-    required this.children,
-    super.key,
-    this.label,
-    this.description,
-    this.groupValue,
-    this.onChanged,
     this.color,
+    this.description,
+    Object? id,
+    this.initialValue,
+    this.label,
+    this.onChanged,
+    required this.children,
+    this.spacing,
+  })  : radius = 0,
+        super(
+          id: id ?? 'TRadioGroup.separated',
+          child: _TRadioGroupFormField<T>(
+            affinity: affinity,
+            color: color,
+            description: description,
+            initialValue: initialValue,
+            label: label,
+            axis: axis,
+            children: children,
+            spacing: spacing,
+            onChanged: onChanged,
+            radius: 0,
+            variant: TSelectionGroupVariant.separated,
+          ),
+        );
+
+  /// Construct a card [TRadioGroup]
+  TRadioGroup.card({
+    super.key,
+    this.affinity = TControlAffinity.leading,
+    this.axis = Axis.vertical,
+    this.color,
+    this.description,
+    Object? id,
+    this.initialValue,
+    this.label,
+    this.onChanged,
+    required this.children,
+    this.spacing,
     this.radius = TRadius.rounded_lg,
-    this.spacing,
-    this.affinity = TControlAffinity.leading,
-    this.axis = Axis.vertical,
-  }) : variant = TSelectionGroupVariant.card;
+  }) : super(
+          id: id ?? 'TRadioGroup.card',
+          child: _TRadioGroupFormField<T>(
+            affinity: affinity,
+            color: color,
+            description: description,
+            initialValue: initialValue,
+            label: label,
+            axis: axis,
+            children: children,
+            spacing: spacing,
+            onChanged: onChanged,
+            radius: radius,
+            variant: TSelectionGroupVariant.card,
+          ),
+        );
 
-  /// Creates a [TRadioGroup] as a panel variant
-  const TRadioGroup.panel({
-    required this.children,
+  /// Construct a panel [TRadioGroup]
+  TRadioGroup.panel({
     super.key,
-    this.label,
-    this.description,
-    this.groupValue,
-    this.onChanged,
-    this.color,
-    this.radius = TRadius.rounded_lg,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
-  })  : variant = TSelectionGroupVariant.panel,
-        spacing = 0;
-
-  /// The children of the radio group.
-  final List<TRadioGroupItem<T>> children;
-
-  /// The label widget
-  final Widget? label;
-
-  /// The description widget
-  final Widget? description;
-
-  /// The value of the radio group.
-  final T? groupValue;
-
-  /// The callback when the value changes.
-  final ValueChanged<T?>? onChanged;
-
-  /// The variant of the radio group.
-  final TSelectionGroupVariant variant;
-
-  /// The color of the radio elements.
-  final Color? color;
-
-  /// The spacing between the group elements.
-  ///
-  /// If not specified, default is based on [TSelectionGroupVariant].
-  final double? spacing;
+    this.color,
+    this.description,
+    Object? id,
+    this.initialValue,
+    this.label,
+    this.onChanged,
+    required this.children,
+    this.radius = TRadius.rounded_lg,
+  })  : spacing = 0,
+        super(
+          id: id ?? 'TRadioGroup.panel',
+          child: _TRadioGroupFormField<T>(
+            affinity: affinity,
+            color: color,
+            description: description,
+            initialValue: initialValue,
+            label: label,
+            axis: axis,
+            children: children,
+            spacing: 0,
+            onChanged: onChanged,
+            radius: radius,
+            variant: TSelectionGroupVariant.panel,
+          ),
+        );
 
   /// The control affinity of the group.
   final TControlAffinity affinity;
@@ -267,17 +305,72 @@ class TRadioGroup<T> extends StatefulWidget {
   /// The orientation of the group.
   final Axis axis;
 
+  /// The children of the radio group.
+  final List<TRadioGroupItem<T>> children;
+
+  /// The color of the radio elements.
+  final Color? color;
+
+  /// The description widget
+  final Widget? description;
+
+  /// The initial value of the radio group.
+  final T? initialValue;
+
+  /// The label widget
+  final Widget? label;
+
+  /// The callback when the value changes.
+  final ValueChanged<T?>? onChanged;
+
   /// The radius value for rounded corners
   ///
   /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
   final double radius;
 
-  @override
-  State<TRadioGroup<T>> createState() => _TRadioGroupState<T>();
+  /// The spacing between the group elements.
+  ///
+  /// If not specified, default is based on [TSelectionGroupVariant].
+  final double? spacing;
 }
 
-class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
-  late T? groupValue;
+// =============================================================================
+// CLASS: _TRadioGroupFormField
+// =============================================================================
+
+class _TRadioGroupFormField<T> extends FormField<T> {
+  _TRadioGroupFormField({
+    required this.affinity,
+    required this.axis,
+    required this.children,
+    required this.color,
+    required this.description,
+    required super.initialValue,
+    required this.label,
+    required this.onChanged,
+    required this.radius,
+    required this.spacing,
+    required this.variant,
+  }) : super(
+          builder: (field) => const SizedBox.shrink(),
+        );
+  final TControlAffinity affinity;
+  final Axis axis;
+  final Color? color;
+  final List<TRadioGroupItem<T>> children;
+  final Widget? description;
+  final Widget? label;
+  final ValueChanged<T?>? onChanged;
+  final double radius;
+  final double? spacing;
+  final TSelectionGroupVariant variant;
+
+  @override
+  FormFieldState<T> createState() => _TSwitchTileFormFieldState();
+}
+
+class _TSwitchTileFormFieldState<T> extends FormFieldState<T> {
+  _TRadioGroupFormField<T> get field => widget as _TRadioGroupFormField<T>;
   late final List<FocusNode> focusNodes;
 
   // ---------------------------------------------------------------------------
@@ -287,30 +380,15 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
   @override
   void initState() {
     super.initState();
-    groupValue = widget.groupValue;
     focusNodes = List.generate(
-      widget.children.length,
+      field.children.length,
       (ii) => FocusNode(
-        debugLabel: widget.children[ii].value.toString(),
+        debugLabel: field.children[ii].value.toString(),
         descendantsAreFocusable: false,
         descendantsAreTraversable: false,
       ),
     );
     updateFocusNodes();
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: didUpdateWidget
-  // ---------------------------------------------------------------------------
-
-  @override
-  void didUpdateWidget(covariant TRadioGroup<T> oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (groupValue != widget.groupValue) {
-      setState(() {
-        groupValue = widget.groupValue;
-      });
-    }
   }
 
   // ---------------------------------------------------------------------------
@@ -330,14 +408,14 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
   // ---------------------------------------------------------------------------
 
   void updateFocusNodes() {
-    for (var ii = 0; ii < widget.children.length; ii++) {
+    for (var ii = 0; ii < field.children.length; ii++) {
       final f = focusNodes[ii];
       // Focus is only enabled for the first item (if none are selected)
       bool canRequestFocus = true;
-      if (groupValue == null) {
+      if (value == null) {
         canRequestFocus = ii == 0;
       } else {
-        canRequestFocus = widget.children[ii].value == groupValue;
+        canRequestFocus = field.children[ii].value == value;
       }
       f.skipTraversal = !canRequestFocus;
       f.canRequestFocus = canRequestFocus;
@@ -350,30 +428,30 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
 
         // Handle up/down arrow keys to traverse the radio group
         if ((nextRequested || previousRequested) && !event.isKeyUp) {
-          final index = widget.children.indexOf(widget.children[ii]);
+          final index = field.children.indexOf(field.children[ii]);
 
           // Update index and handle out-of-bounds
           int nextIndex = nextRequested ? index + 1 : index - 1;
           if (nextIndex < 0) {
-            nextIndex = widget.children.length - 1;
-          } else if (nextIndex >= widget.children.length) {
+            nextIndex = field.children.length - 1;
+          } else if (nextIndex >= field.children.length) {
             nextIndex = 0;
           }
 
           // Make sure that the next item is enabled, else go to the next one
-          while (!widget.children[nextIndex].enabled) {
+          while (!field.children[nextIndex].enabled) {
             nextIndex += nextRequested ? 1 : -1;
             if (nextIndex < 0) {
-              nextIndex = widget.children.length - 1;
-            } else if (nextIndex >= widget.children.length) {
+              nextIndex = field.children.length - 1;
+            } else if (nextIndex >= field.children.length) {
               nextIndex = 0;
             }
           }
 
           // Handle focus and group value
-          final nextItem = widget.children[nextIndex];
+          final nextItem = field.children[nextIndex];
           setState(() {
-            groupValue = nextItem.value;
+            didChange(nextItem.value);
             updateFocusNodes();
             focusNodes[nextIndex].requestFocus();
           });
@@ -401,10 +479,10 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
       return;
     }
     setState(() {
-      groupValue = item.value;
+      didChange(item.value);
       updateFocusNodes();
     });
-    widget.onChanged?.call(item.value);
+    field.onChanged?.call(item.value);
   }
 
   // ---------------------------------------------------------------------------
@@ -414,32 +492,32 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
   @override
   Widget build(BuildContext context) {
     return TSelectionGroupList(
-      axis: widget.axis,
-      variant: widget.variant,
-      spacing: widget.spacing ?? widget.variant.spacing,
-      items: widget.children,
-      radius: widget.radius,
-      label: widget.label,
-      description: widget.description,
+      axis: field.axis,
+      variant: field.variant,
+      spacing: field.spacing ?? field.variant.spacing,
+      items: field.children,
+      radius: field.radius,
+      label: field.label,
+      description: field.description,
       itemBuilder: (context, index) {
-        final item = widget.children[index];
-        final selected = groupValue == item.value;
+        final item = field.children[index];
+        final selected = value == item.value;
         return TSelectionGroupTile(
           key: ValueKey(item.value),
           index: index,
-          numItems: widget.children.length,
-          variant: widget.variant,
-          color: widget.color,
+          numItems: field.children.length,
+          variant: field.variant,
+          color: field.color,
           title: item.title,
           description: item.description,
-          radius: widget.radius,
+          radius: field.radius,
           selected: selected,
           enabled: item.enabled,
-          affinity: widget.affinity,
-          axis: widget.axis,
+          affinity: field.affinity,
+          axis: field.axis,
           onChanged: (status) => onChanged(item: item, status: status),
           control: TRadio(
-            color: widget.color,
+            color: field.color,
             value: selected,
             enabled: item.enabled,
             focusNode: focusNodes[index],

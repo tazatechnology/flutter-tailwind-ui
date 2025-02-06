@@ -12,68 +12,68 @@ import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 class TInput extends StatefulWidget {
   /// Construct a simple input field.
   const TInput({
-    super.key,
-    this.id,
-    this.restorationId,
-    this.groupId = EditableText,
-    this.initialValue,
-    this.controller,
-    this.statesController,
-    this.style,
-    this.textDirection,
-    this.textAlign = TextAlign.start,
-    this.textAlignVertical,
-    this.contentPadding,
-    this.fillColor,
+    this.autocorrect = true,
+    this.autofillHints,
+    this.autofocus = false,
+    this.autovalidateMode,
     this.borderColor,
     this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
-    this.hintText,
-    this.label,
-    this.labelText,
-    this.help,
-    this.helpText,
+    this.contentInsertionConfiguration,
+    this.contentPadding,
+    this.contextMenuBuilder,
+    this.controller,
+    this.enableInteractiveSelection = true,
+    this.enableSuggestions = true,
+    this.enabled = true,
     this.error,
     this.errorText,
-    this.prefix,
-    this.suffix,
-    this.size = TInputSize.lg,
-    this.enabled = true,
-    this.readOnly = false,
-    this.autofocus = false,
-    this.autocorrect = true,
-    this.enableSuggestions = true,
+    this.fillColor,
+    this.focusNode,
+    this.groupId = EditableText,
+    this.help,
+    this.helpText,
+    this.hintText,
+    this.id,
     this.ignorePointers = false,
-    this.enableInteractiveSelection = true,
-    this.scribbleEnabled = true,
-    this.onTapAlwaysCalled = false,
+    this.initialValue,
+    this.inputFormatters,
+    this.keyboardType,
+    super.key,
+    this.label,
+    this.labelText,
+    this.magnifierConfiguration,
+    this.maxLengthEnforcement,
+    this.mouseCursor,
     this.obscure = false,
     this.obscureCharacter = '•',
-    this.showCursor,
-    this.mouseCursor,
-    this.focusNode,
-    this.keyboardType,
-    this.textCapitalization = TextCapitalization.none,
-    this.textInputAction,
-    this.smartDashesType,
-    this.smartQuotesType,
-    this.maxLengthEnforcement,
-    this.selectionControls,
-    this.autofillHints,
-    this.autovalidateMode,
-    this.validator,
-    this.inputFormatters,
-    this.onTap,
+    this.onAppPrivateCommand,
     this.onChanged,
-    this.onTapOutside,
     this.onEditingComplete,
     this.onFieldSubmitted,
     this.onSaved,
-    this.onAppPrivateCommand,
-    this.contentInsertionConfiguration,
-    this.contextMenuBuilder,
+    this.onTap,
+    this.onTapAlwaysCalled = false,
+    this.onTapOutside,
+    this.prefix,
+    this.readOnly = false,
+    this.restorationId,
+    this.scribbleEnabled = true,
+    this.selectionControls,
+    this.showCursor,
+    this.size = TInputSize.lg,
+    this.smartDashesType,
+    this.smartQuotesType,
     this.spellCheckConfiguration,
-    this.magnifierConfiguration,
+    this.statesController,
+    this.style,
+    this.suffix,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
+    this.textCapitalization = TextCapitalization.none,
+    this.textDirection,
+    this.textInputAction,
     this.undoController,
+    this.validator,
   })  : _isTextArea = false,
         expands = false,
         minLines = 1,
@@ -85,68 +85,68 @@ class TInput extends StatefulWidget {
 
   /// Construct a text area input field.
   const TInput.area({
-    super.key,
-    this.id,
-    this.restorationId,
-    this.groupId = EditableText,
-    this.initialValue,
-    this.controller,
-    this.statesController,
-    this.style,
-    this.textDirection,
-    this.textAlign = TextAlign.start,
-    this.textAlignVertical,
-    this.contentPadding,
-    this.fillColor,
+    this.autocorrect = true,
+    this.autofillHints,
+    this.autofocus = false,
+    this.autovalidateMode,
     this.borderColor,
     this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
-    this.hintText,
-    this.label,
-    this.labelText,
-    this.help,
-    this.helpText,
+    this.contentInsertionConfiguration,
+    this.contentPadding,
+    this.contextMenuBuilder,
+    this.controller,
+    this.enableInteractiveSelection = true,
+    this.enableSuggestions = true,
+    this.enabled = true,
     this.error,
     this.errorText,
-    this.enabled = true,
-    this.readOnly = false,
-    this.autofocus = false,
-    this.autocorrect = true,
-    this.enableSuggestions = true,
-    this.ignorePointers = false,
-    this.enableInteractiveSelection = true,
-    this.scribbleEnabled = true,
-    this.onTapAlwaysCalled = false,
-    this.showCursor,
-    this.mouseCursor,
+    this.fillColor,
     this.focusNode,
-    this.keyboardType,
-    this.textCapitalization = TextCapitalization.none,
-    this.textInputAction,
-    this.smartDashesType,
-    this.smartQuotesType,
-    this.maxLengthEnforcement,
-    this.selectionControls,
-    this.autofillHints,
-    this.autovalidateMode,
-    this.validator,
+    this.groupId = EditableText,
+    this.help,
+    this.helpText,
+    this.hintText,
+    this.id,
+    this.ignorePointers = false,
+    this.initialValue,
     this.inputFormatters,
-    this.onTap,
+    this.keyboardType,
+    super.key,
+    this.label,
+    this.labelText,
+    this.magnifierConfiguration,
+    this.maxLengthEnforcement,
+    this.mouseCursor,
+    this.onAppPrivateCommand,
     this.onChanged,
-    this.onTapOutside,
     this.onEditingComplete,
     this.onFieldSubmitted,
     this.onSaved,
-    this.onAppPrivateCommand,
-    this.contentInsertionConfiguration,
-    this.contextMenuBuilder,
+    this.onTap,
+    this.onTapAlwaysCalled = false,
+    this.onTapOutside,
+    this.readOnly = false,
+    this.restorationId,
+    this.scribbleEnabled = true,
+    this.selectionControls,
+    this.showCursor,
+    this.smartDashesType,
+    this.smartQuotesType,
     this.spellCheckConfiguration,
-    this.magnifierConfiguration,
+    this.statesController,
+    this.style,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
+    this.textCapitalization = TextCapitalization.none,
+    this.textDirection,
+    this.textInputAction,
     this.undoController,
-    this.expands = false,
+    this.validator,
     this.minLines = 5,
     this.maxLines = 10,
   })  : _isTextArea = true,
         obscure = false,
+        expands = false,
         obscureCharacter = '•',
         prefix = null,
         suffix = null,
@@ -159,148 +159,11 @@ class TInput extends StatefulWidget {
   /// Internal flag to determine if the input field is a text area.
   final bool _isTextArea;
 
-  /// The unique identifier for the input field.
-  ///
-  /// This is used by [TFormController] to retrieve the value of the field.
-  final Object? id;
-
-  /// The restoration ID for the input field.
-  final String? restorationId;
-
-  /// The group ID for the input field.
-  final Object groupId;
-
-  /// The initial value of the input field.
-  final String? initialValue;
-
-  /// The controller for the input field.
-  final TextEditingController? controller;
-
-  /// The states controller for the input field.
-  final TWidgetStatesController? statesController;
-
-  /// The style to apply to the input field.
-  final TextStyle? style;
-
-  /// The text direction for the input field.
-  final TextDirection? textDirection;
-
-  /// The text alignment for the input field.
-  final TextAlign textAlign;
-
-  /// The vertical text alignment for the input field.
-  final TextAlignVertical? textAlignVertical;
-
-  /// The padding for the input field.
-  final EdgeInsetsGeometry? contentPadding;
-
-  /// The fill color for the input field.
-  final WidgetStateProperty<Color>? fillColor;
-
-  /// The stateful border color for the input field.
-  final WidgetStateProperty<Color>? borderColor;
-
-  /// The stateful border color for the input field.
-  final WidgetStateProperty<BorderRadius>? borderRadius;
-
-  /// The hint text to display inside the input field.
-  final String? hintText;
-
-  /// The label text to display above the input field.
-  ///
-  /// For full customization, use [label] to pass in a widget.
-  final String? labelText;
-
-  /// The label text to display above the input field.
-  final Widget? label;
-
-  /// The help text to display below the input field.
-  ///
-  /// For full customization, use [help] to pass in a widget.
-  final String? helpText;
-
-  /// The help widget to display below the input field.
-  final Widget? help;
-
-  /// The error text to display below the input field.
-  ///
-  /// For full customization, use [error] to pass in a widget.
-  final String? errorText;
-
-  /// The error widget to display below the input field.
-  final Widget? error;
-
-  /// The widget to display at the beginning of the input field.
-  final Widget? prefix;
-
-  /// The widget to display at the end of the input field.
-  final Widget? suffix;
-
-  /// The size of the select widget
-  final TInputSize size;
-
-  /// Whether the input field is enabled;
-  final bool enabled;
-
-  /// Whether the input field is read-only.
-  final bool readOnly;
-
-  /// Whether the input field should automatically focus.
-  final bool autofocus;
-
   /// Whether the input field should automatically correct typos.
   final bool autocorrect;
 
-  /// Whether the input field should suggest corrections.
-  final bool enableSuggestions;
-
-  /// Whether the input field should enable scribble.
-  final bool scribbleEnabled;
-
-  /// Whether the input field should ignore pointers.
-  final bool ignorePointers;
-
-  /// Whether the input field should enable interactive selection.
-  final bool enableInteractiveSelection;
-
-  /// Whether the input field should always call onTap.
-  final bool onTapAlwaysCalled;
-
-  /// Whether the input field is obscured.
-  final bool obscure;
-
-  /// The character to use when obscuring the input field.
-  final String obscureCharacter;
-
-  /// Whether the input field should show the cursor.
-  final bool? showCursor;
-
-  /// The mouse cursor to use for the input field.
-  final MouseCursor? mouseCursor;
-
-  /// The focus node for the input field.
-  final FocusNode? focusNode;
-
-  /// The type of keyboard to display for the input field.
-  final TextInputType? keyboardType;
-
-  /// The text capitalization for the input field.
-  final TextCapitalization textCapitalization;
-
-  /// The action to take when the user submits the input field.
-  final TextInputAction? textInputAction;
-
-  /// The type of smart dashes to use for the input field.
-  final SmartDashesType? smartDashesType;
-
-  /// The type of smart quotes to use for the input field.
-  final SmartQuotesType? smartQuotesType;
-
-  /// The action to take when the user submits the input field.
-  final MaxLengthEnforcement? maxLengthEnforcement;
-
-  /// The selection controls for the input field.
-  final TextSelectionControls? selectionControls;
+  /// Whether the input field should automatically focus.
+  final bool autofocus;
 
   /// The autofill hints for the input field.
   final Iterable<String>? autofillHints;
@@ -308,20 +171,115 @@ class TInput extends StatefulWidget {
   /// The autovalidate mode for the input field.
   final AutovalidateMode? autovalidateMode;
 
-  /// The callback to call when the input field is validated.
-  final FormFieldValidator<String>? validator;
+  /// The stateful border color for the input field.
+  final WidgetStateProperty<Color>? borderColor;
+
+  /// The stateful border color for the input field.
+  final WidgetStateProperty<BorderRadius>? borderRadius;
+
+  /// The configuration for content insertion.
+  final ContentInsertionConfiguration? contentInsertionConfiguration;
+
+  /// The padding for the input field.
+  final EdgeInsetsGeometry? contentPadding;
+
+  /// The context menu builder for the input field.
+  final Widget Function(BuildContext, EditableTextState)? contextMenuBuilder;
+
+  /// The controller for the input field.
+  final TextEditingController? controller;
+
+  /// Whether the input field is enabled;
+  final bool enabled;
+
+  /// Whether the input field should enable interactive selection.
+  final bool enableInteractiveSelection;
+
+  /// Whether the input field should suggest corrections.
+  final bool enableSuggestions;
+
+  /// The error widget to display below the input field.
+  final Widget? error;
+
+  /// The error text to display below the input field.
+  ///
+  /// For full customization, use [error] to pass in a widget.
+  final String? errorText;
+
+  /// Whether the input field expands to fill the available space.
+  final bool expands;
+
+  /// The fill color for the input field.
+  final WidgetStateProperty<Color>? fillColor;
+
+  /// The focus node for the input field.
+  final FocusNode? focusNode;
+
+  /// The group ID for the input field.
+  final Object groupId;
+
+  /// The help widget to display below the input field.
+  final Widget? help;
+
+  /// The help text to display below the input field.
+  ///
+  /// For full customization, use [help] to pass in a widget.
+  final String? helpText;
+
+  /// The hint text to display inside the input field.
+  final String? hintText;
+
+  /// The unique identifier for the input field.
+  ///
+  /// This is used by [TFormController] to retrieve the value of the field.
+  final Object? id;
+
+  /// Whether the input field should ignore pointers.
+  final bool ignorePointers;
+
+  /// The initial value of the input field.
+  final String? initialValue;
 
   /// The input formatters for the input field.
   final List<TextInputFormatter>? inputFormatters;
 
-  /// The callback to call when the user taps the input field.
-  final VoidCallback? onTap;
+  /// The type of keyboard to display for the input field.
+  final TextInputType? keyboardType;
+
+  /// The label text to display above the input field.
+  final Widget? label;
+
+  /// The label text to display above the input field.
+  ///
+  /// For full customization, use [label] to pass in a widget.
+  final String? labelText;
+
+  /// The text magnifier configuration for the input field.
+  final TextMagnifierConfiguration? magnifierConfiguration;
+
+  /// The action to take when the user submits the input field.
+  final MaxLengthEnforcement? maxLengthEnforcement;
+
+  /// The maximum number of lines to display in the text area.
+  final int? maxLines;
+
+  /// The minimum number of lines to display in the text area.
+  final int? minLines;
+
+  /// The mouse cursor to use for the input field.
+  final MouseCursor? mouseCursor;
+
+  /// Whether the input field is obscured.
+  final bool obscure;
+
+  /// The character to use when obscuring the input field.
+  final String obscureCharacter;
+
+  /// The callback when the input method sends a private command to the app
+  final AppPrivateCommandCallback? onAppPrivateCommand;
 
   /// The callback to call when the user changes the input field.
   final ValueChanged<String>? onChanged;
-
-  /// The callback to call when the user taps outside the input field.
-  final TapRegionCallback? onTapOutside;
 
   /// The callback to call when the user completes editing the input field.
   final VoidCallback? onEditingComplete;
@@ -332,32 +290,74 @@ class TInput extends StatefulWidget {
   /// The callback to call when the user saves the input field.
   final ValueChanged<String?>? onSaved;
 
-  /// The callback when the input method sends a private command to the app
-  final AppPrivateCommandCallback? onAppPrivateCommand;
+  /// The callback to call when the user taps the input field.
+  final VoidCallback? onTap;
 
-  /// The configuration for content insertion.
-  final ContentInsertionConfiguration? contentInsertionConfiguration;
+  /// Whether the input field should always call onTap.
+  final bool onTapAlwaysCalled;
 
-  /// The context menu builder for the input field.
-  final Widget Function(BuildContext, EditableTextState)? contextMenuBuilder;
+  /// The callback to call when the user taps outside the input field.
+  final TapRegionCallback? onTapOutside;
+
+  /// The widget to display at the beginning of the input field.
+  final Widget? prefix;
+
+  /// Whether the input field is read-only.
+  final bool readOnly;
+
+  /// The restoration ID for the input field.
+  final String? restorationId;
+
+  /// Whether the input field should enable scribble.
+  final bool scribbleEnabled;
+
+  /// The selection controls for the input field.
+  final TextSelectionControls? selectionControls;
+
+  /// Whether the input field should show the cursor.
+  final bool? showCursor;
+
+  /// The size of the select widget
+  final TInputSize size;
+
+  /// The type of smart dashes to use for the input field.
+  final SmartDashesType? smartDashesType;
+
+  /// The type of smart quotes to use for the input field.
+  final SmartQuotesType? smartQuotesType;
 
   /// The spell check configuration for the input field.
   final SpellCheckConfiguration? spellCheckConfiguration;
 
-  /// The text magnifier configuration for the input field.
-  final TextMagnifierConfiguration? magnifierConfiguration;
+  /// The states controller for the input field.
+  final TWidgetStatesController? statesController;
+
+  /// The style to apply to the input field.
+  final TextStyle? style;
+
+  /// The widget to display at the end of the input field.
+  final Widget? suffix;
+
+  /// The text alignment for the input field.
+  final TextAlign textAlign;
+
+  /// The vertical text alignment for the input field.
+  final TextAlignVertical? textAlignVertical;
+
+  /// The text capitalization for the input field.
+  final TextCapitalization textCapitalization;
+
+  /// The text direction for the input field.
+  final TextDirection? textDirection;
+
+  /// The action to take when the user submits the input field.
+  final TextInputAction? textInputAction;
 
   /// The undo history controller for the input field.
   final UndoHistoryController? undoController;
 
-  /// Whether the input field expands to fill the available space.
-  final bool expands;
-
-  /// The minimum number of lines to display in the text area.
-  final int? minLines;
-
-  /// The maximum number of lines to display in the text area.
-  final int? maxLines;
+  /// The callback to call when the input field is validated.
+  final FormFieldValidator<String>? validator;
 
   @override
   State<TInput> createState() => _TInputState();
@@ -512,63 +512,60 @@ class _TInputState extends State<TInput> {
         TFormField(
           id: widget.id ?? 'TFormField',
           child: TextFormField(
-            groupId: widget.groupId,
-            restorationId: widget.restorationId,
-            controller: controller,
-            statesController: statesController,
-            focusNode: widget.focusNode,
-            keyboardType: widget.keyboardType,
-            textCapitalization: widget.textCapitalization,
-            textInputAction: widget.textInputAction,
-            smartDashesType: widget.smartDashesType,
-            smartQuotesType: widget.smartQuotesType,
-            maxLengthEnforcement: widget.maxLengthEnforcement,
-            selectionControls: widget.selectionControls,
-            enabled: widget.enabled,
-            readOnly: widget.readOnly,
             autofocus: widget.autofocus,
             autocorrect: widget.autocorrect,
             autofillHints: widget.autofillHints,
             autovalidateMode: widget.autovalidateMode,
-            showCursor: widget.showCursor ?? isInteractive,
-            obscureText: widget.obscure,
-            obscuringCharacter: widget.obscureCharacter,
-            enableSuggestions: widget.enableSuggestions,
-            scribbleEnabled: widget.scribbleEnabled,
-            ignorePointers: widget.ignorePointers,
-            enableInteractiveSelection: widget.enableInteractiveSelection,
-            onTapAlwaysCalled: widget.onTapAlwaysCalled,
             canRequestFocus: widget.enabled,
-            mouseCursor: mouseCursor,
-            cursorWidth: 1,
-            cursorHeight: style.fontSize,
+            contentInsertionConfiguration: widget.contentInsertionConfiguration,
+            contextMenuBuilder: widget.contextMenuBuilder,
+            controller: controller,
             cursorColor: textSelectionTheme.cursorColor,
             cursorErrorColor: textSelectionTheme.cursorColor,
+            cursorHeight: style.fontSize,
             cursorOpacityAnimates: false,
-            style: style,
-            textAlign: widget.textAlign,
-            textDirection: widget.textDirection,
-            textAlignVertical: widget.textAlignVertical,
-            // Callbacks
-            validator: widget.validator,
+            cursorWidth: 1,
+            enableInteractiveSelection: widget.enableInteractiveSelection,
+            enableSuggestions: widget.enableSuggestions,
+            enabled: widget.enabled,
+            expands: widget.expands,
+            focusNode: widget.focusNode,
+            groupId: widget.groupId,
+            ignorePointers: widget.ignorePointers,
             inputFormatters: widget.inputFormatters,
-            onTap: widget.onTap,
+            keyboardType: widget.keyboardType,
+            magnifierConfiguration: widget.magnifierConfiguration,
+            maxLengthEnforcement: widget.maxLengthEnforcement,
+            maxLines: widget.maxLines,
+            minLines: widget.minLines,
+            mouseCursor: mouseCursor,
+            obscuringCharacter: widget.obscureCharacter,
+            obscureText: widget.obscure,
+            onAppPrivateCommand: widget.onAppPrivateCommand,
             onChanged: widget.onChanged,
-            onTapOutside: widget.onTapOutside,
             onEditingComplete: widget.onEditingComplete,
             onFieldSubmitted: widget.onFieldSubmitted,
             onSaved: widget.onSaved,
-            onAppPrivateCommand: widget.onAppPrivateCommand,
-            contentInsertionConfiguration: widget.contentInsertionConfiguration,
-            contextMenuBuilder: widget.contextMenuBuilder,
+            onTap: widget.onTap,
+            onTapAlwaysCalled: widget.onTapAlwaysCalled,
+            onTapOutside: widget.onTapOutside,
+            readOnly: widget.readOnly,
+            restorationId: widget.restorationId,
+            scribbleEnabled: widget.scribbleEnabled,
+            selectionControls: widget.selectionControls,
+            showCursor: widget.showCursor ?? isInteractive,
+            smartDashesType: widget.smartDashesType,
+            smartQuotesType: widget.smartQuotesType,
             spellCheckConfiguration: widget.spellCheckConfiguration,
-            magnifierConfiguration: widget.magnifierConfiguration,
+            statesController: statesController,
+            style: style,
+            textAlign: widget.textAlign,
+            textAlignVertical: widget.textAlignVertical,
+            textCapitalization: widget.textCapitalization,
+            textDirection: widget.textDirection,
+            textInputAction: widget.textInputAction,
             undoController: widget.undoController,
-            // Text area properties
-            expands: widget.expands,
-            minLines: widget.minLines,
-            maxLines: widget.maxLines,
-            // Decoration properties
+            validator: widget.validator,
             decoration: InputDecoration(
               contentPadding: contentPadding,
               // Used to pad the input text without using content padding

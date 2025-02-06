@@ -9,92 +9,69 @@ import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 // =============================================================================
 
 /// A Tailwind inspired select widget
-class TSelect<T> extends StatefulWidget {
+class TSelect<T> extends TFormField<T> {
   /// Construct a [TSelect] widget.
-  const TSelect({
+  TSelect({
     required this.items,
-    this.selectedItemBuilder,
-    this.itemBuilder,
-    this.initialValue,
-    this.onChanged,
-    this.size = TInputSize.lg,
-    this.enabled = true,
     this.allowDeselect = false,
-    this.placeholder = const Text('Select'),
-    this.trailing = const Icon(Icons.keyboard_arrow_down),
-    this.selectedIcon = const Icon(Icons.check),
-    this.selectedIconAffinity = TControlAffinity.trailing,
-    this.itemExtent,
-    this.maxVisible = 5,
-    this.itemPadding = TOffset.x12,
-    this.labelText,
-    this.label,
-    this.fillColor,
+    this.autovalidateMode,
     this.borderColor,
     this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
     this.constraints,
+    this.enabled = true,
+    this.fillColor,
+    super.id = 'TSelect',
+    this.initialValue,
+    this.itemBuilder,
+    this.itemExtent,
+    this.itemPadding = TOffset.x12,
     super.key,
-  });
-
-  /// The list of options to display in the select widget
-  final List<T> items;
-
-  /// A builder that is called for the currently selected item
-  final Widget Function(T)? selectedItemBuilder;
-
-  /// A builder that is called for each item in the list of options
-  final Widget Function(T)? itemBuilder;
-
-  /// The initial value of the select widget
-  final T? initialValue;
-
-  /// A callback that is called when the value of the select widget changes
-  final ValueChanged<T?>? onChanged;
-
-  /// The size of the select widget
-  final TInputSize size;
-
-  /// Whether the select widget is enabled
-  final bool enabled;
+    this.label,
+    this.labelText,
+    this.maxVisible = 5,
+    this.onChanged,
+    this.placeholder = const Text('Select'),
+    this.restorationId,
+    this.selectedIcon = const Icon(Icons.check),
+    this.selectedIconAffinity = TControlAffinity.trailing,
+    this.selectedItemBuilder,
+    this.size = TInputSize.lg,
+    this.trailing = const Icon(Icons.keyboard_arrow_down),
+    this.validator,
+  }) : super(
+          child: _TSelectFormField(
+            allowDeselect: allowDeselect,
+            autovalidateMode: autovalidateMode,
+            borderColor: borderColor,
+            borderRadius: borderRadius,
+            constraints: constraints,
+            enabled: enabled,
+            fillColor: fillColor,
+            initialValue: initialValue,
+            itemBuilder: itemBuilder,
+            itemExtent: itemExtent,
+            itemPadding: itemPadding,
+            items: items,
+            label: label,
+            labelText: labelText,
+            maxVisible: maxVisible,
+            onChanged: onChanged,
+            placeholder: placeholder,
+            restorationId: restorationId,
+            selectedIcon: selectedIcon,
+            selectedIconAffinity: selectedIconAffinity,
+            selectedItemBuilder: selectedItemBuilder,
+            size: size,
+            trailing: trailing,
+            validator: validator,
+          ),
+        );
 
   /// Whether clicking on the selected item will deselect it
   final bool allowDeselect;
 
-  /// The placeholder widget to display when no option is selected
-  final Widget? placeholder;
-
-  /// The trailing widget to display in the anchor widget
-  ///
-  /// Defaults to a chevron down
-  final Widget trailing;
-
-  /// The icon to display when an item is selected
-  ///
-  /// Defaults to a checkmark
-  final Widget? selectedIcon;
-
-  /// The position of the selected icon
-  final TControlAffinity selectedIconAffinity;
-
-  /// The height of each item in the list of options
-  final double? itemExtent;
-
-  /// The maximum number of items to display in list before scrolling
-  final int maxVisible;
-
-  /// The padding around each item in the list of options
-  final EdgeInsetsGeometry itemPadding;
-
-  /// The label text to display above the input field.
-  ///
-  /// For full customization, use [label] to pass in a widget.
-  final String? labelText;
-
-  /// The label text to display above the input field.
-  final Widget? label;
-
-  /// The fill color for the input field.
-  final WidgetStateProperty<Color>? fillColor;
+  /// The autovalidate mode to use for the select widget
+  final AutovalidateMode? autovalidateMode;
 
   /// The stateful border color for the input field.
   final WidgetStateProperty<Color>? borderColor;
@@ -105,11 +82,132 @@ class TSelect<T> extends StatefulWidget {
   /// The constraints for the anchor widget
   final BoxConstraints? constraints;
 
-  @override
-  State<TSelect<T>> createState() => _TSelectState();
+  /// Whether the select widget is enabled
+  final bool enabled;
+
+  /// The fill color for the input field.
+  final WidgetStateProperty<Color>? fillColor;
+
+  /// The initial value of the select widget
+  final T? initialValue;
+
+  /// A builder that is called for each item in the list of options
+  final Widget Function(T)? itemBuilder;
+
+  /// The height of each item in the list of options
+  final double? itemExtent;
+
+  /// The padding around each item in the list of options
+  final EdgeInsetsGeometry itemPadding;
+
+  /// The list of options to display in the select widget
+  final List<T> items;
+
+  /// The label text to display above the input field.
+  ///
+  /// For full customization, use [label] to pass in a widget.
+  final Widget? label;
+
+  /// The label text to display above the input field.
+  final String? labelText;
+
+  /// The maximum number of items to display in list before scrolling
+  final int maxVisible;
+
+  /// A callback that is called when the value of the select widget changes
+  final ValueChanged<T?>? onChanged;
+
+  /// The placeholder widget to display when no option is selected
+  final Widget? placeholder;
+
+  /// The restoration ID to save and restore the state of the select widget
+  final String? restorationId;
+
+  /// The icon to display when an item is selected
+  ///
+  /// Defaults to a checkmark
+  final Widget? selectedIcon;
+
+  /// The position of the selected icon
+  final TControlAffinity selectedIconAffinity;
+
+  /// A builder that is called for the currently selected item
+  final Widget Function(T)? selectedItemBuilder;
+
+  /// The size of the select widget
+  final TInputSize size;
+
+  /// The trailing widget to display in the anchor widget
+  ///
+  /// Defaults to a chevron down
+  final Widget trailing;
+
+  /// The validator to use for the select widget
+  final FormFieldValidator<T>? validator;
 }
 
-class _TSelectState<T> extends State<TSelect<T>> {
+// =============================================================================
+// CLASS: _TSelectFormField
+// =============================================================================
+
+class _TSelectFormField<T> extends FormField<T> {
+  _TSelectFormField({
+    super.key,
+    required this.allowDeselect,
+    required super.autovalidateMode,
+    required this.borderColor,
+    required this.borderRadius,
+    required this.constraints,
+    required super.enabled,
+    required this.fillColor,
+    required super.initialValue,
+    required this.itemBuilder,
+    required this.itemExtent,
+    required this.itemPadding,
+    required this.items,
+    required this.label,
+    required this.labelText,
+    required this.maxVisible,
+    required this.onChanged,
+    required this.placeholder,
+    required super.restorationId,
+    required this.selectedIcon,
+    required this.selectedIconAffinity,
+    required this.selectedItemBuilder,
+    required this.size,
+    required this.trailing,
+    required super.validator,
+  }) : super(
+          builder: (field) => const SizedBox.shrink(),
+        );
+
+  final bool allowDeselect;
+  final WidgetStateProperty<Color>? borderColor;
+  final WidgetStateProperty<BorderRadius>? borderRadius;
+  final BoxConstraints? constraints;
+  final WidgetStateProperty<Color>? fillColor;
+  final Widget Function(T)? itemBuilder;
+  final double? itemExtent;
+  final EdgeInsetsGeometry itemPadding;
+  final List<T> items;
+  final Widget? label;
+  final String? labelText;
+  final int maxVisible;
+  final ValueChanged<T?>? onChanged;
+  final Widget? placeholder;
+  final Widget? selectedIcon;
+  final TControlAffinity selectedIconAffinity;
+  final Widget Function(T)? selectedItemBuilder;
+  final TInputSize size;
+  final Widget trailing;
+
+  @override
+  FormFieldState<T> createState() => _TSelectFormFieldState();
+}
+
+class _TSelectFormFieldState<T> extends FormFieldState<T> {
+  _TSelectFormField<T> get field => widget as _TSelectFormField<T>;
+
   late T? selected = widget.initialValue;
   late int hoveredIndex = selectedIndex;
 
@@ -123,20 +221,20 @@ class _TSelectState<T> extends State<TSelect<T>> {
   late final List<TWidgetStatesController> stateControllers;
 
   /// The maximum number of items to display in the list before scrolling
-  int get maxVisible => widget.maxVisible.clamp(0, widget.items.length);
+  int get maxVisible => field.maxVisible.clamp(0, field.items.length);
 
   /// The height of the widget
-  double get height => widget.size.height;
+  double get height => field.size.height;
 
   /// The height of each item in the list
-  double get itemExtent => widget.itemExtent ?? height;
+  double get itemExtent => field.itemExtent ?? height;
 
   /// The index of the selected item
   int get selectedIndex =>
-      selected == null ? -1 : widget.items.indexOf(selected as T);
+      selected == null ? -1 : field.items.indexOf(selected as T);
 
   /// Determine if the content will be scrollable
-  bool get isScrollable => widget.items.length > maxVisible;
+  bool get isScrollable => field.items.length > maxVisible;
 
   /// The right padding accounts for the scrollbar width
   EdgeInsets get listViewPadding =>
@@ -150,7 +248,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
   void initState() {
     super.initState();
     stateControllers = List.generate(
-      widget.items.length,
+      field.items.length,
       (index) => TWidgetStatesController(),
     );
   }
@@ -178,6 +276,11 @@ class _TSelectState<T> extends State<TSelect<T>> {
     scrollController.jumpTo(targetOffset);
   }
 
+  void onChanged(T? value) {
+    didChange(value);
+    field.onChanged?.call(value);
+  }
+
   // ---------------------------------------------------------------------------
   // METHOD: buildListView
   // ---------------------------------------------------------------------------
@@ -192,13 +295,13 @@ class _TSelectState<T> extends State<TSelect<T>> {
       child: ListView.builder(
         controller: scrollController,
         padding: listViewPadding,
-        itemCount: widget.items.length,
+        itemCount: field.items.length,
         itemExtent: itemExtent,
         physics: const ClampingScrollPhysics(),
         itemBuilder: (context, index) {
-          final option = widget.items[index];
+          final option = field.items[index];
           final optionWidget =
-              widget.itemBuilder?.call(option) ?? Text(option.toString());
+              field.itemBuilder?.call(option) ?? Text(option.toString());
           final bool isSelected = selected == option;
           final itemStateController = stateControllers[index];
           itemStateController.hovered = hoveredIndex == index || isSelected;
@@ -210,7 +313,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                 if (selectedIndex >= 0) {
                   stateControllers[selectedIndex].value = {};
                 }
-                if (selected == option && widget.allowDeselect) {
+                if (selected == option && field.allowDeselect) {
                   selected = null;
                   hoveredIndex = -1;
                 } else {
@@ -219,7 +322,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                   itemStateController.selected = true;
                 }
               });
-              widget.onChanged?.call(selected);
+              onChanged.call(selected);
               popoverController.hide();
             },
             onHover: (value) {
@@ -233,22 +336,22 @@ class _TSelectState<T> extends State<TSelect<T>> {
             builder: (context, states) {
               bool showLeading = false;
               bool showTrailing = false;
-              if (widget.selectedIcon != null) {
-                showLeading = widget.selectedIconAffinity.isLeading;
-                showTrailing = widget.selectedIconAffinity.isTrailing;
+              if (field.selectedIcon != null) {
+                showLeading = field.selectedIconAffinity.isLeading;
+                showTrailing = field.selectedIconAffinity.isTrailing;
               }
               final selectedIcon =
-                  widget.selectedIcon ?? const SizedBox.shrink();
+                  field.selectedIcon ?? const SizedBox.shrink();
 
               return Container(
                 alignment: Alignment.centerLeft,
-                padding: widget.itemPadding,
+                padding: field.itemPadding,
                 decoration: BoxDecoration(
                   color: states.hovered ? tw.color.hover : Colors.transparent,
                   borderRadius: TBorderRadius.rounded_sm,
                 ),
                 child: DefaultTextStyle.merge(
-                  style: widget.size.textStyle.copyWith(
+                  style: field.size.textStyle.copyWith(
                     fontWeight: isSelected ? TFontWeight.semibold : null,
                   ),
                   child: IconTheme(
@@ -261,7 +364,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                         if (showLeading)
                           Padding(
                             padding: EdgeInsets.only(
-                              right: widget.itemPadding.horizontal / 2,
+                              right: field.itemPadding.horizontal / 2,
                             ),
                             child: Opacity(
                               opacity: isSelected ? 1 : 0,
@@ -307,18 +410,18 @@ class _TSelectState<T> extends State<TSelect<T>> {
 
     // Resolve the widget to display in the select field
     Widget selectWidget = SelectionContainer.disabled(
-      child: widget.placeholder ?? const SizedBox.shrink(),
+      child: field.placeholder ?? const SizedBox.shrink(),
     );
     if (selected != null) {
-      if (widget.selectedItemBuilder != null) {
-        selectWidget = widget.selectedItemBuilder!.call(selected as T);
+      if (field.selectedItemBuilder != null) {
+        selectWidget = field.selectedItemBuilder!.call(selected as T);
       } else {
         selectWidget = Text(selected.toString());
       }
     }
 
     // Resolve the text style for the select widget
-    TextStyle? selectWidgetTextStyle = widget.size.textStyle.copyWith(
+    TextStyle? selectWidgetTextStyle = field.size.textStyle.copyWith(
       color: selected != null ? tw.color.body : null,
     );
     if (!widget.enabled) {
@@ -328,15 +431,15 @@ class _TSelectState<T> extends State<TSelect<T>> {
     }
 
     // Resolve the label widget
-    Widget? label = widget.label;
-    if (label == null && widget.labelText != null) {
-      label = Text(widget.labelText!);
+    Widget? label = field.label;
+    if (label == null && field.labelText != null) {
+      label = Text(field.labelText!);
     }
 
     // Resolve the fill color
     final effectiveFillColor =
         WidgetStateProperty.resolveWith<Color?>((states) {
-      Color? color = widget.fillColor?.resolve(states);
+      Color? color = field.fillColor?.resolve(states);
       if (color == null && states.disabled) {
         color = tw.dark ? Colors.black54 : TColors.gray.shade50;
       }
@@ -366,10 +469,10 @@ class _TSelectState<T> extends State<TSelect<T>> {
                   : SystemMouseCursors.forbidden,
             ),
             padding: TOffset.x12,
-            constraints: widget.constraints,
+            constraints: field.constraints,
             fillColor: effectiveFillColor,
-            borderColor: widget.borderColor,
-            borderRadius: widget.borderRadius,
+            borderColor: field.borderColor,
+            borderRadius: field.borderRadius,
             onTap: widget.enabled ? onAnchorPressed : null,
             child: IconTheme(
               data: IconTheme.of(context).copyWith(
@@ -385,7 +488,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                   ),
                   SizedBox(
                     height: height,
-                    child: widget.trailing,
+                    child: field.trailing,
                   ),
                 ],
               ),

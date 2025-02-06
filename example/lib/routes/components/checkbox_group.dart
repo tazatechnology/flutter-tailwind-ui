@@ -133,7 +133,7 @@ class _TCheckboxGroupBasic extends StatelessWidget {
     return TCheckboxGroup(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -160,7 +160,7 @@ class _TCheckboxGroupSeparated extends StatelessWidget {
     return TCheckboxGroup.separated(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -187,7 +187,7 @@ class _TCheckboxGroupCard extends StatelessWidget {
     return TCheckboxGroup.card(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -214,7 +214,7 @@ class _TCheckboxGroupPanel extends StatelessWidget {
     return TCheckboxGroup.panel(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -239,7 +239,7 @@ class _TCheckboxGroupBasicTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup(
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -265,7 +265,7 @@ class _TCheckboxGroupSeparatedTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.separated(
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -291,7 +291,7 @@ class _TCheckboxGroupCardTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.card(
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -317,7 +317,7 @@ class _TCheckboxGroupPanelTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.panel(
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -345,7 +345,7 @@ class _TCheckboxGroupBasicHorizontal extends StatelessWidget {
     return TCheckboxGroup(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -372,7 +372,7 @@ class _TCheckboxGroupSeparatedHorizontal extends StatelessWidget {
     return TCheckboxGroup.separated(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -399,7 +399,7 @@ class _TCheckboxGroupCardHorizontal extends StatelessWidget {
     return TCheckboxGroup.card(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -426,7 +426,7 @@ class _TCheckboxGroupPanelHorizontal extends StatelessWidget {
     return TCheckboxGroup.panel(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -451,7 +451,7 @@ class _TCheckboxGroupBasicDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -476,7 +476,7 @@ class _TCheckboxGroupSeparatedDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.separated(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -501,7 +501,7 @@ class _TCheckboxGroupCardDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.card(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -526,7 +526,7 @@ class _TCheckboxGroupPanelDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.panel(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])

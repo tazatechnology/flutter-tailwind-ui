@@ -133,7 +133,7 @@ class _TSwitchGroupBasic extends StatelessWidget {
     return TSwitchGroup(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -160,7 +160,7 @@ class _TSwitchGroupSeparated extends StatelessWidget {
     return TSwitchGroup.separated(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -187,7 +187,7 @@ class _TSwitchGroupCard extends StatelessWidget {
     return TSwitchGroup.card(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -214,7 +214,7 @@ class _TSwitchGroupPanel extends StatelessWidget {
     return TSwitchGroup.panel(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -239,7 +239,7 @@ class _TSwitchGroupBasicTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup(
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -265,7 +265,7 @@ class _TSwitchGroupSeparatedTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.separated(
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -291,7 +291,7 @@ class _TSwitchGroupCardTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.card(
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -317,7 +317,7 @@ class _TSwitchGroupPanelTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.panel(
-      groupValue: [TSelectionGroupVariant.values.first],
+      initialValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -345,7 +345,7 @@ class _TSwitchGroupBasicHorizontal extends StatelessWidget {
     return TSwitchGroup(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -372,7 +372,7 @@ class _TSwitchGroupSeparatedHorizontal extends StatelessWidget {
     return TSwitchGroup.separated(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -399,7 +399,7 @@ class _TSwitchGroupCardHorizontal extends StatelessWidget {
     return TSwitchGroup.card(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -426,7 +426,7 @@ class _TSwitchGroupPanelHorizontal extends StatelessWidget {
     return TSwitchGroup.panel(
       label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -451,7 +451,7 @@ class _TSwitchGroupBasicDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -476,7 +476,7 @@ class _TSwitchGroupSeparatedDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.separated(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -501,7 +501,7 @@ class _TSwitchGroupCardDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.card(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -526,7 +526,7 @@ class _TSwitchGroupPanelDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.panel(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])

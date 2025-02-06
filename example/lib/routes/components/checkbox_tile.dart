@@ -98,7 +98,7 @@ class _TCheckboxTileActive extends StatelessWidget {
     return TCheckboxTile(
       title: const Text('Checkbox Tile'),
       description: const Text('This is active.'),
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -118,7 +118,7 @@ class _TCheckboxTileActiveDisabled extends StatelessWidget {
       title: const Text('Checkbox Tile'),
       description: const Text('This is active and disabled.'),
       enabled: false,
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -138,7 +138,6 @@ class _TCheckboxTileInactiveDisabled extends StatelessWidget {
       title: const Text('Checkbox Tile'),
       description: const Text('This is inactive and disabled.'),
       enabled: false,
-      value: false,
       onChanged: (value) {},
     );
   }
@@ -157,7 +156,7 @@ class _TCheckboxTileCardActive extends StatelessWidget {
     return TCheckboxTile.card(
       title: const Text('Checkbox Tile'),
       description: const Text('This is active.'),
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -177,7 +176,7 @@ class _TCheckboxTileCardActiveDisabled extends StatelessWidget {
       title: const Text('Checkbox Tile'),
       description: const Text('This is active and disabled.'),
       enabled: false,
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -197,7 +196,6 @@ class _TCheckboxTileCardInactiveDisabled extends StatelessWidget {
       title: const Text('Checkbox Tile'),
       description: const Text('This is inactive and disabled.'),
       enabled: false,
-      value: false,
       onChanged: (value) {},
     );
   }
@@ -216,7 +214,7 @@ class _TCheckboxTileLeading extends StatelessWidget {
     return TCheckboxTile(
       title: const Text('Checkbox Tile'),
       description: const Text('Control is placed at the leading side.'),
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -236,7 +234,7 @@ class _TCheckboxTileTrailing extends StatelessWidget {
       title: const Text('Checkbox Tile'),
       description: const Text('Control is placed at the trailing side.'),
       affinity: TControlAffinity.trailing,
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -255,7 +253,7 @@ class _TCheckboxTileLeadingCard extends StatelessWidget {
     return TCheckboxTile.card(
       title: const Text('Checkbox Tile'),
       description: const Text('Control is placed at the leading side.'),
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -275,7 +273,7 @@ class _TCheckboxTileTrailingCard extends StatelessWidget {
       title: const Text('Checkbox Tile'),
       description: const Text('Control is placed at the trailing side.'),
       affinity: TControlAffinity.trailing,
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }

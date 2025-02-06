@@ -1187,7 +1187,7 @@ class _TCheckboxGroupBasicSource {
 TCheckboxGroup(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -1207,7 +1207,7 @@ class _TCheckboxGroupSeparatedSource {
 TCheckboxGroup.separated(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -1227,7 +1227,7 @@ class _TCheckboxGroupCardSource {
 TCheckboxGroup.card(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -1247,7 +1247,7 @@ class _TCheckboxGroupPanelSource {
 TCheckboxGroup.panel(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -1265,7 +1265,7 @@ TCheckboxGroup.panel(
 class _TCheckboxGroupBasicTrailingSource {
   static const String code = r"""
 TCheckboxGroup(
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -1284,7 +1284,7 @@ TCheckboxGroup(
 class _TCheckboxGroupSeparatedTrailingSource {
   static const String code = r"""
 TCheckboxGroup.separated(
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -1303,7 +1303,7 @@ TCheckboxGroup.separated(
 class _TCheckboxGroupCardTrailingSource {
   static const String code = r"""
 TCheckboxGroup.card(
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -1322,7 +1322,7 @@ TCheckboxGroup.card(
 class _TCheckboxGroupPanelTrailingSource {
   static const String code = r"""
 TCheckboxGroup.panel(
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -1343,7 +1343,7 @@ class _TCheckboxGroupBasicHorizontalSource {
 TCheckboxGroup(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -1363,7 +1363,7 @@ class _TCheckboxGroupSeparatedHorizontalSource {
 TCheckboxGroup.separated(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -1383,7 +1383,7 @@ class _TCheckboxGroupCardHorizontalSource {
 TCheckboxGroup.card(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -1403,7 +1403,7 @@ class _TCheckboxGroupPanelHorizontalSource {
 TCheckboxGroup.panel(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -1421,7 +1421,7 @@ TCheckboxGroup.panel(
 class _TCheckboxGroupBasicDisabledSource {
   static const String code = r"""
 TCheckboxGroup(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -1439,7 +1439,7 @@ TCheckboxGroup(
 class _TCheckboxGroupSeparatedDisabledSource {
   static const String code = r"""
 TCheckboxGroup.separated(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -1457,7 +1457,7 @@ TCheckboxGroup.separated(
 class _TCheckboxGroupCardDisabledSource {
   static const String code = r"""
 TCheckboxGroup.card(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -1475,7 +1475,7 @@ TCheckboxGroup.card(
 class _TCheckboxGroupPanelDisabledSource {
   static const String code = r"""
 TCheckboxGroup.panel(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -1495,7 +1495,7 @@ class _TCheckboxTileActiveSource {
 TCheckboxTile(
   title: const Text('Checkbox Tile'),
   description: const Text('This is active.'),
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -1508,7 +1508,7 @@ TCheckboxTile(
   title: const Text('Checkbox Tile'),
   description: const Text('This is active and disabled.'),
   enabled: false,
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -1521,7 +1521,6 @@ TCheckboxTile(
   title: const Text('Checkbox Tile'),
   description: const Text('This is inactive and disabled.'),
   enabled: false,
-  value: false,
   onChanged: (value) {},
 )
 """;
@@ -1533,7 +1532,7 @@ class _TCheckboxTileCardActiveSource {
 TCheckboxTile.card(
   title: const Text('Checkbox Tile'),
   description: const Text('This is active.'),
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -1546,7 +1545,7 @@ TCheckboxTile.card(
   title: const Text('Checkbox Tile'),
   description: const Text('This is active and disabled.'),
   enabled: false,
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -1559,7 +1558,6 @@ TCheckboxTile.card(
   title: const Text('Checkbox Tile'),
   description: const Text('This is inactive and disabled.'),
   enabled: false,
-  value: false,
   onChanged: (value) {},
 )
 """;
@@ -1571,7 +1569,7 @@ class _TCheckboxTileLeadingSource {
 TCheckboxTile(
   title: const Text('Checkbox Tile'),
   description: const Text('Control is placed at the leading side.'),
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -1584,7 +1582,7 @@ TCheckboxTile(
   title: const Text('Checkbox Tile'),
   description: const Text('Control is placed at the trailing side.'),
   affinity: TControlAffinity.trailing,
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -1596,7 +1594,7 @@ class _TCheckboxTileLeadingCardSource {
 TCheckboxTile.card(
   title: const Text('Checkbox Tile'),
   description: const Text('Control is placed at the leading side.'),
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -1609,7 +1607,7 @@ TCheckboxTile.card(
   title: const Text('Checkbox Tile'),
   description: const Text('Control is placed at the trailing side.'),
   affinity: TControlAffinity.trailing,
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -2032,6 +2030,7 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
           contentTextStyle: TTextStyle.text_md.copyWith(
             color: context.tw.color.body,
           ),
+          cancel: const Text('Close'),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -2073,13 +2072,14 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
       child: TForm(
         controller: controller,
         child: Column(
-          spacing: TSpace.v32,
+          spacing: TSpace.v24,
           children: [
-            const Row(
+            Row(
               spacing: TSpace.v12,
               children: [
-                Expanded(
+                const Expanded(
                   child: TInput(
+                    id: 'id-input',
                     labelText: 'Input',
                     initialValue: 'Bob',
                     hintText: 'Enter your name',
@@ -2087,14 +2087,16 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
                 ),
                 Expanded(
                   child: TSelect(
+                    id: 'id-select',
                     labelText: 'Select',
                     initialValue: 1,
-                    items: [1, 2, 3],
+                    items: const [1, 2, 3],
                   ),
                 ),
               ],
             ),
-            const TSlider(
+            TSlider(
+              id: 'id-slider',
               labelText: 'Slider',
               initialValue: 0.75,
             ),
@@ -2102,31 +2104,43 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
               children: [
                 Expanded(
                   child: TRadioGroup(
+                    id: 'id-radio-group',
                     label: const Text('Radio Group'),
-                    groupValue: TSelectionGroupVariant.values.first,
+                    initialValue: 2,
                     children: [
-                      for (final variant in TSelectionGroupVariant.values)
+                      for (final value in [1, 2, 3])
                         TRadioGroupItem(
-                          title: Text(variant.title),
-                          value: variant,
+                          title: Text(value.toString()),
+                          value: value,
                         ),
                     ],
                   ),
                 ),
                 Expanded(
                   child: TCheckboxGroup(
+                    id: 'id-checkbox-group',
                     label: const Text('Checkbox Group'),
-                    groupValue: [TSelectionGroupVariant.values.first],
+                    initialValue: const [2],
                     children: [
-                      for (final variant in TSelectionGroupVariant.values)
+                      for (final value in [1, 2, 3])
                         TCheckboxGroupItem(
-                          title: Text(variant.title),
-                          value: variant,
+                          title: Text(value.toString()),
+                          value: value,
                         ),
                     ],
                   ),
                 ),
               ],
+            ),
+            TCheckboxTile.card(
+              id: 'id-checkbox-tile',
+              title: const Text('Checkbox Tile'),
+              affinity: TControlAffinity.trailing,
+            ),
+            TSwitchTile.card(
+              id: 'id-switch-tile',
+              title: const Text('Switch Tile'),
+              affinity: TControlAffinity.trailing,
             ),
           ],
         ),
@@ -2912,9 +2926,9 @@ class _TRadioIndicatorState extends State<_TRadioIndicator> {
 class _TRadioGroupBasicSource {
   static const String code = r"""
 TRadioGroup(
-  label: const Text('Card Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the card type to use'),
-  groupValue: TSelectionGroupVariant.values.first,
+  initialValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -2932,9 +2946,9 @@ TRadioGroup(
 class _TRadioGroupSeparatedSource {
   static const String code = r"""
 TRadioGroup.separated(
-  label: const Text('Card Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the card type to use'),
-  groupValue: TSelectionGroupVariant.values.first,
+  initialValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -2952,9 +2966,9 @@ TRadioGroup.separated(
 class _TRadioGroupCardSource {
   static const String code = r"""
 TRadioGroup.card(
-  label: const Text('Card Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the card type to use'),
-  groupValue: TSelectionGroupVariant.values.first,
+  initialValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -2972,9 +2986,9 @@ TRadioGroup.card(
 class _TRadioGroupPanelSource {
   static const String code = r"""
 TRadioGroup.panel(
-  label: const Text('Card Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the card type to use'),
-  groupValue: TSelectionGroupVariant.values.first,
+  initialValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -2992,7 +3006,7 @@ TRadioGroup.panel(
 class _TRadioGroupBasicTrailingSource {
   static const String code = r"""
 TRadioGroup(
-  groupValue: TSelectionGroupVariant.values.first,
+  initialValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -3011,7 +3025,7 @@ TRadioGroup(
 class _TRadioGroupSeparatedTrailingSource {
   static const String code = r"""
 TRadioGroup.separated(
-  groupValue: TSelectionGroupVariant.values.first,
+  initialValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -3030,7 +3044,7 @@ TRadioGroup.separated(
 class _TRadioGroupCardTrailingSource {
   static const String code = r"""
 TRadioGroup.card(
-  groupValue: TSelectionGroupVariant.values.first,
+  initialValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -3049,7 +3063,7 @@ TRadioGroup.card(
 class _TRadioGroupPanelTrailingSource {
   static const String code = r"""
 TRadioGroup.panel(
-  groupValue: TSelectionGroupVariant.values.first,
+  initialValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -3068,9 +3082,9 @@ TRadioGroup.panel(
 class _TRadioGroupBasicHorizontalSource {
   static const String code = r"""
 TRadioGroup(
-  label: const Text('Card Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the card type to use'),
-  groupValue: 'Small',
+  initialValue: 'Small',
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -3088,9 +3102,9 @@ TRadioGroup(
 class _TRadioGroupSeparatedHorizontalSource {
   static const String code = r"""
 TRadioGroup.separated(
-  label: const Text('Card Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the card type to use'),
-  groupValue: 'Small',
+  initialValue: 'Small',
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -3108,9 +3122,9 @@ TRadioGroup.separated(
 class _TRadioGroupCardHorizontalSource {
   static const String code = r"""
 TRadioGroup.card(
-  label: const Text('Card Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the card type to use'),
-  groupValue: 'Small',
+  initialValue: 'Small',
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -3128,9 +3142,9 @@ TRadioGroup.card(
 class _TRadioGroupPanelHorizontalSource {
   static const String code = r"""
 TRadioGroup.panel(
-  label: const Text('Card Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the card type to use'),
-  groupValue: 'Small',
+  initialValue: 'Small',
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -3148,7 +3162,7 @@ TRadioGroup.panel(
 class _TRadioGroupBasicDisabledSource {
   static const String code = r"""
 TRadioGroup(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -3166,7 +3180,7 @@ TRadioGroup(
 class _TRadioGroupSeparatedDisabledSource {
   static const String code = r"""
 TRadioGroup.separated(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -3184,7 +3198,7 @@ TRadioGroup.separated(
 class _TRadioGroupCardDisabledSource {
   static const String code = r"""
 TRadioGroup.card(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -3202,7 +3216,7 @@ TRadioGroup.card(
 class _TRadioGroupPanelDisabledSource {
   static const String code = r"""
 TRadioGroup.panel(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -4147,7 +4161,7 @@ class _TSwitchTileActiveSource {
 TSwitchTile(
   title: const Text('Switch Tile'),
   description: const Text('This is active.'),
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -4160,7 +4174,7 @@ TSwitchTile(
   title: const Text('Switch Tile'),
   description: const Text('This is active and disabled.'),
   enabled: false,
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -4173,7 +4187,6 @@ TSwitchTile(
   title: const Text('Switch Tile'),
   description: const Text('This is inactive and disabled.'),
   enabled: false,
-  value: false,
   onChanged: (value) {},
 )
 """;
@@ -4185,7 +4198,6 @@ class _TSwitchTileCardActiveSource {
 TSwitchTile.card(
   title: const Text('Switch Tile'),
   description: const Text('This is active.'),
-  value: false,
   onChanged: (value) {},
 )
 """;
@@ -4198,7 +4210,7 @@ TSwitchTile.card(
   title: const Text('Switch Tile'),
   description: const Text('This is active and disabled.'),
   enabled: false,
-  value: true,
+  initialValue: true,
   onChanged: (value) {},
 )
 """;
@@ -4211,7 +4223,6 @@ TSwitchTile.card(
   title: const Text('Switch Tile'),
   description: const Text('This is inactive and disabled.'),
   enabled: false,
-  value: false,
   onChanged: (value) {},
 )
 """;
@@ -4223,7 +4234,7 @@ class _TSwitchTileLeadingSource {
 TSwitchTile(
   title: const Text('Switch Tile'),
   description: const Text('Control is placed at the leading side.'),
-  value: true,
+  initialValue: true,
   onChanged: (value) => {},
 )
 """;
@@ -4236,7 +4247,7 @@ TSwitchTile(
   title: const Text('Switch Tile'),
   description: const Text('Control is placed at the trailing side.'),
   affinity: TControlAffinity.trailing,
-  value: true,
+  initialValue: true,
   onChanged: (value) => {},
 )
 """;
@@ -4248,7 +4259,7 @@ class _TSwitchTileLeadingCardSource {
 TSwitchTile.card(
   title: const Text('Switch Tile'),
   description: const Text('Control is placed at the leading side.'),
-  value: true,
+  initialValue: true,
   onChanged: (value) => {},
 )
 """;
@@ -4261,7 +4272,7 @@ TSwitchTile.card(
   title: const Text('Switch Tile'),
   description: const Text('Control is placed at the trailing side.'),
   affinity: TControlAffinity.trailing,
-  value: true,
+  initialValue: true,
   onChanged: (value) => {},
 )
 """;
@@ -4273,7 +4284,7 @@ class _TSwitchGroupBasicSource {
 TSwitchGroup(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -4293,7 +4304,7 @@ class _TSwitchGroupSeparatedSource {
 TSwitchGroup.separated(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -4313,7 +4324,7 @@ class _TSwitchGroupCardSource {
 TSwitchGroup.card(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -4333,7 +4344,7 @@ class _TSwitchGroupPanelSource {
 TSwitchGroup.panel(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   children: [
     for (final variant in TSelectionGroupVariant.values)
@@ -4351,7 +4362,7 @@ TSwitchGroup.panel(
 class _TSwitchGroupBasicTrailingSource {
   static const String code = r"""
 TSwitchGroup(
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -4370,7 +4381,7 @@ TSwitchGroup(
 class _TSwitchGroupSeparatedTrailingSource {
   static const String code = r"""
 TSwitchGroup.separated(
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -4389,7 +4400,7 @@ TSwitchGroup.separated(
 class _TSwitchGroupCardTrailingSource {
   static const String code = r"""
 TSwitchGroup.card(
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -4408,7 +4419,7 @@ TSwitchGroup.card(
 class _TSwitchGroupPanelTrailingSource {
   static const String code = r"""
 TSwitchGroup.panel(
-  groupValue: [TSelectionGroupVariant.values.first],
+  initialValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
   affinity: TControlAffinity.trailing,
   children: [
@@ -4429,7 +4440,7 @@ class _TSwitchGroupBasicHorizontalSource {
 TSwitchGroup(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -4449,7 +4460,7 @@ class _TSwitchGroupSeparatedHorizontalSource {
 TSwitchGroup.separated(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -4469,7 +4480,7 @@ class _TSwitchGroupCardHorizontalSource {
 TSwitchGroup.card(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -4489,7 +4500,7 @@ class _TSwitchGroupPanelHorizontalSource {
 TSwitchGroup.panel(
   label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   axis: Axis.horizontal,
   children: [
@@ -4507,7 +4518,7 @@ TSwitchGroup.panel(
 class _TSwitchGroupBasicDisabledSource {
   static const String code = r"""
 TSwitchGroup(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -4525,7 +4536,7 @@ TSwitchGroup(
 class _TSwitchGroupSeparatedDisabledSource {
   static const String code = r"""
 TSwitchGroup.separated(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -4543,7 +4554,7 @@ TSwitchGroup.separated(
 class _TSwitchGroupCardDisabledSource {
   static const String code = r"""
 TSwitchGroup.card(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -4561,7 +4572,7 @@ TSwitchGroup.card(
 class _TSwitchGroupPanelDisabledSource {
   static const String code = r"""
 TSwitchGroup.panel(
-  groupValue: const ['Alpha'],
+  initialValue: const ['Alpha'],
   onChanged: (value) {},
   children: [
     for (final item in ['Alpha', 'Beta', 'Gamma'])

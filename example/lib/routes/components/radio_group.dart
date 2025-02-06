@@ -131,9 +131,9 @@ class _TRadioGroupBasic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup(
-      label: const Text('Card Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the card type to use'),
-      groupValue: TSelectionGroupVariant.values.first,
+      initialValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -158,9 +158,9 @@ class _TRadioGroupSeparated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.separated(
-      label: const Text('Card Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the card type to use'),
-      groupValue: TSelectionGroupVariant.values.first,
+      initialValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -185,9 +185,9 @@ class _TRadioGroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.card(
-      label: const Text('Card Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the card type to use'),
-      groupValue: TSelectionGroupVariant.values.first,
+      initialValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -212,9 +212,9 @@ class _TRadioGroupPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.panel(
-      label: const Text('Card Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the card type to use'),
-      groupValue: TSelectionGroupVariant.values.first,
+      initialValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
       children: [
         for (final variant in TSelectionGroupVariant.values)
@@ -239,7 +239,7 @@ class _TRadioGroupBasicTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup(
-      groupValue: TSelectionGroupVariant.values.first,
+      initialValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -265,7 +265,7 @@ class _TRadioGroupSeparatedTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.separated(
-      groupValue: TSelectionGroupVariant.values.first,
+      initialValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -291,7 +291,7 @@ class _TRadioGroupCardTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.card(
-      groupValue: TSelectionGroupVariant.values.first,
+      initialValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -317,7 +317,7 @@ class _TRadioGroupPanelTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.panel(
-      groupValue: TSelectionGroupVariant.values.first,
+      initialValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
       affinity: TControlAffinity.trailing,
       children: [
@@ -343,9 +343,9 @@ class _TRadioGroupBasicHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup(
-      label: const Text('Card Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the card type to use'),
-      groupValue: 'Small',
+      initialValue: 'Small',
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -370,9 +370,9 @@ class _TRadioGroupSeparatedHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.separated(
-      label: const Text('Card Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the card type to use'),
-      groupValue: 'Small',
+      initialValue: 'Small',
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -397,9 +397,9 @@ class _TRadioGroupCardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.card(
-      label: const Text('Card Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the card type to use'),
-      groupValue: 'Small',
+      initialValue: 'Small',
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -424,9 +424,9 @@ class _TRadioGroupPanelHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.panel(
-      label: const Text('Card Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the card type to use'),
-      groupValue: 'Small',
+      initialValue: 'Small',
       onChanged: (value) {},
       axis: Axis.horizontal,
       children: [
@@ -451,7 +451,7 @@ class _TRadioGroupBasicDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -476,7 +476,7 @@ class _TRadioGroupSeparatedDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.separated(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -501,7 +501,7 @@ class _TRadioGroupCardDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.card(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])
@@ -526,7 +526,7 @@ class _TRadioGroupPanelDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.panel(
-      groupValue: const ['Alpha'],
+      initialValue: const ['Alpha'],
       onChanged: (value) {},
       children: [
         for (final item in ['Alpha', 'Beta', 'Gamma'])

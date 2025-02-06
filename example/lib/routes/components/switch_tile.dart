@@ -98,7 +98,7 @@ class _TSwitchTileActive extends StatelessWidget {
     return TSwitchTile(
       title: const Text('Switch Tile'),
       description: const Text('This is active.'),
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -118,7 +118,7 @@ class _TSwitchTileActiveDisabled extends StatelessWidget {
       title: const Text('Switch Tile'),
       description: const Text('This is active and disabled.'),
       enabled: false,
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -138,7 +138,6 @@ class _TSwitchTileInactiveDisabled extends StatelessWidget {
       title: const Text('Switch Tile'),
       description: const Text('This is inactive and disabled.'),
       enabled: false,
-      value: false,
       onChanged: (value) {},
     );
   }
@@ -157,7 +156,6 @@ class _TSwitchTileCardActive extends StatelessWidget {
     return TSwitchTile.card(
       title: const Text('Switch Tile'),
       description: const Text('This is active.'),
-      value: false,
       onChanged: (value) {},
     );
   }
@@ -177,7 +175,7 @@ class _TSwitchTileCardActiveDisabled extends StatelessWidget {
       title: const Text('Switch Tile'),
       description: const Text('This is active and disabled.'),
       enabled: false,
-      value: true,
+      initialValue: true,
       onChanged: (value) {},
     );
   }
@@ -197,7 +195,6 @@ class _TSwitchTileCardInactiveDisabled extends StatelessWidget {
       title: const Text('Switch Tile'),
       description: const Text('This is inactive and disabled.'),
       enabled: false,
-      value: false,
       onChanged: (value) {},
     );
   }
@@ -216,7 +213,7 @@ class _TSwitchTileLeading extends StatelessWidget {
     return TSwitchTile(
       title: const Text('Switch Tile'),
       description: const Text('Control is placed at the leading side.'),
-      value: true,
+      initialValue: true,
       onChanged: (value) => {},
     );
   }
@@ -236,7 +233,7 @@ class _TSwitchTileTrailing extends StatelessWidget {
       title: const Text('Switch Tile'),
       description: const Text('Control is placed at the trailing side.'),
       affinity: TControlAffinity.trailing,
-      value: true,
+      initialValue: true,
       onChanged: (value) => {},
     );
   }
@@ -255,7 +252,7 @@ class _TSwitchTileLeadingCard extends StatelessWidget {
     return TSwitchTile.card(
       title: const Text('Switch Tile'),
       description: const Text('Control is placed at the leading side.'),
-      value: true,
+      initialValue: true,
       onChanged: (value) => {},
     );
   }
@@ -275,7 +272,7 @@ class _TSwitchTileTrailingCard extends StatelessWidget {
       title: const Text('Switch Tile'),
       description: const Text('Control is placed at the trailing side.'),
       affinity: TControlAffinity.trailing,
-      value: true,
+      initialValue: true,
       onChanged: (value) => {},
     );
   }
