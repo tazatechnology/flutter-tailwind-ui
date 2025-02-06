@@ -50,7 +50,7 @@ class TCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final tw = context.tw;
     final cardTheme = context.theme.cardTheme;
-    final defaultBorder = BorderSide(color: tw.colors.divider);
+    final defaultBorder = BorderSide(color: tw.color.divider);
     final effectivePadding = tw.screen.is_sm ? TOffset.a24 : TOffset.a16;
 
     // Account for the padding of the header
@@ -65,7 +65,7 @@ class TCard extends StatelessWidget {
       data: cardTheme.copyWith(
         color: color,
         surfaceTintColor: Colors.transparent,
-        shadowColor: tw.colors.shadow,
+        shadowColor: tw.color.shadow,
         shape: RoundedRectangleBorder(
           borderRadius: borderRadius,
           side: border ?? defaultBorder,
@@ -79,6 +79,7 @@ class TCard extends StatelessWidget {
           children: [
             if (header != null)
               Container(
+                constraints: const BoxConstraints(minWidth: double.infinity),
                 padding: effectivePadding,
                 decoration: BoxDecoration(
                   border: Border(
@@ -86,7 +87,10 @@ class TCard extends StatelessWidget {
                   ),
                 ),
                 child: DefaultTextStyle.merge(
-                  style: const TextStyle(fontWeight: TFontWeight.semibold),
+                  style: TextStyle(
+                    color: tw.color.title,
+                    fontWeight: TFontWeight.semibold,
+                  ),
                   child: header!,
                 ),
               ),

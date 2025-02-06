@@ -36,9 +36,12 @@ class AppRouter {
       AppRouter.checkbox_group: const ComponentRouteTCheckboxGroup(),
       AppRouter.checkbox_tile: const ComponentRouteTCheckboxTile(),
       AppRouter.code_block: const ComponentRouteTCodeBlock(),
+      AppRouter.dialog: const ComponentRouteTDialog(),
+      AppRouter.expand: const ComponentRouteTExpand(),
       AppRouter.popover: const ComponentRouteTPopover(),
       AppRouter.filter: const ComponentRouteTFilter(),
       AppRouter.form: const ComponentRouteTForm(),
+      AppRouter.form_field: const ComponentRouteTFormField(),
       AppRouter.icon_button: const ComponentRouteTIconButton(),
       AppRouter.input: const ComponentRouteTInput(),
       AppRouter.split_button: const ComponentRouteTSplitButton(),
@@ -119,9 +122,12 @@ class AppRouter {
   static const String checkbox_group = 'checkbox-group';
   static const String checkbox_tile = 'checkbox-tile';
   static const String code_block = 'code-block';
+  static const String dialog = 'dialog';
+  static const String expand = 'expand';
   static const String popover = 'popover';
   static const String filter = 'filter';
   static const String form = 'form';
+  static const String form_field = 'form-field';
   static const String icon_button = 'icon-button';
   static const String input = 'input';
   static const String radio = 'radio';

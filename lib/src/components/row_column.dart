@@ -16,10 +16,11 @@ class TRowColumn extends StatelessWidget {
   const TRowColumn({
     required this.axis,
     required this.children,
-    super.key,
+    this.mainAxisSize,
     this.mainAxisAlignment,
     this.crossAxisAlignment,
     this.spacing = 0.0,
+    super.key,
   });
 
   /// The axis in which to arrange the children.
@@ -32,6 +33,9 @@ class TRowColumn extends StatelessWidget {
   ///
   /// Must not be null and must not contain null widgets.
   final List<Widget> children;
+
+  /// How much space should be occupied in the main axis.
+  final MainAxisSize? mainAxisSize;
 
   /// How the children should be placed along the main axis.
   ///
@@ -54,7 +58,7 @@ class TRowColumn extends StatelessWidget {
       case Axis.horizontal:
         return Row(
           spacing: spacing,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: mainAxisSize ?? MainAxisSize.min,
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
           crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
           children: children,
@@ -62,7 +66,7 @@ class TRowColumn extends StatelessWidget {
       case Axis.vertical:
         return Column(
           spacing: spacing,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: mainAxisSize ?? MainAxisSize.min,
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
           crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
           children: children,

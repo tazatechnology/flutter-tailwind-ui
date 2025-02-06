@@ -20,7 +20,6 @@ class TSelect<T> extends StatefulWidget {
     this.size = TInputSize.lg,
     this.enabled = true,
     this.allowDeselect = false,
-    this.maxWidth = TScreen.max_w_sm,
     this.placeholder = const Text('Select'),
     this.trailing = const Icon(Icons.keyboard_arrow_down),
     this.selectedIcon = const Icon(Icons.check),
@@ -33,6 +32,7 @@ class TSelect<T> extends StatefulWidget {
     this.fillColor,
     this.borderColor,
     this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
+    this.constraints,
     super.key,
   });
 
@@ -59,9 +59,6 @@ class TSelect<T> extends StatefulWidget {
 
   /// Whether clicking on the selected item will deselect it
   final bool allowDeselect;
-
-  /// The maximum width of the select widget
-  final double? maxWidth;
 
   /// The placeholder widget to display when no option is selected
   final Widget? placeholder;
@@ -104,6 +101,9 @@ class TSelect<T> extends StatefulWidget {
 
   /// The stateful border color for the input field.
   final WidgetStateProperty<BorderRadius>? borderRadius;
+
+  /// The constraints for the anchor widget
+  final BoxConstraints? constraints;
 
   @override
   State<TSelect<T>> createState() => _TSelectState();
@@ -244,7 +244,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                 alignment: Alignment.centerLeft,
                 padding: widget.itemPadding,
                 decoration: BoxDecoration(
-                  color: states.hovered ? tw.colors.hover : Colors.transparent,
+                  color: states.hovered ? tw.color.hover : Colors.transparent,
                   borderRadius: TBorderRadius.rounded_sm,
                 ),
                 child: DefaultTextStyle.merge(
@@ -254,7 +254,7 @@ class _TSelectState<T> extends State<TSelect<T>> {
                   child: IconTheme(
                     data: IconTheme.of(context).copyWith(
                       size: TSpace.v16,
-                      color: tw.colors.primary,
+                      color: tw.color.primary,
                     ),
                     child: Row(
                       children: [
@@ -283,6 +283,21 @@ class _TSelectState<T> extends State<TSelect<T>> {
   }
 
   // ---------------------------------------------------------------------------
+  // METHOD: onAnchorPressed
+  // ---------------------------------------------------------------------------
+
+  void onAnchorPressed() {
+    hoveredIndex = selectedIndex;
+    popoverController.show();
+    FocusScope.of(context).unfocus();
+    if (selectedIndex >= 0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        scrollToIndex(selectedIndex);
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
   // METHOD: build
   // ---------------------------------------------------------------------------
 
@@ -304,11 +319,11 @@ class _TSelectState<T> extends State<TSelect<T>> {
 
     // Resolve the text style for the select widget
     TextStyle? selectWidgetTextStyle = widget.size.textStyle.copyWith(
-      color: selected != null ? tw.colors.body : null,
+      color: selected != null ? tw.color.body : null,
     );
     if (!widget.enabled) {
       selectWidgetTextStyle = selectWidgetTextStyle.copyWith(
-        color: tw.colors.disabledTextColor,
+        color: tw.color.disabledTextColor,
       );
     }
 
@@ -328,71 +343,56 @@ class _TSelectState<T> extends State<TSelect<T>> {
       return color;
     });
 
-    // The right padding accounts for the scrollbar width
+    // Compute the total height of the popover
     final popoverHeight =
         itemExtent * maxVisible + listViewPadding.vertical + 2;
 
-    return SizedBox(
-      width: widget.maxWidth,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (label != null) TLabelDescriptionWidget(label: label),
-          TPopover(
-            controller: popoverController,
-            matchAnchorWidth: true,
-            height: popoverHeight,
-            alignment: Alignment.bottomCenter,
-            content: buildListView(),
-            anchor: TInputBorderWrapper(
-              enabled: widget.enabled,
-              mouseCursor: WidgetStatePropertyAll(
-                widget.enabled
-                    ? SystemMouseCursors.click
-                    : SystemMouseCursors.forbidden,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (label != null) TLabelDescriptionWidget(label: label),
+        TPopover(
+          controller: popoverController,
+          matchAnchorWidth: true,
+          height: popoverHeight,
+          alignment: Alignment.bottomCenter,
+          content: buildListView(),
+          anchor: TInputBorderWrapper(
+            enabled: widget.enabled,
+            mouseCursor: WidgetStatePropertyAll(
+              widget.enabled
+                  ? SystemMouseCursors.click
+                  : SystemMouseCursors.forbidden,
+            ),
+            padding: TOffset.x12,
+            constraints: widget.constraints,
+            fillColor: effectiveFillColor,
+            borderColor: widget.borderColor,
+            borderRadius: widget.borderRadius,
+            onTap: widget.enabled ? onAnchorPressed : null,
+            child: IconTheme(
+              data: IconTheme.of(context).copyWith(
+                size: TSpace.v16,
+                color: widget.enabled ? null : tw.color.disabledTextColor,
               ),
-              padding: TOffset.x12,
-              height: height,
-              width: widget.maxWidth,
-              fillColor: effectiveFillColor,
-              borderColor: widget.borderColor,
-              borderRadius: widget.borderRadius,
-              onTap: widget.enabled
-                  ? () {
-                      hoveredIndex = selectedIndex;
-                      popoverController.show();
-                      FocusScope.of(context).unfocus();
-                      if (selectedIndex >= 0) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          scrollToIndex(selectedIndex);
-                        });
-                      }
-                    }
-                  : null,
-              child: IconTheme(
-                data: IconTheme.of(context).copyWith(
-                  size: TSpace.v16,
-                  color: widget.enabled ? null : tw.colors.disabledTextColor,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    DefaultTextStyle.merge(
-                      style: selectWidgetTextStyle,
-                      child: selectWidget,
-                    ),
-                    SizedBox(
-                      height: height,
-                      child: widget.trailing,
-                    ),
-                  ],
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  DefaultTextStyle.merge(
+                    style: selectWidgetTextStyle,
+                    child: selectWidget,
+                  ),
+                  SizedBox(
+                    height: height,
+                    child: widget.trailing,
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

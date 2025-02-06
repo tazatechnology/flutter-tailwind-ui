@@ -202,7 +202,7 @@ class TStyledContainer extends StatelessWidget {
     required BuildContext context,
     required Color? color,
   }) {
-    return (color ?? context.tw.colors.primary).toMaterialColor();
+    return (color ?? context.tw.color.primary).toMaterialColor();
   }
 
   // ---------------------------------------------------------------------------
@@ -240,7 +240,7 @@ class TStyledContainer extends StatelessWidget {
       case TStyleVariant.filled:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
-            return tw.colors.disabled;
+            return tw.color.disabled;
           }
           if (effectiveColor.isTransparent) {
             return effectiveColor;
@@ -253,7 +253,7 @@ class TStyledContainer extends StatelessWidget {
       case TStyleVariant.soft:
         backgroundColorFallback = WidgetStateProperty.resolveWith((states) {
           if (states.disabled) {
-            return tw.colors.disabled;
+            return tw.color.disabled;
           }
           if (states.hovered && hasCallback) {
             return effectiveColor.shade400.withValues(alpha: 0.2);
@@ -291,7 +291,7 @@ class TStyledContainer extends StatelessWidget {
       hasCallback: hasCallback,
     );
     final borderDisabled = WidgetStatePropertyAll(
-      Border.all(color: tw.colors.disabled),
+      Border.all(color: tw.color.disabled),
     );
     WidgetStateProperty<BoxBorder?> borderFallback;
     final noBorder = Border.all(color: Colors.transparent);
@@ -411,7 +411,7 @@ class TStyledContainer extends StatelessWidget {
     final tw = context.tw;
     final effectiveColor = resolveColor(context: context, color: color);
     if (states.disabled) {
-      return TextStyle(color: tw.colors.onDisabled);
+      return TextStyle(color: tw.color.onDisabled);
     }
     WidgetStateProperty<TextStyle?> textStyleFallback;
     switch (variant) {
@@ -691,7 +691,7 @@ class TStyledContainer extends StatelessWidget {
 
             return TFocusBorder(
               focused: states.focused,
-              focusColor: focusColor ?? tw.colors.focus,
+              focusColor: focusColor ?? tw.color.focus,
               borderRadius: effectiveBorderRadius,
               child: DefaultTextStyle.merge(
                 style: effectiveTextStyle,

@@ -131,7 +131,7 @@ class _TRadioGroupBasic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup(
-      title: const Text('Card Types'),
+      label: const Text('Card Types'),
       description: const Text('Select the card type to use'),
       groupValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
@@ -158,7 +158,7 @@ class _TRadioGroupSeparated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.separated(
-      title: const Text('Card Types'),
+      label: const Text('Card Types'),
       description: const Text('Select the card type to use'),
       groupValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
@@ -185,7 +185,7 @@ class _TRadioGroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.card(
-      title: const Text('Card Types'),
+      label: const Text('Card Types'),
       description: const Text('Select the card type to use'),
       groupValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
@@ -212,7 +212,7 @@ class _TRadioGroupPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.panel(
-      title: const Text('Card Types'),
+      label: const Text('Card Types'),
       description: const Text('Select the card type to use'),
       groupValue: TSelectionGroupVariant.values.first,
       onChanged: (value) {},
@@ -343,7 +343,7 @@ class _TRadioGroupBasicHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup(
-      title: const Text('Card Types'),
+      label: const Text('Card Types'),
       description: const Text('Select the card type to use'),
       groupValue: 'Small',
       onChanged: (value) {},
@@ -370,7 +370,7 @@ class _TRadioGroupSeparatedHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.separated(
-      title: const Text('Card Types'),
+      label: const Text('Card Types'),
       description: const Text('Select the card type to use'),
       groupValue: 'Small',
       onChanged: (value) {},
@@ -397,7 +397,7 @@ class _TRadioGroupCardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.card(
-      title: const Text('Card Types'),
+      label: const Text('Card Types'),
       description: const Text('Select the card type to use'),
       groupValue: 'Small',
       onChanged: (value) {},
@@ -424,7 +424,7 @@ class _TRadioGroupPanelHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TRadioGroup.panel(
-      title: const Text('Card Types'),
+      label: const Text('Card Types'),
       description: const Text('Select the card type to use'),
       groupValue: 'Small',
       onChanged: (value) {},

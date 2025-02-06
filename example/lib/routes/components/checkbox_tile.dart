@@ -19,19 +19,16 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
           title: 'Checkbox Tile States',
           children: [
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Active',
               code: _TCheckboxTileActiveSource.code,
               child: _TCheckboxTileActive(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Active (Disabled)',
               code: _TCheckboxTileActiveDisabledSource.code,
               child: _TCheckboxTileActiveDisabled(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Inactive (Disabled)',
               code: _TCheckboxTileInactiveDisabledSource.code,
               child: _TCheckboxTileInactiveDisabled(),
@@ -42,19 +39,16 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
           title: 'Checkbox Tile States (Card)',
           children: [
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Active',
               code: _TCheckboxTileCardActiveSource.code,
               child: _TCheckboxTileCardActive(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Active (Disabled)',
               code: _TCheckboxTileCardActiveDisabledSource.code,
               child: _TCheckboxTileCardActiveDisabled(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Inactive (Disabled)',
               code: _TCheckboxTileCardInactiveDisabledSource.code,
               child: _TCheckboxTileCardInactiveDisabled(),
@@ -65,25 +59,21 @@ class ComponentRouteTCheckboxTile extends StatelessWidget {
           title: 'Checkbox Tile Control Affinity',
           children: [
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Leading',
               code: _TCheckboxTileLeadingSource.code,
               child: _TCheckboxTileLeading(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Trailing',
               code: _TCheckboxTileTrailingSource.code,
               child: _TCheckboxTileTrailing(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Leading (Card)',
               code: _TCheckboxTileLeadingCardSource.code,
               child: _TCheckboxTileLeadingCard(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Trailing (Card)',
               code: _TCheckboxTileTrailingCardSource.code,
               child: _TCheckboxTileTrailingCard(),

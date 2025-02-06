@@ -19,19 +19,16 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
           title: 'Switch Tile States',
           children: [
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Active',
               code: _TSwitchTileActiveSource.code,
               child: _TSwitchTileActive(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Active (Disabled)',
               code: _TSwitchTileActiveDisabledSource.code,
               child: _TSwitchTileActiveDisabled(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Inactive (Disabled)',
               code: _TSwitchTileInactiveDisabledSource.code,
               child: _TSwitchTileInactiveDisabled(),
@@ -42,19 +39,16 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
           title: 'Switch Tile States (Card)',
           children: [
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Active',
               code: _TSwitchTileCardActiveSource.code,
               child: _TSwitchTileCardActive(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Active (Disabled)',
               code: _TSwitchTileCardActiveDisabledSource.code,
               child: _TSwitchTileCardActiveDisabled(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Inactive (Disabled)',
               code: _TSwitchTileCardInactiveDisabledSource.code,
               child: _TSwitchTileCardInactiveDisabled(),
@@ -65,25 +59,21 @@ class ComponentRouteTSwitchTile extends StatelessWidget {
           title: 'Switch Tile Control Affinity',
           children: [
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Leading',
               code: _TSwitchTileLeadingSource.code,
               child: _TSwitchTileLeading(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Trailing',
               code: _TSwitchTileTrailingSource.code,
               child: _TSwitchTileTrailing(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Leading (Card)',
               code: _TSwitchTileLeadingCardSource.code,
               child: _TSwitchTileLeadingCard(),
             ),
             AppPreviewCard(
-              maxWidth: TScreen.max_w_md,
               title: 'Trailing (Card)',
               code: _TSwitchTileTrailingCardSource.code,
               child: _TSwitchTileTrailingCard(),

@@ -120,12 +120,12 @@ class _TSelectSize extends StatelessWidget {
       children: [
         for (final size in TInputSize.values)
           TSelect(
-            labelText: 'Select Size',
+            labelText: 'Select Number (${size.title})',
             size: size,
-            initialValue: size,
-            items: TInputSize.values,
-            itemBuilder: (value) => Text(value.title),
-            selectedItemBuilder: (value) => Text('Selected: ${value.title}'),
+            initialValue: 1,
+            items: const [1, 2, 3],
+            itemBuilder: (value) => Text(value.toString()),
+            selectedItemBuilder: (value) => Text('Selected: $value'),
           ),
       ],
     );
@@ -359,27 +359,27 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
       children: [
-        TSelect(
-          initialValue: selectedUser,
-          allowDeselect: true,
-          labelText: 'Add a user',
-          items: const ['User A', 'User B', 'User C'],
-          placeholder: const Text('Select user'),
-          maxWidth: TScreen.max_w_224,
-          borderRadius:
-              const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
-          itemBuilder: (value) {
-            return Text(value);
-          },
-          selectedItemBuilder: (value) {
-            return Text(value);
-          },
-          onChanged: (value) {
-            selectedUser = value;
-            buttonController.disabled = selectedUser == null;
-          },
+        Flexible(
+          child: TSelect(
+            initialValue: selectedUser,
+            allowDeselect: true,
+            labelText: 'Add a user',
+            items: const ['User A', 'User B', 'User C'],
+            placeholder: const Text('Select user'),
+            borderRadius:
+                const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
+            itemBuilder: (value) {
+              return Text(value);
+            },
+            selectedItemBuilder: (value) {
+              return Text(value);
+            },
+            onChanged: (value) {
+              selectedUser = value;
+              buttonController.disabled = selectedUser == null;
+            },
+          ),
         ),
         TButton.filled(
           size: TWidgetSize.lg,

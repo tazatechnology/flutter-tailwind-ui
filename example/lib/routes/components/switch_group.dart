@@ -131,7 +131,7 @@ class _TSwitchGroupBasic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
@@ -158,7 +158,7 @@ class _TSwitchGroupSeparated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.separated(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
@@ -185,7 +185,7 @@ class _TSwitchGroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.card(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
@@ -212,7 +212,7 @@ class _TSwitchGroupPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.panel(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
@@ -343,7 +343,7 @@ class _TSwitchGroupBasicHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: const ['Alpha'],
       onChanged: (value) {},
@@ -370,7 +370,7 @@ class _TSwitchGroupSeparatedHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.separated(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: const ['Alpha'],
       onChanged: (value) {},
@@ -397,7 +397,7 @@ class _TSwitchGroupCardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.card(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: const ['Alpha'],
       onChanged: (value) {},
@@ -424,7 +424,7 @@ class _TSwitchGroupPanelHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSwitchGroup.panel(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: const ['Alpha'],
       onChanged: (value) {},

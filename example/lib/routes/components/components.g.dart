@@ -1185,7 +1185,7 @@ class _TCheckboxIndicatorState extends State<_TCheckboxIndicator> {
 class _TCheckboxGroupBasicSource {
   static const String code = r"""
 TCheckboxGroup(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
@@ -1205,7 +1205,7 @@ TCheckboxGroup(
 class _TCheckboxGroupSeparatedSource {
   static const String code = r"""
 TCheckboxGroup.separated(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
@@ -1225,7 +1225,7 @@ TCheckboxGroup.separated(
 class _TCheckboxGroupCardSource {
   static const String code = r"""
 TCheckboxGroup.card(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
@@ -1245,7 +1245,7 @@ TCheckboxGroup.card(
 class _TCheckboxGroupPanelSource {
   static const String code = r"""
 TCheckboxGroup.panel(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
@@ -1341,7 +1341,7 @@ TCheckboxGroup.panel(
 class _TCheckboxGroupBasicHorizontalSource {
   static const String code = r"""
 TCheckboxGroup(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: const ['Alpha'],
   onChanged: (value) {},
@@ -1361,7 +1361,7 @@ TCheckboxGroup(
 class _TCheckboxGroupSeparatedHorizontalSource {
   static const String code = r"""
 TCheckboxGroup.separated(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: const ['Alpha'],
   onChanged: (value) {},
@@ -1381,7 +1381,7 @@ TCheckboxGroup.separated(
 class _TCheckboxGroupCardHorizontalSource {
   static const String code = r"""
 TCheckboxGroup.card(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: const ['Alpha'],
   onChanged: (value) {},
@@ -1401,7 +1401,7 @@ TCheckboxGroup.card(
 class _TCheckboxGroupPanelHorizontalSource {
   static const String code = r"""
 TCheckboxGroup.panel(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: const ['Alpha'],
   onChanged: (value) {},
@@ -1615,72 +1615,117 @@ TCheckboxTile.card(
 """;
 }
 
-/// Source code for [_TPopoverExample]
-class _TPopoverExampleSource {
+/// Source code for [_TDialogBasic]
+class _TDialogBasicSource {
   static const String code = r"""
-class _TPopoverExample extends StatefulWidget {
-  const _TPopoverExample();
-
-  @override
-  State<_TPopoverExample> createState() => _TPopoverExampleState();
-}
-
-class _TPopoverExampleState extends State<_TPopoverExample> {
-  final controller = TPopoverController();
-
-  @override
-  Widget build(BuildContext context) {
-    return TPopover(
-      controller: controller,
-      anchor: TSplitButton.filled(
-        trailing: const Icon(Icons.arrow_drop_down, size: 18),
-        onPressedTrailing: controller.toggle,
-        child: const Text('Actions'),
-      ),
-      content: const SizedBox(
-        height: 100,
-        width: 200,
-        child: Center(child: Text('Content')),
-      ),
-    );
-  }
-}
+TButton.outlined(
+  child: const Text('Show Dialog'),
+  onPressed: () => TDialog.show<void>(
+    context: context,
+    builder: (context) {
+      return TDialog(
+        title: const Text('Register account'),
+        content: const Text(
+          'Are you sure you want to register your account?',
+        ),
+        actions: [
+          TButton.filled(
+            child: const Text('Register'),
+            onPressed: () {},
+          ),
+        ],
+      );
+    },
+  ),
+)
 """;
 }
 
-/// Source code for [_TPopoverAlignment]
-class _TPopoverAlignmentSource {
+/// Source code for [_TDialogIcon]
+class _TDialogIconSource {
   static const String code = r"""
-class _TPopoverAlignment extends StatefulWidget {
-  const _TPopoverAlignment(this.alignment);
-  final Alignment alignment;
-
-  @override
-  State<_TPopoverAlignment> createState() => _TPopoverAlignmentState();
+TButton.outlined(
+  child: const Text('Show Dialog with Icon'),
+  onPressed: () => TDialog.show<void>(
+    context: context,
+    builder: (context) {
+      return TDialog(
+        icon: const Icon(Icons.account_circle, size: TSpace.v32),
+        title: const Text('Register account'),
+        content: const Text(
+          'Are you sure you want to register your account?',
+        ),
+        actions: [
+          TButton.filled(
+            child: const Text('Register'),
+            onPressed: () {},
+          ),
+        ],
+      );
+    },
+  ),
+)
+""";
 }
 
-class _TPopoverAlignmentState extends State<_TPopoverAlignment> {
-  final controller = TPopoverController();
-
-  @override
-  Widget build(BuildContext context) {
-    String name = widget.alignment.toString().split('.').last;
-    name = name[0].toUpperCase() + name.substring(1);
-    return TPopover(
-      alignment: widget.alignment,
-      controller: controller,
-      anchor: TButton.filled(
-        onPressed: controller.toggle,
-        child: const Text('Dropdown'),
-      ),
-      content: const SizedBox(
-        height: 100,
-        width: 200,
-        child: Center(child: Text('Content')),
-      ),
-    );
-  }
+/// Source code for [_TDialogClose]
+class _TDialogCloseSource {
+  static const String code = r"""
+TButton.outlined(
+  child: const Text('Show Dialog with Close'),
+  onPressed: () => TDialog.show<void>(
+    context: context,
+    builder: (context) {
+      return TDialog(
+        showClose: true,
+        showCancel: false,
+        title: const Text('Register account'),
+        content: const Text(
+          'Are you sure you want to register your account?',
+        ),
+        actions: [
+          TButton.filled(
+            child: const Text('Register'),
+            onPressed: () {},
+          ),
+        ],
+      );
+    },
+  ),
+)
+""";
 }
+
+/// Source code for [_TDialogCustomCancel]
+class _TDialogCustomCancelSource {
+  static const String code = r"""
+TButton.outlined(
+  child: const Text('Show Dialog with Cancel'),
+  onPressed: () => TDialog.show<void>(
+    context: context,
+    builder: (context) {
+      return TDialog(
+        title: const Text('Register account'),
+        content: const Text(
+          'Are you sure you want to register your account?',
+        ),
+        cancel: const Row(
+          spacing: TSpace.v6,
+          children: [
+            Icon(Icons.arrow_back, size: 15),
+            Text('Back'),
+          ],
+        ),
+        actions: [
+          TButton.filled(
+            child: const Text('Register'),
+            onPressed: () {},
+          ),
+        ],
+      );
+    },
+  ),
+)
 """;
 }
 
@@ -1825,6 +1870,270 @@ Wrap(
       ),
   ],
 )
+""";
+}
+
+/// Source code for [_TFormBasic]
+class _TFormBasicSource {
+  static const String code = r"""
+class _TFormBasic extends StatefulWidget {
+  const _TFormBasic();
+
+  @override
+  State<_TFormBasic> createState() => _TFormBasicState();
+}
+
+class _TFormBasicState extends State<_TFormBasic> {
+  final controller = TFormController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TForm(
+      controller: controller,
+      child: Column(
+        spacing: TSpace.v24,
+        children: [
+          TInput(
+            labelText: 'Email',
+            hintText: 'Enter your email',
+            validator: (value) {
+              if (value?.contains('@') ?? false) {
+                return null;
+              }
+              return 'Please enter a valid email';
+            },
+          ),
+          TInput(
+            labelText: 'Password',
+            hintText: 'Enter your password',
+            obscure: true,
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'Please enter a password';
+              }
+              return null;
+            },
+          ),
+          TExpand.width(
+            child: TButton.filled(
+              onPressed: controller.validate,
+              child: const Text('Validate Form'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TFormTrackFieldValues]
+class _TFormTrackFieldValuesSource {
+  static const String code = r"""
+class _TFormTrackFieldValues extends StatefulWidget {
+  const _TFormTrackFieldValues();
+
+  @override
+  State<_TFormTrackFieldValues> createState() => _TFormTrackFieldValuesState();
+}
+
+class _TFormTrackFieldValuesState extends State<_TFormTrackFieldValues> {
+  final controller = TFormController();
+
+  Future<void> onPressed() async {
+    controller.validate();
+    final values = controller.getTFormFieldValues();
+    await TDialog.show<void>(
+      context: context,
+      builder: (context) {
+        return TDialog(
+          title: const Text('Form Field Values'),
+          contentTextStyle: TTextStyle.text_md.copyWith(
+            color: context.tw.color.body,
+          ),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final entry in values.entries)
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        TText('`${entry.key}`'),
+                        const Spacer(),
+                        TText('`${entry.value}`'),
+                      ],
+                    ),
+                    const Divider(),
+                  ],
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TForm(
+      controller: controller,
+      child: Column(
+        spacing: TSpace.v24,
+        children: [
+          const TInput(
+            id: 'email',
+            labelText: 'Email',
+            initialValue: 'test@example.com',
+          ),
+          const TInput(
+            id: 'password',
+            labelText: 'Password',
+            initialValue: '123abc',
+            obscure: true,
+          ),
+          TExpand.width(
+            child: TButton.filled(
+              onPressed: onPressed,
+              child: const Text('Get Field Values'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TFormAllFields]
+class _TFormAllFieldsSource {
+  static const String code = r"""
+class _TFormAllFields extends StatefulWidget {
+  const _TFormAllFields();
+
+  @override
+  State<_TFormAllFields> createState() => __TFormAllFieldsState();
+}
+
+class __TFormAllFieldsState extends State<_TFormAllFields> {
+  final controller = TFormController();
+
+  Future<void> onPressed() async {
+    controller.validate();
+    final values = controller.getTFormFieldValues();
+    await TDialog.show<void>(
+      context: context,
+      builder: (context) {
+        return TDialog(
+          title: const Text('Form Field Values'),
+          contentTextStyle: TTextStyle.text_md.copyWith(
+            color: context.tw.color.body,
+          ),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final entry in values.entries)
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        TText('`${entry.key}`'),
+                        const Spacer(),
+                        TText('`${entry.value}`'),
+                      ],
+                    ),
+                    const Divider(),
+                  ],
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TCard(
+      header: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Sample Form'),
+          TButton.filled(
+            size: TWidgetSize.sm,
+            onPressed: onPressed,
+            child: const Text('Get Values'),
+          ),
+        ],
+      ),
+      child: TForm(
+        controller: controller,
+        child: Column(
+          spacing: TSpace.v32,
+          children: [
+            const Row(
+              spacing: TSpace.v12,
+              children: [
+                Expanded(
+                  child: TInput(
+                    labelText: 'Input',
+                    initialValue: 'Bob',
+                    hintText: 'Enter your name',
+                  ),
+                ),
+                Expanded(
+                  child: TSelect(
+                    labelText: 'Select',
+                    initialValue: 1,
+                    items: [1, 2, 3],
+                  ),
+                ),
+              ],
+            ),
+            const TSlider(
+              labelText: 'Slider',
+              initialValue: 0.75,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TRadioGroup(
+                    label: const Text('Radio Group'),
+                    groupValue: TSelectionGroupVariant.values.first,
+                    children: [
+                      for (final variant in TSelectionGroupVariant.values)
+                        TRadioGroupItem(
+                          title: Text(variant.title),
+                          value: variant,
+                        ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: TCheckboxGroup(
+                    label: const Text('Checkbox Group'),
+                    groupValue: [TSelectionGroupVariant.values.first],
+                    children: [
+                      for (final variant in TSelectionGroupVariant.values)
+                        TCheckboxGroupItem(
+                          title: Text(variant.title),
+                          value: variant,
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 """;
 }
 
@@ -2232,7 +2541,7 @@ Column(
     for (final size in TInputSize.values)
       TInput(
         size: size,
-        labelText: 'Email',
+        labelText: 'Email (${size.title})',
         hintText: 'you@example.com',
       ),
   ],
@@ -2425,6 +2734,75 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
 """;
 }
 
+/// Source code for [_TPopoverExample]
+class _TPopoverExampleSource {
+  static const String code = r"""
+class _TPopoverExample extends StatefulWidget {
+  const _TPopoverExample();
+
+  @override
+  State<_TPopoverExample> createState() => _TPopoverExampleState();
+}
+
+class _TPopoverExampleState extends State<_TPopoverExample> {
+  final controller = TPopoverController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TPopover(
+      controller: controller,
+      anchor: TSplitButton.filled(
+        trailing: const Icon(Icons.arrow_drop_down, size: 18),
+        onPressedTrailing: controller.toggle,
+        child: const Text('Actions'),
+      ),
+      content: const SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(child: Text('Content')),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TPopoverAlignment]
+class _TPopoverAlignmentSource {
+  static const String code = r"""
+class _TPopoverAlignment extends StatefulWidget {
+  const _TPopoverAlignment(this.alignment);
+  final Alignment alignment;
+
+  @override
+  State<_TPopoverAlignment> createState() => _TPopoverAlignmentState();
+}
+
+class _TPopoverAlignmentState extends State<_TPopoverAlignment> {
+  final controller = TPopoverController();
+
+  @override
+  Widget build(BuildContext context) {
+    String name = widget.alignment.toString().split('.').last;
+    name = name[0].toUpperCase() + name.substring(1);
+    return TPopover(
+      alignment: widget.alignment,
+      controller: controller,
+      anchor: TButton.filled(
+        onPressed: controller.toggle,
+        child: const Text('Dropdown'),
+      ),
+      content: const SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(child: Text('Content')),
+      ),
+    );
+  }
+}
+""";
+}
+
 /// Source code for [_TRadioActive]
 class _TRadioActiveSource {
   static const String code = r"""
@@ -2534,7 +2912,7 @@ class _TRadioIndicatorState extends State<_TRadioIndicator> {
 class _TRadioGroupBasicSource {
   static const String code = r"""
 TRadioGroup(
-  title: const Text('Card Types'),
+  label: const Text('Card Types'),
   description: const Text('Select the card type to use'),
   groupValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
@@ -2554,7 +2932,7 @@ TRadioGroup(
 class _TRadioGroupSeparatedSource {
   static const String code = r"""
 TRadioGroup.separated(
-  title: const Text('Card Types'),
+  label: const Text('Card Types'),
   description: const Text('Select the card type to use'),
   groupValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
@@ -2574,7 +2952,7 @@ TRadioGroup.separated(
 class _TRadioGroupCardSource {
   static const String code = r"""
 TRadioGroup.card(
-  title: const Text('Card Types'),
+  label: const Text('Card Types'),
   description: const Text('Select the card type to use'),
   groupValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
@@ -2594,7 +2972,7 @@ TRadioGroup.card(
 class _TRadioGroupPanelSource {
   static const String code = r"""
 TRadioGroup.panel(
-  title: const Text('Card Types'),
+  label: const Text('Card Types'),
   description: const Text('Select the card type to use'),
   groupValue: TSelectionGroupVariant.values.first,
   onChanged: (value) {},
@@ -2690,7 +3068,7 @@ TRadioGroup.panel(
 class _TRadioGroupBasicHorizontalSource {
   static const String code = r"""
 TRadioGroup(
-  title: const Text('Card Types'),
+  label: const Text('Card Types'),
   description: const Text('Select the card type to use'),
   groupValue: 'Small',
   onChanged: (value) {},
@@ -2710,7 +3088,7 @@ TRadioGroup(
 class _TRadioGroupSeparatedHorizontalSource {
   static const String code = r"""
 TRadioGroup.separated(
-  title: const Text('Card Types'),
+  label: const Text('Card Types'),
   description: const Text('Select the card type to use'),
   groupValue: 'Small',
   onChanged: (value) {},
@@ -2730,7 +3108,7 @@ TRadioGroup.separated(
 class _TRadioGroupCardHorizontalSource {
   static const String code = r"""
 TRadioGroup.card(
-  title: const Text('Card Types'),
+  label: const Text('Card Types'),
   description: const Text('Select the card type to use'),
   groupValue: 'Small',
   onChanged: (value) {},
@@ -2750,7 +3128,7 @@ TRadioGroup.card(
 class _TRadioGroupPanelHorizontalSource {
   static const String code = r"""
 TRadioGroup.panel(
-  title: const Text('Card Types'),
+  label: const Text('Card Types'),
   description: const Text('Select the card type to use'),
   groupValue: 'Small',
   onChanged: (value) {},
@@ -2846,12 +3224,12 @@ Column(
   children: [
     for (final size in TInputSize.values)
       TSelect(
-        labelText: 'Select Size',
+        labelText: 'Select Number (${size.title})',
         size: size,
-        initialValue: size,
-        items: TInputSize.values,
-        itemBuilder: (value) => Text(value.title),
-        selectedItemBuilder: (value) => Text('Selected: ${value.title}'),
+        initialValue: 1,
+        items: const [1, 2, 3],
+        itemBuilder: (value) => Text(value.toString()),
+        selectedItemBuilder: (value) => Text('Selected: $value'),
       ),
   ],
 )
@@ -3027,27 +3405,27 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
       children: [
-        TSelect(
-          initialValue: selectedUser,
-          allowDeselect: true,
-          labelText: 'Add a user',
-          items: const ['User A', 'User B', 'User C'],
-          placeholder: const Text('Select user'),
-          maxWidth: TScreen.max_w_224,
-          borderRadius:
-              const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
-          itemBuilder: (value) {
-            return Text(value);
-          },
-          selectedItemBuilder: (value) {
-            return Text(value);
-          },
-          onChanged: (value) {
-            selectedUser = value;
-            buttonController.disabled = selectedUser == null;
-          },
+        Flexible(
+          child: TSelect(
+            initialValue: selectedUser,
+            allowDeselect: true,
+            labelText: 'Add a user',
+            items: const ['User A', 'User B', 'User C'],
+            placeholder: const Text('Select user'),
+            borderRadius:
+                const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
+            itemBuilder: (value) {
+              return Text(value);
+            },
+            selectedItemBuilder: (value) {
+              return Text(value);
+            },
+            onChanged: (value) {
+              selectedUser = value;
+              buttonController.disabled = selectedUser == null;
+            },
+          ),
         ),
         TButton.filled(
           size: TWidgetSize.lg,
@@ -3893,7 +4271,7 @@ TSwitchTile.card(
 class _TSwitchGroupBasicSource {
   static const String code = r"""
 TSwitchGroup(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
@@ -3913,7 +4291,7 @@ TSwitchGroup(
 class _TSwitchGroupSeparatedSource {
   static const String code = r"""
 TSwitchGroup.separated(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
@@ -3933,7 +4311,7 @@ TSwitchGroup.separated(
 class _TSwitchGroupCardSource {
   static const String code = r"""
 TSwitchGroup.card(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
@@ -3953,7 +4331,7 @@ TSwitchGroup.card(
 class _TSwitchGroupPanelSource {
   static const String code = r"""
 TSwitchGroup.panel(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: [TSelectionGroupVariant.values.first],
   onChanged: (value) {},
@@ -4049,7 +4427,7 @@ TSwitchGroup.panel(
 class _TSwitchGroupBasicHorizontalSource {
   static const String code = r"""
 TSwitchGroup(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: const ['Alpha'],
   onChanged: (value) {},
@@ -4069,7 +4447,7 @@ TSwitchGroup(
 class _TSwitchGroupSeparatedHorizontalSource {
   static const String code = r"""
 TSwitchGroup.separated(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: const ['Alpha'],
   onChanged: (value) {},
@@ -4089,7 +4467,7 @@ TSwitchGroup.separated(
 class _TSwitchGroupCardHorizontalSource {
   static const String code = r"""
 TSwitchGroup.card(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: const ['Alpha'],
   onChanged: (value) {},
@@ -4109,7 +4487,7 @@ TSwitchGroup.card(
 class _TSwitchGroupPanelHorizontalSource {
   static const String code = r"""
 TSwitchGroup.panel(
-  title: const Text('Group Types'),
+  label: const Text('Group Types'),
   description: const Text('Select the group type to use'),
   groupValue: const ['Alpha'],
   onChanged: (value) {},

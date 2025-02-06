@@ -92,9 +92,8 @@ class ColorsRoute extends ConsumerWidget {
               ),
               const Divider(height: TSpace.v48),
               TRadioGroup.card(
-                maxWidth: double.infinity,
                 groupValue: colorFormat,
-                axis: tw.screen.is_md ? Axis.horizontal : Axis.vertical,
+                axis: tw.screen.is_sm ? Axis.horizontal : Axis.vertical,
                 children: [
                   for (final format in ColorFormat.values)
                     TRadioGroupItem(

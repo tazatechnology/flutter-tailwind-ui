@@ -120,6 +120,7 @@ class TailwindTheme {
       hintColor: color.label,
       primaryColor: color.primary,
       shadowColor: color.shadow,
+      dialogBackgroundColor: color.background,
 
       /// AppBar
       appBarTheme: AppBarTheme(
@@ -146,6 +147,26 @@ class TailwindTheme {
         shape: RoundedRectangleBorder(
           borderRadius: TBorderRadius.rounded_lg,
           side: BorderSide(color: color.divider),
+        ),
+      ),
+
+      /// Dialog
+      dialogTheme: DialogTheme(
+        backgroundColor: color.background,
+        shadowColor: color.shadow,
+        surfaceTintColor: Colors.transparent,
+        barrierColor: color.barrier,
+        elevation: TElevation.shadow_xl,
+        titleTextStyle: TTextStyle.text_md.copyWith(
+          color: color.title,
+          fontWeight: TFontWeight.semibold,
+        ),
+        contentTextStyle: TTextStyle.text_sm.copyWith(
+          color: color.label,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: TBorderRadius.rounded_lg,
+          side: BorderSide(color: color.shadow),
         ),
       ),
 

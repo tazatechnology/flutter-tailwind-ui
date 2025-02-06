@@ -54,7 +54,7 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
       appBarHeight += AppScaffold.toolbarHeight;
     }
 
-    final borderColor = tw.light ? tw.colors.divider : TColors.slate.shade700;
+    final borderColor = tw.light ? tw.color.divider : TColors.slate.shade700;
 
     final appBarBorder = Border(
       bottom: BorderSide(color: borderColor),
@@ -222,7 +222,7 @@ class _ScaffoldHeader extends ConsumerWidget {
               TText(
                 currentSection.title,
                 style: TTextStyle.text_sm.copyWith(
-                  color: tw.colors.label,
+                  color: tw.color.label,
                   fontWeight: TFontWeight.light,
                 ),
               ),
@@ -258,7 +258,7 @@ class _ScaffoldMobileNavigation extends ConsumerWidget {
           TText(
             currentSection.title,
             style: TTextStyle.text_sm.copyWith(
-              color: tw.colors.label,
+              color: tw.color.label,
               fontWeight: TFontWeight.light,
             ),
           ),

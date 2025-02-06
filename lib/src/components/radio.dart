@@ -63,8 +63,7 @@ class TRadio extends StatelessWidget {
   Widget build(BuildContext context) {
     final tw = context.tw;
 
-    final color =
-        enabled ? this.color ?? tw.colors.primary : tw.colors.disabled;
+    final color = enabled ? this.color ?? tw.color.primary : tw.color.disabled;
 
     final indicator = this.indicator ??
         const Icon(
@@ -116,7 +115,7 @@ class TRadio extends StatelessWidget {
         if (value) {
           borderColor = color;
         } else if (states.disabled) {
-          borderColor = tw.colors.disabled;
+          borderColor = tw.color.disabled;
         } else {
           borderColor =
               tw.light ? const Color(0xffccccd4) : const Color(0xff4d5866);
@@ -142,7 +141,7 @@ class TRadio extends StatelessWidget {
                     ? color
                     : (enabled
                         ? Colors.transparent
-                        : tw.colors.disabled.withValues(alpha: 0.5)),
+                        : tw.color.disabled.withValues(alpha: 0.5)),
                 border: Border.all(color: borderColor),
                 borderRadius: TBorderRadius.rounded_full,
               ),
@@ -180,12 +179,11 @@ class TRadioGroup<T> extends StatefulWidget {
   const TRadioGroup({
     required this.children,
     super.key,
-    this.title,
+    this.label,
     this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.maxWidth = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -196,12 +194,11 @@ class TRadioGroup<T> extends StatefulWidget {
   const TRadioGroup.separated({
     required this.children,
     super.key,
-    this.title,
+    this.label,
     this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.maxWidth = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -212,12 +209,11 @@ class TRadioGroup<T> extends StatefulWidget {
   const TRadioGroup.card({
     required this.children,
     super.key,
-    this.title,
+    this.label,
     this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.maxWidth = TScreen.max_w_md,
     this.radius = TRadius.rounded_lg,
     this.spacing,
     this.affinity = TControlAffinity.leading,
@@ -228,12 +224,11 @@ class TRadioGroup<T> extends StatefulWidget {
   const TRadioGroup.panel({
     required this.children,
     super.key,
-    this.title,
+    this.label,
     this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.maxWidth = TScreen.max_w_md,
     this.radius = TRadius.rounded_lg,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -243,8 +238,8 @@ class TRadioGroup<T> extends StatefulWidget {
   /// The children of the radio group.
   final List<TRadioGroupItem<T>> children;
 
-  /// The title widget
-  final Widget? title;
+  /// The label widget
+  final Widget? label;
 
   /// The description widget
   final Widget? description;
@@ -260,9 +255,6 @@ class TRadioGroup<T> extends StatefulWidget {
 
   /// The color of the radio elements.
   final Color? color;
-
-  /// The maximum width of the group.
-  final double maxWidth;
 
   /// The spacing between the group elements.
   ///
@@ -424,11 +416,10 @@ class _TRadioGroupState<T> extends State<TRadioGroup<T>> {
     return TSelectionGroupList(
       axis: widget.axis,
       variant: widget.variant,
-      maxWidth: widget.maxWidth,
       spacing: widget.spacing ?? widget.variant.spacing,
       items: widget.children,
       radius: widget.radius,
-      title: widget.title,
+      label: widget.label,
       description: widget.description,
       itemBuilder: (context, index) {
         final item = widget.children[index];

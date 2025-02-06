@@ -68,7 +68,7 @@ class TSwitch extends StatelessWidget {
 
     final tw = context.tw;
 
-    final color = this.color ?? tw.colors.primary;
+    final color = this.color ?? tw.color.primary;
     final bgColor = tw.light ? TColors.gray.shade200 : TColors.gray.shade800;
     final bgDisabled = tw.light ? TColors.gray.shade400 : TColors.gray.shade700;
 
@@ -113,7 +113,7 @@ class TSwitch extends StatelessWidget {
       height: thumbWidth,
       margin: const EdgeInsets.all(inset),
       decoration: BoxDecoration(
-        color: enabled || tw.light ? Colors.white : tw.colors.disabled,
+        color: enabled || tw.light ? Colors.white : tw.color.disabled,
         borderRadius: TBorderRadius.rounded_full,
         boxShadow: const [
           BoxShadow(
@@ -341,12 +341,11 @@ class TSwitchGroup<T> extends StatefulWidget {
   /// Creates a switch group
   const TSwitchGroup({
     required this.children,
-    this.title,
+    this.label,
     this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.maxWidth = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -357,12 +356,11 @@ class TSwitchGroup<T> extends StatefulWidget {
   /// Creates a separated switch group
   const TSwitchGroup.separated({
     required this.children,
-    this.title,
+    this.label,
     this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.maxWidth = TScreen.max_w_md,
     this.spacing,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -373,12 +371,11 @@ class TSwitchGroup<T> extends StatefulWidget {
   /// Creates a card switch group
   const TSwitchGroup.card({
     required this.children,
-    this.title,
+    this.label,
     this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.maxWidth = TScreen.max_w_md,
     this.radius = TRadius.rounded_lg,
     this.spacing,
     this.affinity = TControlAffinity.leading,
@@ -389,12 +386,11 @@ class TSwitchGroup<T> extends StatefulWidget {
   /// Creates a card switch group
   const TSwitchGroup.panel({
     required this.children,
-    this.title,
+    this.label,
     this.description,
     this.groupValue,
     this.onChanged,
     this.color,
-    this.maxWidth = TScreen.max_w_md,
     this.radius = TRadius.rounded_lg,
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
@@ -405,8 +401,8 @@ class TSwitchGroup<T> extends StatefulWidget {
   /// The children of the switch group.
   final List<TSwitchGroupItem<T>> children;
 
-  /// The title widget
-  final Widget? title;
+  /// The label widget
+  final Widget? label;
 
   /// The description widget
   final Widget? description;
@@ -424,9 +420,6 @@ class TSwitchGroup<T> extends StatefulWidget {
 
   /// The color of the switch elements.
   final Color? color;
-
-  /// The maximum width of the group.
-  final double maxWidth;
 
   /// The spacing between the group elements.
   ///
@@ -502,11 +495,10 @@ class _TSwitchGroupState<T> extends State<TSwitchGroup<T>> {
     return TSelectionGroupList(
       axis: widget.axis,
       variant: widget.variant,
-      maxWidth: widget.maxWidth,
       spacing: widget.spacing ?? widget.variant.spacing,
       items: widget.children,
       radius: widget.radius,
-      title: widget.title,
+      label: widget.label,
       description: widget.description,
       itemBuilder: (context, index) {
         final item = widget.children[index];

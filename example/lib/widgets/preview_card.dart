@@ -16,7 +16,7 @@ class AppPreviewCard extends StatefulWidget {
     this.description,
     this.reference,
     this.initialShowCode = false,
-    this.maxWidth,
+    this.maxWidth = TScreen.max_w_md,
     super.key,
   });
   final String? title;
@@ -138,7 +138,7 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
             padding: TOffset.t12,
             child: TText(
               widget.description!,
-              style: TTextStyle.text_sm.copyWith(),
+              style: TTextStyle.text_sm,
             ),
           ),
         ExcludeFocus(
@@ -170,7 +170,7 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
                 code: widget.code,
                 scrollDirection: Axis.horizontal,
                 theme: TCodeBlockTheme(
-                  backgroundColor: tw.dark ? tw.colors.card : null,
+                  backgroundColor: tw.dark ? tw.color.card : null,
                   margin: TOffset.y16,
                   fontSize: codeFontSize,
                   constraints: const BoxConstraints(

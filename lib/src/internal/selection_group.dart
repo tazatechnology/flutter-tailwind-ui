@@ -40,10 +40,9 @@ class TSelectionGroupList<T> extends StatelessWidget {
     required this.variant,
     required this.items,
     required this.itemBuilder,
-    required this.title,
+    required this.label,
     required this.description,
     required this.spacing,
-    required this.maxWidth,
     required this.radius,
     required this.axis,
     super.key,
@@ -58,8 +57,8 @@ class TSelectionGroupList<T> extends StatelessWidget {
   /// The builder for the items
   final IndexedWidgetBuilder itemBuilder;
 
-  /// The title widget
-  final Widget? title;
+  /// The label widget
+  final Widget? label;
 
   /// The description widget
   final Widget? description;
@@ -67,10 +66,7 @@ class TSelectionGroupList<T> extends StatelessWidget {
   /// The spacing between the items
   final double spacing;
 
-  /// Optional separator
-  final double maxWidth;
-
-  /// Optional separator
+  /// The radius of the items
   final double radius;
 
   /// The orientation of the list
@@ -89,16 +85,9 @@ class TSelectionGroupList<T> extends StatelessWidget {
     for (var ii = 0; ii < items.length; ii++) {
       if (ii > 0 && variant == TSelectionGroupVariant.separated) {
         if (axis == Axis.vertical) {
-          effectiveChildren.add(
-            SizedBox(
-              width: maxWidth,
-              child: const Divider(height: 0, thickness: 1),
-            ),
-          );
+          effectiveChildren.add(const Divider(height: 0, thickness: 1));
         } else {
-          effectiveChildren.add(
-            const VerticalDivider(width: 0, thickness: 1),
-          );
+          effectiveChildren.add(const VerticalDivider(width: 0, thickness: 1));
         }
       }
       effectiveChildren.add(
@@ -112,7 +101,7 @@ class TSelectionGroupList<T> extends StatelessWidget {
       decoration = BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
         border: Border.all(
-          color: tw.colors.divider,
+          color: tw.color.divider,
           strokeAlign: BorderSide.strokeAlignOutside,
         ),
       );
@@ -132,12 +121,11 @@ class TSelectionGroupList<T> extends StatelessWidget {
     );
 
     return SizedBox(
-      width: maxWidth,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TLabelDescriptionWidget(label: title, description: description),
+          TLabelDescriptionWidget(label: label, description: description),
           // For horizontal axis, wrap the content with IntrinsicHeight
           // This is to ensure the vertical divider height matches the content height
           if (axis == Axis.vertical)
@@ -235,13 +223,13 @@ class TSelectionGroupTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final tw = context.tw;
 
-    final color = (this.color ?? tw.colors.primary).toMaterialColor();
+    final color = (this.color ?? tw.color.primary).toMaterialColor();
 
     final sep = affinity.isLeading ? TSpace.v12 : TSpace.v0;
 
     Color selectedBorderColor = tw.light ? color.shade400 : color.shade600;
     if (!enabled) {
-      selectedBorderColor = tw.colors.disabled;
+      selectedBorderColor = tw.color.disabled;
     }
 
     // Styled title widget
@@ -249,7 +237,7 @@ class TSelectionGroupTile extends StatelessWidget {
       padding: EdgeInsets.only(left: sep),
       child: DefaultTextStyle.merge(
         style: TTextStyle.text_sm.copyWith(
-          color: enabled ? null : tw.colors.disabledTextColor,
+          color: enabled ? null : tw.color.disabledTextColor,
           fontWeight: TFontWeight.medium,
           height: kTextHeightNone,
         ),
@@ -301,7 +289,7 @@ class TSelectionGroupTile extends StatelessWidget {
                 child: DefaultTextStyle.merge(
                   style: TTextStyle.text_sm.copyWith(
                     color:
-                        enabled ? tw.colors.label : tw.colors.disabledTextColor,
+                        enabled ? tw.color.label : tw.color.disabledTextColor,
                   ),
                   child: description!,
                   maxLines: 100,
@@ -355,7 +343,7 @@ class TSelectionGroupTile extends StatelessWidget {
               border: BorderSide(
                 color: selected && applySelectedBorderColor
                     ? selectedBorderColor
-                    : (enabled ? tw.colors.divider : tw.colors.disabled),
+                    : (enabled ? tw.color.divider : tw.color.disabled),
                 width: selected && applySelectedBorderColor ? 1.5 : 1,
               ),
               child: content,
@@ -387,10 +375,10 @@ class TSelectionGroupTile extends StatelessWidget {
         BorderSide left = BorderSide.none;
         if (axis == Axis.vertical) {
           bottom =
-              isLast ? BorderSide.none : BorderSide(color: tw.colors.divider);
+              isLast ? BorderSide.none : BorderSide(color: tw.color.divider);
         } else {
           left =
-              isFirst ? BorderSide.none : BorderSide(color: tw.colors.divider);
+              isFirst ? BorderSide.none : BorderSide(color: tw.color.divider);
         }
 
         return TGestureDetector(

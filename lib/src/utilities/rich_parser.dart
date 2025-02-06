@@ -316,7 +316,7 @@ class TRichFormatter {
                     context: match.context,
                     text: match.textMatch,
                     style: match.baseStyle.copyWith(
-                      color: tw.colors.link,
+                      color: tw.color.link,
                     ),
                   ),
                 ),

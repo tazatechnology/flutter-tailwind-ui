@@ -12,6 +12,10 @@ import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 class TInput extends StatefulWidget {
   /// Construct a simple input field.
   const TInput({
+    super.key,
+    this.id,
+    this.restorationId,
+    this.groupId = EditableText,
     this.initialValue,
     this.controller,
     this.statesController,
@@ -70,7 +74,6 @@ class TInput extends StatefulWidget {
     this.spellCheckConfiguration,
     this.magnifierConfiguration,
     this.undoController,
-    super.key,
   })  : _isTextArea = false,
         expands = false,
         minLines = 1,
@@ -82,6 +85,10 @@ class TInput extends StatefulWidget {
 
   /// Construct a text area input field.
   const TInput.area({
+    super.key,
+    this.id,
+    this.restorationId,
+    this.groupId = EditableText,
     this.initialValue,
     this.controller,
     this.statesController,
@@ -138,7 +145,6 @@ class TInput extends StatefulWidget {
     this.expands = false,
     this.minLines = 5,
     this.maxLines = 10,
-    super.key,
   })  : _isTextArea = true,
         obscure = false,
         obscureCharacter = '•',
@@ -152,6 +158,17 @@ class TInput extends StatefulWidget {
 
   /// Internal flag to determine if the input field is a text area.
   final bool _isTextArea;
+
+  /// The unique identifier for the input field.
+  ///
+  /// This is used by [TFormController] to retrieve the value of the field.
+  final Object? id;
+
+  /// The restoration ID for the input field.
+  final String? restorationId;
+
+  /// The group ID for the input field.
+  final Object groupId;
 
   /// The initial value of the input field.
   final String? initialValue;
@@ -371,9 +388,6 @@ class _TInputState extends State<TInput> {
     } else {
       statesController = TWidgetStatesController();
     }
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      statesController.addListener(() => setState(() {}));
-    });
   }
 
   // ---------------------------------------------------------------------------
@@ -408,7 +422,7 @@ class _TInputState extends State<TInput> {
     Color? effectiveFillColor =
         widget.fillColor?.resolve(statesController.value);
     if (isInteractive) {
-      effectiveFillColor ??= tw.colors.background;
+      effectiveFillColor ??= tw.color.background;
     } else {
       effectiveFillColor ??= tw.dark ? Colors.black54 : TColors.gray.shade50;
     }
@@ -495,88 +509,93 @@ class _TInputState extends State<TInput> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (label != null) TLabelDescriptionWidget(label: label),
-        TextFormField(
-          controller: controller,
-          statesController: statesController,
-          focusNode: widget.focusNode,
-          keyboardType: widget.keyboardType,
-          textCapitalization: widget.textCapitalization,
-          textInputAction: widget.textInputAction,
-          smartDashesType: widget.smartDashesType,
-          smartQuotesType: widget.smartQuotesType,
-          maxLengthEnforcement: widget.maxLengthEnforcement,
-          selectionControls: widget.selectionControls,
-          enabled: widget.enabled,
-          readOnly: widget.readOnly,
-          autofocus: widget.autofocus,
-          autocorrect: widget.autocorrect,
-          autofillHints: widget.autofillHints,
-          autovalidateMode: widget.autovalidateMode,
-          showCursor: widget.showCursor ?? isInteractive,
-          obscureText: widget.obscure,
-          obscuringCharacter: widget.obscureCharacter,
-          enableSuggestions: widget.enableSuggestions,
-          scribbleEnabled: widget.scribbleEnabled,
-          ignorePointers: widget.ignorePointers,
-          enableInteractiveSelection: widget.enableInteractiveSelection,
-          onTapAlwaysCalled: widget.onTapAlwaysCalled,
-          canRequestFocus: widget.enabled,
-          mouseCursor: mouseCursor,
-          cursorWidth: 1,
-          cursorHeight: style.fontSize,
-          cursorColor: textSelectionTheme.cursorColor,
-          cursorErrorColor: textSelectionTheme.cursorColor,
-          cursorOpacityAnimates: false,
-          style: style,
-          textAlign: widget.textAlign,
-          textDirection: widget.textDirection,
-          textAlignVertical: widget.textAlignVertical,
-          // Callbacks
-          validator: widget.validator,
-          inputFormatters: widget.inputFormatters,
-          onTap: widget.onTap,
-          onChanged: widget.onChanged,
-          onTapOutside: widget.onTapOutside,
-          onEditingComplete: widget.onEditingComplete,
-          onFieldSubmitted: widget.onFieldSubmitted,
-          onSaved: widget.onSaved,
-          onAppPrivateCommand: widget.onAppPrivateCommand,
-          contentInsertionConfiguration: widget.contentInsertionConfiguration,
-          contextMenuBuilder: widget.contextMenuBuilder,
-          spellCheckConfiguration: widget.spellCheckConfiguration,
-          magnifierConfiguration: widget.magnifierConfiguration,
-          undoController: widget.undoController,
-          // Text area properties
-          expands: widget.expands,
-          minLines: widget.minLines,
-          maxLines: widget.maxLines,
-          // Decoration properties
-          decoration: InputDecoration(
-            contentPadding: contentPadding,
-            // Used to pad the input text without using content padding
-            // Else, content padding will shift the help and error text
-            prefixIconConstraints: BoxConstraints(
-              minWidth: widget.prefix == null ? xPad : height,
+        TFormField(
+          id: widget.id ?? 'TFormField',
+          child: TextFormField(
+            groupId: widget.groupId,
+            restorationId: widget.restorationId,
+            controller: controller,
+            statesController: statesController,
+            focusNode: widget.focusNode,
+            keyboardType: widget.keyboardType,
+            textCapitalization: widget.textCapitalization,
+            textInputAction: widget.textInputAction,
+            smartDashesType: widget.smartDashesType,
+            smartQuotesType: widget.smartQuotesType,
+            maxLengthEnforcement: widget.maxLengthEnforcement,
+            selectionControls: widget.selectionControls,
+            enabled: widget.enabled,
+            readOnly: widget.readOnly,
+            autofocus: widget.autofocus,
+            autocorrect: widget.autocorrect,
+            autofillHints: widget.autofillHints,
+            autovalidateMode: widget.autovalidateMode,
+            showCursor: widget.showCursor ?? isInteractive,
+            obscureText: widget.obscure,
+            obscuringCharacter: widget.obscureCharacter,
+            enableSuggestions: widget.enableSuggestions,
+            scribbleEnabled: widget.scribbleEnabled,
+            ignorePointers: widget.ignorePointers,
+            enableInteractiveSelection: widget.enableInteractiveSelection,
+            onTapAlwaysCalled: widget.onTapAlwaysCalled,
+            canRequestFocus: widget.enabled,
+            mouseCursor: mouseCursor,
+            cursorWidth: 1,
+            cursorHeight: style.fontSize,
+            cursorColor: textSelectionTheme.cursorColor,
+            cursorErrorColor: textSelectionTheme.cursorColor,
+            cursorOpacityAnimates: false,
+            style: style,
+            textAlign: widget.textAlign,
+            textDirection: widget.textDirection,
+            textAlignVertical: widget.textAlignVertical,
+            // Callbacks
+            validator: widget.validator,
+            inputFormatters: widget.inputFormatters,
+            onTap: widget.onTap,
+            onChanged: widget.onChanged,
+            onTapOutside: widget.onTapOutside,
+            onEditingComplete: widget.onEditingComplete,
+            onFieldSubmitted: widget.onFieldSubmitted,
+            onSaved: widget.onSaved,
+            onAppPrivateCommand: widget.onAppPrivateCommand,
+            contentInsertionConfiguration: widget.contentInsertionConfiguration,
+            contextMenuBuilder: widget.contextMenuBuilder,
+            spellCheckConfiguration: widget.spellCheckConfiguration,
+            magnifierConfiguration: widget.magnifierConfiguration,
+            undoController: widget.undoController,
+            // Text area properties
+            expands: widget.expands,
+            minLines: widget.minLines,
+            maxLines: widget.maxLines,
+            // Decoration properties
+            decoration: InputDecoration(
+              contentPadding: contentPadding,
+              // Used to pad the input text without using content padding
+              // Else, content padding will shift the help and error text
+              prefixIconConstraints: BoxConstraints(
+                minWidth: widget.prefix == null ? xPad : height,
+              ),
+              suffixIconConstraints: BoxConstraints(
+                minWidth: widget.suffix == null ? xPad : height,
+              ),
+              border: effectiveBorder.resolve({}),
+              enabledBorder: effectiveBorder.resolve({}),
+              focusedBorder: effectiveBorder.resolve({WidgetState.focused}),
+              errorBorder: effectiveBorder.resolve({WidgetState.error}),
+              disabledBorder: effectiveBorder.resolve({WidgetState.disabled}),
+              filled: !effectiveFillColor.isTransparent,
+              fillColor: effectiveFillColor,
+              prefixIcon: widget.prefix ?? const SizedBox.shrink(),
+              suffixIcon: widget.suffix ?? const SizedBox.shrink(),
+              hintText: widget.hintText,
+              hintFadeDuration: Duration.zero,
+              hintStyle: inputTheme.hintStyle?.copyWith(
+                fontSize: style.fontSize,
+              ),
+              helper: help,
+              error: error,
             ),
-            suffixIconConstraints: BoxConstraints(
-              minWidth: widget.suffix == null ? xPad : height,
-            ),
-            border: effectiveBorder.resolve({}),
-            enabledBorder: effectiveBorder.resolve({}),
-            focusedBorder: effectiveBorder.resolve({WidgetState.focused}),
-            errorBorder: effectiveBorder.resolve({WidgetState.error}),
-            disabledBorder: effectiveBorder.resolve({WidgetState.disabled}),
-            filled: !effectiveFillColor.isTransparent,
-            fillColor: effectiveFillColor,
-            prefixIcon: widget.prefix ?? const SizedBox.shrink(),
-            suffixIcon: widget.suffix ?? const SizedBox.shrink(),
-            hintText: widget.hintText,
-            hintFadeDuration: Duration.zero,
-            hintStyle: inputTheme.hintStyle?.copyWith(
-              fontSize: style.fontSize,
-            ),
-            helper: help,
-            error: error,
           ),
         ),
       ],

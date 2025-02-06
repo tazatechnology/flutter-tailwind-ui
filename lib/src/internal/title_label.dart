@@ -37,7 +37,7 @@ class TLabelDescriptionWidget extends StatelessWidget {
               style: TTextStyle.text_sm.copyWith(
                 fontWeight: TFontWeight.medium,
                 height: kTextHeightNone,
-                color: tw.colors.title,
+                color: tw.color.title,
               ),
               child: label!,
             ),
@@ -48,7 +48,7 @@ class TLabelDescriptionWidget extends StatelessWidget {
             child: DefaultTextStyle.merge(
               style: TTextStyle.text_sm.copyWith(
                 height: kTextHeightNone,
-                color: tw.colors.label,
+                color: tw.color.label,
               ),
               child: description!,
             ),

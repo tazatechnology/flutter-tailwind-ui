@@ -270,8 +270,8 @@ class _TSliderState extends State<TSlider> {
           overlayColor: Colors.transparent,
           thumbShape: const TSliderThumbShape(),
           valueIndicatorShape: TSliderValueIndicatorShape(
-            color: widget.tooltipColor ?? tw.colors.tooltip,
-            borderColor: widget.tooltipBorderColor ?? tw.colors.divider,
+            color: widget.tooltipColor ?? tw.color.tooltip,
+            borderColor: widget.tooltipBorderColor ?? tw.color.divider,
           ),
         ),
       ),
@@ -404,7 +404,7 @@ class _TSliderInput extends StatelessWidget {
       );
     }
     return TInput(
-      borderColor: WidgetStatePropertyAll(tw.colors.divider),
+      borderColor: WidgetStatePropertyAll(tw.color.divider),
       controller: controller,
       focusNode: focusNode,
       style: style,

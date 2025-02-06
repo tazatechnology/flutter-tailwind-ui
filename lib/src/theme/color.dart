@@ -18,6 +18,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     required this.link,
     required this.background,
     required this.shadow,
+    required this.barrier,
     required this.hover,
     required this.card,
     required this.icon,
@@ -43,6 +44,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? link,
     Color? background,
     Color? shadow,
+    Color? barrier,
     Color? hover,
     Color? card,
     Color? icon,
@@ -65,6 +67,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       link: link,
       background: background,
       shadow: shadow,
+      barrier: barrier,
       hover: hover,
       card: card,
       icon: icon,
@@ -89,6 +92,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? link,
     Color? background,
     Color? shadow,
+    Color? barrier,
     Color? hover,
     Color? card,
     Color? icon,
@@ -110,6 +114,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       link: link,
       background: background,
       shadow: shadow,
+      barrier: barrier,
       hover: hover,
       card: card,
       icon: icon,
@@ -138,6 +143,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         link: TColors.sky,
         background: Colors.white,
         shadow: Colors.black26,
+        barrier: Colors.black.withValues(alpha: 0.7),
         hover: const Color(0xfff4f4f5),
         card: Colors.white,
         icon: TColors.gray.shade400,
@@ -160,7 +166,8 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         hint: TColors.gray.shade500,
         link: TColors.sky.shade400,
         background: TColors.gray.shade950,
-        shadow: Colors.white12,
+        shadow: TColors.gray.shade800,
+        barrier: Colors.black.withValues(alpha: 0.85),
         hover: const Color(0xff27272a),
         card: TColors.gray.shade900,
         icon: TColors.gray.shade400,
@@ -208,6 +215,11 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   ///
   /// Used for shadows and applying elevation
   final Color shadow;
+
+  /// Barrier color
+  ///
+  /// The color of the barrier that blocks interaction with underlying elements
+  final Color barrier;
 
   /// The hover color for selectable elements
   ///
@@ -283,6 +295,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
     Color? link,
     Color? background,
     Color? shadow,
+    Color? barrier,
     Color? hover,
     Color? card,
     Color? icon,
@@ -305,6 +318,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       link: link ?? this.link,
       background: background ?? this.background,
       shadow: shadow ?? this.shadow,
+      barrier: barrier ?? this.barrier,
       hover: hover ?? this.hover,
       card: card ?? this.card,
       icon: icon ?? this.icon,
@@ -377,6 +391,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       link: _lerpColor(link, other.link, t),
       background: _lerpColor(background, other.background, t),
       shadow: _lerpColor(shadow, other.shadow, t),
+      barrier: _lerpColor(barrier, other.barrier, t),
       hover: _lerpColor(hover, other.hover, t),
       card: _lerpColor(card, other.card, t),
       icon: _lerpColor(icon, other.icon, t),

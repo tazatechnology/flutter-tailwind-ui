@@ -70,7 +70,7 @@ class AppRouteHeader extends StatelessWidget {
       titleStyle = TTextStyle.text_3xl;
     }
     titleStyle = titleStyle.copyWith(
-      color: tw.colors.title,
+      color: tw.color.title,
       fontFamily: titleMono ? TTextStyle.fontFamilyMono : TTextStyle.fontFamily,
       fontWeight: TFontWeight.medium,
       letterSpacing: TLetterSpacing.tight,
@@ -228,7 +228,7 @@ class AppSectionAnchor extends StatelessWidget {
                               decoration: states.focused
                                   ? TextDecoration.underline
                                   : TextDecoration.none,
-                              decorationColor: tw.colors.focus,
+                              decorationColor: tw.color.focus,
                             ),
                           ),
                         ),

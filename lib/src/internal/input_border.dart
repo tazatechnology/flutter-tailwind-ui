@@ -13,8 +13,7 @@ class TInputBorderWrapper extends StatelessWidget {
     super.key,
     this.enabled = true,
     this.padding = EdgeInsets.zero,
-    this.width,
-    this.height,
+    this.constraints,
     this.fillColor,
     this.borderColor,
     this.borderRadius,
@@ -30,14 +29,11 @@ class TInputBorderWrapper extends StatelessWidget {
   /// Whether the widget is enabled
   final bool enabled;
 
-  /// The width of the widget
-  final double? width;
-
-  /// The height of the widget
-  final double? height;
-
   /// The padding around the child
   final EdgeInsets padding;
+
+  /// The constraints for the container
+  final BoxConstraints? constraints;
 
   /// The fill color for the input field.
   final WidgetStateProperty<Color?>? fillColor;
@@ -141,12 +137,11 @@ class TInputBorderWrapper extends StatelessWidget {
         return CustomPaint(
           foregroundPainter: _InputBorderPainter(effectiveBorder),
           child: Container(
-            height: height,
-            width: width,
+            constraints: constraints,
             alignment: Alignment.centerLeft,
             padding: padding,
             decoration: BoxDecoration(
-              color: fillColor?.resolve(states) ?? context.tw.colors.background,
+              color: fillColor?.resolve(states) ?? context.tw.color.background,
               borderRadius: borderRadius?.resolve(states),
             ),
             child: child,
@@ -183,42 +178,3 @@ class _InputBorderPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
-
-// class _InputBorderPainter extends CustomPainter {
-//   _InputBorderPainter(this.inputBorder);
-
-//   final InputBorder inputBorder;
-
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final double strokeWidth = (inputBorder is OutlineInputBorder)
-//         ? (inputBorder as OutlineInputBorder).borderSide.width
-//         : 0.0;
-
-//     // Adjust the rect to account for the stroke width
-//     final Rect rect = Rect.fromLTWH(
-//       strokeWidth / 2,
-//       strokeWidth / 2,
-//       size.width - strokeWidth,
-//       size.height - strokeWidth,
-//     );
-
-//     if (inputBorder is OutlineInputBorder) {
-//       final OutlineInputBorder outlineBorder =
-//           inputBorder as OutlineInputBorder;
-
-//       // Resolve the border radius using the ambient TextDirection
-//       final RRect rrect =
-//           outlineBorder.borderRadius.resolve(TextDirection.ltr).toRRect(rect);
-
-//       // Paint the border correctly within the expected size
-//       outlineBorder.paint(canvas, rrect.outerRect);
-//     } else {
-//       // For other InputBorder types, paint as usual
-//       inputBorder.paint(canvas, rect.deflate(0));
-//     }
-//   }
-
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-// }

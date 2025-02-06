@@ -275,7 +275,7 @@ class TSplitButton extends StatelessWidget {
           dividerColor = null;
         case TStyleVariant.outlined:
           if (disabled) {
-            dividerColor = tw.colors.disabled;
+            dividerColor = tw.color.disabled;
           } else {
             dividerColor = b?.top.color;
           }
@@ -283,9 +283,9 @@ class TSplitButton extends StatelessWidget {
         case TStyleVariant.soft:
           if (disabled) {
             if (tw.light) {
-              dividerColor = tw.colors.disabled.toMaterialColor().shade600;
+              dividerColor = tw.color.disabled.toMaterialColor().shade600;
             } else {
-              dividerColor = tw.colors.disabled.toMaterialColor().shade400;
+              dividerColor = tw.color.disabled.toMaterialColor().shade400;
             }
           } else {
             if (variant == TStyleVariant.filled) {

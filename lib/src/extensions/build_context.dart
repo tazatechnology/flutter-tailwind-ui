@@ -49,7 +49,7 @@ class TailwindContext {
   TailwindScreenContext get screen => TailwindScreenContext._(_ctx);
 
   /// The current Tailwind color theme
-  TailwindColorTheme get colors {
+  TailwindColorTheme get color {
     return Theme.of(_ctx).extension<TailwindColorTheme>() ??
         (dark ? TailwindColorTheme.dark() : TailwindColorTheme.light());
   }

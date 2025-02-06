@@ -116,7 +116,6 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Default',
-              maxWidth: TScreen.max_w_md,
               code: _TInputAreaSource.code,
               child: _TInputArea(),
             ),
@@ -153,7 +152,7 @@ class _TInputSize extends StatelessWidget {
         for (final size in TInputSize.values)
           TInput(
             size: size,
-            labelText: 'Email',
+            labelText: 'Email (${size.title})',
             hintText: 'you@example.com',
           ),
       ],

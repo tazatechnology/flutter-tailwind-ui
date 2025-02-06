@@ -33,7 +33,7 @@ class AppCodeResultCard extends StatelessWidget {
       constraints: constraints,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: tw.colors.card,
+        color: tw.color.card,
         borderRadius: TBorderRadius.rounded_lg,
         border: Border.all(
           width: 0.5,

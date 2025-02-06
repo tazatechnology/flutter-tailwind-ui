@@ -221,11 +221,11 @@ class _TPopoverState extends State<TPopover> {
                   child: Material(
                     elevation: TElevation.shadow_lg,
                     borderRadius: widget.borderRadius,
-                    shadowColor: tw.colors.shadow,
+                    shadowColor: tw.color.shadow,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: tw.colors.background,
-                        border: Border.all(color: tw.colors.divider),
+                        color: tw.color.background,
+                        border: Border.all(color: tw.color.divider),
                         borderRadius: widget.borderRadius,
                       ),
                       child: MediaQuery.removePadding(

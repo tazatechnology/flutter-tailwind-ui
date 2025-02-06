@@ -131,7 +131,7 @@ class _TCheckboxGroupBasic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
@@ -158,7 +158,7 @@ class _TCheckboxGroupSeparated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.separated(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
@@ -185,7 +185,7 @@ class _TCheckboxGroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.card(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
@@ -212,7 +212,7 @@ class _TCheckboxGroupPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.panel(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: [TSelectionGroupVariant.values.first],
       onChanged: (value) {},
@@ -343,7 +343,7 @@ class _TCheckboxGroupBasicHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: const ['Alpha'],
       onChanged: (value) {},
@@ -370,7 +370,7 @@ class _TCheckboxGroupSeparatedHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.separated(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: const ['Alpha'],
       onChanged: (value) {},
@@ -397,7 +397,7 @@ class _TCheckboxGroupCardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.card(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: const ['Alpha'],
       onChanged: (value) {},
@@ -424,7 +424,7 @@ class _TCheckboxGroupPanelHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TCheckboxGroup.panel(
-      title: const Text('Group Types'),
+      label: const Text('Group Types'),
       description: const Text('Select the group type to use'),
       groupValue: const ['Alpha'],
       onChanged: (value) {},

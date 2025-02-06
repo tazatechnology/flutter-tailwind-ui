@@ -67,7 +67,7 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TCheckbox``': AppRouter.checkbox,
         '``TSwitch``': AppRouter.switch_control,
       },
-      'User Input': {
+      'Input Components': {
         '``TInput``': AppRouter.input,
         '``TSelect``': AppRouter.select,
         '``TSlider``': AppRouter.slider,
@@ -76,13 +76,18 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TCheckboxGroup``': AppRouter.checkbox_group,
         '``TSwitchTile``': AppRouter.switch_tile,
         '``TSwitchGroup``': AppRouter.switch_group,
+      },
+      'Form': {
+        '``TFormField``': AppRouter.form_field,
         '``TForm``': AppRouter.form,
       },
       'Layout': {
         '``TCard``': AppRouter.card,
+        '``TDialog``': AppRouter.dialog,
+        '``TExpand``': AppRouter.expand,
         '``TRowColumn``': AppRouter.row_column,
-        '``TSizedBox``': AppRouter.sized_box,
         '``TPopover``': AppRouter.popover,
+        '``TSizedBox``': AppRouter.sized_box,
       },
       'Filters': {
         '``TFilter``': AppRouter.filter,
