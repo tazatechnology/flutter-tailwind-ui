@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
@@ -77,7 +79,7 @@ class TPopover extends StatefulWidget {
 
   /// The alignment of the popover overlay.
   ///
-  /// The overlay will be positioned in this location relative to the anchor widget.
+  /// Overlay will be positioned in this location relative to the anchor widget.
   final Alignment alignment;
 
   /// The separation between the anchor and the popover overlay.
@@ -93,6 +95,7 @@ class TPopover extends StatefulWidget {
 class _TPopoverState extends State<TPopover> {
   OverlayEntry? overlayEntry;
   final LayerLink layerLink = LayerLink();
+  StreamController<bool> contentNotifier = StreamController<bool>();
 
   // ---------------------------------------------------------------------------
   // METHOD: initState
@@ -117,7 +120,18 @@ class _TPopoverState extends State<TPopover> {
   void dispose() {
     removeOverlay();
     overlayEntry?.dispose();
+    contentNotifier.close();
     super.dispose();
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: didUpdateWidget
+  // ---------------------------------------------------------------------------
+
+  @override
+  void didUpdateWidget(covariant TPopover oldWidget) {
+    contentNotifier.add(true);
+    super.didUpdateWidget(oldWidget);
   }
 
   // ---------------------------------------------------------------------------
@@ -137,6 +151,7 @@ class _TPopoverState extends State<TPopover> {
   // ---------------------------------------------------------------------------
 
   void showOverlay() {
+    contentNotifier = StreamController<bool>();
     overlayEntry = createOverlayEntry();
     Overlay.of(context).insert(overlayEntry!);
   }
@@ -218,25 +233,30 @@ class _TPopoverState extends State<TPopover> {
                   followerAnchor: followerAnchor,
                   offset: offset,
                   showWhenUnlinked: false,
-                  child: Material(
-                    elevation: TElevation.shadow_lg,
-                    borderRadius: widget.borderRadius,
-                    shadowColor: tw.color.shadow,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: tw.color.background,
-                        border: Border.all(color: tw.color.divider),
+                  child: StreamBuilder(
+                    stream: contentNotifier.stream,
+                    builder: (context, snapshot) {
+                      return Material(
+                        elevation: TElevation.shadow_lg,
                         borderRadius: widget.borderRadius,
-                      ),
-                      child: MediaQuery.removePadding(
-                        context: context,
-                        removeTop: true,
-                        child: ClipRRect(
-                          borderRadius: widget.borderRadius,
-                          child: widget.content,
+                        shadowColor: tw.color.shadow,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: tw.color.background,
+                            border: Border.all(color: tw.color.divider),
+                            borderRadius: widget.borderRadius,
+                          ),
+                          child: MediaQuery.removePadding(
+                            context: context,
+                            removeTop: true,
+                            child: ClipRRect(
+                              borderRadius: widget.borderRadius,
+                              child: widget.content,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ),
               ),

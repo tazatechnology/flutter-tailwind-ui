@@ -102,9 +102,9 @@ class TFormController {
 class TFormField<T> extends StatelessWidget {
   /// Constructor for a [TFormField]
   const TFormField({
+    super.key,
     required this.id,
     required this.child,
-    super.key,
   });
 
   /// The unique identifier for the form field.
@@ -127,12 +127,12 @@ class TFormField<T> extends StatelessWidget {
 // =============================================================================
 
 /// A form widget with an external controller
-class TForm extends StatefulWidget {
+class TForm extends StatelessWidget {
   /// Constructor a [TForm] widget.
   const TForm({
+    super.key,
     required this.controller,
     required this.child,
-    super.key,
   });
 
   /// The controller for the form.
@@ -142,28 +142,10 @@ class TForm extends StatefulWidget {
   final Widget child;
 
   @override
-  State<TForm> createState() => _TFormState();
-}
-
-class _TFormState extends State<TForm> {
-  // ---------------------------------------------------------------------------
-  // METHOD: initState
-  // ---------------------------------------------------------------------------
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: build
-  // ---------------------------------------------------------------------------
-
-  @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.controller._formKey,
-      child: widget.child,
+      key: controller._formKey,
+      child: child,
     );
   }
 }

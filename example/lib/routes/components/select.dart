@@ -91,6 +91,16 @@ class ComponentRouteTSelect extends StatelessWidget {
           ],
         ),
         AppSection(
+          title: 'Search Options',
+          children: [
+            AppPreviewCard(
+              title: 'Search options with text input',
+              code: _TSelectSearchSource.code,
+              child: _TSelectSearch(),
+            ),
+          ],
+        ),
+        AppSection(
           title: 'Gallery',
           children: [
             AppPreviewCard(
@@ -145,9 +155,7 @@ class _TSelectLabelText extends StatelessWidget {
     return TSelect(
       labelText: 'Size',
       items: TWidgetSize.values,
-      itemBuilder: (value) {
-        return Text(value.name.toUpperCase());
-      },
+      itemBuilder: (value) => Text(value.name.toUpperCase()),
       selectedItemBuilder: (value) {
         return Text('Selected: ${value.name.toUpperCase()}');
       },
@@ -181,9 +189,7 @@ class _TSelectLabelWidget extends StatelessWidget {
         ],
       ),
       items: TWidgetSize.values,
-      itemBuilder: (value) {
-        return Text(value.name.toUpperCase());
-      },
+      itemBuilder: (value) => Text(value.name.toUpperCase()),
       selectedItemBuilder: (value) {
         return Text('Selected: ${value.name.toUpperCase()}');
       },
@@ -204,12 +210,8 @@ class _TSelectScrollable extends StatelessWidget {
     return TSelect(
       labelText: 'Select a number (0-1,000)',
       items: List.generate(1000, (ii) => ii),
-      itemBuilder: (value) {
-        return Text(value.toString());
-      },
-      selectedItemBuilder: (value) {
-        return Text('Number: $value');
-      },
+      itemBuilder: (value) => Text(value.toString()),
+      selectedItemBuilder: (value) => Text('Number: $value'),
     );
   }
 }
@@ -228,12 +230,8 @@ class _TSelectEnabled extends StatelessWidget {
       labelText: 'Select a number',
       initialValue: 50,
       items: List.generate(100, (ii) => ii),
-      itemBuilder: (value) {
-        return Text(value.toString());
-      },
-      selectedItemBuilder: (value) {
-        return Text('Number: $value');
-      },
+      itemBuilder: (value) => Text(value.toString()),
+      selectedItemBuilder: (value) => Text('Number: $value'),
     );
   }
 }
@@ -253,12 +251,8 @@ class _TSelectDisabled extends StatelessWidget {
       initialValue: 50,
       labelText: 'Select a number',
       items: List.generate(100, (ii) => ii),
-      itemBuilder: (value) {
-        return Text(value.toString());
-      },
-      selectedItemBuilder: (value) {
-        return Text('Number: $value');
-      },
+      itemBuilder: (value) => Text(value.toString()),
+      selectedItemBuilder: (value) => Text('Number: $value'),
     );
   }
 }
@@ -279,12 +273,8 @@ class _TSelectSelectedIconLeading extends StatelessWidget {
       items: const ['User A', 'User B', 'User C'],
       selectedIcon: const Icon(Icons.circle, size: 10),
       selectedIconAffinity: TControlAffinity.leading,
-      itemBuilder: (value) {
-        return Text(value);
-      },
-      selectedItemBuilder: (value) {
-        return Text(value);
-      },
+      itemBuilder: (value) => Text(value),
+      selectedItemBuilder: (value) => Text(value),
     );
   }
 }
@@ -304,12 +294,8 @@ class _TSelectSelectedIconTrailing extends StatelessWidget {
       labelText: 'Add a user',
       items: const ['User A', 'User B', 'User C'],
       selectedIcon: const Icon(Icons.circle, size: 10),
-      itemBuilder: (value) {
-        return Text(value);
-      },
-      selectedItemBuilder: (value) {
-        return Text(value);
-      },
+      itemBuilder: (value) => Text(value),
+      selectedItemBuilder: (value) => Text(value),
     );
   }
 }
@@ -329,11 +315,35 @@ class _TSelectAllowDeselect extends StatelessWidget {
       allowDeselect: true,
       labelText: 'Add a user',
       items: const ['User A', 'User B', 'User C'],
-      itemBuilder: (value) {
-        return Text(value);
-      },
-      selectedItemBuilder: (value) {
-        return Text(value);
+      itemBuilder: (value) => Text(value),
+      selectedItemBuilder: (value) => Text(value),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectSearch
+// =============================================================================
+
+@GenerateSource()
+class _TSelectSearch extends StatelessWidget {
+  const _TSelectSearch();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSelect(
+      labelText: 'Fruit Selection',
+      allowDeselect: true,
+      closeOnSelect: false,
+      items: const ['apple', 'banana', 'cherry', 'date', 'elderberry'],
+      itemBuilder: (value) => Text(value),
+      selectedItemBuilder: (value) => Text(value),
+      onSearch: (options, term) {
+        final optionsLower =
+            options.map((option) => option.toLowerCase()).toList();
+        return optionsLower
+            .where((option) => option.contains(term.toLowerCase()))
+            .toList();
       },
     );
   }
@@ -364,17 +374,15 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
           child: TSelect(
             initialValue: selectedUser,
             allowDeselect: true,
+            closeOnSelect: false,
             labelText: 'Add a user',
             items: const ['User A', 'User B', 'User C'],
             placeholder: const Text('Select user'),
-            borderRadius:
-                const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
-            itemBuilder: (value) {
-              return Text(value);
-            },
-            selectedItemBuilder: (value) {
-              return Text(value);
-            },
+            borderRadius: const WidgetStatePropertyAll(
+              TBorderRadius.rounded_l_md,
+            ),
+            itemBuilder: (value) => Text(value),
+            selectedItemBuilder: (value) => Text(value),
             onChanged: (value) {
               selectedUser = value;
               buttonController.disabled = selectedUser == null;

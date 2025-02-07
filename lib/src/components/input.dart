@@ -504,6 +504,22 @@ class _TInputState extends State<TInput> {
       EdgeInsets.symmetric(horizontal: double.infinity, vertical: yPad),
     );
 
+    Widget? effectivePrefix = widget.prefix;
+    if (effectivePrefix != null) {
+      effectivePrefix = DefaultTextStyle.merge(
+        style: TTextStyle.text_xs,
+        child: effectivePrefix,
+      );
+    }
+
+    Widget? effectiveSuffix = widget.suffix;
+    if (effectiveSuffix != null) {
+      effectiveSuffix = DefaultTextStyle.merge(
+        style: TTextStyle.text_xs,
+        child: effectiveSuffix,
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -583,8 +599,8 @@ class _TInputState extends State<TInput> {
               disabledBorder: effectiveBorder.resolve({WidgetState.disabled}),
               filled: !effectiveFillColor.isTransparent,
               fillColor: effectiveFillColor,
-              prefixIcon: widget.prefix ?? const SizedBox.shrink(),
-              suffixIcon: widget.suffix ?? const SizedBox.shrink(),
+              prefixIcon: effectivePrefix ?? const SizedBox.shrink(),
+              suffixIcon: effectiveSuffix ?? const SizedBox.shrink(),
               hintText: widget.hintText,
               hintFadeDuration: Duration.zero,
               hintStyle: inputTheme.hintStyle?.copyWith(

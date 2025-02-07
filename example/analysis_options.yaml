@@ -9,3 +9,4 @@ linter:
     omit_local_variable_types: false
     avoid_positional_boolean_parameters: false
     always_put_required_named_parameters_first: false
+    unnecessary_lambdas: false
