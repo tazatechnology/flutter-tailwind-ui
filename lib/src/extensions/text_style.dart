@@ -8,10 +8,6 @@ import 'package:flutter/material.dart';
 
 /// Extension methods for the [TextStyle] class
 extension XTailwindTextStyle on TextStyle {
-  // ---------------------------------------------------------------------------
-  // METHOD: copyWithout
-  // ---------------------------------------------------------------------------
-
   /// Method to copy this [TextStyle] without a given property
   TextStyle copyWithout({
     bool color = false,
@@ -59,10 +55,6 @@ extension XTailwindTextStyle on TextStyle {
       overflow: overflow ? null : this.overflow,
     );
   }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: estimateHeight
-  // ---------------------------------------------------------------------------
 
   /// Estimate the total rendered text height for this [TextStyle]
   double estimateHeight(BuildContext context) {

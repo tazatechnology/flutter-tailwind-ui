@@ -1,4 +1,5 @@
 // Components
+export 'src/components/animated.dart';
 export 'src/components/backdrop_filter.dart';
 export 'src/components/badge.dart';
 export 'src/components/button.dart';
@@ -38,6 +39,7 @@ export 'src/constants/space.dart';
 export 'src/constants/text.dart';
 
 // Extensions
+export 'src/extensions/alignment.dart';
 export 'src/extensions/border.dart';
 export 'src/extensions/build_context.dart';
 export 'src/extensions/color.dart';

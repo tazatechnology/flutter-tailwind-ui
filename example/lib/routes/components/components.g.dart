@@ -2802,9 +2802,129 @@ class _TPopoverAlignmentState extends State<_TPopoverAlignment> {
     return TPopover(
       alignment: widget.alignment,
       controller: controller,
-      anchor: TButton.filled(
-        onPressed: controller.toggle,
-        child: const Text('Dropdown'),
+      anchor: SizedBox(
+        width: TSpace.v128,
+        child: TButton.filled(
+          onPressed: controller.toggle,
+          child: Text(widget.alignment.title),
+        ),
+      ),
+      content: const SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(child: Text('Content')),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TPopoverAnimationDefault]
+class _TPopoverAnimationDefaultSource {
+  static const String code = r"""
+class _TPopoverAnimationDefault extends StatefulWidget {
+  const _TPopoverAnimationDefault();
+
+  @override
+  State<_TPopoverAnimationDefault> createState() =>
+      _TPopoverAnimationDefaultState();
+}
+
+class _TPopoverAnimationDefaultState extends State<_TPopoverAnimationDefault> {
+  final controller = TPopoverController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TPopover(
+      controller: controller,
+      anchor: SizedBox(
+        width: TSpace.v128,
+        child: TButton.filled(
+          onPressed: controller.toggle,
+          child: const Text('Default'),
+        ),
+      ),
+      content: const SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(child: Text('Content')),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TPopoverAnimationNone]
+class _TPopoverAnimationNoneSource {
+  static const String code = r"""
+class _TPopoverAnimationNone extends StatefulWidget {
+  const _TPopoverAnimationNone();
+
+  @override
+  State<_TPopoverAnimationNone> createState() => _TPopoverAnimationNoneState();
+}
+
+class _TPopoverAnimationNoneState extends State<_TPopoverAnimationNone> {
+  final controller = TPopoverController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TPopover(
+      controller: controller,
+      animationOptions: const TAnimatedOptions.none(),
+      anchor: SizedBox(
+        width: TSpace.v128,
+        child: TButton.filled(
+          onPressed: controller.toggle,
+          child: const Text('None'),
+        ),
+      ),
+      content: const SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(child: Text('Content')),
+      ),
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TPopoverAnimationCustom]
+class _TPopoverAnimationCustomSource {
+  static const String code = r"""
+class _TPopoverAnimationCustom extends StatefulWidget {
+  const _TPopoverAnimationCustom();
+
+  @override
+  State<_TPopoverAnimationCustom> createState() =>
+      _TPopoverAnimationCustomState();
+}
+
+class _TPopoverAnimationCustomState extends State<_TPopoverAnimationCustom> {
+  final controller = TPopoverController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TPopover(
+      controller: controller,
+      animationOptions: TAnimatedOptions(
+        duration: const Duration(milliseconds: 250),
+        curveIn: Curves.easeOutExpo,
+        curveOut: Curves.easeInOut,
+        opacity: Tween(begin: 0, end: 1),
+        position: Tween(begin: const Offset(0, 0.5), end: Offset.zero),
+        scale: Tween(begin: 0.95, end: 1),
+        turns: Tween(begin: 0.95, end: 1),
+      ),
+      anchor: SizedBox(
+        width: TSpace.v128,
+        child: TButton.filled(
+          onPressed: controller.toggle,
+          child: const Text('Custom'),
+        ),
       ),
       content: const SizedBox(
         height: 100,

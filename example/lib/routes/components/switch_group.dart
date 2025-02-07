@@ -45,21 +45,25 @@ class ComponentRouteTSwitchGroup extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Basic',
+              maxWidth: TScreen.max_w_xl,
               code: _TSwitchGroupBasicHorizontalSource.code,
               child: _TSwitchGroupBasicHorizontal(),
             ),
             AppPreviewCard(
               title: 'Separated',
+              maxWidth: TScreen.max_w_xl,
               code: _TSwitchGroupSeparatedHorizontalSource.code,
               child: _TSwitchGroupSeparatedHorizontal(),
             ),
             AppPreviewCard(
               title: 'Card',
+              maxWidth: TScreen.max_w_xl,
               code: _TSwitchGroupCardHorizontalSource.code,
               child: _TSwitchGroupCardHorizontal(),
             ),
             AppPreviewCard(
               title: 'Panel',
+              maxWidth: TScreen.max_w_xl,
               code: _TSwitchGroupPanelHorizontalSource.code,
               child: _TSwitchGroupPanelHorizontal(),
             ),

@@ -56,6 +56,7 @@ class TPopover extends StatefulWidget {
     this.alignment = Alignment.bottomRight,
     this.separation = TSpace.v4,
     this.matchAnchorWidth = false,
+    this.animationOptions,
     super.key,
   });
 
@@ -88,11 +89,17 @@ class TPopover extends StatefulWidget {
   /// Whether the popover overlay should match the width of the anchor.
   final bool matchAnchorWidth;
 
+  /// The animation options to apply to the popover overlay.
+  ///
+  /// If not provided, [TAnimatedOptions.popover] will be used.
+  final TAnimatedOptions? animationOptions;
+
   @override
   State<TPopover> createState() => _TPopoverState();
 }
 
 class _TPopoverState extends State<TPopover> {
+  final animationController = TAnimatedController();
   OverlayEntry? overlayEntry;
   final LayerLink layerLink = LayerLink();
   StreamController<bool> contentNotifier = StreamController<bool>();
@@ -121,6 +128,7 @@ class _TPopoverState extends State<TPopover> {
     removeOverlay();
     overlayEntry?.dispose();
     contentNotifier.close();
+    animationController.dispose();
     super.dispose();
   }
 
@@ -154,6 +162,7 @@ class _TPopoverState extends State<TPopover> {
     contentNotifier = StreamController<bool>();
     overlayEntry = createOverlayEntry();
     Overlay.of(context).insert(overlayEntry!);
+    animationController.forward();
   }
 
   // ---------------------------------------------------------------------------
@@ -161,8 +170,10 @@ class _TPopoverState extends State<TPopover> {
   // ---------------------------------------------------------------------------
 
   void removeOverlay() {
-    overlayEntry?.remove();
-    overlayEntry = null;
+    animationController.reverse()?.whenComplete(() {
+      overlayEntry?.remove();
+      overlayEntry = null;
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -236,7 +247,7 @@ class _TPopoverState extends State<TPopover> {
                   child: StreamBuilder(
                     stream: contentNotifier.stream,
                     builder: (context, snapshot) {
-                      return Material(
+                      final content = Material(
                         elevation: TElevation.shadow_lg,
                         borderRadius: widget.borderRadius,
                         shadowColor: tw.color.shadow,
@@ -255,6 +266,13 @@ class _TPopoverState extends State<TPopover> {
                             ),
                           ),
                         ),
+                      );
+
+                      return TAnimated(
+                        options: widget.animationOptions ??
+                            TAnimatedOptions.popover(),
+                        controller: animationController,
+                        child: content,
                       );
                     },
                   ),

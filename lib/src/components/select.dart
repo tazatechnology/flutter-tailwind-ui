@@ -14,6 +14,7 @@ class TSelect<T> extends TFormField<T> {
   TSelect({
     required this.items,
     this.allowDeselect = false,
+    this.animationOptions,
     this.autovalidateMode,
     this.borderColor,
     this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
@@ -47,6 +48,7 @@ class TSelect<T> extends TFormField<T> {
   }) : super(
           child: _TSelectFormField(
             allowDeselect: allowDeselect,
+            animationOptions: animationOptions,
             autovalidateMode: autovalidateMode,
             borderColor: borderColor,
             borderRadius: borderRadius,
@@ -81,6 +83,9 @@ class TSelect<T> extends TFormField<T> {
 
   /// Whether clicking on the selected item will deselect it
   final bool allowDeselect;
+
+  /// The animation options to use for the popover
+  final TAnimatedOptions? animationOptions;
 
   /// The autovalidate mode to use for the select widget
   final AutovalidateMode? autovalidateMode;
@@ -188,6 +193,7 @@ class _TSelectFormField<T> extends FormField<T> {
   _TSelectFormField({
     super.key,
     required this.allowDeselect,
+    required this.animationOptions,
     required super.autovalidateMode,
     required this.borderColor,
     required this.borderRadius,
@@ -222,6 +228,7 @@ class _TSelectFormField<T> extends FormField<T> {
         );
 
   final bool allowDeselect;
+  final TAnimatedOptions? animationOptions;
   final WidgetStateProperty<Color>? borderColor;
   final WidgetStateProperty<BorderRadius>? borderRadius;
   final bool closeOnSelect;
@@ -253,43 +260,26 @@ class _TSelectFormField<T> extends FormField<T> {
 
 class _TSelectFormFieldState<T> extends FormFieldState<T> {
   _TSelectFormField<T> get field => widget as _TSelectFormField<T>;
+  final popoverController = TPopoverController();
+  final searchController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
 
   late T? selected = widget.initialValue;
   late int hoveredIndex = selectedIndex;
 
   late final bool searchEnabled = field.onSearch != null;
-
-  // The effective list of items to display
   late final List<T> items = List<T>.from(field.items);
-
-  /// The controller for the popover
-  final popoverController = TPopoverController();
-
-  /// Track the search query
-  final searchController = TextEditingController();
-
-  /// Manage the scrolling of the list of options
-  final ScrollController scrollController = ScrollController();
-
-  /// The state controllers for each item in the list
   late final List<TWidgetStatesController> stateControllers;
-
-  /// The maximum number of items to display in the list before scrolling
+  late final TAnimatedOptions animationOptions;
   int get maxVisible => field.maxVisible.clamp(0, field.items.length);
 
-  /// The height of the widget
   double get height => field.size.height;
 
-  /// The height of each item in the list
   double get itemExtent => field.itemExtent ?? height;
 
-  /// The index of the selected item
   int get selectedIndex => selected == null ? -1 : items.indexOf(selected as T);
-
-  /// Determine if the content will be scrollable
   bool get isScrollable => items.length > maxVisible;
 
-  /// The right padding accounts for the scrollbar width
   EdgeInsets get listViewPadding =>
       TOffset.a6 + (isScrollable ? TOffset.r16 : TOffset.r0);
 
@@ -304,6 +294,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
       field.items.length,
       (index) => TWidgetStatesController(),
     );
+    animationOptions = field.animationOptions ?? TAnimatedOptions.dropdown();
   }
 
   // ---------------------------------------------------------------------------
@@ -585,6 +576,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
       children: [
         if (label != null) TLabelDescriptionWidget(label: label),
         TPopover(
+          animationOptions: animationOptions,
           controller: popoverController,
           matchAnchorWidth: true,
           height: popoverHeight,

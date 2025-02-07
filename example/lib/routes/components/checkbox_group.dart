@@ -45,21 +45,25 @@ class ComponentRouteTCheckboxGroup extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Basic',
+              maxWidth: TScreen.max_w_xl,
               code: _TCheckboxGroupBasicHorizontalSource.code,
               child: _TCheckboxGroupBasicHorizontal(),
             ),
             AppPreviewCard(
               title: 'Separated',
+              maxWidth: TScreen.max_w_xl,
               code: _TCheckboxGroupSeparatedHorizontalSource.code,
               child: _TCheckboxGroupSeparatedHorizontal(),
             ),
             AppPreviewCard(
               title: 'Card',
+              maxWidth: TScreen.max_w_xl,
               code: _TCheckboxGroupCardHorizontalSource.code,
               child: _TCheckboxGroupCardHorizontal(),
             ),
             AppPreviewCard(
               title: 'Panel',
+              maxWidth: TScreen.max_w_xl,
               code: _TCheckboxGroupPanelHorizontalSource.code,
               child: _TCheckboxGroupPanelHorizontal(),
             ),

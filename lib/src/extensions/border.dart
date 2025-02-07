@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 
 /// Extension on [double] to provide useful methods
 extension XTailwindBoxBorder on BoxBorder {
-  // ---------------------------------------------------------------------------
-  // METHOD: copyWith
-  // ---------------------------------------------------------------------------
-
   /// Copy a [BoxBorder] with new properties to all sides
   ///
   /// This method will properly handle [Border] and [BorderDirectional] objects
@@ -80,10 +76,6 @@ extension XTailwindBoxBorder on BoxBorder {
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // METHOD: copyWithSides
-  // ---------------------------------------------------------------------------
-
   /// Copy a [BoxBorder] with new sides
   BoxBorder copyWithSides({
     BorderSide? top,
@@ -118,10 +110,6 @@ extension XTailwindBoxBorder on BoxBorder {
 
 /// Extension on [double] to provide useful methods
 extension XTailwindBorder on Border {
-  // ---------------------------------------------------------------------------
-  // METHOD: copyWith
-  // ---------------------------------------------------------------------------
-
   /// Copy a [Border] with new sides
   Border copyWith({
     BorderSide? top,
@@ -144,10 +132,6 @@ extension XTailwindBorder on Border {
 
 /// Extension on [double] to provide useful methods
 extension XTailwindBorderDirectional on BorderDirectional {
-  // ---------------------------------------------------------------------------
-  // METHOD: copyWith
-  // ---------------------------------------------------------------------------
-
   /// Copy a [BorderDirectional] with new sides
   BorderDirectional copyWith({
     BorderSide? top,

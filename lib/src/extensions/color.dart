@@ -40,10 +40,6 @@ extension XTailwindColor on Color {
   /// Check if this color is transparent
   bool get isTransparent => toInt() == Colors.transparent.toInt();
 
-  // ---------------------------------------------------------------------------
-  // METHOD: toInt
-  // ---------------------------------------------------------------------------
-
   /// A 32 bit value representing this color.
   ///
   /// The bits are assigned as follows:
@@ -59,10 +55,6 @@ extension XTailwindColor on Color {
         _floatToInt8(b) << 0;
   }
 
-  // ---------------------------------------------------------------------------
-  // METHOD: contrastBlackWhite
-  // ---------------------------------------------------------------------------
-
   /// Get a black or white contrast color
   Color? contrastBlackWhite() {
     if (this == Colors.transparent) {
@@ -70,10 +62,6 @@ extension XTailwindColor on Color {
     }
     return computeLuminance() < 0.5 ? Colors.white : Colors.black;
   }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: toHex
-  // ---------------------------------------------------------------------------
 
   /// Get a hex string representation of this color
   String toHex({
@@ -97,10 +85,6 @@ extension XTailwindColor on Color {
 
     return value;
   }
-
-  // ---------------------------------------------------------------------------
-  // METHOD: toMaterialColor
-  // ---------------------------------------------------------------------------
 
   /// Get a [MaterialColor] representation of this color
   MaterialColor toMaterialColor() {
