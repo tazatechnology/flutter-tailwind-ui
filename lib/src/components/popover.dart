@@ -57,11 +57,15 @@ class TPopover extends StatefulWidget {
     this.separation = TSpace.v4,
     this.matchAnchorWidth = false,
     this.animationOptions,
+    this.closeOnTapOutside = true,
     super.key,
   });
 
   /// The content of the popover overlay.
   final TPopoverController controller;
+
+  /// Whether the popover overlay should close when tapped outside.
+  final bool closeOnTapOutside;
 
   /// The content of the popover overlay.
   final Widget content;
@@ -159,6 +163,9 @@ class _TPopoverState extends State<TPopover> {
   // ---------------------------------------------------------------------------
 
   void showOverlay() {
+    if (overlayEntry != null) {
+      return;
+    }
     contentNotifier = StreamController<bool>();
     overlayEntry = createOverlayEntry();
     Overlay.of(context).insert(overlayEntry!);
@@ -170,6 +177,9 @@ class _TPopoverState extends State<TPopover> {
   // ---------------------------------------------------------------------------
 
   void removeOverlay() {
+    if (overlayEntry == null) {
+      return;
+    }
     animationController.reverse()?.whenComplete(() {
       overlayEntry?.remove();
       overlayEntry = null;
@@ -230,7 +240,7 @@ class _TPopoverState extends State<TPopover> {
     return OverlayEntry(
       builder: (context) {
         return GestureDetector(
-          onTap: removeOverlay,
+          onTap: widget.closeOnTapOutside ? removeOverlay : null,
           behavior: HitTestBehavior.translucent,
           child: Stack(
             children: [

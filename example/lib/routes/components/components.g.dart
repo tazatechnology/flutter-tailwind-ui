@@ -1076,6 +1076,31 @@ TCard(
 """;
 }
 
+/// Source code for [_TCardHeaderCustomBorder]
+class _TCardHeaderCustomBorderSource {
+  static const String code = r"""
+TCard(
+  headerBorder: const BorderSide(color: TColors.indigo, width: 2),
+  header: const Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text('Card Heading'),
+      TButton.filled(child: Text('Action')),
+    ],
+  ),
+  child: ListView.separated(
+    shrinkWrap: true,
+    itemCount: 3,
+    itemBuilder: (context, index) => const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [Text('Item'), Text('Item')],
+    ),
+    separatorBuilder: (context, index) => const Divider(),
+  ),
+)
+""";
+}
+
 /// Source code for [_TCheckboxActive]
 class _TCheckboxActiveSource {
   static const String code = r"""
@@ -1892,7 +1917,7 @@ class _TFormBasicState extends State<_TFormBasic> {
         spacing: TSpace.v24,
         children: [
           TInput(
-            labelText: 'Email',
+            label: const Text('Email'),
             hintText: 'Enter your email',
             validator: (value) {
               if (value?.contains('@') ?? false) {
@@ -1902,7 +1927,7 @@ class _TFormBasicState extends State<_TFormBasic> {
             },
           ),
           TInput(
-            labelText: 'Password',
+            label: const Text('Password'),
             hintText: 'Enter your password',
             obscure: true,
             validator: (value) {
@@ -1939,15 +1964,15 @@ class _TFormTrackFieldValues extends StatefulWidget {
 class _TFormTrackFieldValuesState extends State<_TFormTrackFieldValues> {
   final controller = TFormController();
 
-  Future<void> onPressed() async {
-    controller.validate();
+  /// Displays a dialog with the current values of the form fields.
+  Future<void> showFieldValuesDialog() async {
     final values = controller.getTFormFieldValues();
     await TDialog.show<void>(
       context: context,
       builder: (context) {
         return TDialog(
           title: const Text('Form Field Values'),
-          contentTextStyle: TTextStyle.text_md.copyWith(
+          contentTextStyle: TTextStyle.text_sm.copyWith(
             color: context.tw.color.body,
           ),
           content: Column(
@@ -1983,18 +2008,18 @@ class _TFormTrackFieldValuesState extends State<_TFormTrackFieldValues> {
         children: [
           const TInput(
             id: 'email',
-            labelText: 'Email',
+            label: Text('Email'),
             initialValue: 'test@example.com',
           ),
           const TInput(
             id: 'password',
-            labelText: 'Password',
+            label: Text('Password'),
             initialValue: '123abc',
             obscure: true,
           ),
           TExpand.width(
             child: TButton.filled(
-              onPressed: onPressed,
+              onPressed: showFieldValuesDialog,
               child: const Text('Get Field Values'),
             ),
           ),
@@ -2019,15 +2044,15 @@ class _TFormAllFields extends StatefulWidget {
 class __TFormAllFieldsState extends State<_TFormAllFields> {
   final controller = TFormController();
 
-  Future<void> onPressed() async {
-    controller.validate();
+  /// Displays a dialog with the current values of the form fields.
+  Future<void> showFieldValuesDialog() async {
     final values = controller.getTFormFieldValues();
     await TDialog.show<void>(
       context: context,
       builder: (context) {
         return TDialog(
           title: const Text('Form Field Values'),
-          contentTextStyle: TTextStyle.text_md.copyWith(
+          contentTextStyle: TTextStyle.text_sm.copyWith(
             color: context.tw.color.body,
           ),
           cancel: const Text('Close'),
@@ -2064,8 +2089,8 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
           const Text('Sample Form'),
           TButton.filled(
             size: TWidgetSize.sm,
-            onPressed: onPressed,
-            child: const Text('Get Values'),
+            onPressed: showFieldValuesDialog,
+            child: const Text('Values'),
           ),
         ],
       ),
@@ -2079,16 +2104,16 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
               children: [
                 const Expanded(
                   child: TInput(
-                    id: 'id-input',
-                    labelText: 'Input',
+                    id: 'input',
+                    label: Text('Input'),
                     initialValue: 'Bob',
                     hintText: 'Enter your name',
                   ),
                 ),
                 Expanded(
                   child: TSelect(
-                    id: 'id-select',
-                    labelText: 'Select',
+                    id: 'select',
+                    label: const Text('Select'),
                     initialValue: 1,
                     items: const [1, 2, 3],
                   ),
@@ -2096,15 +2121,15 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
               ],
             ),
             TSlider(
-              id: 'id-slider',
-              labelText: 'Slider',
+              id: 'slider',
+              label: const Text('Slider'),
               initialValue: 0.75,
             ),
             Row(
               children: [
                 Expanded(
                   child: TRadioGroup(
-                    id: 'id-radio-group',
+                    id: 'radio-group',
                     label: const Text('Radio Group'),
                     initialValue: 2,
                     children: [
@@ -2118,7 +2143,7 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
                 ),
                 Expanded(
                   child: TCheckboxGroup(
-                    id: 'id-checkbox-group',
+                    id: 'checkbox-group',
                     label: const Text('Checkbox Group'),
                     initialValue: const [2],
                     children: [
@@ -2133,14 +2158,23 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
               ],
             ),
             TCheckboxTile.card(
-              id: 'id-checkbox-tile',
+              id: 'checkbox-tile',
               title: const Text('Checkbox Tile'),
               affinity: TControlAffinity.trailing,
             ),
             TSwitchTile.card(
-              id: 'id-switch-tile',
+              id: 'switch-tile',
+              initialValue: true,
               title: const Text('Switch Tile'),
               affinity: TControlAffinity.trailing,
+            ),
+            TExpand.width(
+              child: TButton.filled(
+                onPressed: () {
+                  controller.reset();
+                },
+                child: const Text('Reset'),
+              ),
             ),
           ],
         ),
@@ -2550,12 +2584,12 @@ TIconButton.filled(
 class _TInputSizeSource {
   static const String code = r"""
 Column(
-  spacing: TSpace.v16,
+  spacing: TSpace.v32,
   children: [
     for (final size in TInputSize.values)
       TInput(
         size: size,
-        labelText: 'Email (${size.title})',
+        label: Text('Email (${size.title})'),
         hintText: 'you@example.com',
       ),
   ],
@@ -2567,7 +2601,7 @@ Column(
 class _TInputWithLabelSource {
   static const String code = r"""
 const TInput(
-  labelText: 'Email',
+  label: Text('Email'),
   hintText: 'you@example.com',
 )
 """;
@@ -2600,18 +2634,7 @@ const TInput(
 class _TInputWithHelpSource {
   static const String code = r"""
 const TInput(
-  labelText: 'Email',
-  hintText: 'you@example.com',
-  helpText: 'This is a help message.',
-)
-""";
-}
-
-/// Source code for [_TInputWithHelpWidget]
-class _TInputWithHelpWidgetSource {
-  static const String code = r"""
-const TInput(
-  labelText: 'Email',
+  label: Text('Email'),
   hintText: 'you@example.com',
   help: TText('This is a help `widget`'),
 )
@@ -2623,19 +2646,7 @@ class _TInputWithErrorSource {
   static const String code = r"""
 const TInput(
   initialValue: 'invalid-email',
-  labelText: 'Email',
-  hintText: 'you@example.com',
-  errorText: 'This is an error message.',
-)
-""";
-}
-
-/// Source code for [_TInputWithErrorWidget]
-class _TInputWithErrorWidgetSource {
-  static const String code = r"""
-const TInput(
-  initialValue: 'invalid-email',
-  labelText: 'Email',
+  label: Text('Email'),
   hintText: 'you@example.com',
   error: TText('This is an error `widget`'),
 )
@@ -2647,7 +2658,7 @@ class _TInputWithDisabledStateSource {
   static const String code = r"""
 const TInput(
   enabled: false,
-  labelText: 'Email',
+  label: Text('Email'),
   hintText: 'Enter your email',
 )
 """;
@@ -2659,7 +2670,7 @@ class _TInputWithReadOnlyStateSource {
 const TInput(
   readOnly: true,
   initialValue: 'me@example.com',
-  labelText: 'Email',
+  label: Text('Email'),
 )
 """;
 }
@@ -2668,7 +2679,7 @@ const TInput(
 class _TInputWithIconPrefixSource {
   static const String code = r"""
 const TInput(
-  labelText: 'Email',
+  label: Text('Email'),
   hintText: 'you@example.com',
   prefix: Icon(Icons.mail_outline, size: 15),
 )
@@ -2680,7 +2691,7 @@ class _TInputWithIconSuffixSource {
   static const String code = r"""
 const TInput(
   obscure: true,
-  labelText: 'Password',
+  label: Text('Password'),
   hintText: 'Enter your password',
   suffix: Icon(Icons.security, size: 15),
 )
@@ -2691,7 +2702,7 @@ const TInput(
 class _TInputAreaSource {
   static const String code = r"""
 const TInput.area(
-  labelText: 'Bio',
+  label: Text('Bio'),
   hintText: 'Tell us about yourself',
 )
 """;
@@ -2724,7 +2735,7 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
           width: TScreen.max_w_xs,
           child: TInput(
             controller: textController,
-            labelText: 'Email address',
+            label: const Text('Email Address'),
             hintText: 'you@example.com',
             borderRadius:
                 const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
@@ -2781,6 +2792,39 @@ class _TPopoverExampleState extends State<_TPopoverExample> {
 """;
 }
 
+/// Source code for [_TPopoverPreventClose]
+class _TPopoverPreventCloseSource {
+  static const String code = r"""
+class _TPopoverPreventClose extends StatefulWidget {
+  const _TPopoverPreventClose();
+
+  @override
+  State<_TPopoverPreventClose> createState() => _TPopoverPreventCloseState();
+}
+
+class _TPopoverPreventCloseState extends State<_TPopoverPreventClose> {
+  final controller = TPopoverController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TPopover(
+      controller: controller,
+      closeOnTapOutside: false,
+      anchor: TButton.filled(
+        onPressed: controller.toggle,
+        child: const Text('Prevent Close'),
+      ),
+      content: const SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(child: Text('Content')),
+      ),
+    );
+  }
+}
+""";
+}
+
 /// Source code for [_TPopoverAlignment]
 class _TPopoverAlignmentSource {
   static const String code = r"""
@@ -2797,8 +2841,6 @@ class _TPopoverAlignmentState extends State<_TPopoverAlignment> {
 
   @override
   Widget build(BuildContext context) {
-    String name = widget.alignment.toString().split('.').last;
-    name = name[0].toUpperCase() + name.substring(1);
     return TPopover(
       alignment: widget.alignment,
       controller: controller,
@@ -3354,11 +3396,11 @@ TRadioGroup.panel(
 class _TSelectSizeSource {
   static const String code = r"""
 Column(
-  spacing: TSpace.v16,
+  spacing: TSpace.v32,
   children: [
     for (final size in TInputSize.values)
       TSelect(
-        labelText: 'Select Number (${size.title})',
+        label: Text('Select Number (${size.title})'),
         size: size,
         initialValue: 1,
         items: const [1, 2, 3],
@@ -3374,7 +3416,7 @@ Column(
 class _TSelectLabelTextSource {
   static const String code = r"""
 TSelect(
-  labelText: 'Size',
+  label: const Text('Size'),
   items: TWidgetSize.values,
   itemBuilder: (value) => Text(value.name.toUpperCase()),
   selectedItemBuilder: (value) {
@@ -3415,7 +3457,7 @@ TSelect(
 class _TSelectScrollableSource {
   static const String code = r"""
 TSelect(
-  labelText: 'Select a number (0-1,000)',
+  label: const Text('Select a number (0-1,000)'),
   items: List.generate(1000, (ii) => ii),
   itemBuilder: (value) => Text(value.toString()),
   selectedItemBuilder: (value) => Text('Number: $value'),
@@ -3427,7 +3469,7 @@ TSelect(
 class _TSelectEnabledSource {
   static const String code = r"""
 TSelect(
-  labelText: 'Select a number',
+  label: const Text('Select a number'),
   initialValue: 50,
   items: List.generate(100, (ii) => ii),
   itemBuilder: (value) => Text(value.toString()),
@@ -3442,7 +3484,7 @@ class _TSelectDisabledSource {
 TSelect(
   enabled: false,
   initialValue: 50,
-  labelText: 'Select a number',
+  label: const Text('Select a number'),
   items: List.generate(100, (ii) => ii),
   itemBuilder: (value) => Text(value.toString()),
   selectedItemBuilder: (value) => Text('Number: $value'),
@@ -3455,7 +3497,7 @@ class _TSelectSelectedIconLeadingSource {
   static const String code = r"""
 TSelect(
   initialValue: 'User B',
-  labelText: 'Add a user',
+  label: const Text('Add a user'),
   items: const ['User A', 'User B', 'User C'],
   selectedIcon: const Icon(Icons.circle, size: 10),
   selectedIconAffinity: TControlAffinity.leading,
@@ -3470,7 +3512,7 @@ class _TSelectSelectedIconTrailingSource {
   static const String code = r"""
 TSelect(
   initialValue: 'User B',
-  labelText: 'Add a user',
+  label: const Text('Add a user'),
   items: const ['User A', 'User B', 'User C'],
   selectedIcon: const Icon(Icons.circle, size: 10),
   itemBuilder: (value) => Text(value),
@@ -3485,7 +3527,36 @@ class _TSelectAllowDeselectSource {
 TSelect(
   initialValue: 'User B',
   allowDeselect: true,
-  labelText: 'Add a user',
+  label: const Text('Add a user'),
+  items: const ['User A', 'User B', 'User C'],
+  itemBuilder: (value) => Text(value),
+  selectedItemBuilder: (value) => Text(value),
+)
+""";
+}
+
+/// Source code for [_TSelectPreventClose]
+class _TSelectPreventCloseSource {
+  static const String code = r"""
+TSelect(
+  initialValue: 'User B',
+  allowDeselect: true,
+  closeOnSelect: false,
+  label: const Text('Add a user'),
+  items: const ['User A', 'User B', 'User C'],
+  itemBuilder: (value) => Text(value),
+  selectedItemBuilder: (value) => Text(value),
+)
+""";
+}
+
+/// Source code for [_TSelectPreventCloseOutside]
+class _TSelectPreventCloseOutsideSource {
+  static const String code = r"""
+TSelect(
+  initialValue: 'User B',
+  closeOnTapOutside: false,
+  label: const Text('Add a user'),
   items: const ['User A', 'User B', 'User C'],
   itemBuilder: (value) => Text(value),
   selectedItemBuilder: (value) => Text(value),
@@ -3497,7 +3568,7 @@ TSelect(
 class _TSelectSearchSource {
   static const String code = r"""
 TSelect(
-  labelText: 'Fruit Selection',
+  label: const Text('Fruit Selection'),
   allowDeselect: true,
   closeOnSelect: false,
   items: const ['apple', 'banana', 'cherry', 'date', 'elderberry'],
@@ -3538,7 +3609,7 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
             initialValue: selectedUser,
             allowDeselect: true,
             closeOnSelect: false,
-            labelText: 'Add a user',
+            label: const Text('Add a user'),
             items: const ['User A', 'User B', 'User C'],
             placeholder: const Text('Select user'),
             borderRadius: const WidgetStatePropertyAll(
@@ -3589,6 +3660,17 @@ TSlider(
 """;
 }
 
+/// Source code for [_TSliderDiscrete]
+class _TSliderDiscreteSource {
+  static const String code = r"""
+TSlider(
+  divisions: 10,
+  initialValue: 0.5,
+  onChanged: (value) {},
+)
+""";
+}
+
 /// Source code for [_TSliderEditable]
 class _TSliderEditableSource {
   static const String code = r"""
@@ -3600,11 +3682,23 @@ TSlider(
 """;
 }
 
+/// Source code for [_TSliderDiscreteEditable]
+class _TSliderDiscreteEditableSource {
+  static const String code = r"""
+TSlider(
+  editable: true,
+  divisions: 10,
+  initialValue: 0.5,
+  onChanged: (value) {},
+)
+""";
+}
+
 /// Source code for [_TSliderLabelText]
 class _TSliderLabelTextSource {
   static const String code = r"""
 TSlider(
-  labelText: 'Slider Label',
+  label: const Text('Slider Label'),
   initialValue: 0.5,
   onChanged: (value) {},
 )
@@ -3640,7 +3734,7 @@ class _TSliderValueLabelsSource {
   static const String code = r"""
 TSlider(
   initialValue: 0.5,
-  showValueLabels: true,
+  showDefaultMarks: true,
   onChanged: (value) {},
 )
 """;
@@ -3651,7 +3745,7 @@ class _TSliderValueLabelsEditableSource {
   static const String code = r"""
 TSlider(
   initialValue: 0.5,
-  showValueLabels: true,
+  showDefaultMarks: true,
   editable: true,
   onChanged: (value) {},
 )
@@ -3663,7 +3757,7 @@ class _TSliderValueLabelsFormatterSource {
   static const String code = r"""
 TSlider(
   initialValue: 0.5,
-  showValueLabels: true,
+  showDefaultMarks: true,
   formatter: (value) => value.toStringAsFixed(3),
   onChanged: (value) {},
 )
@@ -3721,7 +3815,7 @@ class _TSliderControllerState extends State<_TSliderController> {
       children: [
         TSlider(
           controller: sliderController,
-          showValueLabels: true,
+          showDefaultMarks: true,
           onChanged: (value) {},
         ),
         TSizedBox.y8,

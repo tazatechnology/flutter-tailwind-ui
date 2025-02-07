@@ -283,8 +283,8 @@ class TailwindTheme {
         trackHeight: 5,
         valueIndicatorShape: TSliderValueIndicatorShape(color: color.tooltip),
         valueIndicatorTextStyle: TextStyle(
-          fontFamily: TTextStyle.fontFamilyMono,
           fontSize: TFontSize.text_xs,
+          height: kTextHeightNone,
           color: color.tooltip.contrastBlackWhite(),
         ),
         thumbShape: const TSliderThumbShape(),

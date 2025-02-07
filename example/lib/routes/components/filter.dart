@@ -19,6 +19,7 @@ class ComponentRouteTFilter extends StatelessWidget {
             AppPreviewCard(
               description: 'Utilities for applying blur filters to an element.',
               reference: 'https://tailwindcss.com/docs/filter-blur',
+              maxWidth: null,
               code: _TFilterBlurSource.code,
               child: _TFilterBlur(),
             ),
@@ -31,6 +32,7 @@ class ComponentRouteTFilter extends StatelessWidget {
               description:
                   'Utilities for applying brightness filters to an element.',
               reference: 'https://tailwindcss.com/docs/filter-brightness',
+              maxWidth: null,
               code: _TFilterBrightnessSource.code,
               child: _TFilterBrightness(),
             ),
@@ -43,6 +45,7 @@ class ComponentRouteTFilter extends StatelessWidget {
               description:
                   'Utilities for applying contrast filters to an element.',
               reference: 'https://tailwindcss.com/docs/filter-contrast',
+              maxWidth: null,
               code: _TFilterContrastSource.code,
               child: _TFilterContrast(),
             ),
@@ -55,6 +58,7 @@ class ComponentRouteTFilter extends StatelessWidget {
               description:
                   'Utilities for applying grayscale filters to an element.',
               reference: 'https://tailwindcss.com/docs/filter-grayscale',
+              maxWidth: null,
               code: _TFilterGrayscaleSource.code,
               child: _TFilterGrayscale(),
             ),
@@ -67,6 +71,7 @@ class ComponentRouteTFilter extends StatelessWidget {
               description:
                   'Utilities for applying hue-rotate filters to an element.',
               reference: 'https://tailwindcss.com/docs/filter-hue-rotate',
+              maxWidth: null,
               code: _TFilterHueRotateSource.code,
               child: _TFilterHueRotate(),
             ),
@@ -79,6 +84,7 @@ class ComponentRouteTFilter extends StatelessWidget {
               description:
                   'Utilities for applying invert filters to an element.',
               reference: 'https://tailwindcss.com/docs/filter-invert',
+              maxWidth: null,
               code: _TFilterInvertSource.code,
               child: _TFilterInvert(),
             ),
@@ -91,6 +97,7 @@ class ComponentRouteTFilter extends StatelessWidget {
               description:
                   'Utilities for applying saturation filters to an element.',
               reference: 'https://tailwindcss.com/docs/filter-saturate',
+              maxWidth: null,
               code: _TFilterSaturateSource.code,
               child: _TFilterSaturate(),
             ),
@@ -103,6 +110,7 @@ class ComponentRouteTFilter extends StatelessWidget {
               description:
                   'Utilities for applying sepia filters to an element.',
               reference: 'https://tailwindcss.com/docs/filter-sepia',
+              maxWidth: null,
               code: _TFilterSepiaSource.code,
               child: _TFilterSepia(),
             ),

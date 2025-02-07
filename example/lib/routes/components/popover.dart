@@ -14,12 +14,17 @@ class ComponentRouteTPopover extends StatelessWidget {
       description: 'Display a popover overlay',
       children: [
         const AppSection(
-          title: 'Basic Popover',
+          title: 'Popover Usage',
           children: [
             AppPreviewCard(
               title: 'Default',
               code: _TPopoverExampleSource.code,
               child: _TPopoverExample(),
+            ),
+            AppPreviewCard(
+              title: 'Prevent close tap outside',
+              code: _TPopoverPreventCloseSource.code,
+              child: _TPopoverPreventClose(),
             ),
           ],
         ),
@@ -103,6 +108,39 @@ class _TPopoverExampleState extends State<_TPopoverExample> {
 }
 
 // =============================================================================
+// CLASS: _TPopoverPreventClose
+// =============================================================================
+
+@GenerateSource(buildMethodOnly: false)
+class _TPopoverPreventClose extends StatefulWidget {
+  const _TPopoverPreventClose();
+
+  @override
+  State<_TPopoverPreventClose> createState() => _TPopoverPreventCloseState();
+}
+
+class _TPopoverPreventCloseState extends State<_TPopoverPreventClose> {
+  final controller = TPopoverController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TPopover(
+      controller: controller,
+      closeOnTapOutside: false,
+      anchor: TButton.filled(
+        onPressed: controller.toggle,
+        child: const Text('Prevent Close'),
+      ),
+      content: const SizedBox(
+        height: 100,
+        width: 200,
+        child: Center(child: Text('Content')),
+      ),
+    );
+  }
+}
+
+// =============================================================================
 // CLASS: _TPopoverAlignment
 // =============================================================================
 
@@ -120,8 +158,6 @@ class _TPopoverAlignmentState extends State<_TPopoverAlignment> {
 
   @override
   Widget build(BuildContext context) {
-    String name = widget.alignment.toString().split('.').last;
-    name = name[0].toUpperCase() + name.substring(1);
     return TPopover(
       alignment: widget.alignment,
       controller: controller,

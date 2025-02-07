@@ -107,6 +107,7 @@ class ComponentRouteTButton extends StatelessWidget {
               title: 'Custom leading widget',
               description:
                   'Note that if the widget contains an icon, is automatically styled to match the dynamic button theme',
+              maxWidth: null,
               code: _TButtonLeadingSource.code,
               child: _TButtonLeading(),
             ),
@@ -114,6 +115,7 @@ class ComponentRouteTButton extends StatelessWidget {
               title: 'Custom trailing widget',
               description:
                   'Note that if the widget contains an icon, is automatically styled to match the dynamic button theme.',
+              maxWidth: null,
               code: _TButtonTrailingSource.code,
               child: _TButtonTrailing(),
             ),

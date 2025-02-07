@@ -20,6 +20,7 @@ class ComponentRouteTBackdropFilter extends StatelessWidget {
               description:
                   'Utilities for applying backdrop blur filters to an element.',
               reference: 'https://tailwindcss.com/docs/backdrop-filter-blur',
+              maxWidth: null,
               code: _TBackdropFilterBlurSource.code,
               child: _TBackdropFilterBlur(),
             ),
@@ -33,6 +34,7 @@ class ComponentRouteTBackdropFilter extends StatelessWidget {
                   'Utilities for applying backdrop brightness filters to an element.',
               reference:
                   'https://tailwindcss.com/docs/backdrop-filter-brightness',
+              maxWidth: null,
               code: _TBackdropFilterBrightnessSource.code,
               child: _TBackdropFilterBrightness(),
             ),
@@ -59,6 +61,7 @@ class ComponentRouteTBackdropFilter extends StatelessWidget {
                   'Utilities for applying backdrop grayscale filters to an element.',
               reference:
                   'https://tailwindcss.com/docs/backdrop-filter-grayscale',
+              maxWidth: null,
               code: _TBackdropFilterGrayscaleSource.code,
               child: _TBackdropFilterGrayscale(),
             ),
@@ -72,6 +75,7 @@ class ComponentRouteTBackdropFilter extends StatelessWidget {
                   'Utilities for applying backdrop hue-rotate filters to an element.',
               reference:
                   'https://tailwindcss.com/docs/backdrop-filter-hue-rotate',
+              maxWidth: null,
               code: _TBackdropFilterHueRotateSource.code,
               child: _TBackdropFilterHueRotate(),
             ),
@@ -84,6 +88,7 @@ class ComponentRouteTBackdropFilter extends StatelessWidget {
               description:
                   'Utilities for applying backdrop invert filters to an element.',
               reference: 'https://tailwindcss.com/docs/backdrop-filter-invert',
+              maxWidth: null,
               code: _TBackdropFilterInvertSource.code,
               child: _TBackdropFilterInvert(),
             ),
@@ -97,6 +102,7 @@ class ComponentRouteTBackdropFilter extends StatelessWidget {
                   'Utilities for applying backdrop saturation filters to an element.',
               reference:
                   'https://tailwindcss.com/docs/backdrop-filter-saturate',
+              maxWidth: null,
               code: _TBackdropFilterSaturateSource.code,
               child: _TBackdropFilterSaturate(),
             ),
@@ -109,6 +115,7 @@ class ComponentRouteTBackdropFilter extends StatelessWidget {
               description:
                   'Utilities for backdrop applying sepia filters to an element.',
               reference: 'https://tailwindcss.com/docs/backdrop-filter-sepia',
+              maxWidth: null,
               code: _TBackdropFilterSepiaSource.code,
               child: _TBackdropFilterSepia(),
             ),

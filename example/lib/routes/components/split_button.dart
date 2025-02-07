@@ -43,21 +43,25 @@ class ComponentRouteTSplitButton extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Basic',
+              maxWidth: null,
               code: _TSplitButtonBasicSizesSource.code,
               child: _TSplitButtonBasicSizes(),
             ),
             AppPreviewCard(
               title: 'Outlined',
+              maxWidth: null,
               code: _TSplitButtonOutlinedSizesSource.code,
               child: _TSplitButtonOutlinedSizes(),
             ),
             AppPreviewCard(
               title: 'Filled',
+              maxWidth: null,
               code: _TSplitButtonFilledSizesSource.code,
               child: _TSplitButtonFilledSizes(),
             ),
             AppPreviewCard(
               title: 'Soft',
+              maxWidth: null,
               code: _TSplitButtonSoftSizesSource.code,
               child: _TSplitButtonSoftSizes(),
             ),
@@ -68,21 +72,25 @@ class ComponentRouteTSplitButton extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Basic',
+              maxWidth: null,
               code: _TSplitButtonBasicColorsSource.code,
               child: _TSplitButtonBasicColors(),
             ),
             AppPreviewCard(
               title: 'Outlined',
+              maxWidth: null,
               code: _TSplitButtonOutlinedColorsSource.code,
               child: _TSplitButtonOutlinedColors(),
             ),
             AppPreviewCard(
               title: 'Filled',
+              maxWidth: null,
               code: _TSplitButtonFilledColorsSource.code,
               child: _TSplitButtonFilledColors(),
             ),
             AppPreviewCard(
               title: 'Soft',
+              maxWidth: null,
               code: _TSplitButtonSoftColorsSource.code,
               child: _TSplitButtonSoftColors(),
             ),
@@ -113,17 +121,20 @@ class ComponentRouteTSplitButton extends StatelessWidget {
             AppPreviewCard(
               title: 'Controller to manage loading state',
               description: 'Tap the button to see the default loading state.',
+              maxWidth: null,
               code: _TSplitButtonLoadingSource.code,
               child: _TSplitButtonLoading(),
             ),
             AppPreviewCard(
               title: 'Custom loading widget',
               description: 'Tap the button to see the custom loading state.',
+              maxWidth: null,
               code: _TSplitButtonLoadingCustomSource.code,
               child: _TSplitButtonLoadingCustom(),
             ),
             AppPreviewCard(
               title: 'Controller to manage disabled state',
+              maxWidth: null,
               code: _TSplitButtonDisabledSource.code,
               child: _TSplitButtonDisabled(),
             ),

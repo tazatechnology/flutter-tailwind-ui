@@ -329,6 +329,16 @@ class _TSwitchTileFormFieldState extends FormFieldState<bool> {
   }
 
   // ---------------------------------------------------------------------------
+  // METHOD: reset
+  // ---------------------------------------------------------------------------
+
+  @override
+  void reset() {
+    super.reset();
+    field.onChanged?.call(widget.initialValue ?? false);
+  }
+
+  // ---------------------------------------------------------------------------
   // METHOD: build
   // ---------------------------------------------------------------------------
 
@@ -609,6 +619,16 @@ class _TSwitchGroupFormFieldState<T> extends FormFieldState<List<T>> {
 
     didChange(currentValue);
     field.onChanged?.call(currentValue);
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: reset
+  // ---------------------------------------------------------------------------
+
+  @override
+  void reset() {
+    super.reset();
+    field.onChanged?.call(widget.initialValue ?? []);
   }
 
   // ---------------------------------------------------------------------------

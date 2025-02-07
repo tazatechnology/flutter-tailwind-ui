@@ -16,27 +16,16 @@ class ComponentRouteTInput extends StatelessWidget {
           'https://tailwindui.com/components/application-ui/forms/input-groups',
       children: [
         AppSection(
-          title: 'Input Sizes',
+          title: 'Input with Label',
           children: [
             AppPreviewCard(
-              title: 'Predefined sizes',
-              maxWidth: TScreen.max_w_sm,
-              code: _TInputSizeSource.code,
-              child: _TInputSize(),
-            ),
-          ],
-        ),
-        AppSection(
-          title: 'Input with label',
-          children: [
-            AppPreviewCard(
-              title: 'String',
+              title: 'Simple',
               maxWidth: TScreen.max_w_sm,
               code: _TInputWithLabelSource.code,
               child: _TInputWithLabel(),
             ),
             AppPreviewCard(
-              title: 'Widget',
+              title: 'Custom',
               maxWidth: TScreen.max_w_sm,
               code: _TInputWithLabelWidgetSource.code,
               child: _TInputWithLabelWidget(),
@@ -44,41 +33,24 @@ class ComponentRouteTInput extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Input with help message',
+          title: 'Input with Messages',
           children: [
             AppPreviewCard(
-              title: 'String',
+              title: 'Help',
               maxWidth: TScreen.max_w_sm,
               code: _TInputWithHelpSource.code,
               child: _TInputWithHelp(),
             ),
             AppPreviewCard(
-              title: 'Widget',
-              maxWidth: TScreen.max_w_sm,
-              code: _TInputWithHelpWidgetSource.code,
-              child: _TInputWithHelpWidget(),
-            ),
-          ],
-        ),
-        AppSection(
-          title: 'Input with error message',
-          children: [
-            AppPreviewCard(
-              title: 'String',
+              title: 'Error',
               maxWidth: TScreen.max_w_sm,
               code: _TInputWithErrorSource.code,
               child: _TInputWithError(),
             ),
-            AppPreviewCard(
-              title: 'Widget',
-              maxWidth: TScreen.max_w_sm,
-              code: _TInputWithErrorWidgetSource.code,
-              child: _TInputWithErrorWidget(),
-            ),
           ],
         ),
         AppSection(
-          title: 'Input states',
+          title: 'Input States',
           children: [
             AppPreviewCard(
               title: 'Disabled',
@@ -95,7 +67,7 @@ class ComponentRouteTInput extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Input with icon',
+          title: 'Input with Icon',
           children: [
             AppPreviewCard(
               title: 'Leading',
@@ -108,6 +80,17 @@ class ComponentRouteTInput extends StatelessWidget {
               maxWidth: TScreen.max_w_sm,
               code: _TInputWithIconSuffixSource.code,
               child: _TInputWithIconSuffix(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Input Sizes',
+          children: [
+            AppPreviewCard(
+              title: 'Predefined Sizes',
+              maxWidth: TScreen.max_w_sm,
+              code: _TInputSizeSource.code,
+              child: _TInputSize(),
             ),
           ],
         ),
@@ -147,12 +130,12 @@ class _TInputSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: TSpace.v16,
+      spacing: TSpace.v32,
       children: [
         for (final size in TInputSize.values)
           TInput(
             size: size,
-            labelText: 'Email (${size.title})',
+            label: Text('Email (${size.title})'),
             hintText: 'you@example.com',
           ),
       ],
@@ -171,7 +154,7 @@ class _TInputWithLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TInput(
-      labelText: 'Email',
+      label: Text('Email'),
       hintText: 'you@example.com',
     );
   }
@@ -218,25 +201,7 @@ class _TInputWithHelp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TInput(
-      labelText: 'Email',
-      hintText: 'you@example.com',
-      helpText: 'This is a help message.',
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TInputWithHelpWidget
-// =============================================================================
-
-@GenerateSource()
-class _TInputWithHelpWidget extends StatelessWidget {
-  const _TInputWithHelpWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return const TInput(
-      labelText: 'Email',
+      label: Text('Email'),
       hintText: 'you@example.com',
       help: TText('This is a help `widget`'),
     );
@@ -255,26 +220,7 @@ class _TInputWithError extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TInput(
       initialValue: 'invalid-email',
-      labelText: 'Email',
-      hintText: 'you@example.com',
-      errorText: 'This is an error message.',
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TInputWithErrorWidget
-// =============================================================================
-
-@GenerateSource()
-class _TInputWithErrorWidget extends StatelessWidget {
-  const _TInputWithErrorWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return const TInput(
-      initialValue: 'invalid-email',
-      labelText: 'Email',
+      label: Text('Email'),
       hintText: 'you@example.com',
       error: TText('This is an error `widget`'),
     );
@@ -293,7 +239,7 @@ class _TInputWithDisabledState extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TInput(
       enabled: false,
-      labelText: 'Email',
+      label: Text('Email'),
       hintText: 'Enter your email',
     );
   }
@@ -312,7 +258,7 @@ class _TInputWithReadOnlyState extends StatelessWidget {
     return const TInput(
       readOnly: true,
       initialValue: 'me@example.com',
-      labelText: 'Email',
+      label: Text('Email'),
     );
   }
 }
@@ -328,7 +274,7 @@ class _TInputWithIconPrefix extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TInput(
-      labelText: 'Email',
+      label: Text('Email'),
       hintText: 'you@example.com',
       prefix: Icon(Icons.mail_outline, size: 15),
     );
@@ -347,7 +293,7 @@ class _TInputWithIconSuffix extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TInput(
       obscure: true,
-      labelText: 'Password',
+      label: Text('Password'),
       hintText: 'Enter your password',
       suffix: Icon(Icons.security, size: 15),
     );
@@ -365,7 +311,7 @@ class _TInputArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TInput.area(
-      labelText: 'Bio',
+      label: Text('Bio'),
       hintText: 'Tell us about yourself',
     );
   }
@@ -400,7 +346,7 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
           width: TScreen.max_w_xs,
           child: TInput(
             controller: textController,
-            labelText: 'Email address',
+            label: const Text('Email Address'),
             hintText: 'you@example.com',
             borderRadius:
                 const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),

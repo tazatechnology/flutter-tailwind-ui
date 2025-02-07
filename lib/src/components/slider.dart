@@ -41,12 +41,11 @@ class TSlider extends TFormField<double> {
     this.initialValue,
     super.key,
     this.label,
-    this.labelText,
     this.max = 1.0,
     this.min = 0.0,
     this.onChanged,
     this.restorationId,
-    this.showValueLabels = false,
+    this.showDefaultMarks = false,
     this.textStyle,
     this.thumbColor,
     this.tooltipBorderColor,
@@ -81,12 +80,11 @@ class TSlider extends TFormField<double> {
             initialValue: initialValue,
             inactiveTrackColor: inactiveTrackColor,
             label: label,
-            labelText: labelText,
             max: max,
             min: min,
             onChanged: onChanged,
             restorationId: restorationId,
-            showValueLabels: showValueLabels,
+            showValueLabels: showDefaultMarks,
             textStyle: textStyle,
             thumbColor: thumbColor,
             tooltipBorderColor: tooltipBorderColor,
@@ -147,11 +145,6 @@ class TSlider extends TFormField<double> {
   /// The label text to display above the input field.
   final Widget? label;
 
-  /// The label text to display above the slider.
-  ///
-  /// For full customization, use [label] to pass in a widget.
-  final String? labelText;
-
   /// The maximum value of the slider.
   final double max;
 
@@ -164,14 +157,10 @@ class TSlider extends TFormField<double> {
   /// The restoration ID to save and restore the state of the select widget
   final String? restorationId;
 
-  /// Whether the slider should display value labels.
-  ///
-  /// E.g. min, max, and any other value markings.
-  final bool showValueLabels;
+  /// Whether the slider should display the default marks (e.g min/max).
+  final bool showDefaultMarks;
 
-  /// The text style to apply to any slider value related text.
-  ///
-  /// For example the min, max, and any other value markings.
+  /// The text style to apply to any slider marks.
   final TextStyle? textStyle;
 
   /// The color of the thumb.
@@ -217,7 +206,6 @@ class _TSliderFormField extends FormField<double> {
     required super.initialValue,
     required this.inactiveTrackColor,
     required this.label,
-    required this.labelText,
     required this.max,
     required this.min,
     required this.onChanged,
@@ -247,7 +235,6 @@ class _TSliderFormField extends FormField<double> {
   final String Function(double)? formatter;
   final Color? inactiveTrackColor;
   final Widget? label;
-  final String? labelText;
   final double max;
   final double min;
   final ValueChanged<double>? onChanged;
@@ -319,6 +306,17 @@ class _TSliderFormFieldState extends FormFieldState<double> {
   }
 
   // ---------------------------------------------------------------------------
+  // METHOD: reset
+  // ---------------------------------------------------------------------------
+
+  @override
+  void reset() {
+    super.reset();
+    controller.value = widget.initialValue!;
+    inputController.text = valueString;
+  }
+
+  // ---------------------------------------------------------------------------
   // METHOD: onChanged
   // ---------------------------------------------------------------------------
 
@@ -346,6 +344,25 @@ class _TSliderFormFieldState extends FormFieldState<double> {
     } else {
       inputController.text = valueString;
     }
+    // Revalidate the values with the actual registered field value
+    // Ensures that discrete points are respected
+    if (field.divisions != null) {
+      final valueDiscretized = discretize(controller.value);
+      controller.value = valueDiscretized;
+      inputController.text = valueString;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: discretize
+  // ---------------------------------------------------------------------------
+
+  double discretize(double value) {
+    if (field.divisions == null) {
+      return value;
+    }
+    final int divisions = field.divisions!;
+    return (value * divisions).round() / divisions;
   }
 
   // ---------------------------------------------------------------------------
@@ -355,12 +372,6 @@ class _TSliderFormFieldState extends FormFieldState<double> {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-
-    // Resolve the label widget
-    Widget? label = field.label;
-    if (label == null && field.labelText != null) {
-      label = Text(field.labelText!);
-    }
 
     /// The text style for the markings
     final markingTextStyle = const TextStyle(
@@ -394,7 +405,7 @@ class _TSliderFormFieldState extends FormFieldState<double> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (label != null) TLabelDescriptionWidget(label: label),
+          if (field.label != null) TLabelDescriptionWidget(label: field.label),
           ValueListenableBuilder(
             valueListenable: controller,
             builder: (context, value, _) {

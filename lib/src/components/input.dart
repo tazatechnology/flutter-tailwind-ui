@@ -26,12 +26,10 @@ class TInput extends StatefulWidget {
     this.enableSuggestions = true,
     this.enabled = true,
     this.error,
-    this.errorText,
     this.fillColor,
     this.focusNode,
     this.groupId = EditableText,
     this.help,
-    this.helpText,
     this.hintText,
     this.id,
     this.ignorePointers = false,
@@ -40,7 +38,6 @@ class TInput extends StatefulWidget {
     this.keyboardType,
     super.key,
     this.label,
-    this.labelText,
     this.magnifierConfiguration,
     this.maxLengthEnforcement,
     this.mouseCursor,
@@ -99,12 +96,10 @@ class TInput extends StatefulWidget {
     this.enableSuggestions = true,
     this.enabled = true,
     this.error,
-    this.errorText,
     this.fillColor,
     this.focusNode,
     this.groupId = EditableText,
     this.help,
-    this.helpText,
     this.hintText,
     this.id,
     this.ignorePointers = false,
@@ -113,7 +108,6 @@ class TInput extends StatefulWidget {
     this.keyboardType,
     super.key,
     this.label,
-    this.labelText,
     this.magnifierConfiguration,
     this.maxLengthEnforcement,
     this.mouseCursor,
@@ -201,11 +195,6 @@ class TInput extends StatefulWidget {
   /// The error widget to display below the input field.
   final Widget? error;
 
-  /// The error text to display below the input field.
-  ///
-  /// For full customization, use [error] to pass in a widget.
-  final String? errorText;
-
   /// Whether the input field expands to fill the available space.
   final bool expands;
 
@@ -220,11 +209,6 @@ class TInput extends StatefulWidget {
 
   /// The help widget to display below the input field.
   final Widget? help;
-
-  /// The help text to display below the input field.
-  ///
-  /// For full customization, use [help] to pass in a widget.
-  final String? helpText;
 
   /// The hint text to display inside the input field.
   final String? hintText;
@@ -248,11 +232,6 @@ class TInput extends StatefulWidget {
 
   /// The label text to display above the input field.
   final Widget? label;
-
-  /// The label text to display above the input field.
-  ///
-  /// For full customization, use [label] to pass in a widget.
-  final String? labelText;
 
   /// The text magnifier configuration for the input field.
   final TextMagnifierConfiguration? magnifierConfiguration;
@@ -440,20 +419,8 @@ class _TInputState extends State<TInput> {
       xPad = 0;
     }
 
-    // Resolve the label widget
-    Widget? label = widget.label;
-    if (label == null && widget.labelText != null) {
-      label = Text(widget.labelText!);
-    }
-
     // Resolve the help widget
     Widget? help = widget.help;
-    if (help == null && widget.helpText != null) {
-      help = SelectableText(
-        widget.helpText!,
-        style: inputTheme.helperStyle,
-      );
-    }
     if (help != null) {
       help = DefaultTextStyle.merge(
         style: inputTheme.helperStyle,
@@ -461,14 +428,8 @@ class _TInputState extends State<TInput> {
       );
     }
 
-    // Resolve the help widget
+    // Resolve the error widget
     Widget? error = widget.error;
-    if (error == null && widget.errorText != null) {
-      error = SelectableText(
-        widget.errorText!,
-        style: inputTheme.errorStyle,
-      );
-    }
     if (error != null) {
       error = DefaultTextStyle.merge(
         style: inputTheme.errorStyle,
@@ -524,7 +485,7 @@ class _TInputState extends State<TInput> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (label != null) TLabelDescriptionWidget(label: label),
+        if (widget.label != null) TLabelDescriptionWidget(label: widget.label),
         TFormField(
           id: widget.id ?? 'TFormField',
           child: TextFormField(
@@ -570,8 +531,14 @@ class _TInputState extends State<TInput> {
             scribbleEnabled: widget.scribbleEnabled,
             selectionControls: widget.selectionControls,
             showCursor: widget.showCursor ?? isInteractive,
-            smartDashesType: widget.smartDashesType,
-            smartQuotesType: widget.smartQuotesType,
+            smartDashesType: widget.smartDashesType ??
+                (widget.obscure
+                    ? SmartDashesType.disabled
+                    : SmartDashesType.enabled),
+            smartQuotesType: widget.smartQuotesType ??
+                (widget.obscure
+                    ? SmartQuotesType.disabled
+                    : SmartQuotesType.enabled),
             spellCheckConfiguration: widget.spellCheckConfiguration,
             statesController: statesController,
             style: style,

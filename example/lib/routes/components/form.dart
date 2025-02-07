@@ -38,7 +38,7 @@ class ComponentRouteTForm extends StatelessWidget {
             AppPreviewCard(
               title: '`TFormField` components',
               description:
-                  'All of the input elements in this package are instrument to work with `TForm` and in turn allow for easy value lookup and validation.',
+                  'All of the input elements in this package are instrument to work with `TForm` and in turn allow for easy value lookup, validation, and reset.',
               maxWidth: TScreen.max_w_sm,
               code: _TFormAllFieldsSource.code,
               child: _TFormAllFields(),
@@ -73,7 +73,7 @@ class _TFormBasicState extends State<_TFormBasic> {
         spacing: TSpace.v24,
         children: [
           TInput(
-            labelText: 'Email',
+            label: const Text('Email'),
             hintText: 'Enter your email',
             validator: (value) {
               if (value?.contains('@') ?? false) {
@@ -83,7 +83,7 @@ class _TFormBasicState extends State<_TFormBasic> {
             },
           ),
           TInput(
-            labelText: 'Password',
+            label: const Text('Password'),
             hintText: 'Enter your password',
             obscure: true,
             validator: (value) {
@@ -120,15 +120,15 @@ class _TFormTrackFieldValues extends StatefulWidget {
 class _TFormTrackFieldValuesState extends State<_TFormTrackFieldValues> {
   final controller = TFormController();
 
-  Future<void> onPressed() async {
-    controller.validate();
+  /// Displays a dialog with the current values of the form fields.
+  Future<void> showFieldValuesDialog() async {
     final values = controller.getTFormFieldValues();
     await TDialog.show<void>(
       context: context,
       builder: (context) {
         return TDialog(
           title: const Text('Form Field Values'),
-          contentTextStyle: TTextStyle.text_md.copyWith(
+          contentTextStyle: TTextStyle.text_sm.copyWith(
             color: context.tw.color.body,
           ),
           content: Column(
@@ -164,18 +164,18 @@ class _TFormTrackFieldValuesState extends State<_TFormTrackFieldValues> {
         children: [
           const TInput(
             id: 'email',
-            labelText: 'Email',
+            label: Text('Email'),
             initialValue: 'test@example.com',
           ),
           const TInput(
             id: 'password',
-            labelText: 'Password',
+            label: Text('Password'),
             initialValue: '123abc',
             obscure: true,
           ),
           TExpand.width(
             child: TButton.filled(
-              onPressed: onPressed,
+              onPressed: showFieldValuesDialog,
               child: const Text('Get Field Values'),
             ),
           ),
@@ -200,15 +200,15 @@ class _TFormAllFields extends StatefulWidget {
 class __TFormAllFieldsState extends State<_TFormAllFields> {
   final controller = TFormController();
 
-  Future<void> onPressed() async {
-    controller.validate();
+  /// Displays a dialog with the current values of the form fields.
+  Future<void> showFieldValuesDialog() async {
     final values = controller.getTFormFieldValues();
     await TDialog.show<void>(
       context: context,
       builder: (context) {
         return TDialog(
           title: const Text('Form Field Values'),
-          contentTextStyle: TTextStyle.text_md.copyWith(
+          contentTextStyle: TTextStyle.text_sm.copyWith(
             color: context.tw.color.body,
           ),
           cancel: const Text('Close'),
@@ -245,8 +245,8 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
           const Text('Sample Form'),
           TButton.filled(
             size: TWidgetSize.sm,
-            onPressed: onPressed,
-            child: const Text('Get Values'),
+            onPressed: showFieldValuesDialog,
+            child: const Text('Values'),
           ),
         ],
       ),
@@ -260,16 +260,16 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
               children: [
                 const Expanded(
                   child: TInput(
-                    id: 'id-input',
-                    labelText: 'Input',
+                    id: 'input',
+                    label: Text('Input'),
                     initialValue: 'Bob',
                     hintText: 'Enter your name',
                   ),
                 ),
                 Expanded(
                   child: TSelect(
-                    id: 'id-select',
-                    labelText: 'Select',
+                    id: 'select',
+                    label: const Text('Select'),
                     initialValue: 1,
                     items: const [1, 2, 3],
                   ),
@@ -277,15 +277,15 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
               ],
             ),
             TSlider(
-              id: 'id-slider',
-              labelText: 'Slider',
+              id: 'slider',
+              label: const Text('Slider'),
               initialValue: 0.75,
             ),
             Row(
               children: [
                 Expanded(
                   child: TRadioGroup(
-                    id: 'id-radio-group',
+                    id: 'radio-group',
                     label: const Text('Radio Group'),
                     initialValue: 2,
                     children: [
@@ -299,7 +299,7 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
                 ),
                 Expanded(
                   child: TCheckboxGroup(
-                    id: 'id-checkbox-group',
+                    id: 'checkbox-group',
                     label: const Text('Checkbox Group'),
                     initialValue: const [2],
                     children: [
@@ -314,14 +314,23 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
               ],
             ),
             TCheckboxTile.card(
-              id: 'id-checkbox-tile',
+              id: 'checkbox-tile',
               title: const Text('Checkbox Tile'),
               affinity: TControlAffinity.trailing,
             ),
             TSwitchTile.card(
-              id: 'id-switch-tile',
+              id: 'switch-tile',
+              initialValue: true,
               title: const Text('Switch Tile'),
               affinity: TControlAffinity.trailing,
+            ),
+            TExpand.width(
+              child: TButton.filled(
+                onPressed: () {
+                  controller.reset();
+                },
+                child: const Text('Reset'),
+              ),
             ),
           ],
         ),

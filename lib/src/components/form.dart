@@ -25,6 +25,9 @@ class TFormController {
   /// Resets the form fields and clears the stored values.
   void reset() {
     state?.reset();
+    for (final f in getFormFieldStates()) {
+      f.reset();
+    }
   }
 
   /// Returns a list of all [FormFieldState] objects.

@@ -16,35 +16,28 @@ class ComponentRouteTSelect extends StatelessWidget {
           'https://tailwindui.com/components/application-ui/forms/select-menus',
       children: [
         AppSection(
-          title: 'Select Sizes',
+          title: 'Select with Label',
           children: [
             AppPreviewCard(
-              title: 'Predefined sizes',
-              code: _TSelectSizeSource.code,
-              child: _TSelectSize(),
-            ),
-          ],
-        ),
-        AppSection(
-          title: 'Select with label',
-          children: [
-            AppPreviewCard(
-              title: 'Text',
+              title: 'Simple',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectLabelTextSource.code,
               child: _TSelectLabelText(),
             ),
             AppPreviewCard(
-              title: 'Widget',
+              title: 'Custom',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectLabelWidgetSource.code,
               child: _TSelectLabelWidget(),
             ),
           ],
         ),
         AppSection(
-          title: 'Scrollable options list',
+          title: 'Scrollable Options List',
           children: [
             AppPreviewCard(
               title: 'Build many options',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectScrollableSource.code,
               child: _TSelectScrollable(),
             ),
@@ -55,11 +48,13 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Enabled',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectEnabledSource.code,
               child: _TSelectEnabled(),
             ),
             AppPreviewCard(
               title: 'Disabled',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectDisabledSource.code,
               child: _TSelectDisabled(),
             ),
@@ -70,23 +65,38 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Leading',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectSelectedIconLeadingSource.code,
               child: _TSelectSelectedIconLeading(),
             ),
             AppPreviewCard(
               title: 'Trailing',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectSelectedIconTrailingSource.code,
               child: _TSelectSelectedIconTrailing(),
             ),
           ],
         ),
         AppSection(
-          title: 'Allow Deselect',
+          title: 'Popover Interactions',
           children: [
             AppPreviewCard(
-              title: 'Allow deselect of selected option',
+              title: 'Allow deselect',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectAllowDeselectSource.code,
               child: _TSelectAllowDeselect(),
+            ),
+            AppPreviewCard(
+              title: 'Prevent close on select',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSelectPreventCloseSource.code,
+              child: _TSelectPreventClose(),
+            ),
+            AppPreviewCard(
+              title: 'Prevent close on tap outside',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSelectPreventCloseOutsideSource.code,
+              child: _TSelectPreventCloseOutside(),
             ),
           ],
         ),
@@ -95,8 +105,20 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Search options with text input',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectSearchSource.code,
               child: _TSelectSearch(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Select Sizes',
+          children: [
+            AppPreviewCard(
+              title: 'Predefined sizes',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSelectSizeSource.code,
+              child: _TSelectSize(),
             ),
           ],
         ),
@@ -105,6 +127,7 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Add User Example',
+              maxWidth: TScreen.max_w_sm,
               code: _TSelectGalleryAddUserSource.code,
               child: _TSelectGalleryAddUser(),
             ),
@@ -126,11 +149,11 @@ class _TSelectSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: TSpace.v16,
+      spacing: TSpace.v32,
       children: [
         for (final size in TInputSize.values)
           TSelect(
-            labelText: 'Select Number (${size.title})',
+            label: Text('Select Number (${size.title})'),
             size: size,
             initialValue: 1,
             items: const [1, 2, 3],
@@ -153,7 +176,7 @@ class _TSelectLabelText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSelect(
-      labelText: 'Size',
+      label: const Text('Size'),
       items: TWidgetSize.values,
       itemBuilder: (value) => Text(value.name.toUpperCase()),
       selectedItemBuilder: (value) {
@@ -208,7 +231,7 @@ class _TSelectScrollable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSelect(
-      labelText: 'Select a number (0-1,000)',
+      label: const Text('Select a number (0-1,000)'),
       items: List.generate(1000, (ii) => ii),
       itemBuilder: (value) => Text(value.toString()),
       selectedItemBuilder: (value) => Text('Number: $value'),
@@ -227,7 +250,7 @@ class _TSelectEnabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSelect(
-      labelText: 'Select a number',
+      label: const Text('Select a number'),
       initialValue: 50,
       items: List.generate(100, (ii) => ii),
       itemBuilder: (value) => Text(value.toString()),
@@ -249,7 +272,7 @@ class _TSelectDisabled extends StatelessWidget {
     return TSelect(
       enabled: false,
       initialValue: 50,
-      labelText: 'Select a number',
+      label: const Text('Select a number'),
       items: List.generate(100, (ii) => ii),
       itemBuilder: (value) => Text(value.toString()),
       selectedItemBuilder: (value) => Text('Number: $value'),
@@ -269,7 +292,7 @@ class _TSelectSelectedIconLeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return TSelect(
       initialValue: 'User B',
-      labelText: 'Add a user',
+      label: const Text('Add a user'),
       items: const ['User A', 'User B', 'User C'],
       selectedIcon: const Icon(Icons.circle, size: 10),
       selectedIconAffinity: TControlAffinity.leading,
@@ -291,7 +314,7 @@ class _TSelectSelectedIconTrailing extends StatelessWidget {
   Widget build(BuildContext context) {
     return TSelect(
       initialValue: 'User B',
-      labelText: 'Add a user',
+      label: const Text('Add a user'),
       items: const ['User A', 'User B', 'User C'],
       selectedIcon: const Icon(Icons.circle, size: 10),
       itemBuilder: (value) => Text(value),
@@ -313,7 +336,50 @@ class _TSelectAllowDeselect extends StatelessWidget {
     return TSelect(
       initialValue: 'User B',
       allowDeselect: true,
-      labelText: 'Add a user',
+      label: const Text('Add a user'),
+      items: const ['User A', 'User B', 'User C'],
+      itemBuilder: (value) => Text(value),
+      selectedItemBuilder: (value) => Text(value),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectPreventClose
+// =============================================================================
+
+@GenerateSource()
+class _TSelectPreventClose extends StatelessWidget {
+  const _TSelectPreventClose();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSelect(
+      initialValue: 'User B',
+      allowDeselect: true,
+      closeOnSelect: false,
+      label: const Text('Add a user'),
+      items: const ['User A', 'User B', 'User C'],
+      itemBuilder: (value) => Text(value),
+      selectedItemBuilder: (value) => Text(value),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectPreventClose
+// =============================================================================
+
+@GenerateSource()
+class _TSelectPreventCloseOutside extends StatelessWidget {
+  const _TSelectPreventCloseOutside();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSelect(
+      initialValue: 'User B',
+      closeOnTapOutside: false,
+      label: const Text('Add a user'),
       items: const ['User A', 'User B', 'User C'],
       itemBuilder: (value) => Text(value),
       selectedItemBuilder: (value) => Text(value),
@@ -332,7 +398,7 @@ class _TSelectSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSelect(
-      labelText: 'Fruit Selection',
+      label: const Text('Fruit Selection'),
       allowDeselect: true,
       closeOnSelect: false,
       items: const ['apple', 'banana', 'cherry', 'date', 'elderberry'],
@@ -375,7 +441,7 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
             initialValue: selectedUser,
             allowDeselect: true,
             closeOnSelect: false,
-            labelText: 'Add a user',
+            label: const Text('Add a user'),
             items: const ['User A', 'User B', 'User C'],
             placeholder: const Text('Select user'),
             borderRadius: const WidgetStatePropertyAll(

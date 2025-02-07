@@ -67,7 +67,7 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TCheckbox``': AppRouter.checkbox,
         '``TSwitch``': AppRouter.switch_control,
       },
-      'Input Components': {
+      'Form Components': {
         '``TInput``': AppRouter.input,
         '``TSelect``': AppRouter.select,
         '``TSlider``': AppRouter.slider,

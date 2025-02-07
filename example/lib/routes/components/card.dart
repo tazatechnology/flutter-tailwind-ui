@@ -29,12 +29,12 @@ class ComponentRouteTCard extends StatelessWidget {
               child: _TCardElevation(),
             ),
             AppPreviewCard(
-              title: 'Border radius',
+              title: 'Border Radius',
               code: _TCardBorderRadiusSource.code,
               child: _TCardBorderRadius(),
             ),
             AppPreviewCard(
-              title: 'Border side',
+              title: 'Border Side',
               code: _TCardBorderSideSource.code,
               child: _TCardBorderSide(),
             ),
@@ -52,6 +52,11 @@ class ComponentRouteTCard extends StatelessWidget {
               title: 'Header without border',
               code: _TCardHeaderNoBorderSource.code,
               child: _TCardHeaderNoBorder(),
+            ),
+            AppPreviewCard(
+              title: 'Header with custom border',
+              code: _TCardHeaderCustomBorderSource.code,
+              child: _TCardHeaderCustomBorder(),
             ),
           ],
         ),
@@ -170,6 +175,38 @@ class _TCardHeaderNoBorder extends StatelessWidget {
   Widget build(BuildContext context) {
     return TCard(
       headerBorder: BorderSide.none,
+      header: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Card Heading'),
+          TButton.filled(child: Text('Action')),
+        ],
+      ),
+      child: ListView.separated(
+        shrinkWrap: true,
+        itemCount: 3,
+        itemBuilder: (context, index) => const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [Text('Item'), Text('Item')],
+        ),
+        separatorBuilder: (context, index) => const Divider(),
+      ),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TCardHeaderCustomBorder
+// =============================================================================
+
+@GenerateSource()
+class _TCardHeaderCustomBorder extends StatelessWidget {
+  const _TCardHeaderCustomBorder();
+
+  @override
+  Widget build(BuildContext context) {
+    return TCard(
+      headerBorder: const BorderSide(color: TColors.indigo, width: 2),
       header: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

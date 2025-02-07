@@ -19,6 +19,7 @@ class TSelect<T> extends TFormField<T> {
     this.borderColor,
     this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
     this.closeOnSelect = true,
+    this.closeOnTapOutside = true,
     this.constraints,
     this.enabled = true,
     this.fillColor,
@@ -29,7 +30,6 @@ class TSelect<T> extends TFormField<T> {
     this.itemPadding = TOffset.x12,
     super.key,
     this.label,
-    this.labelText,
     this.maxVisible = 5,
     this.onChanged,
     this.onSearch,
@@ -53,6 +53,7 @@ class TSelect<T> extends TFormField<T> {
             borderColor: borderColor,
             borderRadius: borderRadius,
             closeOnSelect: closeOnSelect,
+            closeOnTapOutside: closeOnTapOutside,
             constraints: constraints,
             enabled: enabled,
             fillColor: fillColor,
@@ -62,7 +63,6 @@ class TSelect<T> extends TFormField<T> {
             itemPadding: itemPadding,
             items: items,
             label: label,
-            labelText: labelText,
             maxVisible: maxVisible,
             onChanged: onChanged,
             onSearch: onSearch,
@@ -99,6 +99,9 @@ class TSelect<T> extends TFormField<T> {
   /// Whether the popover should close when an item is selected
   final bool closeOnSelect;
 
+  /// Whether the popover should close when tapped outside
+  final bool closeOnTapOutside;
+
   /// The constraints for the anchor widget
   final BoxConstraints? constraints;
 
@@ -127,9 +130,6 @@ class TSelect<T> extends TFormField<T> {
   ///
   /// For full customization, use [label] to pass in a widget.
   final Widget? label;
-
-  /// The label text to display above the input field.
-  final String? labelText;
 
   /// The maximum number of items to display in list before scrolling
   final int maxVisible;
@@ -198,6 +198,7 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.borderColor,
     required this.borderRadius,
     required this.closeOnSelect,
+    required this.closeOnTapOutside,
     required this.constraints,
     required super.enabled,
     required this.fillColor,
@@ -207,7 +208,6 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.itemPadding,
     required this.items,
     required this.label,
-    required this.labelText,
     required this.maxVisible,
     required this.onChanged,
     required this.onSearch,
@@ -232,6 +232,7 @@ class _TSelectFormField<T> extends FormField<T> {
   final WidgetStateProperty<Color>? borderColor;
   final WidgetStateProperty<BorderRadius>? borderRadius;
   final bool closeOnSelect;
+  final bool closeOnTapOutside;
   final BoxConstraints? constraints;
   final WidgetStateProperty<Color>? fillColor;
   final Widget Function(T)? itemBuilder;
@@ -239,7 +240,6 @@ class _TSelectFormField<T> extends FormField<T> {
   final EdgeInsetsGeometry itemPadding;
   final List<T> items;
   final Widget? label;
-  final String? labelText;
   final int maxVisible;
   final ValueChanged<T?>? onChanged;
   final List<T>? Function(List<T>, String)? onSearch;
@@ -308,6 +308,21 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
       c.dispose();
     }
     super.dispose();
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: reset
+  // ---------------------------------------------------------------------------
+
+  @override
+  void reset() {
+    super.reset();
+    searchController.text = '';
+    selected = field.initialValue;
+    hoveredIndex = -1;
+    items.clear();
+    items.addAll(field.items);
+    field.onChanged?.call(widget.initialValue);
   }
 
   // ---------------------------------------------------------------------------
@@ -507,7 +522,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
 
   void onAnchorPressed() {
     hoveredIndex = selectedIndex;
-    popoverController.show();
+    popoverController.toggle();
     FocusScope.of(context).unfocus();
     if (selectedIndex >= 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -546,12 +561,6 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
       );
     }
 
-    // Resolve the label widget
-    Widget? label = field.label;
-    if (label == null && field.labelText != null) {
-      label = Text(field.labelText!);
-    }
-
     // Resolve the fill color
     final effectiveFillColor =
         WidgetStateProperty.resolveWith<Color?>((states) {
@@ -574,10 +583,11 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (label != null) TLabelDescriptionWidget(label: label),
+        if (field.label != null) TLabelDescriptionWidget(label: field.label),
         TPopover(
           animationOptions: animationOptions,
           controller: popoverController,
+          closeOnTapOutside: field.closeOnTapOutside,
           matchAnchorWidth: true,
           height: popoverHeight,
           alignment: Alignment.bottomCenter,

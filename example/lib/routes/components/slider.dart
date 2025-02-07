@@ -17,13 +17,13 @@ class ComponentRouteTSlider extends StatelessWidget {
           title: 'Slider with label',
           children: [
             AppPreviewCard(
-              title: 'Text',
+              title: 'Simple',
               maxWidth: TScreen.max_w_sm,
               code: _TSliderLabelTextSource.code,
               child: _TSliderLabelText(),
             ),
             AppPreviewCard(
-              title: 'Widget',
+              title: 'Custom',
               maxWidth: TScreen.max_w_sm,
               code: _TSliderLabelWidgetSource.code,
               child: _TSliderLabelWidget(),
@@ -31,7 +31,7 @@ class ComponentRouteTSlider extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Slider states',
+          title: 'Slider States',
           children: [
             AppPreviewCard(
               title: 'Enabled',
@@ -48,8 +48,14 @@ class ComponentRouteTSlider extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Slider with markings',
+          title: 'Slider Interaction',
           children: [
+            AppPreviewCard(
+              title: 'Discrete',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSliderDiscreteSource.code,
+              child: _TSliderDiscrete(),
+            ),
             AppPreviewCard(
               title: 'Editable',
               maxWidth: TScreen.max_w_sm,
@@ -57,19 +63,30 @@ class ComponentRouteTSlider extends StatelessWidget {
               child: _TSliderEditable(),
             ),
             AppPreviewCard(
-              title: 'Show value labels',
+              title: 'Discrete and editable',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSliderDiscreteEditableSource.code,
+              child: _TSliderDiscreteEditable(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Slider with Markings',
+          children: [
+            AppPreviewCard(
+              title: 'Show default marks',
               maxWidth: TScreen.max_w_sm,
               code: _TSliderValueLabelsSource.code,
               child: _TSliderValueLabels(),
             ),
             AppPreviewCard(
-              title: 'Show value labels and editable',
+              title: 'Show default marks and editable',
               maxWidth: TScreen.max_w_sm,
               code: _TSliderValueLabelsEditableSource.code,
               child: _TSliderValueLabelsEditable(),
             ),
             AppPreviewCard(
-              title: 'Value label formatter',
+              title: 'Marking formatter',
               maxWidth: TScreen.max_w_sm,
               code: _TSliderValueLabelsFormatterSource.code,
               child: _TSliderValueLabelsFormatter(),
@@ -77,7 +94,7 @@ class ComponentRouteTSlider extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Slider tooltip',
+          title: 'Slider Tooltip',
           children: [
             AppPreviewCard(
               title: 'Customize tooltip',
@@ -94,7 +111,7 @@ class ComponentRouteTSlider extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Slider controller',
+          title: 'Slider Controller',
           children: [
             AppPreviewCard(
               title: 'Controller to update the value',
@@ -145,6 +162,24 @@ class _TSliderDisabled extends StatelessWidget {
 }
 
 // =============================================================================
+// CLASS: _TSliderDiscrete
+// =============================================================================
+
+@GenerateSource()
+class _TSliderDiscrete extends StatelessWidget {
+  const _TSliderDiscrete();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSlider(
+      divisions: 10,
+      initialValue: 0.5,
+      onChanged: (value) {},
+    );
+  }
+}
+
+// =============================================================================
 // CLASS: _TSliderEditable
 // =============================================================================
 
@@ -163,6 +198,25 @@ class _TSliderEditable extends StatelessWidget {
 }
 
 // =============================================================================
+// CLASS: _TSliderDiscreteEditable
+// =============================================================================
+
+@GenerateSource()
+class _TSliderDiscreteEditable extends StatelessWidget {
+  const _TSliderDiscreteEditable();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSlider(
+      editable: true,
+      divisions: 10,
+      initialValue: 0.5,
+      onChanged: (value) {},
+    );
+  }
+}
+
+// =============================================================================
 // CLASS: _TSliderLabelText
 // =============================================================================
 
@@ -173,7 +227,7 @@ class _TSliderLabelText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TSlider(
-      labelText: 'Slider Label',
+      label: const Text('Slider Label'),
       initialValue: 0.5,
       onChanged: (value) {},
     );
@@ -223,7 +277,7 @@ class _TSliderValueLabels extends StatelessWidget {
   Widget build(BuildContext context) {
     return TSlider(
       initialValue: 0.5,
-      showValueLabels: true,
+      showDefaultMarks: true,
       onChanged: (value) {},
     );
   }
@@ -241,7 +295,7 @@ class _TSliderValueLabelsEditable extends StatelessWidget {
   Widget build(BuildContext context) {
     return TSlider(
       initialValue: 0.5,
-      showValueLabels: true,
+      showDefaultMarks: true,
       editable: true,
       onChanged: (value) {},
     );
@@ -260,7 +314,7 @@ class _TSliderValueLabelsFormatter extends StatelessWidget {
   Widget build(BuildContext context) {
     return TSlider(
       initialValue: 0.5,
-      showValueLabels: true,
+      showDefaultMarks: true,
       formatter: (value) => value.toStringAsFixed(3),
       onChanged: (value) {},
     );
@@ -334,7 +388,7 @@ class _TSliderControllerState extends State<_TSliderController> {
       children: [
         TSlider(
           controller: sliderController,
-          showValueLabels: true,
+          showDefaultMarks: true,
           onChanged: (value) {},
         ),
         TSizedBox.y8,
