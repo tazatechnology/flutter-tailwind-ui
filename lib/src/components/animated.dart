@@ -45,6 +45,7 @@ class TAnimatedController {
 class TAnimatedOptions {
   /// Constructor for [TAnimatedOptions].
   const TAnimatedOptions({
+    this.animateOnMount = true,
     this.duration = kThemeAnimationDuration,
     this.curveIn = Curves.easeOut,
     this.curveOut = Curves.easeIn,
@@ -83,6 +84,9 @@ class TAnimatedOptions {
       opacity: Tween<double>(begin: 0, end: 1),
     );
   }
+
+  /// Whether to animate the widget when it is mounted.
+  final bool animateOnMount;
 
   /// The duration of the animation.
   final Duration duration;
@@ -131,7 +135,7 @@ class TAnimated extends StatefulWidget {
   const TAnimated({
     super.key,
     required this.child,
-    required this.controller,
+    this.controller,
     this.options,
   });
 
@@ -139,7 +143,7 @@ class TAnimated extends StatefulWidget {
   final Widget child;
 
   /// The controller to use for the animation.
-  final TAnimatedController controller;
+  final TAnimatedController? controller;
 
   /// The options for the animation.
   final TAnimatedOptions? options;
@@ -150,7 +154,8 @@ class TAnimated extends StatefulWidget {
 
 class _TAnimatedState extends State<TAnimated>
     with SingleTickerProviderStateMixin {
-  late final AnimationController controller;
+  late final controller = widget.controller ?? TAnimatedController();
+  late final AnimationController animationController;
   late final CurvedAnimation animationCurve;
   late final TAnimatedOptions options =
       widget.options ?? const TAnimatedOptions();
@@ -168,10 +173,11 @@ class _TAnimatedState extends State<TAnimated>
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this, duration: options.duration);
-    widget.controller._attach(controller);
+    animationController =
+        AnimationController(vsync: this, duration: options.duration);
+    controller._attach(animationController);
     curvedAnimation = CurvedAnimation(
-      parent: controller,
+      parent: animationController,
       curve: options.curveIn,
       reverseCurve: options.curveOut,
     );
@@ -179,7 +185,10 @@ class _TAnimatedState extends State<TAnimated>
     position = options.position?.animate(curvedAnimation);
     scale = options.scale?.animate(curvedAnimation);
     turns = options.turns?.animate(curvedAnimation);
-    controller.forward();
+
+    if (options.animateOnMount) {
+      animationController.forward();
+    }
   }
 
   // ---------------------------------------------------------------------------

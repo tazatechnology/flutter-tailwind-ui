@@ -3453,6 +3453,20 @@ TSelect(
 """;
 }
 
+/// Source code for [_TSelectNoOptions]
+class _TSelectNoOptionsSource {
+  static const String code = r"""
+TSelect(
+  label: const Text('Select with no options'),
+  items: const [],
+  itemsEmpty: const SizedBox(
+    height: TSpace.v64,
+    child: Center(child: Text('Nothing to see here')),
+  ),
+)
+""";
+}
+
 /// Source code for [_TSelectScrollable]
 class _TSelectScrollableSource {
   static const String code = r"""
@@ -3462,6 +3476,48 @@ TSelect(
   itemBuilder: (value) => Text(value.toString()),
   selectedItemBuilder: (value) => Text('Number: $value'),
 )
+""";
+}
+
+/// Source code for [_TSelectAsync]
+class _TSelectAsyncSource {
+  static const String code = r"""
+class _TSelectAsync extends StatefulWidget {
+  const _TSelectAsync();
+
+  @override
+  State<_TSelectAsync> createState() => _TSelectAsyncState();
+}
+
+class _TSelectAsyncState extends State<_TSelectAsync> {
+  int buildIncrement = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: TSpace.v16,
+      children: [
+        TSelect.async(
+          key: ValueKey(buildIncrement), // Demo purposes only
+          label: const Text('Select a number (async)'),
+          placeholderLoading: const Text('Loading numbers...'),
+          items: () async {
+            await Future<void>.delayed(const Duration(seconds: 1));
+            return List.generate(100, (ii) => ii);
+          },
+          itemBuilder: (value) => Text(value.toString()),
+          selectedItemBuilder: (value) => Text('Number: $value'),
+        ),
+        TButton.filled(
+          child: const Text('Reload'),
+          onPressed: () {
+            setState(() => buildIncrement++);
+          },
+        ),
+      ],
+    );
+  }
+}
 """;
 }
 

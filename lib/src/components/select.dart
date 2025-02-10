@@ -4,6 +4,11 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/internal/input_border.dart';
 import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 
+const Widget _defaultItemsEmpty = SizedBox(
+  height: TSpace.v64,
+  child: Center(child: Text('No items')),
+);
+
 // =============================================================================
 // CLASS: TSelect
 // =============================================================================
@@ -12,7 +17,6 @@ import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 class TSelect<T> extends TFormField<T> {
   /// Construct a [TSelect] widget.
   TSelect({
-    required this.items,
     this.allowDeselect = false,
     this.animationOptions,
     this.autovalidateMode,
@@ -28,6 +32,8 @@ class TSelect<T> extends TFormField<T> {
     this.itemBuilder,
     this.itemExtent,
     this.itemPadding = TOffset.x12,
+    required this.items,
+    this.itemsEmpty = _defaultItemsEmpty,
     super.key,
     this.label,
     this.maxVisible = 5,
@@ -62,11 +68,91 @@ class TSelect<T> extends TFormField<T> {
             itemExtent: itemExtent,
             itemPadding: itemPadding,
             items: items,
+            itemsAsync: null,
+            itemsEmpty: itemsEmpty,
             label: label,
             maxVisible: maxVisible,
             onChanged: onChanged,
             onSearch: onSearch,
             placeholder: placeholder,
+            placeholderLoading: null,
+            restorationId: restorationId,
+            selectedIcon: selectedIcon,
+            selectedIconAffinity: selectedIconAffinity,
+            selectedItemBuilder: selectedItemBuilder,
+            searchCount: searchCount,
+            searchResultsEmpty: searchResultsEmpty,
+            searchHintText: searchHintText,
+            searchIcon: searchIcon,
+            size: size,
+            trailing: trailing,
+            validator: validator,
+          ),
+        );
+
+  /// Construct a [TSelect] widget.
+  TSelect.async({
+    this.allowDeselect = false,
+    this.animationOptions,
+    this.autovalidateMode,
+    this.borderColor,
+    this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
+    this.closeOnSelect = true,
+    this.closeOnTapOutside = true,
+    this.constraints,
+    this.enabled = true,
+    this.fillColor,
+    super.id = 'TSelect.async',
+    this.initialValue,
+    this.itemBuilder,
+    this.itemExtent,
+    this.itemPadding = TOffset.x12,
+    required Future<List<T>> Function() items,
+    this.itemsEmpty = _defaultItemsEmpty,
+    super.key,
+    this.label,
+    this.maxVisible = 5,
+    this.onChanged,
+    this.onSearch,
+    this.placeholder = const Text('Select'),
+    Widget? placeholderLoading = const Text('Loading...'),
+    this.restorationId,
+    this.searchCount = true,
+    this.searchResultsEmpty = const Text('No results found'),
+    this.searchHintText = 'Search',
+    this.searchIcon = const Icon(Icons.search),
+    this.selectedIcon = const Icon(Icons.check),
+    this.selectedIconAffinity = TControlAffinity.trailing,
+    this.selectedItemBuilder,
+    this.size = TInputSize.lg,
+    this.trailing = const Icon(Icons.keyboard_arrow_down),
+    this.validator,
+  })  : items = [],
+        super(
+          child: _TSelectFormField(
+            allowDeselect: allowDeselect,
+            animationOptions: animationOptions,
+            autovalidateMode: autovalidateMode,
+            borderColor: borderColor,
+            borderRadius: borderRadius,
+            closeOnSelect: closeOnSelect,
+            closeOnTapOutside: closeOnTapOutside,
+            constraints: constraints,
+            enabled: enabled,
+            fillColor: fillColor,
+            initialValue: initialValue,
+            itemBuilder: itemBuilder,
+            itemExtent: itemExtent,
+            itemPadding: itemPadding,
+            items: const [],
+            itemsAsync: items,
+            itemsEmpty: itemsEmpty,
+            label: label,
+            maxVisible: maxVisible,
+            onChanged: onChanged,
+            onSearch: onSearch,
+            placeholder: placeholder,
+            placeholderLoading: placeholderLoading,
             restorationId: restorationId,
             selectedIcon: selectedIcon,
             selectedIconAffinity: selectedIconAffinity,
@@ -125,6 +211,9 @@ class TSelect<T> extends TFormField<T> {
 
   /// The list of options to display in the select widget
   final List<T> items;
+
+  /// The widget to display when there are no items in the list
+  final Widget? itemsEmpty;
 
   /// The label text to display above the input field.
   ///
@@ -207,11 +296,14 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.itemExtent,
     required this.itemPadding,
     required this.items,
+    required this.itemsAsync,
+    required this.itemsEmpty,
     required this.label,
     required this.maxVisible,
     required this.onChanged,
     required this.onSearch,
     required this.placeholder,
+    required this.placeholderLoading,
     required super.restorationId,
     required this.selectedIcon,
     required this.selectedIconAffinity,
@@ -239,11 +331,14 @@ class _TSelectFormField<T> extends FormField<T> {
   final double? itemExtent;
   final EdgeInsetsGeometry itemPadding;
   final List<T> items;
+  final Future<List<T>> Function()? itemsAsync;
+  final Widget? itemsEmpty;
   final Widget? label;
   final int maxVisible;
   final ValueChanged<T?>? onChanged;
   final List<T>? Function(List<T>, String)? onSearch;
   final Widget? placeholder;
+  final Widget? placeholderLoading;
   final Widget? selectedIcon;
   final TControlAffinity selectedIconAffinity;
   final Widget Function(T)? selectedItemBuilder;
@@ -264,24 +359,33 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
   final searchController = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
-  late T? selected = widget.initialValue;
+  T? initialValue;
+  T? selected;
   late int hoveredIndex = selectedIndex;
 
   late final bool searchEnabled = field.onSearch != null;
-  late final List<T> items = List<T>.from(field.items);
-  late final List<TWidgetStatesController> stateControllers;
+  late List<T> items = List<T>.from(field.items);
+  late final List<T> currentItems = List<T>.from(field.items);
+  late List<TWidgetStatesController> stateControllers;
   late final TAnimatedOptions animationOptions;
-  int get maxVisible => field.maxVisible.clamp(0, field.items.length);
+  int get maxVisible => field.maxVisible.clamp(0, items.length);
 
   double get height => field.size.height;
 
   double get itemExtent => field.itemExtent ?? height;
 
-  int get selectedIndex => selected == null ? -1 : items.indexOf(selected as T);
-  bool get isScrollable => items.length > maxVisible;
+  int get selectedIndex =>
+      selected == null ? -1 : currentItems.indexOf(selected as T);
+  bool get isScrollable => currentItems.length > maxVisible;
 
   EdgeInsets get listViewPadding =>
       TOffset.a6 + (isScrollable ? TOffset.r16 : TOffset.r0);
+
+  // Async logic
+  late final Future<List<T>>? getItems;
+  late bool isLoading = field.itemsAsync != null;
+
+  bool get enabled => field.enabled && !isLoading;
 
   // ---------------------------------------------------------------------------
   // METHOD: initState
@@ -291,10 +395,38 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
   void initState() {
     super.initState();
     stateControllers = List.generate(
-      field.items.length,
+      items.length,
       (index) => TWidgetStatesController(),
     );
     animationOptions = field.animationOptions ?? TAnimatedOptions.dropdown();
+    if (field.itemsAsync != null) {
+      getItems = field.itemsAsync!().then((itemsAsync) {
+        setState(() {
+          isLoading = false;
+          items.clear();
+          items.addAll(itemsAsync);
+          currentItems.clear();
+          currentItems.addAll(itemsAsync);
+          stateControllers.clear();
+          stateControllers = List.generate(
+            items.length,
+            (index) => TWidgetStatesController(),
+          );
+          if (field.initialValue != null &&
+              items.contains(field.initialValue)) {
+            initialValue = field.initialValue;
+            selected = field.initialValue;
+          }
+        });
+        return items;
+      });
+    } else {
+      if (field.initialValue != null && items.contains(field.initialValue)) {
+        initialValue = field.initialValue;
+        selected = field.initialValue;
+      }
+      getItems = null;
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -318,10 +450,10 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
   void reset() {
     super.reset();
     searchController.text = '';
-    selected = field.initialValue;
+    selected = initialValue;
     hoveredIndex = -1;
-    items.clear();
-    items.addAll(field.items);
+    currentItems.clear();
+    currentItems.addAll(field.items);
     field.onChanged?.call(widget.initialValue);
   }
 
@@ -355,9 +487,9 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
     Widget? suffix;
     if (field.searchCount &&
         searchEnabled &&
-        items.length != field.items.length &&
+        currentItems.length != items.length &&
         searchController.text.trim().isNotEmpty) {
-      suffix = Text('${items.length}/${field.items.length}');
+      suffix = Text('${currentItems.length}/${items.length}');
     }
 
     return TScrollbar(
@@ -386,13 +518,13 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                 prefix: field.searchIcon,
                 suffix: suffix,
                 onChanged: (value) {
-                  final newItems = field.onSearch!.call(items, value);
+                  final newItems = field.onSearch!.call(currentItems, value);
                   setState(() {
-                    items.clear();
+                    currentItems.clear();
                     if (newItems == null || value.trim().isEmpty) {
-                      items.addAll(field.items);
+                      currentItems.addAll(field.items);
                     } else {
-                      items.addAll(newItems);
+                      currentItems.addAll(newItems);
                     }
                   });
                 },
@@ -400,7 +532,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
             ),
           // Display a message when search results are empty
           if (searchEnabled &&
-              items.isEmpty &&
+              currentItems.isEmpty &&
               searchController.text.trim().isNotEmpty)
             Expanded(
               child: DefaultTextStyle.merge(
@@ -410,107 +542,116 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                 child: Center(child: field.searchResultsEmpty),
               ),
             ),
-          Expanded(
-            child: ListView.builder(
-              controller: scrollController,
-              padding: listViewPadding,
-              itemCount: items.length,
-              itemExtent: itemExtent,
-              physics: const ClampingScrollPhysics(),
-              itemBuilder: (context, index) {
-                // Make sure index is within bounds
-                if (index < 0 || index >= items.length) {
-                  return const SizedBox.shrink();
-                }
-                final option = items[index];
-                final optionWidget =
-                    field.itemBuilder?.call(option) ?? Text(option.toString());
-                final bool isSelected = selected == option;
-                final itemStateController = stateControllers[index];
-                itemStateController.hovered =
-                    hoveredIndex == index || isSelected;
-                itemStateController.selected = isSelected;
-                return TGestureDetector(
-                  controller: itemStateController,
-                  onTap: () {
-                    setState(() {
-                      if (selectedIndex >= 0) {
-                        stateControllers[selectedIndex].value = {};
-                      }
-                      if (selected == option && field.allowDeselect) {
-                        selected = null;
-                        hoveredIndex = -1;
-                      } else {
-                        selected = option;
-                        hoveredIndex = index;
-                        itemStateController.selected = true;
-                      }
-                    });
-                    onChanged.call(selected);
-                    if (field.closeOnSelect) {
-                      popoverController.hide();
-                    }
-                  },
-                  onHover: (value) {
-                    if (hoveredIndex != index && value) {
-                      if (selectedIndex >= 0) {
-                        stateControllers[selectedIndex].hovered = false;
-                      }
-                      hoveredIndex = index;
-                    }
-                  },
-                  builder: (context, states) {
-                    bool showLeading = false;
-                    bool showTrailing = false;
-                    if (field.selectedIcon != null) {
-                      showLeading = field.selectedIconAffinity.isLeading;
-                      showTrailing = field.selectedIconAffinity.isTrailing;
-                    }
-                    final selectedIcon =
-                        field.selectedIcon ?? const SizedBox.shrink();
-
-                    return Container(
-                      alignment: Alignment.centerLeft,
-                      padding: field.itemPadding,
-                      decoration: BoxDecoration(
-                        color: states.hovered
-                            ? tw.color.hover
-                            : Colors.transparent,
-                        borderRadius: TBorderRadius.rounded_sm,
-                      ),
-                      child: DefaultTextStyle.merge(
-                        style: field.size.textStyle.copyWith(
-                          fontWeight: isSelected ? TFontWeight.semibold : null,
-                        ),
-                        child: IconTheme(
-                          data: IconTheme.of(context).copyWith(
-                            size: TSpace.v16,
-                            color: tw.color.primary,
-                          ),
-                          child: Row(
-                            children: [
-                              if (showLeading)
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    right: field.itemPadding.horizontal / 2,
-                                  ),
-                                  child: Opacity(
-                                    opacity: isSelected ? 1 : 0,
-                                    child: selectedIcon,
-                                  ),
-                                ),
-                              Expanded(child: optionWidget),
-                              if (showTrailing && isSelected) selectedIcon,
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
+          if (items.isEmpty && field.itemsEmpty != null)
+            DefaultTextStyle.merge(
+              style: field.size.textStyle.copyWith(
+                color: tw.color.label,
+              ),
+              child: field.itemsEmpty!,
             ),
-          ),
+          if (currentItems.isNotEmpty)
+            Expanded(
+              child: ListView.builder(
+                controller: scrollController,
+                padding: listViewPadding,
+                itemCount: currentItems.length,
+                itemExtent: itemExtent,
+                physics: const ClampingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  // Make sure index is within bounds
+                  if (index < 0 || index >= currentItems.length) {
+                    return const SizedBox.shrink();
+                  }
+                  final option = currentItems[index];
+                  final optionWidget = field.itemBuilder?.call(option) ??
+                      Text(option.toString());
+                  final bool isSelected = selected == option;
+                  final itemStateController = stateControllers[index];
+                  itemStateController.hovered =
+                      hoveredIndex == index || isSelected;
+                  itemStateController.selected = isSelected;
+                  return TGestureDetector(
+                    controller: itemStateController,
+                    onTap: () {
+                      setState(() {
+                        if (selectedIndex >= 0) {
+                          stateControllers[selectedIndex].value = {};
+                        }
+                        if (selected == option && field.allowDeselect) {
+                          selected = null;
+                          hoveredIndex = -1;
+                        } else {
+                          selected = option;
+                          hoveredIndex = index;
+                          itemStateController.selected = true;
+                        }
+                      });
+                      onChanged.call(selected);
+                      if (field.closeOnSelect) {
+                        popoverController.hide();
+                      }
+                    },
+                    onHover: (value) {
+                      if (hoveredIndex != index && value) {
+                        if (selectedIndex >= 0) {
+                          stateControllers[selectedIndex].hovered = false;
+                        }
+                        hoveredIndex = index;
+                      }
+                    },
+                    builder: (context, states) {
+                      bool showLeading = false;
+                      bool showTrailing = false;
+                      if (field.selectedIcon != null) {
+                        showLeading = field.selectedIconAffinity.isLeading;
+                        showTrailing = field.selectedIconAffinity.isTrailing;
+                      }
+                      final selectedIcon =
+                          field.selectedIcon ?? const SizedBox.shrink();
+
+                      return Container(
+                        alignment: Alignment.centerLeft,
+                        padding: field.itemPadding,
+                        decoration: BoxDecoration(
+                          color: states.hovered
+                              ? tw.color.hover
+                              : Colors.transparent,
+                          borderRadius: TBorderRadius.rounded_sm,
+                        ),
+                        child: DefaultTextStyle.merge(
+                          style: field.size.textStyle.copyWith(
+                            fontWeight:
+                                isSelected ? TFontWeight.semibold : null,
+                          ),
+                          child: IconTheme(
+                            data: IconTheme.of(context).copyWith(
+                              size: TSpace.v16,
+                              color: tw.color.primary,
+                            ),
+                            child: Row(
+                              children: [
+                                if (showLeading)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      right: field.itemPadding.horizontal / 2,
+                                    ),
+                                    child: Opacity(
+                                      opacity: isSelected ? 1 : 0,
+                                      child: selectedIcon,
+                                    ),
+                                  ),
+                                Expanded(child: optionWidget),
+                                if (showTrailing && isSelected) selectedIcon,
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
         ],
       ),
     );
@@ -537,96 +678,109 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
 
   @override
   Widget build(BuildContext context) {
-    final tw = context.tw;
+    return FutureBuilder(
+      future: getItems,
+      builder: (context, snapshot) {
+        final tw = context.tw;
 
-    // Resolve the widget to display in the select field
-    Widget selectWidget = SelectionContainer.disabled(
-      child: field.placeholder ?? const SizedBox.shrink(),
-    );
-    if (selected != null) {
-      if (field.selectedItemBuilder != null) {
-        selectWidget = field.selectedItemBuilder!.call(selected as T);
-      } else {
-        selectWidget = Text(selected.toString());
-      }
-    }
+        // Resolve the widget to display in the select field
+        Widget selectWidget = SelectionContainer.disabled(
+          child: (isLoading ? field.placeholderLoading : field.placeholder) ??
+              const SizedBox.shrink(),
+        );
+        if (selected != null) {
+          if (field.selectedItemBuilder != null) {
+            selectWidget = field.selectedItemBuilder!.call(selected as T);
+          } else {
+            selectWidget = Text(selected.toString());
+          }
+        }
 
-    // Resolve the text style for the select widget
-    TextStyle? selectWidgetTextStyle = field.size.textStyle.copyWith(
-      color: selected != null ? tw.color.body : tw.color.label,
-    );
-    if (!widget.enabled) {
-      selectWidgetTextStyle = selectWidgetTextStyle.copyWith(
-        color: tw.color.disabledTextColor,
-      );
-    }
+        // Resolve the text style for the select widget
+        TextStyle? selectWidgetTextStyle = field.size.textStyle.copyWith(
+          color: selected != null ? tw.color.body : tw.color.label,
+        );
+        if (!enabled) {
+          selectWidgetTextStyle = selectWidgetTextStyle.copyWith(
+            color: tw.color.disabledTextColor,
+          );
+        }
 
-    // Resolve the fill color
-    final effectiveFillColor =
-        WidgetStateProperty.resolveWith<Color?>((states) {
-      Color? color = field.fillColor?.resolve(states);
-      if (color == null && states.disabled) {
-        color = tw.dark ? Colors.black54 : TColors.gray.shade50;
-      }
-      return color;
-    });
+        // Resolve the fill color
+        final effectiveFillColor =
+            WidgetStateProperty.resolveWith<Color?>((states) {
+          Color? color = field.fillColor?.resolve(states);
+          if (color == null && states.disabled) {
+            color = tw.dark ? Colors.black54 : TColors.gray.shade50;
+          }
+          return color;
+        });
 
-    // Compute the total height of the popover
-    double popoverHeight =
-        itemExtent * maxVisible + listViewPadding.vertical + 2;
-    // Account for the search input and the divider
-    if (searchEnabled) {
-      popoverHeight += itemExtent + 1;
-    }
+        // Compute the total height of the popover
+        double? popoverHeight =
+            itemExtent * maxVisible + listViewPadding.vertical + 2;
+        // Account for the search input and the divider
+        if (searchEnabled) {
+          popoverHeight += itemExtent + 1;
+        }
+        // Account for the empty state message
+        if (items.isEmpty && field.itemsEmpty != null) {
+          popoverHeight = null;
+        }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (field.label != null) TLabelDescriptionWidget(label: field.label),
-        TPopover(
-          animationOptions: animationOptions,
-          controller: popoverController,
-          closeOnTapOutside: field.closeOnTapOutside,
-          matchAnchorWidth: true,
-          height: popoverHeight,
-          alignment: Alignment.bottomCenter,
-          content: buildListView(),
-          anchor: TInputBorderWrapper(
-            enabled: widget.enabled,
-            mouseCursor: WidgetStatePropertyAll(
-              widget.enabled
-                  ? SystemMouseCursors.click
-                  : SystemMouseCursors.forbidden,
-            ),
-            padding: TOffset.x12,
-            constraints: field.constraints,
-            fillColor: effectiveFillColor,
-            borderColor: field.borderColor,
-            borderRadius: field.borderRadius,
-            onTap: widget.enabled ? onAnchorPressed : null,
-            child: IconTheme(
-              data: IconTheme.of(context).copyWith(
-                size: TSpace.v16,
-                color: widget.enabled ? null : tw.color.disabledTextColor,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  DefaultTextStyle.merge(
-                    style: selectWidgetTextStyle,
-                    child: selectWidget,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (field.label != null)
+              TLabelDescriptionWidget(label: field.label),
+            TPopover(
+              animationOptions: animationOptions,
+              controller: popoverController,
+              closeOnTapOutside: field.closeOnTapOutside,
+              matchAnchorWidth: true,
+              height: popoverHeight,
+              alignment: Alignment.bottomCenter,
+              content: buildListView(),
+              anchor: TInputBorderWrapper(
+                enabled: enabled,
+                mouseCursor: WidgetStatePropertyAll(
+                  enabled
+                      ? SystemMouseCursors.click
+                      : SystemMouseCursors.forbidden,
+                ),
+                padding: TOffset.x12,
+                fillColor: effectiveFillColor,
+                borderColor: field.borderColor,
+                borderRadius: field.borderRadius,
+                onTap: enabled ? onAnchorPressed : null,
+                child: IconTheme(
+                  data: IconTheme.of(context).copyWith(
+                    size: TSpace.v16,
+                    color: enabled ? null : tw.color.disabledTextColor,
                   ),
-                  SizedBox(
-                    height: height,
-                    child: field.trailing,
+                  child: ConstrainedBox(
+                    constraints: field.constraints ?? const BoxConstraints(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DefaultTextStyle.merge(
+                          style: selectWidgetTextStyle,
+                          child: selectWidget,
+                        ),
+                        SizedBox(
+                          height: height,
+                          child: field.trailing,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

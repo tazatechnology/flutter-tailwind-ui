@@ -33,13 +33,25 @@ class ComponentRouteTSelect extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Scrollable Options List',
+          title: 'Defining Options',
           children: [
+            AppPreviewCard(
+              title: 'No options',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSelectNoOptionsSource.code,
+              child: _TSelectNoOptions(),
+            ),
             AppPreviewCard(
               title: 'Build many options',
               maxWidth: TScreen.max_w_sm,
               code: _TSelectScrollableSource.code,
               child: _TSelectScrollable(),
+            ),
+            AppPreviewCard(
+              title: 'Build options asynchronously',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSelectAsyncSource.code,
+              child: _TSelectAsync(),
             ),
           ],
         ),
@@ -221,6 +233,27 @@ class _TSelectLabelWidget extends StatelessWidget {
 }
 
 // =============================================================================
+// CLASS: _TSelectNoOptions
+// =============================================================================
+
+@GenerateSource()
+class _TSelectNoOptions extends StatelessWidget {
+  const _TSelectNoOptions();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSelect(
+      label: const Text('Select with no options'),
+      items: const [],
+      itemsEmpty: const SizedBox(
+        height: TSpace.v64,
+        child: Center(child: Text('Nothing to see here')),
+      ),
+    );
+  }
+}
+
+// =============================================================================
 // CLASS: _TSelectScrollable
 // =============================================================================
 
@@ -235,6 +268,48 @@ class _TSelectScrollable extends StatelessWidget {
       items: List.generate(1000, (ii) => ii),
       itemBuilder: (value) => Text(value.toString()),
       selectedItemBuilder: (value) => Text('Number: $value'),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectAsync
+// =============================================================================
+
+@GenerateSource(buildMethodOnly: false)
+class _TSelectAsync extends StatefulWidget {
+  const _TSelectAsync();
+
+  @override
+  State<_TSelectAsync> createState() => _TSelectAsyncState();
+}
+
+class _TSelectAsyncState extends State<_TSelectAsync> {
+  int buildIncrement = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: TSpace.v16,
+      children: [
+        TSelect.async(
+          key: ValueKey(buildIncrement), // Demo purposes only
+          label: const Text('Select a number (async)'),
+          placeholderLoading: const Text('Loading numbers...'),
+          items: () async {
+            await Future<void>.delayed(const Duration(seconds: 1));
+            return List.generate(100, (ii) => ii);
+          },
+          itemBuilder: (value) => Text(value.toString()),
+          selectedItemBuilder: (value) => Text('Number: $value'),
+        ),
+        TButton.filled(
+          child: const Text('Reload'),
+          onPressed: () {
+            setState(() => buildIncrement++);
+          },
+        ),
+      ],
     );
   }
 }

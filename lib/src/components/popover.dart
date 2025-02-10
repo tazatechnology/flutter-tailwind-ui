@@ -9,15 +9,15 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 /// A controller for the [TPopover] widget.
 class TPopoverController {
-  VoidCallback? _showCallback;
-  VoidCallback? _hideCallback;
-  VoidCallback? _toggleCallback;
+  Future<void> Function()? _showCallback;
+  Future<void> Function()? _hideCallback;
+  Future<void> Function()? _toggleCallback;
 
   /// Called by the widget to register callbacks.
   void _registerCallbacks({
-    required VoidCallback show,
-    required VoidCallback hide,
-    required VoidCallback toggle,
+    required Future<void> Function() show,
+    required Future<void> Function() hide,
+    required Future<void> Function() toggle,
   }) {
     _showCallback = show;
     _hideCallback = hide;
@@ -25,18 +25,18 @@ class TPopoverController {
   }
 
   /// Shows the popover overlay.
-  void show() {
-    _showCallback?.call();
+  Future<void> show() async {
+    await _showCallback?.call();
   }
 
   /// Hides the popover overlay.
-  void hide() {
-    _hideCallback?.call();
+  Future<void> hide() async {
+    await _hideCallback?.call();
   }
 
   /// Toggles the popover overlay.
-  void toggle() {
-    _toggleCallback?.call();
+  Future<void> toggle() async {
+    await _toggleCallback?.call();
   }
 }
 // =============================================================================
@@ -150,11 +150,11 @@ class _TPopoverState extends State<TPopover> {
   // METHOD: toggleOverlay
   // ---------------------------------------------------------------------------
 
-  void toggleOverlay() {
+  Future<void> toggleOverlay() async {
     if (overlayEntry == null) {
-      showOverlay();
+      await showOverlay();
     } else {
-      removeOverlay();
+      await removeOverlay();
     }
   }
 
@@ -162,25 +162,25 @@ class _TPopoverState extends State<TPopover> {
   // METHOD: showOverlay
   // ---------------------------------------------------------------------------
 
-  void showOverlay() {
+  Future<void> showOverlay() async {
     if (overlayEntry != null) {
       return;
     }
     contentNotifier = StreamController<bool>();
     overlayEntry = createOverlayEntry();
     Overlay.of(context).insert(overlayEntry!);
-    animationController.forward();
+    await animationController.forward();
   }
 
   // ---------------------------------------------------------------------------
   // METHOD: removeOverlay
   // ---------------------------------------------------------------------------
 
-  void removeOverlay() {
+  Future<void> removeOverlay() async {
     if (overlayEntry == null) {
       return;
     }
-    animationController.reverse()?.whenComplete(() {
+    await animationController.reverse()?.whenComplete(() {
       overlayEntry?.remove();
       overlayEntry = null;
     });
