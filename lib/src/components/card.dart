@@ -37,7 +37,8 @@ class TCard extends StatelessWidget {
 
   /// The content padding of the card.
   ///
-  /// Dynamic based on screen size with a cutoff at [TScreen.screen_sm]
+  /// If not provided, this value will be dynamic based on screen size with a
+  /// cutoff at [TScreen.screen_sm]
   final EdgeInsets? padding;
 
   /// The heading widget to display inside the card.
@@ -51,14 +52,18 @@ class TCard extends StatelessWidget {
     final tw = context.tw;
     final cardTheme = context.theme.cardTheme;
     final defaultBorder = BorderSide(color: tw.color.divider);
-    final effectivePadding = tw.screen.is_sm ? TOffset.a24 : TOffset.a16;
 
     // Account for the padding of the header
-    EdgeInsets contentPadding = effectivePadding;
-    if (header != null && headerBorder?.width == 0) {
-      contentPadding = contentPadding.copyWith(
-        top: effectivePadding.top / 2,
-      );
+    EdgeInsets effectivePadding;
+    if (padding == null) {
+      effectivePadding = tw.screen.is_sm ? TOffset.a24 : TOffset.a16;
+      if (header != null && headerBorder?.width == 0) {
+        effectivePadding = effectivePadding.copyWith(
+          top: effectivePadding.top / 2,
+        );
+      }
+    } else {
+      effectivePadding = padding!;
     }
 
     return CardTheme(
@@ -100,7 +105,7 @@ class TCard extends StatelessWidget {
                 removeBottom: true,
                 removeTop: true,
                 child: Padding(
-                  padding: contentPadding,
+                  padding: effectivePadding,
                   child: child,
                 ),
               ),

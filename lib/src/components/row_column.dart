@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// =============================================================================
+// CLASS: TRowColumn
+// =============================================================================
+
 /// A custom widget that arranges its children either in a [Column] or [Row]
 /// based on the [axis] property.
 ///

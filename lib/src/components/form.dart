@@ -95,6 +95,12 @@ class TFormController {
     visitElement(context as Element);
     return result;
   }
+
+  /// Returns the value of a [TFormField] by its [TFormField.id].
+  Object? getValue(Object id) {
+    final valueMap = getTFormFieldValues();
+    return valueMap[id];
+  }
 }
 
 // =============================================================================

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/internal/input_border.dart';
-import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 
 // =============================================================================
 // CLASS: TInput
@@ -485,7 +484,7 @@ class _TInputState extends State<TInput> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (widget.label != null) TLabelDescriptionWidget(label: widget.label),
+        if (widget.label != null) TLabelDescription(label: widget.label),
         TFormField(
           id: widget.id ?? 'TFormField',
           child: TextFormField(

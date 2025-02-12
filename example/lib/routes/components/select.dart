@@ -33,13 +33,19 @@ class ComponentRouteTSelect extends StatelessWidget {
           ],
         ),
         AppSection(
-          title: 'Defining Options',
+          title: 'Building Options',
           children: [
             AppPreviewCard(
               title: 'No options',
               maxWidth: TScreen.max_w_sm,
               code: _TSelectNoOptionsSource.code,
               child: _TSelectNoOptions(),
+            ),
+            AppPreviewCard(
+              title: 'Spacing between options',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSelectSpacingSource.code,
+              child: _TSelectSpacing(),
             ),
             AppPreviewCard(
               title: 'Build many options',
@@ -249,6 +255,28 @@ class _TSelectNoOptions extends StatelessWidget {
         height: TSpace.v64,
         child: Center(child: Text('Nothing to see here')),
       ),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectSpacing
+// =============================================================================
+
+@GenerateSource()
+class _TSelectSpacing extends StatelessWidget {
+  const _TSelectSpacing();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSelect(
+      label: const Text('Select with spacing'),
+      items: TWidgetSize.values,
+      spacing: TSpace.v8,
+      itemBuilder: (value) => Text(value.name.toUpperCase()),
+      selectedItemBuilder: (value) {
+        return Text('Selected: ${value.name.toUpperCase()}');
+      },
     );
   }
 }

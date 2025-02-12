@@ -20,6 +20,14 @@ class TExpand extends StatelessWidget {
     this.alignment = Alignment.center,
   }) : _axis = Axis.vertical;
 
+  /// Constructor for expanding along an axes.
+  const TExpand.axis({
+    super.key,
+    this.child,
+    this.alignment = Alignment.center,
+    required Axis axis,
+  }) : _axis = axis;
+
   /// The axis to expand along.
   final Axis _axis;
 

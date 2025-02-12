@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 
 // =============================================================================
 // CLASS: TSelectionGroupItem
@@ -125,7 +124,7 @@ class TSelectionGroupList<T> extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TLabelDescriptionWidget(label: label, description: description),
+          TLabelDescription(label: label, description: description),
           // For horizontal axis, wrap the content with IntrinsicHeight
           // This is to ensure the vertical divider height matches the content height
           if (axis == Axis.vertical)
@@ -338,6 +337,7 @@ class TSelectionGroupTile extends StatelessWidget {
           onTap: enabled ? () => onChanged(!selected) : null,
           builder: (context, states) {
             return TCard(
+              padding: TOffset.a16,
               elevation: TElevation.shadow_xs,
               borderRadius: BorderRadius.circular(radius),
               border: BorderSide(
@@ -395,6 +395,7 @@ class TSelectionGroupTile extends StatelessWidget {
                 border: Border(bottom: bottom, left: left),
               ),
               child: TCard(
+                padding: TOffset.a16,
                 borderRadius: itemBorderRadius,
                 border: selected
                     ? BorderSide(color: selectedBorderColor, width: 1.5)

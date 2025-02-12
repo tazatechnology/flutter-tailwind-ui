@@ -53,6 +53,7 @@ class TPopover extends StatefulWidget {
     this.width,
     this.height,
     this.borderRadius = TBorderRadius.rounded_md,
+    this.borderColor,
     this.alignment = Alignment.bottomRight,
     this.separation = TSpace.v4,
     this.matchAnchorWidth = false,
@@ -78,6 +79,9 @@ class TPopover extends StatefulWidget {
 
   /// The height of the popover content.
   final double? height;
+
+  /// The border color of the popover content.
+  final Color? borderColor;
 
   /// The border radius of the popover content.
   final BorderRadius borderRadius;
@@ -264,7 +268,9 @@ class _TPopoverState extends State<TPopover> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: tw.color.background,
-                            border: Border.all(color: tw.color.divider),
+                            border: Border.all(
+                              color: widget.borderColor ?? tw.color.divider,
+                            ),
                             borderRadius: widget.borderRadius,
                           ),
                           child: MediaQuery.removePadding(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/internal/slider.dart';
-import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 
 // =============================================================================
 // CLASS: TSliderController
@@ -405,7 +404,7 @@ class _TSliderFormFieldState extends FormFieldState<double> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (field.label != null) TLabelDescriptionWidget(label: field.label),
+          if (field.label != null) TLabelDescription(label: field.label),
           ValueListenableBuilder(
             valueListenable: controller,
             builder: (context, value, _) {

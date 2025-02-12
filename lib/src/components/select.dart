@@ -2,7 +2,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/internal/input_border.dart';
-import 'package:flutter_tailwind_ui/src/internal/title_label.dart';
 
 const Widget _defaultItemsEmpty = SizedBox(
   height: TSpace.v64,
@@ -27,6 +26,7 @@ class TSelect<T> extends TFormField<T> {
     this.constraints,
     this.enabled = true,
     this.fillColor,
+    this.hoverColor,
     super.id = 'TSelect',
     this.initialValue,
     this.itemBuilder,
@@ -36,6 +36,7 @@ class TSelect<T> extends TFormField<T> {
     this.itemsEmpty = _defaultItemsEmpty,
     super.key,
     this.label,
+    this.listPadding = TOffset.a6,
     this.maxVisible = 5,
     this.onChanged,
     this.onSearch,
@@ -49,6 +50,7 @@ class TSelect<T> extends TFormField<T> {
     this.selectedIconAffinity = TControlAffinity.trailing,
     this.selectedItemBuilder,
     this.size = TInputSize.lg,
+    this.spacing = 0,
     this.trailing = const Icon(Icons.keyboard_arrow_down),
     this.validator,
   }) : super(
@@ -63,6 +65,7 @@ class TSelect<T> extends TFormField<T> {
             constraints: constraints,
             enabled: enabled,
             fillColor: fillColor,
+            hoverColor: hoverColor,
             initialValue: initialValue,
             itemBuilder: itemBuilder,
             itemExtent: itemExtent,
@@ -71,6 +74,7 @@ class TSelect<T> extends TFormField<T> {
             itemsAsync: null,
             itemsEmpty: itemsEmpty,
             label: label,
+            listPadding: listPadding,
             maxVisible: maxVisible,
             onChanged: onChanged,
             onSearch: onSearch,
@@ -85,6 +89,7 @@ class TSelect<T> extends TFormField<T> {
             searchHintText: searchHintText,
             searchIcon: searchIcon,
             size: size,
+            spacing: spacing,
             trailing: trailing,
             validator: validator,
           ),
@@ -102,6 +107,7 @@ class TSelect<T> extends TFormField<T> {
     this.constraints,
     this.enabled = true,
     this.fillColor,
+    this.hoverColor,
     super.id = 'TSelect.async',
     this.initialValue,
     this.itemBuilder,
@@ -111,6 +117,7 @@ class TSelect<T> extends TFormField<T> {
     this.itemsEmpty = _defaultItemsEmpty,
     super.key,
     this.label,
+    this.listPadding = TOffset.a6,
     this.maxVisible = 5,
     this.onChanged,
     this.onSearch,
@@ -125,6 +132,7 @@ class TSelect<T> extends TFormField<T> {
     this.selectedIconAffinity = TControlAffinity.trailing,
     this.selectedItemBuilder,
     this.size = TInputSize.lg,
+    this.spacing = 0,
     this.trailing = const Icon(Icons.keyboard_arrow_down),
     this.validator,
   })  : items = [],
@@ -140,6 +148,7 @@ class TSelect<T> extends TFormField<T> {
             constraints: constraints,
             enabled: enabled,
             fillColor: fillColor,
+            hoverColor: hoverColor,
             initialValue: initialValue,
             itemBuilder: itemBuilder,
             itemExtent: itemExtent,
@@ -148,6 +157,7 @@ class TSelect<T> extends TFormField<T> {
             itemsAsync: items,
             itemsEmpty: itemsEmpty,
             label: label,
+            listPadding: listPadding,
             maxVisible: maxVisible,
             onChanged: onChanged,
             onSearch: onSearch,
@@ -162,6 +172,7 @@ class TSelect<T> extends TFormField<T> {
             searchHintText: searchHintText,
             searchIcon: searchIcon,
             size: size,
+            spacing: spacing,
             trailing: trailing,
             validator: validator,
           ),
@@ -194,8 +205,11 @@ class TSelect<T> extends TFormField<T> {
   /// Whether the select widget is enabled
   final bool enabled;
 
-  /// The fill color for the input field.
+  /// The fill color for the select field.
   final WidgetStateProperty<Color>? fillColor;
+
+  /// The hover color of the options in the list
+  final Color? hoverColor;
 
   /// The initial value of the select widget
   final T? initialValue;
@@ -206,8 +220,8 @@ class TSelect<T> extends TFormField<T> {
   /// The height of each item in the list of options
   final double? itemExtent;
 
-  /// The padding around each item in the list of options
-  final EdgeInsetsGeometry itemPadding;
+  /// The content padding for each item
+  final EdgeInsets itemPadding;
 
   /// The list of options to display in the select widget
   final List<T> items;
@@ -219,6 +233,9 @@ class TSelect<T> extends TFormField<T> {
   ///
   /// For full customization, use [label] to pass in a widget.
   final Widget? label;
+
+  /// The padding to add around the entire list of options
+  final EdgeInsets listPadding;
 
   /// The maximum number of items to display in list before scrolling
   final int maxVisible;
@@ -265,6 +282,9 @@ class TSelect<T> extends TFormField<T> {
   /// The size of the select widget
   final TInputSize size;
 
+  /// The spacing that separates each item in the list
+  final double spacing;
+
   /// The trailing widget to display in the anchor widget
   ///
   /// Defaults to a chevron down
@@ -291,6 +311,7 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.constraints,
     required super.enabled,
     required this.fillColor,
+    required this.hoverColor,
     required super.initialValue,
     required this.itemBuilder,
     required this.itemExtent,
@@ -299,6 +320,7 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.itemsAsync,
     required this.itemsEmpty,
     required this.label,
+    required this.listPadding,
     required this.maxVisible,
     required this.onChanged,
     required this.onSearch,
@@ -313,6 +335,7 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.searchHintText,
     required this.searchIcon,
     required this.size,
+    required this.spacing,
     required this.trailing,
     required super.validator,
   }) : super(
@@ -327,13 +350,15 @@ class _TSelectFormField<T> extends FormField<T> {
   final bool closeOnTapOutside;
   final BoxConstraints? constraints;
   final WidgetStateProperty<Color>? fillColor;
+  final Color? hoverColor;
   final Widget Function(T)? itemBuilder;
   final double? itemExtent;
-  final EdgeInsetsGeometry itemPadding;
+  final EdgeInsets itemPadding;
   final List<T> items;
   final Future<List<T>> Function()? itemsAsync;
   final Widget? itemsEmpty;
   final Widget? label;
+  final EdgeInsets listPadding;
   final int maxVisible;
   final ValueChanged<T?>? onChanged;
   final List<T>? Function(List<T>, String)? onSearch;
@@ -346,6 +371,7 @@ class _TSelectFormField<T> extends FormField<T> {
   final Widget searchResultsEmpty;
   final String searchHintText;
   final Widget searchIcon;
+  final double spacing;
   final TInputSize size;
   final Widget trailing;
 
@@ -379,7 +405,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
   bool get isScrollable => currentItems.length > maxVisible;
 
   EdgeInsets get listViewPadding =>
-      TOffset.a6 + (isScrollable ? TOffset.r16 : TOffset.r0);
+      field.listPadding + (isScrollable ? TOffset.r16 : TOffset.r0);
 
   // Async logic
   late final Future<List<T>>? getItems;
@@ -509,9 +535,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                 id: 'search',
                 size: field.size,
                 hintText: field.searchHintText,
-                borderRadius: const WidgetStatePropertyAll(
-                  TBorderRadius.rounded_none,
-                ),
+                borderRadius: field.borderRadius,
                 borderColor: const WidgetStatePropertyAll(
                   Colors.transparent,
                 ),
@@ -551,11 +575,15 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
             ),
           if (currentItems.isNotEmpty)
             Expanded(
-              child: ListView.builder(
+              child: ListView.separated(
                 controller: scrollController,
                 padding: listViewPadding,
                 itemCount: currentItems.length,
-                itemExtent: itemExtent,
+                // Separated constructor does not support itemExtent
+                // itemExtent: itemExtent,
+                separatorBuilder: (context, index) {
+                  return TSizedBox.y(size: field.spacing);
+                },
                 physics: const ClampingScrollPhysics(),
                 itemBuilder: (context, index) {
                   // Make sure index is within bounds
@@ -610,11 +638,12 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                           field.selectedIcon ?? const SizedBox.shrink();
 
                       return Container(
+                        height: itemExtent,
                         alignment: Alignment.centerLeft,
                         padding: field.itemPadding,
                         decoration: BoxDecoration(
                           color: states.hovered
-                              ? tw.color.hover
+                              ? field.hoverColor ?? tw.color.hover
                               : Colors.transparent,
                           borderRadius: TBorderRadius.rounded_sm,
                         ),
@@ -727,13 +756,16 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
         if (items.isEmpty && field.itemsEmpty != null) {
           popoverHeight = null;
         }
+        // Account for the spacing between items
+        if (field.spacing > 0) {
+          popoverHeight = popoverHeight?.add((maxVisible - 1) * field.spacing);
+        }
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (field.label != null)
-              TLabelDescriptionWidget(label: field.label),
+            if (field.label != null) TLabelDescription(label: field.label),
             TPopover(
               animationOptions: animationOptions,
               controller: popoverController,
@@ -741,6 +773,8 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
               matchAnchorWidth: true,
               height: popoverHeight,
               alignment: Alignment.bottomCenter,
+              borderRadius:
+                  field.borderRadius?.resolve({}) ?? TBorderRadius.rounded_md,
               content: buildListView(),
               anchor: TInputBorderWrapper(
                 enabled: enabled,

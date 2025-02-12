@@ -3467,6 +3467,21 @@ TSelect(
 """;
 }
 
+/// Source code for [_TSelectSpacing]
+class _TSelectSpacingSource {
+  static const String code = r"""
+TSelect(
+  label: const Text('Select with spacing'),
+  items: TWidgetSize.values,
+  spacing: TSpace.v8,
+  itemBuilder: (value) => Text(value.name.toUpperCase()),
+  selectedItemBuilder: (value) {
+    return Text('Selected: ${value.name.toUpperCase()}');
+  },
+)
+""";
+}
+
 /// Source code for [_TSelectScrollable]
 class _TSelectScrollableSource {
   static const String code = r"""

@@ -170,6 +170,10 @@ class TailwindTheme {
         ),
       ),
 
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: color.primary,
+      ),
+
       /// Chip
       chipTheme: const ChipThemeData(
         backgroundColor: Colors.transparent,
