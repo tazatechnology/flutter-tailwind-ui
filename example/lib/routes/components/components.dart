@@ -22,6 +22,7 @@ part 'form_field.dart';
 part 'form.dart';
 part 'icon_button.dart';
 part 'input.dart';
+part 'link.dart';
 part 'popover.dart';
 part 'radio.dart';
 part 'radio_group.dart';

@@ -16,6 +16,7 @@ export 'src/components/gesture_detector.dart';
 export 'src/components/icon_button.dart';
 export 'src/components/input.dart';
 export 'src/components/label_description.dart';
+export 'src/components/link.dart';
 export 'src/components/popover.dart';
 export 'src/components/radio.dart';
 export 'src/components/row_column.dart';

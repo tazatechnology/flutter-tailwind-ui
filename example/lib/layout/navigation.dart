@@ -61,6 +61,7 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TButton``': AppRouter.button,
         '``TIconButton``': AppRouter.icon_button,
         '``TSplitButton``': AppRouter.split_button,
+        '``TLink``': AppRouter.link,
       },
       'Controls': {
         '``TRadio``': AppRouter.radio,

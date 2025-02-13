@@ -2871,6 +2871,97 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
 """;
 }
 
+/// Source code for [_TLinkGeneric]
+class _TLinkGenericSource {
+  static const String code = r"""
+TLink(
+  child: const Text('Link'),
+  onPressed: () {},
+)
+""";
+}
+
+/// Source code for [_TLinkURI]
+class _TLinkURISource {
+  static const String code = r"""
+TLink.uri(
+  uri: Uri.parse('https://fluttertailwind.com'),
+  child: const Text('Link'),
+)
+""";
+}
+
+/// Source code for [_TLinkColors]
+class _TLinkColorsSource {
+  static const String code = r"""
+Wrap(
+  spacing: TSpace.v24,
+  runSpacing: TSpace.v8,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    for (final color in PREVIEW_COLORS)
+      TLink(
+        color: color,
+        onPressed: () {},
+        child: const Text('Link'),
+      ),
+  ],
+)
+""";
+}
+
+/// Source code for [_TLinkNoDecoration]
+class _TLinkNoDecorationSource {
+  static const String code = r"""
+TLink(
+  decorate: false,
+  onPressed: () {},
+  child: const Text('Link'),
+)
+""";
+}
+
+/// Source code for [_TLinkTextStyle]
+class _TLinkTextStyleSource {
+  static const String code = r"""
+TLink(
+  textStyle: WidgetStateProperty.resolveWith<TextStyle?>((states) {
+    if (states.hovered) {
+      return const TextStyle(
+        color: TColors.blue,
+        decorationColor: TColors.red,
+        decorationStyle: TextDecorationStyle.dashed,
+        fontWeight: TFontWeight.semibold,
+        decoration: TextDecoration.overline,
+      );
+    }
+    return null;
+  }),
+  onPressed: () {},
+  child: const Text('Link'),
+)
+""";
+}
+
+/// Source code for [_TLinkContent]
+class _TLinkContentSource {
+  static const String code = r"""
+TLink(
+  onPressed: () {},
+  child: const Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Padding(
+        padding: TOffset.r6,
+        child: Icon(Icons.link, size: TSpace.v16),
+      ),
+      Text('Link'),
+    ],
+  ),
+)
+""";
+}
+
 /// Source code for [_TPopoverExample]
 class _TPopoverExampleSource {
   static const String code = r"""
@@ -3561,10 +3652,12 @@ TSelect(
 /// Source code for [_TSelectWithHelp]
 class _TSelectWithHelpSource {
   static const String code = r"""
-const TInput(
-  label: Text('Email'),
-  hintText: 'you@example.com',
-  help: TText('This is a help `widget`'),
+TSelect(
+  label: const Text('Select a number'),
+  initialValue: 50,
+  items: List.generate(100, (ii) => ii),
+  itemBuilder: (value) => Text(value.toString()),
+  help: const TText('This is a help `widget`'),
 )
 """;
 }
@@ -3572,11 +3665,12 @@ const TInput(
 /// Source code for [_TSelectWithError]
 class _TSelectWithErrorSource {
   static const String code = r"""
-const TInput(
-  initialValue: 'invalid-email',
-  label: Text('Email'),
-  hintText: 'you@example.com',
-  error: TText('This is an error `widget`'),
+TSelect(
+  label: const Text('Select a number'),
+  initialValue: 50,
+  items: List.generate(100, (ii) => ii),
+  itemBuilder: (value) => Text(value.toString()),
+  error: const TText('This is an error `widget`'),
 )
 """;
 }

@@ -45,6 +45,7 @@ class AppRouter {
       AppRouter.form_field: const ComponentRouteTFormField(),
       AppRouter.icon_button: const ComponentRouteTIconButton(),
       AppRouter.input: const ComponentRouteTInput(),
+      AppRouter.link: const ComponentRouteTLink(),
       AppRouter.split_button: const ComponentRouteTSplitButton(),
       AppRouter.radio: const ComponentRouteTRadio(),
       AppRouter.radio_group: const ComponentRouteTRadioGroup(),
@@ -132,6 +133,7 @@ class AppRouter {
   static const String form_field = 'form-field';
   static const String icon_button = 'icon-button';
   static const String input = 'input';
+  static const String link = 'link';
   static const String radio = 'radio';
   static const String radio_group = 'radio-group';
   static const String row_column = 'row-column';
