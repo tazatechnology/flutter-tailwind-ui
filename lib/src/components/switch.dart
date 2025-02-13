@@ -294,7 +294,10 @@ class _TSwitchTileFormField extends FormField<bool> {
     required this.title,
     required this.variant,
   }) : super(
-          builder: (field) => const SizedBox.shrink(),
+          builder: (field) {
+            final state = field as _TSwitchTileFormFieldState;
+            return state.buildWidget(state.context);
+          },
         );
   final TControlAffinity affinity;
   final Color? color;
@@ -339,11 +342,10 @@ class _TSwitchTileFormFieldState extends FormFieldState<bool> {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: build
+  // METHOD: buildWidget
   // ---------------------------------------------------------------------------
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return TSelectionGroupTile(
       variant: field.variant,
       index: 0,
@@ -574,7 +576,10 @@ class _TSwitchGroupFormField<T> extends FormField<List<T>> {
     required this.variant,
     required this.radius,
   }) : super(
-          builder: (field) => const SizedBox.shrink(),
+          builder: (field) {
+            final state = field as _TSwitchGroupFormFieldState<T>;
+            return state.buildWidget(state.context);
+          },
         );
 
   final TControlAffinity affinity;
@@ -632,11 +637,10 @@ class _TSwitchGroupFormFieldState<T> extends FormFieldState<List<T>> {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: initState
+  // METHOD: buildWidget
   // ---------------------------------------------------------------------------
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     final currentValue = List<T>.from(value ?? []);
 
     return TSelectionGroupList(

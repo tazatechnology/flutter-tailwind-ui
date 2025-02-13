@@ -33,6 +33,23 @@ class ComponentRouteTSelect extends StatelessWidget {
           ],
         ),
         AppSection(
+          title: 'Select with Messages',
+          children: [
+            AppPreviewCard(
+              title: 'Help',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSelectWithHelpSource.code,
+              child: _TSelectWithHelp(),
+            ),
+            AppPreviewCard(
+              title: 'Error',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSelectWithErrorSource.code,
+              child: _TSelectWithError(),
+            ),
+          ],
+        ),
+        AppSection(
           title: 'Building Options',
           children: [
             AppPreviewCard(
@@ -75,6 +92,12 @@ class ComponentRouteTSelect extends StatelessWidget {
               maxWidth: TScreen.max_w_sm,
               code: _TSelectDisabledSource.code,
               child: _TSelectDisabled(),
+            ),
+            AppPreviewCard(
+              title: 'Error',
+              maxWidth: TScreen.max_w_sm,
+              code: _TSelectErrorSource.code,
+              child: _TSelectError(),
             ),
           ],
         ),
@@ -176,7 +199,6 @@ class _TSelectSize extends StatelessWidget {
             initialValue: 1,
             items: const [1, 2, 3],
             itemBuilder: (value) => Text(value.toString()),
-            selectedItemBuilder: (value) => Text('Selected: $value'),
           ),
       ],
     );
@@ -197,9 +219,6 @@ class _TSelectLabelText extends StatelessWidget {
       label: const Text('Size'),
       items: TWidgetSize.values,
       itemBuilder: (value) => Text(value.name.toUpperCase()),
-      selectedItemBuilder: (value) {
-        return Text('Selected: ${value.name.toUpperCase()}');
-      },
     );
   }
 }
@@ -231,9 +250,46 @@ class _TSelectLabelWidget extends StatelessWidget {
       ),
       items: TWidgetSize.values,
       itemBuilder: (value) => Text(value.name.toUpperCase()),
-      selectedItemBuilder: (value) {
-        return Text('Selected: ${value.name.toUpperCase()}');
-      },
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectWithHelp
+// =============================================================================
+
+@GenerateSource()
+class _TSelectWithHelp extends StatelessWidget {
+  const _TSelectWithHelp();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSelect(
+      label: const Text('Select a number'),
+      initialValue: 50,
+      items: List.generate(100, (ii) => ii),
+      itemBuilder: (value) => Text(value.toString()),
+      help: const TText('This is a help `widget`'),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectWithError
+// =============================================================================
+
+@GenerateSource()
+class _TSelectWithError extends StatelessWidget {
+  const _TSelectWithError();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSelect(
+      label: const Text('Select a number'),
+      initialValue: 50,
+      items: List.generate(100, (ii) => ii),
+      itemBuilder: (value) => Text(value.toString()),
+      error: const TText('This is an error `widget`'),
     );
   }
 }
@@ -274,9 +330,6 @@ class _TSelectSpacing extends StatelessWidget {
       items: TWidgetSize.values,
       spacing: TSpace.v8,
       itemBuilder: (value) => Text(value.name.toUpperCase()),
-      selectedItemBuilder: (value) {
-        return Text('Selected: ${value.name.toUpperCase()}');
-      },
     );
   }
 }
@@ -295,7 +348,6 @@ class _TSelectScrollable extends StatelessWidget {
       label: const Text('Select a number (0-1,000)'),
       items: List.generate(1000, (ii) => ii),
       itemBuilder: (value) => Text(value.toString()),
-      selectedItemBuilder: (value) => Text('Number: $value'),
     );
   }
 }
@@ -329,7 +381,6 @@ class _TSelectAsyncState extends State<_TSelectAsync> {
             return List.generate(100, (ii) => ii);
           },
           itemBuilder: (value) => Text(value.toString()),
-          selectedItemBuilder: (value) => Text('Number: $value'),
         ),
         TButton.filled(
           child: const Text('Reload'),
@@ -357,7 +408,6 @@ class _TSelectEnabled extends StatelessWidget {
       initialValue: 50,
       items: List.generate(100, (ii) => ii),
       itemBuilder: (value) => Text(value.toString()),
-      selectedItemBuilder: (value) => Text('Number: $value'),
     );
   }
 }
@@ -378,7 +428,32 @@ class _TSelectDisabled extends StatelessWidget {
       label: const Text('Select a number'),
       items: List.generate(100, (ii) => ii),
       itemBuilder: (value) => Text(value.toString()),
-      selectedItemBuilder: (value) => Text('Number: $value'),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectError
+// =============================================================================
+
+@GenerateSource()
+class _TSelectError extends StatelessWidget {
+  const _TSelectError();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSelect<String>(
+      autovalidateMode: AutovalidateMode.always,
+      initialValue: 'User Invalid',
+      label: const Text('Select a user'),
+      items: const ['User A', 'User Invalid', 'User C'],
+      itemBuilder: (value) => Text(value),
+      validator: (value) {
+        if (value?.contains('Invalid') ?? false) {
+          return 'Please select a valid user';
+        }
+        return null;
+      },
     );
   }
 }
@@ -400,7 +475,6 @@ class _TSelectSelectedIconLeading extends StatelessWidget {
       selectedIcon: const Icon(Icons.circle, size: 10),
       selectedIconAffinity: TControlAffinity.leading,
       itemBuilder: (value) => Text(value),
-      selectedItemBuilder: (value) => Text(value),
     );
   }
 }
@@ -421,7 +495,6 @@ class _TSelectSelectedIconTrailing extends StatelessWidget {
       items: const ['User A', 'User B', 'User C'],
       selectedIcon: const Icon(Icons.circle, size: 10),
       itemBuilder: (value) => Text(value),
-      selectedItemBuilder: (value) => Text(value),
     );
   }
 }
@@ -442,7 +515,6 @@ class _TSelectAllowDeselect extends StatelessWidget {
       label: const Text('Add a user'),
       items: const ['User A', 'User B', 'User C'],
       itemBuilder: (value) => Text(value),
-      selectedItemBuilder: (value) => Text(value),
     );
   }
 }
@@ -464,7 +536,6 @@ class _TSelectPreventClose extends StatelessWidget {
       label: const Text('Add a user'),
       items: const ['User A', 'User B', 'User C'],
       itemBuilder: (value) => Text(value),
-      selectedItemBuilder: (value) => Text(value),
     );
   }
 }
@@ -485,7 +556,6 @@ class _TSelectPreventCloseOutside extends StatelessWidget {
       label: const Text('Add a user'),
       items: const ['User A', 'User B', 'User C'],
       itemBuilder: (value) => Text(value),
-      selectedItemBuilder: (value) => Text(value),
     );
   }
 }
@@ -506,7 +576,6 @@ class _TSelectSearch extends StatelessWidget {
       closeOnSelect: false,
       items: const ['apple', 'banana', 'cherry', 'date', 'elderberry'],
       itemBuilder: (value) => Text(value),
-      selectedItemBuilder: (value) => Text(value),
       onSearch: (options, term) {
         final optionsLower =
             options.map((option) => option.toLowerCase()).toList();
@@ -551,7 +620,6 @@ class _TSelectGalleryAddUserState extends State<_TSelectGalleryAddUser> {
               TBorderRadius.rounded_l_md,
             ),
             itemBuilder: (value) => Text(value),
-            selectedItemBuilder: (value) => Text(value),
             onChanged: (value) {
               selectedUser = value;
               buttonController.disabled = selectedUser == null;

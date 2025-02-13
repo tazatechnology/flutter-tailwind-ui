@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui/src/internal/input_border.dart';
+import 'package:flutter_tailwind_ui/src/internal/input_decorator.dart';
 
 // =============================================================================
 // CLASS: TInput

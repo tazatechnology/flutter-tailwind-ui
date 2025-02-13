@@ -352,7 +352,10 @@ class _TRadioGroupFormField<T> extends FormField<T> {
     required this.spacing,
     required this.variant,
   }) : super(
-          builder: (field) => const SizedBox.shrink(),
+          builder: (field) {
+            final state = field as _TSwitchTileFormFieldState<T>;
+            return state.buildWidget(state.context);
+          },
         );
   final TControlAffinity affinity;
   final Axis axis;
@@ -486,11 +489,10 @@ class _TSwitchTileFormFieldState<T> extends FormFieldState<T> {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: build
+  // METHOD: buildWidget
   // ---------------------------------------------------------------------------
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return TSelectionGroupList(
       axis: field.axis,
       variant: field.variant,

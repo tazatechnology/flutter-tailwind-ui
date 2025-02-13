@@ -218,7 +218,10 @@ class _TSliderFormField extends FormField<double> {
     required this.tooltipTextStyle,
     required super.validator,
   }) : super(
-          builder: (field) => const SizedBox.shrink(),
+          builder: (field) {
+            final state = field as _TSliderFormFieldState;
+            return state.buildWidget(state.context);
+          },
         );
 
   final Color? activeTrackColor;
@@ -365,11 +368,10 @@ class _TSliderFormFieldState extends FormFieldState<double> {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: build
+  // METHOD: buildWidget
   // ---------------------------------------------------------------------------
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     final tw = context.tw;
 
     /// The text style for the markings

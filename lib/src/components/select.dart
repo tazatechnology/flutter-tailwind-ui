@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
-import 'package:flutter_tailwind_ui/src/internal/input_border.dart';
+import 'package:flutter_tailwind_ui/src/internal/input_decorator.dart';
 
 const Widget _defaultItemsEmpty = SizedBox(
   height: TSpace.v64,
@@ -25,7 +25,9 @@ class TSelect<T> extends TFormField<T> {
     this.closeOnTapOutside = true,
     this.constraints,
     this.enabled = true,
+    this.error,
     this.fillColor,
+    this.help,
     this.hoverColor,
     super.id = 'TSelect',
     this.initialValue,
@@ -39,6 +41,7 @@ class TSelect<T> extends TFormField<T> {
     this.listPadding = TOffset.a6,
     this.maxVisible = 5,
     this.onChanged,
+    this.onSaved,
     this.onSearch,
     this.placeholder = const Text('Select'),
     this.restorationId,
@@ -64,7 +67,9 @@ class TSelect<T> extends TFormField<T> {
             closeOnTapOutside: closeOnTapOutside,
             constraints: constraints,
             enabled: enabled,
+            error: error,
             fillColor: fillColor,
+            help: help,
             hoverColor: hoverColor,
             initialValue: initialValue,
             itemBuilder: itemBuilder,
@@ -77,6 +82,7 @@ class TSelect<T> extends TFormField<T> {
             listPadding: listPadding,
             maxVisible: maxVisible,
             onChanged: onChanged,
+            onSaved: onSaved,
             onSearch: onSearch,
             placeholder: placeholder,
             placeholderLoading: null,
@@ -106,7 +112,9 @@ class TSelect<T> extends TFormField<T> {
     this.closeOnTapOutside = true,
     this.constraints,
     this.enabled = true,
+    this.error,
     this.fillColor,
+    this.help,
     this.hoverColor,
     super.id = 'TSelect.async',
     this.initialValue,
@@ -120,6 +128,7 @@ class TSelect<T> extends TFormField<T> {
     this.listPadding = TOffset.a6,
     this.maxVisible = 5,
     this.onChanged,
+    this.onSaved,
     this.onSearch,
     this.placeholder = const Text('Select'),
     Widget? placeholderLoading = const Text('Loading...'),
@@ -147,7 +156,9 @@ class TSelect<T> extends TFormField<T> {
             closeOnTapOutside: closeOnTapOutside,
             constraints: constraints,
             enabled: enabled,
+            error: error,
             fillColor: fillColor,
+            help: help,
             hoverColor: hoverColor,
             initialValue: initialValue,
             itemBuilder: itemBuilder,
@@ -160,6 +171,7 @@ class TSelect<T> extends TFormField<T> {
             listPadding: listPadding,
             maxVisible: maxVisible,
             onChanged: onChanged,
+            onSaved: onSaved,
             onSearch: onSearch,
             placeholder: placeholder,
             placeholderLoading: placeholderLoading,
@@ -205,8 +217,14 @@ class TSelect<T> extends TFormField<T> {
   /// Whether the select widget is enabled
   final bool enabled;
 
+  /// The error widget to display below the select field.
+  final Widget? error;
+
   /// The fill color for the select field.
   final WidgetStateProperty<Color>? fillColor;
+
+  /// The help widget to display below the select field.
+  final Widget? help;
 
   /// The hover color of the options in the list
   final Color? hoverColor;
@@ -242,6 +260,9 @@ class TSelect<T> extends TFormField<T> {
 
   /// A callback that is called when the value of the select widget changes
   final ValueChanged<T?>? onChanged;
+
+  /// A callback that is called when the field is saved
+  final ValueChanged<T?>? onSaved;
 
   /// The search callback to use for the select widget
   ///
@@ -310,7 +331,9 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.closeOnTapOutside,
     required this.constraints,
     required super.enabled,
+    required this.error,
     required this.fillColor,
+    required this.help,
     required this.hoverColor,
     required super.initialValue,
     required this.itemBuilder,
@@ -324,6 +347,7 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.maxVisible,
     required this.onChanged,
     required this.onSearch,
+    required super.onSaved,
     required this.placeholder,
     required this.placeholderLoading,
     required super.restorationId,
@@ -339,7 +363,10 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.trailing,
     required super.validator,
   }) : super(
-          builder: (field) => const SizedBox.shrink(),
+          builder: (field) {
+            final state = field as _TSelectFormFieldState<T>;
+            return state.buildWidget(state.context);
+          },
         );
 
   final bool allowDeselect;
@@ -349,7 +376,9 @@ class _TSelectFormField<T> extends FormField<T> {
   final bool closeOnSelect;
   final bool closeOnTapOutside;
   final BoxConstraints? constraints;
+  final Widget? error;
   final WidgetStateProperty<Color>? fillColor;
+  final Widget? help;
   final Color? hoverColor;
   final Widget Function(T)? itemBuilder;
   final double? itemExtent;
@@ -702,11 +731,10 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
   }
 
   // ---------------------------------------------------------------------------
-  // METHOD: build
+  // METHOD: buildWidget
   // ---------------------------------------------------------------------------
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return FutureBuilder(
       future: getItems,
       builder: (context, snapshot) {
@@ -720,6 +748,8 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
         if (selected != null) {
           if (field.selectedItemBuilder != null) {
             selectWidget = field.selectedItemBuilder!.call(selected as T);
+          } else if (field.itemBuilder != null) {
+            selectWidget = field.itemBuilder!.call(selected as T);
           } else {
             selectWidget = Text(selected.toString());
           }
@@ -761,58 +791,91 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
           popoverHeight = popoverHeight?.add((maxVisible - 1) * field.spacing);
         }
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (field.label != null) TLabelDescription(label: field.label),
-            TPopover(
-              animationOptions: animationOptions,
-              controller: popoverController,
-              closeOnTapOutside: field.closeOnTapOutside,
-              matchAnchorWidth: true,
-              height: popoverHeight,
-              alignment: Alignment.bottomCenter,
-              borderRadius:
-                  field.borderRadius?.resolve({}) ?? TBorderRadius.rounded_md,
-              content: buildListView(),
-              anchor: TInputBorderWrapper(
-                enabled: enabled,
-                mouseCursor: WidgetStatePropertyAll(
-                  enabled
-                      ? SystemMouseCursors.click
-                      : SystemMouseCursors.forbidden,
-                ),
-                padding: TOffset.x12,
-                fillColor: effectiveFillColor,
-                borderColor: field.borderColor,
-                borderRadius: field.borderRadius,
-                onTap: enabled ? onAnchorPressed : null,
-                child: IconTheme(
-                  data: IconTheme.of(context).copyWith(
-                    size: TSpace.v16,
-                    color: enabled ? null : tw.color.disabledTextColor,
+        // Resolve the error widget
+        Widget? error = field.error;
+        if (error != null) {
+          error = DefaultTextStyle.merge(
+            style: context.theme.inputDecorationTheme.errorStyle,
+            child: error,
+          );
+        }
+
+        // Resolve the help widget
+        Widget? help = field.help;
+        if (help != null) {
+          help = DefaultTextStyle.merge(
+            style: context.theme.inputDecorationTheme.helperStyle,
+            child: help,
+          );
+        }
+
+        return InputDecorator(
+          decoration: InputDecoration(
+            error: error,
+            errorText: field.error == null ? errorText : null,
+            helper: help,
+            errorStyle: context.theme.inputDecorationTheme.errorStyle,
+            helperStyle: context.theme.inputDecorationTheme.helperStyle,
+            border: InputBorder.none,
+            errorBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            focusedErrorBorder: InputBorder.none,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (field.label != null) TLabelDescription(label: field.label),
+              TPopover(
+                animationOptions: animationOptions,
+                controller: popoverController,
+                closeOnTapOutside: field.closeOnTapOutside,
+                matchAnchorWidth: true,
+                height: popoverHeight,
+                alignment: Alignment.bottomCenter,
+                borderRadius:
+                    field.borderRadius?.resolve({}) ?? TBorderRadius.rounded_md,
+                content: buildListView(),
+                anchor: TInputBorderWrapper(
+                  enabled: enabled,
+                  mouseCursor: WidgetStatePropertyAll(
+                    enabled
+                        ? SystemMouseCursors.click
+                        : SystemMouseCursors.forbidden,
                   ),
-                  child: ConstrainedBox(
-                    constraints: field.constraints ?? const BoxConstraints(),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        DefaultTextStyle.merge(
-                          style: selectWidgetTextStyle,
-                          child: selectWidget,
-                        ),
-                        SizedBox(
-                          height: height,
-                          child: field.trailing,
-                        ),
-                      ],
+                  padding: TOffset.x12,
+                  fillColor: effectiveFillColor,
+                  borderColor: field.borderColor,
+                  borderRadius: field.borderRadius,
+                  onTap: enabled ? onAnchorPressed : null,
+                  child: IconTheme(
+                    data: IconTheme.of(context).copyWith(
+                      size: TSpace.v16,
+                      color: enabled ? null : tw.color.disabledTextColor,
+                    ),
+                    child: ConstrainedBox(
+                      constraints: field.constraints ?? const BoxConstraints(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          DefaultTextStyle.merge(
+                            style: selectWidgetTextStyle,
+                            child: selectWidget,
+                          ),
+                          SizedBox(
+                            height: height,
+                            child: field.trailing,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

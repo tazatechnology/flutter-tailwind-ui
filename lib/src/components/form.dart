@@ -25,9 +25,6 @@ class TFormController {
   /// Resets the form fields and clears the stored values.
   void reset() {
     state?.reset();
-    for (final f in getFormFieldStates()) {
-      f.reset();
-    }
   }
 
   /// Returns a list of all [FormFieldState] objects.
@@ -97,9 +94,24 @@ class TFormController {
   }
 
   /// Returns the value of a [TFormField] by its [TFormField.id].
-  Object? getValue(Object id) {
+  dynamic getValue(Object id) {
     final valueMap = getTFormFieldValues();
     return valueMap[id];
+  }
+
+  /// Returns the value of a [TFormField] by its [TFormField.id].
+  ///
+  /// This will also attempt to cast to the appropriate type. If the cast fails,
+  /// it will return null instead of throwing an error.
+  T? getValueTyped<T>(Object id) {
+    final valueMap = getTFormFieldValues();
+    try {
+      return valueMap[id] as T?;
+      // Catch cast errors and return null instead of throwing an error
+      // ignore: unused_catch_clause, avoid_catching_errors
+    } on Error catch (e) {
+      return null;
+    }
   }
 }
 
