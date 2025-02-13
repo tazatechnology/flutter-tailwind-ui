@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 /// Formats [value] (a `num`) as a human-readable string suitable for scientific contexts.
 ///
 /// - If [precision] is non-null, it uses `toStringAsFixed(precision)`.
@@ -16,6 +18,10 @@ String formatNumber(
   num value, {
   int? precision,
 }) {
+  if (value is int || precision == 0) {
+    return NumberFormat('###,###').format(value);
+  }
+
   // Convert `num` to `double` so we can use the string formatting methods
   final doubleValue = value.toDouble();
 

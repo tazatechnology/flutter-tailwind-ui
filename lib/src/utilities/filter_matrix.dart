@@ -131,8 +131,8 @@ abstract class TFilterMatrix {
       0,
       0,
       // Green channel
-      _rW + cosA * (-_rW) + sinA * (0.143),
-      _gW + cosA * (1 - _gW) + sinA * (0.140),
+      _rW + cosA * (-_rW) + sinA * 0.143,
+      _gW + cosA * (1 - _gW) + sinA * 0.140,
       _bW + cosA * (-_bW) + sinA * (-0.283),
       0,
       0,

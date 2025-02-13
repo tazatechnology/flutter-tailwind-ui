@@ -28,6 +28,7 @@ class AppRouter {
       AppRouter.font_weight: const TypographyRouteFontWeight(),
       AppRouter.letter_spacing: const TypographyRouteLetterSpacing(),
       // Components
+      AppRouter.alert: const ComponentRouteTAlert(),
       AppRouter.backdrop_filter: const ComponentRouteTBackdropFilter(),
       AppRouter.badge: const ComponentRouteTBadge(),
       AppRouter.button: const ComponentRouteTButton(),
@@ -114,6 +115,7 @@ class AppRouter {
   static const String letter_spacing = 'letter-spacing';
 
   /// Components
+  static const String alert = 'alert';
   static const String backdrop_filter = 'backdrop-filter';
   static const String badge = 'badge';
   static const String button = 'button';

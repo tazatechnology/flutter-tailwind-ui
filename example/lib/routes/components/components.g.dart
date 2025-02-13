@@ -3,6 +3,118 @@
 
 part of 'components.dart';
 
+/// Source code for [_TAlertNeutral]
+class _TAlertNeutralSource {
+  static const String code = r"""
+const TAlert.neutral(
+  title: Text('This is a neutral alert'),
+)
+""";
+}
+
+/// Source code for [_TAlertInfo]
+class _TAlertInfoSource {
+  static const String code = r"""
+const TAlert.info(
+  title: Text('This is an info alert'),
+)
+""";
+}
+
+/// Source code for [_TAlertSuccess]
+class _TAlertSuccessSource {
+  static const String code = r"""
+const TAlert.success(
+  title: Text('This is a success alert'),
+)
+""";
+}
+
+/// Source code for [_TAlertWarning]
+class _TAlertWarningSource {
+  static const String code = r"""
+const TAlert.warning(
+  title: Text('This is a warning alert'),
+)
+""";
+}
+
+/// Source code for [_TAlertDanger]
+class _TAlertDangerSource {
+  static const String code = r"""
+const TAlert.danger(
+  title: Text('This is a danger alert'),
+)
+""";
+}
+
+/// Source code for [_TAlertCustom]
+class _TAlertCustomSource {
+  static const String code = r"""
+const TAlert(
+  color: TColors.indigo,
+  title: Text('This is an awesome alert'),
+  icon: Icon(Icons.auto_awesome),
+)
+""";
+}
+
+/// Source code for [_TAlertTrailing]
+class _TAlertTrailingSource {
+  static const String code = r"""
+TAlert(
+  color: TColors.indigo,
+  title: const Text('A new software update is available'),
+  icon: const Icon(Icons.cloud_download),
+  trailing: TButton(
+    size: TWidgetSize.sm,
+    color: TColors.indigo,
+    trailing: const Icon(Icons.arrow_forward),
+    child: const Text('Details'),
+    onPressed: () {},
+  ),
+)
+""";
+}
+
+/// Source code for [_TAlertContent]
+class _TAlertContentSource {
+  static const String code = r"""
+TAlert(
+  color: TColors.indigo,
+  title: const Text('A new software update is available'),
+  icon: const Icon(Icons.cloud_download),
+  content: Column(
+    spacing: TSpace.v8,
+    children: [
+      const Text(
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum.',
+      ),
+      Row(
+        spacing: TSpace.v8,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TButton(
+            size: TWidgetSize.sm,
+            color: TColors.blue,
+            child: const Text('Dismiss'),
+            onPressed: () {},
+          ),
+          TButton(
+            size: TWidgetSize.sm,
+            color: TColors.blue,
+            trailing: const Icon(Icons.arrow_forward),
+            child: const Text('Details'),
+            onPressed: () {},
+          ),
+        ],
+      )
+    ],
+  ),
+)
+""";
+}
+
 /// Source code for [_TBackdropFilterBlur]
 class _TBackdropFilterBlurSource {
   static const String code = r"""

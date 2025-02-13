@@ -53,7 +53,6 @@ class TInput extends StatefulWidget {
     this.prefix,
     this.readOnly = false,
     this.restorationId,
-    this.scribbleEnabled = true,
     this.selectionControls,
     this.showCursor,
     this.size = TInputSize.lg,
@@ -120,7 +119,6 @@ class TInput extends StatefulWidget {
     this.onTapOutside,
     this.readOnly = false,
     this.restorationId,
-    this.scribbleEnabled = true,
     this.selectionControls,
     this.showCursor,
     this.smartDashesType,
@@ -285,9 +283,6 @@ class TInput extends StatefulWidget {
 
   /// The restoration ID for the input field.
   final String? restorationId;
-
-  /// Whether the input field should enable scribble.
-  final bool scribbleEnabled;
 
   /// The selection controls for the input field.
   final TextSelectionControls? selectionControls;
@@ -527,7 +522,6 @@ class _TInputState extends State<TInput> {
             onTapOutside: widget.onTapOutside,
             readOnly: widget.readOnly,
             restorationId: widget.restorationId,
-            scribbleEnabled: widget.scribbleEnabled,
             selectionControls: widget.selectionControls,
             showCursor: widget.showCursor ?? isInteractive,
             smartDashesType: widget.smartDashesType ??

@@ -6,6 +6,7 @@ import 'package:flutter_tailwind_ui_app/layout/header.dart';
 import 'package:flutter_tailwind_ui_app/widgets/preview_card.dart';
 import 'package:flutter_tailwind_ui_app/widgets/value_table.dart';
 
+part 'alert.dart';
 part 'backdrop_filter.dart';
 part 'badge.dart';
 part 'button.dart';

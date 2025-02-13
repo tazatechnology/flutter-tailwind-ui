@@ -94,6 +94,7 @@ class _AppNavigationState extends State<AppNavigation> {
         '``TBackdropFilter``': AppRouter.backdrop_filter,
       },
       'Other': {
+        '``TAlert``': AppRouter.alert,
         '``TCodeBlock``': AppRouter.code_block,
       },
     };

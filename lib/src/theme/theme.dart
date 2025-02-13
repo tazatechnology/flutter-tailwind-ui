@@ -120,7 +120,6 @@ class TailwindTheme {
       hintColor: color.label,
       primaryColor: color.primary,
       shadowColor: color.shadow,
-      dialogBackgroundColor: color.background,
 
       /// AppBar
       appBarTheme: AppBarTheme(
@@ -170,6 +169,7 @@ class TailwindTheme {
         ),
       ),
 
+      /// Progress Indicator
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: color.primary,
       ),

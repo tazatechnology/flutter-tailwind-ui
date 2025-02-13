@@ -1,6 +1,6 @@
-## 0.0.4
+## 0.0.5
 
-* Internal testing
+* Published release
 
 ## 0.0.1
 

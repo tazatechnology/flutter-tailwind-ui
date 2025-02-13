@@ -25,11 +25,11 @@ class TExpand extends StatelessWidget {
     super.key,
     this.child,
     this.alignment = Alignment.center,
-    required Axis axis,
+    required Axis? axis,
   }) : _axis = axis;
 
   /// The axis to expand along.
-  final Axis _axis;
+  final Axis? _axis;
 
   /// The child widget to expand.
   final Widget? child;
@@ -39,6 +39,9 @@ class TExpand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_axis == null) {
+      return child ?? const SizedBox.shrink();
+    }
     return FractionallySizedBox(
       alignment: alignment,
       widthFactor: _axis == Axis.horizontal ? 1 : null,

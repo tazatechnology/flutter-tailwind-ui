@@ -1,4 +1,5 @@
 // Components
+export 'src/components/alert.dart';
 export 'src/components/animated.dart';
 export 'src/components/backdrop_filter.dart';
 export 'src/components/badge.dart';

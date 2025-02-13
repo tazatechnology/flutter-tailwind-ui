@@ -544,7 +544,7 @@ class _TGestureDetectorState extends State<TGestureDetector> {
 
   @override
   Widget build(BuildContext context) {
-    MouseCursor mouseCursorFallback = SystemMouseCursors.basic;
+    MouseCursor? mouseCursorFallback;
     if (controller.disabled) {
       mouseCursorFallback = SystemMouseCursors.forbidden;
     } else if (widget.onTap != null) {
@@ -587,7 +587,7 @@ class _TGestureDetectorState extends State<TGestureDetector> {
               return KeyEventResult.ignored;
             },
             child: MouseRegion(
-              cursor: mouseCursor,
+              cursor: mouseCursor ?? MouseCursor.defer,
               child: child,
               onEnter: (event) {
                 widget.onHover?.call(true);
