@@ -840,6 +840,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                 content: buildListView(),
                 anchor: TInputBorderWrapper(
                   enabled: enabled,
+                  canRequestFocus: enabled,
                   mouseCursor: WidgetStatePropertyAll(
                     enabled
                         ? SystemMouseCursors.click

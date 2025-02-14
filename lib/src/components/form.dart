@@ -94,16 +94,10 @@ class TFormController {
   }
 
   /// Returns the value of a [TFormField] by its [TFormField.id].
-  dynamic getValue(Object id) {
-    final valueMap = getTFormFieldValues();
-    return valueMap[id];
-  }
-
-  /// Returns the value of a [TFormField] by its [TFormField.id].
   ///
   /// This will also attempt to cast to the appropriate type. If the cast fails,
   /// it will return null instead of throwing an error.
-  T? getValueTyped<T>(Object id) {
+  T? getValue<T>(Object id) {
     final valueMap = getTFormFieldValues();
     try {
       return valueMap[id] as T?;

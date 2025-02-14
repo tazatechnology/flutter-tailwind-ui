@@ -17,6 +17,7 @@ class TLink extends StatelessWidget {
     this.color,
     this.textStyle,
     this.decorate = true,
+    this.tooltip,
   });
 
   /// Constructor for [TLink] with a URI.
@@ -27,6 +28,7 @@ class TLink extends StatelessWidget {
     Color? color,
     WidgetStateProperty<TextStyle?>? textStyle,
     bool decorate = true,
+    String? tooltip,
     LinkTarget target = kIsWeb ? LinkTarget.blank : LinkTarget.defaultTarget,
   }) {
     return Link(
@@ -38,6 +40,7 @@ class TLink extends StatelessWidget {
           color: color,
           textStyle: textStyle,
           decorate: decorate,
+          tooltip: tooltip,
           onPressed: followLink,
           child: child,
         );
@@ -59,6 +62,9 @@ class TLink extends StatelessWidget {
 
   /// Whether to decorate ([TextDecoration.underline]) the link by default.
   final bool decorate;
+
+  /// The tooltip to show when hovered.
+  final String? tooltip;
 
   // ---------------------------------------------------------------------------
   // METHOD: build
@@ -82,11 +88,14 @@ class TLink extends StatelessWidget {
               decorate && this.decorate ? TextDecoration.underline : null,
         ).merge(baseTextStyle);
 
-        return IconTheme(
-          data: IconTheme.of(context).copyWith(color: style.color),
-          child: DefaultTextStyle.merge(
-            style: style,
-            child: child,
+        return TTooltip(
+          message: tooltip,
+          child: IconTheme(
+            data: IconTheme.of(context).copyWith(color: style.color),
+            child: DefaultTextStyle.merge(
+              style: style,
+              child: child,
+            ),
           ),
         );
       },

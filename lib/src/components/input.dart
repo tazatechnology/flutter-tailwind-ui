@@ -500,7 +500,8 @@ class _TInputState extends State<TInput> {
             enableSuggestions: widget.enableSuggestions,
             enabled: widget.enabled,
             expands: widget.expands,
-            focusNode: widget.focusNode,
+            focusNode:
+                widget.focusNode ?? FocusNode(skipTraversal: widget.readOnly),
             groupId: widget.groupId,
             ignorePointers: widget.ignorePointers,
             inputFormatters: widget.inputFormatters,
