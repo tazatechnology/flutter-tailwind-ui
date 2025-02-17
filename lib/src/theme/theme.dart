@@ -36,9 +36,9 @@ class TailwindTheme {
 
   /// Constructor for [TailwindTheme]
   TailwindTheme._({
-    required this.brightness,
+    required Brightness brightness,
     required TailwindColorTheme color,
-  }) {
+  }) : _brightness = brightness {
     themeData = _buildThemeData(color: color);
   }
 
@@ -46,16 +46,16 @@ class TailwindTheme {
   late final ThemeData themeData;
 
   /// The brightness of the theme (light or dark)
-  final Brightness brightness;
+  final Brightness _brightness;
 
   // ---------------------------------------------------------------------------
-  // METHOD: _buildTheme
+  // METHOD: _buildThemeData
   // ---------------------------------------------------------------------------
 
   ThemeData _buildThemeData({
     required TailwindColorTheme color,
   }) {
-    final light = brightness == Brightness.light;
+    final light = _brightness == Brightness.light;
 
     // Define the default text theme
     TextTheme textTheme = const TextTheme(
@@ -103,7 +103,7 @@ class TailwindTheme {
     return ThemeData(
       extensions: [color],
       useMaterial3: true,
-      brightness: brightness,
+      brightness: _brightness,
       fontFamily: TTextStyle.fontFamily,
       scaffoldBackgroundColor: color.background,
       splashColor: Colors.transparent,
@@ -126,11 +126,11 @@ class TailwindTheme {
         backgroundColor: color.background,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: color.background,
-          statusBarIconBrightness: brightness,
-          statusBarBrightness: brightness,
+          statusBarIconBrightness: _brightness,
+          statusBarBrightness: _brightness,
           systemStatusBarContrastEnforced: true,
           systemNavigationBarColor: color.background,
-          systemNavigationBarIconBrightness: brightness,
+          systemNavigationBarIconBrightness: _brightness,
           systemNavigationBarContrastEnforced: true,
         ),
       ),

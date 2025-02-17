@@ -405,4 +405,31 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
       onError: _lerpColor(onError, other.onError, t),
     );
   }
+
+  /// Merge two [TailwindColorTheme] objects
+  TailwindColorTheme merge(TailwindColorTheme? other) {
+    return TailwindColorTheme._(
+      _brightness,
+      primary: other?.primary ?? primary,
+      title: other?.title ?? title,
+      body: other?.body ?? body,
+      label: other?.label ?? label,
+      hint: other?.hint ?? hint,
+      link: other?.link ?? link,
+      background: other?.background ?? background,
+      shadow: other?.shadow ?? shadow,
+      barrier: other?.barrier ?? barrier,
+      hover: other?.hover ?? hover,
+      card: other?.card ?? card,
+      icon: other?.icon ?? icon,
+      focus: other?.focus ?? focus,
+      divider: other?.divider ?? divider,
+      selection: other?.selection ?? selection,
+      tooltip: other?.tooltip ?? tooltip,
+      disabled: other?.disabled ?? disabled,
+      onDisabled: other?.onDisabled ?? onDisabled,
+      error: other?.error ?? error,
+      onError: other?.onError ?? onError,
+    );
+  }
 }

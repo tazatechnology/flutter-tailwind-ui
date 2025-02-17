@@ -418,7 +418,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
   T? selected;
   late int hoveredIndex = selectedIndex;
 
-  late final bool searchEnabled = field.onSearch != null;
+  late bool searchEnabled = field.onSearch != null && field.items.isNotEmpty;
   late List<T> items = List<T>.from(field.items);
   late final List<T> currentItems = List<T>.from(field.items);
   late List<TWidgetStatesController> stateControllers;
@@ -467,6 +467,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
             items.length,
             (index) => TWidgetStatesController(),
           );
+          searchEnabled = field.onSearch != null && items.isNotEmpty;
           if (field.initialValue != null &&
               items.contains(field.initialValue)) {
             initialValue = field.initialValue;
@@ -863,7 +864,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                         children: [
                           DefaultTextStyle.merge(
                             style: selectWidgetTextStyle,
-                            child: selectWidget,
+                            child: Flexible(child: selectWidget),
                           ),
                           SizedBox(
                             height: height,

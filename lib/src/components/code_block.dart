@@ -97,12 +97,12 @@ class _TCodeBlockState extends State<TCodeBlock> {
 
   @override
   Widget build(BuildContext context) {
+    final tw = context.tw;
     final theme = widget.theme ?? const TCodeBlockTheme();
 
     final light = theme.brightness == Brightness.light;
 
-    final effectiveBackgroundColor =
-        theme.backgroundColor ?? TColors.neutral.shade800;
+    final effectiveBackgroundColor = theme.backgroundColor ?? tw.color.card;
 
     final effectiveBorder = theme.border ??
         Border.all(
