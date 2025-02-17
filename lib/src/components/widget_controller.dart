@@ -112,6 +112,16 @@ class TWidgetStatesController extends WidgetStatesController {
     update(WidgetState.disabled, value);
   }
 
+  /// Returns true if the state does not contain a [WidgetState.disabled] state
+  ///
+  /// This property may be set by the controller.
+  bool get enabled => !disabled;
+
+  /// Sets the enabled state of the widget.
+  set enabled(bool value) {
+    disabled = !value;
+  }
+
   /// Returns true if the state contains a [WidgetState.error] state
   bool get error => value.contains(WidgetState.error);
 

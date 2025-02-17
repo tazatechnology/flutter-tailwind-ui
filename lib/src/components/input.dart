@@ -340,6 +340,7 @@ class _TInputState extends State<TInput> {
   late final isTextArea = widget._isTextArea;
   late final TextEditingController controller;
   late final TWidgetStatesController statesController;
+  late final FocusNode focusNode;
 
   /// The height of the input field.
   double get height => widget.size.height;
@@ -361,6 +362,7 @@ class _TInputState extends State<TInput> {
     } else {
       statesController = TWidgetStatesController();
     }
+    focusNode = widget.focusNode ?? FocusNode(skipTraversal: widget.readOnly);
   }
 
   // ---------------------------------------------------------------------------
@@ -374,6 +376,9 @@ class _TInputState extends State<TInput> {
     }
     if (widget.statesController == null) {
       statesController.dispose();
+    }
+    if (widget.focusNode == null) {
+      focusNode.dispose();
     }
     super.dispose();
   }
@@ -500,8 +505,7 @@ class _TInputState extends State<TInput> {
             enableSuggestions: widget.enableSuggestions,
             enabled: widget.enabled,
             expands: widget.expands,
-            focusNode:
-                widget.focusNode ?? FocusNode(skipTraversal: widget.readOnly),
+            focusNode: focusNode,
             groupId: widget.groupId,
             ignorePointers: widget.ignorePointers,
             inputFormatters: widget.inputFormatters,

@@ -571,11 +571,11 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                 prefix: field.searchIcon,
                 suffix: suffix,
                 onChanged: (value) {
-                  final newItems = field.onSearch!.call(currentItems, value);
+                  final newItems = field.onSearch!.call(items, value);
                   setState(() {
                     currentItems.clear();
                     if (newItems == null || value.trim().isEmpty) {
-                      currentItems.addAll(field.items);
+                      currentItems.addAll(items);
                     } else {
                       currentItems.addAll(newItems);
                     }

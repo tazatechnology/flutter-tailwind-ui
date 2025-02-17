@@ -209,6 +209,10 @@ class TBadge extends StatelessWidget {
   static TextStyle getDefaultTextStyle(TWidgetSize size) {
     switch (size) {
       case TWidgetSize.xs:
+        return TTextStyle.text_xs.copyWith(
+          fontSize: 10,
+          fontWeight: TFontWeight.medium,
+        );
       case TWidgetSize.sm:
       case TWidgetSize.md:
       case TWidgetSize.lg:
@@ -227,7 +231,6 @@ class TBadge extends StatelessWidget {
   static EdgeInsetsGeometry getDefaultPadding(TWidgetSize size) {
     switch (size) {
       case TWidgetSize.xs:
-        return TOffset.x4;
       case TWidgetSize.sm:
         return TOffset.x6;
       case TWidgetSize.md:

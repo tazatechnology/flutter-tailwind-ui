@@ -72,13 +72,20 @@ class _RingPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final effectiveWidth = width ?? 1.5;
     final paint = Paint()
       ..color = color ?? TColors.indigo
       ..style = PaintingStyle.stroke
-      ..strokeWidth = width ?? 1.5;
+      ..strokeWidth = effectiveWidth;
 
-    const offset = 3.0;
-    const borderOffset = Radius.circular(offset);
+    final offset = -(effectiveWidth - 0.5);
+    final borderOffset = Radius.circular(offset);
+
+    // This will paint outside the bounds of the widget
+    // Without sufficient padding, the border will be clipped
+    // Although more appealing, this needs more work than just using a Stack
+    // const offset = 3.0;
+    // const borderOffset = Radius.circular(offset);
 
     final rect = Rect.fromLTWH(
       -offset,
