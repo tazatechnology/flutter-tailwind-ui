@@ -16,7 +16,7 @@ class TDialog extends StatelessWidget {
     this.actions,
     this.actionsSpacing = TSpace.v12,
     this.actionsAlignment = MainAxisAlignment.end,
-    this.maxWidth = TScreen.max_w_lg,
+    this.maxWidth = TScreen.max_lg,
     this.showCancel = true,
     this.cancel = const Text('Cancel'),
     this.showClose = false,

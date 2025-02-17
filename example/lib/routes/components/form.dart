@@ -20,13 +20,13 @@ class ComponentRouteTForm extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Basic',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TFormBasicSource.code,
               child: _TFormBasic(),
             ),
             AppPreviewCard(
               title: 'Track field values',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TFormTrackFieldValuesSource.code,
               child: _TFormTrackFieldValues(),
             ),
@@ -39,7 +39,7 @@ class ComponentRouteTForm extends StatelessWidget {
               title: '`TFormField` components',
               description:
                   'All of the input elements in this package are instrument to work with `TForm` and in turn allow for easy value lookup, validation, and reset.',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TFormAllFieldsSource.code,
               child: _TFormAllFields(),
             ),

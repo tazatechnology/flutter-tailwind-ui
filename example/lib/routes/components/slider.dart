@@ -18,13 +18,13 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Simple',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderLabelTextSource.code,
               child: _TSliderLabelText(),
             ),
             AppPreviewCard(
               title: 'Custom',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderLabelWidgetSource.code,
               child: _TSliderLabelWidget(),
             ),
@@ -35,13 +35,13 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Enabled',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderEnabledSource.code,
               child: _TSliderEnabled(),
             ),
             AppPreviewCard(
               title: 'Disabled',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderDisabledSource.code,
               child: _TSliderDisabled(),
             ),
@@ -52,19 +52,19 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Discrete',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderDiscreteSource.code,
               child: _TSliderDiscrete(),
             ),
             AppPreviewCard(
               title: 'Editable',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderEditableSource.code,
               child: _TSliderEditable(),
             ),
             AppPreviewCard(
               title: 'Discrete and editable',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderDiscreteEditableSource.code,
               child: _TSliderDiscreteEditable(),
             ),
@@ -75,19 +75,19 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Show default marks',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderValueLabelsSource.code,
               child: _TSliderValueLabels(),
             ),
             AppPreviewCard(
               title: 'Show default marks and editable',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderValueLabelsEditableSource.code,
               child: _TSliderValueLabelsEditable(),
             ),
             AppPreviewCard(
               title: 'Marking formatter',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderValueLabelsFormatterSource.code,
               child: _TSliderValueLabelsFormatter(),
             ),
@@ -98,13 +98,13 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Customize tooltip',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderTooltipCustomizeSource.code,
               child: _TSliderTooltipCustomize(),
             ),
             AppPreviewCard(
               title: 'Value tooltip formatter',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderTooltipFormatterSource.code,
               child: _TSliderTooltipFormatter(),
             ),
@@ -115,7 +115,7 @@ class ComponentRouteTSlider extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Controller to update the value',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSliderControllerSource.code,
               child: _TSliderController(),
             ),

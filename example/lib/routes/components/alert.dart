@@ -20,31 +20,31 @@ class ComponentRouteTAlert extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Neutral',
-              maxWidth: TScreen.max_w_lg,
+              maxWidth: TScreen.max_lg,
               code: _TAlertNeutralSource.code,
               child: _TAlertNeutral(),
             ),
             AppPreviewCard(
               title: 'Info',
-              maxWidth: TScreen.max_w_lg,
+              maxWidth: TScreen.max_lg,
               code: _TAlertInfoSource.code,
               child: _TAlertInfo(),
             ),
             AppPreviewCard(
               title: 'Success',
-              maxWidth: TScreen.max_w_lg,
+              maxWidth: TScreen.max_lg,
               code: _TAlertSuccessSource.code,
               child: _TAlertSuccess(),
             ),
             AppPreviewCard(
               title: 'Warning',
-              maxWidth: TScreen.max_w_lg,
+              maxWidth: TScreen.max_lg,
               code: _TAlertWarningSource.code,
               child: _TAlertWarning(),
             ),
             AppPreviewCard(
               title: 'Danger',
-              maxWidth: TScreen.max_w_lg,
+              maxWidth: TScreen.max_lg,
               code: _TAlertDangerSource.code,
               child: _TAlertDanger(),
             ),
@@ -55,19 +55,19 @@ class ComponentRouteTAlert extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Color and icon',
-              maxWidth: TScreen.max_w_lg,
+              maxWidth: TScreen.max_lg,
               code: _TAlertCustomSource.code,
               child: _TAlertCustom(),
             ),
             AppPreviewCard(
               title: 'With trailing widget',
-              maxWidth: TScreen.max_w_lg,
+              maxWidth: TScreen.max_lg,
               code: _TAlertTrailingSource.code,
               child: _TAlertTrailing(),
             ),
             AppPreviewCard(
               title: 'With content',
-              maxWidth: TScreen.max_w_lg,
+              maxWidth: TScreen.max_lg,
               code: _TAlertContentSource.code,
               child: _TAlertContent(),
             ),

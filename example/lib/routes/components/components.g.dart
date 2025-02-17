@@ -2844,7 +2844,7 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          width: TScreen.max_w_xs,
+          width: TScreen.max_xs,
           child: TInput(
             controller: textController,
             label: const Text('Email Address'),

@@ -20,13 +20,13 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Simple',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TInputWithLabelSource.code,
               child: _TInputWithLabel(),
             ),
             AppPreviewCard(
               title: 'Custom',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TInputWithLabelWidgetSource.code,
               child: _TInputWithLabelWidget(),
             ),
@@ -37,13 +37,13 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Help',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TInputWithHelpSource.code,
               child: _TInputWithHelp(),
             ),
             AppPreviewCard(
               title: 'Error',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TInputWithErrorSource.code,
               child: _TInputWithError(),
             ),
@@ -54,13 +54,13 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Disabled',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TInputWithDisabledStateSource.code,
               child: _TInputWithDisabledState(),
             ),
             AppPreviewCard(
               title: 'Read-Only',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TInputWithReadOnlyStateSource.code,
               child: _TInputWithReadOnlyState(),
             ),
@@ -71,13 +71,13 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Leading',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TInputWithIconPrefixSource.code,
               child: _TInputWithIconPrefix(),
             ),
             AppPreviewCard(
               title: 'Trailing',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TInputWithIconSuffixSource.code,
               child: _TInputWithIconSuffix(),
             ),
@@ -88,7 +88,7 @@ class ComponentRouteTInput extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Predefined Sizes',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TInputSizeSource.code,
               child: _TInputSize(),
             ),
@@ -343,7 +343,7 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          width: TScreen.max_w_xs,
+          width: TScreen.max_xs,
           child: TInput(
             controller: textController,
             label: const Text('Email Address'),

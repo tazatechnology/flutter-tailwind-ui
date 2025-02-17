@@ -39,46 +39,55 @@ class BorderRadiusRoute extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'All Sides',
+              maxWidth: TScreen.screen_xl,
               code: _TBorderRadiusAllSource.code,
               child: _TBorderRadiusAll(),
             ),
             AppPreviewCard(
               title: 'Top Only',
+              maxWidth: TScreen.screen_xl,
               code: _TBorderRadiusTopSource.code,
               child: _TBorderRadiusTop(),
             ),
             AppPreviewCard(
               title: 'Bottom Only',
+              maxWidth: TScreen.screen_xl,
               code: _TBorderRadiusBottomSource.code,
               child: _TBorderRadiusBottom(),
             ),
             AppPreviewCard(
               title: 'Left Only',
+              maxWidth: TScreen.screen_xl,
               code: _TBorderRadiusLeftSource.code,
               child: _TBorderRadiusLeft(),
             ),
             AppPreviewCard(
               title: 'Right Only',
+              maxWidth: TScreen.screen_xl,
               code: _TBorderRadiusRightSource.code,
               child: _TBorderRadiusRight(),
             ),
             AppPreviewCard(
               title: 'Top-Left Only',
+              maxWidth: TScreen.screen_xl,
               code: _TBorderRadiusTopLeftSource.code,
               child: _TBorderRadiusTopLeft(),
             ),
             AppPreviewCard(
               title: 'Top-Right Only',
+              maxWidth: TScreen.screen_xl,
               code: _TBorderRadiusTopRightSource.code,
               child: _TBorderRadiusTopRight(),
             ),
             AppPreviewCard(
               title: 'Bottom-Right Only',
+              maxWidth: TScreen.screen_xl,
               code: _TBorderRadiusBottomRightSource.code,
               child: _TBorderRadiusBottomRight(),
             ),
             AppPreviewCard(
               title: 'Bottom-Left Only',
+              maxWidth: TScreen.screen_xl,
               code: _TBorderRadiusBottomLeftSource.code,
               child: _TBorderRadiusBottomLeft(),
             ),

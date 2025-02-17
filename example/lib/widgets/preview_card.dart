@@ -16,7 +16,7 @@ class AppPreviewCard extends StatefulWidget {
     this.description,
     this.reference,
     this.initialShowCode = false,
-    this.maxWidth = TScreen.max_w_md,
+    this.maxWidth = TScreen.max_md,
     super.key,
   });
   final String? title;

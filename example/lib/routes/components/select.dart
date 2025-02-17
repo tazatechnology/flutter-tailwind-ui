@@ -20,13 +20,13 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Simple',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectLabelTextSource.code,
               child: _TSelectLabelText(),
             ),
             AppPreviewCard(
               title: 'Custom',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectLabelWidgetSource.code,
               child: _TSelectLabelWidget(),
             ),
@@ -37,13 +37,13 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Help',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectWithHelpSource.code,
               child: _TSelectWithHelp(),
             ),
             AppPreviewCard(
               title: 'Error',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectWithErrorSource.code,
               child: _TSelectWithError(),
             ),
@@ -54,25 +54,25 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'No options',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectNoOptionsSource.code,
               child: _TSelectNoOptions(),
             ),
             AppPreviewCard(
               title: 'Spacing between options',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectSpacingSource.code,
               child: _TSelectSpacing(),
             ),
             AppPreviewCard(
               title: 'Build many options',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectScrollableSource.code,
               child: _TSelectScrollable(),
             ),
             AppPreviewCard(
               title: 'Build options asynchronously',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectAsyncSource.code,
               child: _TSelectAsync(),
             ),
@@ -83,19 +83,19 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Enabled',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectEnabledSource.code,
               child: _TSelectEnabled(),
             ),
             AppPreviewCard(
               title: 'Disabled',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectDisabledSource.code,
               child: _TSelectDisabled(),
             ),
             AppPreviewCard(
               title: 'Error',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectErrorSource.code,
               child: _TSelectError(),
             ),
@@ -106,13 +106,13 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Leading',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectSelectedIconLeadingSource.code,
               child: _TSelectSelectedIconLeading(),
             ),
             AppPreviewCard(
               title: 'Trailing',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectSelectedIconTrailingSource.code,
               child: _TSelectSelectedIconTrailing(),
             ),
@@ -123,19 +123,19 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Allow deselect',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectAllowDeselectSource.code,
               child: _TSelectAllowDeselect(),
             ),
             AppPreviewCard(
               title: 'Prevent close on select',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectPreventCloseSource.code,
               child: _TSelectPreventClose(),
             ),
             AppPreviewCard(
               title: 'Prevent close on tap outside',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectPreventCloseOutsideSource.code,
               child: _TSelectPreventCloseOutside(),
             ),
@@ -146,7 +146,7 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Search options with text input',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectSearchSource.code,
               child: _TSelectSearch(),
             ),
@@ -157,7 +157,7 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Predefined sizes',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectSizeSource.code,
               child: _TSelectSize(),
             ),
@@ -168,7 +168,7 @@ class ComponentRouteTSelect extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'Add User Example',
-              maxWidth: TScreen.max_w_sm,
+              maxWidth: TScreen.max_sm,
               code: _TSelectGalleryAddUserSource.code,
               child: _TSelectGalleryAddUser(),
             ),

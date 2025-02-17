@@ -14,7 +14,7 @@ class TScrollView extends StatelessWidget {
   const TScrollView({
     super.key,
     required this.child,
-    this.maxWidth = TScreen.max_w_6xl,
+    this.maxWidth = TScreen.max_6xl,
     this.minPadding,
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
