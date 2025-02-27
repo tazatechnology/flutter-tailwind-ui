@@ -15,7 +15,7 @@ class TScrollView extends StatelessWidget {
     super.key,
     required this.child,
     this.maxWidth = TScreen.max_6xl,
-    this.minPadding,
+    this.padding,
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
     this.primary,
@@ -35,14 +35,8 @@ class TScrollView extends StatelessWidget {
   /// area is still responsive to scroll events
   final double maxWidth;
 
-  /// The minimum padding to apply to the scrollview content
-  ///
-  /// If not specified the following defaults are used based on the screen size
-  /// at a breakpoint of ([TScreen.screen_sm]):
-  ///
-  /// - Small screens: [TOffset.a16]
-  /// - Large screens: [TOffset.a32]
-  final EdgeInsets? minPadding;
+  /// The padding to apply to the scrollview content
+  final EdgeInsets? padding;
 
   /// The widget that scrolls
   final Widget child;
@@ -83,50 +77,12 @@ class TScrollView extends StatelessWidget {
   /// The options for the scrollbar
   final TScrollbarOptions scrollbarOptions;
 
-  /// Compute the required padding to center the content for a given maximum width
-  static EdgeInsets computePadding({
-    required BuildContext context,
-    required double maxWidth,
-    EdgeInsets? minPadding,
-  }) {
-    final tw = context.tw;
-
-    /// Responsive padding based on the screen size
-    final defaultPadding =
-        minPadding ?? (tw.screen.is_sm ? TOffset.a32 : TOffset.a16);
-
-    // Get the size of the current widget
-    final renderBox = context.findRenderObject() as RenderBox?;
-    final Size size = renderBox?.size ?? Size.zero;
-
-    if (size.width == 0) {
-      return defaultPadding;
-    }
-
-    /// Set the padding based on the screen size and the maximum width
-    /// This is required to ensure padded area of scroll view response to scrolling
-    double horizontal = 0;
-    if (size.width > maxWidth) {
-      horizontal = (size.width - maxWidth) / 2;
-    }
-    return EdgeInsets.symmetric(
-      horizontal:
-          horizontal.clamp(defaultPadding.horizontal / 2, double.infinity),
-      vertical: defaultPadding.vertical / 2,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return TScrollbar.fromOptions(
       options: scrollbarOptions,
       controller: controller,
       child: SingleChildScrollView(
-        padding: computePadding(
-          context: context,
-          maxWidth: maxWidth,
-          minPadding: minPadding,
-        ),
         scrollDirection: scrollDirection,
         reverse: reverse,
         primary: primary,
@@ -137,7 +93,15 @@ class TScrollView extends StatelessWidget {
         hitTestBehavior: hitTestBehavior,
         restorationId: restorationId,
         keyboardDismissBehavior: keyboardDismissBehavior,
-        child: child,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: maxWidth),
+            child: Padding(
+              padding: padding ?? TOffset.zero,
+              child: child,
+            ),
+          ),
+        ),
       ),
     );
   }
