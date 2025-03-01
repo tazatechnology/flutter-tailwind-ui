@@ -21,6 +21,7 @@ class TDialog extends StatelessWidget {
     this.cancel = const Text('Cancel'),
     this.showClose = false,
     this.close = const Icon(Icons.close),
+    this.onDismiss,
     this.titleTextStyle,
     this.contentTextStyle,
   });
@@ -66,6 +67,9 @@ class TDialog extends StatelessWidget {
   /// This widget is automatically wrapped in a [TIconButton] widget with a
   /// callback to close the dialog.
   final Widget close;
+
+  /// A callback that is called when the dialog is dismissed.
+  final VoidCallback? onDismiss;
 
   /// The text style of the dialog title.
   final TextStyle? titleTextStyle;
@@ -160,7 +164,10 @@ class TDialog extends StatelessWidget {
     if (showCancel) {
       final effectiveCancel = TButton.outlined(
         child: cancel,
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () {
+          onDismiss?.call();
+          Navigator.of(context).pop();
+        },
       );
       if (actionsAlignment == MainAxisAlignment.start) {
         effectiveActions.add(effectiveCancel);
@@ -200,7 +207,10 @@ class TDialog extends StatelessWidget {
     final effectiveClose = TIconButton(
       size: TWidgetSize.xs,
       icon: close,
-      onPressed: () => Navigator.of(context).pop(),
+      onPressed: () {
+        onDismiss?.call();
+        Navigator.of(context).pop();
+      },
     );
 
     /// Stack the close button on top of the title or content.
@@ -248,6 +258,7 @@ class TDialog extends StatelessWidget {
     return AlertDialog(
       insetPadding: EdgeInsets.symmetric(
         horizontal: ((width - maxWidth) / 2).clamp(TSpace.v16, width),
+        vertical: TSpace.v16,
       ),
       iconColor: tw.color.primary,
       iconPadding: TOffset.t24 + TOffset.x24,

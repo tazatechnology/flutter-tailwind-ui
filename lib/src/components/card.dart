@@ -18,6 +18,8 @@ class TCard extends StatelessWidget {
     this.padding,
     this.header,
     this.headerBorder,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.mainAxisAlignment = MainAxisAlignment.start,
   });
 
   /// The child widget to display inside the card.
@@ -46,6 +48,12 @@ class TCard extends StatelessWidget {
 
   /// The border side of the card heading.
   final BorderSide? headerBorder;
+
+  //// The cross axis alignment of the card content.
+  final CrossAxisAlignment crossAxisAlignment;
+
+  /// The main axis alignment of the card content.
+  final MainAxisAlignment mainAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +88,8 @@ class TCard extends StatelessWidget {
       ),
       child: Card(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: crossAxisAlignment,
+          mainAxisAlignment: mainAxisAlignment,
           children: [
             if (header != null)
               Container(
