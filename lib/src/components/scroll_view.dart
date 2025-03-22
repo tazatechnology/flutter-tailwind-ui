@@ -15,6 +15,7 @@ class TScrollView extends StatelessWidget {
     super.key,
     required this.child,
     this.maxWidth = TScreen.max_6xl,
+    this.fillHeight = true,
     this.padding,
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
@@ -34,6 +35,11 @@ class TScrollView extends StatelessWidget {
   /// The remaining space will be filled with padding and ensure that the padded
   /// area is still responsive to scroll events
   final double maxWidth;
+
+  /// Whether the scrollview should fill the height of the screen
+  ///
+  /// Will set the minimum height to the height of the screen
+  final bool fillHeight;
 
   /// The padding to apply to the scrollview content
   final EdgeInsets? padding;
@@ -79,29 +85,52 @@ class TScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tw = context.tw;
+
+    /// Account for the keyboard when it is shown\
+    /// Parent Scaffold must have `resizeToAvoidBottomInset: false`
+    final bottomInset = EdgeInsets.only(
+      bottom: MediaQuery.of(context).viewInsets.bottom,
+    );
+
     return TScrollbar.fromOptions(
       options: scrollbarOptions,
       controller: controller,
-      child: SingleChildScrollView(
-        scrollDirection: scrollDirection,
-        reverse: reverse,
-        primary: primary,
-        physics: physics,
-        controller: controller,
-        dragStartBehavior: dragStartBehavior,
-        clipBehavior: clipBehavior,
-        hitTestBehavior: hitTestBehavior,
-        restorationId: restorationId,
-        keyboardDismissBehavior: keyboardDismissBehavior,
-        child: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: maxWidth),
-            child: Padding(
-              padding: padding ?? TOffset.zero,
-              child: child,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final double minHeight =
+              constraints.hasBoundedHeight ? constraints.maxHeight : 0;
+          return SingleChildScrollView(
+            scrollDirection: scrollDirection,
+            reverse: reverse,
+            primary: primary,
+            physics: physics,
+            controller: controller,
+            dragStartBehavior: dragStartBehavior,
+            clipBehavior: clipBehavior,
+            hitTestBehavior: hitTestBehavior,
+            restorationId: restorationId,
+            keyboardDismissBehavior: keyboardDismissBehavior,
+            child: Center(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: maxWidth,
+                      minHeight: fillHeight ? minHeight : 0,
+                    ),
+                    child: AnimatedPadding(
+                      duration: kThemeAnimationDuration,
+                      curve: Curves.easeOut,
+                      padding: (padding ?? TOffset.zero) + bottomInset,
+                      child: child,
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
