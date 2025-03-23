@@ -14,6 +14,7 @@ class TButton extends StatelessWidget {
     super.key,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.theme,
     this.size = TWidgetSize.md,
@@ -32,6 +33,7 @@ class TButton extends StatelessWidget {
     super.key,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.theme,
     this.size = TWidgetSize.md,
@@ -50,6 +52,7 @@ class TButton extends StatelessWidget {
     super.key,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.theme,
     this.size = TWidgetSize.md,
@@ -68,6 +71,7 @@ class TButton extends StatelessWidget {
     super.key,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.theme,
     this.size = TWidgetSize.md,
@@ -87,6 +91,7 @@ class TButton extends StatelessWidget {
     super.key,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.theme,
     this.size = TWidgetSize.md,
@@ -110,6 +115,9 @@ class TButton extends StatelessWidget {
 
   /// The a trailing widget for the badge.
   final Widget? trailing;
+
+  /// The alignment of the button content.
+  final MainAxisAlignment? mainAxisAlignment;
 
   /// The widget to display when the [TWidgetStatesController] is in a loading state.
   final Widget? loading;
@@ -231,6 +239,7 @@ class TButton extends StatelessWidget {
     final defaultBorderRadius = getDefaultBorderRadius(size);
 
     return TStyledContainer(
+      mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
       height: WidgetStateProperty.resolveWith((states) {
         return theme?.height?.resolve(states) ?? defaultHeight;
       }),

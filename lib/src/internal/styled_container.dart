@@ -17,6 +17,8 @@ class TStyledContainer extends StatelessWidget {
     this.focusColor,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     this.loading,
     this.tooltip,
     this.tooltipLeading,
@@ -61,6 +63,12 @@ class TStyledContainer extends StatelessWidget {
 
   /// The a trailing widget.
   final Widget? trailing;
+
+  /// The main axis alignment of the widget content.
+  final MainAxisAlignment mainAxisAlignment;
+
+  /// The cross axis alignment of the widget content.
+  final CrossAxisAlignment crossAxisAlignment;
 
   /// The widget to display when the [TWidgetStatesController] is in a loading state.
   final Widget? loading;
@@ -689,6 +697,16 @@ class TStyledContainer extends StatelessWidget {
               );
             }
 
+            /// Determine the stack alignment based on the main axis alignment
+            Alignment alignment = Alignment.center;
+            if (mainAxisAlignment == MainAxisAlignment.start) {
+              alignment = Alignment.centerLeft;
+            } else if (mainAxisAlignment == MainAxisAlignment.center) {
+              alignment = Alignment.center;
+            } else if (mainAxisAlignment == MainAxisAlignment.end) {
+              alignment = Alignment.centerRight;
+            }
+
             return TFocusBorder(
               focused: states.focused,
               focusColor: focusColor ?? tw.color.focus,
@@ -720,13 +738,14 @@ class TStyledContainer extends StatelessWidget {
                       child: IconTheme(
                         data: iconTheme,
                         child: Stack(
-                          alignment: Alignment.center,
+                          alignment: alignment,
                           children: [
                             AnimatedOpacity(
                               opacity: isLoading ? 0 : 1,
                               duration: animationDuration,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: crossAxisAlignment,
+                                mainAxisAlignment: mainAxisAlignment,
                                 mainAxisSize: MainAxisSize.min,
                                 children: content,
                               ),
