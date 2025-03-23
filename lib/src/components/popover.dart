@@ -38,6 +38,13 @@ class TPopoverController {
   Future<void> toggle() async {
     await _toggleCallback?.call();
   }
+
+  /// Disposes the popover controller.
+  void dispose() {
+    _showCallback = null;
+    _hideCallback = null;
+    _toggleCallback = null;
+  }
 }
 // =============================================================================
 // CLASS: TPopover
