@@ -85,8 +85,6 @@ class TScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tw = context.tw;
-
     /// Account for the keyboard when it is shown\
     /// Parent Scaffold must have `resizeToAvoidBottomInset: false`
     final bottomInset = EdgeInsets.only(
