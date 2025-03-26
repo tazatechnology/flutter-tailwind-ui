@@ -279,6 +279,11 @@ class _TSliderFormFieldState extends FormFieldState<double> {
   String get maxString =>
       field.formatter?.call(field.max) ?? field.max.autoFormat();
 
+  /// A safe initial value that is within the min/max range.
+  double? get initialValueSafe {
+    return widget.initialValue?.clamp(field.min, field.max);
+  }
+
   // ---------------------------------------------------------------------------
   // METHOD: initState
   // ---------------------------------------------------------------------------
@@ -288,7 +293,7 @@ class _TSliderFormFieldState extends FormFieldState<double> {
     if (field.controller != null) {
       controller = field.controller!;
     } else {
-      controller = TSliderController(initialValue: widget.initialValue!);
+      controller = TSliderController(initialValue: initialValueSafe!);
     }
     inputController = TextEditingController(text: valueString);
     super.initState();
@@ -314,7 +319,9 @@ class _TSliderFormFieldState extends FormFieldState<double> {
   @override
   void reset() {
     super.reset();
-    controller.value = widget.initialValue!;
+    if (initialValueSafe != null) {
+      controller.value = initialValueSafe!;
+    }
     inputController.text = valueString;
   }
 
