@@ -17,6 +17,7 @@ class TCard extends StatelessWidget {
     this.elevation = TElevation.shadow_sm,
     this.padding,
     this.header,
+    this.headerColor,
     this.headerBorder,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.mainAxisAlignment = MainAxisAlignment.start,
@@ -45,6 +46,9 @@ class TCard extends StatelessWidget {
 
   /// The heading widget to display inside the card.
   final Widget? header;
+
+  /// The color of the card header.
+  final Color? headerColor;
 
   /// The border side of the card heading.
   final BorderSide? headerBorder;
@@ -96,13 +100,14 @@ class TCard extends StatelessWidget {
                 constraints: const BoxConstraints(minWidth: double.infinity),
                 padding: effectivePadding,
                 decoration: BoxDecoration(
+                  color: headerColor,
                   border: Border(
                     bottom: headerBorder ?? defaultBorder,
                   ),
                 ),
                 child: DefaultTextStyle.merge(
                   style: TextStyle(
-                    color: tw.color.title,
+                    color: headerColor?.contrastBlackWhite() ?? tw.color.title,
                     fontWeight: TFontWeight.semibold,
                   ),
                   child: header!,
