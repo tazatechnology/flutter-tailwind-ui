@@ -9,6 +9,7 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 class TScrollbarOptions {
   /// Constructor for [TScrollbarOptions]
   const TScrollbarOptions({
+    this.visible = true,
     this.thumbVisibility,
     this.trackVisibility,
     this.thumbColor,
@@ -23,6 +24,11 @@ class TScrollbarOptions {
     this.crossAxisMargin = TSpace.v4,
     this.minThumbLength,
   });
+
+  /// If `false` completely hides the scrollbar and its track
+  ///
+  /// When `false`, all other visibility options are ignored
+  final bool visible;
 
   /// Whether the scrollbar is visible
   ///
@@ -80,6 +86,7 @@ class TScrollbar extends StatelessWidget {
   const TScrollbar({
     required this.child,
     this.controller,
+    this.visible = true,
     this.thumbVisibility,
     this.trackVisibility,
     this.thumbColor,
@@ -104,6 +111,7 @@ class TScrollbar extends StatelessWidget {
   }) {
     return TScrollbar(
       controller: controller,
+      visible: options.visible,
       thumbVisibility: options.thumbVisibility,
       trackVisibility: options.trackVisibility,
       thumbColor: options.thumbColor,
@@ -126,6 +134,11 @@ class TScrollbar extends StatelessWidget {
 
   /// The controller for the scrollable widget
   final ScrollController? controller;
+
+  /// If `false` completely hides the scrollbar and its track
+  ///
+  /// When `false`, all other visibility options are ignored
+  final bool visible;
 
   /// Whether the scrollbar is visible
   ///
@@ -174,7 +187,6 @@ class TScrollbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visible = (thumbVisibility ?? true) != false;
     return ScrollConfiguration(
       behavior: visible
           ? _ShowScrollbarBehavior(
