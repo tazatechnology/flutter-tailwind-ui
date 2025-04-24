@@ -153,6 +153,8 @@ class TSelectionGroupTile extends StatelessWidget {
     required this.description,
     required this.control,
     required this.radius,
+    required this.padding,
+    required this.elevation,
     required this.selected,
     required this.enabled,
     required this.affinity,
@@ -184,8 +186,14 @@ class TSelectionGroupTile extends StatelessWidget {
   /// The control widget
   final Widget control;
 
-  /// The radius the card
+  /// The radius the card or panel
   final double radius;
+
+  /// The padding of the card or panel
+  final EdgeInsets padding;
+
+  /// The padding of the card or panel
+  final double elevation;
 
   /// Is the item selected
   final bool selected;
@@ -337,8 +345,8 @@ class TSelectionGroupTile extends StatelessWidget {
           onTap: enabled ? () => onChanged(!selected) : null,
           builder: (context, states) {
             return TCard(
-              padding: TOffset.a16,
-              elevation: TElevation.shadow_xs,
+              padding: padding,
+              elevation: elevation,
               borderRadius: BorderRadius.circular(radius),
               border: BorderSide(
                 color: selected && applySelectedBorderColor
@@ -395,7 +403,8 @@ class TSelectionGroupTile extends StatelessWidget {
                 border: Border(bottom: bottom, left: left),
               ),
               child: TCard(
-                padding: TOffset.a16,
+                padding: padding,
+                elevation: elevation,
                 borderRadius: itemBorderRadius,
                 border: selected
                     ? BorderSide(color: selectedBorderColor, width: 1.5)

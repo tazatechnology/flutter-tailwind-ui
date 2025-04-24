@@ -50,7 +50,7 @@ class TSwitch extends StatelessWidget {
   /// The padding of the switch
   ///
   /// Will be added to the gesture detector
-  final EdgeInsetsGeometry padding;
+  final EdgeInsets padding;
 
   /// The value of the switch
   final bool value;
@@ -194,6 +194,7 @@ class TSwitchTile extends TFormField<bool> {
   }) : super(
           id: id ?? 'TSwitchTile',
           child: _TSwitchTileFormField(
+            variant: TSelectionGroupVariant.basic,
             affinity: affinity,
             color: color,
             description: description,
@@ -203,9 +204,9 @@ class TSwitchTile extends TFormField<bool> {
             initialValue: initialValue,
             onChanged: onChanged,
             padding: padding,
+            elevation: 0,
             radius: 0,
             title: title,
-            variant: TSelectionGroupVariant.basic,
           ),
         );
 
@@ -223,10 +224,12 @@ class TSwitchTile extends TFormField<bool> {
     this.onChanged,
     this.padding = TOffset.a0,
     double radius = TRadius.rounded_lg,
+    double elevation = TElevation.shadow_xs,
     this.title,
   }) : super(
           id: id ?? 'TSwitchTile.card',
           child: _TSwitchTileFormField(
+            variant: TSelectionGroupVariant.card,
             affinity: affinity,
             color: color,
             description: description,
@@ -236,9 +239,9 @@ class TSwitchTile extends TFormField<bool> {
             initialValue: initialValue,
             onChanged: onChanged,
             padding: padding,
+            elevation: elevation,
             radius: radius,
             title: title,
-            variant: TSelectionGroupVariant.card,
           ),
         );
 
@@ -267,9 +270,7 @@ class TSwitchTile extends TFormField<bool> {
   final ValueChanged<bool>? onChanged;
 
   /// The padding of the switch
-  ///
-  /// Will be added to the gesture detector
-  final EdgeInsetsGeometry padding;
+  final EdgeInsets padding;
 
   /// The title of this switch tile
   final Widget? title;
@@ -290,6 +291,7 @@ class _TSwitchTileFormField extends FormField<bool> {
     required super.initialValue,
     required this.onChanged,
     required this.padding,
+    required this.elevation,
     required this.radius,
     required this.title,
     required this.variant,
@@ -305,8 +307,9 @@ class _TSwitchTileFormField extends FormField<bool> {
   final FocusNode? focusNode;
   final Widget? indicator;
   final ValueChanged<bool>? onChanged;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsets padding;
   final double radius;
+  final double elevation;
   final Widget? title;
   final TSelectionGroupVariant variant;
 
@@ -356,6 +359,8 @@ class _TSwitchTileFormFieldState extends FormFieldState<bool> {
       applySelectedBorderColor: false,
       controlCrossAxisAlignment: CrossAxisAlignment.center,
       radius: field.radius,
+      padding: field.padding,
+      elevation: field.elevation,
       selected: value ?? false,
       enabled: field.enabled,
       affinity: field.affinity,
@@ -409,9 +414,12 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
     this.axis = Axis.vertical,
     super.key,
   })  : radius = 0,
+        padding = TOffset.zero,
+        elevation = 0,
         super(
           id: id ?? 'TSwitchGroup',
           child: _TSwitchGroupFormField(
+            variant: TSelectionGroupVariant.basic,
             affinity: affinity,
             axis: axis,
             children: children,
@@ -421,8 +429,9 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
             label: label,
             onChanged: onChanged,
             spacing: spacing,
-            variant: TSelectionGroupVariant.basic,
             radius: 0,
+            padding: TOffset.zero,
+            elevation: 0,
           ),
         );
 
@@ -440,9 +449,12 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
     this.axis = Axis.vertical,
     super.key,
   })  : radius = 0,
+        padding = TOffset.zero,
+        elevation = 0,
         super(
           id: id ?? 'TSwitchGroup.separated',
           child: _TSwitchGroupFormField(
+            variant: TSelectionGroupVariant.separated,
             affinity: affinity,
             axis: axis,
             children: children,
@@ -452,8 +464,9 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
             label: label,
             onChanged: onChanged,
             spacing: spacing,
-            variant: TSelectionGroupVariant.separated,
             radius: 0,
+            padding: TOffset.zero,
+            elevation: 0,
           ),
         );
 
@@ -468,12 +481,15 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
     this.color,
     this.spacing,
     this.affinity = TControlAffinity.leading,
-    this.radius = TRadius.rounded_lg,
     this.axis = Axis.vertical,
+    this.radius = TRadius.rounded_lg,
+    this.padding = TOffset.a16,
+    this.elevation = TElevation.shadow_xs,
     super.key,
   }) : super(
           id: id ?? 'TSwitchGroup.card',
           child: _TSwitchGroupFormField(
+            variant: TSelectionGroupVariant.card,
             affinity: affinity,
             axis: axis,
             children: children,
@@ -483,8 +499,9 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
             label: label,
             onChanged: onChanged,
             spacing: spacing,
-            variant: TSelectionGroupVariant.card,
             radius: radius,
+            padding: padding,
+            elevation: elevation,
           ),
         );
 
@@ -498,13 +515,16 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
     Object? id,
     this.color,
     this.affinity = TControlAffinity.leading,
-    this.radius = TRadius.rounded_lg,
     this.axis = Axis.vertical,
+    this.radius = TRadius.rounded_lg,
+    this.padding = TOffset.a16,
+    this.elevation = 0,
     super.key,
   })  : spacing = 0,
         super(
           id: id ?? 'TSwitchGroup.card',
           child: _TSwitchGroupFormField(
+            variant: TSelectionGroupVariant.panel,
             affinity: affinity,
             axis: axis,
             children: children,
@@ -514,8 +534,9 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
             label: label,
             onChanged: onChanged,
             spacing: 0,
-            variant: TSelectionGroupVariant.panel,
             radius: radius,
+            padding: padding,
+            elevation: elevation,
           ),
         );
 
@@ -550,6 +571,16 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
   /// Only used for [TSwitchGroup.card] and [TSwitchGroup.panel] variants.
   final double radius;
 
+  /// The padding to be applied to each radio group item
+  ///
+  /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
+  final EdgeInsets padding;
+
+  /// The elevation to be applied to each radio group item
+  ///
+  /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
+  final double elevation;
+
   /// The spacing between the group elements.
   ///
   /// If not specified, default is based on [TSelectionGroupVariant].
@@ -575,6 +606,8 @@ class _TSwitchGroupFormField<T> extends FormField<List<T>> {
     required this.axis,
     required this.variant,
     required this.radius,
+    required this.padding,
+    required this.elevation,
   }) : super(
           builder: (field) {
             final state = field as _TSwitchGroupFormFieldState<T>;
@@ -590,6 +623,8 @@ class _TSwitchGroupFormField<T> extends FormField<List<T>> {
   final Widget? label;
   final ValueChanged<List<T>>? onChanged;
   final double radius;
+  final EdgeInsets padding;
+  final double elevation;
   final double? spacing;
   final TSelectionGroupVariant variant;
 
@@ -665,6 +700,8 @@ class _TSwitchGroupFormFieldState<T> extends FormFieldState<List<T>> {
           description: item.description,
           controlCrossAxisAlignment: CrossAxisAlignment.center,
           radius: field.radius,
+          padding: field.padding,
+          elevation: field.elevation,
           enabled: item.enabled,
           affinity: field.affinity,
           axis: field.axis,

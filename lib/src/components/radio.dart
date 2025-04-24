@@ -50,7 +50,7 @@ class TRadio extends StatelessWidget {
   /// The padding of the radio
   ///
   /// Will be added to the gesture detector
-  final EdgeInsetsGeometry padding;
+  final EdgeInsets padding;
 
   /// The value of the radio
   final bool value;
@@ -189,9 +189,12 @@ class TRadioGroup<T> extends TFormField<T> {
     required this.children,
     this.spacing,
   })  : radius = 0,
+        padding = TOffset.zero,
+        elevation = 0,
         super(
           id: id ?? 'TRadioGroup',
           child: _TRadioGroupFormField<T>(
+            variant: TSelectionGroupVariant.basic,
             affinity: affinity,
             color: color,
             description: description,
@@ -202,7 +205,8 @@ class TRadioGroup<T> extends TFormField<T> {
             spacing: spacing,
             onChanged: onChanged,
             radius: 0,
-            variant: TSelectionGroupVariant.basic,
+            padding: TOffset.zero,
+            elevation: 0,
           ),
         );
 
@@ -220,9 +224,12 @@ class TRadioGroup<T> extends TFormField<T> {
     required this.children,
     this.spacing,
   })  : radius = 0,
+        padding = TOffset.zero,
+        elevation = 0,
         super(
           id: id ?? 'TRadioGroup.separated',
           child: _TRadioGroupFormField<T>(
+            variant: TSelectionGroupVariant.separated,
             affinity: affinity,
             color: color,
             description: description,
@@ -233,7 +240,8 @@ class TRadioGroup<T> extends TFormField<T> {
             spacing: spacing,
             onChanged: onChanged,
             radius: 0,
-            variant: TSelectionGroupVariant.separated,
+            padding: TOffset.zero,
+            elevation: 0,
           ),
         );
 
@@ -251,9 +259,12 @@ class TRadioGroup<T> extends TFormField<T> {
     required this.children,
     this.spacing,
     this.radius = TRadius.rounded_lg,
+    this.padding = TOffset.a16,
+    this.elevation = TElevation.shadow_xs,
   }) : super(
           id: id ?? 'TRadioGroup.card',
           child: _TRadioGroupFormField<T>(
+            variant: TSelectionGroupVariant.card,
             affinity: affinity,
             color: color,
             description: description,
@@ -264,7 +275,8 @@ class TRadioGroup<T> extends TFormField<T> {
             spacing: spacing,
             onChanged: onChanged,
             radius: radius,
-            variant: TSelectionGroupVariant.card,
+            padding: padding,
+            elevation: elevation,
           ),
         );
 
@@ -281,10 +293,13 @@ class TRadioGroup<T> extends TFormField<T> {
     this.onChanged,
     required this.children,
     this.radius = TRadius.rounded_lg,
+    this.padding = TOffset.a16,
+    this.elevation = 0,
   })  : spacing = 0,
         super(
           id: id ?? 'TRadioGroup.panel',
           child: _TRadioGroupFormField<T>(
+            variant: TSelectionGroupVariant.panel,
             affinity: affinity,
             color: color,
             description: description,
@@ -295,7 +310,8 @@ class TRadioGroup<T> extends TFormField<T> {
             spacing: 0,
             onChanged: onChanged,
             radius: radius,
-            variant: TSelectionGroupVariant.panel,
+            padding: padding,
+            elevation: elevation,
           ),
         );
 
@@ -328,6 +344,16 @@ class TRadioGroup<T> extends TFormField<T> {
   /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
   final double radius;
 
+  /// The padding to be applied to each radio group item
+  ///
+  /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
+  final EdgeInsets padding;
+
+  /// The elevation to be applied to each radio group item
+  ///
+  /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
+  final double elevation;
+
   /// The spacing between the group elements.
   ///
   /// If not specified, default is based on [TSelectionGroupVariant].
@@ -349,6 +375,8 @@ class _TRadioGroupFormField<T> extends FormField<T> {
     required this.label,
     required this.onChanged,
     required this.radius,
+    required this.padding,
+    required this.elevation,
     required this.spacing,
     required this.variant,
   }) : super(
@@ -365,6 +393,8 @@ class _TRadioGroupFormField<T> extends FormField<T> {
   final Widget? label;
   final ValueChanged<T?>? onChanged;
   final double radius;
+  final EdgeInsets padding;
+  final double elevation;
   final double? spacing;
   final TSelectionGroupVariant variant;
 
@@ -513,6 +543,8 @@ class _TSwitchTileFormFieldState<T> extends FormFieldState<T> {
           title: item.title,
           description: item.description,
           radius: field.radius,
+          padding: field.padding,
+          elevation: field.elevation,
           selected: selected,
           enabled: item.enabled,
           affinity: field.affinity,

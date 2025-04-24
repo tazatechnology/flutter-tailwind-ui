@@ -141,6 +141,7 @@ class _TPopoverState extends State<TPopover> {
   @override
   void dispose() {
     removeOverlay();
+    overlayEntry?.remove();
     overlayEntry?.dispose();
     contentNotifier.close();
     animationController.dispose();

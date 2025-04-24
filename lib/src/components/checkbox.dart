@@ -50,7 +50,7 @@ class TCheckbox extends StatelessWidget {
   /// The padding of the checkbox
   ///
   /// Will be added to the gesture detector
-  final EdgeInsetsGeometry padding;
+  final EdgeInsets padding;
 
   /// The value of the checkbox
   final bool value;
@@ -170,9 +170,11 @@ class TCheckboxTile extends TFormField<bool> {
     this.onChanged,
     this.padding = TOffset.a0,
     this.title,
-  }) : super(
+  })  : elevation = 0,
+        super(
           id: id ?? 'TCheckboxTile',
           child: _TCheckboxTileFormField(
+            variant: TSelectionGroupVariant.basic,
             title: title,
             description: description,
             onChanged: onChanged,
@@ -184,7 +186,7 @@ class TCheckboxTile extends TFormField<bool> {
             initialValue: initialValue,
             affinity: affinity,
             radius: 0,
-            variant: TSelectionGroupVariant.basic,
+            elevation: 0,
           ),
         );
 
@@ -201,11 +203,13 @@ class TCheckboxTile extends TFormField<bool> {
     this.initialValue = false,
     this.onChanged,
     this.padding = TOffset.a0,
+    this.elevation = TElevation.shadow_xs,
     double radius = TRadius.rounded_lg,
     this.title,
   }) : super(
           id: id ?? 'TCheckboxTile.card',
           child: _TCheckboxTileFormField(
+            variant: TSelectionGroupVariant.card,
             title: title,
             description: description,
             onChanged: onChanged,
@@ -217,7 +221,7 @@ class TCheckboxTile extends TFormField<bool> {
             initialValue: initialValue,
             affinity: affinity,
             radius: radius,
-            variant: TSelectionGroupVariant.card,
+            elevation: elevation,
           ),
         );
 
@@ -246,9 +250,10 @@ class TCheckboxTile extends TFormField<bool> {
   final ValueChanged<bool>? onChanged;
 
   /// The padding of the checkbox
-  ///
-  /// Will be added to the gesture detector
-  final EdgeInsetsGeometry padding;
+  final EdgeInsets padding;
+
+  /// The elevation of the checkbox (card only)
+  final double elevation;
 
   /// The title of this checkbox tile
   final Widget? title;
@@ -270,6 +275,7 @@ class _TCheckboxTileFormField extends FormField<bool> {
     required this.onChanged,
     required this.padding,
     required this.radius,
+    required this.elevation,
     required this.title,
     required this.variant,
   }) : super(
@@ -284,8 +290,9 @@ class _TCheckboxTileFormField extends FormField<bool> {
   final FocusNode? focusNode;
   final Widget? indicator;
   final ValueChanged<bool>? onChanged;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsets padding;
   final double radius;
+  final double elevation;
   final Widget? title;
   final TSelectionGroupVariant variant;
 
@@ -334,6 +341,8 @@ class _TCheckboxTileFormFieldState extends FormFieldState<bool> {
       description: field.description,
       applySelectedBorderColor: false,
       radius: field.radius,
+      padding: field.padding,
+      elevation: field.elevation,
       selected: value ?? false,
       enabled: widget.enabled,
       affinity: field.affinity,
@@ -387,9 +396,12 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
     this.axis = Axis.vertical,
     super.key,
   })  : radius = 0,
+        padding = TOffset.zero,
+        elevation = 0,
         super(
           id: id ?? 'TCheckboxGroup',
           child: _TCheckboxGroupFormField(
+            variant: TSelectionGroupVariant.basic,
             affinity: affinity,
             axis: axis,
             children: children,
@@ -399,8 +411,9 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
             label: label,
             onChanged: onChanged,
             spacing: spacing,
-            variant: TSelectionGroupVariant.basic,
             radius: 0,
+            padding: TOffset.zero,
+            elevation: 0,
           ),
         );
 
@@ -418,9 +431,12 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
     this.axis = Axis.vertical,
     super.key,
   })  : radius = 0,
+        padding = TOffset.zero,
+        elevation = 0,
         super(
           id: id ?? 'TCheckboxGroup.separated',
           child: _TCheckboxGroupFormField(
+            variant: TSelectionGroupVariant.separated,
             affinity: affinity,
             axis: axis,
             children: children,
@@ -430,8 +446,9 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
             label: label,
             onChanged: onChanged,
             spacing: spacing,
-            variant: TSelectionGroupVariant.separated,
             radius: 0,
+            padding: TOffset.zero,
+            elevation: 0,
           ),
         );
 
@@ -446,12 +463,15 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
     this.color,
     this.spacing,
     this.affinity = TControlAffinity.leading,
-    this.radius = TRadius.rounded_lg,
     this.axis = Axis.vertical,
+    this.radius = TRadius.rounded_lg,
+    this.padding = TOffset.a16,
+    this.elevation = TElevation.shadow_xs,
     super.key,
   }) : super(
           id: id ?? 'TCheckboxGroup.card',
           child: _TCheckboxGroupFormField(
+            variant: TSelectionGroupVariant.card,
             affinity: affinity,
             axis: axis,
             children: children,
@@ -461,8 +481,9 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
             label: label,
             onChanged: onChanged,
             spacing: spacing,
-            variant: TSelectionGroupVariant.card,
             radius: radius,
+            padding: padding,
+            elevation: elevation,
           ),
         );
 
@@ -476,13 +497,16 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
     Object? id,
     this.color,
     this.affinity = TControlAffinity.leading,
-    this.radius = TRadius.rounded_lg,
     this.axis = Axis.vertical,
+    this.radius = TRadius.rounded_lg,
+    this.padding = TOffset.a16,
+    this.elevation = 0,
     super.key,
   })  : spacing = 0,
         super(
           id: id ?? 'TCheckboxGroup.card',
           child: _TCheckboxGroupFormField(
+            variant: TSelectionGroupVariant.panel,
             affinity: affinity,
             axis: axis,
             children: children,
@@ -492,8 +516,9 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
             label: label,
             onChanged: onChanged,
             spacing: 0,
-            variant: TSelectionGroupVariant.panel,
             radius: radius,
+            padding: padding,
+            elevation: elevation,
           ),
         );
 
@@ -528,6 +553,16 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
   /// Only used for [TCheckboxGroup.card] and [TCheckboxGroup.panel] variants.
   final double radius;
 
+  /// The padding to be applied to each radio group item
+  ///
+  /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
+  final EdgeInsets padding;
+
+  /// The elevation to be applied to each radio group item
+  ///
+  /// Only used for [TRadioGroup.card] and [TRadioGroup.panel] variants.
+  final double elevation;
+
   /// The spacing between the group elements.
   ///
   /// If not specified, default is based on [TSelectionGroupVariant].
@@ -552,6 +587,8 @@ class _TCheckboxGroupFormField<T> extends FormField<List<T>> {
     required this.axis,
     required this.variant,
     required this.radius,
+    required this.padding,
+    required this.elevation,
   }) : super(
           builder: (field) {
             final state = field as _TCheckboxGroupFormFieldState<T>;
@@ -567,6 +604,8 @@ class _TCheckboxGroupFormField<T> extends FormField<List<T>> {
   final Widget? label;
   final ValueChanged<List<T>>? onChanged;
   final double radius;
+  final EdgeInsets padding;
+  final double elevation;
   final double? spacing;
   final TSelectionGroupVariant variant;
 
@@ -642,6 +681,8 @@ class _TCheckboxGroupFormFieldState<T> extends FormFieldState<List<T>> {
           title: item.title,
           description: item.description,
           radius: field.radius,
+          padding: field.padding,
+          elevation: field.elevation,
           enabled: item.enabled,
           affinity: field.affinity,
           axis: field.axis,
