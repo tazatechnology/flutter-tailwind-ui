@@ -126,7 +126,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
     final effectiveBorderRadius =
         theme.borderRadius ?? TBorderRadius.rounded_lg;
 
-    final effectivePadding = theme.padding ?? TOffset.a20;
+    final effectivePadding = theme.padding ?? TOffset.a16;
 
     BoxConstraints effectiveConstraints =
         theme.constraints ?? const BoxConstraints();
@@ -184,7 +184,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
                           mainAxisAlignment: widget.mainAxisAlignment,
                           crossAxisAlignment: widget.crossAxisAlignment,
                           children: [
-                            SelectableText.rich(
+                            Text.rich(
                               spans,
                               style: TTextStyle.text_sm.copyWith(
                                 fontFamily: TTextStyle.fontFamilyMono,
@@ -206,18 +206,22 @@ class _TCodeBlockState extends State<TCodeBlock> {
             builder: (BuildContext context, snapshot) {
               final copied = snapshot.data ?? false;
               return Padding(
-                padding: const EdgeInsets.all(10),
-                child: IconButton(
-                  mouseCursor: copied
-                      ? SystemMouseCursors.basic
-                      : SystemMouseCursors.click,
+                padding: effectivePadding.copyWith(
+                  right: effectivePadding.right / 2,
+                  top: effectivePadding.top / 2,
+                ),
+                child: TIconButton(
                   onPressed: () => copy(code),
-                  hoverColor: light
-                      ? Colors.black.withValues(alpha: 0.03)
-                      : Colors.white.withValues(alpha: 0.1),
-                  iconSize: copied ? 16 : 14,
+                  theme: TStyleTheme(
+                    mouseCursor: WidgetStateProperty.all(
+                      copied
+                          ? SystemMouseCursors.basic
+                          : SystemMouseCursors.click,
+                    ),
+                  ),
                   icon: Icon(
                     copied ? Icons.check : Icons.copy,
+                    size: copied ? 16 : 14,
                     color: copied
                         ? Colors.green
                         : (light ? Colors.black54 : Colors.white60),
