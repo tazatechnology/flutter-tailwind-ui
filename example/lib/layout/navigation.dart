@@ -54,49 +54,49 @@ class _AppNavigationState extends State<AppNavigation> {
         'Letter Spacing': AppRouter.letter_spacing,
       },
       'Text': {
-        '``TText``': AppRouter.text,
+        'TText': AppRouter.text,
       },
       'Badges & Buttons': {
-        '``TBadge``': AppRouter.badge,
-        '``TButton``': AppRouter.button,
-        '``TIconButton``': AppRouter.icon_button,
-        '``TSplitButton``': AppRouter.split_button,
-        '``TLink``': AppRouter.link,
+        'TBadge': AppRouter.badge,
+        'TButton': AppRouter.button,
+        'TIconButton': AppRouter.icon_button,
+        'TSplitButton': AppRouter.split_button,
+        'TLink': AppRouter.link,
       },
       'Controls': {
-        '``TRadio``': AppRouter.radio,
-        '``TCheckbox``': AppRouter.checkbox,
-        '``TSwitch``': AppRouter.switch_control,
+        'TRadio': AppRouter.radio,
+        'TCheckbox': AppRouter.checkbox,
+        'TSwitch': AppRouter.switch_control,
       },
       'Form Components': {
-        '``TInput``': AppRouter.input,
-        '``TSelect``': AppRouter.select,
-        '``TSlider``': AppRouter.slider,
-        '``TRadioGroup``': AppRouter.radio_group,
-        '``TCheckboxTile``': AppRouter.checkbox_tile,
-        '``TCheckboxGroup``': AppRouter.checkbox_group,
-        '``TSwitchTile``': AppRouter.switch_tile,
-        '``TSwitchGroup``': AppRouter.switch_group,
+        'TInput': AppRouter.input,
+        'TSelect': AppRouter.select,
+        'TSlider': AppRouter.slider,
+        'TRadioGroup': AppRouter.radio_group,
+        'TCheckboxTile': AppRouter.checkbox_tile,
+        'TCheckboxGroup': AppRouter.checkbox_group,
+        'TSwitchTile': AppRouter.switch_tile,
+        'TSwitchGroup': AppRouter.switch_group,
       },
       'Form': {
-        '``TFormField``': AppRouter.form_field,
-        '``TForm``': AppRouter.form,
+        'TFormField': AppRouter.form_field,
+        'TForm': AppRouter.form,
       },
       'Layout': {
-        '``TCard``': AppRouter.card,
-        '``TDialog``': AppRouter.dialog,
-        '``TExpand``': AppRouter.expand,
-        '``TRowColumn``': AppRouter.row_column,
-        '``TPopover``': AppRouter.popover,
-        '``TSizedBox``': AppRouter.sized_box,
+        'TCard': AppRouter.card,
+        'TDialog': AppRouter.dialog,
+        'TExpand': AppRouter.expand,
+        'TRowColumn': AppRouter.row_column,
+        'TPopover': AppRouter.popover,
+        'TSizedBox': AppRouter.sized_box,
       },
       'Filters': {
-        '``TFilter``': AppRouter.filter,
-        '``TBackdropFilter``': AppRouter.backdrop_filter,
+        'TFilter': AppRouter.filter,
+        'TBackdropFilter': AppRouter.backdrop_filter,
       },
       'Other': {
-        '``TAlert``': AppRouter.alert,
-        '``TCodeBlock``': AppRouter.code_block,
+        'TAlert': AppRouter.alert,
+        'TCodeBlock': AppRouter.code_block,
       },
     };
 
@@ -177,7 +177,7 @@ class AppNavigationSection extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 6,
+                spacing: TSpace.v2,
                 children: items,
               ),
             ],
@@ -273,7 +273,12 @@ class _AppNavigationItemState extends ConsumerState<AppNavigationItem> {
         onHover: (value) {
           setState(() => isHovered = value);
         },
-        child: TText(widget.title),
+        child: Text(
+          widget.title,
+          style: TTextStyle.text_xs.copyWith(
+            fontFamily: TTextStyle.fontFamilyMono,
+          ),
+        ),
       ),
     );
   }

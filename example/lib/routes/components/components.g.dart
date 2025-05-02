@@ -5107,24 +5107,6 @@ const TText(
 """;
 }
 
-/// Source code for [_TTextUnderline]
-class _TTextUnderlineSource {
-  static const String code = r"""
-const TText(
-  'These are all underlined: <u>text</u>, <ins>text</ins>.',
-)
-""";
-}
-
-/// Source code for [_TTextMonospace]
-class _TTextMonospaceSource {
-  static const String code = r"""
-const TText(
-  'These are all monospace: ``text``, <mono>text</mono>.',
-)
-""";
-}
-
 /// Source code for [_TTextCode]
 class _TTextCodeSource {
   static const String code = r"""
@@ -5169,86 +5151,13 @@ const Column(
 /// Source code for [_TTextFormattedCode]
 class _TTextFormattedCodeSource {
   static const String code = r"""
-const Column(
-  children: [
-    TText(
-      'This **`text`** is bold code - order <u>does</u> matter here.',
-    ),
-    TText(
-      'This `**text**` is bold code - order <u>does</u> matter here.',
-    ),
-  ],
-)
+const TText('This **`text`** is bold code.')
 """;
 }
 
 /// Source code for [_TTextFormattedLink]
 class _TTextFormattedLinkSource {
   static const String code = r"""
-const Column(
-  children: [
-    TText(
-      'This **[text](https://pub.dev)** is a bold link - order does not matter.',
-    ),
-    TText(
-      'This [**text**](https://pub.dev) is a bold link - order does not matter.',
-    ),
-  ],
-)
-""";
-}
-
-/// Source code for [_TTextCustomStyle]
-class _TTextCustomStyleSource {
-  static const String code = r"""
-TText(
-  'This a custom formatter to create <red>colored</red> text',
-  formatters: [
-    TRichFormatter(
-      regex: [RegExp(r'<red>(.*?)<\/red>')],
-      style: const TextStyle(color: TColors.red),
-    ),
-  ],
-)
-""";
-}
-
-/// Source code for [_TTextCustomStyleBuilderAdvanced]
-class _TTextCustomStyleBuilderAdvancedSource {
-  static const String code = r"""
-TText(
-  'This a custom formatter to add an inline <my-button>action</my-button> span',
-  formatters: [
-    TRichFormatter(
-      regex: [RegExp(r'<my-button>(.*?)<\/my-button>')],
-      builder: (match) {
-        return WidgetSpan(
-          alignment: PlaceholderAlignment.middle,
-          child: TButton.outlined(
-            size: TWidgetSize.xs,
-            selectableText: true,
-            tooltip: 'Click Me',
-            theme: TStyleTheme(
-              animationDuration: const Duration(milliseconds: 100),
-              backgroundColor: WidgetStateProperty.all(Colors.transparent),
-              borderRadius: WidgetStateProperty.resolveWith((states) {
-                if (states.hovered) {
-                  return TBorderRadius.rounded_full;
-                } else {
-                  return TBorderRadius.rounded_md;
-                }
-              }),
-              textStyle: WidgetStateProperty.all(
-                const TextStyle(color: TColors.sky),
-              ),
-            ),
-            child: Text(match.textMatch),
-            onPressed: () {},
-          ),
-        );
-      },
-    ),
-  ],
-)
+const TText('This **[text](https://pub.dev)** is a bold link')
 """;
 }

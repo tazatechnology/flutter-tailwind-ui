@@ -62,4 +62,3 @@ export 'src/theme/theme.dart';
 export 'src/utilities/debouncer.dart';
 export 'src/utilities/filter_matrix.dart';
 export 'src/utilities/highlighter.dart';
-export 'src/utilities/rich_parser.dart';

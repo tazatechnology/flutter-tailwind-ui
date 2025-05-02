@@ -103,17 +103,10 @@ class _TCodeBlockState extends State<TCodeBlock> {
     final light = theme.brightness == Brightness.light;
 
     Color? effectiveBackgroundColor = theme.backgroundColor;
-    if (effectiveBackgroundColor == null) {
-      if (context.theme.brightness == theme.brightness) {
-        effectiveBackgroundColor = tw.color.card;
-      } else {
-        if (light) {
-          effectiveBackgroundColor = TailwindColorTheme.light().card;
-        } else {
-          effectiveBackgroundColor = TailwindColorTheme.dark().card;
-        }
-      }
-    }
+
+    // Match the GitHub style for code blocks
+    effectiveBackgroundColor ??=
+        tw.light ? const Color(0xfff6f8fa) : const Color(0xff151b23);
 
     final effectiveBorder = theme.border ??
         Border.all(

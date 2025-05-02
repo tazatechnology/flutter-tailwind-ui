@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 // =============================================================================
 // CLASS: TTooltip
@@ -15,7 +14,6 @@ class TTooltip extends StatefulWidget {
     this.textStyle,
     this.gap = 4,
     this.preferBelow = false,
-    this.rich = true,
     super.key,
   });
 
@@ -36,9 +34,6 @@ class TTooltip extends StatefulWidget {
 
   /// Whether to prefer showing the tooltip below the child widget.
   final bool preferBelow;
-
-  /// Convert message to rich text formatting using [TRichParser].
-  final bool rich;
 
   @override
   State<TTooltip> createState() => _TTooltipState();
@@ -77,30 +72,13 @@ class _TTooltipState extends State<TTooltip> {
       return widget.child;
     }
 
-    String? effectiveMessage;
-    InlineSpan? effectiveRichMessage;
     final tooltipTheme = TooltipTheme.of(context);
-
-    final textStyle = tooltipTheme.textStyle
-        ?.copyWithout(color: true)
-        .merge(widget.textStyle);
-
-    if (widget.rich) {
-      effectiveRichMessage = TRichParser().parse(
-        context: context,
-        text: widget.message!,
-        style: textStyle,
-      );
-    } else {
-      effectiveMessage = widget.message;
-    }
 
     return Tooltip(
       preferBelow: widget.preferBelow,
-      textStyle: widget.rich ? null : textStyle,
+      textStyle: tooltipTheme.textStyle?.merge(widget.textStyle),
       waitDuration: widget.waitDuration,
-      message: effectiveMessage,
-      richMessage: effectiveRichMessage,
+      message: widget.message,
       verticalOffset: childHeight / 2 + widget.gap,
       child: KeyedSubtree(
         key: childKey,
