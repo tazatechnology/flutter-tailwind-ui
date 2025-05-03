@@ -616,6 +616,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                 },
                 physics: const ClampingScrollPhysics(),
                 itemBuilder: (context, index) {
+                  final tw = context.tw;
                   // Make sure index is within bounds
                   if (index < 0 || index >= currentItems.length) {
                     return const SizedBox.shrink();
