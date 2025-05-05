@@ -100,7 +100,10 @@ class _TCodeBlockState extends State<TCodeBlock> {
     final tw = context.tw;
     final theme = widget.theme ?? const TCodeBlockTheme();
 
-    final light = theme.brightness == Brightness.light;
+    final effectiveBrightness =
+        theme.brightness ?? Theme.of(context).brightness;
+
+    final light = effectiveBrightness == Brightness.light;
 
     Color? effectiveBackgroundColor = theme.backgroundColor;
 
@@ -137,7 +140,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
         children: [
           Theme(
             data: Theme.of(context).copyWith(
-              brightness: theme.brightness,
+              brightness: effectiveBrightness,
               textSelectionTheme: TextSelectionThemeData(
                 selectionColor:
                     light ? const Color(0xffb6d7ff) : const Color(0xff385479),
@@ -154,13 +157,13 @@ class _TCodeBlockState extends State<TCodeBlock> {
               child: FutureBuilder(
                 future: THighlighter.load(
                   language: widget.language,
-                  brightness: theme.brightness,
+                  brightness: effectiveBrightness,
                 ),
                 builder: (context, snapshot) {
                   final spans = THighlighter.parse(
                     code: code,
                     language: widget.language,
-                    brightness: theme.brightness,
+                    brightness: effectiveBrightness,
                   );
                   return MediaQuery.removePadding(
                     context: context,
@@ -237,7 +240,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
 class TCodeBlockTheme extends ThemeExtension<TCodeBlockTheme> {
   /// Creates a [TCodeBlockTheme] object.
   const TCodeBlockTheme({
-    this.brightness = Brightness.dark,
+    this.brightness,
     this.fontSize,
     this.backgroundColor,
     this.padding,
@@ -250,7 +253,7 @@ class TCodeBlockTheme extends ThemeExtension<TCodeBlockTheme> {
   /// The theme brightness of the code block.
   ///
   /// If null, it will use the default brightness of the current theme.
-  final Brightness brightness;
+  final Brightness? brightness;
 
   /// The font size of the code block.
   final double? fontSize;
