@@ -61,6 +61,7 @@ class TPopover extends StatefulWidget {
     this.height,
     this.borderRadius = TBorderRadius.rounded_md,
     this.borderColor,
+    this.fillColor,
     this.alignment = Alignment.bottomRight,
     this.separation = TSpace.v4,
     this.matchAnchorWidth = false,
@@ -86,6 +87,9 @@ class TPopover extends StatefulWidget {
 
   /// The height of the popover content.
   final double? height;
+
+  /// The background color of the popover content.
+  final Color? fillColor;
 
   /// The border color of the popover content.
   final Color? borderColor;
@@ -276,7 +280,7 @@ class _TPopoverState extends State<TPopover> {
                         shadowColor: tw.color.shadow,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: tw.color.background,
+                            color: widget.fillColor ?? tw.color.background,
                             border: Border.all(
                               color: widget.borderColor ?? tw.color.divider,
                             ),

@@ -27,6 +27,7 @@ class TSelect<T> extends TFormField<T> {
     this.enabled = true,
     this.error,
     this.fillColor,
+    this.popoverFillColor,
     this.help,
     this.hoverColor,
     super.id = 'TSelect',
@@ -69,6 +70,7 @@ class TSelect<T> extends TFormField<T> {
             enabled: enabled,
             error: error,
             fillColor: fillColor,
+            popoverFillColor: popoverFillColor,
             help: help,
             hoverColor: hoverColor,
             initialValue: initialValue,
@@ -114,6 +116,7 @@ class TSelect<T> extends TFormField<T> {
     this.enabled = true,
     this.error,
     this.fillColor,
+    this.popoverFillColor,
     this.help,
     this.hoverColor,
     super.id = 'TSelect.async',
@@ -158,6 +161,7 @@ class TSelect<T> extends TFormField<T> {
             enabled: enabled,
             error: error,
             fillColor: fillColor,
+            popoverFillColor: popoverFillColor,
             help: help,
             hoverColor: hoverColor,
             initialValue: initialValue,
@@ -222,6 +226,9 @@ class TSelect<T> extends TFormField<T> {
 
   /// The fill color for the select field.
   final WidgetStateProperty<Color>? fillColor;
+
+  /// The fill color for the popover content.
+  final Color? popoverFillColor;
 
   /// The help widget to display below the select field.
   final Widget? help;
@@ -333,6 +340,7 @@ class _TSelectFormField<T> extends FormField<T> {
     required super.enabled,
     required this.error,
     required this.fillColor,
+    required this.popoverFillColor,
     required this.help,
     required this.hoverColor,
     required super.initialValue,
@@ -378,6 +386,7 @@ class _TSelectFormField<T> extends FormField<T> {
   final BoxConstraints? constraints;
   final Widget? error;
   final WidgetStateProperty<Color>? fillColor;
+  final Color? popoverFillColor;
   final Widget? help;
   final Color? hoverColor;
   final Widget Function(T)? itemBuilder;
@@ -836,6 +845,8 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                 closeOnTapOutside: field.closeOnTapOutside,
                 matchAnchorWidth: true,
                 height: popoverHeight,
+                fillColor:
+                    field.popoverFillColor ?? field.fillColor?.resolve({}),
                 alignment: Alignment.bottomCenter,
                 borderRadius:
                     field.borderRadius?.resolve({}) ?? TBorderRadius.rounded_md,
