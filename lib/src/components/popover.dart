@@ -180,7 +180,8 @@ class _TPopoverState extends State<TPopover> {
     }
     contentNotifier = StreamController<bool>();
     overlayEntry = createOverlayEntry();
-    Overlay.of(context).insert(overlayEntry!);
+    final overlay = Overlay.of(context, rootOverlay: true);
+    overlay.insert(overlayEntry!);
     await animationController.forward();
   }
 
