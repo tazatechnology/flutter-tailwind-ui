@@ -418,9 +418,7 @@ class TStyledContainer extends StatelessWidget {
   }) {
     final tw = context.tw;
     final effectiveColor = resolveColor(context: context, color: color);
-    if (states.disabled) {
-      return TextStyle(color: tw.color.onDisabled);
-    }
+
     WidgetStateProperty<TextStyle?> textStyleFallback;
     switch (variant) {
       case TStyleVariant.basic:
@@ -450,7 +448,15 @@ class TStyledContainer extends StatelessWidget {
           );
         });
     }
-    return textStyle?.resolve(states) ?? textStyleFallback.resolve(states);
+
+    final resolvedTextStyle =
+        textStyle?.resolve(states) ?? textStyleFallback.resolve(states);
+
+    return resolvedTextStyle?.copyWith(
+      color: states.disabled && resolvedTextStyle.color == null
+          ? tw.color.disabled
+          : resolvedTextStyle.color,
+    );
   }
 
   // ---------------------------------------------------------------------------

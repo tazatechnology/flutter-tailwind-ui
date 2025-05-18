@@ -18,6 +18,7 @@ class TBadge extends StatelessWidget {
     this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.tooltip,
     this.tooltipLeading,
@@ -40,6 +41,7 @@ class TBadge extends StatelessWidget {
     this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.tooltip,
     this.tooltipLeading,
@@ -62,6 +64,7 @@ class TBadge extends StatelessWidget {
     this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.tooltip,
     this.tooltipLeading,
@@ -84,6 +87,7 @@ class TBadge extends StatelessWidget {
     this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.tooltip,
     this.tooltipLeading,
@@ -107,6 +111,7 @@ class TBadge extends StatelessWidget {
     this.size = TWidgetSize.md,
     this.leading,
     this.trailing,
+    this.mainAxisAlignment,
     this.loading,
     this.tooltip,
     this.tooltipLeading,
@@ -130,6 +135,9 @@ class TBadge extends StatelessWidget {
 
   /// The a leading widget for the badge.
   final Widget? trailing;
+
+  /// The alignment of the badge content.
+  final MainAxisAlignment? mainAxisAlignment;
 
   /// The widget to display when the [TWidgetStatesController] is in a loading state.
   final Widget? loading;
@@ -283,6 +291,7 @@ class TBadge extends StatelessWidget {
       backgroundColor: theme?.backgroundColor,
       elevation: theme?.elevation,
       border: theme?.border,
+      mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
       borderRadius: WidgetStateProperty.resolveWith((states) {
         return theme?.borderRadius?.resolve(states) ?? defaultBorderRadius;
       }),
