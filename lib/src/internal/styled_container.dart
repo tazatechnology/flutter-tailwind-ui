@@ -197,8 +197,9 @@ class TStyledContainer extends StatelessWidget {
     required Set<WidgetState> states,
     required WidgetStateProperty<EdgeInsetsGeometry?>? padding,
   }) {
-    return (padding?.resolve(states) ?? EdgeInsets.zero)
-        .resolve(Directionality.of(context));
+    return (padding?.resolve(states) ?? EdgeInsets.zero).resolve(
+      Directionality.of(context),
+    );
   }
 
   // ---------------------------------------------------------------------------
@@ -551,8 +552,10 @@ class TStyledContainer extends StatelessWidget {
             // Resolve the effective container height and width
             final effectiveHeight = height?.resolve(states);
             final effectiveWidth = width?.resolve(states);
-            final effectiveDimension =
-                math.max(effectiveHeight ?? 0, effectiveWidth ?? 0);
+            final effectiveDimension = math.max(
+              effectiveHeight ?? 0,
+              effectiveWidth ?? 0,
+            );
 
             // Resolve the effective text style
             TextStyle? effectiveTextStyle = resolveTextStyle(
@@ -565,8 +568,9 @@ class TStyledContainer extends StatelessWidget {
             );
 
             // Merge the text style with the base text style
-            effectiveTextStyle =
-                defaultTextStyle.merge(baseTextStyle).merge(effectiveTextStyle);
+            effectiveTextStyle = defaultTextStyle
+                .merge(baseTextStyle)
+                .merge(effectiveTextStyle);
 
             // Resolve the effective padding
             final effectivePadding = resolvePadding(
@@ -611,7 +615,8 @@ class TStyledContainer extends StatelessWidget {
             final effectiveIconSize = iconSize?.resolve(states);
 
             // Estimate the height of the content with padding
-            final widgetHeight = effectiveHeight ??
+            final widgetHeight =
+                effectiveHeight ??
                 textHeight +
                     effectivePadding.vertical +
                     (effectiveBorder?.top.width ?? 0) +

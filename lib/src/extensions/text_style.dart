@@ -49,8 +49,9 @@ extension XTailwindTextStyle on TextStyle {
       decoration: decoration ? null : this.decoration,
       decorationColor: decorationColor ? null : this.decorationColor,
       decorationStyle: decorationStyle ? null : this.decorationStyle,
-      decorationThickness:
-          decorationThickness ? null : this.decorationThickness,
+      decorationThickness: decorationThickness
+          ? null
+          : this.decorationThickness,
       debugLabel: debugLabel ? null : this.debugLabel,
       overflow: overflow ? null : this.overflow,
     );

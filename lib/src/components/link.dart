@@ -84,8 +84,9 @@ class TLink extends StatelessWidget {
         final style = TextStyle(
           color: decorate ? color : null,
           decorationColor: decorate && this.decorate ? color : null,
-          decoration:
-              decorate && this.decorate ? TextDecoration.underline : null,
+          decoration: decorate && this.decorate
+              ? TextDecoration.underline
+              : null,
         ).merge(baseTextStyle);
 
         return TTooltip(

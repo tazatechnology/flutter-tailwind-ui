@@ -92,7 +92,8 @@ class THighlighter {
       Highlighter.addLanguage(language, json);
 
       // Load the syntax highlighter theme
-      final theme = _highlighterThemes[brightness] ??
+      final theme =
+          _highlighterThemes[brightness] ??
           await _loadThemeForBrightness(brightness);
 
       // Construct and cache the highlighter instance.

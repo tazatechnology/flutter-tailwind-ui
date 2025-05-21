@@ -259,8 +259,9 @@ class _codeBuilder extends MarkdownElementBuilder {
     TextStyle? parentStyle,
   ) {
     // Match the GitHub style for inline code
-    final backgroundColor =
-        context.tw.light ? const Color(0xfff5f5f5) : const Color(0xff333333);
+    final backgroundColor = context.tw.light
+        ? const Color(0xfff5f5f5)
+        : const Color(0xff333333);
     return Container(
       padding: TOffset.x4 + TOffset.y2,
       decoration: BoxDecoration(

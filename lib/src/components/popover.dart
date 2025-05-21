@@ -263,7 +263,8 @@ class _TPopoverState extends State<TPopover> {
             children: [
               Positioned(
                 height: widget.height,
-                width: widget.width ??
+                width:
+                    widget.width ??
                     (widget.matchAnchorWidth ? size.width : null),
                 child: CompositedTransformFollower(
                   link: layerLink,
@@ -298,7 +299,8 @@ class _TPopoverState extends State<TPopover> {
                       );
 
                       return TAnimated(
-                        options: widget.animationOptions ??
+                        options:
+                            widget.animationOptions ??
                             TAnimatedOptions.popover(),
                         controller: animationController,
                         child: content,

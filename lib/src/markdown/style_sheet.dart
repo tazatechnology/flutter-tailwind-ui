@@ -60,38 +60,39 @@ class MarkdownStyleSheet {
     this.superscriptFontFeatureTag,
     @Deprecated('Use textScaler instead.') this.textScaleFactor,
     TextScaler? textScaler,
-  })  : assert(
-          textScaler == null || textScaleFactor == null,
-          'textScaleFactor is deprecated and cannot be specified when textScaler is specified.',
-        ),
-        textScaler = textScaler ??
-            // Internally, only textScaler is used, so convert the scale factor
-            // to a linear scaler.
-            (textScaleFactor == null
-                ? null
-                : TextScaler.linear(textScaleFactor)),
-        _styles = <String, TextStyle?>{
-          'a': a,
-          'p': p,
-          'li': p,
-          'code': code,
-          'pre': p,
-          'h1': h1,
-          'h2': h2,
-          'h3': h3,
-          'h4': h4,
-          'h5': h5,
-          'h6': h6,
-          'em': em,
-          'strong': strong,
-          'del': del,
-          'blockquote': blockquote,
-          'img': img,
-          'table': p,
-          'th': tableHead,
-          'tr': tableBody,
-          'td': tableBody,
-        };
+  }) : assert(
+         textScaler == null || textScaleFactor == null,
+         'textScaleFactor is deprecated and cannot be specified when textScaler is specified.',
+       ),
+       textScaler =
+           textScaler ??
+           // Internally, only textScaler is used, so convert the scale factor
+           // to a linear scaler.
+           (textScaleFactor == null
+               ? null
+               : TextScaler.linear(textScaleFactor)),
+       _styles = <String, TextStyle?>{
+         'a': a,
+         'p': p,
+         'li': p,
+         'code': code,
+         'pre': p,
+         'h1': h1,
+         'h2': h2,
+         'h3': h3,
+         'h4': h4,
+         'h5': h5,
+         'h6': h6,
+         'em': em,
+         'strong': strong,
+         'del': del,
+         'blockquote': blockquote,
+         'img': img,
+         'table': p,
+         'th': tableHead,
+         'tr': tableBody,
+         'td': tableBody,
+       };
 
   /// Creates a [MarkdownStyleSheet] from the [TextStyle]s in the provided [ThemeData].
   factory MarkdownStyleSheet.fromTheme(ThemeData theme) {

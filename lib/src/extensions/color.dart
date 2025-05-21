@@ -9,21 +9,21 @@ int _floatToInt8(double x) {
 ///
 /// The factor should be between 0 and 1, where 1 results in the lightest tint.
 Color _tintColor(Color color, double factor) => Color.fromRGBO(
-      ((color.r + (1.0 - color.r) * factor) * 255).round(),
-      ((color.g + (1.0 - color.g) * factor) * 255).round(),
-      ((color.b + (1.0 - color.b) * factor) * 255).round(),
-      1,
-    );
+  ((color.r + (1.0 - color.r) * factor) * 255).round(),
+  ((color.g + (1.0 - color.g) * factor) * 255).round(),
+  ((color.b + (1.0 - color.b) * factor) * 255).round(),
+  1,
+);
 
 /// Shades the given color by darkening it based on the provided factor.
 ///
 /// The factor should be between 0 and 1, where 1 results in the darkest shade.
 Color _shadeColor(Color color, double factor) => Color.fromRGBO(
-      (color.r * (1 - factor) * 255).round(),
-      (color.g * (1 - factor) * 255).round(),
-      (color.b * (1 - factor) * 255).round(),
-      1,
-    );
+  (color.r * (1 - factor) * 255).round(),
+  (color.g * (1 - factor) * 255).round(),
+  (color.b * (1 - factor) * 255).round(),
+  1,
+);
 
 // =============================================================================
 // EXTENSION: XTailwindColor

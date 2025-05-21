@@ -295,8 +295,9 @@ class TSelectionGroupTile extends StatelessWidget {
                 padding: EdgeInsets.only(top: TSpace.v2, left: sep),
                 child: DefaultTextStyle.merge(
                   style: TTextStyle.text_sm.copyWith(
-                    color:
-                        enabled ? tw.color.label : tw.color.disabledTextColor,
+                    color: enabled
+                        ? tw.color.label
+                        : tw.color.disabledTextColor,
                   ),
                   child: description!,
                   maxLines: 100,
@@ -382,11 +383,13 @@ class TSelectionGroupTile extends StatelessWidget {
         BorderSide bottom = BorderSide.none;
         BorderSide left = BorderSide.none;
         if (axis == Axis.vertical) {
-          bottom =
-              isLast ? BorderSide.none : BorderSide(color: tw.color.divider);
+          bottom = isLast
+              ? BorderSide.none
+              : BorderSide(color: tw.color.divider);
         } else {
-          left =
-              isFirst ? BorderSide.none : BorderSide(color: tw.color.divider);
+          left = isFirst
+              ? BorderSide.none
+              : BorderSide(color: tw.color.divider);
         }
 
         return TGestureDetector(

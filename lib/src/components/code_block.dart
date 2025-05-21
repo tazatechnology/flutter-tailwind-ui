@@ -108,10 +108,12 @@ class _TCodeBlockState extends State<TCodeBlock> {
     Color? effectiveBackgroundColor = theme.backgroundColor;
 
     // Match the GitHub style for code blocks
-    effectiveBackgroundColor ??=
-        tw.light ? const Color(0xfff6f8fa) : const Color(0xff151b23);
+    effectiveBackgroundColor ??= tw.light
+        ? const Color(0xfff6f8fa)
+        : const Color(0xff151b23);
 
-    final effectiveBorder = theme.border ??
+    final effectiveBorder =
+        theme.border ??
         Border.all(
           width: 0.5,
           color: light
@@ -127,8 +129,9 @@ class _TCodeBlockState extends State<TCodeBlock> {
     BoxConstraints effectiveConstraints =
         theme.constraints ?? const BoxConstraints();
     if (effectiveConstraints.minWidth == 0) {
-      effectiveConstraints =
-          effectiveConstraints.copyWith(minWidth: double.infinity);
+      effectiveConstraints = effectiveConstraints.copyWith(
+        minWidth: double.infinity,
+      );
     }
 
     final code = widget.code.trim();
@@ -142,8 +145,9 @@ class _TCodeBlockState extends State<TCodeBlock> {
             data: Theme.of(context).copyWith(
               brightness: effectiveBrightness,
               textSelectionTheme: TextSelectionThemeData(
-                selectionColor:
-                    light ? const Color(0xffb6d7ff) : const Color(0xff385479),
+                selectionColor: light
+                    ? const Color(0xffb6d7ff)
+                    : const Color(0xff385479),
               ),
             ),
             child: Container(

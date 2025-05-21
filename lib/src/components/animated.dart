@@ -173,8 +173,10 @@ class _TAnimatedState extends State<TAnimated>
   @override
   void initState() {
     super.initState();
-    animationController =
-        AnimationController(vsync: this, duration: options.duration);
+    animationController = AnimationController(
+      vsync: this,
+      duration: options.duration,
+    );
     controller._attach(animationController);
     curvedAnimation = CurvedAnimation(
       parent: animationController,

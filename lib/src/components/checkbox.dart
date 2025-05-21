@@ -84,7 +84,8 @@ class TCheckbox extends StatelessWidget {
       duration: animationDuration,
       switchInCurve: animationCurve,
       switchOutCurve: animationCurve,
-      transitionBuilder: animationTransitionBuilder ??
+      transitionBuilder:
+          animationTransitionBuilder ??
           (child, animation) {
             return ScaleTransition(scale: animation, child: child);
           },
@@ -113,8 +114,9 @@ class TCheckbox extends StatelessWidget {
         } else if (states.disabled) {
           borderColor = tw.color.disabled;
         } else {
-          borderColor =
-              tw.light ? const Color(0xffccccd4) : const Color(0xff4d5866);
+          borderColor = tw.light
+              ? const Color(0xffccccd4)
+              : const Color(0xff4d5866);
         }
 
         return TFocusBorder(
@@ -136,8 +138,8 @@ class TCheckbox extends StatelessWidget {
                 color: value
                     ? color
                     : (enabled
-                        ? Colors.transparent
-                        : tw.color.disabled.withValues(alpha: 0.5)),
+                          ? Colors.transparent
+                          : tw.color.disabled.withValues(alpha: 0.5)),
                 border: Border.all(color: borderColor),
                 borderRadius: TBorderRadius.rounded_sm,
               ),
@@ -170,25 +172,25 @@ class TCheckboxTile extends TFormField<bool> {
     this.onChanged,
     this.padding = TOffset.a0,
     this.title,
-  })  : elevation = 0,
-        super(
-          id: id ?? 'TCheckboxTile',
-          child: _TCheckboxTileFormField(
-            variant: TSelectionGroupVariant.basic,
-            title: title,
-            description: description,
-            onChanged: onChanged,
-            color: color,
-            enabled: enabled,
-            padding: padding,
-            focusNode: focusNode,
-            indicator: indicator,
-            initialValue: initialValue,
-            affinity: affinity,
-            radius: 0,
-            elevation: 0,
-          ),
-        );
+  }) : elevation = 0,
+       super(
+         id: id ?? 'TCheckboxTile',
+         child: _TCheckboxTileFormField(
+           variant: TSelectionGroupVariant.basic,
+           title: title,
+           description: description,
+           onChanged: onChanged,
+           color: color,
+           enabled: enabled,
+           padding: padding,
+           focusNode: focusNode,
+           indicator: indicator,
+           initialValue: initialValue,
+           affinity: affinity,
+           radius: 0,
+           elevation: 0,
+         ),
+       );
 
   /// Construct a card checkbox tile
   TCheckboxTile.card({
@@ -207,23 +209,23 @@ class TCheckboxTile extends TFormField<bool> {
     double radius = TRadius.rounded_lg,
     this.title,
   }) : super(
-          id: id ?? 'TCheckboxTile.card',
-          child: _TCheckboxTileFormField(
-            variant: TSelectionGroupVariant.card,
-            title: title,
-            description: description,
-            onChanged: onChanged,
-            color: color,
-            enabled: enabled,
-            padding: padding,
-            focusNode: focusNode,
-            indicator: indicator,
-            initialValue: initialValue,
-            affinity: affinity,
-            radius: radius,
-            elevation: elevation,
-          ),
-        );
+         id: id ?? 'TCheckboxTile.card',
+         child: _TCheckboxTileFormField(
+           variant: TSelectionGroupVariant.card,
+           title: title,
+           description: description,
+           onChanged: onChanged,
+           color: color,
+           enabled: enabled,
+           padding: padding,
+           focusNode: focusNode,
+           indicator: indicator,
+           initialValue: initialValue,
+           affinity: affinity,
+           radius: radius,
+           elevation: elevation,
+         ),
+       );
 
   /// The control affinity of the checkbox
   final TControlAffinity affinity;
@@ -279,11 +281,11 @@ class _TCheckboxTileFormField extends FormField<bool> {
     required this.title,
     required this.variant,
   }) : super(
-          builder: (field) {
-            final state = field as _TCheckboxTileFormFieldState;
-            return state.buildWidget(state.context);
-          },
-        );
+         builder: (field) {
+           final state = field as _TCheckboxTileFormFieldState;
+           return state.buildWidget(state.context);
+         },
+       );
   final TControlAffinity affinity;
   final Color? color;
   final Widget? description;
@@ -394,27 +396,27 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
     super.key,
-  })  : radius = 0,
-        padding = TOffset.zero,
-        elevation = 0,
-        super(
-          id: id ?? 'TCheckboxGroup',
-          child: _TCheckboxGroupFormField(
-            variant: TSelectionGroupVariant.basic,
-            affinity: affinity,
-            axis: axis,
-            children: children,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            onChanged: onChanged,
-            spacing: spacing,
-            radius: 0,
-            padding: TOffset.zero,
-            elevation: 0,
-          ),
-        );
+  }) : radius = 0,
+       padding = TOffset.zero,
+       elevation = 0,
+       super(
+         id: id ?? 'TCheckboxGroup',
+         child: _TCheckboxGroupFormField(
+           variant: TSelectionGroupVariant.basic,
+           affinity: affinity,
+           axis: axis,
+           children: children,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           onChanged: onChanged,
+           spacing: spacing,
+           radius: 0,
+           padding: TOffset.zero,
+           elevation: 0,
+         ),
+       );
 
   /// Construct a [TCheckboxGroup]
   TCheckboxGroup.separated({
@@ -429,27 +431,27 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
     super.key,
-  })  : radius = 0,
-        padding = TOffset.zero,
-        elevation = 0,
-        super(
-          id: id ?? 'TCheckboxGroup.separated',
-          child: _TCheckboxGroupFormField(
-            variant: TSelectionGroupVariant.separated,
-            affinity: affinity,
-            axis: axis,
-            children: children,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            onChanged: onChanged,
-            spacing: spacing,
-            radius: 0,
-            padding: TOffset.zero,
-            elevation: 0,
-          ),
-        );
+  }) : radius = 0,
+       padding = TOffset.zero,
+       elevation = 0,
+       super(
+         id: id ?? 'TCheckboxGroup.separated',
+         child: _TCheckboxGroupFormField(
+           variant: TSelectionGroupVariant.separated,
+           affinity: affinity,
+           axis: axis,
+           children: children,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           onChanged: onChanged,
+           spacing: spacing,
+           radius: 0,
+           padding: TOffset.zero,
+           elevation: 0,
+         ),
+       );
 
   /// Construct a [TCheckboxGroup]
   TCheckboxGroup.card({
@@ -468,23 +470,23 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
     this.elevation = TElevation.shadow_xs,
     super.key,
   }) : super(
-          id: id ?? 'TCheckboxGroup.card',
-          child: _TCheckboxGroupFormField(
-            variant: TSelectionGroupVariant.card,
-            affinity: affinity,
-            axis: axis,
-            children: children,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            onChanged: onChanged,
-            spacing: spacing,
-            radius: radius,
-            padding: padding,
-            elevation: elevation,
-          ),
-        );
+         id: id ?? 'TCheckboxGroup.card',
+         child: _TCheckboxGroupFormField(
+           variant: TSelectionGroupVariant.card,
+           affinity: affinity,
+           axis: axis,
+           children: children,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           onChanged: onChanged,
+           spacing: spacing,
+           radius: radius,
+           padding: padding,
+           elevation: elevation,
+         ),
+       );
 
   /// Construct a [TCheckboxGroup]
   TCheckboxGroup.panel({
@@ -501,25 +503,25 @@ class TCheckboxGroup<T> extends TFormField<List<T>> {
     this.padding = TOffset.a16,
     this.elevation = 0,
     super.key,
-  })  : spacing = 0,
-        super(
-          id: id ?? 'TCheckboxGroup.card',
-          child: _TCheckboxGroupFormField(
-            variant: TSelectionGroupVariant.panel,
-            affinity: affinity,
-            axis: axis,
-            children: children,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            onChanged: onChanged,
-            spacing: 0,
-            radius: radius,
-            padding: padding,
-            elevation: elevation,
-          ),
-        );
+  }) : spacing = 0,
+       super(
+         id: id ?? 'TCheckboxGroup.card',
+         child: _TCheckboxGroupFormField(
+           variant: TSelectionGroupVariant.panel,
+           affinity: affinity,
+           axis: axis,
+           children: children,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           onChanged: onChanged,
+           spacing: 0,
+           radius: radius,
+           padding: padding,
+           elevation: elevation,
+         ),
+       );
 
   /// The control affinity of the group.
   final TControlAffinity affinity;
@@ -589,11 +591,11 @@ class _TCheckboxGroupFormField<T> extends FormField<List<T>> {
     required this.padding,
     required this.elevation,
   }) : super(
-          builder: (field) {
-            final state = field as _TCheckboxGroupFormFieldState<T>;
-            return state.buildWidget(state.context);
-          },
-        );
+         builder: (field) {
+           final state = field as _TCheckboxGroupFormFieldState<T>;
+           return state.buildWidget(state.context);
+         },
+       );
 
   final TControlAffinity affinity;
   final Axis axis;

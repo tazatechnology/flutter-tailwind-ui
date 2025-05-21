@@ -557,7 +557,8 @@ class _TGestureDetectorState extends State<TGestureDetector> {
       listenable: controller,
       builder: (context, _) {
         final child = widget.builder(context, controller.value);
-        final mouseCursor = widget.mouseCursor?.resolve(controller.value) ??
+        final mouseCursor =
+            widget.mouseCursor?.resolve(controller.value) ??
             mouseCursorFallback;
         final content = DefaultSelectionStyle.merge(
           mouseCursor: mouseCursor,

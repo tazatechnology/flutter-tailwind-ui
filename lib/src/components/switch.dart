@@ -95,7 +95,8 @@ class TSwitch extends StatelessWidget {
           duration: animationDuration,
           switchInCurve: animationCurve,
           switchOutCurve: animationCurve,
-          transitionBuilder: animationTransitionBuilder ??
+          transitionBuilder:
+              animationTransitionBuilder ??
               (child, animation) {
                 return ScaleTransition(scale: animation, child: child);
               },
@@ -192,23 +193,23 @@ class TSwitchTile extends TFormField<bool> {
     this.padding = TOffset.a0,
     this.title,
   }) : super(
-          id: id ?? 'TSwitchTile',
-          child: _TSwitchTileFormField(
-            variant: TSelectionGroupVariant.basic,
-            affinity: affinity,
-            color: color,
-            description: description,
-            enabled: enabled,
-            focusNode: focusNode,
-            indicator: indicator,
-            initialValue: initialValue,
-            onChanged: onChanged,
-            padding: padding,
-            elevation: 0,
-            radius: 0,
-            title: title,
-          ),
-        );
+         id: id ?? 'TSwitchTile',
+         child: _TSwitchTileFormField(
+           variant: TSelectionGroupVariant.basic,
+           affinity: affinity,
+           color: color,
+           description: description,
+           enabled: enabled,
+           focusNode: focusNode,
+           indicator: indicator,
+           initialValue: initialValue,
+           onChanged: onChanged,
+           padding: padding,
+           elevation: 0,
+           radius: 0,
+           title: title,
+         ),
+       );
 
   /// Construct a card [TSwitchTile]
   TSwitchTile.card({
@@ -227,23 +228,23 @@ class TSwitchTile extends TFormField<bool> {
     double elevation = TElevation.shadow_xs,
     this.title,
   }) : super(
-          id: id ?? 'TSwitchTile.card',
-          child: _TSwitchTileFormField(
-            variant: TSelectionGroupVariant.card,
-            affinity: affinity,
-            color: color,
-            description: description,
-            enabled: enabled,
-            focusNode: focusNode,
-            indicator: indicator,
-            initialValue: initialValue,
-            onChanged: onChanged,
-            padding: padding,
-            elevation: elevation,
-            radius: radius,
-            title: title,
-          ),
-        );
+         id: id ?? 'TSwitchTile.card',
+         child: _TSwitchTileFormField(
+           variant: TSelectionGroupVariant.card,
+           affinity: affinity,
+           color: color,
+           description: description,
+           enabled: enabled,
+           focusNode: focusNode,
+           indicator: indicator,
+           initialValue: initialValue,
+           onChanged: onChanged,
+           padding: padding,
+           elevation: elevation,
+           radius: radius,
+           title: title,
+         ),
+       );
 
   /// The control affinity of the switch
   final TControlAffinity affinity;
@@ -296,11 +297,11 @@ class _TSwitchTileFormField extends FormField<bool> {
     required this.title,
     required this.variant,
   }) : super(
-          builder: (field) {
-            final state = field as _TSwitchTileFormFieldState;
-            return state.buildWidget(state.context);
-          },
-        );
+         builder: (field) {
+           final state = field as _TSwitchTileFormFieldState;
+           return state.buildWidget(state.context);
+         },
+       );
   final TControlAffinity affinity;
   final Color? color;
   final Widget? description;
@@ -412,27 +413,27 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
     super.key,
-  })  : radius = 0,
-        padding = TOffset.zero,
-        elevation = 0,
-        super(
-          id: id ?? 'TSwitchGroup',
-          child: _TSwitchGroupFormField(
-            variant: TSelectionGroupVariant.basic,
-            affinity: affinity,
-            axis: axis,
-            children: children,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            onChanged: onChanged,
-            spacing: spacing,
-            radius: 0,
-            padding: TOffset.zero,
-            elevation: 0,
-          ),
-        );
+  }) : radius = 0,
+       padding = TOffset.zero,
+       elevation = 0,
+       super(
+         id: id ?? 'TSwitchGroup',
+         child: _TSwitchGroupFormField(
+           variant: TSelectionGroupVariant.basic,
+           affinity: affinity,
+           axis: axis,
+           children: children,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           onChanged: onChanged,
+           spacing: spacing,
+           radius: 0,
+           padding: TOffset.zero,
+           elevation: 0,
+         ),
+       );
 
   /// Construct a [TSwitchGroup]
   TSwitchGroup.separated({
@@ -447,27 +448,27 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
     this.affinity = TControlAffinity.leading,
     this.axis = Axis.vertical,
     super.key,
-  })  : radius = 0,
-        padding = TOffset.zero,
-        elevation = 0,
-        super(
-          id: id ?? 'TSwitchGroup.separated',
-          child: _TSwitchGroupFormField(
-            variant: TSelectionGroupVariant.separated,
-            affinity: affinity,
-            axis: axis,
-            children: children,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            onChanged: onChanged,
-            spacing: spacing,
-            radius: 0,
-            padding: TOffset.zero,
-            elevation: 0,
-          ),
-        );
+  }) : radius = 0,
+       padding = TOffset.zero,
+       elevation = 0,
+       super(
+         id: id ?? 'TSwitchGroup.separated',
+         child: _TSwitchGroupFormField(
+           variant: TSelectionGroupVariant.separated,
+           affinity: affinity,
+           axis: axis,
+           children: children,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           onChanged: onChanged,
+           spacing: spacing,
+           radius: 0,
+           padding: TOffset.zero,
+           elevation: 0,
+         ),
+       );
 
   /// Construct a [TSwitchGroup]
   TSwitchGroup.card({
@@ -486,23 +487,23 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
     this.elevation = TElevation.shadow_xs,
     super.key,
   }) : super(
-          id: id ?? 'TSwitchGroup.card',
-          child: _TSwitchGroupFormField(
-            variant: TSelectionGroupVariant.card,
-            affinity: affinity,
-            axis: axis,
-            children: children,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            onChanged: onChanged,
-            spacing: spacing,
-            radius: radius,
-            padding: padding,
-            elevation: elevation,
-          ),
-        );
+         id: id ?? 'TSwitchGroup.card',
+         child: _TSwitchGroupFormField(
+           variant: TSelectionGroupVariant.card,
+           affinity: affinity,
+           axis: axis,
+           children: children,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           onChanged: onChanged,
+           spacing: spacing,
+           radius: radius,
+           padding: padding,
+           elevation: elevation,
+         ),
+       );
 
   /// Construct a [TSwitchGroup]
   TSwitchGroup.panel({
@@ -519,25 +520,25 @@ class TSwitchGroup<T> extends TFormField<List<T>> {
     this.padding = TOffset.a16,
     this.elevation = 0,
     super.key,
-  })  : spacing = 0,
-        super(
-          id: id ?? 'TSwitchGroup.card',
-          child: _TSwitchGroupFormField(
-            variant: TSelectionGroupVariant.panel,
-            affinity: affinity,
-            axis: axis,
-            children: children,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            onChanged: onChanged,
-            spacing: 0,
-            radius: radius,
-            padding: padding,
-            elevation: elevation,
-          ),
-        );
+  }) : spacing = 0,
+       super(
+         id: id ?? 'TSwitchGroup.card',
+         child: _TSwitchGroupFormField(
+           variant: TSelectionGroupVariant.panel,
+           affinity: affinity,
+           axis: axis,
+           children: children,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           onChanged: onChanged,
+           spacing: 0,
+           radius: radius,
+           padding: padding,
+           elevation: elevation,
+         ),
+       );
 
   /// The control affinity of the group.
   final TControlAffinity affinity;
@@ -608,11 +609,11 @@ class _TSwitchGroupFormField<T> extends FormField<List<T>> {
     required this.padding,
     required this.elevation,
   }) : super(
-          builder: (field) {
-            final state = field as _TSwitchGroupFormFieldState<T>;
-            return state.buildWidget(state.context);
-          },
-        );
+         builder: (field) {
+           final state = field as _TSwitchGroupFormFieldState<T>;
+           return state.buildWidget(state.context);
+         },
+       );
 
   final TControlAffinity affinity;
   final Axis axis;

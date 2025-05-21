@@ -58,50 +58,50 @@ class TSelect<T> extends TFormField<T> {
     this.trailing = const Icon(Icons.keyboard_arrow_down),
     this.validator,
   }) : super(
-          child: _TSelectFormField(
-            allowDeselect: allowDeselect,
-            animationOptions: animationOptions,
-            autovalidateMode: autovalidateMode,
-            borderColor: borderColor,
-            borderRadius: borderRadius,
-            closeOnSelect: closeOnSelect,
-            closeOnTapOutside: closeOnTapOutside,
-            constraints: constraints,
-            enabled: enabled,
-            error: error,
-            fillColor: fillColor,
-            popoverFillColor: popoverFillColor,
-            help: help,
-            hoverColor: hoverColor,
-            initialValue: initialValue,
-            itemBuilder: itemBuilder,
-            itemExtent: itemExtent,
-            itemPadding: itemPadding,
-            items: items,
-            itemsAsync: null,
-            itemsEmpty: itemsEmpty,
-            label: label,
-            listPadding: listPadding,
-            maxVisible: maxVisible,
-            onChanged: onChanged,
-            onSaved: onSaved,
-            onSearch: onSearch,
-            placeholder: placeholder,
-            placeholderLoading: null,
-            restorationId: restorationId,
-            selectedIcon: selectedIcon,
-            selectedIconAffinity: selectedIconAffinity,
-            selectedItemBuilder: selectedItemBuilder,
-            searchCount: searchCount,
-            searchResultsEmpty: searchResultsEmpty,
-            searchHintText: searchHintText,
-            searchIcon: searchIcon,
-            size: size,
-            spacing: spacing,
-            trailing: trailing,
-            validator: validator,
-          ),
-        );
+         child: _TSelectFormField(
+           allowDeselect: allowDeselect,
+           animationOptions: animationOptions,
+           autovalidateMode: autovalidateMode,
+           borderColor: borderColor,
+           borderRadius: borderRadius,
+           closeOnSelect: closeOnSelect,
+           closeOnTapOutside: closeOnTapOutside,
+           constraints: constraints,
+           enabled: enabled,
+           error: error,
+           fillColor: fillColor,
+           popoverFillColor: popoverFillColor,
+           help: help,
+           hoverColor: hoverColor,
+           initialValue: initialValue,
+           itemBuilder: itemBuilder,
+           itemExtent: itemExtent,
+           itemPadding: itemPadding,
+           items: items,
+           itemsAsync: null,
+           itemsEmpty: itemsEmpty,
+           label: label,
+           listPadding: listPadding,
+           maxVisible: maxVisible,
+           onChanged: onChanged,
+           onSaved: onSaved,
+           onSearch: onSearch,
+           placeholder: placeholder,
+           placeholderLoading: null,
+           restorationId: restorationId,
+           selectedIcon: selectedIcon,
+           selectedIconAffinity: selectedIconAffinity,
+           selectedItemBuilder: selectedItemBuilder,
+           searchCount: searchCount,
+           searchResultsEmpty: searchResultsEmpty,
+           searchHintText: searchHintText,
+           searchIcon: searchIcon,
+           size: size,
+           spacing: spacing,
+           trailing: trailing,
+           validator: validator,
+         ),
+       );
 
   /// Construct a [TSelect] widget.
   TSelect.async({
@@ -147,52 +147,52 @@ class TSelect<T> extends TFormField<T> {
     this.spacing = 0,
     this.trailing = const Icon(Icons.keyboard_arrow_down),
     this.validator,
-  })  : items = [],
-        super(
-          child: _TSelectFormField(
-            allowDeselect: allowDeselect,
-            animationOptions: animationOptions,
-            autovalidateMode: autovalidateMode,
-            borderColor: borderColor,
-            borderRadius: borderRadius,
-            closeOnSelect: closeOnSelect,
-            closeOnTapOutside: closeOnTapOutside,
-            constraints: constraints,
-            enabled: enabled,
-            error: error,
-            fillColor: fillColor,
-            popoverFillColor: popoverFillColor,
-            help: help,
-            hoverColor: hoverColor,
-            initialValue: initialValue,
-            itemBuilder: itemBuilder,
-            itemExtent: itemExtent,
-            itemPadding: itemPadding,
-            items: const [],
-            itemsAsync: items,
-            itemsEmpty: itemsEmpty,
-            label: label,
-            listPadding: listPadding,
-            maxVisible: maxVisible,
-            onChanged: onChanged,
-            onSaved: onSaved,
-            onSearch: onSearch,
-            placeholder: placeholder,
-            placeholderLoading: placeholderLoading,
-            restorationId: restorationId,
-            selectedIcon: selectedIcon,
-            selectedIconAffinity: selectedIconAffinity,
-            selectedItemBuilder: selectedItemBuilder,
-            searchCount: searchCount,
-            searchResultsEmpty: searchResultsEmpty,
-            searchHintText: searchHintText,
-            searchIcon: searchIcon,
-            size: size,
-            spacing: spacing,
-            trailing: trailing,
-            validator: validator,
-          ),
-        );
+  }) : items = [],
+       super(
+         child: _TSelectFormField(
+           allowDeselect: allowDeselect,
+           animationOptions: animationOptions,
+           autovalidateMode: autovalidateMode,
+           borderColor: borderColor,
+           borderRadius: borderRadius,
+           closeOnSelect: closeOnSelect,
+           closeOnTapOutside: closeOnTapOutside,
+           constraints: constraints,
+           enabled: enabled,
+           error: error,
+           fillColor: fillColor,
+           popoverFillColor: popoverFillColor,
+           help: help,
+           hoverColor: hoverColor,
+           initialValue: initialValue,
+           itemBuilder: itemBuilder,
+           itemExtent: itemExtent,
+           itemPadding: itemPadding,
+           items: const [],
+           itemsAsync: items,
+           itemsEmpty: itemsEmpty,
+           label: label,
+           listPadding: listPadding,
+           maxVisible: maxVisible,
+           onChanged: onChanged,
+           onSaved: onSaved,
+           onSearch: onSearch,
+           placeholder: placeholder,
+           placeholderLoading: placeholderLoading,
+           restorationId: restorationId,
+           selectedIcon: selectedIcon,
+           selectedIconAffinity: selectedIconAffinity,
+           selectedItemBuilder: selectedItemBuilder,
+           searchCount: searchCount,
+           searchResultsEmpty: searchResultsEmpty,
+           searchHintText: searchHintText,
+           searchIcon: searchIcon,
+           size: size,
+           spacing: spacing,
+           trailing: trailing,
+           validator: validator,
+         ),
+       );
 
   /// Whether clicking on the selected item will deselect it
   final bool allowDeselect;
@@ -371,11 +371,11 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.trailing,
     required super.validator,
   }) : super(
-          builder: (field) {
-            final state = field as _TSelectFormFieldState<T>;
-            return state.buildWidget(state.context);
-          },
-        );
+         builder: (field) {
+           final state = field as _TSelectFormFieldState<T>;
+           return state.buildWidget(state.context);
+         },
+       );
 
   final bool allowDeselect;
   final TAnimatedOptions? animationOptions;
@@ -631,7 +631,8 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                     return const SizedBox.shrink();
                   }
                   final option = currentItems[index];
-                  final optionWidget = field.itemBuilder?.call(option) ??
+                  final optionWidget =
+                      field.itemBuilder?.call(option) ??
                       Text(option.toString());
                   final bool isSelected = selected == option;
                   final itemStateController = stateControllers[index];
@@ -689,8 +690,9 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                         ),
                         child: DefaultTextStyle.merge(
                           style: field.size.textStyle.copyWith(
-                            fontWeight:
-                                isSelected ? TFontWeight.semibold : null,
+                            fontWeight: isSelected
+                                ? TFontWeight.semibold
+                                : null,
                           ),
                           child: IconTheme(
                             data: IconTheme.of(context).copyWith(
@@ -753,7 +755,8 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
 
         // Resolve the widget to display in the select field
         Widget selectWidget = SelectionContainer.disabled(
-          child: (isLoading ? field.placeholderLoading : field.placeholder) ??
+          child:
+              (isLoading ? field.placeholderLoading : field.placeholder) ??
               const SizedBox.shrink(),
         );
         if (selected != null) {
@@ -777,8 +780,9 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
         }
 
         // Resolve the fill color
-        final effectiveFillColor =
-            WidgetStateProperty.resolveWith<Color?>((states) {
+        final effectiveFillColor = WidgetStateProperty.resolveWith<Color?>((
+          states,
+        ) {
           Color? color = field.fillColor?.resolve(states);
           if (color == null && states.disabled) {
             color = tw.dark ? Colors.black54 : TColors.gray.shade50;

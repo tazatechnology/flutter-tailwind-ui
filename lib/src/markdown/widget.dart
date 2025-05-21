@@ -22,31 +22,34 @@ import 'package:markdown/markdown.dart' as md;
 /// [text] for the caller to process.
 ///
 /// Used by [MarkdownWidget.onSelectionChanged]
-typedef MarkdownOnSelectionChangedCallback = void Function(
-  String? text,
-  TextSelection selection,
-  SelectionChangedCause? cause,
-);
+typedef MarkdownOnSelectionChangedCallback =
+    void Function(
+      String? text,
+      TextSelection selection,
+      SelectionChangedCause? cause,
+    );
 
 /// Signature for callbacks used by [MarkdownWidget] when the user taps a link.
 /// The callback will return the link text, destination, and title from the
 /// Markdown link tag in the document.
 ///
 /// Used by [MarkdownWidget.onTapLink].
-typedef MarkdownTapLinkCallback = void Function(
-  String text,
-  String? href,
-  String title,
-);
+typedef MarkdownTapLinkCallback =
+    void Function(
+      String text,
+      String? href,
+      String title,
+    );
 
 /// Signature for custom image widget.
 ///
 /// Used by [MarkdownWidget.imageBuilder]
-typedef MarkdownImageBuilder = Widget Function(
-  Uri uri,
-  String? title,
-  String? alt,
-);
+typedef MarkdownImageBuilder =
+    Widget Function(
+      Uri uri,
+      String? title,
+      String? alt,
+    );
 
 /// Signature for custom checkbox widget.
 ///
@@ -56,9 +59,10 @@ typedef MarkdownCheckboxBuilder = Widget Function(bool value);
 /// Signature for custom bullet widget.
 ///
 /// Used by [MarkdownWidget.bulletBuilder]
-typedef MarkdownBulletBuilder = Widget Function(
-  MarkdownBulletParameters parameters,
-);
+typedef MarkdownBulletBuilder =
+    Widget Function(
+      MarkdownBulletParameters parameters,
+    );
 
 /// An parameters of [MarkdownBulletBuilder].
 ///
@@ -364,10 +368,13 @@ class _MarkdownWidgetState extends State<MarkdownWidget>
   }
 
   void _parseMarkdown() {
-    final MarkdownStyleSheet fallbackStyleSheet =
-        kFallbackStyle(context, widget.styleSheetTheme);
-    final MarkdownStyleSheet styleSheet =
-        fallbackStyleSheet.merge(widget.styleSheet);
+    final MarkdownStyleSheet fallbackStyleSheet = kFallbackStyle(
+      context,
+      widget.styleSheetTheme,
+    );
+    final MarkdownStyleSheet styleSheet = fallbackStyleSheet.merge(
+      widget.styleSheet,
+    );
 
     _disposeRecognizers();
 
@@ -487,8 +494,9 @@ class MarkdownBody extends MarkdownWidget {
     }
     return Column(
       mainAxisSize: shrinkWrap ? MainAxisSize.min : MainAxisSize.max,
-      crossAxisAlignment:
-          fitContent ? CrossAxisAlignment.start : CrossAxisAlignment.stretch,
+      crossAxisAlignment: fitContent
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.stretch,
       children: children,
     );
   }

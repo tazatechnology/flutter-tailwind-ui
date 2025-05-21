@@ -21,15 +21,15 @@ class TWidgetStatesController extends WidgetStatesController {
     bool error = false,
     bool loading = false,
   }) : super({
-          if (hovered) WidgetState.hovered,
-          if (focused) WidgetState.focused,
-          if (pressed) WidgetState.pressed,
-          if (dragged) WidgetState.dragged,
-          if (selected) WidgetState.selected,
-          if (scrolledUnder) WidgetState.scrolledUnder,
-          if (disabled) WidgetState.disabled,
-          if (error) WidgetState.error,
-        }) {
+         if (hovered) WidgetState.hovered,
+         if (focused) WidgetState.focused,
+         if (pressed) WidgetState.pressed,
+         if (dragged) WidgetState.dragged,
+         if (selected) WidgetState.selected,
+         if (scrolledUnder) WidgetState.scrolledUnder,
+         if (disabled) WidgetState.disabled,
+         if (error) WidgetState.error,
+       }) {
     _loading = loading;
   }
 

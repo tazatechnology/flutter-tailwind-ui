@@ -295,13 +295,14 @@ class MarkdownBuilder implements md.NodeVisitor {
   String? extractTextFromElement(md.Node element) {
     return element is md.Element && (element.children?.isNotEmpty ?? false)
         ? element.children!
-            .map(
-              (md.Node e) => e is md.Text ? e.text : extractTextFromElement(e),
-            )
-            .join()
+              .map(
+                (md.Node e) =>
+                    e is md.Text ? e.text : extractTextFromElement(e),
+              )
+              .join()
         : (element is md.Element && (element.attributes.isNotEmpty)
-            ? element.attributes['alt']
-            : '');
+              ? element.attributes['alt']
+              : '');
   }
 
   @override
@@ -332,8 +333,13 @@ class MarkdownBuilder implements md.NodeVisitor {
       // https://github.github.com/gfm/#example-192
       // https://github.github.com/gfm/#example-236
       String text = value;
-      if (const <String>['ul', 'ol', 'li', 'p', 'br']
-          .contains(_lastVisitedTag)) {
+      if (const <String>[
+        'ul',
+        'ol',
+        'li',
+        'p',
+        'br',
+      ].contains(_lastVisitedTag)) {
         text = text.replaceAll(leadingSpacesPattern, '');
       }
 
@@ -345,25 +351,28 @@ class MarkdownBuilder implements md.NodeVisitor {
 
     Widget? child;
     if (_blocks.isNotEmpty && builders.containsKey(_blocks.last.tag)) {
-      child = builders[_blocks.last.tag!]!
-          .visitText(text, styleSheet.styles[_blocks.last.tag!]);
+      child = builders[_blocks.last.tag!]!.visitText(
+        text,
+        styleSheet.styles[_blocks.last.tag!],
+      );
     } else if (_blocks.last.tag == 'pre') {
       child = _ScrollControllerBuilder(
-        builder: (
-          BuildContext context,
-          ScrollController preScrollController,
-          Widget? child,
-        ) {
-          return Scrollbar(
-            controller: preScrollController,
-            child: SingleChildScrollView(
-              controller: preScrollController,
-              scrollDirection: Axis.horizontal,
-              padding: styleSheet.codeblockPadding,
-              child: child,
-            ),
-          );
-        },
+        builder:
+            (
+              BuildContext context,
+              ScrollController preScrollController,
+              Widget? child,
+            ) {
+              return Scrollbar(
+                controller: preScrollController,
+                child: SingleChildScrollView(
+                  controller: preScrollController,
+                  scrollDirection: Axis.horizontal,
+                  padding: styleSheet.codeblockPadding,
+                  child: child,
+                ),
+              );
+            },
         child: _buildRichText(delegate.formatText(styleSheet, text.text)),
       );
     } else {
@@ -407,7 +416,8 @@ class MarkdownBuilder implements md.NodeVisitor {
         }
       }
 
-      Widget child = builders[tag]?.visitElementAfterWithContext(
+      Widget child =
+          builders[tag]?.visitElementAfterWithContext(
             delegate.context,
             element,
             styleSheet.styles[tag],
@@ -433,17 +443,20 @@ class MarkdownBuilder implements md.NodeVisitor {
           }
           child = Row(
             mainAxisSize: fitContent ? MainAxisSize.min : MainAxisSize.max,
-            textBaseline: listItemCrossAxisAlignment ==
+            textBaseline:
+                listItemCrossAxisAlignment ==
                     MarkdownListItemCrossAxisAlignment.start
                 ? null
                 : TextBaseline.alphabetic,
-            crossAxisAlignment: listItemCrossAxisAlignment ==
+            crossAxisAlignment:
+                listItemCrossAxisAlignment ==
                     MarkdownListItemCrossAxisAlignment.start
                 ? CrossAxisAlignment.start
                 : CrossAxisAlignment.baseline,
             children: <Widget>[
               SizedBox(
-                width: styleSheet.listIndent! +
+                width:
+                    styleSheet.listIndent! +
                     styleSheet.listBulletPadding!.left +
                     styleSheet.listBulletPadding!.right,
                 child: bullet,
@@ -459,22 +472,23 @@ class MarkdownBuilder implements md.NodeVisitor {
         if (styleSheet.tableColumnWidth is FixedColumnWidth ||
             styleSheet.tableColumnWidth is IntrinsicColumnWidth) {
           child = _ScrollControllerBuilder(
-            builder: (
-              BuildContext context,
-              ScrollController tableScrollController,
-              Widget? child,
-            ) {
-              return Scrollbar(
-                controller: tableScrollController,
-                thumbVisibility: styleSheet.tableScrollbarThumbVisibility,
-                child: SingleChildScrollView(
-                  controller: tableScrollController,
-                  scrollDirection: Axis.horizontal,
-                  padding: styleSheet.tablePadding,
-                  child: child,
-                ),
-              );
-            },
+            builder:
+                (
+                  BuildContext context,
+                  ScrollController tableScrollController,
+                  Widget? child,
+                ) {
+                  return Scrollbar(
+                    controller: tableScrollController,
+                    thumbVisibility: styleSheet.tableScrollbarThumbVisibility,
+                    child: SingleChildScrollView(
+                      controller: tableScrollController,
+                      scrollDirection: Axis.horizontal,
+                      padding: styleSheet.tablePadding,
+                      child: child,
+                    ),
+                  );
+                },
             child: _buildTable(),
           );
         } else {
@@ -796,8 +810,9 @@ class MarkdownBuilder implements md.NodeVisitor {
     }
 
     // Merge the style of the parent with the style of the children
-    final Iterable<InlineSpan> spans =
-        span.children!.map((InlineSpan childSpan) {
+    final Iterable<InlineSpan> spans = span.children!.map((
+      InlineSpan childSpan,
+    ) {
       if (childSpan is TextSpan) {
         return TextSpan(
           text: childSpan.text,
@@ -816,11 +831,11 @@ class MarkdownBuilder implements md.NodeVisitor {
   // Accesses the TextSpan property correctly depending on the widget type.
   // Returns null if not a valid (text) widget.
   InlineSpan? _getInlineSpanFromText(Widget widget) => switch (widget) {
-        SelectableText() => widget.textSpan,
-        Text() => widget.textSpan,
-        RichText() => widget.text,
-        _ => null
-      };
+    SelectableText() => widget.textSpan,
+    Text() => widget.textSpan,
+    RichText() => widget.text,
+    _ => null,
+  };
 
   /// Merges adjacent [TextSpan] children.
   /// Also forces a specific [TextAlign] regardless of merging.
@@ -960,8 +975,9 @@ class MarkdownBuilder implements md.NodeVisitor {
     final List<InlineSpan> mergedSpans = <InlineSpan>[];
 
     for (int index = 1; index < textSpans.length; index++) {
-      final InlineSpan previous =
-          mergedSpans.isEmpty ? textSpans.first : mergedSpans.removeLast();
+      final InlineSpan previous = mergedSpans.isEmpty
+          ? textSpans.first
+          : mergedSpans.removeLast();
       final InlineSpan nextChild = textSpans[index];
 
       final bool previousIsTextSpan = previous is TextSpan;
@@ -971,7 +987,8 @@ class MarkdownBuilder implements md.NodeVisitor {
         continue;
       }
 
-      final bool matchStyle = nextChild.recognizer == previous.recognizer &&
+      final bool matchStyle =
+          nextChild.recognizer == previous.recognizer &&
           nextChild.semanticsLabel == previous.semanticsLabel &&
           nextChild.style == previous.style;
 
@@ -1004,7 +1021,7 @@ class MarkdownBuilder implements md.NodeVisitor {
         textAlign: textAlign ?? TextAlign.start,
         onSelectionChanged: onSelectionChanged != null
             ? (TextSelection selection, SelectionChangedCause? cause) =>
-                onSelectionChanged!(text.text, selection, cause)
+                  onSelectionChanged!(text.text, selection, cause)
             : null,
         onTap: onTapText,
         key: k,

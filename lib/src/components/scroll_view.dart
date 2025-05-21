@@ -96,8 +96,9 @@ class TScrollView extends StatelessWidget {
       controller: controller,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final double minHeight =
-              constraints.hasBoundedHeight ? constraints.maxHeight : 0;
+          final double minHeight = constraints.hasBoundedHeight
+              ? constraints.maxHeight
+              : 0;
           return SingleChildScrollView(
             scrollDirection: scrollDirection,
             reverse: reverse,

@@ -97,22 +97,24 @@ class _RingPainter extends CustomPainter {
       canvas.drawRect(rect, paint);
     } else {
       final br = borderRadius!;
-      final brOffset = br.add(
-        BorderRadius.only(
-          topLeft: (br.topLeft.x > 0 && br.topLeft.y > 0)
-              ? borderOffset
-              : Radius.zero,
-          topRight: (br.topRight.x > 0 && br.topRight.y > 0)
-              ? borderOffset
-              : Radius.zero,
-          bottomRight: (br.bottomRight.x > 0 && br.bottomRight.y > 0)
-              ? borderOffset
-              : Radius.zero,
-          bottomLeft: (br.bottomLeft.x > 0 && br.bottomLeft.y > 0)
-              ? borderOffset
-              : Radius.zero,
-        ),
-      ) as BorderRadius;
+      final brOffset =
+          br.add(
+                BorderRadius.only(
+                  topLeft: (br.topLeft.x > 0 && br.topLeft.y > 0)
+                      ? borderOffset
+                      : Radius.zero,
+                  topRight: (br.topRight.x > 0 && br.topRight.y > 0)
+                      ? borderOffset
+                      : Radius.zero,
+                  bottomRight: (br.bottomRight.x > 0 && br.bottomRight.y > 0)
+                      ? borderOffset
+                      : Radius.zero,
+                  bottomLeft: (br.bottomLeft.x > 0 && br.bottomLeft.y > 0)
+                      ? borderOffset
+                      : Radius.zero,
+                ),
+              )
+              as BorderRadius;
 
       canvas.drawRRect(brOffset.toRRect(rect), paint);
     }

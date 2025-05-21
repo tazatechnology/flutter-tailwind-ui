@@ -69,14 +69,14 @@ class TInput extends StatefulWidget {
     this.textInputAction,
     this.undoController,
     this.validator,
-  })  : _isTextArea = false,
-        expands = false,
-        minLines = 1,
-        maxLines = 1,
-        assert(
-          initialValue == null || controller == null,
-          'initialValue and controller cannot be used at the same time',
-        );
+  }) : _isTextArea = false,
+       expands = false,
+       minLines = 1,
+       maxLines = 1,
+       assert(
+         initialValue == null || controller == null,
+         'initialValue and controller cannot be used at the same time',
+       );
 
   /// Construct a text area input field.
   const TInput.area({
@@ -135,17 +135,17 @@ class TInput extends StatefulWidget {
     this.validator,
     this.minLines = 5,
     this.maxLines = 10,
-  })  : _isTextArea = true,
-        obscure = false,
-        expands = false,
-        obscureCharacter = '•',
-        prefix = null,
-        suffix = null,
-        size = TInputSize.lg, // Not used for text area
-        assert(
-          initialValue == null || controller == null,
-          'initialValue and controller cannot be used at the same time',
-        );
+  }) : _isTextArea = true,
+       obscure = false,
+       expands = false,
+       obscureCharacter = '•',
+       prefix = null,
+       suffix = null,
+       size = TInputSize.lg, // Not used for text area
+       assert(
+         initialValue == null || controller == null,
+         'initialValue and controller cannot be used at the same time',
+       );
 
   /// Internal flag to determine if the input field is a text area.
   final bool _isTextArea;
@@ -397,8 +397,9 @@ class _TInputState extends State<TInput> {
     final isInteractive = widget.enabled && !widget.readOnly;
 
     // Resolve the fill color
-    Color? effectiveFillColor =
-        widget.fillColor?.resolve(statesController.value);
+    Color? effectiveFillColor = widget.fillColor?.resolve(
+      statesController.value,
+    );
     if (isInteractive) {
       effectiveFillColor ??= tw.color.background;
     } else {
@@ -529,11 +530,13 @@ class _TInputState extends State<TInput> {
             restorationId: widget.restorationId,
             selectionControls: widget.selectionControls,
             showCursor: widget.showCursor ?? isInteractive,
-            smartDashesType: widget.smartDashesType ??
+            smartDashesType:
+                widget.smartDashesType ??
                 (widget.obscure
                     ? SmartDashesType.disabled
                     : SmartDashesType.enabled),
-            smartQuotesType: widget.smartQuotesType ??
+            smartQuotesType:
+                widget.smartQuotesType ??
                 (widget.obscure
                     ? SmartQuotesType.disabled
                     : SmartQuotesType.enabled),

@@ -72,28 +72,32 @@ class TInputBorderWrapper extends StatelessWidget {
       if (states.focused) {
         border = inputTheme.focusedBorder?.copyWith(
           borderSide: inputTheme.focusedBorder?.borderSide.copyWith(
-            color: borderColor?.resolve({WidgetState.focused}) ??
+            color:
+                borderColor?.resolve({WidgetState.focused}) ??
                 inputTheme.focusedBorder?.borderSide.color,
           ),
         );
       } else if (states.error) {
         border = inputTheme.errorBorder?.copyWith(
           borderSide: inputTheme.errorBorder?.borderSide.copyWith(
-            color: borderColor?.resolve({WidgetState.focused}) ??
+            color:
+                borderColor?.resolve({WidgetState.focused}) ??
                 inputTheme.errorBorder?.borderSide.color,
           ),
         );
       } else if (states.disabled) {
         border = inputTheme.disabledBorder?.copyWith(
           borderSide: inputTheme.disabledBorder?.borderSide.copyWith(
-            color: borderColor?.resolve({WidgetState.focused}) ??
+            color:
+                borderColor?.resolve({WidgetState.focused}) ??
                 inputTheme.disabledBorder?.borderSide.color,
           ),
         );
       } else {
         border = inputTheme.enabledBorder?.copyWith(
           borderSide: inputTheme.enabledBorder?.borderSide.copyWith(
-            color: borderColor?.resolve({WidgetState.focused}) ??
+            color:
+                borderColor?.resolve({WidgetState.focused}) ??
                 inputTheme.enabledBorder?.borderSide.color,
           ),
         );
@@ -127,7 +131,8 @@ class TInputBorderWrapper extends StatelessWidget {
           states.add(WidgetState.disabled);
         }
 
-        final effectiveBorder = resolveInputBorder(
+        final effectiveBorder =
+            resolveInputBorder(
               context: context,
               borderColor: borderColor,
               borderRadius: borderRadius,
@@ -165,8 +170,9 @@ class _InputBorderPainter extends CustomPainter {
       final OutlineInputBorder outlineBorder =
           inputBorder as OutlineInputBorder;
       // Resolve the border radius using the ambient TextDirection.
-      final RRect rrect =
-          outlineBorder.borderRadius.resolve(TextDirection.ltr).toRRect(rect);
+      final RRect rrect = outlineBorder.borderRadius
+          .resolve(TextDirection.ltr)
+          .toRRect(rect);
       // For simplicity, we pass null and zero values for gap parameters.
       outlineBorder.paint(canvas, rrect.outerRect);
     } else {

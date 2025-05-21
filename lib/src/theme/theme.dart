@@ -15,9 +15,7 @@ import 'package:flutter_tailwind_ui/src/internal/transitions.dart';
 /// Reference: https://tailwindcss.com/docs
 class TailwindTheme {
   /// Factory constructor for a light Tailwind inspired theme
-  factory TailwindTheme.light({
-    TailwindColorTheme? color,
-  }) {
+  factory TailwindTheme.light({TailwindColorTheme? color}) {
     return TailwindTheme._(
       brightness: Brightness.light,
       color: color ?? TailwindColorTheme.light(),
@@ -25,9 +23,7 @@ class TailwindTheme {
   }
 
   /// Factory constructor for a dark Tailwind inspired theme
-  factory TailwindTheme.dark({
-    TailwindColorTheme? color,
-  }) {
+  factory TailwindTheme.dark({TailwindColorTheme? color}) {
     return TailwindTheme._(
       brightness: Brightness.dark,
       color: color ?? TailwindColorTheme.dark(),
@@ -52,33 +48,32 @@ class TailwindTheme {
   // METHOD: _buildThemeData
   // ---------------------------------------------------------------------------
 
-  ThemeData _buildThemeData({
-    required TailwindColorTheme color,
-  }) {
+  ThemeData _buildThemeData({required TailwindColorTheme color}) {
     final light = _brightness == Brightness.light;
 
     // Define the default text theme
-    TextTheme textTheme = const TextTheme(
-      displayLarge: TTextStyle.text_6xl,
-      displayMedium: TTextStyle.text_5xl,
-      displaySmall: TTextStyle.text_4xl,
-      headlineLarge: TTextStyle.text_4xl,
-      headlineMedium: TTextStyle.text_3xl,
-      headlineSmall: TTextStyle.text_2xl,
-      titleLarge: TTextStyle.text_2xl,
-      titleMedium: TTextStyle.text_lg,
-      titleSmall: TTextStyle.text_md,
-      bodyLarge: TTextStyle.text_lg,
-      bodyMedium: TTextStyle.text_md,
-      bodySmall: TTextStyle.text_sm,
-      labelLarge: TTextStyle.text_md,
-      labelMedium: TTextStyle.text_sm,
-      labelSmall: TTextStyle.text_xs,
-    ).apply(
-      fontFamily: TTextStyle.fontFamily,
-      bodyColor: color.body,
-      displayColor: color.title,
-    );
+    TextTheme textTheme =
+        const TextTheme(
+          displayLarge: TTextStyle.text_6xl,
+          displayMedium: TTextStyle.text_5xl,
+          displaySmall: TTextStyle.text_4xl,
+          headlineLarge: TTextStyle.text_4xl,
+          headlineMedium: TTextStyle.text_3xl,
+          headlineSmall: TTextStyle.text_2xl,
+          titleLarge: TTextStyle.text_2xl,
+          titleMedium: TTextStyle.text_lg,
+          titleSmall: TTextStyle.text_md,
+          bodyLarge: TTextStyle.text_lg,
+          bodyMedium: TTextStyle.text_md,
+          bodySmall: TTextStyle.text_sm,
+          labelLarge: TTextStyle.text_md,
+          labelMedium: TTextStyle.text_sm,
+          labelSmall: TTextStyle.text_xs,
+        ).apply(
+          fontFamily: TTextStyle.fontFamily,
+          bodyColor: color.body,
+          displayColor: color.title,
+        );
 
     // Update the text theme with the secondary color
     textTheme = textTheme.copyWith(
@@ -136,7 +131,7 @@ class TailwindTheme {
       ),
 
       /// Card
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: color.card,
         surfaceTintColor: Colors.transparent,
         shadowColor: color.shadow,
@@ -150,7 +145,7 @@ class TailwindTheme {
       ),
 
       /// Dialog
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: color.background,
         shadowColor: color.shadow,
         surfaceTintColor: Colors.transparent,
@@ -160,9 +155,7 @@ class TailwindTheme {
           color: color.title,
           fontWeight: TFontWeight.semibold,
         ),
-        contentTextStyle: TTextStyle.text_sm.copyWith(
-          color: color.label,
-        ),
+        contentTextStyle: TTextStyle.text_sm.copyWith(color: color.label),
         shape: RoundedRectangleBorder(
           borderRadius: TBorderRadius.rounded_lg,
           side: BorderSide(color: color.shadow),
@@ -170,9 +163,7 @@ class TailwindTheme {
       ),
 
       /// Progress Indicator
-      progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: color.primary,
-      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: color.primary),
 
       /// Chip
       chipTheme: const ChipThemeData(
@@ -183,20 +174,13 @@ class TailwindTheme {
       ),
 
       /// Divider
-      dividerTheme: DividerThemeData(
-        color: color.divider,
-        thickness: 1,
-      ),
+      dividerTheme: DividerThemeData(color: color.divider, thickness: 1),
 
       /// Drawer
-      drawerTheme: DrawerThemeData(
-        backgroundColor: color.background,
-      ),
+      drawerTheme: DrawerThemeData(backgroundColor: color.background),
 
       /// Icon
-      iconTheme: IconThemeData(
-        color: color.icon,
-      ),
+      iconTheme: IconThemeData(color: color.icon),
 
       /// Page Transitions
       pageTransitionsTheme: PageTransitionsTheme(
@@ -208,16 +192,14 @@ class TailwindTheme {
         visualDensity: VisualDensity.compact,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         splashRadius: 0,
-        fillColor: WidgetStateProperty.resolveWith(
-          (states) {
-            if (states.contains(WidgetState.disabled)) {
-              return color.disabled;
-            } else if (states.contains(WidgetState.selected)) {
-              return light ? color.primary.shade600 : color.primary;
-            }
-            return TColors.gray.shade300;
-          },
-        ),
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return color.disabled;
+          } else if (states.contains(WidgetState.selected)) {
+            return light ? color.primary.shade600 : color.primary;
+          }
+          return TColors.gray.shade300;
+        }),
       ),
 
       /// Input
@@ -227,9 +209,7 @@ class TailwindTheme {
         iconColor: color.icon,
         prefixIconColor: color.icon,
         suffixIconColor: color.icon,
-        labelStyle: const TextStyle(
-          fontSize: TFontSize.text_sm,
-        ),
+        labelStyle: const TextStyle(fontSize: TFontSize.text_sm),
         hintStyle: TextStyle(
           letterSpacing: TLetterSpacing.wide,
           fontSize: TFontSize.text_sm,

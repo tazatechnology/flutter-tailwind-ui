@@ -52,47 +52,47 @@ class TSlider extends TFormField<double> {
     this.tooltipFormatter,
     this.tooltipTextStyle,
     this.validator,
-  })  : assert(
-          min <= max,
-          'min must be less than or equal to max',
-        ),
-        assert(
-          (initialValue != null) ^ (controller != null),
-          'Either initialValue or controller must be specified',
-        ),
-        super(
-          id: id ?? 'TSlider',
-          child: _TSliderFormField(
-            activeTrackColor: activeTrackColor,
-            allowedInteraction: allowedInteraction,
-            autofocus: autofocus,
-            autovalidateMode: autovalidateMode,
-            controller: controller,
-            disabledActiveTrackColor: disabledActiveTrackColor,
-            disabledInactiveTrackColor: disabledInactiveTrackColor,
-            disabledThumbColor: disabledThumbColor,
-            divisions: divisions,
-            editable: editable,
-            enabled: enabled,
-            focusNode: focusNode,
-            formatter: formatter,
-            initialValue: initialValue,
-            inactiveTrackColor: inactiveTrackColor,
-            label: label,
-            max: max,
-            min: min,
-            onChanged: onChanged,
-            restorationId: restorationId,
-            showValueLabels: showDefaultMarks,
-            textStyle: textStyle,
-            thumbColor: thumbColor,
-            tooltipBorderColor: tooltipBorderColor,
-            tooltipColor: tooltipColor,
-            tooltipFormatter: tooltipFormatter,
-            tooltipTextStyle: tooltipTextStyle,
-            validator: validator,
-          ),
-        );
+  }) : assert(
+         min <= max,
+         'min must be less than or equal to max',
+       ),
+       assert(
+         (initialValue != null) ^ (controller != null),
+         'Either initialValue or controller must be specified',
+       ),
+       super(
+         id: id ?? 'TSlider',
+         child: _TSliderFormField(
+           activeTrackColor: activeTrackColor,
+           allowedInteraction: allowedInteraction,
+           autofocus: autofocus,
+           autovalidateMode: autovalidateMode,
+           controller: controller,
+           disabledActiveTrackColor: disabledActiveTrackColor,
+           disabledInactiveTrackColor: disabledInactiveTrackColor,
+           disabledThumbColor: disabledThumbColor,
+           divisions: divisions,
+           editable: editable,
+           enabled: enabled,
+           focusNode: focusNode,
+           formatter: formatter,
+           initialValue: initialValue,
+           inactiveTrackColor: inactiveTrackColor,
+           label: label,
+           max: max,
+           min: min,
+           onChanged: onChanged,
+           restorationId: restorationId,
+           showValueLabels: showDefaultMarks,
+           textStyle: textStyle,
+           thumbColor: thumbColor,
+           tooltipBorderColor: tooltipBorderColor,
+           tooltipColor: tooltipColor,
+           tooltipFormatter: tooltipFormatter,
+           tooltipTextStyle: tooltipTextStyle,
+           validator: validator,
+         ),
+       );
 
   /// The allowed interactions for the slider.
   final SliderInteraction? allowedInteraction;
@@ -218,11 +218,11 @@ class _TSliderFormField extends FormField<double> {
     required this.tooltipTextStyle,
     required super.validator,
   }) : super(
-          builder: (field) {
-            final state = field as _TSliderFormFieldState;
-            return state.buildWidget(state.context);
-          },
-        );
+         builder: (field) {
+           final state = field as _TSliderFormFieldState;
+           return state.buildWidget(state.context);
+         },
+       );
 
   final Color? activeTrackColor;
   final SliderInteraction? allowedInteraction;
@@ -399,7 +399,9 @@ class _TSliderFormFieldState extends FormFieldState<double> {
           disabledInactiveTrackColor: field.disabledInactiveTrackColor,
           allowedInteraction: field.allowedInteraction,
           valueIndicatorTextStyle: context
-              .theme.sliderTheme.valueIndicatorTextStyle
+              .theme
+              .sliderTheme
+              .valueIndicatorTextStyle
               ?.merge(field.tooltipTextStyle),
           overlayColor: Colors.transparent,
           thumbShape: const TSliderThumbShape(),

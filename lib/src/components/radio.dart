@@ -65,7 +65,8 @@ class TRadio extends StatelessWidget {
 
     final color = enabled ? this.color ?? tw.color.primary : tw.color.disabled;
 
-    final indicator = this.indicator ??
+    final indicator =
+        this.indicator ??
         const Icon(
           Icons.circle,
           size: kTDefaultControlSize / 2,
@@ -88,7 +89,8 @@ class TRadio extends StatelessWidget {
       duration: animationDuration,
       switchInCurve: animationCurve,
       switchOutCurve: animationCurve,
-      transitionBuilder: animationTransitionBuilder ??
+      transitionBuilder:
+          animationTransitionBuilder ??
           (child, animation) {
             return ScaleTransition(scale: animation, child: child);
           },
@@ -117,8 +119,9 @@ class TRadio extends StatelessWidget {
         } else if (states.disabled) {
           borderColor = tw.color.disabled;
         } else {
-          borderColor =
-              tw.light ? const Color(0xffccccd4) : const Color(0xff4d5866);
+          borderColor = tw.light
+              ? const Color(0xffccccd4)
+              : const Color(0xff4d5866);
         }
 
         return TFocusBorder(
@@ -140,8 +143,8 @@ class TRadio extends StatelessWidget {
                 color: value
                     ? color
                     : (enabled
-                        ? Colors.transparent
-                        : tw.color.disabled.withValues(alpha: 0.5)),
+                          ? Colors.transparent
+                          : tw.color.disabled.withValues(alpha: 0.5)),
                 border: Border.all(color: borderColor),
                 borderRadius: TBorderRadius.rounded_full,
               ),
@@ -188,27 +191,27 @@ class TRadioGroup<T> extends TFormField<T> {
     this.onChanged,
     required this.children,
     this.spacing,
-  })  : radius = 0,
-        padding = TOffset.zero,
-        elevation = 0,
-        super(
-          id: id ?? 'TRadioGroup',
-          child: _TRadioGroupFormField<T>(
-            variant: TSelectionGroupVariant.basic,
-            affinity: affinity,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            axis: axis,
-            children: children,
-            spacing: spacing,
-            onChanged: onChanged,
-            radius: 0,
-            padding: TOffset.zero,
-            elevation: 0,
-          ),
-        );
+  }) : radius = 0,
+       padding = TOffset.zero,
+       elevation = 0,
+       super(
+         id: id ?? 'TRadioGroup',
+         child: _TRadioGroupFormField<T>(
+           variant: TSelectionGroupVariant.basic,
+           affinity: affinity,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           axis: axis,
+           children: children,
+           spacing: spacing,
+           onChanged: onChanged,
+           radius: 0,
+           padding: TOffset.zero,
+           elevation: 0,
+         ),
+       );
 
   /// Construct a separated [TRadioGroup]
   TRadioGroup.separated({
@@ -223,27 +226,27 @@ class TRadioGroup<T> extends TFormField<T> {
     this.onChanged,
     required this.children,
     this.spacing,
-  })  : radius = 0,
-        padding = TOffset.zero,
-        elevation = 0,
-        super(
-          id: id ?? 'TRadioGroup.separated',
-          child: _TRadioGroupFormField<T>(
-            variant: TSelectionGroupVariant.separated,
-            affinity: affinity,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            axis: axis,
-            children: children,
-            spacing: spacing,
-            onChanged: onChanged,
-            radius: 0,
-            padding: TOffset.zero,
-            elevation: 0,
-          ),
-        );
+  }) : radius = 0,
+       padding = TOffset.zero,
+       elevation = 0,
+       super(
+         id: id ?? 'TRadioGroup.separated',
+         child: _TRadioGroupFormField<T>(
+           variant: TSelectionGroupVariant.separated,
+           affinity: affinity,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           axis: axis,
+           children: children,
+           spacing: spacing,
+           onChanged: onChanged,
+           radius: 0,
+           padding: TOffset.zero,
+           elevation: 0,
+         ),
+       );
 
   /// Construct a card [TRadioGroup]
   TRadioGroup.card({
@@ -262,23 +265,23 @@ class TRadioGroup<T> extends TFormField<T> {
     this.padding = TOffset.a16,
     this.elevation = TElevation.shadow_xs,
   }) : super(
-          id: id ?? 'TRadioGroup.card',
-          child: _TRadioGroupFormField<T>(
-            variant: TSelectionGroupVariant.card,
-            affinity: affinity,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            axis: axis,
-            children: children,
-            spacing: spacing,
-            onChanged: onChanged,
-            radius: radius,
-            padding: padding,
-            elevation: elevation,
-          ),
-        );
+         id: id ?? 'TRadioGroup.card',
+         child: _TRadioGroupFormField<T>(
+           variant: TSelectionGroupVariant.card,
+           affinity: affinity,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           axis: axis,
+           children: children,
+           spacing: spacing,
+           onChanged: onChanged,
+           radius: radius,
+           padding: padding,
+           elevation: elevation,
+         ),
+       );
 
   /// Construct a panel [TRadioGroup]
   TRadioGroup.panel({
@@ -295,25 +298,25 @@ class TRadioGroup<T> extends TFormField<T> {
     this.radius = TRadius.rounded_lg,
     this.padding = TOffset.a16,
     this.elevation = 0,
-  })  : spacing = 0,
-        super(
-          id: id ?? 'TRadioGroup.panel',
-          child: _TRadioGroupFormField<T>(
-            variant: TSelectionGroupVariant.panel,
-            affinity: affinity,
-            color: color,
-            description: description,
-            initialValue: initialValue,
-            label: label,
-            axis: axis,
-            children: children,
-            spacing: 0,
-            onChanged: onChanged,
-            radius: radius,
-            padding: padding,
-            elevation: elevation,
-          ),
-        );
+  }) : spacing = 0,
+       super(
+         id: id ?? 'TRadioGroup.panel',
+         child: _TRadioGroupFormField<T>(
+           variant: TSelectionGroupVariant.panel,
+           affinity: affinity,
+           color: color,
+           description: description,
+           initialValue: initialValue,
+           label: label,
+           axis: axis,
+           children: children,
+           spacing: 0,
+           onChanged: onChanged,
+           radius: radius,
+           padding: padding,
+           elevation: elevation,
+         ),
+       );
 
   /// The control affinity of the group.
   final TControlAffinity affinity;
@@ -380,11 +383,11 @@ class _TRadioGroupFormField<T> extends FormField<T> {
     required this.spacing,
     required this.variant,
   }) : super(
-          builder: (field) {
-            final state = field as _TSwitchTileFormFieldState<T>;
-            return state.buildWidget(state.context);
-          },
-        );
+         builder: (field) {
+           final state = field as _TSwitchTileFormFieldState<T>;
+           return state.buildWidget(state.context);
+         },
+       );
   final TControlAffinity affinity;
   final Axis axis;
   final Color? color;

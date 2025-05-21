@@ -99,28 +99,29 @@ class TDialog extends StatelessWidget {
       transitionDuration: transitionDuration,
       useRootNavigator: useRootNavigator,
       pageBuilder: (context, animation, secondaryAnimation) => builder(context),
-      transitionBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-      ) {
-        if (animation.status == AnimationStatus.completed) {
-          return child;
-        }
-        return FadeTransition(
-          opacity: animation,
-          child: ScaleTransition(
-            scale: Tween<double>(begin: 0.95, end: 1).animate(
-              CurvedAnimation(
-                parent: animation,
-                curve: Curves.easeInOut,
+      transitionBuilder:
+          (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) {
+            if (animation.status == AnimationStatus.completed) {
+              return child;
+            }
+            return FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(
+                scale: Tween<double>(begin: 0.95, end: 1).animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeInOut,
+                  ),
+                ),
+                child: child,
               ),
-            ),
-            child: child,
-          ),
-        );
-      },
+            );
+          },
     );
   }
 
@@ -139,11 +140,13 @@ class TDialog extends StatelessWidget {
     final bool centered = effectiveIcon != null;
 
     /// Resolve the effective title.
-    Widget? effectiveTitle =
-        title != null ? SelectionArea(child: title!) : null;
+    Widget? effectiveTitle = title != null
+        ? SelectionArea(child: title!)
+        : null;
 
-    final actionsAxis =
-        tw.screen.is_xs || !centered ? Axis.horizontal : Axis.vertical;
+    final actionsAxis = tw.screen.is_xs || !centered
+        ? Axis.horizontal
+        : Axis.vertical;
 
     /// Resolve the effective content.
     Widget? effectiveContent;
@@ -252,8 +255,9 @@ class TDialog extends StatelessWidget {
         (dialogTheme.titleTextStyle ?? const TextStyle()).merge(titleTextStyle);
 
     final effectiveContentTextStyle =
-        (dialogTheme.contentTextStyle ?? const TextStyle())
-            .merge(contentTextStyle);
+        (dialogTheme.contentTextStyle ?? const TextStyle()).merge(
+          contentTextStyle,
+        );
 
     return AlertDialog(
       insetPadding: EdgeInsets.symmetric(
