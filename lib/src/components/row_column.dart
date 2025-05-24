@@ -24,6 +24,7 @@ class TRowColumn extends StatelessWidget {
     this.mainAxisAlignment,
     this.crossAxisAlignment,
     this.spacing = 0.0,
+    this.reverse = false,
     super.key,
   });
 
@@ -56,6 +57,9 @@ class TRowColumn extends StatelessWidget {
   /// The amount of space to place between each child.
   final double spacing;
 
+  /// Whether to reverse the order of the children.
+  final bool reverse;
+
   @override
   Widget build(BuildContext context) {
     switch (axis) {
@@ -65,7 +69,7 @@ class TRowColumn extends StatelessWidget {
           mainAxisSize: mainAxisSize ?? MainAxisSize.min,
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
           crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-          children: children,
+          children: reverse ? children.reversed.toList() : children,
         );
       case Axis.vertical:
         return Column(
@@ -73,7 +77,7 @@ class TRowColumn extends StatelessWidget {
           mainAxisSize: mainAxisSize ?? MainAxisSize.min,
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
           crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-          children: children,
+          children: reverse ? children.reversed.toList() : children,
         );
     }
   }
