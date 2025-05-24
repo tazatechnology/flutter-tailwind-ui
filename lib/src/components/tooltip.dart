@@ -53,7 +53,7 @@ class _TTooltipState extends State<TTooltip> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final renderBox =
           childKey.currentContext?.findRenderObject() as RenderBox?;
-      if (renderBox != null) {
+      if (renderBox != null && renderBox.hasSize) {
         setState(() {
           childHeight = renderBox.size.height;
         });

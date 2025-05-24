@@ -210,7 +210,10 @@ class _TPopoverState extends State<TPopover> {
   OverlayEntry createOverlayEntry() {
     final tw = context.tw;
     final renderBox = context.findRenderObject() as RenderBox?;
-    final Size size = renderBox?.size ?? Size.zero;
+    Size size = Size.zero;
+    if (renderBox != null && renderBox.hasSize) {
+      size = renderBox.size;
+    }
 
     Alignment targetAnchor = Alignment.center;
     Alignment followerAnchor = Alignment.center;
