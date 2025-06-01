@@ -450,11 +450,12 @@ class TStyledContainer extends StatelessWidget {
         });
     }
 
-    final resolvedTextStyle =
-        textStyle?.resolve(states) ?? textStyleFallback.resolve(states);
+    final t = textStyle?.resolve(states);
+    final tf = textStyleFallback.resolve(states);
+    final resolvedTextStyle = t ?? tf;
 
     return resolvedTextStyle?.copyWith(
-      color: states.disabled && resolvedTextStyle.color == null
+      color: states.disabled && t?.color == null
           ? tw.color.disabled
           : resolvedTextStyle.color,
     );

@@ -154,7 +154,8 @@ class TAnimated extends StatefulWidget {
 
 class _TAnimatedState extends State<TAnimated>
     with SingleTickerProviderStateMixin {
-  late final TAnimatedController controller = widget.controller ?? TAnimatedController();
+  late final TAnimatedController controller =
+      widget.controller ?? TAnimatedController();
   late final AnimationController animationController;
   late final CurvedAnimation animationCurve;
   late final TAnimatedOptions options =
