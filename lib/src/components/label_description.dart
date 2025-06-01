@@ -50,7 +50,7 @@ class TLabelDescription extends StatelessWidget {
   final TextStyle? descriptionTextStyle;
 
   /// The default padding for the bottom
-  static const kPadBottom = TOffset.b10;
+  static const EdgeInsets kPadBottom = TOffset.b10;
 
   @override
   Widget build(BuildContext context) {

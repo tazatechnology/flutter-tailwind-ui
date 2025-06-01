@@ -106,7 +106,7 @@ abstract class TBorderRadius {
   /// Border radius of 0px (none)
   ///
   /// Equivalent to Tailwind class: `rounded-none`
-  static const rounded_none = BorderRadius.zero;
+  static const BorderRadius rounded_none = BorderRadius.zero;
 
   /// Border radius of 2px (xs)
   ///
@@ -171,7 +171,7 @@ abstract class TBorderRadius {
   /// Border radius on the top side of 0px (none)
   ///
   /// Equivalent to Tailwind class: `rounded-t-none`
-  static const rounded_t_none = BorderRadius.zero;
+  static const BorderRadius rounded_t_none = BorderRadius.zero;
 
   /// Border radius on the top side of 2px (xs)
   ///
@@ -244,7 +244,7 @@ abstract class TBorderRadius {
   /// Border radius on the bottom side of 0px (none)
   ///
   /// Equivalent to Tailwind class: `rounded-b-none`
-  static const rounded_b_none = BorderRadius.zero;
+  static const BorderRadius rounded_b_none = BorderRadius.zero;
 
   /// Border radius on the bottom side of 2px (xs)
   ///
@@ -317,7 +317,7 @@ abstract class TBorderRadius {
   /// Border radius on the left side of 0px (none)
   ///
   /// Equivalent to Tailwind class: `rounded-l-none`
-  static const rounded_l_none = BorderRadius.zero;
+  static const BorderRadius rounded_l_none = BorderRadius.zero;
 
   /// Border radius on the left side of 2px (xs)
   ///
@@ -390,7 +390,7 @@ abstract class TBorderRadius {
   /// Border radius on the right side of 0px (none)
   ///
   /// Equivalent to Tailwind class: `rounded-r-none`
-  static const rounded_r_none = BorderRadius.zero;
+  static const BorderRadius rounded_r_none = BorderRadius.zero;
 
   /// Border radius on the right side of 2px (xs)
   ///
@@ -463,7 +463,7 @@ abstract class TBorderRadius {
   /// Border radius on the top-left corner of 0px
   ///
   /// Equivalent to Tailwind class: `rounded-tl-none`
-  static const rounded_tl_none = BorderRadius.zero;
+  static const BorderRadius rounded_tl_none = BorderRadius.zero;
 
   /// Border radius on the top-left corner of 2px (xs)
   ///
@@ -528,7 +528,7 @@ abstract class TBorderRadius {
   /// Border radius on the top-right corner of 0px
   ///
   /// Equivalent to Tailwind class: `rounded-tr-none`
-  static const rounded_tr_none = BorderRadius.zero;
+  static const BorderRadius rounded_tr_none = BorderRadius.zero;
 
   /// Border radius on the top-right corner of 2px (xs)
   ///
@@ -593,7 +593,7 @@ abstract class TBorderRadius {
   /// Border radius on the bottom-right corner of 0px
   ///
   /// Equivalent to Tailwind class: `rounded-br-none`
-  static const rounded_br_none = BorderRadius.zero;
+  static const BorderRadius rounded_br_none = BorderRadius.zero;
 
   /// Border radius on the bottom-right corner of 2px (xs)
   ///
@@ -658,7 +658,7 @@ abstract class TBorderRadius {
   /// Border radius on the bottom-left corner of 0px
   ///
   /// Equivalent to Tailwind class: `rounded-bl-none`
-  static const rounded_bl_none = BorderRadius.zero;
+  static const BorderRadius rounded_bl_none = BorderRadius.zero;
 
   /// Border radius on the bottom-left corner of 2px (xs)
   ///

@@ -15,7 +15,7 @@ abstract final class TOffset {
   /// Offset of zero on all sides (0px)
   ///
   /// Equivalent to EdgeInsets.zero and Tailwind padding class: `p-0`
-  static const zero = EdgeInsets.zero;
+  static const EdgeInsets zero = EdgeInsets.zero;
 
   // ---------------------------------------------------------------------------
   // All Side Offset
@@ -27,7 +27,7 @@ abstract final class TOffset {
   /// Offset of [TSpace.v0] on all sides (0px)
   ///
   /// Equivalent to Tailwind padding class: `p-0`
-  static const a0 = EdgeInsets.zero;
+  static const EdgeInsets a0 = EdgeInsets.zero;
 
   /// Offset of [TSpace.v1] on all sides (1px)
   ///
@@ -209,7 +209,7 @@ abstract final class TOffset {
   /// Offset of [TSpace.v0] on the left and right sides (0px)
   ///
   /// Equivalent to Tailwind padding class: `px-0`
-  static const x0 = EdgeInsets.zero;
+  static const EdgeInsets x0 = EdgeInsets.zero;
 
   /// Offset of [TSpace.v1] on the left and right sides (1px)
   ///
@@ -391,7 +391,7 @@ abstract final class TOffset {
   /// Offset of [TSpace.v0] on the top and bottom sides (0px)
   ///
   /// Equivalent to Tailwind padding class: `py-0`
-  static const y0 = EdgeInsets.zero;
+  static const EdgeInsets y0 = EdgeInsets.zero;
 
   /// Offset of [TSpace.v1] on the top and bottom sides (1px)
   ///
@@ -573,7 +573,7 @@ abstract final class TOffset {
   /// Offset of [TSpace.v0] on the left side (0px)
   ///
   /// Equivalent to Tailwind padding class: `pl-0`
-  static const l0 = EdgeInsets.zero;
+  static const EdgeInsets l0 = EdgeInsets.zero;
 
   /// Offset of [TSpace.v1] on the left side (1px)
   ///
@@ -755,7 +755,7 @@ abstract final class TOffset {
   /// Offset of [TSpace.v0] on the top side (0px)
   ///
   /// Equivalent to Tailwind padding class: `pt-0`
-  static const t0 = EdgeInsets.zero;
+  static const EdgeInsets t0 = EdgeInsets.zero;
 
   /// Offset of [TSpace.v1] on the top side (1px)
   ///
@@ -937,7 +937,7 @@ abstract final class TOffset {
   /// Offset of [TSpace.v0] on the right side (0px)
   ///
   /// Equivalent to Tailwind padding class: `pr-0`
-  static const r0 = EdgeInsets.zero;
+  static const EdgeInsets r0 = EdgeInsets.zero;
 
   /// Offset of [TSpace.v1] on the right side (1px)
   ///
@@ -1119,7 +1119,7 @@ abstract final class TOffset {
   /// Offset of [TSpace.v0] on the bottom side (0px)
   ///
   /// Equivalent to Tailwind padding class: `pb-0`
-  static const b0 = EdgeInsets.zero;
+  static const EdgeInsets b0 = EdgeInsets.zero;
 
   /// Offset of [TSpace.v1] on the bottom side (1px)
   ///

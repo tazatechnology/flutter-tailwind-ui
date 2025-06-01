@@ -524,7 +524,7 @@ class TGestureDetector extends StatefulWidget {
 }
 
 class _TGestureDetectorState extends State<TGestureDetector> {
-  late final controller = widget.controller ?? WidgetStatesController();
+  late final WidgetStatesController controller = widget.controller ?? WidgetStatesController();
 
   // ---------------------------------------------------------------------------
   // METHOD: dispose

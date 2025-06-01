@@ -37,177 +37,177 @@ abstract final class TScreen {
   /// Max screen width/height equal to [TSpace.v0] (0px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-0`
-  static const max_0 = TSpace.v0;
+  static const double max_0 = TSpace.v0;
 
   /// Max screen width/height equal to [TSpace.v1] (1px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-px`
-  static const max_1 = TSpace.v1;
+  static const double max_1 = TSpace.v1;
 
   /// Max screen width/height equal to [TSpace.v2] (2px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-0.5`
-  static const max_2 = TSpace.v2;
+  static const double max_2 = TSpace.v2;
 
   /// Max screen width/height equal to [TSpace.v4] (4px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-1`
-  static const max_4 = TSpace.v4;
+  static const double max_4 = TSpace.v4;
 
   /// Max screen width/height equal to [TSpace.v6] (6px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-1.5`
-  static const max_6 = TSpace.v6;
+  static const double max_6 = TSpace.v6;
 
   /// Max screen width/height equal to [TSpace.v8] (8px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-2`
-  static const max_8 = TSpace.v8;
+  static const double max_8 = TSpace.v8;
 
   /// Max screen width/height equal to [TSpace.v10] (10px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-2.5`
-  static const max_10 = TSpace.v10;
+  static const double max_10 = TSpace.v10;
 
   /// Max screen width/height equal to [TSpace.v12] (12px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-3`
-  static const max_12 = TSpace.v12;
+  static const double max_12 = TSpace.v12;
 
   /// Max screen width/height equal to [TSpace.v14] (14px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-3.5`
-  static const max_14 = TSpace.v14;
+  static const double max_14 = TSpace.v14;
 
   /// Max screen width/height equal to [TSpace.v16] (16px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-4`
-  static const max_16 = TSpace.v16;
+  static const double max_16 = TSpace.v16;
 
   /// Max screen width/height equal to [TSpace.v20] (20px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-5`
-  static const max_20 = TSpace.v20;
+  static const double max_20 = TSpace.v20;
 
   /// Max screen width/height equal to [TSpace.v24] (24px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-6`
-  static const max_24 = TSpace.v24;
+  static const double max_24 = TSpace.v24;
 
   /// Max screen width/height equal to [TSpace.v28] (28px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-7`
-  static const max_28 = TSpace.v28;
+  static const double max_28 = TSpace.v28;
 
   /// Max screen width/height equal to [TSpace.v32] (32px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-8`
-  static const max_32 = TSpace.v32;
+  static const double max_32 = TSpace.v32;
 
   /// Max screen width/height equal to [TSpace.v36] (36px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-9`
-  static const max_36 = TSpace.v36;
+  static const double max_36 = TSpace.v36;
 
   /// Max screen width/height equal to [TSpace.v40] (40px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-10`
-  static const max_40 = TSpace.v40;
+  static const double max_40 = TSpace.v40;
 
   /// Max screen width/height equal to [TSpace.v44] (44px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-11`
-  static const max_44 = TSpace.v44;
+  static const double max_44 = TSpace.v44;
 
   /// Max screen width/height equal to [TSpace.v48] (48px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-12`
-  static const max_48 = TSpace.v48;
+  static const double max_48 = TSpace.v48;
 
   /// Max screen width/height equal to [TSpace.v56] (56px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-14`
-  static const max_56 = TSpace.v56;
+  static const double max_56 = TSpace.v56;
 
   /// Max screen width/height equal to [TSpace.v64] (64px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-16`
-  static const max_64 = TSpace.v64;
+  static const double max_64 = TSpace.v64;
 
   /// Max screen width/height equal to [TSpace.v80] (80px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-20`
-  static const max_80 = TSpace.v80;
+  static const double max_80 = TSpace.v80;
 
   /// Max screen width/height equal to [TSpace.v96] (96px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-24`
-  static const max_96 = TSpace.v96;
+  static const double max_96 = TSpace.v96;
 
   /// Max screen width/height equal to [TSpace.v112] (112px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-28`
-  static const max_112 = TSpace.v112;
+  static const double max_112 = TSpace.v112;
 
   /// Max screen width/height equal to [TSpace.v128] (128px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-32`
-  static const max_128 = TSpace.v128;
+  static const double max_128 = TSpace.v128;
 
   /// Max screen width/height equal to [TSpace.v144] (144px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-36`
-  static const max_144 = TSpace.v144;
+  static const double max_144 = TSpace.v144;
 
   /// Max screen width/height equal to [TSpace.v160] (160px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-40`
-  static const max_160 = TSpace.v160;
+  static const double max_160 = TSpace.v160;
 
   /// Max screen width/height equal to [TSpace.v176] (176px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-44`
-  static const max_176 = TSpace.v176;
+  static const double max_176 = TSpace.v176;
 
   /// Max screen width/height equal to [TSpace.v192] (192px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-48`
-  static const max_192 = TSpace.v192;
+  static const double max_192 = TSpace.v192;
 
   /// Max screen width/height equal to [TSpace.v208] (208px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-52`
-  static const max_208 = TSpace.v208;
+  static const double max_208 = TSpace.v208;
 
   /// Max screen width/height equal to [TSpace.v224] (224px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-56`
-  static const max_224 = TSpace.v224;
+  static const double max_224 = TSpace.v224;
 
   /// Max screen width/height equal to [TSpace.v240] (240px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-60`
-  static const max_240 = TSpace.v240;
+  static const double max_240 = TSpace.v240;
 
   /// Max screen width/height equal to [TSpace.v256] (256px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-64`
-  static const max_256 = TSpace.v256;
+  static const double max_256 = TSpace.v256;
 
   /// Max screen width/height equal to [TSpace.v288] (288px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-72`
-  static const max_288 = TSpace.v288;
+  static const double max_288 = TSpace.v288;
 
   /// Max screen width/height equal to [TSpace.v320] (320px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-80`
-  static const max_320 = TSpace.v320;
+  static const double max_320 = TSpace.v320;
 
   /// Max screen width/height equal to [TSpace.v384] (384px)
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-96`
-  static const max_384 = TSpace.v384;
+  static const double max_384 = TSpace.v384;
 
   /// Max screen width/height of 20rem (320px)
   ///
@@ -267,10 +267,10 @@ abstract final class TScreen {
   /// Max screen width/height of 100%
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-full`
-  static const max_full = double.infinity;
+  static const double max_full = double.infinity;
 
   /// Max screen width/height of none
   ///
   /// Equivalent to Tailwind max width value: `max-w/h-none`
-  static const max_none = double.infinity;
+  static const double max_none = double.infinity;
 }

@@ -337,7 +337,7 @@ class TInput extends StatefulWidget {
 }
 
 class _TInputState extends State<TInput> {
-  late final isTextArea = widget._isTextArea;
+  late final bool isTextArea = widget._isTextArea;
   late final TextEditingController controller;
   late final TWidgetStatesController statesController;
   late final FocusNode focusNode;
