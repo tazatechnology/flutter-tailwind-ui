@@ -35,8 +35,12 @@ class TText extends Text {
     super.textWidthBasis,
     super.textHeightBehavior,
     super.selectionColor,
+    this.selectable = false,
     super.key,
   });
+
+  /// Option to make the text selectable.
+  final bool selectable;
 
   // ---------------------------------------------------------------------------
   // METHOD: toHtml
@@ -72,6 +76,7 @@ class TText extends Text {
     final light = tw.light;
 
     return MarkdownBody(
+      selectable: selectable,
       data: '$data\n[$kEnd](#)',
       styleSheet: MarkdownStyleSheet.fromTheme(context.theme).copyWith(
         p: style.copyWith(color: style.color ?? tw.color.body),
@@ -139,10 +144,7 @@ class TText extends Text {
         } else {
           return Padding(
             padding: TOffset.l8 + firstPad,
-            child: Text(
-              '${params.index + 1}.',
-              style: style,
-            ),
+            child: Text('${params.index + 1}.', style: style),
           );
         }
       },
