@@ -50,6 +50,8 @@ class TInput extends StatefulWidget {
     this.onTap,
     this.onTapAlwaysCalled = false,
     this.onTapOutside,
+    this.onTapUpOutside,
+    this.onFocusChange,
     this.prefix,
     this.readOnly = false,
     this.restorationId,
@@ -117,6 +119,8 @@ class TInput extends StatefulWidget {
     this.onTap,
     this.onTapAlwaysCalled = false,
     this.onTapOutside,
+    this.onTapUpOutside,
+    this.onFocusChange,
     this.readOnly = false,
     this.restorationId,
     this.selectionControls,
@@ -275,6 +279,12 @@ class TInput extends StatefulWidget {
   /// The callback to call when the user taps outside the input field.
   final TapRegionCallback? onTapOutside;
 
+  /// The callback to call when the user taps up outside the input field.
+  final TapRegionUpCallback? onTapUpOutside;
+
+  /// The callback to call when the input field gains or loses focus.
+  final ValueChanged<bool>? onFocusChange;
+
   /// The widget to display at the beginning of the input field.
   final Widget? prefix;
 
@@ -362,7 +372,12 @@ class _TInputState extends State<TInput> {
     } else {
       statesController = TWidgetStatesController();
     }
+
+    // Initialize the focus node
     focusNode = widget.focusNode ?? FocusNode(skipTraversal: widget.readOnly);
+    focusNode.addListener(() {
+      widget.onFocusChange?.call(focusNode.hasFocus);
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -422,10 +437,7 @@ class _TInputState extends State<TInput> {
     // Resolve the help widget
     Widget? help = widget.help;
     if (help != null) {
-      help = DefaultTextStyle.merge(
-        style: inputTheme.helperStyle,
-        child: help,
-      );
+      help = DefaultTextStyle.merge(style: inputTheme.helperStyle, child: help);
     }
 
     // Resolve the error widget
@@ -526,6 +538,7 @@ class _TInputState extends State<TInput> {
             onTap: widget.onTap,
             onTapAlwaysCalled: widget.onTapAlwaysCalled,
             onTapOutside: widget.onTapOutside,
+            onTapUpOutside: widget.onTapUpOutside,
             readOnly: widget.readOnly,
             restorationId: widget.restorationId,
             selectionControls: widget.selectionControls,
