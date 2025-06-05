@@ -473,8 +473,10 @@ class _TSliderFormFieldState extends FormFieldState<double> {
                                 style: markingTextStyle,
                                 textAlign: TextAlign.center,
                                 onFieldSubmitted: onFieldSubmitted,
-                                onTapOutside: (_) {
-                                  inputController.text = valueString;
+                                onFocusChange: (hasFocus) {
+                                  if (!hasFocus) {
+                                    onFieldSubmitted(inputController.text);
+                                  }
                                 },
                               ),
                             ),
@@ -513,7 +515,7 @@ class _TSliderInput extends StatelessWidget {
     this.value = '',
     this.controller,
     this.onFieldSubmitted,
-    this.onTapOutside,
+    this.onFocusChange,
     this.textAlign = TextAlign.start,
     this.focusNode,
   });
@@ -522,7 +524,7 @@ class _TSliderInput extends StatelessWidget {
   final String value;
   final TextEditingController? controller;
   final void Function(String)? onFieldSubmitted;
-  final TapRegionCallback? onTapOutside;
+  final ValueChanged<bool>? onFocusChange;
   final TextAlign textAlign;
   final FocusNode? focusNode;
 
@@ -547,7 +549,7 @@ class _TSliderInput extends StatelessWidget {
       contentPadding: TOffset.y6,
       textAlign: textAlign,
       onFieldSubmitted: onFieldSubmitted,
-      onTapOutside: onTapOutside,
+      onFocusChange: onFocusChange,
     );
   }
 }
