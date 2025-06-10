@@ -453,10 +453,9 @@ class TStyledContainer extends StatelessWidget {
     final t = textStyle?.resolve(states);
     final tf = textStyleFallback.resolve(states);
     final resolvedTextStyle = t ?? tf;
-
     return resolvedTextStyle?.copyWith(
       color: states.disabled && t?.color == null
-          ? tw.color.disabled
+          ? tw.color.onDisabled
           : resolvedTextStyle.color,
     );
   }

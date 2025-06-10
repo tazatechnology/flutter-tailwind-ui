@@ -152,7 +152,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         selection: const Color(0xffb6d7ff),
         tooltip: TColors.gray.shade900,
         disabled: TColors.gray.shade200,
-        onDisabled: TColors.gray.shade500,
+        onDisabled: TColors.gray.shade400,
         error: TColors.red.shade600,
         onError: TColors.red.shade200,
       );

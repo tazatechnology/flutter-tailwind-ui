@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind_ui/src/components/text.dart';
 
 // =============================================================================
 // CLASS: TTooltip
@@ -78,7 +79,7 @@ class _TTooltipState extends State<TTooltip> {
       preferBelow: widget.preferBelow,
       textStyle: tooltipTheme.textStyle?.merge(widget.textStyle),
       waitDuration: widget.waitDuration,
-      message: widget.message,
+      richMessage: WidgetSpan(child: TText(widget.message ?? '')),
       verticalOffset: childHeight / 2 + widget.gap,
       child: KeyedSubtree(
         key: childKey,
