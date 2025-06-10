@@ -550,7 +550,7 @@ class _TButtonLoading extends StatefulWidget {
 }
 
 class _TButtonLoadingState extends State<_TButtonLoading> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );
@@ -634,7 +634,7 @@ class _TButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );

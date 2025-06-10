@@ -4,7 +4,7 @@ part of 'design_system.dart';
 const _shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
 /// List of all the Flutter Tailwind UI color palettes
-const _colors = {
+const Map<String, TMaterialColor> _colors = {
   'Slate': TColors.slate,
   'Gray': TColors.gray,
   'Zinc': TColors.zinc,

@@ -461,7 +461,7 @@ class _TIconButtonLoading extends StatefulWidget {
 }
 
 class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );
@@ -545,7 +545,7 @@ class _TIconButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );

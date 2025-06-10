@@ -441,7 +441,7 @@ class DiagonalStripesPainter extends CustomPainter {
   final Color lineColor;
   static const lineWidth = 1.0;
   static const gap = 10;
-  static const totalWidth = lineWidth + gap;
+  static const double totalWidth = lineWidth + gap;
 
   @override
   void paint(Canvas canvas, Size size) {

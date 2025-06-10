@@ -41,7 +41,7 @@ part 'components.g.dart';
 
 // Constant used for preview colors
 // ignore: constant_identifier_names, non_constant_identifier_names
-const PREVIEW_COLORS = [
+const List<TMaterialColor> PREVIEW_COLORS = [
   TColors.red,
   TColors.green,
   TColors.blue,

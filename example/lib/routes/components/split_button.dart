@@ -541,7 +541,7 @@ class _TSplitButtonLoading extends StatefulWidget {
 }
 
 class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );
@@ -629,7 +629,7 @@ class _TSplitButtonLoadingCustom extends StatefulWidget {
 
 class _TSplitButtonLoadingCustomState
     extends State<_TSplitButtonLoadingCustom> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );
