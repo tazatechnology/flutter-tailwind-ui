@@ -18,6 +18,10 @@ String formatNumber(
   num value, {
   int? precision,
 }) {
+  if (value == 0) {
+    return '0';
+  }
+
   if (value is int || precision == 0) {
     return NumberFormat('###,###').format(value);
   }

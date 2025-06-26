@@ -3,6 +3,7 @@
     "configurations": [
         {
             "name": "MacOS",
+            "cwd": "example",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
@@ -14,6 +15,7 @@
         },
         {
             "name": "Web",
+            "cwd": "example",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
@@ -29,6 +31,7 @@
         },
         {
             "name": "Linux",
+            "cwd": "example",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
@@ -40,6 +43,7 @@
         },
         {
             "name": "Windows",
+            "cwd": "example",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
