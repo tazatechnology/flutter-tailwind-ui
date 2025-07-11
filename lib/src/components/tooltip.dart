@@ -15,6 +15,7 @@ class TTooltip extends StatefulWidget {
     this.textStyle,
     this.gap = 4,
     this.preferBelow = false,
+    this.markdown = false,
     super.key,
   });
 
@@ -35,6 +36,9 @@ class TTooltip extends StatefulWidget {
 
   /// Whether to prefer showing the tooltip below the child widget.
   final bool preferBelow;
+
+  /// Whether to render markdown text (using [TText]) in the tooltip.
+  final bool markdown;
 
   @override
   State<TTooltip> createState() => _TTooltipState();
@@ -79,7 +83,11 @@ class _TTooltipState extends State<TTooltip> {
       preferBelow: widget.preferBelow,
       textStyle: tooltipTheme.textStyle?.merge(widget.textStyle),
       waitDuration: widget.waitDuration,
-      richMessage: WidgetSpan(child: TText(widget.message ?? '')),
+      richMessage: WidgetSpan(
+        child: widget.markdown
+            ? TText(widget.message ?? '')
+            : Text(widget.message ?? ''),
+      ),
       verticalOffset: childHeight / 2 + widget.gap,
       child: KeyedSubtree(
         key: childKey,
