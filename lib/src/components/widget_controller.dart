@@ -33,6 +33,24 @@ class TWidgetStatesController extends WidgetStatesController {
     _loading = loading;
   }
 
+  /// Returns true if the controller has been disposed.
+  bool get isDisposed => _isDisposed;
+  bool _isDisposed = false;
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
+  }
+
+  @override
+  void update(WidgetState state, bool add) {
+    if (isDisposed) {
+      return;
+    }
+    super.update(state, add);
+  }
+
   /// Returns true if the state contains a [WidgetState.hovered] state
   bool get hovered => value.contains(WidgetState.hovered);
 

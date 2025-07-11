@@ -93,7 +93,7 @@ class TGestureDetector extends StatefulWidget {
   final Widget Function(BuildContext context, Set<WidgetState> states) builder;
 
   /// The controller for the widget states.
-  final WidgetStatesController? controller;
+  final TWidgetStatesController? controller;
 
   /// A pointer that might cause a tap with a primary button has contacted the
   /// screen at a particular location.
@@ -524,8 +524,33 @@ class TGestureDetector extends StatefulWidget {
 }
 
 class _TGestureDetectorState extends State<TGestureDetector> {
-  late final WidgetStatesController controller =
-      widget.controller ?? WidgetStatesController();
+  late TWidgetStatesController controller;
+
+  // ---------------------------------------------------------------------------
+  // METHOD: initState
+  // ---------------------------------------------------------------------------
+
+  @override
+  void initState() {
+    super.initState();
+    controller = widget.controller ?? TWidgetStatesController();
+  }
+
+  // ---------------------------------------------------------------------------
+  // METHOD: didUpdateWidget
+  // ---------------------------------------------------------------------------
+
+  @override
+  void didUpdateWidget(TGestureDetector oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // If the controller changes, we need to update the reference
+    if (oldWidget.controller != widget.controller) {
+      if (oldWidget.controller == null) {
+        controller.dispose();
+      }
+      controller = widget.controller ?? TWidgetStatesController();
+    }
+  }
 
   // ---------------------------------------------------------------------------
   // METHOD: dispose
