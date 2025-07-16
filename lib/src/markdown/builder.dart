@@ -50,7 +50,21 @@ class _BlockElement {
 }
 
 class _TableElement {
-  final List<TableRow> rows = <TableRow>[];
+  final List<_TableRow> rows = <_TableRow>[];
+}
+
+class _TableRow {
+  _TableRow({this.decoration});
+
+  final BoxDecoration? decoration;
+  final List<Widget> children = <Widget>[];
+
+  TableRow toTableRow() {
+    return TableRow(
+      decoration: decoration,
+      children: children,
+    );
+  }
 }
 
 /// A collection of widgets that should be placed adjacent to (inline with)
@@ -245,7 +259,7 @@ class MarkdownBuilder implements md.NodeVisitor {
           decoration = null;
         }
         _tables.single.rows.add(
-          TableRow(decoration: decoration),
+          _TableRow(decoration: decoration),
         );
       }
       final _BlockElement bElement = _BlockElement(tag);
@@ -256,8 +270,8 @@ class MarkdownBuilder implements md.NodeVisitor {
     } else {
       if (tag == 'a') {
         final String? text = extractTextFromElement(element);
-        // Don't add empty links or for the end anchor
-        if (text == null || text == kEnd) {
+        // Don't add empty links
+        if (text == null) {
           return false;
         }
         final String? destination = element.attributes['href'];
@@ -309,6 +323,11 @@ class MarkdownBuilder implements md.NodeVisitor {
   void visitText(md.Text text) {
     // Don't allow text directly under the root.
     if (_blocks.last.tag == null) {
+      return;
+    }
+
+    // Skip text that is part of a link - links are handled by the custom builder
+    if (_inlines.isNotEmpty && _inlines.last.tag == 'a') {
       return;
     }
 
@@ -615,7 +634,11 @@ class MarkdownBuilder implements md.NodeVisitor {
       defaultColumnWidth: styleSheet.tableColumnWidth!,
       defaultVerticalAlignment: styleSheet.tableVerticalAlignment,
       border: styleSheet.tableBorder,
-      children: _tables.removeLast().rows,
+      children: _tables
+          .removeLast()
+          .rows
+          .map((row) => row.toTableRow())
+          .toList(),
     );
   }
 

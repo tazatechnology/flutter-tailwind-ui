@@ -1,11 +1,11 @@
 // Match the tag name for better traceability.
 // ignore_for_file: camel_case_types
-import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 import 'package:flutter_tailwind_ui/src/markdown/markdown.dart';
 import 'package:markdown/markdown.dart' as md;
-import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // =============================================================================
 // CLASS: TText
@@ -77,7 +77,7 @@ class TText extends Text {
 
     return MarkdownBody(
       selectable: selectable,
-      data: '$data\n[$kEnd](#)',
+      data: data,
       styleSheet: MarkdownStyleSheet.fromTheme(context.theme).copyWith(
         p: style.copyWith(color: style.color ?? tw.color.body),
         a: style.copyWith(color: tw.color.link),
@@ -110,6 +110,8 @@ class TText extends Text {
           fontWeight: TFontWeight.semibold,
           color: tw.color.body,
         ),
+        tableBody: style,
+        tableCellsPadding: TOffset.y4 + TOffset.x8,
         blockquoteDecoration: BoxDecoration(
           // Match the GitHub style for block quotes
           border: Border(
@@ -124,6 +126,11 @@ class TText extends Text {
         blockquote: style.copyWith(color: tw.color.label),
         listBulletPadding: TOffset.zero,
         listBullet: const TextStyle(height: kTextHeightNone),
+        horizontalRuleDecoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: tw.color.divider, width: 1.25),
+          ),
+        ),
       ),
       bulletBuilder: (params) {
         final firstPad = params.index == 0 ? TOffset.t12 : TOffset.t0;
@@ -180,33 +187,25 @@ class _aBuilder extends MarkdownElementBuilder {
     TextStyle? parentStyle,
   ) {
     final href = element.attributes['href'];
-
     final style = preferredStyle?.merge(parentStyle?.copyWithout(color: true));
     final uri = href != null ? Uri.parse(href) : null;
-    String? tooltipUri;
-    if (uri != null) {
-      if (uri.hasScheme) {
-        tooltipUri = '${uri.scheme}://${uri.host}${uri.path}';
-      } else {
-        tooltipUri = '${uri.host}${uri.path}';
-      }
-    }
-    return Link(
-      uri: uri,
-      target: kIsWeb ? LinkTarget.blank : LinkTarget.defaultTarget,
-      builder: (context, followLink) {
-        return TLink(
-          onPressed: followLink,
-          tooltip: tooltipUri,
-          child: Text(
-            element.textContent,
-            style: style?.copyWith(
-              decoration: TextDecoration.underline,
-              decorationColor: style.color,
-            ),
-          ),
-        );
-      },
+    final textContent = element.textContent;
+
+    // Create a Text.rich widget with TapGestureRecognizer for proper inline behavior
+    return Text.rich(
+      TextSpan(
+        text: textContent,
+        style: style?.copyWith(
+          decoration: TextDecoration.underline,
+          decorationColor: style.color,
+        ),
+        recognizer: TapGestureRecognizer()
+          ..onTap = () {
+            if (uri != null) {
+              launchUrl(uri, mode: LaunchMode.externalApplication);
+            }
+          },
+      ),
     );
   }
 }

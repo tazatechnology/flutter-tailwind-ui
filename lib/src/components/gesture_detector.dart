@@ -86,6 +86,9 @@ class TGestureDetector extends StatefulWidget {
     this.skipTraversal,
     this.descendantsAreFocusable,
     this.descendantsAreTraversable,
+    this.enableFocus = true,
+    this.enableMouseRegion = true,
+    this.enableGestureDetector = true,
     super.key,
   });
 
@@ -519,6 +522,15 @@ class TGestureDetector extends StatefulWidget {
   /// See: [Focus.descendantsAreTraversable]
   final bool? descendantsAreTraversable;
 
+  /// Whether the [Focus] callbacks should be enabled.
+  final bool enableFocus;
+
+  /// Whether the [MouseRegion] callbacks should be enabled.
+  final bool enableMouseRegion;
+
+  /// Whether the [GestureDetector] callbacks should be enabled.
+  final bool enableGestureDetector;
+
   @override
   State<TGestureDetector> createState() => _TGestureDetectorState();
 }
@@ -595,10 +607,16 @@ class _TGestureDetectorState extends State<TGestureDetector> {
             descendantsAreFocusable: widget.descendantsAreFocusable,
             descendantsAreTraversable: widget.descendantsAreTraversable,
             onFocusChange: (value) {
+              if (!widget.enableFocus) {
+                return;
+              }
               widget.onFocus?.call(value);
               controller.update(WidgetState.focused, value);
             },
             onKeyEvent: (node, event) {
+              if (!widget.enableFocus) {
+                return KeyEventResult.ignored;
+              }
               if (widget.onKeyEvent != null) {
                 return widget.onKeyEvent!.call(node, event);
               }
@@ -613,22 +631,24 @@ class _TGestureDetectorState extends State<TGestureDetector> {
 
               return KeyEventResult.ignored;
             },
-            child: MouseRegion(
-              cursor: mouseCursor ?? MouseCursor.defer,
-              child: child,
-              onEnter: (event) {
-                widget.onHover?.call(true);
-                controller.update(WidgetState.hovered, true);
-              },
-              onExit: (event) {
-                widget.onHover?.call(false);
-                controller.update(WidgetState.hovered, false);
-              },
-            ),
+            child: widget.enableMouseRegion
+                ? MouseRegion(
+                    cursor: mouseCursor ?? MouseCursor.defer,
+                    child: child,
+                    onEnter: (event) {
+                      widget.onHover?.call(true);
+                      controller.update(WidgetState.hovered, true);
+                    },
+                    onExit: (event) {
+                      widget.onHover?.call(false);
+                      controller.update(WidgetState.hovered, false);
+                    },
+                  )
+                : child,
           ),
         );
 
-        if (controller.disabled) {
+        if (controller.disabled || !widget.enableGestureDetector) {
           return content;
         }
 

@@ -65,6 +65,7 @@ class TInputBorderWrapper extends StatelessWidget {
     required BuildContext context,
     WidgetStateProperty<Color?>? borderColor,
     WidgetStateProperty<BorderRadius?>? borderRadius,
+    WidgetStateProperty<double?>? borderWidth,
   }) {
     return WidgetStateProperty.resolveWith<InputBorder?>((states) {
       final inputTheme = context.theme.inputDecorationTheme;
@@ -81,7 +82,7 @@ class TInputBorderWrapper extends StatelessWidget {
         border = inputTheme.errorBorder?.copyWith(
           borderSide: inputTheme.errorBorder?.borderSide.copyWith(
             color:
-                borderColor?.resolve({WidgetState.focused}) ??
+                borderColor?.resolve({WidgetState.error}) ??
                 inputTheme.errorBorder?.borderSide.color,
           ),
         );
@@ -89,7 +90,7 @@ class TInputBorderWrapper extends StatelessWidget {
         border = inputTheme.disabledBorder?.copyWith(
           borderSide: inputTheme.disabledBorder?.borderSide.copyWith(
             color:
-                borderColor?.resolve({WidgetState.focused}) ??
+                borderColor?.resolve({WidgetState.disabled}) ??
                 inputTheme.disabledBorder?.borderSide.color,
           ),
         );
@@ -97,7 +98,7 @@ class TInputBorderWrapper extends StatelessWidget {
         border = inputTheme.enabledBorder?.copyWith(
           borderSide: inputTheme.enabledBorder?.borderSide.copyWith(
             color:
-                borderColor?.resolve({WidgetState.focused}) ??
+                borderColor?.resolve({}) ??
                 inputTheme.enabledBorder?.borderSide.color,
           ),
         );
@@ -106,6 +107,9 @@ class TInputBorderWrapper extends StatelessWidget {
       if (border is OutlineInputBorder) {
         border = border.copyWith(
           borderRadius: borderRadius?.resolve(states),
+          borderSide: border.borderSide.copyWith(
+            width: borderWidth?.resolve(states) ?? border.borderSide.width,
+          ),
         );
       }
 
