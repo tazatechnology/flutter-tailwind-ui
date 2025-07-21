@@ -70,6 +70,16 @@ class TCard extends StatelessWidget {
       );
     }
 
+    Widget? effectiveChild;
+    if (child != null) {
+      effectiveChild = MediaQuery.removePadding(
+        context: context,
+        removeBottom: true,
+        removeTop: true,
+        child: Padding(padding: effectivePadding, child: child),
+      );
+    }
+
     return CardTheme(
       data: cardTheme.copyWith(
         color: color,
@@ -83,40 +93,35 @@ class TCard extends StatelessWidget {
         margin: EdgeInsets.zero,
       ),
       child: Card(
-        child: Column(
-          crossAxisAlignment: crossAxisAlignment,
-          mainAxisAlignment: mainAxisAlignment,
-          children: [
-            if (header != null)
-              Container(
-                constraints: const BoxConstraints(minWidth: double.infinity),
-                padding: effectivePadding,
-                decoration: BoxDecoration(
-                  color: headerColor,
-                  border: Border(
-                    bottom: headerBorder ?? defaultBorder,
-                  ),
-                ),
-                child: DefaultTextStyle.merge(
-                  style: TextStyle(
-                    color: headerColor?.contrastBlackWhite() ?? tw.color.title,
-                    fontWeight: TFontWeight.semibold,
-                  ),
-                  child: header!,
-                ),
+        child: header == null
+            ? effectiveChild
+            : Column(
+                crossAxisAlignment: crossAxisAlignment,
+                mainAxisAlignment: mainAxisAlignment,
+                children: [
+                  if (header != null)
+                    Container(
+                      constraints: const BoxConstraints(
+                        minWidth: double.infinity,
+                      ),
+                      padding: effectivePadding,
+                      decoration: BoxDecoration(
+                        color: headerColor,
+                        border: Border(bottom: headerBorder ?? defaultBorder),
+                      ),
+                      child: DefaultTextStyle.merge(
+                        style: TextStyle(
+                          color:
+                              headerColor?.contrastBlackWhite() ??
+                              tw.color.title,
+                          fontWeight: TFontWeight.semibold,
+                        ),
+                        child: header!,
+                      ),
+                    ),
+                  if (effectiveChild != null) Expanded(child: effectiveChild),
+                ],
               ),
-            if (child != null)
-              MediaQuery.removePadding(
-                context: context,
-                removeBottom: true,
-                removeTop: true,
-                child: Padding(
-                  padding: effectivePadding,
-                  child: child,
-                ),
-              ),
-          ],
-        ),
       ),
     );
   }
