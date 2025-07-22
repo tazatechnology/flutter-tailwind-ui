@@ -883,7 +883,7 @@ class _TButtonLoading extends StatefulWidget {
 }
 
 class _TButtonLoadingState extends State<_TButtonLoading> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );
@@ -960,7 +960,7 @@ class _TButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TButtonLoadingCustomState extends State<_TButtonLoadingCustom> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );
@@ -2297,6 +2297,129 @@ class __TFormAllFieldsState extends State<_TFormAllFields> {
 """;
 }
 
+/// Source code for [_TGaugeLabelText]
+class _TGaugeLabelTextSource {
+  static const String code = r"""
+const TGauge(
+  label: Text('Gauge Label'),
+  value: 0.5,
+)
+""";
+}
+
+/// Source code for [_TGaugeLabelWidget]
+class _TGaugeLabelWidgetSource {
+  static const String code = r"""
+const TGauge(
+  value: 0.5,
+  label: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text('Gauge Label'),
+      TText(
+        '* Required',
+        style: TextStyle(
+          fontWeight: TFontWeight.normal,
+          color: TColors.red,
+          fontSize: TFontSize.text_xs,
+        ),
+      ),
+    ],
+  ),
+)
+""";
+}
+
+/// Source code for [_TGaugeEnabled]
+class _TGaugeEnabledSource {
+  static const String code = r"""
+const TGauge(
+  value: 0.5,
+)
+""";
+}
+
+/// Source code for [_TGaugeDisabled]
+class _TGaugeDisabledSource {
+  static const String code = r"""
+const TGauge(
+  enabled: false,
+  value: 0.5,
+)
+""";
+}
+
+/// Source code for [_TGaugeValueLabels]
+class _TGaugeValueLabelsSource {
+  static const String code = r"""
+const TGauge(
+  value: 0.5,
+  showDefaultMarks: true,
+)
+""";
+}
+
+/// Source code for [_TGaugeValueLabelsFormatter]
+class _TGaugeValueLabelsFormatterSource {
+  static const String code = r"""
+TGauge(
+  value: 0.5,
+  showDefaultMarks: true,
+  formatter: (value) => value.toStringAsFixed(3),
+)
+""";
+}
+
+/// Source code for [_TGaugeSingleIndicator]
+class _TGaugeSingleIndicatorSource {
+  static const String code = r"""
+TGauge(
+  value: 0.5,
+  showDefaultMarks: true,
+  indicators: [
+    TIndicator(value: 0.75),
+  ],
+)
+""";
+}
+
+/// Source code for [_TGaugeMultipleIndicators]
+class _TGaugeMultipleIndicatorsSource {
+  static const String code = r"""
+TGauge(
+  value: 0.5,
+  showDefaultMarks: true,
+  indicators: [
+    TIndicator(value: 0.25),
+    TIndicator(value: 0.75),
+  ],
+)
+""";
+}
+
+/// Source code for [_TGaugeCustomIndicators]
+class _TGaugeCustomIndicatorsSource {
+  static const String code = r"""
+TGauge(
+  value: 0.5,
+  showDefaultMarks: true,
+  indicators: [
+    TIndicator(
+      value: 0.25,
+      color: TColors.green,
+      tooltip: 'Low',
+    ),
+    TIndicator(
+      value: 0.75,
+      color: TColors.red,
+      tooltip: 'High',
+      child: const Icon(Icons.arrow_upward, size: 14),
+    ),
+  ],
+)
+""";
+}
+
 /// Source code for [_TIconButtonBasic]
 class _TIconButtonBasicSource {
   static const String code = r"""
@@ -2519,7 +2642,7 @@ class _TIconButtonLoading extends StatefulWidget {
 }
 
 class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );
@@ -2596,7 +2719,7 @@ class _TIconButtonLoadingCustom extends StatefulWidget {
 }
 
 class _TIconButtonLoadingCustomState extends State<_TIconButtonLoadingCustom> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );
@@ -4086,6 +4209,56 @@ TSlider(
 """;
 }
 
+/// Source code for [_TSliderSingleIndicator]
+class _TSliderSingleIndicatorSource {
+  static const String code = r"""
+TSlider(
+  initialValue: 0.5,
+  showDefaultMarks: true,
+  indicators: [
+    TIndicator(value: 0.75),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSliderMultipleIndicators]
+class _TSliderMultipleIndicatorsSource {
+  static const String code = r"""
+TSlider(
+  initialValue: 0.5,
+  showDefaultMarks: true,
+  indicators: [
+    TIndicator(value: 0.25),
+    TIndicator(value: 0.75),
+  ],
+)
+""";
+}
+
+/// Source code for [_TSliderCustomIndicators]
+class _TSliderCustomIndicatorsSource {
+  static const String code = r"""
+TSlider(
+  initialValue: 0.5,
+  showDefaultMarks: true,
+  indicators: [
+    TIndicator(
+      value: 0.25,
+      color: TColors.green,
+      tooltip: 'Low',
+    ),
+    TIndicator(
+      value: 0.75,
+      color: TColors.red,
+      tooltip: 'High',
+      child: const Icon(Icons.arrow_upward, size: 14),
+    ),
+  ],
+)
+""";
+}
+
 /// Source code for [_TSliderController]
 class _TSliderControllerSource {
   static const String code = r"""
@@ -4425,7 +4598,7 @@ class _TSplitButtonLoading extends StatefulWidget {
 }
 
 class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );
@@ -4506,7 +4679,7 @@ class _TSplitButtonLoadingCustom extends StatefulWidget {
 
 class _TSplitButtonLoadingCustomState
     extends State<_TSplitButtonLoadingCustom> {
-  final controllers = List.generate(
+  final List<TWidgetStatesController> controllers = List.generate(
     TStyleVariant.values.length,
     (_) => TWidgetStatesController(),
   );

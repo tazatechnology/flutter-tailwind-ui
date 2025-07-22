@@ -20,6 +20,7 @@ part 'expand.dart';
 part 'filter.dart';
 part 'form_field.dart';
 part 'form.dart';
+part 'gauge.dart';
 part 'icon_button.dart';
 part 'input.dart';
 part 'link.dart';

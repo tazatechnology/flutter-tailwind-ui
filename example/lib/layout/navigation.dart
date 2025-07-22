@@ -72,6 +72,7 @@ class _AppNavigationState extends State<AppNavigation> {
         'TInput': AppRouter.input,
         'TSelect': AppRouter.select,
         'TSlider': AppRouter.slider,
+        'TGauge': AppRouter.gauge,
         'TRadioGroup': AppRouter.radio_group,
         'TCheckboxTile': AppRouter.checkbox_tile,
         'TCheckboxGroup': AppRouter.checkbox_group,

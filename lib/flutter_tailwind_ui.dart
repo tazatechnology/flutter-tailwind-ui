@@ -12,6 +12,7 @@ export 'src/components/expand.dart';
 export 'src/components/filter.dart';
 export 'src/components/focus_border.dart';
 export 'src/components/form.dart';
+export 'src/components/gauge.dart';
 export 'src/components/gesture_detector.dart';
 export 'src/components/icon_button.dart';
 export 'src/components/input.dart';

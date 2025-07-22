@@ -26,19 +26,22 @@ String formatNumber(
     return NumberFormat('###,###').format(value);
   }
 
-  // Convert `num` to `double` so we can use the string formatting methods
+  // Convert num to double so we can use the string formatting methods
   final doubleValue = value.toDouble();
 
   // If the user explicitly wants an exact precision, we honor that first.
   if (precision != null) {
-    // Clamp precision to a safe range if you wish, e.g. 0..20
-    return doubleValue.toStringAsFixed(precision);
+    return NumberFormat('###,##0.${'#' * precision}').format(doubleValue);
   }
 
   // Otherwise, use a "best guess" for scientific usage.
-  // toStringAsPrecision(6) gives us up to 6 significant digits,
-  // automatically switching to scientific notation for very large/small numbers.
-  final raw = doubleValue.toStringAsPrecision(6);
+  final precisionString = doubleValue.toStringAsPrecision(6);
+
+  // If the result is in scientific notation, keep it as-is
+  // Otherwise, apply thousands separator formatting
+  final raw = precisionString.contains('e')
+      ? precisionString
+      : NumberFormat('###,##0.######').format(doubleValue);
 
   // Strip trailing zeros and a trailing decimal point for a cleaner look.
   return _stripTrailingZeros(raw);

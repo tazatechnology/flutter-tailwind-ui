@@ -94,6 +94,29 @@ class ComponentRouteTSlider extends StatelessWidget {
           ],
         ),
         AppSection(
+          title: 'Slider with Indicators',
+          children: [
+            AppPreviewCard(
+              title: 'Single indicator',
+              maxWidth: TScreen.max_sm,
+              code: _TSliderSingleIndicatorSource.code,
+              child: _TSliderSingleIndicator(),
+            ),
+            AppPreviewCard(
+              title: 'Multiple indicators',
+              maxWidth: TScreen.max_sm,
+              code: _TSliderMultipleIndicatorsSource.code,
+              child: _TSliderMultipleIndicators(),
+            ),
+            AppPreviewCard(
+              title: 'Customize indicators',
+              maxWidth: TScreen.max_sm,
+              code: _TSliderCustomIndicatorsSource.code,
+              child: _TSliderCustomIndicators(),
+            ),
+          ],
+        ),
+        AppSection(
           title: 'Slider Tooltip',
           children: [
             AppPreviewCard(
@@ -355,6 +378,77 @@ class _TSliderTooltipFormatter extends StatelessWidget {
       initialValue: 0.5,
       tooltipFormatter: (value) => 'Current Value: ${value.toStringAsFixed(3)}',
       onChanged: (value) {},
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSliderSingleIndicator
+// =============================================================================
+
+@GenerateSource()
+class _TSliderSingleIndicator extends StatelessWidget {
+  const _TSliderSingleIndicator();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSlider(
+      initialValue: 0.5,
+      showDefaultMarks: true,
+      indicators: [
+        TIndicator(value: 0.75),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSliderMultipleIndicators
+// =============================================================================
+
+@GenerateSource()
+class _TSliderMultipleIndicators extends StatelessWidget {
+  const _TSliderMultipleIndicators();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSlider(
+      initialValue: 0.5,
+      showDefaultMarks: true,
+      indicators: [
+        TIndicator(value: 0.25),
+        TIndicator(value: 0.75),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSliderCustomIndicators
+// =============================================================================
+
+@GenerateSource()
+class _TSliderCustomIndicators extends StatelessWidget {
+  const _TSliderCustomIndicators();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSlider(
+      initialValue: 0.5,
+      showDefaultMarks: true,
+      indicators: [
+        TIndicator(
+          value: 0.25,
+          color: TColors.green,
+          tooltip: 'Low',
+        ),
+        TIndicator(
+          value: 0.75,
+          color: TColors.red,
+          tooltip: 'High',
+          child: const Icon(Icons.arrow_upward, size: 14),
+        ),
+      ],
     );
   }
 }

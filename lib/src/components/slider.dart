@@ -9,9 +9,80 @@ import 'package:flutter_tailwind_ui/src/internal/slider.dart';
 /// A controller for a [TSlider].
 class TSliderController extends ValueNotifier<double> {
   /// Construct a [TSliderController] with the given [initialValue].
-  TSliderController({
-    required double initialValue,
-  }) : super(initialValue);
+  TSliderController({required double initialValue}) : super(initialValue);
+}
+
+// =============================================================================
+// CLASS: TSliderInteraction
+// =============================================================================
+
+/// Possible ways for a user to interact with a [TSlider].
+enum TSliderInteraction {
+  /// Allows the user to interact with a [TSlider] by tapping or sliding anywhere
+  /// on the track.
+  ///
+  /// Essentially all possible interactions are allowed.
+  ///
+  /// This is different from [TSliderInteraction.slideOnly] as when you try
+  /// to slide anywhere other than the thumb, the thumb will move to the first
+  /// point of contact.
+  tapAndSlide,
+
+  /// Allows the user to interact with a [TSlider] by only tapping anywhere on
+  /// the track.
+  ///
+  /// Sliding interaction is ignored.
+  tapOnly,
+
+  /// Allows the user to interact with a [TSlider] only by sliding anywhere on
+  /// the track.
+  ///
+  /// Tapping interaction is ignored.
+  slideOnly,
+
+  /// Allows the user to interact with a [TSlider] only by sliding the thumb.
+  ///
+  /// Tapping and sliding interactions on the track are ignored.
+  slideThumb,
+
+  /// No interaction is allowed.
+  none,
+}
+
+// =============================================================================
+// CLASS: TIndicator
+// =============================================================================
+
+/// A simple class to represent an indicator for a slider or gauge.
+class TIndicator {
+  /// Construct a [TIndicator] with the given [value].
+  TIndicator({
+    required this.value,
+    this.color,
+    this.tooltip,
+    this.child,
+    this.offset = Offset.zero,
+  });
+
+  /// The value of the indicator.
+  final double? value;
+
+  /// The child widget to display inside the indicator.
+  ///
+  /// If not provided, the default indicator will be used.
+  final Widget? child;
+
+  /// The color of the indicator.
+  final Color? color;
+
+  /// The tooltip text to display when hovering over the indicator.
+  final String? tooltip;
+
+  /// The offset to apply to the indicator position.
+  final Offset offset;
+
+  @override
+  String toString() => 'TIndicator(value: $value)';
 }
 
 // =============================================================================
@@ -30,6 +101,7 @@ class TSlider extends TFormField<double> {
     this.disabledActiveTrackColor,
     this.disabledInactiveTrackColor,
     this.disabledThumbColor,
+    this.trackShape,
     this.divisions,
     this.editable = false,
     this.enabled = true,
@@ -47,19 +119,19 @@ class TSlider extends TFormField<double> {
     this.showDefaultMarks = false,
     this.textStyle,
     this.thumbColor,
+    this.thumbShape,
+    this.valueIndicatorShape,
     this.tooltipBorderColor,
     this.tooltipColor,
     this.tooltipFormatter,
     this.tooltipTextStyle,
     this.validator,
-  }) : assert(
-         min <= max,
-         'min must be less than or equal to max',
-       ),
-       assert(
-         (initialValue != null) ^ (controller != null),
-         'Either initialValue or controller must be specified',
-       ),
+    this.indicators = const [],
+  }) : assert(min <= max, 'min must be less than or equal to max'),
+       //  assert(
+       //    (initialValue != null) ^ (controller != null),
+       //    'Either initialValue or controller must be specified',
+       //  ),
        super(
          id: id ?? 'TSlider',
          child: _TSliderFormField(
@@ -71,6 +143,7 @@ class TSlider extends TFormField<double> {
            disabledActiveTrackColor: disabledActiveTrackColor,
            disabledInactiveTrackColor: disabledInactiveTrackColor,
            disabledThumbColor: disabledThumbColor,
+           trackShape: trackShape,
            divisions: divisions,
            editable: editable,
            enabled: enabled,
@@ -83,19 +156,22 @@ class TSlider extends TFormField<double> {
            min: min,
            onChanged: onChanged,
            restorationId: restorationId,
-           showValueLabels: showDefaultMarks,
+           showDefaultMarks: showDefaultMarks,
            textStyle: textStyle,
            thumbColor: thumbColor,
+           thumbShape: thumbShape,
+           valueIndicatorShape: valueIndicatorShape,
            tooltipBorderColor: tooltipBorderColor,
            tooltipColor: tooltipColor,
            tooltipFormatter: tooltipFormatter,
            tooltipTextStyle: tooltipTextStyle,
            validator: validator,
+           indicators: indicators,
          ),
        );
 
   /// The allowed interactions for the slider.
-  final SliderInteraction? allowedInteraction;
+  final TSliderInteraction? allowedInteraction;
 
   /// The color of the active track.
   final Color? activeTrackColor;
@@ -117,6 +193,9 @@ class TSlider extends TFormField<double> {
 
   /// The color of the disabled thumb.
   final Color? disabledThumbColor;
+
+  /// The shape of the slider track.
+  final SliderTrackShape? trackShape;
 
   /// The number of discrete divisions.
   final int? divisions;
@@ -165,6 +244,12 @@ class TSlider extends TFormField<double> {
   /// The color of the thumb.
   final Color? thumbColor;
 
+  /// The shape of the slider thumb.
+  final SliderComponentShape? thumbShape;
+
+  /// The shape of the value indicator.
+  final SliderComponentShape? valueIndicatorShape;
+
   /// The color of the value tooltip border
   final Color? tooltipBorderColor;
 
@@ -181,6 +266,9 @@ class TSlider extends TFormField<double> {
 
   /// The validator to use for the select widget
   final FormFieldValidator<double>? validator;
+
+  /// The list of indicators to display on the slider.
+  final List<TIndicator> indicators;
 }
 
 // =============================================================================
@@ -197,6 +285,7 @@ class _TSliderFormField extends FormField<double> {
     required this.disabledActiveTrackColor,
     required this.disabledInactiveTrackColor,
     required this.disabledThumbColor,
+    required this.trackShape,
     required this.divisions,
     required super.enabled,
     required this.editable,
@@ -209,14 +298,17 @@ class _TSliderFormField extends FormField<double> {
     required this.min,
     required this.onChanged,
     required super.restorationId,
-    required this.showValueLabels,
+    required this.showDefaultMarks,
     required this.textStyle,
     required this.thumbColor,
+    required this.thumbShape,
+    required this.valueIndicatorShape,
     required this.tooltipBorderColor,
     required this.tooltipColor,
     required this.tooltipFormatter,
     required this.tooltipTextStyle,
     required super.validator,
+    required this.indicators,
   }) : super(
          builder: (field) {
            final state = field as _TSliderFormFieldState;
@@ -225,12 +317,13 @@ class _TSliderFormField extends FormField<double> {
        );
 
   final Color? activeTrackColor;
-  final SliderInteraction? allowedInteraction;
+  final TSliderInteraction? allowedInteraction;
   final bool autofocus;
   final TSliderController? controller;
   final Color? disabledActiveTrackColor;
   final Color? disabledInactiveTrackColor;
   final Color? disabledThumbColor;
+  final SliderTrackShape? trackShape;
   final int? divisions;
   final bool editable;
   final FocusNode? focusNode;
@@ -240,13 +333,16 @@ class _TSliderFormField extends FormField<double> {
   final double max;
   final double min;
   final ValueChanged<double>? onChanged;
-  final bool showValueLabels;
+  final bool showDefaultMarks;
   final TextStyle? textStyle;
   final Color? thumbColor;
+  final SliderComponentShape? thumbShape;
+  final SliderComponentShape? valueIndicatorShape;
   final Color? tooltipBorderColor;
   final Color? tooltipColor;
   final String Function(double)? tooltipFormatter;
   final TextStyle? tooltipTextStyle;
+  final List<TIndicator> indicators;
 
   @override
   FormFieldState<double> createState() => _TSliderFormFieldState();
@@ -254,10 +350,13 @@ class _TSliderFormField extends FormField<double> {
 
 class _TSliderFormFieldState extends FormFieldState<double> {
   _TSliderFormField get field => widget as _TSliderFormField;
-
   late final TextEditingController inputController;
   late final TSliderController controller;
   late final valueFocusNode = FocusNode();
+
+  /// Whether user interaction is allowed on the slider.
+  late final interactionAllowed =
+      field.allowedInteraction != TSliderInteraction.none;
 
   /// The value tooltip label.
   String get tooltipLabel {
@@ -293,7 +392,9 @@ class _TSliderFormFieldState extends FormFieldState<double> {
     if (field.controller != null) {
       controller = field.controller!;
     } else {
-      controller = TSliderController(initialValue: initialValueSafe!);
+      controller = TSliderController(
+        initialValue: initialValueSafe ?? field.min,
+      );
     }
     inputController = TextEditingController(text: valueString);
     super.initState();
@@ -330,6 +431,9 @@ class _TSliderFormFieldState extends FormFieldState<double> {
   // ---------------------------------------------------------------------------
 
   void onChanged(double value) {
+    if (!interactionAllowed) {
+      return;
+    }
     didChange(value);
     controller.value = value;
     inputController.text = valueString;
@@ -342,6 +446,9 @@ class _TSliderFormFieldState extends FormFieldState<double> {
   // ---------------------------------------------------------------------------
 
   void onFieldSubmitted(String inputValue) {
+    if (!interactionAllowed) {
+      return;
+    }
     final v = double.tryParse(inputValue);
     if (v != null) {
       final vClamped = v.clamp(field.min, field.max);
@@ -397,18 +504,24 @@ class _TSliderFormFieldState extends FormFieldState<double> {
           inactiveTrackColor: field.inactiveTrackColor,
           disabledActiveTrackColor: field.disabledActiveTrackColor,
           disabledInactiveTrackColor: field.disabledInactiveTrackColor,
-          allowedInteraction: field.allowedInteraction,
+          trackShape: field.trackShape,
+          allowedInteraction:
+              field.allowedInteraction == TSliderInteraction.none
+              ? null
+              : SliderInteraction.values[field.allowedInteraction?.index ?? 0],
           valueIndicatorTextStyle: context
               .theme
               .sliderTheme
               .valueIndicatorTextStyle
               ?.merge(field.tooltipTextStyle),
           overlayColor: Colors.transparent,
-          thumbShape: const TSliderThumbShape(),
-          valueIndicatorShape: TSliderValueIndicatorShape(
-            color: field.tooltipColor ?? tw.color.tooltip,
-            borderColor: field.tooltipBorderColor ?? tw.color.divider,
-          ),
+          thumbShape: field.thumbShape ?? const TSliderThumbShape(),
+          valueIndicatorShape:
+              field.valueIndicatorShape ??
+              TSliderValueIndicatorShape(
+                color: field.tooltipColor ?? tw.color.tooltip,
+                borderColor: field.tooltipBorderColor ?? tw.color.divider,
+              ),
         ),
       ),
       child: Column(
@@ -429,70 +542,92 @@ class _TSliderFormFieldState extends FormFieldState<double> {
                 });
               }
 
+              final slider = Slider(
+                mouseCursor: interactionAllowed
+                    ? (widget.enabled
+                          ? SystemMouseCursors.click
+                          : SystemMouseCursors.forbidden)
+                    : SystemMouseCursors.basic,
+                value: value,
+                padding: EdgeInsets.zero,
+                min: field.min,
+                max: field.max,
+                divisions: field.divisions,
+                label: interactionAllowed ? tooltipLabel : null,
+                semanticFormatterCallback: field.tooltipFormatter,
+                autofocus: field.autofocus,
+                focusNode: field.focusNode,
+                onChanged: widget.enabled ? onChanged : null,
+              );
+
               return Column(
                 children: [
-                  Slider(
-                    mouseCursor: widget.enabled
-                        ? SystemMouseCursors.click
-                        : SystemMouseCursors.forbidden,
-                    value: value,
-                    min: field.min,
-                    max: field.max,
-                    divisions: field.divisions,
-                    label: tooltipLabel,
-                    semanticFormatterCallback: field.tooltipFormatter,
-                    autofocus: field.autofocus,
-                    focusNode: field.focusNode,
-                    onChanged: widget.enabled ? onChanged : null,
-                  ),
-                  if (field.showValueLabels || field.editable)
-                    Padding(
-                      padding: TOffset.t8,
-                      child: DefaultTextStyle.merge(
-                        style: markingTextStyle,
-                        child: Row(
-                          mainAxisAlignment: field.showValueLabels
-                              ? MainAxisAlignment.spaceBetween
-                              : MainAxisAlignment.center,
-                          children: [
-                            if (field.showValueLabels)
-                              Flexible(
-                                child: _TSliderInput(
-                                  readOnly: true,
-                                  style: markingTextStyle,
-                                  value: minString,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            if (!field.showValueLabels) const Spacer(),
-                            Flexible(
-                              child: _TSliderInput(
-                                controller: inputController,
-                                focusNode: valueFocusNode,
-                                readOnly: !widget.enabled || !field.editable,
-                                style: markingTextStyle,
-                                textAlign: TextAlign.center,
-                                onFieldSubmitted: onFieldSubmitted,
-                                onFocusChange: (hasFocus) {
-                                  if (!hasFocus) {
-                                    onFieldSubmitted(inputController.text);
-                                  }
-                                },
-                              ),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final sliderWidth = constraints.maxWidth;
+                      return Stack(
+                        alignment: Alignment.centerLeft,
+                        clipBehavior: Clip.none,
+                        children: [
+                          if (!interactionAllowed) slider,
+                          for (final indicator in field.indicators.where(
+                            (e) => e.value != null,
+                          ))
+                            Builder(
+                              builder: (context) {
+                                // Determine the indicator child
+                                Widget child = CustomPaint(
+                                  size: const Size(10, 8),
+                                  painter: TSliderMarkerPainter(
+                                    color: indicator.color ?? tw.color.primary,
+                                  ),
+                                );
+                                if (indicator.child != null) {
+                                  child = DefaultTextStyle(
+                                    style: TextStyle(color: indicator.color),
+                                    child: IconTheme(
+                                      data: context.theme.iconTheme.copyWith(
+                                        color: indicator.color,
+                                      ),
+                                      child: indicator.child!,
+                                    ),
+                                  );
+                                }
+
+                                // Compute the pixel position for the marker
+                                final percent =
+                                    (indicator.value! - field.min) /
+                                    (field.max - field.min);
+                                final markerX = percent * sliderWidth;
+                                return Positioned(
+                                  left: markerX - indicator.offset.dx - 5,
+                                  top: indicator.offset.dy + 10,
+                                  child: TTooltip(
+                                    message:
+                                        indicator.tooltip ??
+                                        indicator.value!.autoFormat(),
+                                    child: child,
+                                  ),
+                                );
+                              },
                             ),
-                            if (!field.showValueLabels) const Spacer(),
-                            if (field.showValueLabels)
-                              Flexible(
-                                child: _TSliderInput(
-                                  readOnly: true,
-                                  style: markingTextStyle,
-                                  value: maxString,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
+                          if (interactionAllowed) slider,
+                        ],
+                      );
+                    },
+                  ),
+                  if (field.showDefaultMarks || field.editable)
+                    TSliderMarkings(
+                      min: minString,
+                      max: maxString,
+                      value: valueString,
+                      inputController: inputController,
+                      valueFocusNode: valueFocusNode,
+                      enabled: widget.enabled && field.editable,
+                      editable: field.editable,
+                      textStyle: markingTextStyle,
+                      showDefaultMarks: field.showDefaultMarks,
+                      onFieldSubmitted: onFieldSubmitted,
                     ),
                 ],
               );
@@ -500,56 +635,6 @@ class _TSliderFormFieldState extends FormFieldState<double> {
           ),
         ],
       ),
-    );
-  }
-}
-
-// =============================================================================
-// CLASS: _TSliderInput
-// =============================================================================
-
-class _TSliderInput extends StatelessWidget {
-  const _TSliderInput({
-    required this.readOnly,
-    required this.style,
-    this.value = '',
-    this.controller,
-    this.onFieldSubmitted,
-    this.onFocusChange,
-    this.textAlign = TextAlign.start,
-    this.focusNode,
-  });
-  final bool readOnly;
-  final TextStyle style;
-  final String value;
-  final TextEditingController? controller;
-  final void Function(String)? onFieldSubmitted;
-  final ValueChanged<bool>? onFocusChange;
-  final TextAlign textAlign;
-  final FocusNode? focusNode;
-
-  @override
-  Widget build(BuildContext context) {
-    final tw = context.tw;
-    if (readOnly) {
-      return Padding(
-        padding: TOffset.y6,
-        child: Text(
-          controller?.text ?? value,
-          style: style,
-          textAlign: textAlign,
-        ),
-      );
-    }
-    return TInput(
-      borderColor: WidgetStatePropertyAll(tw.color.divider),
-      controller: controller,
-      focusNode: focusNode,
-      style: style,
-      contentPadding: TOffset.y6,
-      textAlign: textAlign,
-      onFieldSubmitted: onFieldSubmitted,
-      onFocusChange: onFocusChange,
     );
   }
 }

@@ -39,6 +39,7 @@ class AppRouter {
       AppRouter.code_block: const ComponentRouteTCodeBlock(),
       AppRouter.dialog: const ComponentRouteTDialog(),
       AppRouter.expand: const ComponentRouteTExpand(),
+      AppRouter.gauge: const ComponentRouteTGauge(),
       AppRouter.popover: const ComponentRouteTPopover(),
       AppRouter.filter: const ComponentRouteTFilter(),
       AppRouter.form: const ComponentRouteTForm(),
@@ -127,13 +128,14 @@ class AppRouter {
   static const String code_block = 'code-block';
   static const String dialog = 'dialog';
   static const String expand = 'expand';
-  static const String popover = 'popover';
+  static const String gauge = 'gauge';
   static const String filter = 'filter';
   static const String form = 'form';
   static const String form_field = 'form-field';
   static const String icon_button = 'icon-button';
   static const String input = 'input';
   static const String link = 'link';
+  static const String popover = 'popover';
   static const String radio = 'radio';
   static const String radio_group = 'radio-group';
   static const String row_column = 'row-column';

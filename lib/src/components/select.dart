@@ -240,7 +240,7 @@ class TSelect<T> extends TFormField<T> {
   final T? initialValue;
 
   /// A builder that is called for each item in the list of options
-  final Widget Function(T)? itemBuilder;
+  final Widget Function(T item)? itemBuilder;
 
   /// The height of each item in the list of options
   final double? itemExtent;
@@ -274,7 +274,7 @@ class TSelect<T> extends TFormField<T> {
   /// The search callback to use for the select widget
   ///
   /// Use this to filter the list of options based on a search query
-  final List<T>? Function(List<T>, String)? onSearch;
+  final List<T>? Function(List<T> items, String query)? onSearch;
 
   /// The placeholder widget to display when no option is selected
   final Widget? placeholder;
@@ -291,7 +291,7 @@ class TSelect<T> extends TFormField<T> {
   final TControlAffinity selectedIconAffinity;
 
   /// A builder that is called for the currently selected item
-  final Widget Function(T)? selectedItemBuilder;
+  final Widget Function(T item)? selectedItemBuilder;
 
   /// Whether to display the count of search results
   ///
@@ -389,7 +389,7 @@ class _TSelectFormField<T> extends FormField<T> {
   final Color? popoverFillColor;
   final Widget? help;
   final Color? hoverColor;
-  final Widget Function(T)? itemBuilder;
+  final Widget Function(T item)? itemBuilder;
   final double? itemExtent;
   final EdgeInsets itemPadding;
   final List<T> items;
@@ -399,12 +399,12 @@ class _TSelectFormField<T> extends FormField<T> {
   final EdgeInsets listPadding;
   final int maxVisible;
   final ValueChanged<T?>? onChanged;
-  final List<T>? Function(List<T>, String)? onSearch;
+  final List<T>? Function(List<T> items, String query)? onSearch;
   final Widget? placeholder;
   final Widget? placeholderLoading;
   final Widget? selectedIcon;
   final TControlAffinity selectedIconAffinity;
-  final Widget Function(T)? selectedItemBuilder;
+  final Widget Function(T item)? selectedItemBuilder;
   final bool searchCount;
   final Widget searchResultsEmpty;
   final String searchHintText;
@@ -575,9 +575,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                 size: field.size,
                 hintText: field.searchHintText,
                 borderRadius: field.borderRadius,
-                borderColor: const WidgetStatePropertyAll(
-                  Colors.transparent,
-                ),
+                borderColor: const WidgetStatePropertyAll(Colors.transparent),
                 prefix: field.searchIcon,
                 suffix: suffix,
                 onChanged: (value) {
@@ -599,17 +597,13 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
               searchController.text.trim().isNotEmpty)
             Expanded(
               child: DefaultTextStyle.merge(
-                style: field.size.textStyle.copyWith(
-                  color: tw.color.label,
-                ),
+                style: field.size.textStyle.copyWith(color: tw.color.label),
                 child: Center(child: field.searchResultsEmpty),
               ),
             ),
           if (items.isEmpty && field.itemsEmpty != null)
             DefaultTextStyle.merge(
-              style: field.size.textStyle.copyWith(
-                color: tw.color.label,
-              ),
+              style: field.size.textStyle.copyWith(color: tw.color.label),
               child: field.itemsEmpty!,
             ),
           if (currentItems.isNotEmpty)
@@ -882,10 +876,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                             style: selectWidgetTextStyle,
                             child: Flexible(child: selectWidget),
                           ),
-                          SizedBox(
-                            height: height,
-                            child: field.trailing,
-                          ),
+                          SizedBox(height: height, child: field.trailing),
                         ],
                       ),
                     ),
