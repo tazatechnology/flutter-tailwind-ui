@@ -21,6 +21,7 @@ class TCard extends StatelessWidget {
     this.headerBorder,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.mainAxisAlignment = MainAxisAlignment.start,
+    this.expanded = false,
   });
 
   /// The child widget to display inside the card.
@@ -55,6 +56,12 @@ class TCard extends StatelessWidget {
 
   /// The main axis alignment of the card content.
   final MainAxisAlignment mainAxisAlignment;
+
+  /// Whether the child should be expanded to fill the available space.
+  ///
+  /// Useful for scrollable card content since the header/content are rendered
+  /// within a Column and depending on the use case, expansion may be desired.
+  final bool expanded;
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +126,8 @@ class TCard extends StatelessWidget {
                         child: header!,
                       ),
                     ),
-                  if (effectiveChild != null) Expanded(child: effectiveChild),
+                  if (effectiveChild != null)
+                    Expanded(flex: expanded ? 1 : 0, child: effectiveChild),
                 ],
               ),
       ),
