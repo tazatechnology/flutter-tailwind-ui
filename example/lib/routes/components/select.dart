@@ -577,8 +577,9 @@ class _TSelectSearch extends StatelessWidget {
       items: const ['apple', 'banana', 'cherry', 'date', 'elderberry'],
       itemBuilder: (value) => Text(value),
       onSearch: (options, term) {
-        final optionsLower =
-            options.map((option) => option.toLowerCase()).toList();
+        final optionsLower = options
+            .map((option) => option.toLowerCase())
+            .toList();
         return optionsLower
             .where((option) => option.contains(term.toLowerCase()))
             .toList();

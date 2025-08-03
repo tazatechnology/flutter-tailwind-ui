@@ -91,15 +91,17 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color:
-                      tw.light ? TColors.gray.shade200 : TColors.gray.shade700,
+                  color: tw.light
+                      ? TColors.gray.shade200
+                      : TColors.gray.shade700,
                 ),
               ),
             ),
             child: DefaultTextStyle.merge(
               style: TTextStyle.text_sm.copyWith(
-                color:
-                    tw.light ? TColors.slate.shade700 : TColors.slate.shade200,
+                color: tw.light
+                    ? TColors.slate.shade700
+                    : TColors.slate.shade200,
                 fontWeight: TFontWeight.semibold,
               ),
               child: Row(
@@ -150,7 +152,8 @@ class _AppValueTableState extends ConsumerState<AppValueTable> {
                     physics: const BouncingScrollPhysics(),
                     controller: scrollController,
                     itemCount: widget.items.length,
-                    cacheExtent: (widget.height ??
+                    cacheExtent:
+                        (widget.height ??
                             (widget.itemHeight * widget.items.length)) /
                         2,
                     itemBuilder: (context, index) {

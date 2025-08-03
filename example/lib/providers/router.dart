@@ -44,6 +44,7 @@ class AppRouter {
       AppRouter.filter: const ComponentRouteTFilter(),
       AppRouter.form: const ComponentRouteTForm(),
       AppRouter.form_field: const ComponentRouteTFormField(),
+      AppRouter.icon: const ComponentRouteTIcon(),
       AppRouter.icon_button: const ComponentRouteTIconButton(),
       AppRouter.input: const ComponentRouteTInput(),
       AppRouter.link: const ComponentRouteTLink(),
@@ -132,6 +133,7 @@ class AppRouter {
   static const String filter = 'filter';
   static const String form = 'form';
   static const String form_field = 'form-field';
+  static const String icon = 'icon';
   static const String icon_button = 'icon-button';
   static const String input = 'input';
   static const String link = 'link';

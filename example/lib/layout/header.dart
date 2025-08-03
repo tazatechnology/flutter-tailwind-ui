@@ -111,7 +111,7 @@ class AppRouteHeader extends StatelessWidget {
                       builder: (context, followLink) {
                         return TBadge.soft(
                           color: TColors.sky,
-                          tooltip: 'API Docs for **$className**',
+                          tooltip: 'API Docs for $className',
                           onPressed: followLink,
                           child: const Text('Dart Docs'),
                         );

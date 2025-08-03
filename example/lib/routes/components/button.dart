@@ -745,8 +745,9 @@ class _TButtonStatefulTheme extends StatelessWidget {
         textStyle: WidgetStateProperty.resolveWith((states) {
           return TextStyle(
             color: Colors.white,
-            fontWeight:
-                states.hovered ? TFontWeight.semibold : TFontWeight.medium,
+            fontWeight: states.hovered
+                ? TFontWeight.semibold
+                : TFontWeight.medium,
           );
         }),
       ),

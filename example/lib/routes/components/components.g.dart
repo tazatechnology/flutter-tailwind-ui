@@ -2420,6 +2420,104 @@ TGauge(
 """;
 }
 
+/// Source code for [_TIconComparison]
+class _TIconComparisonSource {
+  static const String code = r"""
+class _TIconComparison extends StatefulWidget {
+  const _TIconComparison();
+
+  @override
+  State<_TIconComparison> createState() => _TIconComparisonState();
+}
+
+class _TIconComparisonState extends State<_TIconComparison> {
+  double size = 32;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: TSpace.v96,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                spacing: TSpace.v12,
+                children: [
+                  ColoredBox(
+                    color: TColors.indigo.shade100,
+                    child: TIcon(
+                      FontAwesomeIcons.planeLock,
+                      size: size,
+                      color: TColors.zinc.shade700,
+                    ),
+                  ),
+                  const TText('`TIcon`', style: TextStyle(fontSize: 14)),
+                ],
+              ),
+              Column(
+                spacing: TSpace.v12,
+                children: [
+                  ColoredBox(
+                    color: TColors.indigo.shade100,
+                    child: Icon(
+                      FontAwesomeIcons.planeLock,
+                      size: size,
+                      color: TColors.zinc.shade700,
+                    ),
+                  ),
+                  const TText('`Icon`', style: TextStyle(fontSize: 14)),
+                ],
+              ),
+            ],
+          ),
+        ),
+        TSlider(
+          initialValue: size,
+          min: 40 - 20,
+          max: 40 + 20,
+          divisions: 20,
+          label: Text('Icon Size: ${size.toInt()}'),
+          onChanged: (value) {
+            setState(() {
+              size = value;
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+""";
+}
+
+/// Source code for [_TIconBasic]
+class _TIconBasicSource {
+  static const String code = r"""
+const TIcon(Icons.home)
+""";
+}
+
+/// Source code for [_TIconCustomize]
+class _TIconCustomizeSource {
+  static const String code = r"""
+const TIcon(
+  Icons.home,
+  size: 48,
+  color: TColors.indigo,
+  semanticLabel: 'Home Icon',
+  textDirection: TextDirection.ltr,
+  shadows: [
+    Shadow(
+      color: Colors.black54,
+      offset: Offset(2, 2),
+      blurRadius: 4,
+    ),
+  ],
+)
+""";
+}
+
 /// Source code for [_TIconButtonBasic]
 class _TIconButtonBasicSource {
   static const String code = r"""

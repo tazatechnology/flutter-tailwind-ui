@@ -108,8 +108,9 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
             child: Container(
               height: appBarHeight,
               decoration: BoxDecoration(
-                color: context.theme.scaffoldBackgroundColor
-                    .withValues(alpha: 0.75),
+                color: context.theme.scaffoldBackgroundColor.withValues(
+                  alpha: 0.75,
+                ),
                 border: appBarBorder,
               ),
               child: Column(

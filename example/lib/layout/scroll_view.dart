@@ -246,8 +246,9 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
       if (renderObject == null) {
         continue;
       }
-      final sectionPosition =
-          renderObject.getTransformTo(null).getTranslation();
+      final sectionPosition = renderObject
+          .getTransformTo(null)
+          .getTranslation();
 
       sectionOffsets[section] = sectionPosition.y;
     }
@@ -340,8 +341,9 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
       xPad += EdgeInsets.only(right: right);
     }
 
-    final lineColor =
-        tw.light ? TColors.gray.shade100 : const Color(0xff202630);
+    final lineColor = tw.light
+        ? TColors.gray.shade100
+        : const Color(0xff202630);
     final diagonalPattern = CustomPaint(
       painter: DiagonalStripesPainter(lineColor: lineColor),
       child: Container(

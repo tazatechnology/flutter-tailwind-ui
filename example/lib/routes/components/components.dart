@@ -5,6 +5,7 @@ import 'package:flutter_tailwind_ui_app/layout/component_route.dart';
 import 'package:flutter_tailwind_ui_app/layout/header.dart';
 import 'package:flutter_tailwind_ui_app/widgets/preview_card.dart';
 import 'package:flutter_tailwind_ui_app/widgets/value_table.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 part 'alert.dart';
 part 'backdrop_filter.dart';
@@ -21,6 +22,7 @@ part 'filter.dart';
 part 'form_field.dart';
 part 'form.dart';
 part 'gauge.dart';
+part 'icon.dart';
 part 'icon_button.dart';
 part 'input.dart';
 part 'link.dart';

@@ -101,7 +101,8 @@ class ComponentRouteTSplitButton extends StatelessWidget {
           children: [
             AppPreviewCard(
               title: 'No leading and trailing provided',
-              description: 'If no `leading` or `trailing` widget is provided, '
+              description:
+                  'If no `leading` or `trailing` widget is provided, '
                   'the button will fallback to a standard `TButton`.',
               code: _TSplitButtonNoLeadingTrailingSource.code,
               child: _TSplitButtonNoLeadingTrailing(),

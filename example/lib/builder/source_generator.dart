@@ -43,7 +43,9 @@ class SourceGenerator extends GeneratorForAnnotation<GenerateSource> {
     final sourceRange = element.source.contents.data.substring(
       element.nameOffset - 'class '.length, // Include the 'class' keyword
       elementIndex +
-          element.source.contents.data.substring(elementIndex).indexOf(
+          element.source.contents.data
+              .substring(elementIndex)
+              .indexOf(
                 RegExp(r'(^|\n)\}(?=\n|$)'),
                 isStatefulWidget ? stateIndex - elementIndex : 0,
               ) +
@@ -145,8 +147,9 @@ $source
       if (leadingSpaces == -1) return line; // Empty line
 
       // Remove specified number of spaces, but don't go negative
-      final spacesToTrim =
-          leadingSpaces < spacesToRemove ? leadingSpaces : spacesToRemove;
+      final spacesToTrim = leadingSpaces < spacesToRemove
+          ? leadingSpaces
+          : spacesToRemove;
       return line.substring(spacesToTrim);
     }).toList();
 

@@ -85,7 +85,7 @@ class _AppPreviewCardState extends State<AppPreviewCard> {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    final codeFontSize = tw.screen.is_md ? 13.0 : 12.0;
+    final codeFontSize = tw.screen.is_md ? 11.0 : 10.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

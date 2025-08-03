@@ -30,8 +30,9 @@ const Map<String, TMaterialColor> _colors = {
 };
 
 /// Provider for how to copy a color to the clipboard
-final _colorFormatProvider =
-    StateProvider<ColorFormat>((_) => ColorFormat.tailwind);
+final _colorFormatProvider = StateProvider<ColorFormat>(
+  (_) => ColorFormat.tailwind,
+);
 
 // =============================================================================
 // ENUM: ColorFormat

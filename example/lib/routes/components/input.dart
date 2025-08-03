@@ -348,8 +348,9 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
             controller: textController,
             label: const Text('Email Address'),
             hintText: 'you@example.com',
-            borderRadius:
-                const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
+            borderRadius: const WidgetStatePropertyAll(
+              TBorderRadius.rounded_l_md,
+            ),
             prefix: const Icon(Icons.mail_outline, size: 15),
             keyboardType: TextInputType.emailAddress,
           ),

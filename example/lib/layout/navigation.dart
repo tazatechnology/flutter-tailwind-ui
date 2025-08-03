@@ -97,6 +97,7 @@ class _AppNavigationState extends State<AppNavigation> {
       },
       'Other': {
         'TAlert': AppRouter.alert,
+        'TIcon': AppRouter.icon,
         'TCodeBlock': AppRouter.code_block,
       },
     };
@@ -221,8 +222,9 @@ class _AppNavigationItemState extends ConsumerState<AppNavigationItem> {
     final showSideBar = tw.screen.width >= AppScaffold.sidebarBreakpoint;
 
     final activeColor = tw.light ? TColors.sky : TColors.sky;
-    final inactiveColor =
-        tw.light ? TColors.gray.shade600 : TColors.gray.shade300;
+    final inactiveColor = tw.light
+        ? TColors.gray.shade600
+        : TColors.gray.shade300;
     final hoveredBorder = activeColor.withValues(alpha: 0.25);
 
     Color badgeColor = Colors.transparent;
