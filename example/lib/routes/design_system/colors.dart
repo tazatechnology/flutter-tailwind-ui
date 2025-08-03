@@ -84,9 +84,45 @@ class ColorsRoute extends ConsumerWidget {
         reference: 'https://v3.tailwindcss.com/docs/customizing-colors',
       ),
       slivers: [
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: AppSection(
             title: 'Overview',
+            children: [
+              TText(
+                "Flutter Tailwind UI includes an expertly-crafted default color palette out-of-the-box that is a great starting point if you don't have your own specific branding in mind.",
+              ),
+            ],
+          ),
+        ),
+        const SliverToBoxAdapter(
+          child: AppSection(
+            title: 'Black and White',
+            children: [
+              TText(
+                '`TColors` provides a black/white color palette with a more predictable opacity scale than the default Flutter options.',
+              ),
+              AppPreviewCard(
+                title: 'Black',
+                description:
+                    'Opacity range from 5% to 100% (`TColors.black5` to `TColors.black`)',
+                maxWidth: TScreen.max_4xl,
+                code: _TColorsBlackSource.code,
+                child: _TColorsBlack(),
+              ),
+              AppPreviewCard(
+                title: 'White',
+                description:
+                    'Opacity range from 5% to 100% (`TColors.white5` to `TColors.white`)',
+                maxWidth: TScreen.max_4xl,
+                code: _TColorsWhiteSource.code,
+                child: _TColorsWhite(),
+              ),
+            ],
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: AppSection(
+            title: 'Tailwind Colors',
             children: [
               const TText(
                 "Flutter Tailwind UI includes an expertly-crafted default color palette out-of-the-box that is a great starting point if you don't have your own specific branding in mind. These colors have been ported from the Tailwind CSS default color palettes and are accessible from the `TColors` class.\n\nUse the reference below to copy any color to your clipboard in the format of your choice.",
@@ -213,13 +249,14 @@ class ColorSwatch extends ConsumerStatefulWidget {
   const ColorSwatch({
     required this.name,
     required this.color,
-    required this.shade,
+    this.shade,
+    this.opacity,
     super.key,
   });
   final String name;
-  final MaterialColor color;
-  final int shade;
-
+  final Color color;
+  final int? shade;
+  final double? opacity;
   @override
   ConsumerState<ColorSwatch> createState() => _ColorSwatchState();
 }
@@ -238,7 +275,13 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
   @override
   void initState() {
     super.initState();
-    color = widget.color[widget.shade] ?? Colors.transparent;
+    final mc = widget.color.toMaterialColor();
+    if (widget.color is MaterialColor) {
+      color = mc[widget.shade ?? 500] ?? Colors.transparent;
+    } else {
+      // If the color is not a MaterialColor, use the color directly
+      color = widget.color;
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -308,7 +351,7 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
               decoration: BoxDecoration(
                 color: color,
                 border: Border.all(
-                  color: light ? Colors.black12 : Colors.white24,
+                  color: light ? TColors.black10 : TColors.white25,
                   width: 0.5,
                 ),
                 borderRadius: TBorderRadius.rounded_sm,
@@ -345,6 +388,126 @@ class _ColorSwatchState extends ConsumerState<ColorSwatch> {
           ],
         ),
       ),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TColorsBlack
+// =============================================================================
+
+@GenerateSource()
+class _TColorsBlack extends StatelessWidget {
+  const _TColorsBlack();
+
+  @override
+  Widget build(BuildContext context) {
+    final tw = context.tw;
+    final blacks = [
+      TColors.black5,
+      TColors.black10,
+      TColors.black20,
+      TColors.black25,
+      TColors.black30,
+      TColors.black40,
+      TColors.black50,
+      TColors.black60,
+      TColors.black70,
+      TColors.black75,
+      TColors.black80,
+      TColors.black90,
+      TColors.black95,
+      TColors.black,
+    ];
+    return Row(
+      spacing: tw.screen.is_md ? TSpace.v6 : TSpace.v4,
+      children: [
+        for (final black in blacks)
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              height: TSpace.v40,
+              decoration: BoxDecoration(
+                color: black,
+                border: Border.all(
+                  color: tw.light ? TColors.black10 : TColors.white25,
+                  width: 0.5,
+                ),
+                borderRadius: TBorderRadius.rounded_sm,
+              ),
+              child: Text(
+                (black.a * 100).round().toString(),
+                style: TTextStyle.text_xs.copyWith(
+                  color: tw.light
+                      ? black.a > 0.5
+                            ? TColors.white
+                            : TColors.black
+                      : TColors.white,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TColorsWhite
+// =============================================================================
+
+@GenerateSource()
+class _TColorsWhite extends StatelessWidget {
+  const _TColorsWhite();
+
+  @override
+  Widget build(BuildContext context) {
+    final tw = context.tw;
+    final whites = [
+      TColors.white5,
+      TColors.white10,
+      TColors.white20,
+      TColors.white25,
+      TColors.white30,
+      TColors.white40,
+      TColors.white50,
+      TColors.white60,
+      TColors.white70,
+      TColors.white75,
+      TColors.white80,
+      TColors.white90,
+      TColors.white95,
+      TColors.white,
+    ];
+    return Row(
+      spacing: tw.screen.is_md ? TSpace.v6 : TSpace.v4,
+      children: [
+        for (final white in whites)
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              height: TSpace.v40,
+              decoration: BoxDecoration(
+                color: white,
+                border: Border.all(
+                  color: TColors.black20,
+                  width: 0.5,
+                ),
+                borderRadius: TBorderRadius.rounded_sm,
+              ),
+              child: Text(
+                (white.a * 100).round().toString(),
+                style: TTextStyle.text_xs.copyWith(
+                  color: tw.light
+                      ? Colors.black
+                      : white.a < 0.5
+                      ? TColors.white
+                      : TColors.black,
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

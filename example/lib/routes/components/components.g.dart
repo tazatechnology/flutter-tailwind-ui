@@ -127,7 +127,7 @@ Wrap(
       TBackdropFilter.blur(
         value: value,
         background: Image.asset('assets/img/reference.jpeg', height: 100),
-        child: Container(width: 60, height: 60, color: Colors.white30),
+        child: Container(width: 60, height: 60, color: TColors.white30),
       ),
   ],
 )
@@ -146,7 +146,7 @@ Wrap(
       TBackdropFilter.brightness(
         value: value,
         background: Image.asset('assets/img/reference.jpeg', height: 100),
-        child: Container(width: 60, height: 60, color: Colors.white30),
+        child: Container(width: 60, height: 60, color: TColors.white30),
       ),
   ],
 )
@@ -165,7 +165,7 @@ Wrap(
       TBackdropFilter.contrast(
         value: value,
         background: Image.asset('assets/img/reference.jpeg', height: 100),
-        child: Container(width: 60, height: 60, color: Colors.white30),
+        child: Container(width: 60, height: 60, color: TColors.white30),
       ),
   ],
 )
@@ -184,7 +184,7 @@ Wrap(
       TBackdropFilter.grayscale(
         value: value,
         background: Image.asset('assets/img/reference.jpeg', height: 100),
-        child: Container(width: 60, height: 60, color: Colors.white30),
+        child: Container(width: 60, height: 60, color: TColors.white30),
       ),
   ],
 )
@@ -203,7 +203,7 @@ Wrap(
       TBackdropFilter.hueRotate(
         value: value,
         background: Image.asset('assets/img/reference.jpeg', height: 100),
-        child: Container(width: 60, height: 60, color: Colors.white30),
+        child: Container(width: 60, height: 60, color: TColors.white30),
       ),
   ],
 )
@@ -222,7 +222,7 @@ Wrap(
       TBackdropFilter.invert(
         value: value,
         background: Image.asset('assets/img/reference.jpeg', height: 100),
-        child: Container(width: 60, height: 60, color: Colors.white30),
+        child: Container(width: 60, height: 60, color: TColors.white30),
       ),
   ],
 )
@@ -241,7 +241,7 @@ Wrap(
       TBackdropFilter.saturate(
         value: value,
         background: Image.asset('assets/img/reference.jpeg', height: 100),
-        child: Container(width: 60, height: 60, color: Colors.white30),
+        child: Container(width: 60, height: 60, color: TColors.white30),
       ),
   ],
 )
@@ -260,7 +260,7 @@ Wrap(
       TBackdropFilter.sepia(
         value: value,
         background: Image.asset('assets/img/reference.jpeg', height: 100),
-        child: Container(width: 60, height: 60, color: Colors.white30),
+        child: Container(width: 60, height: 60, color: TColors.white30),
       ),
   ],
 )
@@ -608,8 +608,9 @@ TBadge.filled(
     textStyle: WidgetStateProperty.resolveWith((states) {
       return TextStyle(
         color: Colors.white,
-        fontWeight:
-            states.hovered ? TFontWeight.semibold : TFontWeight.medium,
+        fontWeight: states.hovered
+            ? TFontWeight.semibold
+            : TFontWeight.medium,
       );
     }),
   ),
@@ -1059,8 +1060,9 @@ TButton.filled(
     textStyle: WidgetStateProperty.resolveWith((states) {
       return TextStyle(
         color: Colors.white,
-        fontWeight:
-            states.hovered ? TFontWeight.semibold : TFontWeight.medium,
+        fontWeight: states.hovered
+            ? TFontWeight.semibold
+            : TFontWeight.medium,
       );
     }),
   ),
@@ -2503,10 +2505,9 @@ class _TIconCustomizeSource {
   static const String code = r"""
 const TIcon(
   Icons.home,
-  size: 48,
+  size: 32,
   color: TColors.indigo,
   semanticLabel: 'Home Icon',
-  textDirection: TextDirection.ltr,
   shadows: [
     Shadow(
       color: Colors.black54,
@@ -3070,8 +3071,9 @@ class _TInputGallerySubscribeState extends State<_TInputGallerySubscribe> {
             controller: textController,
             label: const Text('Email Address'),
             hintText: 'you@example.com',
-            borderRadius:
-                const WidgetStatePropertyAll(TBorderRadius.rounded_l_md),
+            borderRadius: const WidgetStatePropertyAll(
+              TBorderRadius.rounded_l_md,
+            ),
             prefix: const Icon(Icons.mail_outline, size: 15),
             keyboardType: TextInputType.emailAddress,
           ),
@@ -4095,8 +4097,9 @@ TSelect(
   items: const ['apple', 'banana', 'cherry', 'date', 'elderberry'],
   itemBuilder: (value) => Text(value),
   onSearch: (options, term) {
-    final optionsLower =
-        options.map((option) => option.toLowerCase()).toList();
+    final optionsLower = options
+        .map((option) => option.toLowerCase())
+        .toList();
     return optionsLower
         .where((option) => option.contains(term.toLowerCase()))
         .toList();

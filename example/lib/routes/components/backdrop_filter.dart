@@ -145,7 +145,7 @@ class _TBackdropFilterBlur extends StatelessWidget {
           TBackdropFilter.blur(
             value: value,
             background: Image.asset('assets/img/reference.jpeg', height: 100),
-            child: Container(width: 60, height: 60, color: Colors.white30),
+            child: Container(width: 60, height: 60, color: TColors.white30),
           ),
       ],
     );
@@ -171,7 +171,7 @@ class _TBackdropFilterBrightness extends StatelessWidget {
           TBackdropFilter.brightness(
             value: value,
             background: Image.asset('assets/img/reference.jpeg', height: 100),
-            child: Container(width: 60, height: 60, color: Colors.white30),
+            child: Container(width: 60, height: 60, color: TColors.white30),
           ),
       ],
     );
@@ -197,7 +197,7 @@ class _TBackdropFilterContrast extends StatelessWidget {
           TBackdropFilter.contrast(
             value: value,
             background: Image.asset('assets/img/reference.jpeg', height: 100),
-            child: Container(width: 60, height: 60, color: Colors.white30),
+            child: Container(width: 60, height: 60, color: TColors.white30),
           ),
       ],
     );
@@ -223,7 +223,7 @@ class _TBackdropFilterGrayscale extends StatelessWidget {
           TBackdropFilter.grayscale(
             value: value,
             background: Image.asset('assets/img/reference.jpeg', height: 100),
-            child: Container(width: 60, height: 60, color: Colors.white30),
+            child: Container(width: 60, height: 60, color: TColors.white30),
           ),
       ],
     );
@@ -249,7 +249,7 @@ class _TBackdropFilterHueRotate extends StatelessWidget {
           TBackdropFilter.hueRotate(
             value: value,
             background: Image.asset('assets/img/reference.jpeg', height: 100),
-            child: Container(width: 60, height: 60, color: Colors.white30),
+            child: Container(width: 60, height: 60, color: TColors.white30),
           ),
       ],
     );
@@ -275,7 +275,7 @@ class _TBackdropFilterInvert extends StatelessWidget {
           TBackdropFilter.invert(
             value: value,
             background: Image.asset('assets/img/reference.jpeg', height: 100),
-            child: Container(width: 60, height: 60, color: Colors.white30),
+            child: Container(width: 60, height: 60, color: TColors.white30),
           ),
       ],
     );
@@ -301,7 +301,7 @@ class _TBackdropFilterSaturate extends StatelessWidget {
           TBackdropFilter.saturate(
             value: value,
             background: Image.asset('assets/img/reference.jpeg', height: 100),
-            child: Container(width: 60, height: 60, color: Colors.white30),
+            child: Container(width: 60, height: 60, color: TColors.white30),
           ),
       ],
     );
@@ -327,7 +327,7 @@ class _TBackdropFilterSepia extends StatelessWidget {
           TBackdropFilter.sepia(
             value: value,
             background: Image.asset('assets/img/reference.jpeg', height: 100),
-            child: Container(width: 60, height: 60, color: Colors.white30),
+            child: Container(width: 60, height: 60, color: TColors.white30),
           ),
       ],
     );

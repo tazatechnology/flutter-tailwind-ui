@@ -1,6 +1,7 @@
 // Match Tailwind naming conventions for traceability
 // ignore_for_file: constant_identifier_names
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind_ui/src/extensions/color.dart';
 
 /// Defines a single color as well a color swatch with eleven shades of the color.
 ///
@@ -63,6 +64,93 @@ class TMaterialColor extends MaterialColor {
 ///
 /// https://tailwindcss.com/docs/customizing-colors
 abstract final class TColors {
+  /// Transparent color
+  static const Color transparent = Colors.transparent;
+
+  /// Pure black
+  static const Color black = Colors.black;
+
+  /// Pure black with 5% opacity
+  static const Color black5 = Color(0x0D000000);
+
+  /// Pure black with 10% opacity
+  static const Color black10 = Color(0x1A000000);
+
+  /// Pure black with 20% opacity
+  static const Color black20 = Color(0x33000000);
+
+  /// Pure black with 25% opacity
+  static const Color black25 = Color(0x40000000);
+
+  /// Pure black with 30% opacity
+  static const Color black30 = Color(0x4D000000);
+
+  /// Pure black with 40% opacity
+  static const Color black40 = Color(0x66000000);
+
+  /// Pure black with 50% opacity
+  static const Color black50 = Color(0x80000000);
+
+  /// Pure black with 60% opacity
+  static const Color black60 = Color(0x99000000);
+
+  /// Pure black with 70% opacity
+  static const Color black70 = Color(0xB3000000);
+
+  /// Pure black with 75% opacity
+  static const Color black75 = Color(0xBF000000);
+
+  /// Pure black with 80% opacity
+  static const Color black80 = Color(0xCC000000);
+
+  /// Pure black with 90% opacity
+  static const Color black90 = Color(0xE6000000);
+
+  /// Pure black with 95% opacity
+  static const Color black95 = Color(0xF2000000);
+
+  /// Pure white
+  static const Color white = Colors.white;
+
+  /// Pure white with 5% opacity
+  static const Color white5 = Color(0x0DFFFFFF);
+
+  /// Pure white with 10% opacity
+  static const Color white10 = Color(0x1AFFFFFF);
+
+  /// Pure white with 20% opacity
+  static const Color white20 = Color(0x33FFFFFF);
+
+  /// Pure white with 25% opacity
+  static const Color white25 = Color(0x40FFFFFF);
+
+  /// Pure white with 30% opacity
+  static const Color white30 = Color(0x4DFFFFFF);
+
+  /// Pure white with 40% opacity
+  static const Color white40 = Color(0x66FFFFFF);
+
+  /// Pure white with 50% opacity
+  static const Color white50 = Color(0x80FFFFFF);
+
+  /// Pure white with 60% opacity
+  static const Color white60 = Color(0x99FFFFFF);
+
+  /// Pure white with 70% opacity
+  static const Color white70 = Color(0xB3FFFFFF);
+
+  /// Pure white with 75% opacity
+  static const Color white75 = Color(0xBFFFFFFF);
+
+  /// Pure white with 80% opacity
+  static const Color white80 = Color(0xCCFFFFFF);
+
+  /// Pure white with 90% opacity
+  static const Color white90 = Color(0xE6FFFFFF);
+
+  /// Pure white with 95% opacity
+  static const Color white95 = Color(0xF2FFFFFF);
+
   /// Slate color palette
   static const TMaterialColor slate = TMaterialColor(
     0xff64748b,
@@ -463,6 +551,12 @@ abstract final class TColors {
   static MaterialColor get(String name) {
     final colorName = name.trim().toLowerCase();
     switch (colorName) {
+      case 'black':
+        return Colors.black.toMaterialColor();
+      case 'white':
+        return Colors.white.toMaterialColor();
+      case 'transparent':
+        return Colors.transparent.toMaterialColor();
       case 'slate':
         return slate;
       case 'gray':

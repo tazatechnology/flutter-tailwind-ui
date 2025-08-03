@@ -37,9 +37,7 @@ class AppCodeResultCard extends StatelessWidget {
         borderRadius: TBorderRadius.rounded_lg,
         border: Border.all(
           width: 0.5,
-          color: tw.light
-              ? Colors.black.withValues(alpha: 0.1)
-              : Colors.white.withValues(alpha: 0.1),
+          color: tw.light ? TColors.black10 : TColors.white10,
         ),
       ),
       child: ClipRRect(

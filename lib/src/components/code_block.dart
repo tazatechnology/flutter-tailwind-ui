@@ -116,9 +116,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
         theme.border ??
         Border.all(
           width: 0.5,
-          color: light
-              ? Colors.black.withValues(alpha: 0.1)
-              : Colors.white.withValues(alpha: 0.1),
+          color: light ? TColors.black10 : TColors.white10,
         );
 
     final effectiveBorderRadius =

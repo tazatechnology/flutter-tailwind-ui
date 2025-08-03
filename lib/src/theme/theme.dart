@@ -306,10 +306,10 @@ class TailwindTheme {
         decoration: BoxDecoration(
           color: color.tooltip,
           borderRadius: TBorderRadius.rounded_md,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              offset: const Offset(0, 4),
+              color: TColors.black10,
+              offset: Offset(0, 4),
               blurRadius: 8,
             ),
           ],

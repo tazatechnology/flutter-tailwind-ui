@@ -142,8 +142,8 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         hint: TColors.gray.shade400,
         link: TColors.sky,
         background: Colors.white,
-        shadow: Colors.black26,
-        barrier: Colors.black.withValues(alpha: 0.7),
+        shadow: TColors.black25,
+        barrier: TColors.black70,
         hover: const Color(0xfff4f4f5),
         card: Colors.white,
         icon: TColors.gray.shade400,
@@ -167,7 +167,7 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
         link: TColors.sky.shade400,
         background: TColors.gray.shade950,
         shadow: TColors.gray.shade800,
-        barrier: Colors.black.withValues(alpha: 0.85),
+        barrier: TColors.black90,
         hover: const Color(0xff27272a),
         card: TColors.gray.shade900,
         icon: TColors.gray.shade400,
@@ -275,9 +275,9 @@ class TailwindColorTheme extends ThemeExtension<TailwindColorTheme> {
   /// Color of disabled text
   Color get disabledTextColor {
     if (_brightness == Brightness.light) {
-      return Colors.black.withValues(alpha: 0.38);
+      return TColors.black40;
     } else {
-      return Colors.white.withValues(alpha: 0.38);
+      return TColors.white40;
     }
   }
 
