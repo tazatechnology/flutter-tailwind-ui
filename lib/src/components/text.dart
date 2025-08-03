@@ -263,19 +263,29 @@ class _codeBuilder extends MarkdownElementBuilder {
     final backgroundColor = context.tw.light
         ? const Color(0xfff5f5f5)
         : const Color(0xff333333);
-    return Container(
-      padding: TOffset.x4 + TOffset.y2,
-      decoration: BoxDecoration(
-        borderRadius: TBorderRadius.rounded_sm,
-        color: backgroundColor,
-      ),
-      child: Text(
-        element.textContent,
-        style: TextStyle(
-          fontSize: parentStyle?.fontSize?.subtract(2),
-          fontFamily: TTextStyle.fontFamilyMono,
-          height: kTextHeightNone,
-        ),
+
+    // Use Text.rich with WidgetSpan to maintain inline behavior
+    return Text.rich(
+      TextSpan(
+        children: [
+          WidgetSpan(
+            child: Container(
+              padding: TOffset.x4 + TOffset.y2,
+              decoration: BoxDecoration(
+                borderRadius: TBorderRadius.rounded_sm,
+                color: backgroundColor,
+              ),
+              child: Text(
+                element.textContent,
+                style: TextStyle(
+                  fontSize: parentStyle?.fontSize?.subtract(2),
+                  fontFamily: TTextStyle.fontFamilyMono,
+                  height: kTextHeightNone,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
