@@ -110,6 +110,7 @@ class AppRouteHeader extends StatelessWidget {
                       uri: Uri.parse('$baseUrl$className-class.html'),
                       builder: (context, followLink) {
                         return TBadge.soft(
+                          size: TWidgetSize.xs,
                           color: TColors.sky,
                           tooltip: 'API Docs for $className',
                           onPressed: followLink,
@@ -288,6 +289,7 @@ class ReferenceBadge extends StatelessWidget {
       uri: Uri.parse(reference),
       builder: (context, followLink) {
         return TBadge.soft(
+          size: TWidgetSize.xs,
           color: TColors.indigo,
           tooltip: tooltip,
           onPressed: followLink,

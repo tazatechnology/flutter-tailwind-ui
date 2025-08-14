@@ -3104,6 +3104,16 @@ TLink(
 """;
 }
 
+/// Source code for [_TLinkOnHover]
+class _TLinkOnHoverSource {
+  static const String code = r"""
+TLink(
+  child: const Text('Link'),
+  onHover: (value) {},
+)
+""";
+}
+
 /// Source code for [_TLinkURI]
 class _TLinkURISource {
   static const String code = r"""

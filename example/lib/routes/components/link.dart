@@ -17,10 +17,16 @@ class ComponentRouteTLink extends StatelessWidget {
           title: 'Link Types',
           children: [
             AppPreviewCard(
-              title: 'Generic',
-              description: 'Create a callback to any operation.',
+              title: 'On Pressed',
+              description: 'Create an `onPressed` callback to any operation.',
               code: _TLinkGenericSource.code,
               child: _TLinkGeneric(),
+            ),
+            AppPreviewCard(
+              title: 'On Hover',
+              description: 'Create an `onHover` callback to any operation.',
+              code: _TLinkOnHoverSource.code,
+              child: _TLinkOnHover(),
             ),
             AppPreviewCard(
               title: 'URI',
@@ -79,6 +85,23 @@ class _TLinkGeneric extends StatelessWidget {
     return TLink(
       child: const Text('Link'),
       onPressed: () {},
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TLinkOnHover
+// =============================================================================
+
+@GenerateSource()
+class _TLinkOnHover extends StatelessWidget {
+  const _TLinkOnHover();
+
+  @override
+  Widget build(BuildContext context) {
+    return TLink(
+      child: const Text('Link'),
+      onHover: (value) {},
     );
   }
 }

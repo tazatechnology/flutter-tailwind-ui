@@ -14,6 +14,7 @@ class TLink extends StatelessWidget {
     super.key,
     required this.child,
     this.onPressed,
+    this.onHover,
     this.color,
     this.textStyle,
     this.decorate = true,
@@ -54,6 +55,9 @@ class TLink extends StatelessWidget {
   /// The callback that is called when the link is tapped.
   final VoidCallback? onPressed;
 
+  /// The callback that is called when the link is hovered.
+  final ValueChanged<bool>? onHover;
+
   /// The color of the link when hovered.
   final Color? color;
 
@@ -73,9 +77,14 @@ class TLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tw = context.tw;
-    final bool hasCallback = onPressed != null;
+    final bool hasCallback = onPressed != null || onHover != null;
+
     return TGestureDetector(
       onTap: onPressed,
+      onHover: onHover,
+      mouseCursor: WidgetStatePropertyAll(
+        hasCallback ? SystemMouseCursors.click : SystemMouseCursors.basic,
+      ),
       builder: (context, states) {
         final decorate = states.hovered && hasCallback;
         final baseTextStyle = textStyle?.resolve(states);
