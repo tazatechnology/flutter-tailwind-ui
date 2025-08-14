@@ -51,15 +51,15 @@ extension on ColorFormat {
   String get name {
     switch (this) {
       case ColorFormat.hex:
-        return '``HEX``';
+        return 'HEX';
       case ColorFormat.argb:
-        return '``ARGB``';
+        return 'ARGB';
       case ColorFormat.rgbo:
-        return '``RGBO``';
+        return 'RGBO';
       case ColorFormat.flutter:
-        return '``Color``';
+        return 'Color';
       case ColorFormat.tailwind:
-        return '``TColors``';
+        return 'TColors';
     }
   }
 }

@@ -142,14 +142,14 @@ class ComponentRouteTBadge extends StatelessWidget {
           title: 'Custom badge theming',
           children: [
             AppPreviewCard(
-              title: 'Static theme (``TStyleTheme``)',
+              title: 'Static theme (`TStyleTheme`)',
               description:
                   'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TStyleTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
               code: _TBadgeCustomThemeSource.code,
               child: _TBadgeCustomTheme(),
             ),
             AppPreviewCard(
-              title: 'Stateful theme (``TStyleTheme``)',
+              title: 'Stateful theme (`TStyleTheme`)',
               description:
                   'For full theme control, you can use the `WidgetStateProperty.resolveWith()` method to dynamically change the badge theme based on the current `WidgetState`.',
               code: _TBadgeStatefulThemeSource.code,
@@ -248,7 +248,7 @@ class _TBadgeBasicSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TBadge(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             child: const Text('Badge'),
           ),
@@ -275,7 +275,7 @@ class _TBadgeOutlinedSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TBadge.outlined(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             child: const Text('Badge'),
           ),
@@ -302,7 +302,7 @@ class _TBadgeFilledSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TBadge.filled(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             child: const Text('Badge'),
           ),
@@ -329,7 +329,7 @@ class _TBadgeSoftSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TBadge.soft(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             child: const Text('Badge'),
           ),

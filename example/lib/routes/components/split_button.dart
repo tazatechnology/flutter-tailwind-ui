@@ -240,7 +240,7 @@ class _TSplitButtonBasicSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TSplitButton(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             onPressedTrailing: () {},
             trailing: const Icon(Icons.keyboard_arrow_down),
@@ -269,7 +269,7 @@ class _TSplitButtonOutlinedSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TSplitButton.outlined(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             onPressedTrailing: () {},
             trailing: const Icon(Icons.keyboard_arrow_down),
@@ -298,7 +298,7 @@ class _TSplitButtonFilledSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TSplitButton.filled(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             onPressedTrailing: () {},
             trailing: const Icon(Icons.keyboard_arrow_down),
@@ -327,7 +327,7 @@ class _TSplitButtonSoftSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TSplitButton.soft(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             onPressedTrailing: () {},
             trailing: const Icon(Icons.keyboard_arrow_down),
@@ -575,7 +575,7 @@ class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
       children: [
         for (final variant in TStyleVariant.values)
           TSplitButton.raw(
-            tooltip: '``$variant``',
+            tooltip: '$variant',
             variant: variant,
             controllerTrailing: controllers[variant.index],
             onPressedTrailing: onPressed,
@@ -663,7 +663,7 @@ class _TSplitButtonLoadingCustomState
       children: [
         for (final variant in TStyleVariant.values)
           TSplitButton.raw(
-            tooltip: '``$variant``',
+            tooltip: '$variant',
             variant: variant,
             controllerTrailing: controllers[variant.index],
             onPressedTrailing: onPressed,

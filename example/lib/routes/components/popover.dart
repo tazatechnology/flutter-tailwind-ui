@@ -43,7 +43,7 @@ class ComponentRouteTPopover extends StatelessWidget {
               Alignment.bottomRight,
             ])
               AppPreviewCard(
-                title: '``$alignment``',
+                title: '$alignment`',
                 code: _TPopoverAlignmentSource.code,
                 child: _TPopoverAlignment(alignment),
               ),

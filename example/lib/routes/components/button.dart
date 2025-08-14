@@ -147,14 +147,14 @@ class ComponentRouteTButton extends StatelessWidget {
           title: 'Custom Button Theming',
           children: [
             AppPreviewCard(
-              title: 'Static theme (``TStyleTheme``)',
+              title: 'Static theme (`TStyleTheme`)',
               description:
                   'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TStyleTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
               code: _TButtonCustomThemeSource.code,
               child: _TButtonCustomTheme(),
             ),
             AppPreviewCard(
-              title: 'Stateful theme (``TStyleTheme``)',
+              title: 'Stateful theme (`TStyleTheme`)',
               description:
                   'For full theme control, you can use the `WidgetStateProperty.resolveWith()` method to dynamically change the button theme based on the current `WidgetState`.',
               code: _TButtonStatefulThemeSource.code,
@@ -265,7 +265,7 @@ class _TButtonBasicSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TButton(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             child: const Text('Button'),
           ),
@@ -292,7 +292,7 @@ class _TButtonOutlinedSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TButton.outlined(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             child: const Text('Button'),
           ),
@@ -319,7 +319,7 @@ class _TButtonFilledSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TButton.filled(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             child: const Text('Button'),
           ),
@@ -346,7 +346,7 @@ class _TButtonSoftSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TButton.soft(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             child: const Text('Button'),
           ),
@@ -583,7 +583,7 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
       children: [
         for (final variant in TStyleVariant.values)
           TButton.raw(
-            tooltip: '``$variant``',
+            tooltip: '$variant',
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
@@ -777,13 +777,13 @@ class _TButtonIconCompare extends StatelessWidget {
             children: [
               TIconButton.filled(
                 size: size,
-                tooltip: '``$size``',
+                tooltip: '$size',
                 onPressed: () {},
                 icon: const Icon(Icons.add),
               ),
               TButton.filled(
                 size: size,
-                tooltip: '``$size``',
+                tooltip: '$size',
                 onPressed: () {},
                 child: const Text('Button'),
               ),

@@ -318,7 +318,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TBadge(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         child: const Text('Badge'),
       ),
@@ -338,7 +338,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TBadge.outlined(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         child: const Text('Badge'),
       ),
@@ -358,7 +358,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TBadge.filled(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         child: const Text('Badge'),
       ),
@@ -378,7 +378,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TBadge.soft(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         child: const Text('Badge'),
       ),
@@ -671,7 +671,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TButton(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         child: const Text('Button'),
       ),
@@ -691,7 +691,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TButton.outlined(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         child: const Text('Button'),
       ),
@@ -711,7 +711,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TButton.filled(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         child: const Text('Button'),
       ),
@@ -731,7 +731,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TButton.soft(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         child: const Text('Button'),
       ),
@@ -917,7 +917,7 @@ class _TButtonLoadingState extends State<_TButtonLoading> {
       children: [
         for (final variant in TStyleVariant.values)
           TButton.raw(
-            tooltip: '``$variant``',
+            tooltip: '$variant',
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
@@ -1085,13 +1085,13 @@ Column(
         children: [
           TIconButton.filled(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             icon: const Icon(Icons.add),
           ),
           TButton.filled(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             child: const Text('Button'),
           ),
@@ -1917,7 +1917,6 @@ TButton.outlined(
                 'Item ${index + 1}',
                 style: const TextStyle(fontWeight: TFontWeight.bold),
               ),
-              subtitle: const Text('Example Text'),
             );
           },
         ),
@@ -1953,7 +1952,6 @@ TButton.outlined(
                   'Item ${index + 1}',
                   style: const TextStyle(fontWeight: TFontWeight.bold),
                 ),
-                subtitle: const Text('Example Text'),
               );
             },
           ),
@@ -2735,7 +2733,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TIconButton(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         icon: const Icon(Icons.add),
       ),
@@ -2755,7 +2753,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TIconButton.outlined(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         icon: const Icon(Icons.add),
       ),
@@ -2775,7 +2773,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TIconButton.filled(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         icon: const Icon(Icons.add),
       ),
@@ -2795,7 +2793,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TIconButton.soft(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         icon: const Icon(Icons.add),
       ),
@@ -2939,7 +2937,7 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
       children: [
         for (final variant in TStyleVariant.values)
           TIconButton.raw(
-            tooltip: '``$variant``',
+            tooltip: '$variant',
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
@@ -4652,7 +4650,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TSplitButton(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         onPressedTrailing: () {},
         trailing: const Icon(Icons.keyboard_arrow_down),
@@ -4674,7 +4672,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TSplitButton.outlined(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         onPressedTrailing: () {},
         trailing: const Icon(Icons.keyboard_arrow_down),
@@ -4696,7 +4694,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TSplitButton.filled(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         onPressedTrailing: () {},
         trailing: const Icon(Icons.keyboard_arrow_down),
@@ -4718,7 +4716,7 @@ Wrap(
     for (final size in TWidgetSize.values)
       TSplitButton.soft(
         size: size,
-        tooltip: '``$size``',
+        tooltip: '$size',
         onPressed: () {},
         onPressedTrailing: () {},
         trailing: const Icon(Icons.keyboard_arrow_down),
@@ -4922,7 +4920,7 @@ class _TSplitButtonLoadingState extends State<_TSplitButtonLoading> {
       children: [
         for (final variant in TStyleVariant.values)
           TSplitButton.raw(
-            tooltip: '``$variant``',
+            tooltip: '$variant',
             variant: variant,
             controllerTrailing: controllers[variant.index],
             onPressedTrailing: onPressed,
@@ -5003,7 +5001,7 @@ class _TSplitButtonLoadingCustomState
       children: [
         for (final variant in TStyleVariant.values)
           TSplitButton.raw(
-            tooltip: '``$variant``',
+            tooltip: '$variant',
             variant: variant,
             controllerTrailing: controllers[variant.index],
             onPressedTrailing: onPressed,

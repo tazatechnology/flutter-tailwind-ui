@@ -126,14 +126,14 @@ class ComponentRouteTIconButton extends StatelessWidget {
           title: 'Custom Icon Button Theming',
           children: [
             AppPreviewCard(
-              title: 'Static theme (``TStyleTheme``)',
+              title: 'Static theme (`TStyleTheme`)',
               description:
                   'All theming is powered by the Flutter `WidgetStateProperty` interface. If the you have no need dynamic theming, you can simply pass your styles to the  `TStyleTheme.all()` factory constructor which calls `WidgetStateProperty.all()` under the hood for all stateful properties.',
               code: _TIconButtonCustomThemeSource.code,
               child: _TIconButtonCustomTheme(),
             ),
             AppPreviewCard(
-              title: 'Stateful theme (``TStyleTheme``)',
+              title: 'Stateful theme (`TStyleTheme`)',
               description:
                   'For full theme control, you can use the `WidgetStateProperty.resolveWith()` method to dynamically change the button theme based on the current `WidgetState`.',
               code: _TIconButtonStatefulThemeSource.code,
@@ -232,7 +232,7 @@ class _TIconButtonBasicSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TIconButton(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             icon: const Icon(Icons.add),
           ),
@@ -259,7 +259,7 @@ class _TIconButtonOutlinedSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TIconButton.outlined(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             icon: const Icon(Icons.add),
           ),
@@ -286,7 +286,7 @@ class _TIconButtonFilledSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TIconButton.filled(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             icon: const Icon(Icons.add),
           ),
@@ -313,7 +313,7 @@ class _TIconButtonSoftSizes extends StatelessWidget {
         for (final size in TWidgetSize.values)
           TIconButton.soft(
             size: size,
-            tooltip: '``$size``',
+            tooltip: '$size',
             onPressed: () {},
             icon: const Icon(Icons.add),
           ),
@@ -494,7 +494,7 @@ class _TIconButtonLoadingState extends State<_TIconButtonLoading> {
       children: [
         for (final variant in TStyleVariant.values)
           TIconButton.raw(
-            tooltip: '``$variant``',
+            tooltip: '$variant',
             variant: variant,
             controller: controllers[variant.index],
             onPressed: onPressed,
