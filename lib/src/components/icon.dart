@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 // =============================================================================
 // CLASS: TIcon
@@ -96,7 +97,7 @@ class TIcon extends StatelessWidget {
       switch (textDirection) {
         case TextDirection.rtl:
           iconWidget = Transform(
-            transform: Matrix4.identity()..scale(-1.0, 1, 1),
+            transform: Matrix4.identity()..scaleByVector3(Vector3(-1, 1, 1)),
             alignment: Alignment.center,
             transformHitTests: false,
             child: iconWidget,

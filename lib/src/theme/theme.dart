@@ -262,7 +262,6 @@ class TailwindTheme {
         disabledThumbColor: TColors.gray[light ? 400 : 700],
         disabledActiveTrackColor: TColors.gray[light ? 400 : 700],
         disabledInactiveTrackColor: color.disabled,
-        showValueIndicator: ShowValueIndicator.always,
         overlayShape: SliderComponentShape.noOverlay,
         trackHeight: 5,
         valueIndicatorShape: TSliderValueIndicatorShape(color: color.tooltip),
