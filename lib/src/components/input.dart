@@ -76,6 +76,10 @@ class TInput extends StatefulWidget {
        expands = false,
        minLines = 1,
        maxLines = 1,
+       scrollController = null,
+       scrollPadding = null,
+       scrollPhysics = null,
+       scrollbarOptions = const TScrollbarOptions(),
        assert(
          initialValue == null || controller == null,
          'initialValue and controller cannot be used at the same time',
@@ -141,6 +145,12 @@ class TInput extends StatefulWidget {
     this.validator,
     this.minLines = 5,
     this.maxLines = 10,
+    this.scrollController,
+    this.scrollPadding,
+    this.scrollPhysics,
+    this.scrollbarOptions = const TScrollbarOptions(
+      thickness: WidgetStatePropertyAll(TSpace.v6),
+    ),
   }) : _isTextArea = true,
        obscure = false,
        expands = false,
@@ -347,6 +357,26 @@ class TInput extends StatefulWidget {
   /// The callback to call when the input field is validated.
   final FormFieldValidator<String>? validator;
 
+  /// The scroll controller for the input field.
+  ///
+  /// Only applies to [TInput.area].
+  final ScrollController? scrollController;
+
+  /// The padding to apply to the scrollable area.
+  ///
+  /// Only applies to [TInput.area].
+  final EdgeInsets? scrollPadding;
+
+  /// The physics to apply to the scrollable area.
+  ///
+  /// Only applies to [TInput.area].
+  final ScrollPhysics? scrollPhysics;
+
+  /// The scrollbar options for the input field.
+  ///
+  /// Only applies to [TInput.area].
+  final TScrollbarOptions scrollbarOptions;
+
   @override
   State<TInput> createState() => _TInputState();
 }
@@ -504,98 +534,112 @@ class _TInputState extends State<TInput> {
       children: [
         if (widget.label != null) TLabelDescription(label: widget.label),
         Flexible(
-          child: TFormField(
-            id: widget.id ?? 'TFormField',
-            child: TextFormField(
-              autofocus: widget.autofocus,
-              autocorrect: widget.autocorrect,
-              autofillHints: widget.autofillHints,
-              autovalidateMode: widget.autovalidateMode,
-              canRequestFocus: widget.enabled,
-              contentInsertionConfiguration:
-                  widget.contentInsertionConfiguration,
-              contextMenuBuilder: widget.contextMenuBuilder,
-              controller: controller,
-              cursorColor: textSelectionTheme.cursorColor,
-              cursorErrorColor: textSelectionTheme.cursorColor,
-              cursorHeight: style.fontSize,
-              cursorOpacityAnimates: false,
-              cursorWidth: 1,
-              enableInteractiveSelection: widget.enableInteractiveSelection,
-              enableSuggestions: widget.enableSuggestions,
-              enabled: widget.enabled,
-              expands: widget.expands,
-              focusNode: focusNode,
-              groupId: widget.groupId,
-              ignorePointers: widget.ignorePointers,
-              inputFormatters: widget.inputFormatters,
-              keyboardType: widget.keyboardType,
-              magnifierConfiguration: widget.magnifierConfiguration,
-              maxLengthEnforcement: widget.maxLengthEnforcement,
-              maxLines: widget.maxLines,
-              minLines: widget.minLines,
-              mouseCursor: mouseCursor,
-              obscuringCharacter: widget.obscureCharacter,
-              obscureText: widget.obscure,
-              onAppPrivateCommand: widget.onAppPrivateCommand,
-              onChanged: widget.onChanged,
-              onEditingComplete: widget.onEditingComplete,
-              onFieldSubmitted: widget.onFieldSubmitted,
-              onSaved: widget.onSaved,
-              onTap: widget.onTap,
-              onTapAlwaysCalled: widget.onTapAlwaysCalled,
-              onTapOutside: widget.onTapOutside,
-              onTapUpOutside: widget.onTapUpOutside,
-              readOnly: widget.readOnly,
-              restorationId: widget.restorationId,
-              selectionControls: widget.selectionControls,
-              showCursor: widget.showCursor ?? isInteractive,
-              smartDashesType:
-                  widget.smartDashesType ??
-                  (widget.obscure
-                      ? SmartDashesType.disabled
-                      : SmartDashesType.enabled),
-              smartQuotesType:
-                  widget.smartQuotesType ??
-                  (widget.obscure
-                      ? SmartQuotesType.disabled
-                      : SmartQuotesType.enabled),
-              spellCheckConfiguration: widget.spellCheckConfiguration,
-              statesController: statesController,
-              style: style,
-              textAlign: widget.textAlign,
-              textAlignVertical: widget.textAlignVertical,
-              textCapitalization: widget.textCapitalization,
-              textDirection: widget.textDirection,
-              textInputAction: widget.textInputAction,
-              undoController: widget.undoController,
-              validator: widget.validator,
-              decoration: InputDecoration(
-                contentPadding: contentPadding,
-                // Used to pad the input text without using content padding
-                // Else, content padding will shift the help and error text
-                prefixIconConstraints: BoxConstraints(
-                  minWidth: widget.prefix == null ? xPad : height,
+          child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: TScrollbar.fromOptions(
+              options: widget.scrollbarOptions,
+              child: TFormField(
+                id: widget.id ?? 'TFormField',
+                child: TextFormField(
+                  scrollController: widget.scrollController,
+                  scrollPadding: widget.scrollPadding ?? TOffset.a16,
+                  scrollPhysics: widget.scrollPhysics,
+                  autofocus: widget.autofocus,
+                  autocorrect: widget.autocorrect,
+                  autofillHints: widget.autofillHints,
+                  autovalidateMode: widget.autovalidateMode,
+                  canRequestFocus: widget.enabled,
+                  contentInsertionConfiguration:
+                      widget.contentInsertionConfiguration,
+                  contextMenuBuilder: widget.contextMenuBuilder,
+                  controller: controller,
+                  cursorColor: textSelectionTheme.cursorColor,
+                  cursorErrorColor: textSelectionTheme.cursorColor,
+                  cursorHeight: style.fontSize,
+                  cursorOpacityAnimates: false,
+                  cursorWidth: 1,
+                  enableInteractiveSelection: widget.enableInteractiveSelection,
+                  enableSuggestions: widget.enableSuggestions,
+                  enabled: widget.enabled,
+                  expands: widget.expands,
+                  focusNode: focusNode,
+                  groupId: widget.groupId,
+                  ignorePointers: widget.ignorePointers,
+                  inputFormatters: widget.inputFormatters,
+                  keyboardType: widget.keyboardType,
+                  magnifierConfiguration: widget.magnifierConfiguration,
+                  maxLengthEnforcement: widget.maxLengthEnforcement,
+                  maxLines: widget.maxLines,
+                  minLines: widget.minLines,
+                  mouseCursor: mouseCursor,
+                  obscuringCharacter: widget.obscureCharacter,
+                  obscureText: widget.obscure,
+                  onAppPrivateCommand: widget.onAppPrivateCommand,
+                  onChanged: widget.onChanged,
+                  onEditingComplete: widget.onEditingComplete,
+                  onFieldSubmitted: widget.onFieldSubmitted,
+                  onSaved: widget.onSaved,
+                  onTap: widget.onTap,
+                  onTapAlwaysCalled: widget.onTapAlwaysCalled,
+                  onTapOutside: widget.onTapOutside,
+                  onTapUpOutside: widget.onTapUpOutside,
+                  readOnly: widget.readOnly,
+                  restorationId: widget.restorationId,
+                  selectionControls: widget.selectionControls,
+                  showCursor: widget.showCursor ?? isInteractive,
+                  smartDashesType:
+                      widget.smartDashesType ??
+                      (widget.obscure
+                          ? SmartDashesType.disabled
+                          : SmartDashesType.enabled),
+                  smartQuotesType:
+                      widget.smartQuotesType ??
+                      (widget.obscure
+                          ? SmartQuotesType.disabled
+                          : SmartQuotesType.enabled),
+                  spellCheckConfiguration: widget.spellCheckConfiguration,
+                  statesController: statesController,
+                  style: style,
+                  textAlign: widget.textAlign,
+                  textAlignVertical: widget.textAlignVertical,
+                  textCapitalization: widget.textCapitalization,
+                  textDirection: widget.textDirection,
+                  textInputAction: widget.textInputAction,
+                  undoController: widget.undoController,
+                  validator: widget.validator,
+                  decoration: InputDecoration(
+                    contentPadding: contentPadding,
+                    // Used to pad the input text without using content padding
+                    // Else, content padding will shift the help and error text
+                    prefixIconConstraints: BoxConstraints(
+                      minWidth: widget.prefix == null ? xPad : height,
+                    ),
+                    suffixIconConstraints: BoxConstraints(
+                      minWidth: widget.suffix == null ? xPad : height,
+                    ),
+                    border: effectiveBorder.resolve({}),
+                    enabledBorder: effectiveBorder.resolve({}),
+                    focusedBorder: effectiveBorder.resolve({
+                      WidgetState.focused,
+                    }),
+                    errorBorder: effectiveBorder.resolve({WidgetState.error}),
+                    disabledBorder: effectiveBorder.resolve({
+                      WidgetState.disabled,
+                    }),
+                    filled: !effectiveFillColor.isTransparent,
+                    fillColor: effectiveFillColor,
+                    prefixIcon: effectivePrefix ?? const SizedBox.shrink(),
+                    suffixIcon: effectiveSuffix ?? const SizedBox.shrink(),
+                    hintText: widget.hintText,
+                    hintFadeDuration: Duration.zero,
+                    hintStyle: inputTheme.hintStyle?.copyWith(
+                      fontSize: style.fontSize,
+                    ),
+                    helper: help,
+                    error: error,
+                  ),
                 ),
-                suffixIconConstraints: BoxConstraints(
-                  minWidth: widget.suffix == null ? xPad : height,
-                ),
-                border: effectiveBorder.resolve({}),
-                enabledBorder: effectiveBorder.resolve({}),
-                focusedBorder: effectiveBorder.resolve({WidgetState.focused}),
-                errorBorder: effectiveBorder.resolve({WidgetState.error}),
-                disabledBorder: effectiveBorder.resolve({WidgetState.disabled}),
-                filled: !effectiveFillColor.isTransparent,
-                fillColor: effectiveFillColor,
-                prefixIcon: effectivePrefix ?? const SizedBox.shrink(),
-                suffixIcon: effectiveSuffix ?? const SizedBox.shrink(),
-                hintText: widget.hintText,
-                hintFadeDuration: Duration.zero,
-                hintStyle: inputTheme.hintStyle?.copyWith(
-                  fontSize: style.fontSize,
-                ),
-                helper: help,
-                error: error,
               ),
             ),
           ),
