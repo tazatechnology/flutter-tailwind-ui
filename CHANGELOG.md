@@ -1,6 +1,6 @@
-# 0.0.38
+# 0.0.39
 
-* Published release
+* Updates for Flutter 3.35.0 release
 
 ## 0.0.1
 

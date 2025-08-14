@@ -1,6 +1,6 @@
 name: flutter_tailwind_ui
 description: "Flutter widgets, theming, standards, and design system inspired by Tailwind UI"
-version: 0.0.38
+version: 0.0.39
 maintainer: Taza Technology LLC
 homepage: https://fluttertailwind.com
 documentation: https://fluttertailwind.com
@@ -13,7 +13,7 @@ topics:
   
 environment:
   sdk: ^3.8.0
-  flutter: ">=3.32.0"
+  flutter: ">=3.35.0"
 
 dependencies:
   flutter:
