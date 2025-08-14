@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
@@ -9,6 +8,13 @@ import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
 
 /// A controller for the [TPopover] widget.
 class TPopoverController {
+  /// Lookup the nearest TPopoverController from the context.
+  static TPopoverController? of(BuildContext context) {
+    final provider = context
+        .dependOnInheritedWidgetOfExactType<_TPopoverControllerProvider>();
+    return provider?.controller;
+  }
+
   Future<void> Function()? _showCallback;
   Future<void> Function()? _hideCallback;
   Future<void> Function()? _toggleCallback;
@@ -306,7 +312,10 @@ class _TPopoverState extends State<TPopover> {
                             widget.animationOptions ??
                             TAnimatedOptions.popover(),
                         controller: animationController,
-                        child: content,
+                        child: _TPopoverControllerProvider(
+                          controller: widget.controller,
+                          child: content,
+                        ),
                       );
                     },
                   ),
@@ -341,5 +350,26 @@ class _TPopoverState extends State<TPopover> {
         builder: (context, states) => widget.anchor,
       ),
     );
+  }
+}
+
+// =============================================================================
+// CLASS: _TPopoverControllerProvider
+// =============================================================================
+
+/// Provides [TPopoverController] to descendants via [InheritedWidget].
+class _TPopoverControllerProvider extends InheritedWidget {
+  /// Creates a new TPopoverControllerProvider.
+  const _TPopoverControllerProvider({
+    required this.controller,
+    required super.child,
+  });
+
+  /// The popover controller.
+  final TPopoverController controller;
+
+  @override
+  bool updateShouldNotify(covariant _TPopoverControllerProvider oldWidget) {
+    return oldWidget.controller != controller;
   }
 }
