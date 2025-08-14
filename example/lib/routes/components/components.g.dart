@@ -1768,7 +1768,35 @@ TButton.outlined(
         actions: [
           TButton.filled(
             child: const Text('Register'),
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      );
+    },
+  ),
+)
+""";
+}
+
+/// Source code for [_TDialogBarrierDismissible]
+class _TDialogBarrierDismissibleSource {
+  static const String code = r"""
+TButton.outlined(
+  child: const Text('Show Dialog'),
+  onPressed: () => TDialog.show<void>(
+    barrierDismissible: true,
+    context: context,
+    builder: (context) {
+      return TDialog(
+        title: const Text('Dismissible TDialog'),
+        showCancel: false,
+        content: const Text(
+          'You can dismiss this dialog by tapping outside of it.',
+        ),
+        actions: [
+          TButton.filled(
+            child: const Text('OK'),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ],
       );
@@ -1795,7 +1823,7 @@ TButton.outlined(
         actions: [
           TButton.filled(
             child: const Text('Register'),
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ],
       );
@@ -1823,7 +1851,7 @@ TButton.outlined(
         actions: [
           TButton.filled(
             child: const Text('Register'),
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ],
       );
@@ -1837,7 +1865,7 @@ TButton.outlined(
 class _TDialogCustomCancelSource {
   static const String code = r"""
 TButton.outlined(
-  child: const Text('Show Dialog with Cancel'),
+  child: const Text('Show Dialog (Custom Cancel)'),
   onPressed: () => TDialog.show<void>(
     context: context,
     builder: (context) {
@@ -1856,7 +1884,144 @@ TButton.outlined(
         actions: [
           TButton.filled(
             child: const Text('Register'),
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      );
+    },
+  ),
+)
+""";
+}
+
+/// Source code for [_TDialogScrollableContent]
+class _TDialogScrollableContentSource {
+  static const String code = r"""
+TButton.outlined(
+  child: const Text('Show Dialog (Scrollable Content)'),
+  onPressed: () => TDialog.show<void>(
+    context: context,
+    builder: (context) {
+      return TDialog(
+        title: const Text('Scrollable Content'),
+        content: ListView.separated(
+          shrinkWrap: true,
+          itemCount: 50,
+          separatorBuilder: (context, index) {
+            return const Divider();
+          },
+          itemBuilder: (context, index) {
+            return ListTile(
+              contentPadding: TOffset.zero,
+              title: Text(
+                'Item ${index + 1}',
+                style: const TextStyle(fontWeight: TFontWeight.bold),
+              ),
+              subtitle: const Text('Example Text'),
+            );
+          },
+        ),
+      );
+    },
+  ),
+)
+""";
+}
+
+/// Source code for [_TDialogFixedHeightContent]
+class _TDialogFixedHeightContentSource {
+  static const String code = r"""
+TButton.outlined(
+  child: const Text('Show Dialog (Fixed Height Content)'),
+  onPressed: () => TDialog.show<void>(
+    context: context,
+    builder: (context) {
+      return TDialog(
+        title: const Text('Fixed Height Content'),
+        content: SizedBox(
+          height: 500,
+          child: ListView.separated(
+            shrinkWrap: true,
+            itemCount: 50,
+            separatorBuilder: (context, index) {
+              return const Divider();
+            },
+            itemBuilder: (context, index) {
+              return ListTile(
+                contentPadding: TOffset.zero,
+                title: Text(
+                  'Item ${index + 1}',
+                  style: const TextStyle(fontWeight: TFontWeight.bold),
+                ),
+                subtitle: const Text('Example Text'),
+              );
+            },
+          ),
+        ),
+      );
+    },
+  ),
+)
+""";
+}
+
+/// Source code for [_TDialogCustomActions]
+class _TDialogCustomActionsSource {
+  static const String code = r"""
+TButton.outlined(
+  child: const Text('Show Dialog (Custom Actions)'),
+  onPressed: () => TDialog.show<void>(
+    context: context,
+    builder: (context) {
+      return TDialog(
+        title: const Text('Register account'),
+        content: const Text(
+          'Are you sure you want to register your account?',
+        ),
+        showCancel: false,
+        actions: [
+          TButton.filled(
+            color: TColors.red,
+            child: const Text('Unregister'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          TButton.filled(
+            child: const Text('Register'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      );
+    },
+  ),
+)
+""";
+}
+
+/// Source code for [_TDialogActionsLayout]
+class _TDialogActionsLayoutSource {
+  static const String code = r"""
+TButton.outlined(
+  child: const Text('Show Dialog (Custom Actions Layout)'),
+  onPressed: () => TDialog.show<void>(
+    context: context,
+    builder: (context) {
+      return TDialog(
+        title: const Text('Register account'),
+        content: const Text(
+          'Are you sure you want to register your account?',
+        ),
+        showCancel: false,
+        actionsSpacing: TSpace.v16,
+        actionsAlignment: MainAxisAlignment.start,
+        actions: [
+          TButton.filled(
+            color: TColors.red,
+            child: const Text('Unregister'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          TButton.filled(
+            child: const Text('Register'),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ],
       );
@@ -4187,6 +4352,21 @@ class _TSliderDisabledSource {
 TSlider(
   enabled: false,
   initialValue: 0.5,
+  onChanged: (value) {},
+)
+""";
+}
+
+/// Source code for [_TSliderCustomBounds]
+class _TSliderCustomBoundsSource {
+  static const String code = r"""
+TSlider(
+  min: 1000,
+  max: 10000,
+  initialValue: 5500,
+  showDefaultMarks: true,
+  formatter: (value) => value.toInt().autoFormat(),
+  tooltipFormatter: (value) => value.toInt().autoFormat(),
   onChanged: (value) {},
 )
 """;

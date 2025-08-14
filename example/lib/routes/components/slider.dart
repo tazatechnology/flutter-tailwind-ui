@@ -91,6 +91,12 @@ class ComponentRouteTSlider extends StatelessWidget {
               code: _TSliderValueLabelsFormatterSource.code,
               child: _TSliderValueLabelsFormatter(),
             ),
+            AppPreviewCard(
+              title: 'Custom Bounds',
+              maxWidth: TScreen.max_sm,
+              code: _TSliderCustomBoundsSource.code,
+              child: _TSliderCustomBounds(),
+            ),
           ],
         ),
         AppSection(
@@ -179,6 +185,28 @@ class _TSliderDisabled extends StatelessWidget {
     return TSlider(
       enabled: false,
       initialValue: 0.5,
+      onChanged: (value) {},
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSliderCustomBounds
+// =============================================================================
+
+@GenerateSource()
+class _TSliderCustomBounds extends StatelessWidget {
+  const _TSliderCustomBounds();
+
+  @override
+  Widget build(BuildContext context) {
+    return TSlider(
+      min: 1000,
+      max: 10000,
+      initialValue: 5500,
+      showDefaultMarks: true,
+      formatter: (value) => value.toInt().autoFormat(),
+      tooltipFormatter: (value) => value.toInt().autoFormat(),
       onChanged: (value) {},
     );
   }
