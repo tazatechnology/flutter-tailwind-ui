@@ -16,11 +16,11 @@ class SourceGenerator extends GeneratorForAnnotation<GenerateSource> {
   // ---------------------------------------------------------------------------
 
   @override
-  String generateForAnnotatedElement(
+  Future<String> generateForAnnotatedElement(
     Element element,
     ConstantReader annotation,
     BuildStep buildStep,
-  ) {
+  ) async {
     final buildMethodOnly = annotation.read('buildMethodOnly').boolValue;
     final className = element.displayName;
 
@@ -31,28 +31,108 @@ class SourceGenerator extends GeneratorForAnnotation<GenerateSource> {
       );
     }
 
-    final elementIndex = element.nameOffset + element.nameLength;
+    // Get the source file content from the part file that contains this class
+    final inputDir = buildStep.inputId.path.substring(
+      0,
+      buildStep.inputId.path.lastIndexOf('/'),
+    );
+
+    // Extract the component name from the class name
+    // e.g., _TAlertNeutral -> alert, _TTextBold -> text
+    String componentName = '';
+    if (className.startsWith('_T')) {
+      final withoutPrefix = className.substring(2); // Remove '_T'
+
+      // Convert camelCase to snake_case and find the component name
+      final buffer = StringBuffer();
+      for (int i = 0; i < withoutPrefix.length; i++) {
+        final char = withoutPrefix[i];
+        if (char == char.toUpperCase() && i > 0) {
+          // This is an uppercase letter, check if we should add underscore
+          final prevChar = withoutPrefix[i - 1];
+          if (prevChar != prevChar.toUpperCase()) {
+            // Previous char was lowercase, add underscore
+            buffer.write('_');
+          }
+        }
+        buffer.write(char.toLowerCase());
+      }
+
+      final snakeCase = buffer.toString();
+
+      // Find the component name by looking for common patterns
+      // Split by underscore and take the first part(s) that make sense
+      final parts = snakeCase.split('_');
+      if (parts.length >= 2) {
+        // Try different combinations
+        final possibleNames = [
+          '${parts[0]}_${parts[1]}', // e.g., backdrop_filter
+          parts[0], // e.g., alert
+        ];
+
+        for (final name in possibleNames) {
+          final testAssetId = AssetId(
+            buildStep.inputId.package,
+            '$inputDir/$name.dart',
+          );
+          try {
+            await buildStep.readAsString(testAssetId);
+            componentName = name;
+            break;
+          } on Exception {
+            // Continue to next possibility
+          }
+        }
+      } else {
+        componentName = parts[0];
+      }
+    }
+
+    // Read the part file that contains this class
+    final partAssetId = AssetId(
+      buildStep.inputId.package,
+      '$inputDir/$componentName.dart',
+    );
+
+    String sourceContent;
+    try {
+      sourceContent = await buildStep.readAsString(partAssetId);
+    } on Exception {
+      // Fallback to reading from the main file
+      sourceContent = await buildStep.readAsString(buildStep.inputId);
+    }
+
+    // Find the class declaration start
+    final classKeywordIndex = sourceContent.indexOf('class $className');
+
+    if (classKeywordIndex == -1) {
+      throw InvalidGenerationSourceError(
+        'Could not find class declaration for $className',
+        element: element,
+      );
+    }
 
     // Search for the existence of "State<" and its index
-    final stateIndex = element.source.contents.data.indexOf(
+    final stateIndex = sourceContent.indexOf(
       'extends State<$className>',
     );
     final bool isStatefulWidget = stateIndex != -1;
 
     // Get the source range for the annotated class
-    final sourceRange = element.source.contents.data.substring(
-      element.nameOffset - 'class '.length, // Include the 'class' keyword
-      elementIndex +
-          element.source.contents.data
-              .substring(elementIndex)
-              .indexOf(
-                RegExp(r'(^|\n)\}(?=\n|$)'),
-                isStatefulWidget ? stateIndex - elementIndex : 0,
-              ) +
-          2,
+    // Find the end of the class by looking for the closing brace
+    final classStart = classKeywordIndex;
+    final classEnd = findClassEnd(
+      sourceContent,
+      classStart,
+      isStatefulWidget ? stateIndex : -1,
     );
 
-    String source;
+    final extractedSource = sourceContent.substring(
+      classStart,
+      classEnd < sourceContent.length ? classEnd : sourceContent.length,
+    );
+
+    String classSource;
     if (buildMethodOnly) {
       final buildMethod = element.methods.firstWhere(
         (method) => method.displayName == 'build',
@@ -62,57 +142,140 @@ class SourceGenerator extends GeneratorForAnnotation<GenerateSource> {
         ),
       );
 
-      // Get the source of the build method
-      // Remove the first line/last to exclude the method declaration
-      final methodSource = getMethodSource(buildMethod);
-      source = methodSource.substring(methodSource.indexOf('\n') + 1);
-      source = source.substring(0, source.lastIndexOf('\n'));
-      source = dedent(source);
+      // Get the source of the build method from the extracted class source
+      final methodSource = getMethodSource(buildMethod, extractedSource);
+      classSource = methodSource.substring(methodSource.indexOf('\n') + 1);
+      classSource = classSource.substring(0, classSource.lastIndexOf('\n'));
+      classSource = dedent(classSource);
 
       // Exclude the return statement to just get the returned widget
-      if (source.startsWith('return') && source.endsWith(';')) {
-        source = source.substring('return'.length).trim();
-        source = source.substring(0, source.length - 1).trim();
+      if (classSource.startsWith('return') && classSource.endsWith(';')) {
+        classSource = classSource.substring('return'.length).trim();
+        classSource = classSource.substring(0, classSource.length - 1).trim();
       }
     } else {
-      source = sourceRange;
+      // For buildMethodOnly: false, we want the entire class
+      // If this is a stateful widget, we need to include the state class as well
+      if (isStatefulWidget) {
+        // Find the state class that corresponds to this widget
+        // There are two naming patterns:
+        // 1. _TButtonLoading -> _TButtonLoadingState
+        // 2. _TCodeBlockLanguages -> __TCodeBlockLanguagesState (double underscore)
+        String stateClassName = '${className}State';
+        int stateClassIndex = sourceContent.indexOf('class $stateClassName');
+
+        // If not found with single underscore pattern, try double underscore pattern
+        if (stateClassIndex == -1) {
+          stateClassName = '_${className}State';
+          stateClassIndex = sourceContent.indexOf('class $stateClassName');
+        }
+
+        if (stateClassIndex != -1) {
+          // Find the end of the state class
+          final stateClassEnd = findClassEnd(
+            sourceContent,
+            stateClassIndex,
+            -1, // Not a state class itself
+          );
+
+          // Extract everything from the start of the main class to the end of the state class
+          classSource = sourceContent.substring(
+            classStart,
+            stateClassEnd < sourceContent.length
+                ? stateClassEnd
+                : sourceContent.length,
+          );
+        } else {
+          // State class not found, just use the main class
+          classSource = extractedSource;
+        }
+      } else {
+        // Not a stateful widget, just use the main class
+        classSource = extractedSource;
+      }
     }
 
     return '''
 /// Source code for [$className]
 class ${className}Source {
   static const String code = r"""
-$source
+$classSource
 """;
 }
 ''';
   }
 
   // ---------------------------------------------------------------------------
+  // METHOD: findClassEnd
+  // ---------------------------------------------------------------------------
+
+  int findClassEnd(String sourceContent, int classStart, int stateIndex) {
+    // Find the opening brace of the class body
+    // The class declaration might span multiple lines, so we need to find the actual opening brace
+    int openBraceIndex = -1;
+    int currentPos = classStart;
+
+    // Look for the opening brace, handling multi-line class declarations
+    while (currentPos < sourceContent.length) {
+      final char = sourceContent[currentPos];
+      if (char == '{') {
+        openBraceIndex = currentPos;
+        break;
+      }
+      currentPos++;
+    }
+
+    if (openBraceIndex == -1) {
+      return sourceContent.length;
+    }
+
+    // Now count brackets from the opening brace
+    int bracketCount = 1;
+    currentPos = openBraceIndex + 1;
+
+    while (bracketCount > 0 && currentPos < sourceContent.length) {
+      final char = sourceContent[currentPos];
+
+      if (char == '{') {
+        bracketCount++;
+      } else if (char == '}') {
+        bracketCount--;
+      }
+
+      currentPos++;
+    }
+
+    if (bracketCount != 0) {
+      // If we can't find the matching brace, return a reasonable end point
+      return sourceContent.length;
+    }
+
+    // Return the position after the closing brace
+    return currentPos;
+  }
+
+  // ---------------------------------------------------------------------------
   // METHOD: getMethodSource
   // ---------------------------------------------------------------------------
 
-  String getMethodSource(MethodElement methodElement) {
-    // Get the source of the containing file
-    final source = methodElement.source.contents.data;
-
-    // Get the offset information
-    final offset = methodElement.nameOffset;
-    final length = methodElement.nameLength;
-    if (offset < 0 || length < 0) return '';
+  String getMethodSource(MethodElement methodElement, String sourceContent) {
+    // Find the method in the source content
+    final methodName = methodElement.displayName;
+    final methodIndex = sourceContent.indexOf('$methodName(');
+    if (methodIndex == -1) return '';
 
     // Find the method's opening bracket
-    final openBracketOffset = source.indexOf('{', offset);
+    final openBracketOffset = sourceContent.indexOf('{', methodIndex);
     if (openBracketOffset == -1) return '';
 
     // Track brackets to find the matching closing bracket
     int bracketCount = 1;
     int currentPos = openBracketOffset + 1;
 
-    while (bracketCount > 0 && currentPos < source.length) {
-      if (source[currentPos] == '{') {
+    while (bracketCount > 0 && currentPos < sourceContent.length) {
+      if (sourceContent[currentPos] == '{') {
         bracketCount++;
-      } else if (source[currentPos] == '}') {
+      } else if (sourceContent[currentPos] == '}') {
         bracketCount--;
       }
       currentPos++;
@@ -121,12 +284,12 @@ $source
     if (bracketCount != 0) return '';
 
     // Find the start of the method declaration by looking backwards for a newline
-    int startOffset = offset;
-    while (startOffset > 0 && source[startOffset - 1] != '\n') {
+    int startOffset = methodIndex;
+    while (startOffset > 0 && sourceContent[startOffset - 1] != '\n') {
       startOffset--;
     }
 
-    return source.substring(startOffset, currentPos).trim();
+    return sourceContent.substring(startOffset, currentPos).trim();
   }
 
   // ---------------------------------------------------------------------------
@@ -162,7 +325,7 @@ $source
 // CLASS: SourceBuilder
 // =============================================================================
 
-class SourceBuilder implements Builder {
+class SourceBuilder extends Builder {
   @override
   final buildExtensions = const {
     '.dart': ['.g.dart'],
@@ -174,21 +337,24 @@ class SourceBuilder implements Builder {
     if (!await resolver.isLibrary(buildStep.inputId)) return;
 
     final library = await buildStep.inputLibrary;
-    const annotations = TypeChecker.fromRuntime(GenerateSource);
-
+    final generator = SourceGenerator();
     final generatedCode = StringBuffer();
 
-    for (final annotatedElement in library.topLevelElements) {
-      if (annotations.hasAnnotationOf(annotatedElement)) {
-        final generator = SourceGenerator();
-        final annotation = annotations.firstAnnotationOf(annotatedElement);
-        final generated = generator.generateForAnnotatedElement(
-          annotatedElement,
-          ConstantReader(annotation),
-          buildStep,
-        );
-        generatedCode.writeln(generated);
-      }
+    // Use the modern approach with LibraryReader
+    final libraryReader = LibraryReader(library);
+
+    for (final annotatedElement in libraryReader.annotatedWith(
+      const TypeChecker.typeNamed(
+        GenerateSource,
+        inPackage: 'flutter_tailwind_ui_app',
+      ),
+    )) {
+      final generated = await generator.generateForAnnotatedElement(
+        annotatedElement.element,
+        annotatedElement.annotation,
+        buildStep,
+      );
+      generatedCode.writeln(generated);
     }
 
     if (generatedCode.isNotEmpty) {
