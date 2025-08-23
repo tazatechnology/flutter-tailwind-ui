@@ -9,6 +9,16 @@ const Widget _defaultItemsEmpty = SizedBox(
 );
 
 // =============================================================================
+// CLASS: TSelectController
+// =============================================================================
+
+/// A controller for a [TSelect].
+class TSelectController<T> extends ValueNotifier<T?> {
+  /// Construct a [TSelectController] with the given [initialValue].
+  TSelectController({required T? initialValue}) : super(initialValue);
+}
+
+// =============================================================================
 // CLASS: TSelect
 // =============================================================================
 
@@ -19,6 +29,7 @@ class TSelect<T> extends TFormField<T> {
     this.allowDeselect = false,
     this.animationOptions,
     this.autovalidateMode,
+    this.controller,
     this.borderColor,
     this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
     this.closeOnSelect = true,
@@ -62,6 +73,7 @@ class TSelect<T> extends TFormField<T> {
            allowDeselect: allowDeselect,
            animationOptions: animationOptions,
            autovalidateMode: autovalidateMode,
+           controller: controller,
            borderColor: borderColor,
            borderRadius: borderRadius,
            closeOnSelect: closeOnSelect,
@@ -108,6 +120,7 @@ class TSelect<T> extends TFormField<T> {
     this.allowDeselect = false,
     this.animationOptions,
     this.autovalidateMode,
+    this.controller,
     this.borderColor,
     this.borderRadius = const WidgetStatePropertyAll(TBorderRadius.rounded_md),
     this.closeOnSelect = true,
@@ -153,6 +166,7 @@ class TSelect<T> extends TFormField<T> {
            allowDeselect: allowDeselect,
            animationOptions: animationOptions,
            autovalidateMode: autovalidateMode,
+           controller: controller,
            borderColor: borderColor,
            borderRadius: borderRadius,
            closeOnSelect: closeOnSelect,
@@ -202,6 +216,9 @@ class TSelect<T> extends TFormField<T> {
 
   /// The autovalidate mode to use for the select widget
   final AutovalidateMode? autovalidateMode;
+
+  /// The controller for the select widget.
+  final TSelectController<T>? controller;
 
   /// The stateful border color for the input field.
   final WidgetStateProperty<Color>? borderColor;
@@ -332,6 +349,7 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.allowDeselect,
     required this.animationOptions,
     required super.autovalidateMode,
+    required this.controller,
     required this.borderColor,
     required this.borderRadius,
     required this.closeOnSelect,
@@ -379,6 +397,7 @@ class _TSelectFormField<T> extends FormField<T> {
 
   final bool allowDeselect;
   final TAnimatedOptions? animationOptions;
+  final TSelectController<T>? controller;
   final WidgetStateProperty<Color>? borderColor;
   final WidgetStateProperty<BorderRadius>? borderRadius;
   final bool closeOnSelect;
@@ -423,8 +442,10 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
   final searchController = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
+  late final TSelectController<T> controller;
+
   T? initialValue;
-  T? selected;
+  T? get selected => controller.value;
   late int hoveredIndex = selectedIndex;
 
   late bool searchEnabled = field.onSearch != null && field.items.isNotEmpty;
@@ -463,6 +484,11 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
       (index) => TWidgetStatesController(),
     );
     animationOptions = field.animationOptions ?? TAnimatedOptions.dropdown();
+    if (field.controller != null) {
+      controller = field.controller!;
+    } else {
+      controller = TSelectController<T>(initialValue: field.initialValue);
+    }
     if (field.itemsAsync != null) {
       getItems = field.itemsAsync!().then((itemsAsync) {
         setState(() {
@@ -480,7 +506,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
           if (field.initialValue != null &&
               items.contains(field.initialValue)) {
             initialValue = field.initialValue;
-            selected = field.initialValue;
+            controller.value = field.initialValue;
           }
         });
         return items;
@@ -488,7 +514,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
     } else {
       if (field.initialValue != null && items.contains(field.initialValue)) {
         initialValue = field.initialValue;
-        selected = field.initialValue;
+        controller.value = field.initialValue;
       }
       getItems = null;
     }
@@ -500,6 +526,9 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
 
   @override
   void dispose() {
+    if (field.controller == null) {
+      controller.dispose();
+    }
     scrollController.dispose();
     for (final c in stateControllers) {
       c.dispose();
@@ -515,7 +544,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
   void reset() {
     super.reset();
     searchController.text = '';
-    selected = initialValue;
+    controller.value = initialValue;
     hoveredIndex = -1;
     currentItems.clear();
     currentItems.addAll(field.items);
@@ -641,10 +670,10 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                           stateControllers[selectedIndex].value = {};
                         }
                         if (selected == option && field.allowDeselect) {
-                          selected = null;
+                          controller.value = null;
                           hoveredIndex = -1;
                         } else {
-                          selected = option;
+                          controller.value = option;
                           hoveredIndex = index;
                           itemStateController.selected = true;
                         }
@@ -742,149 +771,159 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
   // ---------------------------------------------------------------------------
 
   Widget buildWidget(BuildContext context) {
-    return FutureBuilder(
-      future: getItems,
-      builder: (context, snapshot) {
-        final tw = context.tw;
+    return ValueListenableBuilder(
+      valueListenable: controller,
+      builder: (context, value, _) {
+        return FutureBuilder(
+          future: getItems,
+          builder: (context, snapshot) {
+            final tw = context.tw;
 
-        // Resolve the widget to display in the select field
-        Widget selectWidget = SelectionContainer.disabled(
-          child:
-              (isLoading ? field.placeholderLoading : field.placeholder) ??
-              const SizedBox.shrink(),
-        );
-        if (selected != null) {
-          if (field.selectedItemBuilder != null) {
-            selectWidget = field.selectedItemBuilder!.call(selected as T);
-          } else if (field.itemBuilder != null) {
-            selectWidget = field.itemBuilder!.call(selected as T);
-          } else {
-            selectWidget = Text(selected.toString());
-          }
-        }
+            // Resolve the widget to display in the select field
+            Widget selectWidget = SelectionContainer.disabled(
+              child:
+                  (isLoading ? field.placeholderLoading : field.placeholder) ??
+                  const SizedBox.shrink(),
+            );
+            if (selected != null) {
+              if (field.selectedItemBuilder != null) {
+                selectWidget = field.selectedItemBuilder!.call(selected as T);
+              } else if (field.itemBuilder != null) {
+                selectWidget = field.itemBuilder!.call(selected as T);
+              } else {
+                selectWidget = Text(selected.toString());
+              }
+            }
 
-        // Resolve the text style for the select widget
-        TextStyle? selectWidgetTextStyle = field.size.textStyle.copyWith(
-          color: selected != null ? tw.color.body : tw.color.label,
-        );
-        if (!enabled) {
-          selectWidgetTextStyle = selectWidgetTextStyle.copyWith(
-            color: tw.color.disabledTextColor,
-          );
-        }
+            // Resolve the text style for the select widget
+            TextStyle? selectWidgetTextStyle = field.size.textStyle.copyWith(
+              color: selected != null ? tw.color.body : tw.color.label,
+            );
+            if (!enabled) {
+              selectWidgetTextStyle = selectWidgetTextStyle.copyWith(
+                color: tw.color.disabledTextColor,
+              );
+            }
 
-        // Resolve the fill color
-        final effectiveFillColor = WidgetStateProperty.resolveWith<Color?>((
-          states,
-        ) {
-          Color? color = field.fillColor?.resolve(states);
-          if (color == null && states.disabled) {
-            color = tw.dark ? Colors.black54 : TColors.gray.shade50;
-          }
-          return color;
-        });
+            // Resolve the fill color
+            final effectiveFillColor = WidgetStateProperty.resolveWith<Color?>((
+              states,
+            ) {
+              Color? color = field.fillColor?.resolve(states);
+              if (color == null && states.disabled) {
+                color = tw.dark ? Colors.black54 : TColors.gray.shade50;
+              }
+              return color;
+            });
 
-        // Compute the total height of the popover
-        double? popoverHeight =
-            itemExtent * maxVisible + listViewPadding.vertical + 2;
-        // Account for the search input and the divider
-        if (searchEnabled) {
-          popoverHeight += itemExtent + 1;
-        }
-        // Account for the empty state message
-        if (items.isEmpty && field.itemsEmpty != null) {
-          popoverHeight = null;
-        }
-        // Account for the spacing between items
-        if (field.spacing > 0) {
-          popoverHeight = popoverHeight?.add((maxVisible - 1) * field.spacing);
-        }
+            // Compute the total height of the popover
+            double? popoverHeight =
+                itemExtent * maxVisible + listViewPadding.vertical + 2;
+            // Account for the search input and the divider
+            if (searchEnabled) {
+              popoverHeight += itemExtent + 1;
+            }
+            // Account for the empty state message
+            if (items.isEmpty && field.itemsEmpty != null) {
+              popoverHeight = null;
+            }
+            // Account for the spacing between items
+            if (field.spacing > 0) {
+              popoverHeight = popoverHeight?.add(
+                (maxVisible - 1) * field.spacing,
+              );
+            }
 
-        // Resolve the error widget
-        Widget? error = field.error;
-        if (error != null) {
-          error = DefaultTextStyle.merge(
-            style: context.theme.inputDecorationTheme.errorStyle,
-            child: error,
-          );
-        }
+            // Resolve the error widget
+            Widget? error = field.error;
+            if (error != null) {
+              error = DefaultTextStyle.merge(
+                style: context.theme.inputDecorationTheme.errorStyle,
+                child: error,
+              );
+            }
 
-        // Resolve the help widget
-        Widget? help = field.help;
-        if (help != null) {
-          help = DefaultTextStyle.merge(
-            style: context.theme.inputDecorationTheme.helperStyle,
-            child: help,
-          );
-        }
+            // Resolve the help widget
+            Widget? help = field.help;
+            if (help != null) {
+              help = DefaultTextStyle.merge(
+                style: context.theme.inputDecorationTheme.helperStyle,
+                child: help,
+              );
+            }
 
-        return InputDecorator(
-          decoration: InputDecoration(
-            error: error,
-            errorText: field.error == null ? errorText : null,
-            helper: help,
-            errorStyle: context.theme.inputDecorationTheme.errorStyle,
-            helperStyle: context.theme.inputDecorationTheme.helperStyle,
-            border: InputBorder.none,
-            errorBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-            focusedErrorBorder: InputBorder.none,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (field.label != null) TLabelDescription(label: field.label),
-              TPopover(
-                animationOptions: animationOptions,
-                controller: popoverController,
-                closeOnTapOutside: field.closeOnTapOutside,
-                matchAnchorWidth: true,
-                height: popoverHeight,
-                fillColor:
-                    field.popoverFillColor ?? field.fillColor?.resolve({}),
-                alignment: Alignment.bottomCenter,
-                borderRadius:
-                    field.borderRadius?.resolve({}) ?? TBorderRadius.rounded_md,
-                content: buildListView(),
-                anchor: TInputBorderWrapper(
-                  enabled: enabled,
-                  canRequestFocus: enabled,
-                  mouseCursor: WidgetStatePropertyAll(
-                    enabled
-                        ? SystemMouseCursors.click
-                        : SystemMouseCursors.forbidden,
-                  ),
-                  padding: TOffset.x12,
-                  fillColor: effectiveFillColor,
-                  borderColor: field.borderColor,
-                  borderRadius: field.borderRadius,
-                  onTap: enabled ? onAnchorPressed : null,
-                  child: IconTheme(
-                    data: IconTheme.of(context).copyWith(
-                      size: TSpace.v16,
-                      color: enabled ? null : tw.color.disabledTextColor,
-                    ),
-                    child: ConstrainedBox(
-                      constraints: field.constraints ?? const BoxConstraints(),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          DefaultTextStyle.merge(
-                            style: selectWidgetTextStyle,
-                            child: Flexible(child: selectWidget),
+            return InputDecorator(
+              decoration: InputDecoration(
+                error: error,
+                errorText: field.error == null ? errorText : null,
+                helper: help,
+                errorStyle: context.theme.inputDecorationTheme.errorStyle,
+                helperStyle: context.theme.inputDecorationTheme.helperStyle,
+                border: InputBorder.none,
+                errorBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                focusedErrorBorder: InputBorder.none,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (field.label != null)
+                    TLabelDescription(label: field.label),
+                  TPopover(
+                    animationOptions: animationOptions,
+                    controller: popoverController,
+                    closeOnTapOutside: field.closeOnTapOutside,
+                    matchAnchorWidth: true,
+                    height: popoverHeight,
+                    fillColor:
+                        field.popoverFillColor ?? field.fillColor?.resolve({}),
+                    alignment: Alignment.bottomCenter,
+                    borderRadius:
+                        field.borderRadius?.resolve({}) ??
+                        TBorderRadius.rounded_md,
+                    content: buildListView(),
+                    anchor: TInputBorderWrapper(
+                      enabled: enabled,
+                      canRequestFocus: enabled,
+                      mouseCursor: WidgetStatePropertyAll(
+                        enabled
+                            ? SystemMouseCursors.click
+                            : SystemMouseCursors.forbidden,
+                      ),
+                      padding: TOffset.x12,
+                      fillColor: effectiveFillColor,
+                      borderColor: field.borderColor,
+                      borderRadius: field.borderRadius,
+                      onTap: enabled ? onAnchorPressed : null,
+                      child: IconTheme(
+                        data: IconTheme.of(context).copyWith(
+                          size: TSpace.v16,
+                          color: enabled ? null : tw.color.disabledTextColor,
+                        ),
+                        child: ConstrainedBox(
+                          constraints:
+                              field.constraints ?? const BoxConstraints(),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              DefaultTextStyle.merge(
+                                style: selectWidgetTextStyle,
+                                child: Flexible(child: selectWidget),
+                              ),
+                              SizedBox(height: height, child: field.trailing),
+                            ],
                           ),
-                          SizedBox(height: height, child: field.trailing),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );

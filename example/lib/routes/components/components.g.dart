@@ -4366,6 +4366,48 @@ TSelect(
 """;
 }
 
+/// Source code for [_TSelectWithController]
+class _TSelectWithControllerSource {
+  static const String code = r"""
+class _TSelectWithController extends StatefulWidget {
+  const _TSelectWithController();
+
+  @override
+  State<_TSelectWithController> createState() => __TSelectWithControllerState();
+}
+
+class __TSelectWithControllerState extends State<_TSelectWithController> {
+  final buttonController = TWidgetStatesController();
+  final selectController = TSelectController<String>(initialValue: 'User A');
+
+  @override
+  void dispose() {
+    buttonController.dispose();
+    selectController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TSelect(
+          controller: selectController,
+          items: const ['User A', 'User B', 'User C'],
+        ),
+        TSizedBox.y8,
+        TButton.outlined(
+          controller: buttonController,
+          onPressed: () => selectController.value = 'User A',
+          child: const Text('Reset'),
+        ),
+      ],
+    );
+  }
+}
+""";
+}
+
 /// Source code for [_TSelectGalleryAddUser]
 class _TSelectGalleryAddUserSource {
   static const String code = r"""

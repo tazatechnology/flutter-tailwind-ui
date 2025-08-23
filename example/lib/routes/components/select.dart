@@ -164,6 +164,17 @@ class ComponentRouteTSelect extends StatelessWidget {
           ],
         ),
         AppSection(
+          title: 'Select Controller',
+          children: [
+            AppPreviewCard(
+              title: 'Controller to update the value',
+              maxWidth: TScreen.max_sm,
+              code: _TSelectWithControllerSource.code,
+              child: _TSelectWithController(),
+            ),
+          ],
+        ),
+        AppSection(
           title: 'Gallery',
           children: [
             AppPreviewCard(
@@ -584,6 +595,48 @@ class _TSelectSearch extends StatelessWidget {
             .where((option) => option.contains(term.toLowerCase()))
             .toList();
       },
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TSelectWithController
+// =============================================================================
+
+@GenerateSource(buildMethodOnly: false)
+class _TSelectWithController extends StatefulWidget {
+  const _TSelectWithController();
+
+  @override
+  State<_TSelectWithController> createState() => __TSelectWithControllerState();
+}
+
+class __TSelectWithControllerState extends State<_TSelectWithController> {
+  final buttonController = TWidgetStatesController();
+  final selectController = TSelectController<String>(initialValue: 'User A');
+
+  @override
+  void dispose() {
+    buttonController.dispose();
+    selectController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TSelect(
+          controller: selectController,
+          items: const ['User A', 'User B', 'User C'],
+        ),
+        TSizedBox.y8,
+        TButton.outlined(
+          controller: buttonController,
+          onPressed: () => selectController.value = 'User A',
+          child: const Text('Reset'),
+        ),
+      ],
     );
   }
 }
