@@ -10,18 +10,120 @@ void main() {
   group('THighlighter:', () {
     late Map<String, Map<String, dynamic>> grammarJson;
 
-    const code = '''
-/// Comment
-# Comment
-<!-- Comment -->
-final x = 1 + 3;
-print(x);
-def hello():
-  return 'Hello, World!'
-void main() {
-  print(hello());
+    const cssCodeExample = '''
+body {
+  color: black;
 }
 ''';
+
+    const dartCodeExample = """
+void main() {
+  print('Hello, World!');
+}
+""";
+
+    const goCodeExample = '''
+package main
+
+import "fmt"
+
+func main() {
+  fmt.Println("Hello, World!")
+}
+''';
+
+    const htmlCodeExample = '''
+<!DOCTYPE html>
+<html>
+  <body>
+    <p>Hello, World!</p>
+  </body>
+</html>
+''';
+
+    const javaCodeExample = '''
+public class Main {
+  public static void main(String[] args) {
+    System.out.println("Hello, World!");
+  }
+}
+''';
+
+    const javascriptCodeExample = '''
+console.log("Hello, World!");
+''';
+
+    const jsonCodeExample = '''
+{
+  "message": "Hello, World!"
+}
+''';
+
+    const kotlinCodeExample = '''
+fun main() {
+  println("Hello, World!")
+}
+''';
+
+    const pythonCodeExample = '''
+print("Hello, World!")
+''';
+
+    const rustCodeExample = '''
+fn main() {
+    println!("Hello, World!");
+}
+''';
+
+    const shellCodeExample = '''
+echo "Hello, World!"
+''';
+
+    const sqlCodeExample = """
+SELECT 'Hello, World!';
+""";
+
+    const swiftCodeExample = '''
+import Swift
+print("Hello, World!")
+''';
+
+    const tomlCodeExample = '''
+message = "Hello, World!"
+''';
+
+    const typescriptCodeExample = '''
+console.log("Hello, World!");
+''';
+
+    const xmlCodeExample = '''
+<message>Hello, World!</message>
+''';
+
+    const yamlCodeExample = '''
+message: "Hello, World!"
+''';
+
+    /// Map of language → code sample
+    const Map<String, String> codeSamples = {
+      'css': cssCodeExample,
+      'dart': dartCodeExample,
+      'go': goCodeExample,
+      'html': htmlCodeExample,
+      'java': javaCodeExample,
+      'javascript': javascriptCodeExample,
+      'json': jsonCodeExample,
+      'kotlin': kotlinCodeExample,
+      'python': pythonCodeExample,
+      'rust': rustCodeExample,
+      'shell': shellCodeExample,
+      'sql': sqlCodeExample,
+      'swift': swiftCodeExample,
+      'toml': tomlCodeExample,
+      'typescript': typescriptCodeExample,
+      'xml': xmlCodeExample,
+      'yaml': yamlCodeExample,
+    };
 
     // Load the JSON file before each test
     setUpAll(() async {
@@ -81,7 +183,7 @@ void main() {
           );
           // Parse dummy code
           final span = THighlighter.parse(
-            code: code,
+            code: codeSamples[language]!,
             language: language,
             brightness: brightness,
           );

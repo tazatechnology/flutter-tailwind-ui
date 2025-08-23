@@ -1752,6 +1752,91 @@ TCheckboxTile.card(
 """;
 }
 
+/// Source code for [_TCodeBlockBasic]
+class _TCodeBlockBasicSource {
+  static const String code = r"""
+const TCodeBlock(
+  code: dartCodeExample,
+)
+""";
+}
+
+/// Source code for [_TCodeBlockBrightness]
+class _TCodeBlockBrightnessSource {
+  static const String code = r"""
+const TCodeBlock(
+  code: dartCodeExample,
+  theme: TCodeBlockTheme(
+    brightness: Brightness.dark,
+  ),
+)
+""";
+}
+
+/// Source code for [_TCodeBlockTheming]
+class _TCodeBlockThemingSource {
+  static const String code = r"""
+final tw = context.tw;
+return TCodeBlock(
+  code: dartCodeExample,
+  showCopyButton: false,
+  crossAxisAlignment: CrossAxisAlignment.center,
+  theme: TCodeBlockTheme(
+    fontSize: 12,
+    margin: TOffset.a0,
+    padding: TOffset.a24,
+    backgroundColor: tw.light ? TColors.white80 : TColors.black80,
+    border: Border.all(color: tw.light ? TColors.black20 : TColors.white30),
+    borderRadius: TBorderRadius.rounded_none,
+  ),
+);
+""";
+}
+
+/// Source code for [_TCodeBlockLanguages]
+class _TCodeBlockLanguagesSource {
+  static const String code = r"""
+class _TCodeBlockLanguages extends StatefulWidget {
+  const _TCodeBlockLanguages();
+
+  @override
+  State<_TCodeBlockLanguages> createState() => __TCodeBlockLanguagesState();
+}
+
+class __TCodeBlockLanguagesState extends State<_TCodeBlockLanguages> {
+  String selectedLanguage = 'dart';
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: TSpace.v16,
+      children: [
+        TSelect(
+          initialValue: selectedLanguage,
+          items: THighlighter.languages,
+          itemBuilder: (item) => TText(
+            item,
+            style: const TextStyle(
+              fontFamily: TTextStyle.fontFamilyMono,
+            ),
+          ),
+          onChanged: (value) {
+            if (value != null) {
+              setState(() => selectedLanguage = value);
+            }
+          },
+        ),
+        TCodeBlock(
+          language: selectedLanguage,
+          code: codeSamples[selectedLanguage] ?? 'No code sample available.',
+        ),
+      ],
+    );
+  }
+}
+""";
+}
+
 /// Source code for [_TDialogBasic]
 class _TDialogBasicSource {
   static const String code = r"""

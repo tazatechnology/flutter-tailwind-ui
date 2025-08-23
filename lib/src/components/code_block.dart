@@ -18,6 +18,7 @@ class TCodeBlock extends StatefulWidget {
     this.scrollDirection = Axis.vertical,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.showCopyButton = true,
     this.theme,
     super.key,
   });
@@ -41,6 +42,9 @@ class TCodeBlock extends StatefulWidget {
 
   /// The cross axis alignment of the code block.
   final CrossAxisAlignment crossAxisAlignment;
+
+  /// Whether to show the copy button.
+  final bool showCopyButton;
 
   /// The theme of the code block.
   final TCodeBlockTheme? theme;
@@ -100,15 +104,14 @@ class _TCodeBlockState extends State<TCodeBlock> {
     final tw = context.tw;
     final theme = widget.theme ?? const TCodeBlockTheme();
 
-    final effectiveBrightness =
-        theme.brightness ?? Theme.of(context).brightness;
+    final effectiveBrightness = theme.brightness ?? tw.brightness;
 
     final light = effectiveBrightness == Brightness.light;
 
     Color? effectiveBackgroundColor = theme.backgroundColor;
 
     // Match the GitHub style for code blocks
-    effectiveBackgroundColor ??= tw.light
+    effectiveBackgroundColor ??= light
         ? const Color(0xfff6f8fa)
         : const Color(0xff151b23);
 
@@ -198,36 +201,37 @@ class _TCodeBlockState extends State<TCodeBlock> {
               ),
             ),
           ),
-          StreamBuilder(
-            stream: copyStreamController.stream,
-            initialData: false,
-            builder: (BuildContext context, snapshot) {
-              final copied = snapshot.data ?? false;
-              return Padding(
-                padding: effectivePadding.copyWith(
-                  right: effectivePadding.right / 2,
-                  top: effectivePadding.top / 2,
-                ),
-                child: TIconButton(
-                  onPressed: () => copy(code),
-                  theme: TStyleTheme(
-                    mouseCursor: WidgetStateProperty.all(
-                      copied
-                          ? SystemMouseCursors.basic
-                          : SystemMouseCursors.click,
+          if (widget.showCopyButton)
+            StreamBuilder(
+              stream: copyStreamController.stream,
+              initialData: false,
+              builder: (BuildContext context, snapshot) {
+                final copied = snapshot.data ?? false;
+                return Padding(
+                  padding: effectivePadding.copyWith(
+                    right: effectivePadding.right / 2,
+                    top: effectivePadding.top / 2,
+                  ),
+                  child: TIconButton(
+                    onPressed: () => copy(code),
+                    theme: TStyleTheme(
+                      mouseCursor: WidgetStateProperty.all(
+                        copied
+                            ? SystemMouseCursors.basic
+                            : SystemMouseCursors.click,
+                      ),
+                    ),
+                    icon: Icon(
+                      copied ? Icons.check : Icons.copy,
+                      size: copied ? 16 : 14,
+                      color: copied
+                          ? Colors.green
+                          : (light ? Colors.black54 : Colors.white60),
                     ),
                   ),
-                  icon: Icon(
-                    copied ? Icons.check : Icons.copy,
-                    size: copied ? 16 : 14,
-                    color: copied
-                        ? Colors.green
-                        : (light ? Colors.black54 : Colors.white60),
-                  ),
-                ),
-              );
-            },
-          ),
+                );
+              },
+            ),
         ],
       ),
     );
