@@ -55,6 +55,9 @@ export 'src/extensions/string.dart';
 export 'src/extensions/text_style.dart';
 export 'src/extensions/widget_state.dart';
 
+// Markdown
+export 'src/markdown/style_sheet.dart';
+
 // Theme
 export 'src/theme/color.dart';
 export 'src/theme/style.dart';

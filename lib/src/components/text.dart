@@ -36,11 +36,15 @@ class TText extends Text {
     super.textHeightBehavior,
     super.selectionColor,
     this.selectable = false,
+    this.styleSheet,
     super.key,
   });
 
   /// Option to make the text selectable.
   final bool selectable;
+
+  /// Custom style sheet to override the default styles.
+  final MarkdownStyleSheet? styleSheet;
 
   // ---------------------------------------------------------------------------
   // METHOD: toHtml
@@ -75,63 +79,65 @@ class TText extends Text {
     final style = DefaultTextStyle.of(context).style.merge(this.style);
     final light = tw.light;
 
+    final baseStyleSheet = MarkdownStyleSheet.fromTheme(context.theme).copyWith(
+      p: style.copyWith(color: style.color ?? tw.color.body),
+      a: style.copyWith(color: tw.color.link),
+      h1: style.copyWith(
+        fontSize: style.fontSize?.add(6),
+        fontWeight: TFontWeight.semibold,
+        color: tw.color.title,
+      ),
+      h2: style.copyWith(
+        fontSize: style.fontSize?.add(4),
+        fontWeight: TFontWeight.semibold,
+        color: tw.color.title,
+      ),
+      h3: style.copyWith(
+        fontSize: style.fontSize?.add(2),
+        fontWeight: TFontWeight.semibold,
+        color: tw.color.title,
+      ),
+      h4: style.copyWith(
+        fontWeight: TFontWeight.semibold,
+        color: tw.color.title,
+      ),
+      h5: style.copyWith(
+        fontSize: style.fontSize?.subtract(2),
+        fontWeight: TFontWeight.semibold,
+        color: tw.color.title,
+      ),
+      h6: style.copyWith(
+        fontSize: style.fontSize?.subtract(4),
+        fontWeight: TFontWeight.semibold,
+        color: tw.color.body,
+      ),
+      tableBody: style,
+      tableCellsPadding: TOffset.y4 + TOffset.x8,
+      blockquoteDecoration: BoxDecoration(
+        // Match the GitHub style for block quotes
+        border: Border(
+          left: BorderSide(
+            color: light ? const Color(0xffd1d9e0) : const Color(0xff59636e),
+            width: 3.5,
+          ),
+        ),
+        color: Colors.transparent,
+      ),
+      blockquotePadding: TOffset.l16,
+      blockquote: style.copyWith(color: tw.color.label),
+      listBulletPadding: TOffset.zero,
+      listBullet: const TextStyle(height: kTextHeightNone),
+      horizontalRuleDecoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: tw.color.divider, width: 1.25),
+        ),
+      ),
+    );
+
     return MarkdownBody(
       selectable: selectable,
       data: data,
-      styleSheet: MarkdownStyleSheet.fromTheme(context.theme).copyWith(
-        p: style.copyWith(color: style.color ?? tw.color.body),
-        a: style.copyWith(color: tw.color.link),
-        h1: style.copyWith(
-          fontSize: style.fontSize?.add(6),
-          fontWeight: TFontWeight.semibold,
-          color: tw.color.title,
-        ),
-        h2: style.copyWith(
-          fontSize: style.fontSize?.add(4),
-          fontWeight: TFontWeight.semibold,
-          color: tw.color.title,
-        ),
-        h3: style.copyWith(
-          fontSize: style.fontSize?.add(2),
-          fontWeight: TFontWeight.semibold,
-          color: tw.color.title,
-        ),
-        h4: style.copyWith(
-          fontWeight: TFontWeight.semibold,
-          color: tw.color.title,
-        ),
-        h5: style.copyWith(
-          fontSize: style.fontSize?.subtract(2),
-          fontWeight: TFontWeight.semibold,
-          color: tw.color.title,
-        ),
-        h6: style.copyWith(
-          fontSize: style.fontSize?.subtract(4),
-          fontWeight: TFontWeight.semibold,
-          color: tw.color.body,
-        ),
-        tableBody: style,
-        tableCellsPadding: TOffset.y4 + TOffset.x8,
-        blockquoteDecoration: BoxDecoration(
-          // Match the GitHub style for block quotes
-          border: Border(
-            left: BorderSide(
-              color: light ? const Color(0xffd1d9e0) : const Color(0xff59636e),
-              width: 3.5,
-            ),
-          ),
-          color: Colors.transparent,
-        ),
-        blockquotePadding: TOffset.l16,
-        blockquote: style.copyWith(color: tw.color.label),
-        listBulletPadding: TOffset.zero,
-        listBullet: const TextStyle(height: kTextHeightNone),
-        horizontalRuleDecoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: tw.color.divider, width: 1.25),
-          ),
-        ),
-      ),
+      styleSheet: baseStyleSheet.merge(styleSheet),
       bulletBuilder: (params) {
         final firstPad = params.index == 0 ? TOffset.t12 : TOffset.t0;
         if (params.style == BulletStyle.unorderedList) {
