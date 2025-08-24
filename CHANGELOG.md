@@ -1,7 +1,8 @@
-# 0.0.40
+# 0.0.41
 
 * Update syntax highlighting logic
-* Add controller to TSelect
+* Add controller to `TSelect`
+* Allow markdown stylesheet to be overridden by `TText`
 
 # 0.0.39
 
