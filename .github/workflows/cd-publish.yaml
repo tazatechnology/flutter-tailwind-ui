@@ -1,5 +1,8 @@
 # Continuous Deployment: Publish Package to pub.dev
 name: CD Publish
+concurrency:
+  group: cd-publish
+  cancel-in-progress: false
 
 on:
   push:

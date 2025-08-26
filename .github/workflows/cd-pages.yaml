@@ -1,6 +1,9 @@
 # Continuous Deployment: Publish Website to GitHub Pages
 name: CD Website
-
+concurrency:
+  group: cd-website
+  cancel-in-progress: false
+  
 on:
   push:
     branches: ["main"]
@@ -13,10 +16,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   deploy:

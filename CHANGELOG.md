@@ -1,12 +1,9 @@
-# 0.0.41
+# 0.0.42
 
 * Update syntax highlighting logic
 * Add controller to `TSelect`
 * Allow markdown stylesheet to be overridden by `TText`
-
-# 0.0.39
-
-* Updates for Flutter 3.35.0 release
+* Allow custom builders for `TText`
 
 ## 0.0.1
 
