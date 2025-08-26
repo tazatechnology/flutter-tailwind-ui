@@ -11,50 +11,12 @@ class ComponentRouteTText extends StatelessWidget {
   Widget build(BuildContext context) {
     return const ComponentRoute(
       name: 'TText',
-      description:
-          'Inline rich Markdown text with extendable regex based styling',
+      description: 'Inline rich Markdown text with extendable styling',
       children: [
         AppSection(
-          title: 'Default Formatters',
-          children: [
-            Text(
-              'The following formatters are built-in and available for use without any additional configuration:',
-            ),
-            TSizedBox.y14,
-            AppValueTable(
-              header: [Text('Syntax'), Text('Style')],
-              valueTextStyle: TTextStyle.text_sm,
-              items: [
-                AppValueTableItem(
-                  name: '**text**',
-                  widget: TText('**Bold Text**'),
-                ),
-                AppValueTableItem(
-                  name: '__text__',
-                  widget: TText('__Bold Text__'),
-                ),
-                AppValueTableItem(
-                  name: '*text*',
-                  widget: TText('*Italic Text*'),
-                ),
-                AppValueTableItem(
-                  name: '_text_',
-                  widget: TText('_Italic Text_'),
-                ),
-                AppValueTableItem(
-                  name: '`_text_`',
-                  widget: TText('`Highlighted Code`'),
-                ),
-                AppValueTableItem(
-                  name: '[text](url)',
-                  widget: TText('[Link to URL](https://pub.dev)'),
-                ),
-              ],
-            ),
-          ],
-        ),
-        AppSection(
           title: 'Inline Text Styling',
+          description:
+              'There are several ways to style text inline using Markdown syntax.',
           children: [
             AppPreviewCard(
               title: 'Bold',
@@ -80,6 +42,8 @@ class ComponentRouteTText extends StatelessWidget {
         ),
         AppSection(
           title: 'Combining Inline Text Styles',
+          description:
+              'You can combine multiple inline text styles together easily.',
           children: [
             AppPreviewCard(
               title: 'Bold and Italic',
@@ -95,6 +59,65 @@ class ComponentRouteTText extends StatelessWidget {
               title: 'Formatted Link',
               code: _TTextFormattedLinkSource.code,
               child: _TTextFormattedLink(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Overriding Base Style Sheet',
+          description:
+              'You can override the base style sheet for specific components.',
+          children: [
+            AppPreviewCard(
+              title: 'Custom Link Styling',
+              code: _TTextLinkStyleOverrideSource.code,
+              child: _TTextLinkStyleOverride(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Markdown Gallery',
+          description: 'Here samples of all the support Markdown syntax.',
+          children: [
+            AppPreviewCard(
+              title: 'Sections',
+              code: _TTextMarkdownSectionsSource.code,
+              child: _TTextMarkdownSections(),
+            ),
+            AppPreviewCard(
+              title: 'Ordered List',
+              code: _TTextOrderedListSource.code,
+              child: _TTextOrderedList(),
+            ),
+            AppPreviewCard(
+              title: 'Unordered List',
+              code: _TTextUnorderedListSource.code,
+              child: _TTextUnorderedList(),
+            ),
+            AppPreviewCard(
+              title: 'Code Block',
+              code: _TTextCodeBlockSource.code,
+              child: _TTextCodeBlock(),
+            ),
+            AppPreviewCard(
+              title: 'Quote',
+              code: _TTextQuoteSource.code,
+              child: _TTextQuote(),
+            ),
+            AppPreviewCard(
+              title: 'Table',
+              code: _TTextTableSource.code,
+              child: _TTextTable(),
+            ),
+          ],
+        ),
+        AppSection(
+          title: 'Custom Builders',
+          description: 'You may extend `TText` with custom tags/builders',
+          children: [
+            AppPreviewCard(
+              title: 'Defining a custom builder',
+              code: _TTextCustomBuildersSource.code,
+              child: _TTextCustomBuilders(),
             ),
           ],
         ),
@@ -222,5 +245,211 @@ class _TTextFormattedLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TText('This **[text](https://pub.dev)** is a bold link');
+  }
+}
+
+// =============================================================================
+// CLASS: _TTextLinkStyleOverride
+// =============================================================================
+
+@GenerateSource()
+class _TTextLinkStyleOverride extends StatelessWidget {
+  const _TTextLinkStyleOverride();
+
+  @override
+  Widget build(BuildContext context) {
+    return TText(
+      'This [text](https://pub.dev) with custom styling',
+      styleSheet: MarkdownStyleSheet(
+        a: const TextStyle(
+          color: TColors.red,
+          decoration: TextDecoration.overline,
+          decorationColor: Colors.green,
+        ),
+      ),
+    );
+  }
+}
+
+// =============================================================================
+// CLASS: _TTextMarkdownSections
+// =============================================================================
+
+@GenerateSource()
+class _TTextMarkdownSections extends StatelessWidget {
+  const _TTextMarkdownSections();
+
+  @override
+  Widget build(BuildContext context) {
+    return const TText('''
+# Heading 1
+
+text
+
+## Heading 2
+
+text
+
+### Heading 3
+
+text
+
+#### Heading 4
+
+text
+
+##### Heading 5
+
+text
+
+###### Heading 6
+
+text
+''');
+  }
+}
+
+// =============================================================================
+// CLASS: _TTextOrderedList
+// =============================================================================
+
+@GenerateSource()
+class _TTextOrderedList extends StatelessWidget {
+  const _TTextOrderedList();
+
+  @override
+  Widget build(BuildContext context) {
+    return const TText('''
+1. List item 1
+2. List item 2
+3. List item 3
+''');
+  }
+}
+
+// =============================================================================
+// CLASS: _TTextUnorderedList
+// =============================================================================
+
+@GenerateSource()
+class _TTextUnorderedList extends StatelessWidget {
+  const _TTextUnorderedList();
+
+  @override
+  Widget build(BuildContext context) {
+    return const TText('''
+- List item 1
+- List item 2
+- List item 3
+''');
+  }
+}
+
+// =============================================================================
+// CLASS: _TTextCodeBlock
+// =============================================================================
+
+@GenerateSource()
+class _TTextCodeBlock extends StatelessWidget {
+  const _TTextCodeBlock();
+
+  @override
+  Widget build(BuildContext context) {
+    return const TText('''
+```shell
+def hello_world():
+    print("Hello, World!")
+```
+''');
+  }
+}
+
+// =============================================================================
+// CLASS: _TTextQuote
+// =============================================================================
+
+@GenerateSource()
+class _TTextQuote extends StatelessWidget {
+  const _TTextQuote();
+
+  @override
+  Widget build(BuildContext context) {
+    return const TText('> To be or not to be...');
+  }
+}
+
+// =============================================================================
+// CLASS: _TTextTable
+// =============================================================================
+
+@GenerateSource()
+class _TTextTable extends StatelessWidget {
+  const _TTextTable();
+
+  @override
+  Widget build(BuildContext context) {
+    return const TText('''
+| Header 1 | Header 2 | Header 3 |
+| :------- | :------: | -------: |
+| Left     | Centered |   Right  |
+| `Data A` | `Data B` | `Data C` |
+| 123      |   456    |     789  |
+''');
+  }
+}
+
+// =============================================================================
+// CLASS: _TTextCustomBuilders
+// =============================================================================
+
+@GenerateSource()
+class _TTextCustomBuilders extends StatelessWidget {
+  const _TTextCustomBuilders();
+
+  @override
+  Widget build(BuildContext context) {
+    return TText(
+      '''
+This is an example of a <tag1>custom tag and builder</tag1>. You can define as many <tag2>custom builders</tag2> as you need. You can even pass back any widget: <widget></widget>
+''',
+      customBuilders: {
+        'tag1': (context, element, textStyle) {
+          return WidgetSpan(
+            child: Text(
+              element.textContent,
+              style: textStyle.copyWith(
+                color: Colors.red,
+                fontWeight: TFontWeight.medium,
+              ),
+            ),
+          );
+        },
+        'tag2': (context, element, textStyle) {
+          return WidgetSpan(
+            child: Text(
+              element.textContent,
+              style: textStyle.copyWith(
+                color: Colors.blue,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          );
+        },
+        'widget': (context, element, textStyle) {
+          return WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: Container(
+              width: 16,
+              height: 16,
+              decoration: const BoxDecoration(
+                color: TColors.lime,
+                borderRadius: TBorderRadius.rounded_sm,
+              ),
+              child: const TIcon(Icons.add, color: TColors.white, size: 12),
+            ),
+          );
+        },
+      },
+    );
   }
 }

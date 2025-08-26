@@ -7,6 +7,14 @@ import 'package:flutter_tailwind_ui/src/markdown/markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:url_launcher/url_launcher.dart';
 
+/// A custom builder function for TText.
+typedef TTextCustomBuilder =
+    WidgetSpan Function(
+      BuildContext context,
+      md.Element element,
+      TextStyle textStyle,
+    );
+
 // =============================================================================
 // CLASS: TText
 // =============================================================================
@@ -37,6 +45,7 @@ class TText extends Text {
     super.selectionColor,
     this.selectable = false,
     this.styleSheet,
+    this.customBuilders = const {},
     super.key,
   });
 
@@ -45,6 +54,9 @@ class TText extends Text {
 
   /// Custom style sheet to override the default styles.
   final MarkdownStyleSheet? styleSheet;
+
+  /// Custom builders for specific Markdown elements.
+  final Map<String, TTextCustomBuilder> customBuilders;
 
   // ---------------------------------------------------------------------------
   // METHOD: toHtml
@@ -58,6 +70,7 @@ class TText extends Text {
         md.ExtensionSet.gitHubWeb.blockSyntaxes,
         <md.InlineSyntax>[
           md.EmojiSyntax(),
+          CustomTagSyntax(),
           ...md.ExtensionSet.gitHubWeb.inlineSyntaxes,
         ],
       ),
@@ -134,6 +147,17 @@ class TText extends Text {
       ),
     );
 
+    final builders = {
+      'a': _aBuilder(),
+      'code': _codeBuilder(),
+      'pre': _preBlockBuilder(),
+    };
+
+    // Extend with custom builders
+    for (final e in customBuilders.entries) {
+      builders[e.key] = _customBuilder(e.value);
+    }
+
     return MarkdownBody(
       selectable: selectable,
       data: data,
@@ -165,14 +189,11 @@ class TText extends Text {
         md.ExtensionSet.gitHubWeb.blockSyntaxes,
         <md.InlineSyntax>[
           md.EmojiSyntax(),
+          CustomTagSyntax(),
           ...md.ExtensionSet.gitHubWeb.inlineSyntaxes,
         ],
       ),
-      builders: {
-        'a': _aBuilder(),
-        'code': _codeBuilder(),
-        'pre': _preBlockBuilder(),
-      },
+      builders: builders,
     );
   }
 }
@@ -193,7 +214,9 @@ class _aBuilder extends MarkdownElementBuilder {
     TextStyle? parentStyle,
   ) {
     final href = element.attributes['href'];
-    final style = preferredStyle?.merge(parentStyle?.copyWithout(color: true));
+    final style = const TextStyle()
+        .merge(parentStyle?.copyWithout(color: true))
+        .merge(preferredStyle);
     final uri = href != null ? Uri.parse(href) : null;
     final textContent = element.textContent;
 
@@ -201,9 +224,9 @@ class _aBuilder extends MarkdownElementBuilder {
     return Text.rich(
       TextSpan(
         text: textContent,
-        style: style?.copyWith(
-          decoration: TextDecoration.underline,
-          decorationColor: style.color,
+        style: style.copyWith(
+          decoration: style.decoration ?? TextDecoration.underline,
+          decorationColor: style.decorationColor ?? style.color,
         ),
         recognizer: TapGestureRecognizer()
           ..onTap = () {
@@ -238,7 +261,6 @@ class _preBlockBuilder extends MarkdownElementBuilder {
         language = child.attributes['class']?.replaceAll('language-', '') ?? '';
       }
     }
-
     return TCodeBlock(
       code: element.textContent,
       language: language.trim(),
@@ -269,7 +291,9 @@ class _codeBuilder extends MarkdownElementBuilder {
     final backgroundColor = context.tw.light
         ? const Color(0xfff5f5f5)
         : const Color(0xff333333);
-
+    final style = const TextStyle()
+        .merge(parentStyle?.copyWithout(backgroundColor: true))
+        .merge(preferredStyle?.copyWithout(backgroundColor: true));
     // Use Text.rich with WidgetSpan to maintain inline behavior
     return Text.rich(
       TextSpan(
@@ -283,10 +307,12 @@ class _codeBuilder extends MarkdownElementBuilder {
               ),
               child: Text(
                 element.textContent,
-                style: TextStyle(
-                  fontSize: parentStyle?.fontSize?.subtract(2),
-                  fontFamily: TTextStyle.fontFamilyMono,
-                  height: kTextHeightNone,
+                style: style.merge(
+                  TextStyle(
+                    fontSize: parentStyle?.fontSize?.subtract(2),
+                    fontFamily: TTextStyle.fontFamilyMono,
+                    height: kTextHeightNone,
+                  ),
                 ),
               ),
             ),
@@ -294,5 +320,32 @@ class _codeBuilder extends MarkdownElementBuilder {
         ],
       ),
     );
+  }
+}
+
+// =============================================================================
+// CLASS: _customBuilder
+// =============================================================================
+
+class _customBuilder extends MarkdownElementBuilder {
+  _customBuilder(this.builder);
+  final TTextCustomBuilder builder;
+
+  @override
+  bool isBlockElement() => false;
+
+  @override
+  Widget? visitElementAfterWithContext(
+    BuildContext context,
+    md.Element element,
+    TextStyle? preferredStyle,
+    TextStyle? parentStyle,
+  ) {
+    final style = const TextStyle()
+        .merge(parentStyle)
+        .merge(preferredStyle)
+        .copyWith(height: kTextHeightNone);
+    final child = builder(context, element, style);
+    return Text.rich(child);
   }
 }

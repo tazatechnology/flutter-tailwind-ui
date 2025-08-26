@@ -5750,3 +5750,153 @@ class _TTextFormattedLinkSource {
 const TText('This **[text](https://pub.dev)** is a bold link')
 """;
 }
+
+/// Source code for [_TTextLinkStyleOverride]
+class _TTextLinkStyleOverrideSource {
+  static const String code = r"""
+TText(
+  'This [text](https://pub.dev) with custom styling',
+  styleSheet: MarkdownStyleSheet(
+    a: const TextStyle(
+      color: TColors.red,
+      decoration: TextDecoration.overline,
+      decorationColor: Colors.green,
+    ),
+  ),
+)
+""";
+}
+
+/// Source code for [_TTextMarkdownSections]
+class _TTextMarkdownSectionsSource {
+  static const String code = r"""
+const TText('''
+# Heading 1
+
+text
+
+## Heading 2
+
+text
+
+### Heading 3
+
+text
+
+#### Heading 4
+
+text
+
+##### Heading 5
+
+text
+
+###### Heading 6
+
+text
+''')
+""";
+}
+
+/// Source code for [_TTextOrderedList]
+class _TTextOrderedListSource {
+  static const String code = r"""
+const TText('''
+1. List item 1
+2. List item 2
+3. List item 3
+''')
+""";
+}
+
+/// Source code for [_TTextUnorderedList]
+class _TTextUnorderedListSource {
+  static const String code = r"""
+const TText('''
+- List item 1
+- List item 2
+- List item 3
+''')
+""";
+}
+
+/// Source code for [_TTextCodeBlock]
+class _TTextCodeBlockSource {
+  static const String code = r"""
+const TText('''
+```shell
+def hello_world():
+print("Hello, World!")
+```
+''')
+""";
+}
+
+/// Source code for [_TTextQuote]
+class _TTextQuoteSource {
+  static const String code = r"""
+const TText('> To be or not to be...')
+""";
+}
+
+/// Source code for [_TTextTable]
+class _TTextTableSource {
+  static const String code = r"""
+const TText('''
+| Header 1 | Header 2 | Header 3 |
+| :------- | :------: | -------: |
+| Left     | Centered |   Right  |
+| `Data A` | `Data B` | `Data C` |
+| 123      |   456    |     789  |
+''')
+""";
+}
+
+/// Source code for [_TTextCustomBuilders]
+class _TTextCustomBuildersSource {
+  static const String code = r"""
+TText(
+  '''
+This is an example of a <tag1>custom tag and builder</tag1>. You can define as many <tag2>custom builders</tag2> as you need. You can even pass back any widget: <widget></widget>
+''',
+  customBuilders: {
+    'tag1': (context, element, textStyle) {
+      return WidgetSpan(
+        child: Text(
+          element.textContent,
+          style: textStyle.copyWith(
+            color: Colors.red,
+            fontWeight: TFontWeight.medium,
+          ),
+        ),
+      );
+    },
+    'tag2': (context, element, textStyle) {
+      return WidgetSpan(
+        child: Text(
+          element.textContent,
+          style: textStyle.copyWith(
+            color: Colors.blue,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+      );
+    },
+    'widget': (context, element, textStyle) {
+      return WidgetSpan(
+        alignment: PlaceholderAlignment.middle,
+        child: Container(
+          width: 16,
+          height: 16,
+          decoration: const BoxDecoration(
+            color: TColors.lime,
+            borderRadius: TBorderRadius.rounded_sm,
+          ),
+          child: const TIcon(Icons.add, color: TColors.white, size: 12),
+        ),
+      );
+    },
+  },
+)
+""";
+}
