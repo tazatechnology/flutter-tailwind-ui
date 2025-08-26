@@ -26,9 +26,18 @@ extension XTailwindNum on num {
     return other == null ? null : this / other;
   }
 
-  /// An auto formatter for a double value.
-  String autoFormat({int? precision}) {
-    return formatNumber(this, precision: precision);
+  /// An auto formatter for a [num] value.
+  String autoFormat({
+    int? precision,
+    int lowerExponentThreshold = 4,
+    int upperExponentThreshold = 6,
+  }) {
+    return formatNumber(
+      this,
+      precision: precision,
+      lowerExponentThreshold: lowerExponentThreshold,
+      upperExponentThreshold: upperExponentThreshold,
+    );
   }
 }
 
@@ -58,9 +67,18 @@ extension XTailwindInt on int {
     return other == null ? null : this / other;
   }
 
-  /// An auto formatter for a double value.
-  String autoFormat({int? precision}) {
-    return formatNumber(this, precision: precision);
+  /// An auto formatter for an [int] value.
+  String autoFormat({
+    int? precision,
+    int lowerExponentThreshold = 4,
+    int upperExponentThreshold = 6,
+  }) {
+    return formatNumber(
+      this,
+      precision: precision,
+      lowerExponentThreshold: lowerExponentThreshold,
+      upperExponentThreshold: upperExponentThreshold,
+    );
   }
 }
 
@@ -90,8 +108,17 @@ extension XTailwindDouble on double {
     return other == null ? null : this / other;
   }
 
-  /// An auto formatter for a double value.
-  String autoFormat({int? precision}) {
-    return formatNumber(this, precision: precision);
+  /// An auto formatter for a [double] value.
+  String autoFormat({
+    int? precision,
+    int lowerExponentThreshold = 4,
+    int upperExponentThreshold = 6,
+  }) {
+    return formatNumber(
+      this,
+      precision: precision,
+      lowerExponentThreshold: lowerExponentThreshold,
+      upperExponentThreshold: upperExponentThreshold,
+    );
   }
 }
