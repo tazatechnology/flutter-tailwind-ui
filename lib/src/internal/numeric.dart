@@ -113,10 +113,9 @@ String formatNumber(
     return '$sign${mantissaStr}e$normalizedExponent';
   } else {
     // Use regular decimal notation
-    final isInteger = value == value.toInt();
-    final isDoubleLiteral = value is double;
+    final isInteger = value % 1 == 0;
 
-    if (precision == null && isInteger && !isDoubleLiteral) {
+    if (precision == null && isInteger) {
       // Default behavior for integer literals: no decimal places
       return _addThousandsSeparator(value.toInt().toString());
     } else {
@@ -125,7 +124,7 @@ String formatNumber(
       int actualPrecision;
       if (precision != null) {
         actualPrecision = precision;
-      } else if (isDoubleLiteral) {
+      } else if (!isInteger) {
         // For double literals, use precision 2 unless it's a small decimal that needs more precision
         final calculatedPrecision = _calculateAppropriatePrecision(value);
         actualPrecision = calculatedPrecision > 2 ? calculatedPrecision : 2;

@@ -69,8 +69,8 @@ void main() {
     });
 
     test('should handle edge cases', () {
-      expect(formatNumber(1.0), equals('1.00'));
-      expect(formatNumber(-1.0), equals('-1.00'));
+      expect(formatNumber(1.0), equals('1'));
+      expect(formatNumber(-1.0), equals('-1'));
       expect(formatNumber(0.5), equals('0.50'));
       expect(formatNumber(-0.5), equals('-0.50'));
     });
