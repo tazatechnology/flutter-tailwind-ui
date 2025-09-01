@@ -68,7 +68,7 @@ class TGauge extends StatefulWidget {
 
   /// The formatter callback for all gauge value labels (e.g min/max).
   ///
-  /// If not provided, [XTailwindDouble.autoFormat] is used
+  /// If not provided, [XTailwindDouble.toDisplayString] is used
   final String Function(double)? formatter;
 
   /// The value to display when the gauge value is unset.
@@ -93,16 +93,17 @@ class _TGaugeState extends State<TGauge> {
     if (widget.value == null) {
       return null;
     }
-    return widget.formatter?.call(widget.value!) ?? widget.value!.autoFormat();
+    return widget.formatter?.call(widget.value!) ??
+        widget.value!.toDisplayString();
   }
 
   /// The minimum value represented as a string.
   String get minString =>
-      widget.formatter?.call(widget.min) ?? widget.min.autoFormat();
+      widget.formatter?.call(widget.min) ?? widget.min.toDisplayString();
 
   /// The maximum value represented as a string.
   String get maxString =>
-      widget.formatter?.call(widget.max) ?? widget.max.autoFormat();
+      widget.formatter?.call(widget.max) ?? widget.max.toDisplayString();
 
   // ---------------------------------------------------------------------------
   // METHOD: initState

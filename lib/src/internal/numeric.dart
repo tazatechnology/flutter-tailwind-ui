@@ -112,7 +112,7 @@ String formatNumber(
     final sign = value < 0 ? '-' : '';
     return '$sign${mantissaStr}e$normalizedExponent';
   } else {
-    // Use regular decimal notation
+    // More robust than checking for "int" type (due to JS builds, e.g. web)
     final isInteger = value % 1 == 0;
 
     if (precision == null && isInteger) {

@@ -211,7 +211,7 @@ class TSlider extends TFormField<double> {
 
   /// The formatter callback for all slider value labels (e.g min/max).
   ///
-  /// If not provided, [XTailwindDouble.autoFormat] is used
+  /// If not provided, [XTailwindDouble.toDisplayString] is used
   final String Function(double)? formatter;
 
   /// The initial value of the select widget
@@ -258,7 +258,7 @@ class TSlider extends TFormField<double> {
 
   /// The formatter callback for the slider to set the value tooltip label.
   ///
-  /// If not provided, [XTailwindDouble.autoFormat] is used
+  /// If not provided, [XTailwindDouble.toDisplayString] is used
   final String Function(double)? tooltipFormatter;
 
   /// The text style of the value tooltip label.
@@ -361,22 +361,22 @@ class _TSliderFormFieldState extends FormFieldState<double> {
   /// The value tooltip label.
   String get tooltipLabel {
     return field.tooltipFormatter?.call(controller.value) ??
-        controller.value.autoFormat();
+        controller.value.toDisplayString();
   }
 
   /// The value represented as a string.
   String get valueString {
     return field.formatter?.call(controller.value) ??
-        controller.value.autoFormat();
+        controller.value.toDisplayString();
   }
 
   /// The minimum value represented as a string.
   String get minString =>
-      field.formatter?.call(field.min) ?? field.min.autoFormat();
+      field.formatter?.call(field.min) ?? field.min.toDisplayString();
 
   /// The maximum value represented as a string.
   String get maxString =>
-      field.formatter?.call(field.max) ?? field.max.autoFormat();
+      field.formatter?.call(field.max) ?? field.max.toDisplayString();
 
   /// A safe initial value that is within the min/max range.
   double? get initialValueSafe {
@@ -453,7 +453,7 @@ class _TSliderFormFieldState extends FormFieldState<double> {
     if (v != null) {
       final vClamped = v.clamp(field.min, field.max);
       if (v != vClamped) {
-        inputController.text = vClamped.autoFormat();
+        inputController.text = vClamped.toDisplayString();
       }
       controller.value = vClamped;
       onChanged(vClamped);
@@ -605,7 +605,7 @@ class _TSliderFormFieldState extends FormFieldState<double> {
                                   child: TTooltip(
                                     message:
                                         indicator.tooltip ??
-                                        indicator.value!.autoFormat(),
+                                        indicator.value!.toDisplayString(),
                                     child: child,
                                   ),
                                 );

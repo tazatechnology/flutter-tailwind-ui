@@ -4,7 +4,7 @@
 * Add controller to `TSelect`
 * Allow markdown stylesheet to be overridden by `TText`
 * Allow custom builders for `TText`
-* Improved logic for `formatNumber` (used by `autoFormat`)
+* Improved logic for `formatNumber` (used by `toDisplayString`)
 
 ## 0.0.1
 

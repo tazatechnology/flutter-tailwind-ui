@@ -4490,8 +4490,8 @@ TSlider(
   max: 10000,
   initialValue: 5500,
   showDefaultMarks: true,
-  formatter: (value) => value.toInt().autoFormat(),
-  tooltipFormatter: (value) => value.toInt().autoFormat(),
+  formatter: (value) => value.toInt().toDisplayString(),
+  tooltipFormatter: (value) => value.toInt().toDisplayString(),
   onChanged: (value) {},
 )
 """;

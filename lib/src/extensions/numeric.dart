@@ -27,7 +27,7 @@ extension XTailwindNum on num {
   }
 
   /// An auto formatter for a [num] value.
-  String autoFormat({
+  String toDisplayString({
     int? precision,
     int lowerExponentThreshold = 4,
     int upperExponentThreshold = 6,
@@ -68,7 +68,7 @@ extension XTailwindInt on int {
   }
 
   /// An auto formatter for an [int] value.
-  String autoFormat({
+  String toDisplayString({
     int? precision,
     int lowerExponentThreshold = 4,
     int upperExponentThreshold = 6,
@@ -109,7 +109,7 @@ extension XTailwindDouble on double {
   }
 
   /// An auto formatter for a [double] value.
-  String autoFormat({
+  String toDisplayString({
     int? precision,
     int lowerExponentThreshold = 4,
     int upperExponentThreshold = 6,
