@@ -1,4 +1,4 @@
-# 0.0.43
+# 0.0.44
 
 * Update syntax highlighting logic
 * Add controller to `TSelect`
