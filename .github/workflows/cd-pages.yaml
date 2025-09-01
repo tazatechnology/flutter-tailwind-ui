@@ -43,6 +43,7 @@ jobs:
           flutter build web \
             --release \
             --tree-shake-icons \
+            --pwa-strategy=none \
             --build-name=$(make tag | sed 's/^v//') \
             --build-number=$(make sha)
 
