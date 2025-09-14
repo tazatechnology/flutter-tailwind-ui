@@ -132,6 +132,8 @@ class MarkdownBuilder implements md.NodeVisitor {
     this.onSelectionChanged,
     this.onTapText,
     this.softLineBreak = false,
+    this.maxLines,
+    this.overflow,
   });
 
   /// A delegate that controls how link and `pre` elements behave.
@@ -185,6 +187,12 @@ class MarkdownBuilder implements md.NodeVisitor {
   /// Default these spaces are removed in accordance with the Markdown
   /// specification on soft line breaks when lines of text are joined.
   final bool softLineBreak;
+
+  /// The maximum number of lines to display.
+  final int? maxLines;
+
+  /// The overflow behavior to use when the text exceeds the maximum number of lines.
+  final TextOverflow? overflow;
 
   final List<String> _listIndents = <String>[];
   final List<_BlockElement> _blocks = <_BlockElement>[];
@@ -1048,6 +1056,7 @@ class MarkdownBuilder implements md.NodeVisitor {
             : null,
         onTap: onTapText,
         key: k,
+        maxLines: maxLines,
       );
     } else {
       return Text.rich(
@@ -1055,6 +1064,8 @@ class MarkdownBuilder implements md.NodeVisitor {
         textScaler: styleSheet.textScaler,
         textAlign: textAlign ?? TextAlign.start,
         key: k,
+        maxLines: maxLines,
+        overflow: overflow,
       );
     }
   }

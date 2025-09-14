@@ -232,6 +232,8 @@ abstract class MarkdownWidget extends StatefulWidget {
     this.listItemCrossAxisAlignment =
         MarkdownListItemCrossAxisAlignment.baseline,
     this.softLineBreak = false,
+    this.maxLines,
+    this.overflow,
   });
 
   /// The Markdown to display.
@@ -332,6 +334,12 @@ abstract class MarkdownWidget extends StatefulWidget {
   /// specification on soft line breaks when lines of text are joined.
   final bool softLineBreak;
 
+  /// The maximum number of lines to display.
+  final int? maxLines;
+
+  /// The overflow behavior to use when the text exceeds the maximum number of lines.
+  final TextOverflow? overflow;
+
   /// Subclasses should override this function to display the given children,
   /// which are the parsed representation of [data].
   @protected
@@ -406,6 +414,8 @@ class _MarkdownWidgetState extends State<MarkdownWidget>
       onSelectionChanged: widget.onSelectionChanged,
       onTapText: widget.onTapText,
       softLineBreak: widget.softLineBreak,
+      maxLines: widget.maxLines,
+      overflow: widget.overflow,
     );
 
     _children = builder.build(astNodes);
@@ -480,6 +490,8 @@ class MarkdownBody extends MarkdownWidget {
     this.shrinkWrap = true,
     super.fitContent = true,
     super.softLineBreak,
+    super.maxLines,
+    super.overflow,
   });
 
   /// If [shrinkWrap] is `true`, [MarkdownBody] will take the minimum height

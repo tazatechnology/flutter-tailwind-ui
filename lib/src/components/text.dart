@@ -86,10 +86,14 @@ class TText extends Text {
     if (this.data == null || this.data!.isEmpty) {
       return const SizedBox.shrink();
     }
-    final data = this.data!;
-
+    String data = this.data!;
+    if (maxLines != null) {
+      data = data.split('\n').take(maxLines!).join('\n');
+    }
     final tw = context.tw;
-    final style = DefaultTextStyle.of(context).style.merge(this.style);
+    final style = DefaultTextStyle.of(
+      context,
+    ).style.merge(this.style).copyWith(overflow: overflow);
     final light = tw.light;
 
     final baseStyleSheet = MarkdownStyleSheet.fromTheme(context.theme).copyWith(
@@ -162,6 +166,8 @@ class TText extends Text {
       selectable: selectable,
       data: data,
       styleSheet: baseStyleSheet.merge(styleSheet),
+      maxLines: maxLines,
+      overflow: overflow,
       bulletBuilder: (params) {
         final firstPad = params.index == 0 ? TOffset.t12 : TOffset.t0;
         if (params.style == BulletStyle.unorderedList) {
