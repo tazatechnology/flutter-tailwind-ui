@@ -88,6 +88,7 @@ class _AppNavigationState extends State<AppNavigation> {
         'TDialog': AppRouter.dialog,
         'TExpand': AppRouter.expand,
         'TRowColumn': AppRouter.row_column,
+        'TGrid': AppRouter.grid,
         'TPopover': AppRouter.popover,
         'TSizedBox': AppRouter.sized_box,
       },

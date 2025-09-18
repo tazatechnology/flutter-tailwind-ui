@@ -40,6 +40,7 @@ class AppRouter {
       AppRouter.dialog: const ComponentRouteTDialog(),
       AppRouter.expand: const ComponentRouteTExpand(),
       AppRouter.gauge: const ComponentRouteTGauge(),
+      AppRouter.grid: const ComponentRouteTGrid(),
       AppRouter.popover: const ComponentRouteTPopover(),
       AppRouter.filter: const ComponentRouteTFilter(),
       AppRouter.form: const ComponentRouteTForm(),
@@ -130,6 +131,7 @@ class AppRouter {
   static const String dialog = 'dialog';
   static const String expand = 'expand';
   static const String gauge = 'gauge';
+  static const String grid = 'grid';
   static const String filter = 'filter';
   static const String form = 'form';
   static const String form_field = 'form-field';
