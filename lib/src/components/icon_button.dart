@@ -146,7 +146,14 @@ class TIconButton extends StatelessWidget {
       loading: loading,
       onTap: onPressed,
       onHover: onHover,
-      child: SelectionContainer.disabled(child: icon),
+      child: SelectionContainer.disabled(
+        child: Flexible(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: defaultHeight / 2),
+            child: icon,
+          ),
+        ),
+      ),
     );
   }
 }
