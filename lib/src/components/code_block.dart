@@ -74,7 +74,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
 
   @override
   void dispose() {
-    copyStreamController.close();
+    unawaited(copyStreamController.close());
     scrollController.dispose();
     super.dispose();
   }

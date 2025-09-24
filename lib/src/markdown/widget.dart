@@ -100,7 +100,6 @@ enum BulletStyle {
 ///
 /// Used by [MarkdownWidget] to highlight the contents of `pre` elements.
 abstract class SyntaxHighlighter {
-  // ignore: one_member_abstracts
   /// Returns the formatted [TextSpan] for the given string.
   TextSpan format(String source);
 }

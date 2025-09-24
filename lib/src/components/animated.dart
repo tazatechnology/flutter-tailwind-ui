@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 // =============================================================================
@@ -190,7 +192,7 @@ class _TAnimatedState extends State<TAnimated>
     turns = options.turns?.animate(curvedAnimation);
 
     if (options.animateOnMount) {
-      animationController.forward();
+      unawaited(animationController.forward());
     }
   }
 

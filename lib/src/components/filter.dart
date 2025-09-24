@@ -1,5 +1,3 @@
-// Match Tailwind naming conventions for traceability
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';

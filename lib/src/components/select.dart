@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind_ui/flutter_tailwind_ui.dart';
@@ -680,7 +681,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
                       });
                       onChanged.call(selected);
                       if (field.closeOnSelect) {
-                        popoverController.hide();
+                        unawaited(popoverController.hide());
                       }
                     },
                     onHover: (value) {
@@ -757,7 +758,7 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
 
   void onAnchorPressed() {
     hoveredIndex = selectedIndex;
-    popoverController.toggle();
+    unawaited(popoverController.toggle());
     FocusScope.of(context).unfocus();
     if (selectedIndex >= 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

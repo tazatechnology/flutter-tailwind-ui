@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -216,9 +218,11 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
       }
 
       if (locSection != null) {
-        Future.microtask(() {
-          AppScrollView.ensureVisible(section: locSection!);
-        });
+        unawaited(
+          Future.microtask(() async {
+            await AppScrollView.ensureVisible(section: locSection!);
+          }),
+        );
       }
     }
   }
@@ -314,7 +318,7 @@ class _AppScrollViewState extends ConsumerState<AppScrollView> {
     loc = null;
     await Future.microtask(() {
       if (mounted) {
-        AppScrollView.ensureVisible(section: section);
+        unawaited(AppScrollView.ensureVisible(section: section));
       }
     });
   }

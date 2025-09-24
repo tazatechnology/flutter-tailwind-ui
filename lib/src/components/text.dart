@@ -235,9 +235,9 @@ class _aBuilder extends MarkdownElementBuilder {
           decorationColor: style.decorationColor ?? style.color,
         ),
         recognizer: TapGestureRecognizer()
-          ..onTap = () {
+          ..onTap = () async {
             if (uri != null) {
-              launchUrl(uri, mode: LaunchMode.externalApplication);
+              await launchUrl(uri, mode: LaunchMode.externalApplication);
             }
           },
       ),

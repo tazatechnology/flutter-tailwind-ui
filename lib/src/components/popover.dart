@@ -150,10 +150,10 @@ class _TPopoverState extends State<TPopover> {
 
   @override
   void dispose() {
-    removeOverlay();
+    unawaited(removeOverlay());
     overlayEntry?.remove();
     overlayEntry?.dispose();
-    contentNotifier.close();
+    unawaited(contentNotifier.close());
     animationController.dispose();
     super.dispose();
   }
@@ -342,7 +342,7 @@ class _TPopoverState extends State<TPopover> {
               event.isSpaceKeyDown ||
               event.isArrowUpKeyDown ||
               event.isArrowDownKeyDown) {
-            widget.controller.toggle();
+            unawaited(widget.controller.toggle());
             return KeyEventResult.handled;
           }
           return KeyEventResult.ignored;

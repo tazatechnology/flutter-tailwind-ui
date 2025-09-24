@@ -42,9 +42,7 @@ void main() {
     });
 
     test('Get by name', () {
-      for (final name in tailwindColors.keys) {
-        TColors.get(name);
-      }
+      tailwindColors.keys.forEach(TColors.get);
     });
 
     test('Get by name (invalid)', () {
