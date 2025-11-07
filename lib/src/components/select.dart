@@ -65,6 +65,7 @@ class TSelect<T> extends TFormField<T> {
     this.selectedIcon = const Icon(Icons.check),
     this.selectedIconAffinity = TControlAffinity.trailing,
     this.selectedItemBuilder,
+    this.selectFirstItem = false,
     this.size = TInputSize.lg,
     this.spacing = 0,
     this.trailing = const Icon(Icons.keyboard_arrow_down),
@@ -92,6 +93,7 @@ class TSelect<T> extends TFormField<T> {
            itemPadding: itemPadding,
            items: items,
            itemsAsync: null,
+           selectFirstItem: selectFirstItem,
            itemsEmpty: itemsEmpty,
            label: label,
            listPadding: listPadding,
@@ -139,6 +141,7 @@ class TSelect<T> extends TFormField<T> {
     this.itemExtent,
     this.itemPadding = TOffset.x12,
     required Future<List<T>> Function() items,
+    this.selectFirstItem = false,
     this.itemsEmpty = _defaultItemsEmpty,
     super.key,
     this.label,
@@ -185,6 +188,7 @@ class TSelect<T> extends TFormField<T> {
            itemPadding: itemPadding,
            items: const [],
            itemsAsync: items,
+           selectFirstItem: selectFirstItem,
            itemsEmpty: itemsEmpty,
            label: label,
            listPadding: listPadding,
@@ -311,6 +315,9 @@ class TSelect<T> extends TFormField<T> {
   /// A builder that is called for the currently selected item
   final Widget Function(T item)? selectedItemBuilder;
 
+  /// Whether to select the first item when the items are loaded
+  final bool selectFirstItem;
+
   /// Whether to display the count of search results
   ///
   /// Displayed as a suffix in the search input
@@ -368,6 +375,7 @@ class _TSelectFormField<T> extends FormField<T> {
     required this.itemPadding,
     required this.items,
     required this.itemsAsync,
+    required this.selectFirstItem,
     required this.itemsEmpty,
     required this.label,
     required this.listPadding,
@@ -414,6 +422,7 @@ class _TSelectFormField<T> extends FormField<T> {
   final EdgeInsets itemPadding;
   final List<T> items;
   final Future<List<T>> Function()? itemsAsync;
+  final bool selectFirstItem;
   final Widget? itemsEmpty;
   final Widget? label;
   final EdgeInsets listPadding;
@@ -504,21 +513,36 @@ class _TSelectFormFieldState<T> extends FormFieldState<T> {
             (index) => TWidgetStatesController(),
           );
           searchEnabled = field.onSearch != null && items.isNotEmpty;
-          if (field.initialValue != null &&
-              items.contains(field.initialValue)) {
-            initialValue = field.initialValue;
-            controller.value = field.initialValue;
-          }
+          _initializeSelection(items);
         });
         return items;
       });
     } else {
-      if (field.initialValue != null && items.contains(field.initialValue)) {
-        initialValue = field.initialValue;
-        controller.value = field.initialValue;
-      }
+      _initializeSelection(items);
       getItems = null;
     }
+  }
+
+  void _initializeSelection(List<T> availableItems) {
+    if (availableItems.isEmpty) return;
+
+    final hasExplicitInitial =
+        field.initialValue != null &&
+        availableItems.contains(field.initialValue);
+
+    if (hasExplicitInitial) {
+      initialValue = field.initialValue;
+      controller.value = field.initialValue;
+      return;
+    }
+
+    if (!field.selectFirstItem || controller.value != null) {
+      return;
+    }
+
+    final firstItem = availableItems.first;
+    initialValue = firstItem;
+    controller.value = firstItem;
   }
 
   // ---------------------------------------------------------------------------
