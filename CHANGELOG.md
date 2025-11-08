@@ -1,4 +1,4 @@
-# 0.0.47
+# 0.0.48
 
 * Update syntax highlighting logic
 * Add controller to `TSelect`
@@ -6,6 +6,7 @@
 * Allow custom builders for `TText`
 * Improved logic for `formatNumber` (used by `toDisplayString`)
 * Addition of a simple `TGrid` widget for grid layouts
+* Add selectFirstItem option to TSelect
 
 ## 0.0.1
 
