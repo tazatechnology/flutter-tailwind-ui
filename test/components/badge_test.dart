@@ -6,7 +6,7 @@ import '../app.dart';
 
 void main() {
   group('TBadge:', () {
-    testWidgets('Height', (WidgetTester tester) async {
+    testWidgets('Height', (tester) async {
       for (final size in TWidgetSize.values) {
         final key = Key('badge-$size');
         await tester.pumpWidget(

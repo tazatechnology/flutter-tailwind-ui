@@ -205,7 +205,7 @@ class _TCodeBlockState extends State<TCodeBlock> {
             StreamBuilder(
               stream: copyStreamController.stream,
               initialData: false,
-              builder: (BuildContext context, snapshot) {
+              builder: (context, snapshot) {
                 final copied = snapshot.data ?? false;
                 return Padding(
                   padding: effectivePadding.copyWith(

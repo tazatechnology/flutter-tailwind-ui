@@ -138,7 +138,7 @@ abstract class TFontWeight {
   ];
 
   /// A mapping of font weights to their string representations.
-  static const Map<FontWeight, String> names = {
+  static final Map<FontWeight, String> names = {
     thin: 'TFontWeight.thin',
     extralight: 'TFontWeight.extralight',
     light: 'TFontWeight.light',

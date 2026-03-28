@@ -214,7 +214,7 @@ class MarkdownBuilder implements md.NodeVisitor {
     _linkHandlers.clear();
     _isInBlockquote = false;
 
-    builders.forEach((String key, MarkdownElementBuilder value) {
+    builders.forEach((key, value) {
       if (value.isBlockElement()) {
         _kBlockTags.add(key);
       }
@@ -318,8 +318,7 @@ class MarkdownBuilder implements md.NodeVisitor {
     return element is md.Element && (element.children?.isNotEmpty ?? false)
         ? element.children!
               .map(
-                (md.Node e) =>
-                    e is md.Text ? e.text : extractTextFromElement(e),
+                (e) => e is md.Text ? e.text : extractTextFromElement(e),
               )
               .join()
         : (element is md.Element && (element.attributes.isNotEmpty)
@@ -386,9 +385,9 @@ class MarkdownBuilder implements md.NodeVisitor {
       child = _ScrollControllerBuilder(
         builder:
             (
-              BuildContext context,
-              ScrollController preScrollController,
-              Widget? child,
+              context,
+              preScrollController,
+              child,
             ) {
               return Scrollbar(
                 controller: preScrollController,
@@ -501,9 +500,9 @@ class MarkdownBuilder implements md.NodeVisitor {
           child = _ScrollControllerBuilder(
             builder:
                 (
-                  BuildContext context,
-                  ScrollController tableScrollController,
-                  Widget? child,
+                  context,
+                  tableScrollController,
+                  child,
                 ) {
                   return Scrollbar(
                     controller: tableScrollController,
@@ -842,7 +841,7 @@ class MarkdownBuilder implements md.NodeVisitor {
 
     // Merge the style of the parent with the style of the children
     final Iterable<InlineSpan> spans = span.children!.map((
-      InlineSpan childSpan,
+      childSpan,
     ) {
       if (childSpan is TextSpan) {
         return TextSpan(
@@ -1051,7 +1050,7 @@ class MarkdownBuilder implements md.NodeVisitor {
         textScaler: styleSheet.textScaler,
         textAlign: textAlign ?? TextAlign.start,
         onSelectionChanged: onSelectionChanged != null
-            ? (TextSelection selection, SelectionChangedCause? cause) =>
+            ? (selection, cause) =>
                   onSelectionChanged!(text.text, selection, cause)
             : null,
         onTap: onTapText,

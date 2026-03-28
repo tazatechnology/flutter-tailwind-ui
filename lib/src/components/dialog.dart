@@ -101,10 +101,10 @@ class TDialog extends StatelessWidget {
       pageBuilder: (context, animation, secondaryAnimation) => builder(context),
       transitionBuilder:
           (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
+            context,
+            animation,
+            secondaryAnimation,
+            child,
           ) {
             if (animation.status == AnimationStatus.completed) {
               return child;

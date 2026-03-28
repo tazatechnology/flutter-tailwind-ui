@@ -78,7 +78,7 @@ class ThemeToggleButton extends ConsumerWidget {
       },
       icon: AnimatedSwitcher(
         duration: const Duration(milliseconds: 375),
-        transitionBuilder: (Widget child, Animation<double> animation) {
+        transitionBuilder: (child, animation) {
           return RotationTransition(
             turns: child.key == const ValueKey('sun')
                 ? Tween<double>(begin: 0, end: 0.25).animate(animation)

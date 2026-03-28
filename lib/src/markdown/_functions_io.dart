@@ -24,10 +24,10 @@ typedef ImageBuilder =
 // ignore: prefer_function_declarations_over_variables
 final ImageBuilder kDefaultImageBuilder =
     (
-      Uri uri,
-      String? imageDirectory,
-      double? width,
-      double? height,
+      uri,
+      imageDirectory,
+      width,
+      height,
     ) {
       if (uri.scheme == 'http' || uri.scheme == 'https') {
         return Image.network(
@@ -67,7 +67,7 @@ final ImageBuilder kDefaultImageBuilder =
           } on Exception catch (error, stackTrace) {
             // Handle any invalid file URI's.
             return Builder(
-              builder: (BuildContext context) {
+              builder: (context) {
                 return kDefaultImageErrorWidgetBuilder(
                   context,
                   error,
@@ -84,9 +84,9 @@ final ImageBuilder kDefaultImageBuilder =
 // ignore: prefer_function_declarations_over_variables
 final ImageErrorWidgetBuilder kDefaultImageErrorWidgetBuilder =
     (
-      BuildContext context,
-      Object error,
-      StackTrace? stackTrace,
+      context,
+      error,
+      stackTrace,
     ) {
       return const SizedBox();
     };
@@ -97,8 +97,8 @@ final MarkdownStyleSheet Function(BuildContext, MarkdownStyleSheetBaseTheme?)
     // ignore: prefer_function_declarations_over_variables
     kFallbackStyle =
     (
-      BuildContext context,
-      MarkdownStyleSheetBaseTheme? baseTheme,
+      context,
+      baseTheme,
     ) {
       MarkdownStyleSheet result;
       switch (baseTheme) {

@@ -6,7 +6,7 @@ import '../app.dart';
 
 void main() {
   group('TSelect:', () {
-    testWidgets('Height', (WidgetTester tester) async {
+    testWidgets('Height', (tester) async {
       for (final size in TInputSize.values) {
         final key = Key('select-$size');
         await tester.pumpWidget(

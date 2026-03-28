@@ -1,3 +1,8 @@
+# 0.0.50
+
+* Upgrade for Flutter 3.41.6
+* Resolve breaking changes due to Flutter core library updates
+
 # 0.0.48
 
 * Update syntax highlighting logic
